@@ -44,6 +44,17 @@ const cleanPath = getCleanPath(currentPath);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://warrendeleon.com${currentPath}`} />
+    <meta property="og:image" content="https://warrendeleon.com/images/avatar.png" />
+    <meta property="og:locale" content={locale} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://warrendeleon.com/images/avatar.png" />
+
     {locales.map(loc => (
       <link
         rel="alternate"
@@ -62,8 +73,9 @@ const cleanPath = getCleanPath(currentPath);
     )}
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Nav locale={locale} currentPath={currentPath} />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer locale={locale} />
@@ -81,13 +93,22 @@ const cleanPath = getCleanPath(currentPath);
       })();
     </script>
     <script>
+      function updateThemeToggleLabel() {
+        const toggle = document.getElementById('theme-toggle');
+        const theme = document.documentElement.getAttribute('data-theme') || 'light';
+        toggle?.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      }
+
       const toggle = document.getElementById('theme-toggle');
       toggle?.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
+        updateThemeToggleLabel();
       });
+
+      updateThemeToggleLabel();
     </script>
   </body>
 </html>

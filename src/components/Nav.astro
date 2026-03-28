@@ -19,7 +19,7 @@ const navLinks = [
 ];
 ---
 
-<nav class="nav">
+<nav class="nav" aria-label="Main navigation">
   <div class="nav-inner container">
     <a href={getLocalePath(locale, '/')} class="nav-logo">
       <img src="/images/logo.gif" alt="Warren de Leon" class="nav-logo-img" />
@@ -198,6 +198,7 @@ const navLinks = [
     const isOpen = hamburger.classList.toggle('open');
     navMenu?.classList.toggle('open');
     hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
   const langToggle = document.getElementById('lang-toggle');
@@ -206,10 +207,26 @@ const navLinks = [
   langToggle?.addEventListener('click', (e) => {
     e.stopPropagation();
     langDropdown?.classList.toggle('open');
+    const isOpen = langDropdown?.classList.contains('open');
+    langToggle.setAttribute('aria-expanded', String(isOpen));
   });
 
   document.addEventListener('click', () => {
     langDropdown?.classList.remove('open');
+    langToggle?.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (navMenu?.classList.contains('open')) {
+        hamburger?.classList.remove('open');
+        navMenu?.classList.remove('open');
+        hamburger?.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        hamburger?.focus();
+      }
+      langDropdown?.classList.remove('open');
+    }
   });
 
   // Swap nav logo based on theme

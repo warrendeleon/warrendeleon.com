@@ -8,7 +8,7 @@ const photos = [
 ];
 ---
 
-<div class="carousel" id="hero-carousel">
+<div class="carousel" id="hero-carousel" role="region" aria-label="Photo carousel" aria-roledescription="carousel">
   <div class="carousel-track" id="carousel-track">
     {photos.map((photo, i) => (
       <div class="carousel-slide">
@@ -28,15 +28,27 @@ const photos = [
   <button class="carousel-btn carousel-btn-next" id="carousel-next" type="button" aria-label="Next photo">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
   </button>
-  <div class="carousel-dots" id="carousel-dots">
-    {photos.map((_, i) => (
-      <button
-        class:list={['carousel-dot', { active: i === 0 }]}
-        type="button"
-        aria-label={`Go to photo ${i + 1}`}
-        data-index={i}
-      />
-    ))}
+  <div class="carousel-controls">
+    <div class="carousel-dots" id="carousel-dots">
+      {photos.map((_, i) => (
+        <button
+          class:list={['carousel-dot', { active: i === 0 }]}
+          type="button"
+          aria-label={`Go to photo ${i + 1}`}
+          aria-current={i === 0 ? 'true' : undefined}
+          data-index={i}
+        />
+      ))}
+    </div>
+    <button class="carousel-pause" id="carousel-pause" type="button" aria-label="Pause carousel">
+      <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="6" y="4" width="4" height="16"></rect>
+        <rect x="14" y="4" width="4" height="16"></rect>
+      </svg>
+      <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+      </svg>
+    </button>
   </div>
 </div>
 
@@ -98,29 +110,63 @@ const photos = [
     right: 8px;
   }
 
-  .carousel-dots {
+  .carousel-controls {
     position: absolute;
     bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 6px;
+    align-items: center;
+    gap: 8px;
     z-index: 2;
   }
 
+  .carousel-dots {
+    display: flex;
+    gap: 6px;
+  }
+
   .carousel-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     border: none;
     background: rgba(255, 255, 255, 0.5);
     cursor: pointer;
     padding: 0;
     transition: background 0.2s ease;
+    position: relative;
+  }
+
+  .carousel-dot::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
   }
 
   .carousel-dot.active {
     background: var(--color-green);
+  }
+
+  .carousel-pause {
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .carousel-pause:hover {
+    background: rgba(0, 0, 0, 0.7);
   }
 
   @media (max-width: 768px) {
@@ -148,6 +194,11 @@ const photos = [
     }
     dots?.forEach((dot, i) => {
       dot.classList.toggle('active', i === current);
+      if (i === current) {
+        dot.setAttribute('aria-current', 'true');
+      } else {
+        dot.removeAttribute('aria-current');
+      }
     });
   }
 
@@ -169,12 +220,40 @@ const photos = [
     });
   });
 
-  function resetAutoplay() {
-    clearInterval(autoplayTimer);
-    autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let isPlaying = !prefersReducedMotion;
+  const pauseBtn = document.getElementById('carousel-pause');
+  const iconPause = pauseBtn?.querySelector('.icon-pause') as HTMLElement;
+  const iconPlay = pauseBtn?.querySelector('.icon-play') as HTMLElement;
+
+  function updatePauseButton() {
+    if (iconPause) iconPause.style.display = isPlaying ? '' : 'none';
+    if (iconPlay) iconPlay.style.display = isPlaying ? 'none' : '';
+    pauseBtn?.setAttribute('aria-label', isPlaying ? 'Pause carousel' : 'Play carousel');
   }
 
-  autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    if (isPlaying) {
+      autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+    }
+  }
+
+  if (!prefersReducedMotion) {
+    autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+  } else {
+    updatePauseButton();
+  }
+
+  pauseBtn?.addEventListener('click', () => {
+    isPlaying = !isPlaying;
+    updatePauseButton();
+    if (isPlaying) {
+      resetAutoplay();
+    } else {
+      clearInterval(autoplayTimer);
+    }
+  });
 
   // Swipe support
   let touchStartX = 0;
