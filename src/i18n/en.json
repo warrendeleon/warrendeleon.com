@@ -3,7 +3,8 @@
     "home": "Home",
     "workExperience": "Work Experience",
     "cv": "CV",
-    "bookACall": "Book a Call"
+    "bookACall": "Book a Call",
+    "blog": "Blog"
   },
   "home": {
     "title": "Warren de Leon",
@@ -58,6 +59,8 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "Download or view the curriculum vitae of Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Book a Call | Warren de Leon",
-    "bookACallDescription": "Schedule a video call with Warren de Leon to discuss opportunities or collaboration."
+    "bookACallDescription": "Schedule a video call with Warren de Leon to discuss opportunities or collaboration.",
+    "blogTitle": "Blog | Warren de Leon",
+    "blogDescription": "Articles on software engineering, team leadership, and mobile development."
   }
 }
