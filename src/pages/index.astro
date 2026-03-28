@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import LottieLogo from '../components/LottieLogo.astro';
-import PhotoGallery from '../components/PhotoGallery.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { t, getLocalePath, slugify, formatDateRange } from '../i18n/index';
 import workxp from '../data/workxp-en.json';
@@ -36,12 +35,16 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <section class="hero section">
-    <div class="container text-center">
-      <LottieLogo />
-      <h1 class="mt-2">{i18n.home.title}</h1>
-      <p class="hero-subtitle">{i18n.home.subtitle}</p>
-      <div class="hero-social mt-3">
-        <SocialLinks />
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h1>{i18n.home.title}</h1>
+        <p class="hero-subtitle">{i18n.home.subtitle}</p>
+        <div class="hero-social mt-3">
+          <SocialLinks />
+        </div>
+      </div>
+      <div class="hero-carousel">
+        <HeroCarousel />
       </div>
     </div>
   </section>
@@ -79,11 +82,20 @@ const jsonLd = {
       </div>
     </div>
   </section>
-
-  <PhotoGallery heading={i18n.home.photos} />
 </BaseLayout>
 
 <style>
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .hero-text h1 {
+    text-align: left;
+  }
+
   .hero-subtitle {
     font-size: 1.25rem;
     color: var(--text-secondary);
@@ -91,6 +103,10 @@ const jsonLd = {
   }
 
   .hero-social {
+    display: flex;
+  }
+
+  .hero-carousel {
     display: flex;
     justify-content: center;
   }
@@ -142,6 +158,23 @@ const jsonLd = {
   }
 
   @media (max-width: 768px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      text-align: center;
+    }
+
+    .hero-social {
+      justify-content: center;
+    }
+
+    .hero-carousel {
+      order: -1;
+    }
+
     .about-content {
       flex-direction: column;
       align-items: center;
