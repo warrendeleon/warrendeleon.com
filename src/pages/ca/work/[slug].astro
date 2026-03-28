@@ -50,6 +50,10 @@ const backLabel = isClientPage ? company.company : i18n.common.back;
 const positions = isClientPage ? [clientPosition] : company.positions;
 const clientPositions = isClientPage ? [] : company.positions.filter((p: any) => p.client);
 const nonClientPositions = isClientPage ? [clientPosition] : company.positions.filter((p: any) => !p.client);
+
+const currentIndex = workxp.findIndex((c: any) => slugify(c.company) === slugify(company.company));
+const prevCompany = currentIndex > 0 ? workxp[currentIndex - 1] : null;
+const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] : null;
 ---
 
 <BaseLayout
@@ -188,6 +192,23 @@ const nonClientPositions = isClientPage ? [clientPosition] : company.positions.f
               </svg>
             </a>
           ))}
+        </div>
+      )}
+
+      {!isClientPage && (prevCompany || nextCompany) && (
+        <div class="work-nav">
+          {prevCompany ? (
+            <a href={getLocalePath(locale, `/work/${slugify(prevCompany.company)}/`)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+              {prevCompany.company}
+            </a>
+          ) : <span />}
+          {nextCompany ? (
+            <a href={getLocalePath(locale, `/work/${slugify(nextCompany.company)}/`)} class="work-nav-next">
+              {nextCompany.company}
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
+            </a>
+          ) : <span />}
         </div>
       )}
     </div>

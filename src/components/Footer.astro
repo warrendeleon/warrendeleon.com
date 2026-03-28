@@ -1,6 +1,6 @@
 ---
 import SocialLinks from './SocialLinks.astro';
-import { t, type Locale } from '../i18n/index';
+import { t, getLocalePath, type Locale } from '../i18n/index';
 
 interface Props {
   locale: Locale;
@@ -13,7 +13,22 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container footer-inner">
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <ul>
+        <li><a href={getLocalePath(locale, '/')}>{i18n.nav.home}</a></li>
+        <li><a href={getLocalePath(locale, '/work-experience/')}>{i18n.nav.workExperience}</a></li>
+        <li><a href={getLocalePath(locale, '/cv/')}>{i18n.nav.cv}</a></li>
+        <li><a href={getLocalePath(locale, '/book-a-call/')}>{i18n.nav.bookACall}</a></li>
+      </ul>
+    </nav>
     <SocialLinks size={18} />
+    <a href="#" class="back-to-top">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+      {i18n.footer.backToTop}
+    </a>
     <p class="footer-copy">&copy; {year} Warren de Leon. {i18n.footer.copyright}</p>
   </div>
 </footer>
@@ -31,6 +46,41 @@ const year = new Date().getFullYear();
     align-items: center;
     gap: 1rem;
     text-align: center;
+  }
+
+  .footer-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-nav a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    color: var(--color-green);
+  }
+
+  .back-to-top {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .back-to-top:hover {
+    color: var(--color-green);
   }
 
   .footer-copy {

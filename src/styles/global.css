@@ -108,6 +108,10 @@ h4 { font-size: 1.25rem; }
   padding: 4rem 0;
 }
 
+.section-alt {
+  background: var(--bg-secondary);
+}
+
 .section-heading {
   font-size: 2rem;
   margin-bottom: 2rem;
@@ -294,6 +298,54 @@ h4 { font-size: 1.25rem; }
   border-top: 1px solid var(--border-color);
   font-style: italic;
   color: var(--text-muted);
+}
+
+/* Page fade-in */
+main {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* CV mobile-first */
+.cv-mobile-note { display: none; }
+
+@media (max-width: 768px) {
+  .cv-embed { display: none; }
+  .cv-mobile-note { display: block; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem; }
+}
+
+/* Work detail prev/next nav */
+.work-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-color);
+  gap: 1rem;
+}
+
+.work-nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.work-nav a:hover {
+  color: var(--color-green);
+}
+
+.work-nav-next {
+  margin-left: auto;
+  text-align: right;
 }
 
 /* Utility */

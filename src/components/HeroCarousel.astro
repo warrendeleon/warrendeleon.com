@@ -28,6 +28,7 @@ const photos = [
   <button class="carousel-btn carousel-btn-next" id="carousel-next" type="button" aria-label="Next photo">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
   </button>
+  <span class="carousel-counter" id="carousel-counter">1 / 15</span>
   <div class="carousel-controls">
     <div class="carousel-dots" id="carousel-dots">
       {photos.map((_, i) => (
@@ -110,6 +111,19 @@ const photos = [
     right: 8px;
   }
 
+  .carousel-counter {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    z-index: 2;
+  }
+
   .carousel-controls {
     position: absolute;
     bottom: 12px;
@@ -183,6 +197,7 @@ const photos = [
   const nextBtn = document.getElementById('carousel-next');
   const dotsContainer = document.getElementById('carousel-dots');
   const dots = dotsContainer?.querySelectorAll('.carousel-dot');
+  const counter = document.getElementById('carousel-counter');
   const slideCount = dots?.length || 0;
   let current = 0;
   let autoplayTimer: ReturnType<typeof setInterval>;
@@ -200,6 +215,7 @@ const photos = [
         dot.removeAttribute('aria-current');
       }
     });
+    if (counter) counter.textContent = `${current + 1} / ${slideCount}`;
   }
 
   prevBtn?.addEventListener('click', () => {

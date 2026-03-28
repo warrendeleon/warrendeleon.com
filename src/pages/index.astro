@@ -42,6 +42,9 @@ const jsonLd = {
         <div class="hero-social mt-3">
           <SocialLinks />
         </div>
+        <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-primary mt-2">
+          {i18n.home.viewWorkExperience}
+        </a>
       </div>
       <div class="hero-carousel">
         <HeroCarousel />
@@ -49,20 +52,20 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="section" id="about">
+  <section class="section section-alt" id="about">
     <div class="container">
       <h2 class="section-heading">{i18n.home.aboutHeading}</h2>
       <div class="about-content">
         <div class="about-text">
           {i18n.home.aboutText.split('\n\n').map((paragraph: string) => (
-            <p>{paragraph}</p>
+            <p set:html={paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
           ))}
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background: var(--bg-secondary);">
+  <section class="section">
     <div class="container">
       <h2 class="section-heading">{i18n.home.currentRole}</h2>
       <div class="card current-role">
