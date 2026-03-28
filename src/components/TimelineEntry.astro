@@ -1,0 +1,100 @@
+---
+import { slugify, getLocalePath, formatDateRange, type Locale } from '../i18n/index';
+
+interface Props {
+  company: string;
+  positions: Array<{
+    title: string;
+    startDate: string;
+    endDate: string | null;
+    description: string;
+  }>;
+  locale: Locale;
+}
+
+const { company, positions, locale } = Astro.props;
+const slug = slugify(company);
+const latestPosition = positions[0];
+const dateRange = formatDateRange(
+  positions[positions.length - 1].startDate,
+  latestPosition.endDate,
+  locale
+);
+---
+
+<div class="timeline-entry">
+  <div class="timeline-dot"></div>
+  <a href={getLocalePath(locale, `/work/${slug}/`)} class="timeline-card card">
+    <div class="timeline-card-header">
+      <h3>{company}</h3>
+      <span class="timeline-date">{dateRange}</span>
+    </div>
+    <p class="timeline-title">{latestPosition.title}</p>
+    <p class="timeline-desc">{latestPosition.description.substring(0, 160)}...</p>
+  </a>
+</div>
+
+<style>
+  .timeline-entry {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -7px;
+    top: 1.5rem;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--timeline-dot);
+    border: 3px solid var(--bg-primary);
+    box-shadow: 0 0 0 2px var(--timeline-dot);
+    z-index: 2;
+  }
+
+  .timeline-card {
+    display: block;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .timeline-card:hover {
+    transform: translateX(4px);
+    color: var(--text-primary);
+  }
+
+  .timeline-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-card-header h3 {
+    font-size: 1.25rem;
+    color: var(--color-green);
+  }
+
+  .timeline-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .timeline-title {
+    font-weight: 600;
+    margin-top: 0.25rem;
+    font-size: 1rem;
+  }
+
+  .timeline-desc {
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

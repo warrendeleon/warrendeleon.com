@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Inici",
+    "workExperience": "Experiencia Laboral",
+    "cv": "CV",
+    "bookACall": "Reservar Trucada"
+  },
+  "home": {
+    "title": "Warren de Leon",
+    "subtitle": "Software Engineering Manager",
+    "aboutHeading": "Sobre Mi",
+    "aboutText": "Hola, soc Warren de Leon, un Engineering Manager apassionat per construir equips d'alt rendiment i fomentar entorns on els enginyers puguin prosperar. Despres de mes d'una decada en desenvolupament practic, he comencat un nou capitol: liderar amb proposit. Tot i que ja no escric codi diariament, ara em centro en el costat huma de l'enginyeria: proporcionar feedback constructiu, navegar converses dificils i cultivar una cultura de responsabilitat, qualitat i collaboracio. Estic aprenent continuament que significa ser un manager efectiu, abordant aquest cami amb la mateixa curiositat i motivacio que van alimentar els meus anys com a enginyer de software.",
+    "currentRole": "Lloc Actual",
+    "viewFullDetails": "Veure detalls complets",
+    "photos": "Fotos"
+  },
+  "workExperience": {
+    "title": "Experiencia Laboral",
+    "description": "Descripcio",
+    "keyResponsibilities": "Responsabilitats Clau",
+    "programmingLanguages": "Llenguatges de Programacio",
+    "technologyStack": "Stack Tecnologic",
+    "unitTesting": "Testing Unitari",
+    "e2eTesting": "Testing E2E",
+    "developmentTools": "Eines de Desenvolupament",
+    "ciCd": "CI/CD",
+    "agileMethodology": "Metodologia Agil",
+    "present": "Actual",
+    "clients": "Clients"
+  },
+  "cv": {
+    "title": "Curriculum Vitae",
+    "description": "Veure o descarregar el meu CV.",
+    "download": "Descarregar CV"
+  },
+  "bookACall": {
+    "title": "Reservar Trucada",
+    "description": "Programa una videotrucada de 60 minuts amb mi."
+  },
+  "common": {
+    "download": "Descarregar",
+    "back": "Tornar",
+    "viewFullDetails": "Veure detalls complets"
+  },
+  "theme": {
+    "light": "Clar",
+    "dark": "Fosc"
+  },
+  "footer": {
+    "copyright": "Tots els drets reservats."
+  },
+  "seo": {
+    "homeTitle": "Warren de Leon | Software Engineering Manager",
+    "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager amb mes d'una decada d'experiencia en desenvolupament de software i lideratge d'equips.",
+    "workExperienceTitle": "Experiencia Laboral | Warren de Leon",
+    "workExperienceDescription": "Cronologia professional de la carrera de Warren de Leon en enginyeria de software i gestio.",
+    "cvTitle": "CV | Warren de Leon",
+    "cvDescription": "Descarrega o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
+    "bookACallTitle": "Reservar Trucada | Warren de Leon",
+    "bookACallDescription": "Programa una videotrucada amb Warren de Leon per discutir oportunitats o collaboracio."
+  }
+}

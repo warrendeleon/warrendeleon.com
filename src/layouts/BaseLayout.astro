@@ -1,0 +1,93 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { locales, getLocalePath, type Locale } from '../i18n/index';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  locale: Locale;
+  currentPath: string;
+  canonicalPath?: string;
+  jsonLd?: object;
+}
+
+const { title, description, locale, currentPath, canonicalPath, jsonLd } = Astro.props;
+
+const siteUrl = 'https://warrendeleon.com';
+const canonical = `${siteUrl}${canonicalPath || currentPath}`;
+
+function getCleanPath(path: string): string {
+  for (const loc of locales) {
+    if (loc !== 'en' && path.startsWith(`/${loc}/`)) {
+      return path.slice(loc.length + 1);
+    }
+    if (loc !== 'en' && path === `/${loc}`) {
+      return '/';
+    }
+  }
+  return path;
+}
+
+const cleanPath = getCleanPath(currentPath);
+---
+
+<!DOCTYPE html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {locales.map(loc => (
+      <link
+        rel="alternate"
+        hreflang={loc === 'en' ? 'en' : loc}
+        href={`${siteUrl}${getLocalePath(loc, cleanPath)}`}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl}${cleanPath}`} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
+  </head>
+  <body>
+    <Nav locale={locale} currentPath={currentPath} />
+    <main>
+      <slot />
+    </main>
+    <Footer locale={locale} />
+
+    <script is:inline>
+      (function() {
+        var stored = localStorage.getItem('theme');
+        if (stored) {
+          document.documentElement.setAttribute('data-theme', stored);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+    <script>
+      const toggle = document.getElementById('theme-toggle');
+      toggle?.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+      });
+    </script>
+  </body>
+</html>

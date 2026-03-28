@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Timeline from '../../components/Timeline.astro';
+import { t } from '../../i18n/index';
+import workxp from '../../data/workxp-es.json';
+
+const locale = 'es' as const;
+const i18n = t(locale);
+---
+
+<BaseLayout
+  title={i18n.seo.workExperienceTitle}
+  description={i18n.seo.workExperienceDescription}
+  locale={locale}
+  currentPath="/es/work-experience/"
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-heading">{i18n.workExperience.title}</h1>
+      <Timeline companies={workxp} locale={locale} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LottieLogo from '../../components/LottieLogo.astro';
+import PhotoGallery from '../../components/PhotoGallery.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+import { t, getLocalePath, slugify, formatDateRange } from '../../i18n/index';
+import workxp from '../../data/workxp-tl.json';
+
+const locale = 'tl' as const;
+const i18n = t(locale);
+const currentRole = workxp[0];
+const latestPosition = currentRole.positions[0];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Warren de Leon",
+  "jobTitle": "Software Engineering Manager",
+  "url": "https://warrendeleon.com",
+  "image": "https://warrendeleon.com/images/avatar.png",
+  "sameAs": [
+    "https://linkedin.com/in/warrendeleonofalla",
+    "https://x.com/warren_deleon",
+    "https://instagram.com/warrendeleon",
+    "https://facebook.com/warren.deleon",
+    "https://github.com/warrendeleon"
+  ]
+};
+---
+
+<BaseLayout
+  title={i18n.seo.homeTitle}
+  description={i18n.seo.homeDescription}
+  locale={locale}
+  currentPath="/tl/"
+  jsonLd={jsonLd}
+>
+  <section class="hero section">
+    <div class="container text-center">
+      <LottieLogo />
+      <h1 class="mt-2">{i18n.home.title}</h1>
+      <p class="hero-subtitle">{i18n.home.subtitle}</p>
+      <div class="hero-social mt-3">
+        <SocialLinks />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-heading">{i18n.home.aboutHeading}</h2>
+      <div class="about-content">
+        <div class="about-avatar">
+          <img src="/images/avatar.png" alt="Warren de Leon" width="180" height="180" />
+        </div>
+        <p class="about-text">{i18n.home.aboutText}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--bg-secondary);">
+    <div class="container">
+      <h2 class="section-heading">{i18n.home.currentRole}</h2>
+      <div class="card current-role">
+        <div class="current-role-header">
+          <img src={currentRole.logo} alt={currentRole.company} width="48" height="48" class="company-logo" />
+          <div>
+            <h3>{currentRole.company}</h3>
+            <p class="role-title">{latestPosition.title}</p>
+            <p class="role-date text-muted">
+              {formatDateRange(latestPosition.startDate, latestPosition.endDate, locale)}
+            </p>
+          </div>
+        </div>
+        <p class="role-desc mt-2">{latestPosition.description}</p>
+        <a href={getLocalePath(locale, `/work/${slugify(currentRole.company)}/`)} class="btn btn-outline mt-3">
+          {i18n.home.viewFullDetails}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <PhotoGallery heading={i18n.home.photos} />
+</BaseLayout>
+
+<style>
+  .hero-subtitle { font-size: 1.25rem; color: var(--text-secondary); margin-top: 0.5rem; }
+  .hero-social { display: flex; justify-content: center; }
+  .about-content { display: flex; gap: 2rem; align-items: flex-start; }
+  .about-avatar img { border-radius: 50%; flex-shrink: 0; }
+  .about-text { font-size: 1.05rem; line-height: 1.8; color: var(--text-secondary); }
+  .current-role-header { display: flex; align-items: center; gap: 1rem; }
+  .company-logo { border-radius: 8px; background: var(--bg-secondary); padding: 4px; }
+  .current-role-header h3 { color: var(--color-green); }
+  .role-title { font-weight: 600; }
+  .role-date { font-size: 0.85rem; }
+  .role-desc { color: var(--text-secondary); line-height: 1.7; }
+  @media (max-width: 768px) {
+    .about-content { flex-direction: column; align-items: center; text-align: center; }
+  }
+</style>

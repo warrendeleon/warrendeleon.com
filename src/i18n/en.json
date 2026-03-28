@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Home",
+    "workExperience": "Work Experience",
+    "cv": "CV",
+    "bookACall": "Book a Call"
+  },
+  "home": {
+    "title": "Warren de Leon",
+    "subtitle": "Software Engineering Manager",
+    "aboutHeading": "About Me",
+    "aboutText": "Hi, I'm Warren de Leon \u2014 an Engineering Manager passionate about building high-performing teams and fostering environments where engineers can thrive. After over a decade in hands-on development, I've embarked on a new chapter: leading with purpose. While I no longer write code daily, I now focus on the human side of engineering \u2014 providing constructive feedback, navigating challenging conversations, and cultivating a culture of ownership, quality, and collaboration. I'm continuously learning what it means to be an effective manager, approaching this journey with the same curiosity and drive that fuelled my years as a software engineer.",
+    "currentRole": "Current Role",
+    "viewFullDetails": "View full details",
+    "photos": "Photos"
+  },
+  "workExperience": {
+    "title": "Work Experience",
+    "description": "Description",
+    "keyResponsibilities": "Key Responsibilities",
+    "programmingLanguages": "Programming Languages",
+    "technologyStack": "Technology Stack",
+    "unitTesting": "Unit Testing",
+    "e2eTesting": "E2E Testing",
+    "developmentTools": "Development Tools",
+    "ciCd": "CI/CD",
+    "agileMethodology": "Agile Methodology",
+    "present": "Present",
+    "clients": "Clients"
+  },
+  "cv": {
+    "title": "Curriculum Vitae",
+    "description": "View or download my CV.",
+    "download": "Download CV"
+  },
+  "bookACall": {
+    "title": "Book a Call",
+    "description": "Schedule a 60-minute video call with me."
+  },
+  "common": {
+    "download": "Download",
+    "back": "Back",
+    "viewFullDetails": "View full details"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "footer": {
+    "copyright": "All rights reserved."
+  },
+  "seo": {
+    "homeTitle": "Warren de Leon | Software Engineering Manager",
+    "homeDescription": "Personal portfolio of Warren de Leon, a Software Engineering Manager with over a decade of experience in software development and team leadership.",
+    "workExperienceTitle": "Work Experience | Warren de Leon",
+    "workExperienceDescription": "Professional timeline of Warren de Leon's career in software engineering and management.",
+    "cvTitle": "CV | Warren de Leon",
+    "cvDescription": "Download or view the curriculum vitae of Warren de Leon, Software Engineering Manager.",
+    "bookACallTitle": "Book a Call | Warren de Leon",
+    "bookACallDescription": "Schedule a video call with Warren de Leon to discuss opportunities or collaboration."
+  }
+}

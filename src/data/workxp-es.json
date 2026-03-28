@@ -1,0 +1,50 @@
+[
+  {
+    "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
+    "company": "Sky",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
+    "positions": [
+      {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "title": "Software Engineering Manager",
+        "startDate": "2023-10",
+        "endDate": "2025-12",
+        "description": "Lidero dos squads de ingeniería dentro del Agile Release Train Join, Onboard, Engage (JOE ART) basado en SAFe, parte del Portfolio Cross-Product Sales Experience de Sky. Mis responsabilidades abarcan propiedad de entrega, supervisión técnica, gestión de personas y colaboración interfuncional.",
+        "responsibilities": [
+          "Liderazgo de Personas: Gestiono 10+ ingenieros (permanentes, contratistas y principiantes), con foco en coaching, rendimiento y progresión a través de 1:1s regulares, feedback y mentoría.",
+          "Entrega Ágil en SAFe: Opero dentro del framework SAFe, liderando la preparación del PI planning, participando en ART Syncs, colaborando con Product Management, y asegurando previsibilidad y alineación en el release train.",
+          "Dirección Técnica: Guío decisiones arquitectónicas y evolución de plataforma tanto para stacks móvil (React Native) como web, con experiencia práctica en pipelines CI/CD, testing automatizado y escalabilidad de sistemas.",
+          "Engagement de Stakeholders: Colaboro con Product Owners, Scrum Masters y Delivery Leads para impulsar claridad en alcance, cadencia de entrega y alineación de roadmap. Cómodo traduciendo temas técnicos para audiencias no técnicas.",
+          "Influencia Organizacional: Lidero transiciones de squad (ej. adopción SAFe, offboarding de contractors), onboarding de nuevas incorporaciones, y contribuyo a iniciativas cross-team como estándares de ingeniería, procesos de contratación y OKRs.",
+          "Desarrollo de Carrera: He transicionado exitosamente múltiples Associate Engineers a miembros del equipo productivos y seguros, apoyándoles desde el onboarding de early-career hasta la contribución independiente."
+        ],
+        "technologies": null
+      },
+      {
+        "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+        "title": "Senior React Native Engineer",
+        "startDate": "2023-01",
+        "endDate": "2023-10",
+        "description": "Como contractor, desarrollé principalmente las nuevas pantallas React Native de eSIM para futuros dispositivos que solo admiten eSIM. Esto implicó crear pantallas para los flujos de activación, instalación, conversión y reinstalación. También participé en sesiones de mentoría y formación para desarrolladores junior y de nivel intermedio.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Apollo GraphQL",
+            "Redux",
+            "Redux Toolkit",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["WebdriverIO"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Scrum", "Kanban"]
+        }
+      }
+    ]
+  }
+]

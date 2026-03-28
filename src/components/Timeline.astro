@@ -1,0 +1,46 @@
+---
+import TimelineEntry from './TimelineEntry.astro';
+import { type Locale } from '../i18n/index';
+
+interface Props {
+  companies: Array<{
+    company: string;
+    positions: Array<{
+      title: string;
+      startDate: string;
+      endDate: string | null;
+      description: string;
+    }>;
+  }>;
+  locale: Locale;
+}
+
+const { companies, locale } = Astro.props;
+---
+
+<div class="timeline">
+  {companies.map((co) => (
+    <TimelineEntry
+      company={co.company}
+      positions={co.positions}
+      locale={locale}
+    />
+  ))}
+</div>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--timeline-line);
+  }
+</style>

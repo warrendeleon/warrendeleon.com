@@ -1,0 +1,480 @@
+[
+  {
+    "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
+    "company": "Sky",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
+    "positions": [
+      {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "title": "Software Engineering Manager",
+        "startDate": "2023-10",
+        "endDate": null,
+        "description": "Pinamumunuan ko ang dalawang engineering squads sa loob ng SAFe-based Join, Onboard, Engage (JOE ART) Agile Release Train, na bahagi ng Cross-Product Sales Experience Portfolio ng Sky. Ang mga responsibilidad ko ay sumasaklaw sa delivery ownership, technical oversight, people management, at cross-functional collaboration.",
+        "responsibilities": [
+          "People Leadership: Namamahala ako ng 10+ engineers (permanent, contract, at early-career), na may focus sa coaching, performance, at progression sa pamamagitan ng regular na 1:1s, feedback, at mentoring.",
+          "Agile Delivery sa SAFe: Nag-ooperate ako sa loob ng SAFe framework, pinamumunuan ang paghahanda ng PI planning, nakikilahok sa ART Syncs, nakikipagtulungan sa Product Management, at tinitiyak ang predictability at alignment sa release train.",
+          "Technical Direction: Ginagabayan ko ang mga architectural decisions at platform evolution para sa parehong mobile (React Native) at web stacks, na may hands-on experience sa CI/CD pipelines, automated testing, at system scalability.",
+          "Stakeholder Engagement: Nakikipagtulungan ako sa Product Owners, Scrum Masters, at Delivery Leads upang makamit ang clarity sa scope, delivery cadence, at roadmap alignment. Komportable akong mag-translate ng technical topics para sa non-technical audiences.",
+          "Organisational Influence: Pinamumunuan ko ang squad transitions (hal. SAFe adoption, contractor off-boarding), onboarding ng bagong hires, at nag-aambag sa cross-team initiatives tulad ng engineering standards, hiring processes, at OKRs.",
+          "Career Development: Matagumpay kong na-transition ang maraming Associate Engineers patungo sa productive at confident team members, sinusuportahan sila mula sa early-career onboarding hanggang sa independent contribution."
+        ],
+        "technologies": null
+      },
+      {
+        "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+        "title": "Senior React Native Engineer",
+        "startDate": "2023-01",
+        "endDate": "2023-10",
+        "description": "Bilang contractor, pangunahin kong ginawa ang mga bagong React Native screens para sa eSIM para sa mga hinaharap na device na eSIM-only. Kasama dito ang paggawa ng mga screen para sa activation, installation, conversion at reinstall journeys. Nakibahagi rin ako sa mga mentoring sessions at pagsasanay para sa mga junior at mid-level developers.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": [
+            "React Native",
+            "Apollo GraphQL",
+            "Redux",
+            "Redux Toolkit",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Webdriver IO"]
+          },
+          "cicd": ["Circle CI"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Scrum", "Kanban"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "31e29e56-a6dc-42cf-95b4-12e51c8a3388",
+    "company": "Stadion",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stadion.svg",
+    "positions": [
+      {
+        "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+        "title": "Lead React Native Developer",
+        "startDate": "2022-09",
+        "endDate": "2022-11",
+        "description": "Pinamunuan ko ang team na gumagawa ng Chelsea 5th Stand app. Ang mga araw-araw kong gawain ay kasama ang pag-mentor sa mga junior developers, pakikipag-usap sa client para maintindihan ang kanilang requirements, at pagsusulat/pag-edit ng user stories at technical tasks. Nag-review, nag-plano at gumawa rin ako ng mga POC at sinuri ang viability ng mga bagong features.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "cicd": ["Circle CI"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "1519bf4f-73c6-4556-80e3-7cc0bca90396",
+    "company": "Candide",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/candide.svg",
+    "positions": [
+      {
+        "id": "d4e5f6a7-b8c9-0123-def0-456789012345",
+        "title": "Senior Software Engineer",
+        "startDate": "2022-04",
+        "endDate": "2022-07",
+        "description": "Ginawa ko ang mga bagong apps para sa BabylonStoren at The Newt.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "cicd": ["Circle CI"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Kanban"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "bfb3c0e3-3e58-4ea6-aa6f-39b52d6d674f",
+    "company": "xDesign",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign.svg",
+    "positions": [
+      {
+        "id": "e5f6a7b8-c9d0-1234-ef01-567890123456",
+        "title": "Lead React Native Developer",
+        "startDate": "2021-09",
+        "endDate": "2022-04",
+        "description": "Nagtrabaho ako bilang Lead React Native Developer sa xDesign, nagde-deliver ng mga proyekto para sa iba't ibang clients kabilang ang FanDuel at Zonal.",
+        "responsibilities": null,
+        "technologies": null
+      },
+      {
+        "id": "6d263e52-5ebf-4394-9ff6-8d9aa9d16690",
+        "title": "Lead React Native Developer",
+        "startDate": "2022-01",
+        "endDate": "2022-04",
+        "description": "Naging lead software engineer ako para sa FanDuel, isang betting company. Pinamunuan ko ang multifunctional team na gumagawa ng NodeJS, ReactJS, at React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": ["React Native", "ReactJS", "Redux", "RxJS", "React Navigation"],
+          "testing": null,
+          "cicd": [],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Scrum"]
+        },
+        "client": {
+          "company": "Fanduel",
+          "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/fanduel.svg"
+        }
+      },
+      {
+        "id": "e0686319-2744-4b1b-abec-b90d0832d0b7",
+        "title": "Senior React Native Developer",
+        "startDate": "2021-09",
+        "endDate": "2021-12",
+        "description": "Naging parte ako ng team na gumagawa para sa client na Zonal. Ang Zonal ay tech provider para sa maraming restaurant tulad ng Wetherspoon, PizzaExpress, The Restaurant Group, at iba pa. Ang project ay tungkol sa paggawa ng POS (Point Of Sale) para sa mga tablet.\n\nNaging Senior React Native Developer ako para mamuno sa team at makamit ang release ng MVP sa loob ng 4 na buwan. Ang mga pangunahing gawain ko ay magsimula ng React Native project sa TypeScript at itakda ang architecture. Sabay nito, nakibahagi ako sa mga architecture meetings tungkol sa kung paano gagawin ng xDesign ang mga React Native projects sa hinaharap.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "cicd": ["Bitrise"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Scrum"]
+        },
+        "client": {
+          "company": "Zonal",
+          "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/zonal.svg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
+    "company": "Concentrix TigerSpike",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/tigerspike.svg",
+    "positions": [
+      {
+        "id": "f6a7b8c9-d0e1-2345-f012-678901234567",
+        "title": "Senior Software Engineer",
+        "startDate": "2021-04",
+        "endDate": "2021-09",
+        "description": "Pinamunuan ko ang transformation squad na may task na i-convert ang Priority Pass, Mastercard Airport Experience at Lounge Key apps mula sa native iOS at Android papuntang React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": null,
+          "cicd": ["Bitrise"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
+    "company": "OpenHealth Group",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/openhealth.svg",
+    "positions": [
+      {
+        "id": "a7b8c9d0-e1f2-3456-0123-789012345678",
+        "title": "Senior Software Engineer",
+        "startDate": "2020-11",
+        "endDate": "2021-04",
+        "description": "Ang tungkulin ko sa team ay mamuno at gumawa ng React Native projects para sa iba't ibang clients ng OpenHealth. Naging parte ako ng project na gumawa ng app na kumokonekta sa proprietary bluetooth device at nag-gather ng medical information.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "cicd": ["Circle CI"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "d399b4a7-0868-487e-b867-2c85f430b883",
+    "company": "BP",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/bp.svg",
+    "positions": [
+      {
+        "id": "b8c9d0e1-f2a3-4567-1234-890123456789",
+        "title": "Senior Software Engineer",
+        "startDate": "2019-11",
+        "endDate": "2020-05",
+        "description": "Ang tungkulin ko sa team ay mamuno at gumawa ng platform na gagamitin ng ibang projects. Gamit ang Lerna at ang mono-repo approach nito, nakamit namin ang kakayahan na gumawa ng app from scratch sa pamamagitan lamang ng pag-install ng features at minimal configuration. Sa approach na ito, nabawasan nang husto ang boilerplate at development time. Ang nabuong platform ay nagbigay sa kahit anong bagong app ng mga features tulad ng: theming, fonts, colour palette, translations, redux-store, analytics, security at component library.\n\nBukod dito, naging parte ako ng paggawa ng bagong version ng BPme Mexico, gamit ang bagong nabuong platform.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "cicd": ["Azure DevOps"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git", "Jira"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
+    "company": "Shell",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/newmotion.svg",
+    "positions": [
+      {
+        "id": "c9d0e1f2-a3b4-5678-2345-901234567890",
+        "title": "Software Engineer",
+        "startDate": "2018-11",
+        "endDate": "2019-11",
+        "description": "Ang tungkulin ko sa team ay gumawa ng app para mahanap ang mga charge points para sa electric cars. Bilang parte ng araw-araw kong gawain, nag-setup ako ng base project na ginagamit ng team at gumawa ng initial unit tests at integration tests para sa app gamit ang Detox. Bilang parte ng BDD at TDD, ginagawa muna namin ang unit tests at integration tests bago gumawa ng kahit anong component o screen.\n\nBukod dito, ginawa ko rin ang component library na ginagamit namin para ipakita ang aming components sa business, design at QA teams. Gumawa rin ako ng ability na mag-change dynamically sa pagitan ng Shell o NewMotion themes (automatic na nag-aaply ng appropriate styling sa lahat ng screens at components sa app sa pamamagitan lamang ng pagpili ng theme).",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "cicd": ["Azure DevOps"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git", "Jira"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
+    "company": "WonderBill",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/wonderbill.svg",
+    "positions": [
+      {
+        "id": "d0e1f2a3-b4c5-6789-3456-012345678901",
+        "title": "Software Engineer",
+        "startDate": "2017-12",
+        "endDate": "2018-11",
+        "description": "Naging parte ako ng application team kung saan ginawa namin ang React Web App at React Native Mobile App. Gumawa rin ako ng integration tests para sa lahat ng React Native projects na nakasali ako.\n\n**Mga Projects na nakasali ako:**\n- **Tab Navigator**: Ang app ay nagbago ng designs mula sa burger menu navigator papuntang tab navigator.\n- **Timeline screen**: Isa sa mga pagbabago kasama ng tab navigator ay ang pagpapalit ng Dashboard ng Timeline.\n- **Virtual Machines**: Pinagbuti ko ang build process sa pamamagitan ng paggawa ng VMs na nagru-run ng integration test, nag-build ng iOS release candidate app at nag-push nito sa iTunes Connect para sa release sa production.\n- **Deals Screen v1**: Unang version ng bagong screen sa app.\n- **Deals Screen v2**: Pangalawang version ng deals screen na nagpapakita sa user ng total savings na makukuha nila kung lilipat sila mula sa isang provider papunta sa iba.\n- **Your deals screen**: Ito ay screen na nagpapakita ng set ng personalised deals para sa specific user.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Javascript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "cicd": ["Gitlab"],
+          "tools": ["Webstorm", "XCode", "Android Studio", "Git", "Jira"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
+    "company": "Nucleus Central",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/nucleus.svg",
+    "positions": [
+      {
+        "id": "e1f2a3b4-c5d6-7890-4567-123456789012",
+        "title": "Frontend Developer",
+        "startDate": "2017-07",
+        "endDate": "2017-11",
+        "description": "Gumawa ako ng frontend applications gamit ang Angular 4.\n\n**Mga Projects:**\n- **Informed Patients**: Nag-migrate ako ng web application na originally ginawa sa Angular JS 1.x papuntang Angular 4. Ang webapp na ito ay para maghanap ng pinaka-suitable na hospital given certain filters tulad ng type ng cancer, treatment, atbp.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": ["Angular 4", "Webpack"],
+          "testing": null,
+          "cicd": ["Heroku"],
+          "tools": ["Webstorm", "Git", "Jira"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
+    "company": "Lexel Software Ltd",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/lexel.svg",
+    "positions": [
+      {
+        "id": "f2a3b4c5-d6e7-8901-5678-234567890123",
+        "title": "Multiplatform Developer",
+        "startDate": "2016-09",
+        "endDate": "2017-06",
+        "description": "Gumawa ako ng web applications gamit ang Angular 4 at Android mobile applications.\n\n**Mga Projects**:\n\n - **Dimble Android App**: Gumawa ako ng Android App para sa pagbebenta ng damit at accessories. Gumamit ako ng Retrofit 2 para sa REST API calls. Gumamit ako ng Glide para sa image management. Gumamit ako ng MVC at managers para i-encapsulate ang communication sa backend. Gumamit ako ng inheritance at polymorphism para makamit ang mataas na level ng modularisation at reusability sa code. Gumamit ako ng Crashlytics para sa analysis at diagnostics ng errors.\n - **Dimble Angular JS WebApp**: Gumawa ako ng control management system sa Angular 4 para sa pag-analyse ng sales, pag-manage ng products, atbp. Ang architecture na ginamit para sa project na ito ay MVP at RxJS para sa communication sa pagitan ng components.\n - **This Is Me Angular JS WebApp**: Gumawa ako ng control management system sa Angular 4 para sa pag-manage ng admins at users. Bukod dito, sa web app ang administrator ay pwedeng mag-ban ng user na may masamang behaviour gamit ang iOS app. Ang architecture na ginamit para sa project na ito ay MVP at RxJS para sa communication sa pagitan ng components.\n - **Project Cost Calculator Angular JS WebApp at JHipster Backend**: Gumawa ako ng web app kung saan sumasagot ang client ng mga tanong. Pagkatapos ng questionnaire, nakakakuha ang possible client ng quote para sa project. Ang architecture na ginamit para sa Angular 4 project ay MVP at RxJS para sa communication sa pagitan ng components. Gumamit ng JHipster para sa backend.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript", "Java"],
+          "frameworks": ["Angular JS 4", "Webpack", "Android"],
+          "testing": null,
+          "cicd": ["Heroku"],
+          "tools": ["Webstorm", "Git", "Jira", "Android Studio"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "16a33b33-9fc1-4374-8cc8-b107887d5ef1",
+    "company": "All Now Europe S.L.",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/allnowcorp.svg",
+    "positions": [
+      {
+        "id": "a3b4c5d6-e7f8-9012-6789-345678901234",
+        "title": "Frontend Developer",
+        "startDate": "2016-05",
+        "endDate": "2016-09",
+        "description": "Nag-research at gumawa ako ng web application na may mga sub-apps. Bawat sub-app ay may reusable components na ginawa gamit ang React, Redux at Redux-Sagas. Ang mga components ay may sariling React+Redux+Saga life cycle at nag-communicate ang mga components sa isa't isa gamit ang handlers.\n\nNag-research ako ng system para mag-publish ng components sa NPM repository, at natuklasan ko ang Sinopia. Gamit ang Docker, nag-publish ako sa \"Sinopia NPM server repository\" ng aking mga components. Pwedeng i-access ang mga ito sa pamamagitan ng NPM installation sa kahit anong project.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript"],
+          "frameworks": [
+            "Angular JS 2",
+            "RxJS",
+            "React",
+            "Redux",
+            "Sagas",
+            "Mocha",
+            "Chai",
+            "Gulp",
+            "Webpack"
+          ],
+          "testing": null,
+          "cicd": ["Heroku"],
+          "tools": ["Webstorm", "Git", "Jira", "Android Studio"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "bdc79e4b-0f16-4e0d-bf15-65428ac801dc",
+    "company": "Altran",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/altran.svg",
+    "positions": [
+      {
+        "id": "b4c5d6e7-f8a9-0123-7890-456789012345",
+        "title": "Full Stack Developer & Teacher",
+        "startDate": "2015-12",
+        "endDate": "2016-03",
+        "description": "Natuto ako kung paano gumawa at mag-configure ng REST webservices na may OAuth2 security at gumawa ng CRUD operations mula sa Angular JS 1.X frontend.\n\nBukod dito, binigyan ako ng pagkakataon na magturo sa 20-hour Javascript course na tinatawag na \"Javascript from beginner to advanced\". Ang requirements ng course ay dapat may basic knowledge ang student sa HTML, CSS at Javascript. Ang layunin ay, mula sa knowledge na itinuro, ang student ay magkaroon ng tools at resources na magbibigay-daan sa kanila na maging self-sufficient para mag-progress sa kanilang career bilang developer. Mula sa course na ito, ang student ay pwedeng mag-aral ng Angular JS frameworks, o Node.js at/o mag-attend ng MEAN training.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Typescript", "Java"],
+          "frameworks": ["Angular JS 2", "Webpack", "Android"],
+          "testing": null,
+          "cicd": ["Heroku"],
+          "tools": ["Webstorm", "Git", "Jira", "Android Studio"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b32665f2-4c85-4b7d-8c02-cf42bb4c8265",
+    "company": "Desigual",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/desigual.svg",
+    "positions": [
+      {
+        "id": "c5d6e7f8-a9b0-1234-8901-567890123456",
+        "title": "Software Developer",
+        "startDate": "2015-08",
+        "endDate": "2015-12",
+        "description": "Naging Java developer ako para sa Desigual. Ang mga gawain ko ay gumawa ng improvements sa ATG schedulers.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Java"],
+          "frameworks": ["Oracle ATG 9.4"],
+          "testing": null,
+          "cicd": [],
+          "tools": ["Eclipse", "Git", "Jira"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "29f99d9a-72f5-4a6c-a24b-852e2021c10d",
+    "company": "Everis NTT Data",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/everis.svg",
+    "positions": [
+      {
+        "id": "d6e7f8a9-b0c1-2345-9012-678901234567",
+        "title": "Backend Developer",
+        "startDate": "2015-04",
+        "endDate": "2015-06",
+        "description": "Naging Java developer ako para sa client na \"La CaixaBank\". Ang Everis ay gumawa ng framework na tinatawag na ABSIS na based sa Spring at ibang technologies. Ang gawain ko ay gumawa ng Spring Batch applications para i-automate ang execution ng certain tasks.",
+        "responsibilities": null,
+        "technologies": {
+          "programmingLanguages": ["Java", "UNIX bash shell scripting"],
+          "frameworks": ["Spring Batch Framework", "BEA Weblogic Servers"],
+          "testing": null,
+          "cicd": [],
+          "tools": ["IntelliJ IDEA", "Eclipse", "STS", "Maven", "SVN SCM", "Jira"],
+          "agile": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "0d387a9f-f6c1-48df-8649-faf3dcf6a939",
+    "company": "Teknon Uroclínica Barcelona",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon.svg",
+    "positions": [
+      {
+        "id": "e7f8a9b0-c1d2-3456-0123-789012345678",
+        "title": "Full Stack Developer",
+        "startDate": "2014-10",
+        "endDate": "2015-04",
+        "description": "Gumawa ako ng medical system gamit ang sumusunod na technological stack:\n\n - Spring Boot Framework, Spring/Hibernate integration sa MySQL at Spring MVC Restful Web Services API.\n - Android na may Material Design UI para sa Lollipop at backwards compatibility.\n - OpenShift RedHat Cloud: Apache HTTP server + Apache Tomcat 7.\n - Complete end-to-end security system: AES, CBC, at PKCS5 encryption sa local Android DB, HTTPS client/server communication, Spring Security hashing algorithm para sa remote MySQL DB.\n - Bidirectional synchronisation sa pagitan ng local Android DB at remote MySQL DB sa pamamagitan ng REST API. Ang feature na ito ay nagbibigay-daan sa user na mag-switch sa pagitan ng iba't ibang devices.\n - Development tools: IntelliJ IDEA, Maven Build System, FindBugs, GitHub & Bitbucket SCMs, Basecamp project management platform. Agile methodology na may rigorous iterative development approach.\n\nAng mga patients, gamit ang kanilang credentials para mag-access, ay nag-introduce ng urological measurements sa Android app. Ang app ay nagpapadala ng measurements na iyon sa Spring Boot Web Service na naka-program gamit ang Rest Template API. Ang Backend ay gumagamit ng Hibernate para mag-manage ng lahat ng Java objects at nag-save ng data sa database. Si Marc Fuentes ay gumagawa ng similar app gamit ang Ionic technology para ma-cover ang operating systems maliban sa Android. Si Alberto Mendez ay gumagawa ng website gamit ang Angular JS para makuha ang data na iyon para sa mga doctors at makita nila ang charts na naka-filter ayon sa iba't ibang type ng settings.",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  },
+  {
+    "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
+    "company": "Edenic Games",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/edenic.svg",
+    "positions": [
+      {
+        "id": "f8a9b0c1-d2e3-4567-1234-890123456789",
+        "title": "Android Teacher sa Edenic Games",
+        "startDate": "2012-10",
+        "endDate": "2014-07",
+        "description": "Nagturo ako ng Android sa training sessions sa English sa buong Europa bilang parte ng international \"Smart Employability Program\". Ang project na ito ay naglalayong magsanay ng mga trainers at teachers sa mga bagong technologies para sa turn nila ay magsanay ng kanilang mga students sa mga technologies na ito upang mapabuti ang kanilang employability sa global labour market. Nagturo ako ng Android sa Barcelona, Berlin, Hameln, Ryde at Piotrków Trybunalski.",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  }
+]

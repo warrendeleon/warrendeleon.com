@@ -1,0 +1,480 @@
+[
+  {
+    "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
+    "company": "Sky",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
+    "positions": [
+      {
+        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+        "title": "Software Engineering Manager",
+        "startDate": "2023-10",
+        "endDate": "2025-12",
+        "description": "I lead two engineering squads within the SAFe-based Join, Onboard, Engage (JOE ART) Agile Release Train, part of Sky's Cross-Product Sales Experience Portfolio. My responsibilities span delivery ownership, technical oversight, people management, and cross-functional collaboration.",
+        "responsibilities": [
+          "People Leadership: Manage 10+ engineers (permanent, contract, and early-career), with a focus on coaching, performance, and progression through regular 1:1s, feedback, and mentoring.",
+          "Agile Delivery in SAFe: Operate within the SAFe framework, leading PI planning preparation, participating in ART Syncs, collaborating with Product Management, and ensuring predictability and alignment across the release train.",
+          "Technical Direction: Guide architectural decisions and platform evolution for both mobile (React Native) and web stacks, with hands-on experience in CI/CD pipelines, automated testing, and system scalability.",
+          "Stakeholder Engagement: Partner with Product Owners, Scrum Masters, and Delivery Leads to drive clarity in scope, delivery cadence, and roadmap alignment. Comfortable translating technical topics for non-technical audiences.",
+          "Organisational Influence: Lead squad transitions (e.g. SAFe adoption, contractor off-boarding), onboard new hires, and contribute to cross-team initiatives such as engineering standards, hiring processes, and OKRs.",
+          "Career Development: Successfully transitioned multiple Associate Engineers into productive, confident team members, supporting them from early-career onboarding to independent contribution."
+        ],
+        "technologies": null
+      },
+      {
+        "id": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+        "title": "Senior React Native Engineer",
+        "startDate": "2023-01",
+        "endDate": "2023-10",
+        "description": "As a contractor, I mainly developed the new eSIM React Native screens for future eSIM-only devices. This involved creating screens for the activation, installation, conversion and reinstall journeys. I was also involved in giving mentoring sessions and giving training to juniors and mid-level developers.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Apollo GraphQL",
+            "Redux",
+            "Redux Toolkit",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["WebdriverIO"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Scrum", "Kanban"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "31e29e56-a6dc-42cf-95b4-12e51c8a3388",
+    "company": "Stadion",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stadion.svg",
+    "positions": [
+      {
+        "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+        "title": "Lead React Native Developer",
+        "startDate": "2022-09",
+        "endDate": "2022-11",
+        "description": "I was leading a team that was developing the Chelsea 5th stand app. My day-to-day tasks were to mentor junior developers, talk to the client to understand their requirements and write/edit user stories and technical task. Review, plan and do POCs and check the viability of new features.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "1519bf4f-73c6-4556-80e3-7cc0bca90396",
+    "company": "Candide",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/candide.svg",
+    "positions": [
+      {
+        "id": "d4e5f6a7-b8c9-0123-def0-456789012345",
+        "title": "Senior Software Engineer",
+        "startDate": "2022-04",
+        "endDate": "2022-07",
+        "description": "I was developing the new apps for BabylonStoren and The Newt.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Kanban"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "bfb3c0e3-3e58-4ea6-aa6f-39b52d6d674f",
+    "company": "xDesign",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign.svg",
+    "positions": [
+      {
+        "id": "e5f6a7b8-c9d0-1234-ef01-567890123456",
+        "title": "Lead React Native Developer",
+        "startDate": "2021-09",
+        "endDate": "2022-04",
+        "description": "I worked as a Lead React Native Developer at xDesign, delivering projects for various clients including FanDuel and Zonal.",
+        "responsibilities": null,
+        "technologies": null
+      },
+      {
+        "id": "6d263e52-5ebf-4394-9ff6-8d9aa9d16690",
+        "title": "Lead React Native Developer",
+        "startDate": "2022-01",
+        "endDate": "2022-04",
+        "description": "I was lead software engineer for FanDuel, a betting company. I was leading a multifunctional team that does NodeJS, ReactJS, and React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "ReactJS", "Redux", "RxJS", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        },
+        "client": {
+          "name": "Fanduel",
+          "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/fanduel.svg"
+        }
+      },
+      {
+        "id": "e0686319-2744-4b1b-abec-b90d0832d0b7",
+        "title": "Senior React Native Developer",
+        "startDate": "2021-09",
+        "endDate": "2021-12",
+        "description": "I was part of the team working for a client called Zonal. Zonal is the tech provider for lots of restaurants like Wetherspoon, PizzaExpress, The Restaurant Group, among others. The project is about creating a POS (Point Of Sale) for tablets.\n\nI was brought as a React Native Senior Developer to lead the team and achieve the release of an MVP in 4 months. My main tasks were to start the react native project in Typescript and to set the architecture. At the same time, I've been involved in architecture meetings about how the xDesign will do React Native projects in the future.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["Bitrise"],
+          "methodology": ["Scrum"]
+        },
+        "client": {
+          "name": "Zonal",
+          "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/zonal.svg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
+    "company": "Concentrix TigerSpike",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/tigerspike.svg",
+    "positions": [
+      {
+        "id": "f6a7b8c9-d0e1-2345-f012-678901234567",
+        "title": "Senior Software Engineer",
+        "startDate": "2021-04",
+        "endDate": "2021-09",
+        "description": "I was leading a transformation squad that had the task of converting Priority Pass, Mastercard Airport Experience and Lounge Key apps from native iOS and Android to React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["Bitrise"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
+    "company": "OpenHealth Group",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/openhealth.svg",
+    "positions": [
+      {
+        "id": "a7b8c9d0-e1f2-3456-0123-789012345678",
+        "title": "Senior Software Engineer",
+        "startDate": "2020-11",
+        "endDate": "2021-04",
+        "description": "My role in the team was to lead and develop React Native projects for different clients that OpenHealth had. I was part of a project to develop an app that connected to a proprietary bluetooth device and gathered medical information.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "d399b4a7-0868-487e-b867-2c85f430b883",
+    "company": "BP",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/bp.svg",
+    "positions": [
+      {
+        "id": "b8c9d0e1-f2a3-4567-1234-890123456789",
+        "title": "Senior Software Engineer",
+        "startDate": "2019-11",
+        "endDate": "2020-05",
+        "description": "My role in the team was to lead and develop a platform that later was going to be used by other projects. Using Lerna and its mono-repo approach we achieved the ability to create an app from scratch just by installing features and doing minimal configuration. With this approach boilerplate and development time was reduced considerably. The created platform gave any new app features like: theming, fonts, a colour palette, translations, redux-store, analytics, security and a component library.\n\nIn addition to this, I was part of creating the new version of BPme Mexico, using the recently created platform.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git", "Jira"],
+          "ci": ["Azure DevOps"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
+    "company": "Shell",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/newmotion.svg",
+    "positions": [
+      {
+        "id": "c9d0e1f2-a3b4-5678-2345-901234567890",
+        "title": "Software Engineer",
+        "startDate": "2018-11",
+        "endDate": "2019-11",
+        "description": "My role in the team is to develop an app to find charge points for electric cars. As part of my day-to-day tasks I setup the base project that the team is currently using and created the initial unit tests and integration tests for the app using Detox. As part of BDD and TDD, we initially develop the unit tests and integration tests before creating any component or screen.\n\nIn addition to this, I also developed the component library we use to showcase our components to the business, design and QA teams. I also created the ability to dynamically change between the Shell or NewMotion themes (automatically applying the appropriate styling to all screens and components in the app just by selecting a theme).",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git", "Jira"],
+          "ci": ["Azure DevOps"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
+    "company": "WonderBill",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/wonderbill.svg",
+    "positions": [
+      {
+        "id": "d0e1f2a3-b4c5-6789-3456-012345678901",
+        "title": "Software Engineer",
+        "startDate": "2017-12",
+        "endDate": "2018-11",
+        "description": "I was part of the application team where we developed the React Web App and the React Native Mobile App. Also, I developed integration tests for all the React Native projects that I've been involved on.\n\n**Projects that I've been involved:**\n- **Tab Navigator**: The app changed the designs from a burger menu navigator to a tab navigator.\n- **Timeline screen**: One of the changes going along with the tab navigator, was to replace the Dashboard for a Timeline.\n- **Virtual Machines**: I improved our build process by creating VMs that runs our integration test, build the iOS release candidate app and pushes it to iTunes Connect for releasing to production.\n- **Deals Screen v1**: First version of a new screen in the app.\n- **Deals Screen v2**: Second version of deals screen which gives the user and total saving that they could have if they switch from one provider to another.\n- **Your deals screen**: This is a screen that displays a set of personalised deals for a specific user.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["JavaScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git", "Jira"],
+          "ci": ["Gitlab"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
+    "company": "Nucleus Central",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/nucleus.svg",
+    "positions": [
+      {
+        "id": "e1f2a3b4-c5d6-7890-4567-123456789012",
+        "title": "Frontend Developer",
+        "startDate": "2017-07",
+        "endDate": "2017-11",
+        "description": "I was developing frontend applications with Angular 4\n\n**Projects:**\n- **Informed Patients**: I'm migrating a web application originally develop in Angular JS 1.x to Angular 4. This webapp is meant to be a way to search most suitable hospital given certain filters like a type of cancer, treatment, etc.\n",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["Angular 4", "Webpack"],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
+    "company": "Lexel Software Ltd",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/lexel.svg",
+    "positions": [
+      {
+        "id": "f2a3b4c5-d6e7-8901-5678-234567890123",
+        "title": "Multiplatform Developer",
+        "startDate": "2016-09",
+        "endDate": "2017-06",
+        "description": "I was developing web applications with Angular 4 and Android mobile applications. \n\n**Projects**:\n\n - **Dimble Android App**: I developed an Android App for selling clothes and complements. I used Retrofit 2 for the REST API calls. I used Glide for images management. I used MVC and managers to encapsulate the communication with the backend. I used inheritance and polymorphism to achieve a high level of modularisation and reusability in the code. I used Crashlytics for the analysis and diagnostic of errors.\n - **Dimble Angular JS WebApp**: I developed a control management system in Angular 4 to analyse sales, manage products, etc. The architecture used for this project was MVP and RxJS for commutation between components.\n - **This Is Me Angular JS WebApp**: I developed a control management system in Angular 4 to manage admins and users. Also, with the web app the administrator could ban user that had a bad behaviour using the iOS app. The architecture used for this project was MVP and RxJS for commutation between components.\n - **Project Cost Calculator Angular JS WebApp and JHipster Backend**: Currently I'm developing a web app where the client answers some questions. After the questionnaire the posible client get a quote for the project. The architecture used for the Angular 4 project was MVP and RxJS for commutation between components. Using JHipster for the backend.\n",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript", "Java"],
+          "frameworks": ["Angular JS 4", "Webpack", "Android"],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku", "Android Studio"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "16a33b33-9fc1-4374-8cc8-b107887d5ef1",
+    "company": "All Now Europe S.L.",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/allnowcorp.svg",
+    "positions": [
+      {
+        "id": "a3b4c5d6-e7f8-9012-6789-345678901234",
+        "title": "Frontend Developer",
+        "startDate": "2016-05",
+        "endDate": "2016-09",
+        "description": "I was researching and developing a web application which had sub-apps. Each sub-app had reusable components created with React, Redux and Redux-Sagas. Components had their own React+Redux+Saga life cycle and components were communicating between them using handlers.\n\nI've researched for a system to publish components in a NPM repository, and I discovered Sinopia. Using Docker, I've published on \"Sinopia NPM server repository\", my components. Those can be accessible via NPM installation in any project.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "Angular JS 2",
+            "RxJS",
+            "React",
+            "Redux",
+            "Sagas",
+            "Mocha",
+            "Chai",
+            "Gulp",
+            "Webpack"
+          ],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku", "Android Studio"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "bdc79e4b-0f16-4e0d-bf15-65428ac801dc",
+    "company": "Altran",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/altran.svg",
+    "positions": [
+      {
+        "id": "b4c5d6e7-f8a9-0123-7890-456789012345",
+        "title": "Full Stack Developer & Teacher",
+        "startDate": "2015-12",
+        "endDate": "2016-03",
+        "description": "I know how to create and configure REST webservices with OAuth2 security and perform CRUD operations from an Angular JS 1.X frontend.\n\n In addition, they gave me the opportunity to teach in a 20h Javascript course called \"Javascript from beginner to advanced\". The course requirements were that the student should have basic knowledge of HTML, CSS and javascript. The aim was, that from the knowledge imparted, the student have the tools and resources that allow them to be self sufficient to progress his career as a developer. From this course, the student was able to learn after Angular JS frameworks like, or Node.js and / or attend training MEAN",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript", "Java"],
+          "frameworks": ["Angular JS 2", "Webpack", "Android"],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku", "Android Studio"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b32665f2-4c85-4b7d-8c02-cf42bb4c8265",
+    "company": "Desigual",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/desigual.svg",
+    "positions": [
+      {
+        "id": "c5d6e7f8-a9b0-1234-8901-567890123456",
+        "title": "Software Developer",
+        "startDate": "2015-08",
+        "endDate": "2015-12",
+        "description": "I was Java developer for Desigual. My tasks were to develop improvements on ATG schedulers",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["Java"],
+          "frameworks": ["Oracle ATG 9.4"],
+          "testing": null,
+          "tools": ["Eclipse", "Git", "Jira"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "29f99d9a-72f5-4a6c-a24b-852e2021c10d",
+    "company": "Everis NTT Data",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/everis.svg",
+    "positions": [
+      {
+        "id": "d6e7f8a9-b0c1-2345-9012-678901234567",
+        "title": "Backend Developer",
+        "startDate": "2015-04",
+        "endDate": "2015-06",
+        "description": "I was Java developer for \"La CaixaBank\" client. Everis developed a framework called ABSIS based on Spring and other technologies. My task was to develop Spring Batch applications to automatize the execution of certain tasks.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["Java", "UNIX bash shell scripting"],
+          "frameworks": ["Spring Batch Framework", "BEA Weblogic Servers"],
+          "testing": null,
+          "tools": ["IntelliJ IDEA", "Eclipse", "STS", "Maven", "SVN SCM", "Jira"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "0d387a9f-f6c1-48df-8649-faf3dcf6a939",
+    "company": "Teknon Uroclínica Barcelona",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon.svg",
+    "positions": [
+      {
+        "id": "e7f8a9b0-c1d2-3456-0123-789012345678",
+        "title": "Full Stack Developer",
+        "startDate": "2014-10",
+        "endDate": "2015-04",
+        "description": "I was developing a medical system using the following technological stack:\n\n - Spring Boot Framework, Spring/Hibernate integration with MySQL and Spring MVC Restful Web Services API.\n - Android with Material Design UI for Lollipop and backwards compatibility.\n - OpenShift RedHat Cloud: Apache HTTP server+Apache Tomcat 7.\n - Complete end-to-end security system: AES, CBC, and PKCS5 encryption on local Android DB, HTTPS client/ server communication, Spring Security hashing algorithm for remote MySQL DB.\n - Bidirectional synchronisation between local Android DB and remote MySQL DB via REST API. This feature allows the user to switch between different devices.\n - Development tools: IntelliJ IDEA, Maven Build System, FindBugs, GitHub & Bitbucket SCMs, Basecamp project management platform. Agile methodology with rigorous iterative development approach.\n\n Patients, using their credentials to access, introduced urological measurements on the Android app. The app sends those measurements to the Spring Boot Web Service programmed using Rest Template API. The Backend uses Hibernate to manage all Java objects and saving the data into the database. Marc Fuentes was developing a similar app using Ionic technology to cover operating systems other than Android. Alberto Mendez was developing a website using Angular JS to retrieve that data for the doctors and they can see charts filtering by different type of settings.",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  },
+  {
+    "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
+    "company": "Edenic Games",
+    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/edenic.svg",
+    "positions": [
+      {
+        "id": "f8a9b0c1-d2e3-4567-1234-890123456789",
+        "title": "Android Teacher in Edenic Games",
+        "startDate": "2012-10",
+        "endDate": "2014-07",
+        "description": "I taught Android in training sessions in english around Europe as part of the international \"Smart Employability Program\". This project aimed to train trainers and teachers in new technologies so that they in turn can train their students in these technologies in order to improve their employability in the global labour market. I taught Android in Barcelona, Berlin, Hameln, Ryde and Piotrków Trybunalski.",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "Bahay",
+    "workExperience": "Karanasan sa Trabaho",
+    "cv": "CV",
+    "bookACall": "Mag-book ng Tawag"
+  },
+  "home": {
+    "title": "Warren de Leon",
+    "subtitle": "Software Engineering Manager",
+    "aboutHeading": "Tungkol sa Akin",
+    "aboutText": "Kumusta, ako si Warren de Leon, isang Engineering Manager na masigasig sa pagbuo ng mga high-performing na team at paglikha ng mga kapaligiran kung saan maaaring umunlad ang mga engineer. Pagkatapos ng mahigit isang dekada sa hands-on na development, nagsimula ako ng bagong kabanata: pamumuno nang may layunin. Bagaman hindi na ako nagsusulat ng code araw-araw, ngayon ay nakatuon ako sa human side ng engineering: pagbibigay ng constructive feedback, pag-navigate sa mahihirap na usapan, at pagpapaunlad ng kultura ng ownership, kalidad, at kolaborasyon. Patuloy akong natututo kung ano ang ibig sabihin ng pagiging isang epektibong manager, na inaabot ang paglalakbay na ito nang may parehong curiosity at determinasyon na nagpatakbo sa aking mga taon bilang isang software engineer.",
+    "currentRole": "Kasalukuyang Posisyon",
+    "viewFullDetails": "Tingnan ang buong detalye",
+    "photos": "Mga Larawan"
+  },
+  "workExperience": {
+    "title": "Karanasan sa Trabaho",
+    "description": "Deskripsyon",
+    "keyResponsibilities": "Mga Pangunahing Responsibilidad",
+    "programmingLanguages": "Mga Programming Language",
+    "technologyStack": "Technology Stack",
+    "unitTesting": "Unit Testing",
+    "e2eTesting": "E2E Testing",
+    "developmentTools": "Mga Development Tool",
+    "ciCd": "CI/CD",
+    "agileMethodology": "Agile Methodology",
+    "present": "Kasalukuyan",
+    "clients": "Mga Kliyente"
+  },
+  "cv": {
+    "title": "Curriculum Vitae",
+    "description": "Tingnan o i-download ang aking CV.",
+    "download": "I-download ang CV"
+  },
+  "bookACall": {
+    "title": "Mag-book ng Tawag",
+    "description": "Mag-iskedyul ng 60-minutong video call sa akin."
+  },
+  "common": {
+    "download": "I-download",
+    "back": "Bumalik",
+    "viewFullDetails": "Tingnan ang buong detalye"
+  },
+  "theme": {
+    "light": "Maliwanag",
+    "dark": "Madilim"
+  },
+  "footer": {
+    "copyright": "Lahat ng karapatan ay nakalaan."
+  },
+  "seo": {
+    "homeTitle": "Warren de Leon | Software Engineering Manager",
+    "homeDescription": "Personal portfolio ni Warren de Leon, isang Software Engineering Manager na may mahigit isang dekada ng karanasan sa software development at team leadership.",
+    "workExperienceTitle": "Karanasan sa Trabaho | Warren de Leon",
+    "workExperienceDescription": "Propesyonal na timeline ng karera ni Warren de Leon sa software engineering at management.",
+    "cvTitle": "CV | Warren de Leon",
+    "cvDescription": "I-download o tingnan ang curriculum vitae ni Warren de Leon, Software Engineering Manager.",
+    "bookACallTitle": "Mag-book ng Tawag | Warren de Leon",
+    "bookACallDescription": "Mag-iskedyul ng video call kay Warren de Leon para sa mga oportunidad o kolaborasyon."
+  }
+}

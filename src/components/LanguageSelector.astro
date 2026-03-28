@@ -1,0 +1,105 @@
+---
+import { locales, localeNames, getLocalePath, type Locale } from '../i18n/index';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+}
+
+const { locale, currentPath } = Astro.props;
+
+function getPathForLocale(targetLocale: Locale, path: string): string {
+  let cleanPath = path;
+  for (const loc of locales) {
+    if (loc !== 'en' && cleanPath.startsWith(`/${loc}/`)) {
+      cleanPath = cleanPath.slice(loc.length + 1);
+      break;
+    }
+    if (loc !== 'en' && cleanPath === `/${loc}`) {
+      cleanPath = '/';
+      break;
+    }
+  }
+  return getLocalePath(targetLocale, cleanPath);
+}
+---
+
+<div class="language-selector">
+  <button class="lang-btn" id="lang-toggle" type="button" aria-label="Select language">
+    {locale.toUpperCase()}
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </button>
+  <div class="lang-dropdown" id="lang-dropdown">
+    {locales.map((loc) => (
+      <a
+        href={getPathForLocale(loc, currentPath)}
+        class:list={['lang-option', { active: loc === locale }]}
+      >
+        {localeNames[loc]}
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .language-selector {
+    position: relative;
+  }
+
+  .lang-btn {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s ease;
+    font-family: inherit;
+  }
+
+  .lang-btn:hover {
+    background: var(--bg-secondary);
+  }
+
+  .lang-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-hover);
+    min-width: 140px;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  .lang-dropdown.open {
+    display: block;
+  }
+
+  .lang-option {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    transition: background 0.15s ease;
+  }
+
+  .lang-option:hover {
+    background: var(--bg-secondary);
+  }
+
+  .lang-option.active {
+    color: var(--color-green);
+    font-weight: 600;
+  }
+</style>

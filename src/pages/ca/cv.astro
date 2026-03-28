@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/index';
+
+const locale = 'ca' as const;
+const i18n = t(locale);
+---
+
+<BaseLayout
+  title={i18n.seo.cvTitle}
+  description={i18n.seo.cvDescription}
+  locale={locale}
+  currentPath="/ca/cv/"
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-heading">{i18n.cv.title}</h1>
+      <p class="text-muted mb-3">{i18n.cv.description}</p>
+      <a href="/pdf/CV_WARRENDELEON_2025.pdf" download class="btn btn-primary mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        {i18n.cv.download}
+      </a>
+      <div class="cv-embed">
+        <object data="/pdf/CV_WARRENDELEON_2025.pdf" type="application/pdf" width="100%" height="800">
+          <p>El teu navegador no suporta PDFs. <a href="/pdf/CV_WARRENDELEON_2025.pdf">Descarregar CV</a>.</p>
+        </object>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cv-embed { border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); }
+  .cv-embed object { display: block; }
+</style>

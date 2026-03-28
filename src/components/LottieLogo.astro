@@ -1,0 +1,66 @@
+---
+
+---
+
+<div class="lottie-logo" id="lottie-logo"></div>
+
+<style>
+  .lottie-logo {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .lottie-logo {
+      width: 150px;
+      height: 150px;
+    }
+  }
+</style>
+
+<script>
+  import lottie from 'lottie-web';
+
+  function getTheme(): string {
+    return document.documentElement.getAttribute('data-theme') || 'light';
+  }
+
+  function getAnimationPath(theme: string): string {
+    return theme === 'dark'
+      ? '/animations/logo-white.json'
+      : '/animations/logo-black.json';
+  }
+
+  let currentAnimation: ReturnType<typeof lottie.loadAnimation> | null = null;
+
+  function loadLottie() {
+    const container = document.getElementById('lottie-logo');
+    if (!container) return;
+
+    if (currentAnimation) {
+      currentAnimation.destroy();
+    }
+
+    const theme = getTheme();
+    currentAnimation = lottie.loadAnimation({
+      container,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: getAnimationPath(theme),
+    });
+  }
+
+  loadLottie();
+
+  const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.attributeName === 'data-theme') {
+        loadLottie();
+      }
+    }
+  });
+
+  observer.observe(document.documentElement, { attributes: true });
+</script>

@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/index';
+
+const locale = 'es' as const;
+const i18n = t(locale);
+---
+
+<BaseLayout
+  title={i18n.seo.bookACallTitle}
+  description={i18n.seo.bookACallDescription}
+  locale={locale}
+  currentPath="/es/book-a-call/"
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-heading">{i18n.bookACall.title}</h1>
+      <p class="text-muted mb-4">{i18n.bookACall.description}</p>
+      <div class="calendly-embed">
+        <iframe
+          src="https://calendly.com/warrendeleon/60min-videocall-sky?hide_event_type_details=1&hide_gdpr_banner=1"
+          width="100%"
+          height="700"
+          frameborder="0"
+          title="Reservar llamada"
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .calendly-embed {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  .calendly-embed iframe {
+    display: block;
+  }
+</style>
