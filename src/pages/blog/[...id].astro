@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
 import type { Locale } from '../../i18n/index';
+import { getReadingTime } from '../../utils/readingTime';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter(post => !post.data.draft);
@@ -12,7 +13,9 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const showToc = headings.filter(h => h.depth <= 3).length >= 3;
+const readingTime = getReadingTime(post.body ?? '');
 
 const locale: Locale = 'en';
 
@@ -31,6 +34,17 @@ const allPosts = (await getCollection('blog'))
 const currentIndex = allPosts.findIndex(p => p.id === post.id);
 const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
 const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+
+const relatedPosts = allPosts
+  .filter(p => p.id !== post.id)
+  .map(p => ({
+    post: p,
+    sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
+  }))
+  .filter(p => p.sharedTags > 0)
+  .sort((a, b) => b.sharedTags - a.sharedTags)
+  .slice(0, 3)
+  .map(p => p.post);
 ---
 
 <BaseLayout
@@ -39,8 +53,8 @@ const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1]
   locale={locale}
   currentPath={`/blog/${post.id}/`}
 >
-  <article class="section">
-    <div class="container blog-post">
+  <section class="post-hero section-alt">
+    <div class="container">
       <a href="/blog/" class="blog-back-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="19" y1="12" x2="5" y2="12"></line>
@@ -49,21 +63,83 @@ const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1]
         Back to blog
       </a>
 
-      <header class="blog-post-header">
-        <time class="blog-post-date" datetime={post.data.publishDate.toISOString()}>
+      <h1>{post.data.title}</h1>
+
+      <div class="post-meta">
+        <time datetime={post.data.publishDate.toISOString()}>
           {formatDate(post.data.publishDate)}
         </time>
-        <h1 class="blog-post-title">{post.data.title}</h1>
-        <div class="blog-post-tags">
-          {post.data.tags.map(tag => (
-            <a href={`/blog/tag/${tag}/`} class="blog-tag">{tag}</a>
-          ))}
-        </div>
-      </header>
-
-      <div class="prose">
-        <Content />
+        <span class="post-meta-separator">|</span>
+        <span>{readingTime} min read</span>
+        {post.data.tags.length > 0 && (
+          <>
+            <span class="post-meta-separator">|</span>
+            <div class="post-tags">
+              {post.data.tags.map(tag => (
+                <a href={`/blog/tag/${tag}/`} class="post-tag">{tag}</a>
+              ))}
+            </div>
+          </>
+        )}
       </div>
+    </div>
+  </section>
+
+  <article class="section">
+    <div class="container">
+      <div class={showToc ? 'post-layout' : ''}>
+        <div class="prose">
+          <Content />
+        </div>
+
+        {showToc && (
+          <aside class="toc">
+            <h3>Contents</h3>
+            <ul>
+              {headings.filter(h => h.depth <= 3).map(h => (
+                <li class={`toc-item toc-depth-${h.depth}`}>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
+      </div>
+
+      <div class="author-card">
+        <img src="/images/avatar.png" alt="Warren de Leon" class="author-avatar" />
+        <div class="author-info">
+          <strong>Warren de Leon</strong>
+          <p>Software Engineering Manager at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.</p>
+          <a href="/">View profile</a>
+        </div>
+      </div>
+
+      <div class="share-links">
+        <span>Share this post:</span>
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=https://warrendeleon.com/blog/${post.id}/`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn (opens in new tab)">LinkedIn</a>
+        <a href={`https://x.com/intent/tweet?url=https://warrendeleon.com/blog/${post.id}/&text=${encodeURIComponent(post.data.title)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on X (opens in new tab)">X</a>
+        <button class="copy-link-btn" data-url={`https://warrendeleon.com/blog/${post.id}/`} aria-label="Copy link">Copy link</button>
+      </div>
+
+      {relatedPosts.length > 0 && (
+        <div class="related-posts">
+          <h3>Related posts</h3>
+          <div class="related-grid">
+            {relatedPosts.map(rp => (
+              <a href={`/blog/${rp.id}/`} class="related-card">
+                <time>{formatDate(rp.data.publishDate)}</time>
+                <h4>{rp.data.title}</h4>
+                <div class="post-tags" style="margin-top: 0.5rem;">
+                  {rp.data.tags.map(tag => (
+                    <span class="post-tag" style="pointer-events: none;">{tag}</span>
+                  ))}
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
 
       <nav class="blog-nav">
         {prevPost ? (
@@ -89,52 +165,49 @@ const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1]
   </article>
 </BaseLayout>
 
-<style>
-  .blog-post {
-    max-width: 780px;
-  }
+<script is:inline>
+document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    navigator.clipboard.writeText(btn.dataset.url);
+    btn.textContent = 'Copied!';
+    setTimeout(function() { btn.textContent = 'Copy link'; }, 2000);
+  });
+});
+</script>
 
-  .blog-back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+<style is:global>
+  .post-hero {
+    padding: 2.5rem 0;
+    background: var(--bg-secondary);
     margin-bottom: 2rem;
-    transition: color 0.2s ease;
   }
 
-  .blog-back-link:hover {
-    color: var(--color-green);
-  }
-
-  .blog-post-header {
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .blog-post-date {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
-  .blog-post-title {
-    font-size: 2.25rem;
+  .post-hero h1 {
+    font-size: 2.2rem;
     line-height: 1.2;
     margin-bottom: 1rem;
   }
 
-  .blog-post-tags {
+  .post-meta {
     display: flex;
+    align-items: center;
+    gap: 1rem;
     flex-wrap: wrap;
-    gap: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
   }
 
-  .blog-tag {
+  .post-meta-separator {
+    color: var(--border-color);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .post-tag {
     display: inline-block;
     padding: 0.2rem 0.6rem;
     border-radius: 6px;
@@ -147,9 +220,195 @@ const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1]
     transition: border-color 0.2s ease;
   }
 
-  .blog-tag:hover {
+  .post-tag:hover {
     border-color: var(--color-green);
     color: var(--color-green);
+  }
+
+  .post-layout {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .toc {
+    position: sticky;
+    top: 5rem;
+    padding: 1.25rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+
+  .toc h3 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .toc li {
+    margin-bottom: 0.4rem;
+  }
+
+  .toc a {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: block;
+    padding: 0.15rem 0;
+  }
+
+  .toc a:hover {
+    color: var(--color-green);
+  }
+
+  .toc-depth-3 {
+    padding-left: 1rem;
+  }
+
+  .blog-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    transition: color 0.2s ease;
+  }
+
+  .blog-back-link:hover {
+    color: var(--color-green);
+  }
+
+  .author-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    margin-top: 3rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .author-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .author-info strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .author-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.4rem;
+  }
+
+  .author-info a {
+    font-size: 0.85rem;
+    color: var(--color-green);
+    font-weight: 500;
+  }
+
+  .share-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+  }
+
+  .share-links span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .share-links a,
+  .share-links button {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    transition: border-color 0.2s ease, color 0.2s ease;
+    font-family: inherit;
+  }
+
+  .share-links a:hover,
+  .share-links button:hover {
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  .related-posts {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .related-posts h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+  }
+
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .related-card {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    display: block;
+  }
+
+  .related-card:hover {
+    border-color: var(--color-green);
+    transform: translateY(-2px);
+  }
+
+  .related-card time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .related-card h4 {
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+    line-height: 1.3;
   }
 
   .blog-nav {
@@ -157,8 +416,10 @@ const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1]
     justify-content: space-between;
     align-items: center;
     margin-top: 3rem;
-    padding-top: 2rem;
+    padding: 1.5rem;
     border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    border-radius: 12px;
     gap: 1rem;
   }
 
@@ -183,8 +444,17 @@ const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1]
   }
 
   @media (max-width: 768px) {
-    .blog-post-title {
-      font-size: 1.75rem;
+    .post-hero h1 {
+      font-size: 1.6rem;
+    }
+
+    .post-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .toc {
+      position: static;
+      margin-bottom: 2rem;
     }
   }
 </style>

@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import type { Locale } from '../../../i18n/index';
 import { t } from '../../../i18n/index';
+import { getReadingTime } from '../../../utils/readingTime';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter(post => !post.data.draft);
@@ -64,9 +65,9 @@ function toDateString(date: Date): string {
             data-publish-date={toDateString(post.data.publishDate)}
           >
             <div class="blog-card-content">
-              <time class="blog-card-date" datetime={toDateString(post.data.publishDate)}>
-                {formatDate(post.data.publishDate)}
-              </time>
+              <span class="blog-card-meta">
+                {formatDate(post.data.publishDate)} &middot; {getReadingTime(post.body ?? '')} min read
+              </span>
               <h2 class="blog-card-title">{post.data.title}</h2>
               <p class="blog-card-desc">{post.data.description}</p>
               <div class="blog-card-tags">
@@ -88,12 +89,14 @@ function toDateString(date: Date): string {
 (function () {
   function filterPosts() {
     var now = new Date();
-    now.setHours(0, 0, 0, 0);
+    var todayStr = now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
     var cards = document.querySelectorAll('.blog-card[data-publish-date]');
     var visibleCount = 0;
     cards.forEach(function (card) {
-      var publishDate = new Date(card.getAttribute('data-publish-date'));
-      if (publishDate > now) {
+      var publishStr = card.getAttribute('data-publish-date');
+      if (publishStr > todayStr) {
         card.style.display = 'none';
       } else {
         visibleCount++;
@@ -106,7 +109,7 @@ function toDateString(date: Date): string {
 })();
 </script>
 
-<style>
+<style is:global>
   .blog-back-link {
     display: inline-flex;
     align-items: center;
@@ -132,6 +135,7 @@ function toDateString(date: Date): string {
     text-decoration: none;
     color: inherit;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
+    border-left: 3px solid var(--color-green);
   }
 
   .blog-card:hover {
@@ -143,7 +147,7 @@ function toDateString(date: Date): string {
     color: var(--color-green);
   }
 
-  .blog-card-date {
+  .blog-card-meta {
     font-size: 0.85rem;
     color: var(--text-muted);
     display: block;
