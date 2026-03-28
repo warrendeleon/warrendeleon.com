@@ -8,22 +8,22 @@
   "home": {
     "title": "Warren de Leon",
     "subtitle": "Software Engineering Manager",
-    "aboutHeading": "Sobre Mi",
-    "aboutText": "Soy Warren de Leon, Software Engineering Manager en Hargreaves Lansdown, donde me he incorporado recientemente para liderar equipos de ingenieria en una de las mayores plataformas de inversion del Reino Unido.\n\nAntes de HL, pase mas de dos anos en Sky gestionando multiples squads de ingenieria que entregaban productos moviles y web utilizados por millones de clientes. Lidere equipos dentro de la organizacion SAFe de Sky, supervisando a mas de 10 ingenieros en roles permanentes, de contrato y de inicio de carrera.\n\nMis raices tecnicas estan en React Native. Desde 2017, he construido y liderado equipos que entregaron apps para Sky, Shell, BP, FanDuel y Chelsea FC, entre otros. Esa experiencia practica con arquitectura movil, pipelines de CI/CD y desarrollo multiplataforma es lo que aporto a mi liderazgo: gestiono ingenieros con el contexto de alguien que ha estado en el codigo.\n\nAntes de mudarme al Reino Unido en 2016, comence mi carrera en Barcelona, donde trabaje como desarrollador full stack y ensenhe desarrollo Android por Europa como parte de un programa internacional de empleabilidad. Ese camino internacional, desde Filipinas pasando por Espana hasta Londres, moldeo como pienso sobre equipos, comunicacion e inclusion.\n\nMi enfoque esta en las personas: coaching, progresion, feedback honesto y construir squads donde los ingenieros hagan su mejor trabajo. He guiado a ingenieros asociados desde programas de graduados hasta contribuidores independientes y seguros, y me tomo esa responsabilidad en serio.\n\nCuando no estoy gestionando, sigo construyendo. Esta web es un sitio estatico Astro que construi yo mismo. Mi app de portfolio personal es un proyecto React Native con mas del 75% de cobertura de tests, internacionalizacion en cinco idiomas y testing E2E con Detox. Me mantengo cerca del oficio porque creo que los mejores lideres de ingenieria nunca lo abandonan del todo.",
+    "aboutHeading": "Sobre Mí",
+    "aboutText": "Soy Warren de Leon, Software Engineering Manager en Hargreaves Lansdown, donde me he incorporado recientemente para liderar equipos de ingeniería en una de las mayores plataformas de inversión del Reino Unido.\n\nAntes de HL, pasé más de dos años en Sky gestionando múltiples squads de ingeniería que entregaban productos móviles y web utilizados por millones de clientes. Lideré equipos dentro de la organización SAFe de Sky, supervisando a más de 10 ingenieros en roles permanentes, de contrato y de inicio de carrera.\n\nMis raíces técnicas están en React Native. Desde 2017, he construido y liderado equipos que entregaron apps para Sky, Shell, BP, FanDuel y Chelsea FC, entre otros. Esa experiencia práctica con arquitectura móvil, pipelines de CI/CD y desarrollo multiplataforma es lo que aporto a mi liderazgo: gestiono ingenieros con el contexto de alguien que ha estado en el código.\n\nAntes de mudarme al Reino Unido en 2016, comencé mi carrera en Barcelona, donde trabajé como desarrollador full stack y enseñé desarrollo Android por Europa como parte de un programa internacional de empleabilidad. Ese camino internacional, desde Filipinas pasando por España hasta Londres, moldeó cómo pienso sobre equipos, comunicación e inclusión.\n\nMi enfoque está en las personas: coaching, progresión, feedback honesto y construir squads donde los ingenieros hagan su mejor trabajo. He guiado a ingenieros asociados desde programas de graduados hasta contribuidores independientes y seguros, y me tomo esa responsabilidad en serio.\n\nCuando no estoy gestionando, sigo construyendo. Esta web es un sitio estático Astro que construí yo mismo. Mi app de portfolio personal es un proyecto React Native con más del 75% de cobertura de tests, internacionalización en cinco idiomas y testing E2E con Detox. Me mantengo cerca del oficio porque creo que los mejores líderes de ingeniería nunca lo abandonan del todo.",
     "currentRole": "Puesto Actual",
     "viewWorkExperience": "Ver experiencia laboral"
   },
   "workExperience": {
     "title": "Experiencia Laboral",
-    "description": "Descripcion",
+    "description": "Descripción",
     "keyResponsibilities": "Responsabilidades Clave",
-    "programmingLanguages": "Lenguajes de Programacion",
-    "technologyStack": "Stack Tecnologico",
+    "programmingLanguages": "Lenguajes de Programación",
+    "technologyStack": "Stack Tecnológico",
     "unitTesting": "Testing Unitario",
     "e2eTesting": "Testing E2E",
     "developmentTools": "Herramientas de Desarrollo",
     "ciCd": "CI/CD",
-    "agileMethodology": "Metodologia Agil",
+    "agileMethodology": "Metodología Ágil",
     "present": "Presente",
     "clients": "Clientes"
   },
@@ -50,12 +50,12 @@
   },
   "seo": {
     "homeTitle": "Warren de Leon | Software Engineering Manager",
-    "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager con mas de una decada de experiencia en desarrollo de software y liderazgo de equipos.",
+    "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager con más de una década de experiencia en desarrollo de software y liderazgo de equipos.",
     "workExperienceTitle": "Experiencia Laboral | Warren de Leon",
-    "workExperienceDescription": "Cronologia profesional de la carrera de Warren de Leon en ingenieria de software y gestion.",
+    "workExperienceDescription": "Cronología profesional de la carrera de Warren de Leon en ingeniería de software y gestión.",
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "Descarga o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Reservar Llamada | Warren de Leon",
-    "bookACallDescription": "Programa una videollamada con Warren de Leon para discutir oportunidades o colaboracion."
+    "bookACallDescription": "Programa una videollamada con Warren de Leon para discutir oportunidades o colaboración."
   }
 }
