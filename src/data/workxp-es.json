@@ -1,5 +1,21 @@
 [
   {
+    "id": "c8a1d2e3-f4b5-6789-abcd-0123456789ab",
+    "company": "Hargreaves Lansdown",
+    "logo": "",
+    "positions": [
+      {
+        "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
+        "title": "Software Engineering Manager",
+        "startDate": "2026-03",
+        "endDate": "",
+        "description": "",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  },
+  {
     "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
     "company": "Sky",
     "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
@@ -8,7 +24,7 @@
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
-        "endDate": "2025-12",
+        "endDate": "2026-03",
         "description": "Lidero dos squads de ingeniería dentro del Agile Release Train Join, Onboard, Engage (JOE ART) basado en SAFe, parte del Portfolio Cross-Product Sales Experience de Sky. Mis responsabilidades abarcan propiedad de entrega, supervisión técnica, gestión de personas y colaboración interfuncional.",
         "responsibilities": [
           "Liderazgo de Personas: Gestiono 10+ ingenieros (permanentes, contratistas y principiantes), con foco en coaching, rendimiento y progresión a través de 1:1s regulares, feedback y mentoría.",

@@ -56,7 +56,11 @@ const jsonLd = {
         <div class="about-avatar">
           <img src="/images/avatar.png" alt="Warren de Leon" width="180" height="180" />
         </div>
-        <p class="about-text">{i18n.home.aboutText}</p>
+        <div class="about-text">
+          {i18n.home.aboutText.split('\n\n').map((paragraph: string) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -76,18 +80,18 @@ const jsonLd = {
           </div>
         </div>
         <p class="role-desc mt-2">{latestPosition.description}</p>
-        <a href={getLocalePath(locale, `/work/${slugify(currentRole.company)}/`)} class="btn btn-outline mt-3">
-          {i18n.home.viewFullDetails}
+        <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-outline mt-3">
+          {i18n.home.viewWorkExperience}
         </a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
-<style>
+<style is:global>
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 3fr 7fr;
     gap: 3rem;
     align-items: center;
   }

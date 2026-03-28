@@ -1,5 +1,21 @@
 [
   {
+    "id": "c8a1d2e3-f4b5-6789-abcd-0123456789ab",
+    "company": "Hargreaves Lansdown",
+    "logo": "",
+    "positions": [
+      {
+        "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
+        "title": "Software Engineering Manager",
+        "startDate": "2026-03",
+        "endDate": "",
+        "description": "",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  },
+  {
     "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
     "company": "Sky",
     "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
@@ -8,7 +24,7 @@
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
-        "endDate": null,
+        "endDate": "2026-03",
         "description": "Pinamumunuan ko ang dalawang engineering squads sa loob ng SAFe-based Join, Onboard, Engage (JOE ART) Agile Release Train, na bahagi ng Cross-Product Sales Experience Portfolio ng Sky. Ang mga responsibilidad ko ay sumasaklaw sa delivery ownership, technical oversight, people management, at cross-functional collaboration.",
         "responsibilities": [
           "People Leadership: Namamahala ako ng 10+ engineers (permanent, contract, at early-career), na may focus sa coaching, performance, at progression sa pamamagitan ng regular na 1:1s, feedback, at mentoring.",
