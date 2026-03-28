@@ -52,7 +52,14 @@ const relatedPosts = allPosts
   description={post.data.description}
   locale={locale}
   currentPath={`/blog/${post.id}/`}
+  ogImage={post.data.heroImage}
 >
+  {post.data.heroImage && (
+    <div class="post-hero-image">
+      <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} />
+    </div>
+  )}
+
   <section class="post-hero section-alt">
     <div class="container">
       <a href="/blog/" class="blog-back-link">
@@ -85,13 +92,9 @@ const relatedPosts = allPosts
     </div>
   </section>
 
-  <article class="section">
+  <article class="section post-content-section">
     <div class="container">
       <div class={showToc ? 'post-layout' : ''}>
-        <div class="prose">
-          <Content />
-        </div>
-
         {showToc && (
           <aside class="toc">
             <h3>Contents</h3>
@@ -104,6 +107,9 @@ const relatedPosts = allPosts
             </ul>
           </aside>
         )}
+        <div class="prose">
+          <Content />
+        </div>
       </div>
 
       <div class="author-card">
@@ -176,10 +182,27 @@ document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
 </script>
 
 <style is:global>
+  .post-hero-image {
+    width: 100%;
+    max-height: 400px;
+    overflow: hidden;
+  }
+
+  .post-hero-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+  }
+
   .post-hero {
-    padding: 2.5rem 0;
+    padding: 2rem 0 1.5rem;
     background: var(--bg-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 0;
+  }
+
+  .post-content-section {
+    padding-top: 1.5rem;
   }
 
   .post-hero h1 {
@@ -230,6 +253,16 @@ document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
     grid-template-columns: 1fr 250px;
     gap: 3rem;
     align-items: start;
+  }
+
+  .post-layout > .toc {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .post-layout > .prose {
+    grid-column: 1;
+    grid-row: 1;
   }
 
   .toc {
@@ -452,9 +485,19 @@ document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
       grid-template-columns: 1fr;
     }
 
+    .post-layout > .toc {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .post-layout > .prose {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
     .toc {
       position: static;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
   }
 </style>

@@ -11,9 +11,10 @@ interface Props {
   currentPath: string;
   canonicalPath?: string;
   jsonLd?: object;
+  ogImage?: string;
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage } = Astro.props;
 
 const siteUrl = 'https://warrendeleon.com';
 const canonical = `${siteUrl}${canonicalPath || currentPath}`;
@@ -48,12 +49,13 @@ const cleanPath = getCleanPath(currentPath);
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={`https://warrendeleon.com${currentPath}`} />
-    <meta property="og:image" content="https://warrendeleon.com/images/avatar.png" />
+    <meta property="og:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/avatar.png"} />
     <meta property="og:locale" content={locale} />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://warrendeleon.com/images/avatar.png" />
+    <meta name="twitter:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/avatar.png"} />
+    {ogImage && <meta name="twitter:card" content="summary_large_image" />}
 
     {locales.map(loc => (
       <link
