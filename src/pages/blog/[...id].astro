@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import type { Locale } from '../../i18n/index';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter(post => !post.data.draft);
+  return posts.map(post => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const locale: Locale = 'en';
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+
+const allPosts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+
+const currentIndex = allPosts.findIndex(p => p.id === post.id);
+const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
+const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
+---
+
+<BaseLayout
+  title={`${post.data.title} | Warren de Leon`}
+  description={post.data.description}
+  locale={locale}
+  currentPath={`/blog/${post.id}/`}
+>
+  <article class="section">
+    <div class="container blog-post">
+      <a href="/blog/" class="blog-back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to blog
+      </a>
+
+      <header class="blog-post-header">
+        <time class="blog-post-date" datetime={post.data.publishDate.toISOString()}>
+          {formatDate(post.data.publishDate)}
+        </time>
+        <h1 class="blog-post-title">{post.data.title}</h1>
+        <div class="blog-post-tags">
+          {post.data.tags.map(tag => (
+            <a href={`/blog/tag/${tag}/`} class="blog-tag">{tag}</a>
+          ))}
+        </div>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <nav class="blog-nav">
+        {prevPost ? (
+          <a href={`/blog/${prevPost.id}/`} class="blog-nav-prev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>{prevPost.data.title}</span>
+          </a>
+        ) : <span />}
+        {nextPost ? (
+          <a href={`/blog/${nextPost.id}/`} class="blog-nav-next">
+            <span>{nextPost.data.title}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        ) : <span />}
+      </nav>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    max-width: 780px;
+  }
+
+  .blog-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    transition: color 0.2s ease;
+  }
+
+  .blog-back-link:hover {
+    color: var(--color-green);
+  }
+
+  .blog-post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .blog-post-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-post-title {
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .blog-post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .blog-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .blog-tag:hover {
+    border-color: var(--color-green);
+    color: var(--color-green);
+  }
+
+  .blog-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    gap: 1rem;
+  }
+
+  .blog-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+    text-decoration: none;
+  }
+
+  .blog-nav a:hover {
+    color: var(--color-green);
+  }
+
+  .blog-nav-next {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  @media (max-width: 768px) {
+    .blog-post-title {
+      font-size: 1.75rem;
+    }
+  }
+</style>

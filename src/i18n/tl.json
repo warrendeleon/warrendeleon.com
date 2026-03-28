@@ -3,7 +3,8 @@
     "home": "Bahay",
     "workExperience": "Karanasan sa Trabaho",
     "cv": "CV",
-    "bookACall": "Mag-book ng Tawag"
+    "bookACall": "Mag-book ng Tawag",
+    "blog": "Blog"
   },
   "home": {
     "title": "Warren de Leon",
@@ -58,6 +59,8 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "I-download o tingnan ang curriculum vitae ni Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Mag-book ng Tawag | Warren de Leon",
-    "bookACallDescription": "Mag-iskedyul ng video call kay Warren de Leon para sa mga oportunidad o kolaborasyon."
+    "bookACallDescription": "Mag-iskedyul ng video call kay Warren de Leon para sa mga oportunidad o kolaborasyon.",
+    "blogTitle": "Blog | Warren de Leon",
+    "blogDescription": "Mga artikulo tungkol sa software engineering, team leadership, at mobile development."
   }
 }

@@ -3,7 +3,8 @@
     "home": "Inicio",
     "workExperience": "Experiencia Laboral",
     "cv": "CV",
-    "bookACall": "Reservar Llamada"
+    "bookACall": "Reservar Llamada",
+    "blog": "Blog"
   },
   "home": {
     "title": "Warren de Leon",
@@ -58,6 +59,8 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "Descarga o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Reservar Llamada | Warren de Leon",
-    "bookACallDescription": "Programa una videollamada con Warren de Leon para discutir oportunidades o colaboración."
+    "bookACallDescription": "Programa una videollamada con Warren de Leon para discutir oportunidades o colaboración.",
+    "blogTitle": "Blog | Warren de Leon",
+    "blogDescription": "Artículos sobre ingeniería de software, liderazgo de equipos y desarrollo móvil."
   }
 }

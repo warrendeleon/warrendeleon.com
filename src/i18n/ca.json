@@ -3,7 +3,8 @@
     "home": "Inici",
     "workExperience": "Experiència Laboral",
     "cv": "CV",
-    "bookACall": "Reservar Trucada"
+    "bookACall": "Reservar Trucada",
+    "blog": "Blog"
   },
   "home": {
     "title": "Warren de Leon",
@@ -58,6 +59,8 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "Descarrega o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Reservar Trucada | Warren de Leon",
-    "bookACallDescription": "Programa una videotrucada amb Warren de Leon per discutir oportunitats o col·laboració."
+    "bookACallDescription": "Programa una videotrucada amb Warren de Leon per discutir oportunitats o col·laboració.",
+    "blogTitle": "Blog | Warren de Leon",
+    "blogDescription": "Articles sobre enginyeria de software, lideratge d'equips i desenvolupament mòbil."
   }
 }
