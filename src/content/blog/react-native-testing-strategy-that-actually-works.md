@@ -3,6 +3,8 @@ title: "A React Native testing strategy that actually works"
 description: "How I structure unit, integration, and E2E tests in React Native projects. Practical patterns from real production apps."
 publishDate: 2026-03-26
 tags: ["react-native", "testing", "typescript", "tutorial"]
+heroImage: "/images/blog/react-native-testing.jpg"
+heroAlt: "React Native testing strategy"
 ---
 
 ## Why most React Native test suites fail
