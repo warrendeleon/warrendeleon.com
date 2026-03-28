@@ -34,8 +34,8 @@ export const locales: Locale[] = ['en', 'es', 'ca', 'tl'];
 
 export const localeNames: Record<Locale, string> = {
   en: 'English',
-  es: 'Espanol',
-  ca: 'Catala',
+  es: 'Español',
+  ca: 'Català',
   tl: 'Tagalog',
 };
 
@@ -48,6 +48,6 @@ export function formatDateRange(startDate: string, endDate: string | null, local
     return `${monthName} ${year}`;
   };
   const start = formatMonth(startDate);
-  const end = endDate ? formatMonth(endDate) : i18n.workExperience.present;
+  const end = endDate && endDate.trim() ? formatMonth(endDate) : i18n.workExperience.present;
   return `${start} - ${end}`;
 }

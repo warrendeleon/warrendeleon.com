@@ -2,7 +2,7 @@
   {
     "id": "c8a1d2e3-f4b5-6789-abcd-0123456789ab",
     "company": "Hargreaves Lansdown",
-    "logo": "",
+    "logo": "/images/logos/hl.svg",
     "positions": [
       {
         "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
@@ -18,7 +18,7 @@
   {
     "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
     "company": "Sky",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
+    "logo": "/images/logos/sky.svg",
     "positions": [
       {
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",

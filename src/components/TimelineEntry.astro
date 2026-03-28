@@ -3,6 +3,7 @@ import { slugify, getLocalePath, formatDateRange, type Locale } from '../i18n/in
 
 interface Props {
   company: string;
+  logo?: string;
   positions: Array<{
     title: string;
     startDate: string;
@@ -12,7 +13,7 @@ interface Props {
   locale: Locale;
 }
 
-const { company, positions, locale } = Astro.props;
+const { company, logo, positions, locale } = Astro.props;
 const slug = slugify(company);
 const latestPosition = positions[0];
 const dateRange = formatDateRange(
@@ -20,31 +21,47 @@ const dateRange = formatDateRange(
   latestPosition.endDate,
   locale
 );
+const hasDescription = latestPosition.description && latestPosition.description.trim().length > 0;
 ---
 
 <div class="timeline-entry">
   <div class="timeline-dot"></div>
   <a href={getLocalePath(locale, `/work/${slug}/`)} class="timeline-card card">
-    <div class="timeline-card-header">
-      <h3>{company}</h3>
-      <span class="timeline-date">{dateRange}</span>
+    <div class="timeline-card-inner">
+      <div class="timeline-logo-col">
+        <div class="timeline-logo">
+          {logo ? (
+            <img src={logo} alt={company} width="40" height="40" />
+          ) : (
+            <span class="timeline-logo-fallback">{company.charAt(0)}</span>
+          )}
+        </div>
+      </div>
+      <div class="timeline-content-col">
+        <div class="timeline-card-header">
+          <h3>{company}</h3>
+          <span class="timeline-date">{dateRange}</span>
+        </div>
+        <p class="timeline-title">{latestPosition.title}</p>
+        {hasDescription && (
+          <p class="timeline-desc">{latestPosition.description.substring(0, 160)}...</p>
+        )}
+      </div>
     </div>
-    <p class="timeline-title">{latestPosition.title}</p>
-    <p class="timeline-desc">{latestPosition.description.substring(0, 160)}...</p>
   </a>
 </div>
 
-<style>
+<style is:global>
   .timeline-entry {
     position: relative;
-    padding-left: 2.5rem;
     margin-bottom: 2rem;
   }
 
   .timeline-dot {
     position: absolute;
-    left: -7px;
-    top: 1.5rem;
+    left: -47px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -64,6 +81,42 @@ const dateRange = formatDateRange(
   .timeline-card:hover {
     transform: translateX(4px);
     color: var(--text-primary);
+  }
+
+  .timeline-card-inner {
+    display: grid;
+    grid-template-columns: 15% 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .timeline-logo-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  .timeline-logo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+  }
+
+  .timeline-logo img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
+
+  .timeline-logo-fallback {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-green);
   }
 
   .timeline-card-header {
@@ -96,5 +149,11 @@ const dateRange = formatDateRange(
     color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-card-inner {
+      grid-template-columns: 60px 1fr;
+    }
   }
 </style>

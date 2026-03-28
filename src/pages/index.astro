@@ -53,9 +53,6 @@ const jsonLd = {
     <div class="container">
       <h2 class="section-heading">{i18n.home.aboutHeading}</h2>
       <div class="about-content">
-        <div class="about-avatar">
-          <img src="/images/avatar.png" alt="Warren de Leon" width="180" height="180" />
-        </div>
         <div class="about-text">
           {i18n.home.aboutText.split('\n\n').map((paragraph: string) => (
             <p>{paragraph}</p>
@@ -69,20 +66,28 @@ const jsonLd = {
     <div class="container">
       <h2 class="section-heading">{i18n.home.currentRole}</h2>
       <div class="card current-role">
-        <div class="current-role-header">
-          <img src={currentRole.logo} alt={currentRole.company} width="48" height="48" class="company-logo" />
-          <div>
+        <div class="current-role-inner">
+          <div class="current-role-logo-col">
+            <div class="current-role-logo">
+              {currentRole.logo && (
+                <img src={currentRole.logo} alt={currentRole.company} />
+              )}
+            </div>
+          </div>
+          <div class="current-role-content">
             <h3>{currentRole.company}</h3>
             <p class="role-title">{latestPosition.title}</p>
             <p class="role-date text-muted">
               {formatDateRange(latestPosition.startDate, latestPosition.endDate, locale)}
             </p>
+            {latestPosition.description && (
+              <p class="role-desc mt-2">{latestPosition.description}</p>
+            )}
+            <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-outline mt-3">
+              {i18n.home.viewWorkExperience}
+            </a>
           </div>
         </div>
-        <p class="role-desc mt-2">{latestPosition.description}</p>
-        <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-outline mt-3">
-          {i18n.home.viewWorkExperience}
-        </a>
       </div>
     </div>
   </section>
@@ -98,6 +103,7 @@ const jsonLd = {
 
   .hero-text h1 {
     text-align: left;
+    white-space: nowrap;
   }
 
   .hero-subtitle {
@@ -116,14 +122,8 @@ const jsonLd = {
   }
 
   .about-content {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-  }
-
-  .about-avatar img {
-    border-radius: 50%;
-    flex-shrink: 0;
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .about-text {
@@ -132,20 +132,57 @@ const jsonLd = {
     color: var(--text-secondary);
   }
 
-  .current-role-header {
+  .about-text p {
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p:first-child {
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .about-text p:last-child {
+    margin-bottom: 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .current-role-inner {
+    display: grid;
+    grid-template-columns: 15% 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .current-role-logo-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  .current-role-logo {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #f5f5f7;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    justify-content: center;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
   }
 
-  .company-logo {
-    border-radius: 8px;
-    background: var(--bg-secondary);
-    padding: 4px;
+  .current-role-logo img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
   }
 
-  .current-role-header h3 {
+  .current-role-content h3 {
     color: var(--color-green);
+    font-size: 1.25rem;
   }
 
   .role-title {
@@ -159,6 +196,12 @@ const jsonLd = {
   .role-desc {
     color: var(--text-secondary);
     line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .current-role-inner {
+      grid-template-columns: 60px 1fr;
+    }
   }
 
   @media (max-width: 768px) {

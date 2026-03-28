@@ -53,9 +53,6 @@ const jsonLd = {
     <div class="container">
       <h2 class="section-heading">{i18n.home.aboutHeading}</h2>
       <div class="about-content">
-        <div class="about-avatar">
-          <img src="/images/avatar.png" alt="Warren de Leon" width="180" height="180" />
-        </div>
         <div class="about-text">
           {i18n.home.aboutText.split('\n\n').map((paragraph: string) => (
             <p>{paragraph}</p>
@@ -69,20 +66,28 @@ const jsonLd = {
     <div class="container">
       <h2 class="section-heading">{i18n.home.currentRole}</h2>
       <div class="card current-role">
-        <div class="current-role-header">
-          <img src={currentRole.logo} alt={currentRole.company} width="48" height="48" class="company-logo" />
-          <div>
+        <div class="current-role-inner">
+          <div class="current-role-logo-col">
+            <div class="current-role-logo">
+              {currentRole.logo && (
+                <img src={currentRole.logo} alt={currentRole.company} />
+              )}
+            </div>
+          </div>
+          <div class="current-role-content">
             <h3>{currentRole.company}</h3>
             <p class="role-title">{latestPosition.title}</p>
             <p class="role-date text-muted">
               {formatDateRange(latestPosition.startDate, latestPosition.endDate, locale)}
             </p>
+            {latestPosition.description && (
+              <p class="role-desc mt-2">{latestPosition.description}</p>
+            )}
+            <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-outline mt-3">
+              {i18n.home.viewWorkExperience}
+            </a>
           </div>
         </div>
-        <p class="role-desc mt-2">{latestPosition.description}</p>
-        <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-outline mt-3">
-          {i18n.home.viewWorkExperience}
-        </a>
       </div>
     </div>
   </section>

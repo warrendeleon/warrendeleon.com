@@ -2,7 +2,7 @@
   {
     "id": "c8a1d2e3-f4b5-6789-abcd-0123456789ab",
     "company": "Hargreaves Lansdown",
-    "logo": "",
+    "logo": "/images/logos/hl.svg",
     "positions": [
       {
         "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
@@ -18,7 +18,7 @@
   {
     "id": "75313d55-2ef2-4a68-b183-f4b32e88b397",
     "company": "Sky",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/sky.svg",
+    "logo": "/images/logos/sky.svg",
     "positions": [
       {
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
@@ -66,7 +66,7 @@
   {
     "id": "31e29e56-a6dc-42cf-95b4-12e51c8a3388",
     "company": "Stadion",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/stadion.svg",
+    "logo": "/images/logos/stadion.svg",
     "positions": [
       {
         "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
@@ -98,7 +98,7 @@
   {
     "id": "1519bf4f-73c6-4556-80e3-7cc0bca90396",
     "company": "Candide",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/candide.svg",
+    "logo": "/images/logos/candide.svg",
     "positions": [
       {
         "id": "d4e5f6a7-b8c9-0123-def0-456789012345",
@@ -130,7 +130,7 @@
   {
     "id": "bfb3c0e3-3e58-4ea6-aa6f-39b52d6d674f",
     "company": "xDesign",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/xdesign.svg",
+    "logo": "/images/logos/xdesign.svg",
     "positions": [
       {
         "id": "e5f6a7b8-c9d0-1234-ef01-567890123456",
@@ -157,8 +157,8 @@
           "agile": ["Scrum"]
         },
         "client": {
-          "company": "Fanduel",
-          "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/fanduel.svg"
+          "name": "Fanduel",
+          "logo": "/images/logos/fanduel.svg"
         }
       },
       {
@@ -186,8 +186,8 @@
           "agile": ["Scrum"]
         },
         "client": {
-          "company": "Zonal",
-          "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/zonal.svg"
+          "name": "Zonal",
+          "logo": "/images/logos/zonal.svg"
         }
       }
     ]
@@ -195,7 +195,7 @@
   {
     "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
     "company": "Concentrix TigerSpike",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/tigerspike.svg",
+    "logo": "/images/logos/tigerspike.svg",
     "positions": [
       {
         "id": "f6a7b8c9-d0e1-2345-f012-678901234567",
@@ -224,7 +224,7 @@
   {
     "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
     "company": "OpenHealth Group",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/openhealth.svg",
+    "logo": "/images/logos/openhealth.svg",
     "positions": [
       {
         "id": "a7b8c9d0-e1f2-3456-0123-789012345678",
@@ -247,7 +247,7 @@
   {
     "id": "d399b4a7-0868-487e-b867-2c85f430b883",
     "company": "BP",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/bp.svg",
+    "logo": "/images/logos/bp.svg",
     "positions": [
       {
         "id": "b8c9d0e1-f2a3-4567-1234-890123456789",
@@ -270,7 +270,7 @@
   {
     "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
     "company": "Shell",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/newmotion.svg",
+    "logo": "/images/logos/newmotion.svg",
     "positions": [
       {
         "id": "c9d0e1f2-a3b4-5678-2345-901234567890",
@@ -293,7 +293,7 @@
   {
     "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
     "company": "WonderBill",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/wonderbill.svg",
+    "logo": "/images/logos/wonderbill.svg",
     "positions": [
       {
         "id": "d0e1f2a3-b4c5-6789-3456-012345678901",
@@ -316,7 +316,7 @@
   {
     "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
     "company": "Nucleus Central",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/nucleus.svg",
+    "logo": "/images/logos/nucleus.svg",
     "positions": [
       {
         "id": "e1f2a3b4-c5d6-7890-4567-123456789012",
@@ -339,7 +339,7 @@
   {
     "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
     "company": "Lexel Software Ltd",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/lexel.svg",
+    "logo": "/images/logos/lexel.svg",
     "positions": [
       {
         "id": "f2a3b4c5-d6e7-8901-5678-234567890123",
@@ -362,7 +362,7 @@
   {
     "id": "16a33b33-9fc1-4374-8cc8-b107887d5ef1",
     "company": "All Now Europe S.L.",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/allnowcorp.svg",
+    "logo": "/images/logos/allnowcorp.svg",
     "positions": [
       {
         "id": "a3b4c5d6-e7f8-9012-6789-345678901234",
@@ -395,7 +395,7 @@
   {
     "id": "bdc79e4b-0f16-4e0d-bf15-65428ac801dc",
     "company": "Altran",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/altran.svg",
+    "logo": "/images/logos/altran.svg",
     "positions": [
       {
         "id": "b4c5d6e7-f8a9-0123-7890-456789012345",
@@ -418,7 +418,7 @@
   {
     "id": "b32665f2-4c85-4b7d-8c02-cf42bb4c8265",
     "company": "Desigual",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/desigual.svg",
+    "logo": "/images/logos/desigual.svg",
     "positions": [
       {
         "id": "c5d6e7f8-a9b0-1234-8901-567890123456",
@@ -441,7 +441,7 @@
   {
     "id": "29f99d9a-72f5-4a6c-a24b-852e2021c10d",
     "company": "Everis NTT Data",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/everis.svg",
+    "logo": "/images/logos/everis.svg",
     "positions": [
       {
         "id": "d6e7f8a9-b0c1-2345-9012-678901234567",
@@ -464,7 +464,7 @@
   {
     "id": "0d387a9f-f6c1-48df-8649-faf3dcf6a939",
     "company": "Teknon Uroclínica Barcelona",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/teknon.svg",
+    "logo": "/images/logos/teknon.svg",
     "positions": [
       {
         "id": "e7f8a9b0-c1d2-3456-0123-789012345678",
@@ -480,7 +480,7 @@
   {
     "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
     "company": "Edenic Games",
-    "logo": "https://raw.githubusercontent.com/warrendeleon/rn-warrendeleon/main/src/assets/svg/edenic.svg",
+    "logo": "/images/logos/edenic.svg",
     "positions": [
       {
         "id": "f8a9b0c1-d2e3-4567-1234-890123456789",

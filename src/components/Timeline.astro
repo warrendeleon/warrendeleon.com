@@ -1,10 +1,11 @@
 ---
 import TimelineEntry from './TimelineEntry.astro';
-import { type Locale } from '../i18n/index';
+import { t, type Locale } from '../i18n/index';
 
 interface Props {
   companies: Array<{
     company: string;
+    logo?: string;
     positions: Array<{
       title: string;
       startDate: string;
@@ -16,31 +17,51 @@ interface Props {
 }
 
 const { companies, locale } = Astro.props;
+const i18n = t(locale);
 ---
 
 <div class="timeline">
+  <span class="timeline-present-tag">{i18n.workExperience.present}</span>
   {companies.map((co) => (
     <TimelineEntry
       company={co.company}
+      logo={co.logo}
       positions={co.positions}
       locale={locale}
     />
   ))}
 </div>
 
-<style>
+<style is:global>
   .timeline {
     position: relative;
-    padding-left: 1rem;
+    padding-left: 70px;
+    padding-top: 2rem;
   }
 
   .timeline::before {
     content: '';
     position: absolute;
-    left: 0;
+    left: 30px;
     top: 0;
     bottom: 0;
     width: 2px;
     background: var(--timeline-line);
+  }
+
+  .timeline-present-tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--color-green);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 3;
   }
 </style>

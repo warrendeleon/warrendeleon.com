@@ -22,7 +22,7 @@ const navLinks = [
 <nav class="nav">
   <div class="nav-inner container">
     <a href={getLocalePath(locale, '/')} class="nav-logo">
-      <img src="/images/logo.gif" alt="Warren de Leon" width="140" height="22" />
+      <img src="/images/logo.gif" alt="Warren de Leon" class="nav-logo-img" />
     </a>
 
     <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
@@ -71,11 +71,12 @@ const navLinks = [
     gap: 1.5rem;
   }
 
-  .nav-logo img {
-    height: 22px;
+  .nav-logo-img {
+    height: 24px;
     width: auto;
     display: block;
   }
+
 
   .nav-menu {
     display: flex;
@@ -210,4 +211,22 @@ const navLinks = [
   document.addEventListener('click', () => {
     langDropdown?.classList.remove('open');
   });
+
+  // Swap nav logo based on theme
+  function updateNavLogo() {
+    const logo = document.querySelector('.nav-logo-img') as HTMLImageElement;
+    if (!logo) return;
+    const theme = document.documentElement.getAttribute('data-theme') || 'light';
+    logo.src = theme === 'dark' ? '/images/logo-white.gif' : '/images/logo.gif';
+  }
+
+  updateNavLogo();
+
+  const logoObserver = new MutationObserver((mutations) => {
+    for (const m of mutations) {
+      if (m.attributeName === 'data-theme') updateNavLogo();
+    }
+  });
+  logoObserver.observe(document.documentElement, { attributes: true });
+
 </script>

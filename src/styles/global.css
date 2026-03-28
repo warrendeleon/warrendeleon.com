@@ -172,13 +172,15 @@ h4 { font-size: 1.25rem; }
 /* Badges */
 .badge {
   display: inline-block;
-  padding: 0.3rem 0.75rem;
-  border-radius: 20px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   background: var(--badge-bg);
   color: var(--badge-text);
   white-space: nowrap;
+  border: 1px solid var(--border-color);
+  transition: transform 0.15s ease;
 }
 
 .badge-group {
@@ -192,7 +194,7 @@ h4 { font-size: 1.25rem; }
 .text-muted { color: var(--text-secondary); }
 .mt-1 { margin-top: 0.5rem; }
 .mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
+.mt-3 { margin-top: 2rem; }
 .mt-4 { margin-top: 2rem; }
 .mb-1 { margin-bottom: 0.5rem; }
 .mb-2 { margin-bottom: 1rem; }
