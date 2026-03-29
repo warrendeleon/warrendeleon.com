@@ -106,6 +106,20 @@ const cleanPath = getCleanPath(currentPath);
         } else {
           document.documentElement.setAttribute('data-theme', 'light');
         }
+
+        if (window.location.pathname === '/' && !localStorage.getItem('lang-detected')) {
+          localStorage.setItem('lang-detected', '1');
+          var lang = (navigator.language || '').toLowerCase();
+          var redirect = '';
+          if (lang === 'ca' || lang.indexOf('ca-') === 0) {
+            redirect = '/ca/';
+          } else if (lang === 'tl' || lang === 'fil' || lang.indexOf('tl-') === 0 || lang.indexOf('fil-') === 0) {
+            redirect = '/tl/';
+          } else if (lang === 'es' || lang.indexOf('es-') === 0) {
+            redirect = '/es/';
+          }
+          if (redirect) window.location.replace(redirect);
+        }
       })();
     </script>
     <script>
