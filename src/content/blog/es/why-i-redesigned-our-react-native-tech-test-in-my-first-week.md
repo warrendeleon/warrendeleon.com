@@ -1,5 +1,5 @@
 ---
-title: "Por qué cambié nuestra prueba técnica de React Native en mi primera semana"
+title: "Por qué rediseñé nuestra prueba técnica de React Native en mi primera semana"
 description: "Entré a Hargreaves Lansdown como Engineering Manager y uno de mis primeros proyectos fue repensar el proceso de contratación para roles de plataforma. Esto es lo que aprendí y lo que construí."
 publishDate: 2026-03-29
 tags: ["gestión-de-ingeniería", "contratación", "react-native"]

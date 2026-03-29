@@ -16,7 +16,7 @@ Reviso entregues de proves tècniques de React Native. He vist què fa que contr
 
 Aquest post és el consell que donaria a un amic abans d'entregar una prova tècnica per fer a casa. No és teoria. Són coses específiques i pràctiques que et porten de "potser" a "sí."
 
-*Vaig escriure sobre per què vaig redissenyar una prova tècnica des de la perspectiva del hiring manager en [un altre post](/ca/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/). Aquest és l'altre costat: com aprovar-ne una.*
+*Vaig escriure sobre per què vaig redissenyar una prova tècnica des de la perspectiva del hiring manager en [un altre post](/ca/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). Aquest és l'altre costat: com aprovar-ne una.*
 
 ## Llegeix el brief dues vegades. Després torna'l a llegir.
 

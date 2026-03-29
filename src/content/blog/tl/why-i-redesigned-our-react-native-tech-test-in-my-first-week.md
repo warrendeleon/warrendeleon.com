@@ -1,5 +1,5 @@
 ---
-title: "Bakit ko pinalitan ang React Native tech test namin sa unang linggo ko"
+title: "Bakit ko ni-redesign ang React Native tech test namin sa unang linggo ko"
 description: "Pumasok ako sa Hargreaves Lansdown bilang Engineering Manager at isa sa mga unang project ko ang pag-rethink ng hiring process para sa platform roles. Ito ang natutunan ko at kung ano ang ginawa ko."
 publishDate: 2026-03-29
 tags: ["engineering-management", "pagkuha-ng-empleyado", "react-native"]

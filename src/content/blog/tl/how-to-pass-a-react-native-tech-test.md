@@ -16,7 +16,7 @@ Nagrereview ako ng React Native tech test submissions. Nakita ko na kung ano ang
 
 Ang post na ito ang advice na ibibigay ko sa isang kaibigan bago mag-submit ng take-home test. Hindi ito theory. Mga specific at practical na bagay na magdadala sa iyo mula sa "baka" patungo sa "oo."
 
-*Sumulat ako tungkol sa kung bakit ko ni-redesign ang isang tech test mula sa perspektibo ng hiring manager sa [ibang post](/tl/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/). Ito naman ang kabilang panig: paano pumasa sa isa.*
+*Sumulat ako tungkol sa kung bakit ko ni-redesign ang isang tech test mula sa perspektibo ng hiring manager sa [ibang post](/tl/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). Ito naman ang kabilang panig: paano pumasa sa isa.*
 
 ## Basahin ang brief nang dalawang beses. Tapos basahin mo ulit.
 

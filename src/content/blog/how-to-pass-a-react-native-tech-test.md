@@ -16,7 +16,7 @@ I review React Native tech test submissions. I've seen what gets people hired an
 
 This post is the advice I'd give a friend before they submitted a take-home test. Not theory. Specific, practical things that move you from "maybe" to "yes."
 
-*I wrote about why I redesigned a tech test from the hiring manager's perspective in [a separate post](/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/). This one is the other side: how to pass one.*
+*I wrote about why I redesigned a tech test from the hiring manager's perspective in [a separate post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). This one is the other side: how to pass one.*
 
 ## Read the brief twice. Then read it again.
 
