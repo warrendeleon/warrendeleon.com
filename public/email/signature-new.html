@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Email Signature Preview</title></head>
+<body style="background:#f0f0f0; padding:40px; font-family:Arial, sans-serif;">
+
+<div style="max-width:520px; margin:0 auto; text-align:center; margin-bottom:20px;">
+<button onclick="copySignature()" id="copy-btn" style="background:#6dc402; color:#fff; border:none; padding:12px 28px; border-radius:8px; font-size:16px; font-weight:700; cursor:pointer; font-family:Arial,sans-serif;">Copy signature</button>
+</div>
+
+<div style="max-width:520px; margin:0 auto; background:#fff; padding:30px; border-radius:8px;">
+
+<!-- ===== SIGNATURE START ===== -->
+<div data-signature style="font-family:Arial, Helvetica, sans-serif; color:#111;">
+
+<p style="margin:0 0 18px 0; font-size:14px; color:#555;">Regards,</p>
+
+<table cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse; width:100%;">
+<tr>
+<td style="width:4px; padding:0;"><img src="https://warrendeleon.com/email/img/bar-green.png" width="4" height="135" style="display:block; border-radius:2px;" alt=""/></td>
+<td style="width:16px;"></td>
+<td style="width:135px; vertical-align:top; padding-right:18px;">
+<img alt="Warren de Leon" src="https://warrendeleon.com/images/warren-deleon-headshot.jpg" width="135" height="135" style="border-radius:12px; display:block; object-fit:cover;"/>
+</td>
+<td style="vertical-align:top;">
+<div style="font-size:18px; font-weight:700; color:#111; margin-bottom:1px;">Warren de Leon</div>
+<div style="font-size:14px; color:#555; margin-bottom:10px;">Software Engineering Manager</div>
+
+<table cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;">
+<tr>
+<td style="padding-right:6px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-phone-green.png" width="20" height="20" alt="" style="display:block;"/>
+</td>
+<td style="vertical-align:middle;">
+<a href="tel:+447510084239" style="text-decoration:none; color:#333; font-size:14px;">+44 7510 084239</a>
+</td>
+</tr>
+<tr><td colspan="2" style="height:4px;"></td></tr>
+<tr>
+<td style="padding-right:6px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-globe-green.png" width="20" height="20" alt="" style="display:block;"/>
+</td>
+<td style="vertical-align:middle;">
+<a href="https://warrendeleon.com" style="text-decoration:none; color:#6dc402; font-size:14px; font-weight:700;">warrendeleon.com</a>
+</td>
+</tr>
+</table>
+
+<div style="margin-top:12px;">
+<a href="https://www.linkedin.com/in/warrendeleon/" style="text-decoration:none; display:inline-block; margin-right:10px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-linkedin.png" width="24" height="24" alt="LinkedIn" style="display:block; border-radius:4px;"/>
+</a>
+<a href="https://github.com/warrendeleon" style="text-decoration:none; display:inline-block; margin-right:10px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-github.png" width="24" height="24" alt="GitHub" style="display:block; border-radius:4px;"/>
+</a>
+<a href="https://www.instagram.com/warren_deleon/" style="text-decoration:none; display:inline-block; margin-right:10px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-instagram.png" width="24" height="24" alt="Instagram" style="display:block; border-radius:4px;"/>
+</a>
+<a href="https://x.com/warren_deleon" style="text-decoration:none; display:inline-block; margin-right:10px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-x.png" width="24" height="24" alt="X" style="display:block; border-radius:4px;"/>
+</a>
+<a href="https://www.facebook.com/warren.deleon/" style="text-decoration:none; display:inline-block; margin-right:10px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-facebook.png" width="24" height="24" alt="Facebook" style="display:block; border-radius:4px;"/>
+</a>
+<a href="https://wa.me/447510084239" style="text-decoration:none; display:inline-block; margin-right:10px; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-whatsapp.png" width="24" height="24" alt="WhatsApp" style="display:block; border-radius:4px;"/>
+</a>
+<a href="https://telegram.me/warrendeleon" style="text-decoration:none; display:inline-block; vertical-align:middle;">
+<img src="https://warrendeleon.com/email/img/fa-telegram.png" width="24" height="24" alt="Telegram" style="display:block; border-radius:4px;"/>
+</a>
+</div>
+
+</td>
+</tr>
+</table>
+
+<div style="margin-top:14px;">
+<a href="https://warrendeleon.com" style="text-decoration:none;">
+<img alt="warrendeleon.com" src="https://warrendeleon.com/images/logo.gif" height="28" style="display:block;"/>
+</a>
+</div>
+
+<div style="margin-top:14px; padding-top:10px; border-top:1px solid #eee;">
+<p style="margin:0; font-size:10px; color:#bbb; line-height:1.4;">
+This email is intended only for the addressee. If received in error, please delete it and notify the sender.
+</p>
+</div>
+
+</div>
+<!-- ===== SIGNATURE END ===== -->
+
+</div>
+<script>
+function copySignature() {
+  var sig = document.querySelector('[data-signature]');
+  var range = document.createRange();
+  range.selectNodeContents(sig);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  document.execCommand('copy');
+  sel.removeAllRanges();
+  var btn = document.getElementById('copy-btn');
+  btn.textContent = 'Copied!';
+  btn.style.background = '#555';
+  setTimeout(function() { btn.textContent = 'Copy signature'; btn.style.background = '#6dc402'; }, 2000);
+}
+</script>
+</body>
+</html>
