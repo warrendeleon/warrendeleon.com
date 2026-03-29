@@ -4,7 +4,8 @@
     "workExperience": "Karanasan sa Trabaho",
     "cv": "CV",
     "bookACall": "Mag-book ng Tawag",
-    "blog": "Blog"
+    "blog": "Blog",
+    "education": "Edukasyon"
   },
   "home": {
     "title": "Warren de Leon",
@@ -50,6 +51,28 @@
   "footer": {
     "copyright": "Lahat ng karapatan ay nakalaan.",
     "backToTop": "Bumalik sa itaas"
+  },
+  "blog": {
+    "latestPost": "Pinakabagong artikulo",
+    "minRead": "min basahin",
+    "backToBlog": "Bumalik sa blog",
+    "contents": "Nilalaman",
+    "sharePost": "Ibahagi:",
+    "copyLink": "Kopyahin ang link",
+    "copied": "Nakopya!",
+    "copyCode": "Kopyahin",
+    "codeCopied": "Nakopya!",
+    "relatedPosts": "Mga kaugnay na artikulo",
+    "previous": "Nakaraan",
+    "next": "Susunod",
+    "viewProfile": "Tingnan ang profile",
+    "noPostsYet": "Wala pang mga artikulo. Bumalik ka mamaya.",
+    "postsTagged": "May tag na:",
+    "post": "artikulo",
+    "posts": "mga artikulo",
+    "filterByTag": "I-filter ayon sa tag",
+    "authorBio": "Software Engineering Manager sa Hargreaves Lansdown. Sumusulat tungkol sa engineering leadership, React Native, at pagbuo ng magagandang team.",
+    "clientProjects": "Mga proyekto sa kliyente"
   },
   "seo": {
     "homeTitle": "Warren de Leon | Software Engineering Manager",

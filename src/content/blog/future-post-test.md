@@ -2,6 +2,7 @@
 title: "Upcoming: thoughts on SAFe for mobile teams"
 description: "A look at how SAFe works (and doesn't) for mobile engineering teams."
 publishDate: 2027-01-01
+draft: true
 tags: ["leadership", "agile", "safe"]
 ---
 

@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t, getLocalePath } from '../../i18n/index';
+import type { Locale } from '../../i18n/index';
+import { getReadingTime } from '../../utils/readingTime';
+import { getPostSlug, formatBlogDate, toDateString } from '../../utils/blogHelpers';
+
+interface Props {
+  locale: Locale;
+  posts: any[];
+  tag: string;
+}
+
+const { locale, posts, tag } = Astro.props;
+const i18n = t(locale);
+const blogPath = getLocalePath(locale, '/blog/');
+---
+
+<BaseLayout
+  title={`${i18n.blog.postsTagged} ${tag} | Warren de Leon`}
+  description={`${i18n.blog.postsTagged} ${tag}`}
+  locale={locale}
+  currentPath={getLocalePath(locale, `/blog/tag/${tag}/`)}
+>
+  <section class="section">
+    <div class="container">
+      <div class="tag-page-header">
+        <a href={blogPath} class="blog-back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          {i18n.blog.backToBlog}
+        </a>
+        <h1 class="section-heading">{i18n.blog.postsTagged} {tag}</h1>
+        <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
+      </div>
+
+      <div class="blog-grid">
+        {posts.map(post => (
+          <a
+            href={getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)}
+            class="blog-card"
+            data-publish-date={toDateString(post.data.publishDate)}
+          >
+            {post.data.heroImage && (
+              <div class="blog-card-image">
+                <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} loading="lazy" />
+              </div>
+            )}
+            <div class="blog-card-content">
+              <span class="blog-card-meta">
+                {formatBlogDate(post.data.publishDate, locale)} &middot; {getReadingTime(post.body ?? '')} {i18n.blog.minRead}
+              </span>
+              <h2 class="blog-card-title">{post.data.title}</h2>
+              <p class="blog-card-desc">{post.data.description}</p>
+              <div class="blog-card-tags">
+                {post.data.tags.map(t => (
+                  <span class="blog-tag">{t}</span>
+                ))}
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p id="blog-empty" class="blog-empty" style="display: none;">{i18n.blog.noPostsYet}</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+(function () {
+  function filterPosts() {
+    var now = new Date();
+    var todayStr = now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
+    var cards = document.querySelectorAll('.blog-card[data-publish-date]');
+    var visibleCount = 0;
+    cards.forEach(function (card) {
+      var publishStr = card.getAttribute('data-publish-date');
+      if (publishStr > todayStr) {
+        card.style.display = 'none';
+      } else {
+        visibleCount++;
+      }
+    });
+    var emptyMsg = document.getElementById('blog-empty');
+    if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+    var countEl = document.querySelector('.tag-page-count');
+    if (countEl) {
+      if (visibleCount === 0) { countEl.style.display = 'none'; }
+    }
+  }
+  filterPosts();
+})();
+</script>
+
+<style is:global>
+  .tag-page-header { margin-bottom: 2rem; }
+  .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
+  .tag-page-header .blog-back-link:hover { color: var(--color-green); gap: 0.6rem; }
+  .tag-page-count { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; }
+</style>

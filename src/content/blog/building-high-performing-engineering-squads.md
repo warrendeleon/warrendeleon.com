@@ -2,6 +2,7 @@
 title: "Building high-performing engineering squads"
 description: "What I've learned about squad dynamics, psychological safety, and delivery cadence after managing multiple engineering teams at Sky."
 publishDate: 2026-03-25
+draft: true
 tags: ["leadership", "engineering-management", "teams"]
 heroImage: "/images/blog/engineering-squads.jpg"
 heroAlt: "Building high-performing engineering squads"

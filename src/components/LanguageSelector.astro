@@ -20,6 +20,12 @@ function getPathForLocale(targetLocale: Locale, path: string): string {
       break;
     }
   }
+
+  // Blog tag pages have translated tags, so link to the blog listing instead
+  if (/^\/blog\/tag\//.test(cleanPath)) {
+    return getLocalePath(targetLocale, '/blog/');
+  }
+
   return getLocalePath(targetLocale, cleanPath);
 }
 ---

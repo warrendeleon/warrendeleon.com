@@ -1,0 +1,13 @@
+---
+import BlogListing from '../../components/blog/BlogListing.astro';
+import { getPostsForLocale } from '../../utils/blogHelpers';
+
+export async function getStaticPaths({ paginate }: any) {
+  const posts = await getPostsForLocale('en');
+  return paginate(posts, { pageSize: 12 });
+}
+
+const { page } = Astro.props;
+---
+
+<BlogListing locale="en" page={page} />
