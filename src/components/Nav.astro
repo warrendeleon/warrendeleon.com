@@ -89,15 +89,28 @@ const navLinks = [
   }
 
   .nav-menu {
-    display: flex;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-primary);
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     gap: 2rem;
-    flex: 1;
-    justify-content: flex-end;
+    z-index: 55;
+  }
+
+  .nav-menu.open {
+    display: flex;
   }
 
   .nav-links {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     list-style: none;
     gap: 1.5rem;
   }
@@ -105,7 +118,7 @@ const navLinks = [
   .nav-link {
     color: var(--text-primary);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     padding: 0.25rem 0;
     position: relative;
     transition: color 0.2s ease;
@@ -134,7 +147,7 @@ const navLinks = [
   }
 
   .hamburger {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: 5px;
     background: none;
@@ -164,71 +177,6 @@ const navLinks = [
     transform: translateY(-7px) rotate(-45deg);
   }
 
-  @media (max-width: 1024px) {
-    .hamburger {
-      display: flex;
-    }
-
-    .nav-menu {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: var(--bg-primary);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      z-index: 55;
-    }
-
-    .nav-menu.open {
-      display: flex;
-    }
-
-    .nav-links {
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-link {
-      font-size: 1.2rem;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .nav-menu {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: var(--bg-primary);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      z-index: 55;
-    }
-
-    .nav-menu.open {
-      display: flex;
-    }
-
-    .nav-links {
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-link {
-      font-size: 1.2rem;
-    }
-  }
 </style>
 
 <script>
