@@ -6,6 +6,8 @@ tags: ["engineering-management", "hiring", "react-native"]
 locale: en
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Redesigning a tech test for React Native hiring"
+
+
 ---
 
 ## A test built for a different time

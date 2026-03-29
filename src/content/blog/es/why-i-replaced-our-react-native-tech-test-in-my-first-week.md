@@ -6,6 +6,8 @@ tags: ["gestión-de-ingeniería", "contratación", "react-native"]
 locale: es
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
+
+
 ---
 
 ## Una prueba pensada para otro momento

@@ -6,6 +6,8 @@ tags: ["engineering-management", "pagkuha-ng-empleyado", "react-native"]
 locale: tl
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Pagre-redesign ng tech test para sa React Native hiring"
+
+
 ---
 
 ## Isang test na gawa para sa ibang panahon
