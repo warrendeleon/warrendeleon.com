@@ -46,19 +46,22 @@ const cleanPath = getCleanPath(currentPath);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
 
+    <link rel="alternate" type="application/rss+xml" title="Warren de Leon | Blog" href="/rss.xml" />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType || "website"} />
     <meta property="og:url" content={`https://warrendeleon.com${currentPath}`} />
     <meta property="og:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.jpg"} />
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
     <meta property="og:locale" content={locale} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content={ogImage ? "summary_large_image" : "summary"} />
     <meta name="twitter:site" content="@warren_deleon" />
     <meta name="twitter:creator" content="@warren_deleon" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.jpg"} />
-    {ogImage && <meta name="twitter:card" content="summary_large_image" />}
 
     {locales.map(loc => (
       <link

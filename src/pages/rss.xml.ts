@@ -1,21 +1,23 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
+import type { APIContext } from 'astro';
+import { getPostsForLocale, getPostSlug } from '../utils/blogHelpers';
 
-export async function GET(context: any) {
+export async function GET(context: APIContext) {
   const now = new Date();
-  const posts = (await getCollection('blog'))
-    .filter(post => !post.data.draft && post.data.publishDate <= now)
-    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+  const posts = (await getPostsForLocale('en')).filter(
+    post => post.data.publishDate <= now,
+  );
 
   return rss({
-    title: 'Warren de Leon',
-    description: 'Articles on software engineering, team leadership, and mobile development.',
-    site: context.site,
+    title: 'Warren de Leon | Blog',
+    description:
+      'Writing about engineering leadership, React Native, and building great teams.',
+    site: context.site!,
     items: posts.map(post => ({
       title: post.data.title,
       pubDate: post.data.publishDate,
       description: post.data.description,
-      link: `/blog/${post.id}/`,
+      link: `/blog/${getPostSlug(post.id)}/`,
     })),
   });
 }
