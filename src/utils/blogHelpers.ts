@@ -16,8 +16,10 @@ const dateLocaleMap: Record<Locale, string> = {
  * sorted by publish date descending (newest first).
  */
 export async function getPostsForLocale(locale: Locale) {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
   return (await getCollection('blog'))
-    .filter(post => !post.data.draft && (post.data.locale || 'en') === locale)
+    .filter(post => !post.data.draft && (post.data.locale || 'en') === locale && post.data.publishDate <= now)
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 }
 
