@@ -60,10 +60,14 @@ const year = new Date().getFullYear();
   }
 
   .footer-nav a {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 500;
     color: var(--text-secondary);
     transition: color 0.2s ease;
+    padding: 0.5rem 0.25rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .footer-nav a:hover {
@@ -74,7 +78,8 @@ const year = new Date().getFullYear();
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
     font-weight: 500;
     color: var(--text-muted);
     transition: color 0.2s ease;
@@ -85,7 +90,7 @@ const year = new Date().getFullYear();
   }
 
   .footer-copy {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
   }
 </style>
