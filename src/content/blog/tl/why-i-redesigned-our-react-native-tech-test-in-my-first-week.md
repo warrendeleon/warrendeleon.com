@@ -106,3 +106,5 @@ Mag-design ng test na sumasalamin sa totoong trabaho. Bigyan ang mga candidate n
 > Ang combination ng maalalahanin na take-home code at structured walkthrough, mas maraming signal ang nakukuha mo sa dalawang oras kaysa sa kahit anong live coding exercise sa dalawang araw.
 
 *Kung naghahanda ka para sa React Native tech test, sumulat ako ng kasama nitong post na may mga practical na advice: [Paano pumasa sa React Native tech test](/tl/blog/how-to-pass-a-react-native-tech-test/).*
+
+*Kung naghahanda ka para sa React Native tech test, sumulat ako ng kasama nitong post na may mga practical na advice: [Paano pumasa sa React Native tech test](/tl/blog/how-to-pass-a-react-native-tech-test/).*
