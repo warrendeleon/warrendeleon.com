@@ -106,3 +106,5 @@ Dissenya una prova que reflecteixi la feina real. Dona als candidats un starter 
 > La combinació de codi take-home ben pensat i un walkthrough estructurat et dona més senyal en dues hores que qualsevol exercici de live coding en dos dies.
 
 *Si t'estàs preparant per a una prova tècnica de React Native, vaig escriure un post complementari amb consells pràctics: [Com aprovar una prova tècnica de React Native](/ca/blog/how-to-pass-a-react-native-tech-test/).*
+
+*Si t'estàs preparant per a una prova tècnica de React Native, vaig escriure un post complementari amb consells pràctics: [Com aprovar una prova tècnica de React Native](/ca/blog/how-to-pass-a-react-native-tech-test/).*

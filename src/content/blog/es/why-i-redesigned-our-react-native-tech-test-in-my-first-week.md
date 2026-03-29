@@ -106,3 +106,5 @@ Diseñá una prueba que refleje el trabajo real. Dale a los candidatos un starte
 > La combinación de código take-home bien pensado y un walkthrough estructurado te da más señal en dos horas que cualquier ejercicio de live coding en dos días.
 
 *Si te estás preparando para una prueba técnica de React Native, escribí un post complementario con consejos prácticos: [Cómo aprobar una prueba técnica de React Native](/es/blog/how-to-pass-a-react-native-tech-test/).*
+
+*Si te estás preparando para una prueba técnica de React Native, escribí un post complementario con consejos prácticos: [Cómo aprobar una prueba técnica de React Native](/es/blog/how-to-pass-a-react-native-tech-test/).*
