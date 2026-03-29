@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Redirect old blog post URL to new one
+RewriteRule ^blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/?$ /blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ [R=301,L]
+RewriteRule ^es/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/?$ /es/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ [R=301,L]
+RewriteRule ^ca/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/?$ /ca/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ [R=301,L]
+RewriteRule ^tl/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/?$ /tl/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ [R=301,L]
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Custom 404
+ErrorDocument 404 /404.html
