@@ -1,12 +1,12 @@
 ---
 title: "Why I replaced our React Native tech test in my first week"
-description: "I joined Hargreaves Lansdown as Engineering Manager and immediately changed the hiring process. Here's why the old test wasn't working and what I built instead."
+description: "I joined Hargreaves Lansdown as Engineering Manager and one of my first projects was rethinking the hiring process for platform roles. Here's what I learned and what I built."
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "react-native"]
 locale: en
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Redesigning a tech test for React Native hiring"
-hiringUrl: "https://www.linkedin.com/jobs/view/4391097156/"
+hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 ---
 
@@ -27,25 +27,25 @@ I needed the test to answer different questions:
 - Do they write **tests** because they care about working software, or because someone told them to?
 - Can they sit across from me and explain *why* they built it that way?
 
-The existing test wasn't designed to answer these. So I built a new one.
+The existing test was designed for different questions. I needed to build something around ours.
 
-## Live coding is broken
+## The limits of live coding
 
-Here's the thing about live coding: it doesn't test engineering ability. **It tests performance anxiety.**
+Live coding can tell you whether someone codes comfortably under observation. For some roles, that matters. For ours, I needed to see something different.
 
 I've been on both sides. As recently as January this year, I bombed a live coding exercise for a role I was perfectly qualified for. The problem was simple. I knew how to solve it. But with someone watching my every keystroke, my mind went blank. *I didn't pass.*
 
-As an interviewer, I've watched the same thing happen to candidates. Brilliant engineers who freeze on problems they'd solve in five minutes if no one was staring at them. The format selects for people who perform well under artificial pressure, not people who write good software.
+As an interviewer, I've watched the same thing happen to candidates. Strong engineers who freeze on problems they'd solve in five minutes at their own desk. Live coding measures composure under observation. That's a valid signal for some roles, but it wasn't the signal I needed.
 
-For a platform engineering role, where the work is architecture decisions, design system components, and CI/CD pipelines, live coding makes even less sense. I don't need someone who can type fast under pressure. **I need someone who can think clearly with time and context.**
+For a platform engineering role, where the work is architecture decisions, design system components, and CI/CD pipelines, I wanted to see how candidates approach problems with time and context. **The kind of thinking the job actually requires.**
 
 ## Showing vs telling
 
 The previous process also included a technical questionnaire. The interviewer would pick questions from a reference sheet covering React Native architecture, state management, testing strategies, and platform differences, then compare answers against expected responses. Sometimes candidates would naturally cover the topics during the live coding, and the interviewer would skip those questions.
 
-These are all valid topics. They're *exactly* the things I want my engineers to understand. But asking someone to explain a concept in an interview tells you whether they can **recall and articulate** knowledge. It doesn't tell you whether they can **apply it** under real conditions.
+These are all valid topics. They're *exactly* the things I want my engineers to understand. Asking someone to explain a concept tells you whether they understand the theory. Seeing how they apply it in their own code gives you a different kind of signal.
 
-The new process tests the same topics through the candidate's own code. I don't need to ask *"how would you structure navigation in a complex app?"* when I can open their submission and see how they actually structured it. I don't need to ask about their testing approach when I can run their test suite. The walkthrough conversation still covers architecture, trade-offs, and technical depth, but it's grounded in something the candidate *built*, not something they *rehearsed*.
+The new process tests the same topics through the candidate's own code. Instead of asking *"how would you structure navigation in a complex app?"*, I can open their submission and see how they approached it, then have a richer conversation about the choices they made. The walkthrough still covers architecture, trade-offs, and technical depth, but it's grounded in something the candidate *built*.
 
 ## What I built instead
 
@@ -65,15 +65,15 @@ Four principles guided the design:
 
 The take-home code is half the evaluation. The other half is a walkthrough call: the candidate **demos the app**, runs their tests live, and walks through the code.
 
-This is where you separate people who *wrote* the code from people who *assembled* it. And in the age of AI-generated code, that distinction matters more than ever.
+This is where you learn how deeply someone understands what they built. In the age of AI-assisted development, that understanding matters more than ever.
 
 Three things I'm looking for:
 
-**Ownership.** *"Navigate to the file where you handle the API response."* If they wrote it, they'll jump straight there. If they assembled it from generated snippets, they'll fumble. You can tell within sixty seconds.
+**Ownership.** *"Navigate to the file where you handle the API response."* If they wrote it, they'll jump straight there. If they're not fully comfortable with the codebase, that becomes clear quickly.
 
 **Trade-off thinking.** I ask about every significant decision. *"Why this state management approach?"* The answer I want isn't "because it's the best." The answer I want is *"because it fits this scope, but here's where it would break down, and here's what I'd move to."* Engineers who think in trade-offs build better systems than engineers who think in absolutes.
 
-**Self-awareness.** *"What would you change if you had more time?"* Strong candidates light up at this question. They have a list. They know where they cut corners. They know what's fragile. They've been thinking about improvements since they submitted. Weaker candidates say *"I'm happy with it"* and move on.
+**Self-awareness.** *"What would you change if you had more time?"* Strong candidates light up at this question. They have a list. They know where they cut corners. They know what's fragile. They've been thinking about improvements since they submitted. Less experienced candidates tend to say *"I'm happy with it"* and move on.
 
 ## Structured scoring
 
@@ -89,9 +89,9 @@ For senior hires, there's an additional **system design** conversation. No white
 
 It's a conversation between two engineers, not a performance for an audience. The best candidates **push back** on my assumptions and ask clarifying questions. That's exactly the behaviour I want from a senior on the team.
 
-## Week one results
+## Early days
 
-I've been at HL for less than a week. I've already hired a Senior Engineer through the existing process (that happened on day two, before the new test was ready). But going forward, the new process is the standard for all React Native hiring across the UCX-Core tribe. My peer EM, who runs another squad, reviewed the test and the scorecard and agreed to adopt it for his team's hires too. That's the advantage of a well-documented system: **it scales beyond one manager's squad.**
+In my first week at HL, I hired a Senior Engineer through the existing process (that happened on day two, before the new test was ready). Going forward, the new process is the standard for all React Native hiring across the UCX-Core tribe. My peer EM, who runs another squad, reviewed the test and the scorecard and agreed to adopt it for his team's hires too. That's the advantage of a well-documented system: **it scales beyond one manager's squad.**
 
 I'm about to hire two Software Engineers using the new process. Every candidate will get the same test, the same starter project, the same evaluation criteria, and the same scoring rubric. The bias surface area shrinks when you standardise.
 
@@ -99,8 +99,10 @@ I'm about to hire two Software Engineers using the new process. Every candidate 
 
 If you're joining a new team as an engineering manager, **look at the hiring process early**. Don't wait until you've "learned the codebase" or "understood the culture." Hiring is one of the highest-leverage activities you have. Every person you bring on shapes the team for years.
 
-And if your tech test no longer matches what you're hiring for, change it. Don't let inertia keep a process in place just because it's familiar.
+And if your tech test no longer matches what you're hiring for, it's worth revisiting. The best hiring processes evolve alongside the team's needs.
 
 Design a test that mirrors the actual job. Give candidates a starter project so you're testing *engineering*, not *configuration*. Make the requirements clear but let them make their own decisions. Then sit across from them and ask ***why***.
 
 > The combination of thoughtful take-home code and a structured walkthrough gives you more signal in two hours than any live coding exercise gives you in two days.
+
+*If you're preparing for a React Native tech test, I wrote a companion post with practical advice: [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).*

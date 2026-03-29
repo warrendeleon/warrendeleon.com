@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const locale = 'ca' as const;
+
+const openRoles = [
+  {
+    title: 'Software Engineer — React Native',
+    team: 'Mobile Platform, UCX-Core',
+    location: 'Londres, Regne Unit (Híbrid)',
+    url: 'https://www.linkedin.com/jobs/view/4391097156/',
+  },
+];
+---
+
+<BaseLayout
+  title="Uneix-te a l'equip | Warren de Leon"
+  description="Vacants obertes a l'equip de Mobile Platform a Hargreaves Lansdown. Rols de React Native a Londres, Regne Unit."
+  locale={locale}
+  currentPath="/ca/hiring/"
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-heading">Uneix-te a l'equip</h1>
+
+      <div class="hiring-intro">
+        <p>Estic contractant per a l'squad de <strong>Mobile Platform</strong> a <strong>Hargreaves Lansdown</strong>. Estem reconstruint l'app mòbil d'HL en React Native, una migració brownfield des de les apps natives d'iOS i Android. L'equip de plataforma és el propietari de l'arquitectura, els components compartits i els pipelines de CI/CD a través dels quals tots els squads mòbils fan les seves entregues.</p>
+        <p>Si vols treballar amb React Native a escala en un equip que valora l'arquitectura neta, el testing sòlid i la veritable ownership, fes un cop d'ull als rols oberts.</p>
+      </div>
+
+      {openRoles.length > 0 ? (
+        <div class="hiring-roles">
+          <h2 class="hiring-roles-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            Rols oberts
+          </h2>
+          <div class="hiring-role-grid">
+            {openRoles.map(role => (
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card">
+                <div class="hiring-role-content">
+                  <h3 class="hiring-role-title">{role.title}</h3>
+                  <span class="hiring-role-team">{role.team}</span>
+                  <span class="hiring-role-location">{role.location}</span>
+                </div>
+                <span class="hiring-role-cta">
+                  Aplicar a LinkedIn
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div class="hiring-empty">
+          <p>No hi ha rols oberts en aquest moment. Torna aviat, o connecta amb mi a <a href="https://www.linkedin.com/in/warrendeleon/" target="_blank" rel="noopener noreferrer">LinkedIn</a> per assabentar-te de futures vacants.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

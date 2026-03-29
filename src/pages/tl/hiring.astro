@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const locale = 'tl' as const;
+
+const openRoles = [
+  {
+    title: 'Software Engineer — React Native',
+    team: 'Mobile Platform, UCX-Core',
+    location: 'London, UK (Hybrid)',
+    url: 'https://www.linkedin.com/jobs/view/4391097156/',
+  },
+];
+---
+
+<BaseLayout
+  title="Sumali sa team | Warren de Leon"
+  description="Mga bukas na engineering positions sa Mobile Platform team sa Hargreaves Lansdown. React Native roles sa London, UK."
+  locale={locale}
+  currentPath="/tl/hiring/"
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-heading">Sumali sa team</h1>
+
+      <div class="hiring-intro">
+        <p>Nagha-hire ako para sa <strong>Mobile Platform</strong> squad sa <strong>Hargreaves Lansdown</strong>. Nire-rebuild namin ang mobile app ng HL sa React Native, isang brownfield migration mula sa existing native iOS at Android apps. Ang platform team ang may-ari ng architecture, shared components, at CI/CD pipelines na ginagamit ng lahat ng mobile squads para mag-ship.</p>
+        <p>Kung gusto mong magtrabaho sa React Native at scale sa isang team na nagpapahalaga sa malinis na architecture, matibay na testing, at tunay na ownership, tingnan mo ang mga bukas na role sa baba.</p>
+      </div>
+
+      {openRoles.length > 0 ? (
+        <div class="hiring-roles">
+          <h2 class="hiring-roles-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            Mga bukas na role
+          </h2>
+          <div class="hiring-role-grid">
+            {openRoles.map(role => (
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card">
+                <div class="hiring-role-content">
+                  <h3 class="hiring-role-title">{role.title}</h3>
+                  <span class="hiring-role-team">{role.team}</span>
+                  <span class="hiring-role-location">{role.location}</span>
+                </div>
+                <span class="hiring-role-cta">
+                  Mag-apply sa LinkedIn
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div class="hiring-empty">
+          <p>Walang bukas na role sa ngayon. Bumalik ka soon, o mag-connect sa akin sa <a href="https://www.linkedin.com/in/warrendeleon/" target="_blank" rel="noopener noreferrer">LinkedIn</a> para malaman ang mga susunod na vacancies.</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>

@@ -27,11 +27,17 @@ const navLinks = [
       <img src="/images/logo.gif" alt="Warren de Leon" class="nav-logo-img" />
     </a>
 
-    <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+    <div class="nav-right">
+      <div class="nav-actions">
+        <ThemeToggle />
+        <LanguageSelector locale={locale} currentPath={currentPath} />
+      </div>
+      <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
 
     <div class="nav-menu" id="nav-menu">
       <ul class="nav-links">
@@ -46,10 +52,6 @@ const navLinks = [
           </li>
         ))}
       </ul>
-      <div class="nav-actions">
-        <ThemeToggle />
-        <LanguageSelector locale={locale} currentPath={currentPath} />
-      </div>
     </div>
   </div>
 </nav>
@@ -80,6 +82,12 @@ const navLinks = [
   }
 
 
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
   .nav-menu {
     display: flex;
     align-items: center;
@@ -97,7 +105,7 @@ const navLinks = [
   .nav-link {
     color: var(--text-primary);
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     padding: 0.25rem 0;
     position: relative;
     transition: color 0.2s ease;
@@ -192,10 +200,6 @@ const navLinks = [
   }
 
   @media (max-width: 768px) {
-    .hamburger {
-      display: flex;
-    }
-
     .nav-menu {
       display: none;
       position: fixed;
