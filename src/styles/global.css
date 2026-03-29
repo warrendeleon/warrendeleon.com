@@ -190,7 +190,7 @@ h4 { font-size: 1.25rem; }
   display: inline-block;
   padding: 0.4rem 0.9rem;
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: 600;
   background: var(--badge-bg);
   color: var(--badge-text);
@@ -274,7 +274,7 @@ h4 { font-size: 1.25rem; }
 }
 
 .role-date {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
 .role-desc {
@@ -322,7 +322,7 @@ main {
 
 @media (max-width: 768px) {
   .cv-embed { display: none; }
-  .cv-mobile-note { display: block; text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem; }
+  .cv-mobile-note { display: block; text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem; }
 }
 
 /* Work detail prev/next nav */
@@ -341,7 +341,7 @@ main {
   align-items: center;
   gap: 0.5rem;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   transition: color 0.2s ease;
 }
@@ -424,11 +424,61 @@ main {
   color: var(--text-primary);
   font-weight: 500;
   font-size: 1.1rem;
+  position: relative;
 }
 
 .prose blockquote p:last-child {
   margin-bottom: 0;
 }
+
+/* Callout blockquotes */
+.prose blockquote.callout {
+  padding-left: 3.5rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.prose blockquote.callout::before {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* Red flag */
+.prose blockquote.callout-danger {
+  border-left-color: #e53e3e;
+  background: rgba(229, 62, 62, 0.06);
+}
+.prose blockquote.callout-danger::before { content: '🚩'; }
+[data-theme="dark"] .prose blockquote.callout-danger { background: rgba(229, 62, 62, 0.12); }
+
+/* Tip */
+.prose blockquote.callout-tip {
+  border-left-color: #f59e0b;
+  background: var(--bg-secondary);
+}
+.prose blockquote.callout-tip::before { content: '💡'; }
+[data-theme="dark"] .prose blockquote.callout-tip { background: var(--bg-secondary); }
+
+/* Warning */
+.prose blockquote.callout-warning {
+  border-left-color: #d69e2e;
+  background: rgba(214, 158, 46, 0.06);
+}
+.prose blockquote.callout-warning::before { content: '⚠️'; }
+[data-theme="dark"] .prose blockquote.callout-warning { background: rgba(214, 158, 46, 0.12); }
+
+/* Info */
+.prose blockquote.callout-info {
+  border-left-color: #3182ce;
+  background: rgba(49, 130, 206, 0.06);
+}
+.prose blockquote.callout-info::before { content: 'ℹ️'; }
+[data-theme="dark"] .prose blockquote.callout-info { background: rgba(49, 130, 206, 0.12); }
 
 .prose code {
   background: var(--code-bg);
@@ -497,12 +547,12 @@ main {
   border: none;
   border-radius: 0;
   padding: 1.25rem 1rem;
-  background: var(--code-bg);
+  background: var(--code-bg) !important;
 }
 
 .prose pre {
   position: relative;
-  background: var(--code-bg);
+  background: var(--code-bg) !important;
   padding: 1.25rem 1rem;
   border-radius: 10px;
   overflow-x: auto;
@@ -510,18 +560,29 @@ main {
   border: 1px solid var(--border-color);
 }
 
+/* Shiki dual theme: map data-theme to Shiki colour scheme */
+[data-theme="dark"] .astro-code,
+[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+}
+
 .prose pre code {
-  background: none;
+  background: none !important;
   padding: 0;
   border-radius: 0;
   border: none;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   line-height: 1.7;
   counter-reset: line;
 }
 
 .prose pre code .line {
   display: inline;
+}
+
+.prose pre.plain-code code .line::before {
+  display: none;
 }
 
 .prose pre code .line::before {

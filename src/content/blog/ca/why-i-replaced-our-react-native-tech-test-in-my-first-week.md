@@ -1,6 +1,6 @@
 ---
 title: "Per què vaig canviar la nostra prova tècnica de React Native la meva primera setmana"
-description: "Em vaig incorporar com a Engineering Manager i vaig canviar el procés de contractació immediatament. Aquí explico per què la prova anterior no funcionava i què vaig construir al seu lloc."
+description: "Em vaig incorporar com a Engineering Manager i un dels meus primers projectes va ser repensar el procés de contractació per a rols de plataforma. Aquí explico què vaig aprendre i què vaig construir."
 publishDate: 2026-03-29
 tags: ["gestió-d-enginyeria", "contractació", "react-native"]
 locale: ca
@@ -27,25 +27,25 @@ Necessitava que la prova respongués preguntes diferents:
 - Escriuen **tests** perquè els importa que el software funcioni, o perquè algú els ho ha dit?
 - Poden seure davant meu i explicar *per què* ho van construir així?
 
-La prova existent no estava dissenyada per respondre això. Així que en vaig construir una de nova.
+La prova existent estava dissenyada per a preguntes diferents. Necessitava construir alguna cosa al voltant de les nostres.
 
-## El live coding està trencat
+## Els límits del live coding
 
-La veritat sobre el live coding: no avalua capacitat d'enginyeria. **Avalua ansietat escènica.**
+El live coding et diu si algú programa còmodament mentre l'observen. Per a alguns rols, això importa. Per al nostre, necessitava veure una altra cosa.
 
 He estat als dos costats. Tan recentment com el gener d'aquest any, vaig fer un desastre en un exercici de live coding per a un lloc per al qual estava perfectament qualificat. El problema era senzill. Sabia com resoldre'l. Però amb algú observant cada tecla que premia, el meu cap es va quedar en blanc. *No vaig passar.*
 
-Com a entrevistador, he vist el mateix passar-li a candidats. Enginyers brillants que es bloquegen en problemes que resoldrien en cinc minuts si ningú els estigués mirant. El format selecciona gent que rendeix bé sota pressió artificial, no gent que escriu bon software.
+Com a entrevistador, he vist el mateix passar-li a candidats. Enginyers capaços que es bloquegen en problemes que resoldrien en cinc minuts asseguts al seu escriptori. El live coding mesura la compostura sota observació. És un senyal vàlid per a alguns rols, però no era el senyal que jo necessitava.
 
-Per a un rol d'enginyeria de plataforma, on la feina són decisions d'arquitectura, components de design system i pipelines de CI/CD, el live coding té encara menys sentit. No necessito algú que tecleji ràpid sota pressió. **Necessito algú que pensi amb claredat quan té temps i context.**
+Per a un rol d'enginyeria de plataforma, on la feina són decisions d'arquitectura, components de design system i pipelines de CI/CD, volia veure com els candidats aborden els problemes amb temps i context. **El tipus de pensament que la feina realment requereix.**
 
 ## Mostrar vs. explicar
 
 El procés anterior també incloïa un qüestionari tècnic. L'entrevistador triava preguntes d'un full de referència que cobria arquitectura React Native, state management, estratègies de testing i diferències de plataforma, i després comparava les respostes amb les esperades. De vegades els candidats cobrien els temes de manera natural durant el live coding, i l'entrevistador se saltava aquelles preguntes.
 
-Tots són temes vàlids. Són *exactament* les coses que vull que els meus enginyers entenguin. Però demanar a algú que expliqui un concepte en una entrevista et diu si poden **recordar i articular** coneixement. No et diu si poden **aplicar-lo** en condicions reals.
+Tots són temes vàlids. Són *exactament* les coses que vull que els meus enginyers entenguin. Demanar a algú que expliqui un concepte et diu si entén la teoria. Veure com l'aplica en el seu propi codi et dóna un senyal diferent.
 
-El nou procés avalua els mateixos temes a través del codi del candidat. No necessito preguntar *"com estructuraries la navegació en una app complexa?"* quan puc obrir la seva entrega i veure com la van estructurar realment. No necessito preguntar pel seu enfocament de testing quan puc executar la seva suite de tests. La conversa de walkthrough segueix cobrint arquitectura, trade-offs i profunditat tècnica, però està ancorada en quelcom que el candidat *va construir*, no en quelcom que *va assajar*.
+El nou procés avalua els mateixos temes a través del codi del candidat. En lloc de preguntar *"com estructuraries la navegació en una app complexa?"*, puc obrir la seva entrega i veure com la van abordar, i després tenir una conversa més rica sobre les decisions que van prendre. El walkthrough segueix cobrint arquitectura, trade-offs i profunditat tècnica, però està ancorat en quelcom que el candidat *va construir*.
 
 ## Què vaig construir al seu lloc
 
@@ -65,15 +65,15 @@ Quatre principis van guiar el disseny:
 
 El codi del take-home és la meitat de l'avaluació. L'altra meitat és una trucada de walkthrough: el candidat **fa demo de l'app**, executa els seus tests en directe i recorre el codi.
 
-Aquí és on separes la gent que *va escriure* el codi de la gent que el *va muntar*. I en l'era del codi generat per IA, aquesta distinció importa més que mai.
+Aquí és on aprens com de profundament algú entén el que va construir. En l'era del desenvolupament assistit per IA, aquesta comprensió importa més que mai.
 
 Tres coses que busco:
 
-**Ownership.** *"Navega al fitxer on gestiones la resposta de l'API."* Si el van escriure, hi aniran directament. Si el van muntar a partir de snippets generats, dubtaran. T'adones en seixanta segons.
+**Ownership.** *"Navega al fitxer on gestiones la resposta de l'API."* Si el van escriure, hi aniran directament. Si no se senten del tot còmodes amb el codi, això es nota ràpidament.
 
 **Pensament en trade-offs.** Pregunto per cada decisió significativa. *"Per què aquest enfocament de state management?"* La resposta que vull no és "perquè és el millor." La resposta que vull és *"perquè s'ajusta a aquest abast, però aquí és on es trencaria, i aquí és cap a on migraria."* Els enginyers que pensen en trade-offs construeixen millors sistemes que els que pensen en absoluts.
 
-**Autoconsciència.** *"Què canviaries si tinguessis més temps?"* Els candidats forts s'il·luminen amb aquesta pregunta. Tenen una llista. Saben on van tallar cantonades. Saben què és fràgil. Han estat pensant en millores des que van entregar. Els candidats més febles diuen *"n'estic content"* i segueixen endavant.
+**Autoconsciència.** *"Què canviaries si tinguessis més temps?"* Els candidats forts s'il·luminen amb aquesta pregunta. Tenen una llista. Saben on van tallar cantonades. Saben què és fràgil. Han estat pensant en millores des que van entregar. Els candidats amb menys experiència solen dir *"n'estic content"* i segueixen endavant.
 
 ## Avaluació estructurada
 
@@ -89,9 +89,9 @@ Per a contractacions senior, hi ha una conversa addicional de **system design**.
 
 És una conversa entre dos enginyers, no una actuació per a un públic. Els millors candidats **qüestionen** els meus supòsits i fan preguntes de clarificació. Aquest és exactament el comportament que vull d'un senior a l'equip.
 
-## Resultats de la primera setmana
+## Primers dies
 
-Porto menys d'una setmana en el rol. Ja he contractat un Senior Engineer a través del procés existent (això va passar el segon dia, abans que la nova prova estigués llesta). Però d'ara endavant, el nou procés és l'estàndard per a tota contractació de React Native a l'organització. El meu company EM, que lidera un altre squad, va revisar la prova i el scorecard i va acceptar adoptar-lo per a les contractacions del seu equip també. Aquest és l'avantatge d'un sistema ben documentat: **escala més enllà de l'squad d'un sol manager.**
+En la meva primera setmana, vaig contractar un Senior Engineer a través del procés existent (això va passar el segon dia, abans que la nova prova estigués llesta). D'ara endavant, el nou procés és l'estàndard per a tota contractació de React Native a l'organització. El meu company EM, que lidera un altre squad, va revisar la prova i el scorecard i va acceptar adoptar-lo per a les contractacions del seu equip també. Aquest és l'avantatge d'un sistema ben documentat: **escala més enllà de l'squad d'un sol manager.**
 
 Estic a punt de contractar dos Software Engineers amb el nou procés. Cada candidat rebrà la mateixa prova, el mateix starter project, els mateixos criteris d'avaluació i la mateixa rúbrica de puntuació. La superfície de biaix es redueix quan estandarditzes.
 
@@ -99,8 +99,10 @@ Estic a punt de contractar dos Software Engineers amb el nou procés. Cada candi
 
 Si t'estàs incorporant a un equip nou com a engineering manager, **mira el procés de contractació aviat**. No esperis fins que hagis "après el codebase" o "entès la cultura." La contractació és una de les activitats de més palanquejament que tens. Cada persona que incorpores dona forma a l'equip durant anys.
 
-I si la teva prova tècnica ja no reflecteix el que estàs buscant, canvia-la. No deixis que la inèrcia mantingui un procés només perquè és familiar.
+I si la teva prova tècnica ja no reflecteix el que estàs buscant, val la pena revisar-la. Els millors processos de contractació evolucionen al costat de les necessitats de l'equip.
 
 Dissenya una prova que reflecteixi la feina real. Dona als candidats un starter project perquè estiguis avaluant *enginyeria*, no *configuració*. Fes els requisits clars però deixa'ls prendre les seves pròpies decisions. Després seu davant d'ells i pregunta ***per què***.
 
 > La combinació de codi take-home ben pensat i un walkthrough estructurat et dona més senyal en dues hores que qualsevol exercici de live coding en dos dies.
+
+*Si t'estàs preparant per a una prova tècnica de React Native, vaig escriure un post complementari amb consells pràctics: [Com aprovar una prova tècnica de React Native](/ca/blog/how-to-pass-a-react-native-tech-test/).*
