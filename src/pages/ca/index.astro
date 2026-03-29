@@ -84,10 +84,10 @@ const jsonLd = {
               {formatDateRange(latestPosition.startDate, latestPosition.endDate, locale)}
             </p>
             {latestPosition.description && (
-              <p class="role-desc mt-2">{latestPosition.description}</p>
+              <p class="role-desc mt-2">{latestPosition.description.split('\n\n')[0]}</p>
             )}
-            <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-outline mt-3">
-              {i18n.home.viewWorkExperience}
+            <a href={getLocalePath(locale, `/work/${slugify(currentRole.company)}/`)} class="btn btn-outline mt-3">
+              {i18n.home.viewFullDetails}
             </a>
           </div>
         </div>
