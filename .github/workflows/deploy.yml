@@ -19,11 +19,27 @@ jobs:
       - run: npx astro build
 
       - name: Deploy to IONOS
+        env:
+          IONOS_USER: ${{ secrets.IONOS_USER }}
+          IONOS_PASS: ${{ secrets.IONOS_PASSWORD }}
+          IONOS_HOST: ${{ secrets.IONOS_HOST }}
         run: |
           sudo apt-get install -y lftp
-          lftp -u "${{ secrets.IONOS_USER }},${{ secrets.IONOS_PASSWORD }}" \
-            -e "set ssl:verify-certificate no; set sftp:auto-confirm yes; mirror -R --delete --exclude email/ dist/ clickandbuilds/warrendeleon/; quit" \
-            sftp://${{ secrets.IONOS_HOST }}
+          python3 -c "
+          import os
+          user=os.environ['IONOS_USER']
+          pw=os.environ['IONOS_PASS']
+          host=os.environ['IONOS_HOST']
+          script=f'''set ssl:verify-certificate no
+          set sftp:auto-confirm yes
+          open -u {user},{pw} sftp://{host}
+          mirror -R --delete --exclude email/ dist/ clickandbuilds/warrendeleon/
+          quit
+          '''
+          with open('/tmp/lftp-script.txt','w') as f: f.write(script)
+          "
+          lftp -f /tmp/lftp-script.txt
+          rm -f /tmp/lftp-script.txt
 
       - name: Purge Cloudflare cache
         run: |
