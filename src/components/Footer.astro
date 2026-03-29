@@ -22,7 +22,16 @@ const year = new Date().getFullYear();
         <li><a href={getLocalePath(locale, '/book-a-call/')}>{i18n.nav.bookACall}</a></li>
       </ul>
     </nav>
-    <SocialLinks size={18} />
+    <div class="footer-social-row">
+      <SocialLinks size={18} />
+      <a href="/rss.xml" class="footer-rss" aria-label="RSS feed" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 11a9 9 0 0 1 9 9"></path>
+          <path d="M4 4a16 16 0 0 1 16 16"></path>
+          <circle cx="5" cy="19" r="1"></circle>
+        </svg>
+      </a>
+    </div>
     <a href="#" class="back-to-top">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="12" y1="19" x2="12" y2="5"></line>
@@ -71,6 +80,27 @@ const year = new Date().getFullYear();
   }
 
   .footer-nav a:hover {
+    color: var(--color-green);
+  }
+
+  .footer-social-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-rss {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .footer-rss:hover {
     color: var(--color-green);
   }
 

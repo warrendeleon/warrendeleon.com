@@ -17,6 +17,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# scripts (contain credentials)
+deploy.sh
+publish-devto.sh
+
 # macOS-specific files
 .DS_Store
 
