@@ -1,0 +1,18 @@
+---
+import BlogPost from '../../../components/blog/BlogPost.astro';
+import { render } from 'astro:content';
+import { getPostsForLocale, getPostSlug } from '../../../utils/blogHelpers';
+
+export async function getStaticPaths() {
+  const posts = await getPostsForLocale('tl');
+  return posts.map(post => ({
+    params: { id: getPostSlug(post.id) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<BlogPost locale="tl" post={post} Content={Content} headings={headings} />
