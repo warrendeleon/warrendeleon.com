@@ -15,9 +15,11 @@ const dateLocaleMap: Record<Locale, string> = {
  * Returns all published (non-draft) blog posts for a given locale,
  * sorted by publish date descending (newest first).
  */
-export async function getPostsForLocale(locale: Locale) {
+export async function getPostsForLocale(locale: Locale, includeFuture = false) {
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
   return (await getCollection('blog'))
-    .filter(post => !post.data.draft && (post.data.locale || 'en') === locale)
+    .filter(post => !post.data.draft && (post.data.locale || 'en') === locale && (includeFuture || post.data.publishDate <= now))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 }
 
