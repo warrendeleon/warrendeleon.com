@@ -19,9 +19,11 @@ jobs:
       - run: npx astro build
 
       - name: Deploy to IONOS
+        env:
+          SSHPASS: ${{ secrets.IONOS_PASSWORD }}
         run: |
           sudo apt-get install -y sshpass
-          sshpass -p '${{ secrets.IONOS_PASSWORD }}' rsync -avz --exclude='email/' --delete \
+          sshpass -e rsync -avz --exclude='email/' --delete \
             -e 'ssh -o StrictHostKeyChecking=no -o PreferredAuthentications=password' \
             dist/ ${{ secrets.IONOS_USER }}@${{ secrets.IONOS_HOST }}:clickandbuilds/warrendeleon/
 
