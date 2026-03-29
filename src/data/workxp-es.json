@@ -6,12 +6,26 @@
     "positions": [
       {
         "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
-        "title": "Software Engineering Manager",
+        "title": "Engineering Manager — Mobile Platform",
         "startDate": "2026-03",
         "endDate": "",
-        "description": "",
-        "responsibilities": null,
-        "technologies": null
+        "description": "Lidero el squad de Mobile Platform dentro de la tribu UCX-Core, parte de la división de Digital Product Engineering de Hargreaves Lansdown. Mi equipo está construyendo la nueva app móvil de HL en React Native desde cero, reemplazando las apps nativas existentes de iOS y Android. Somos los responsables de la arquitectura de la plataforma que todos los equipos móviles de HL utilizan.\n\nEs un proyecto brownfield: las apps existentes, construidas en Swift (iOS) y Kotlin (Android) con APIs REST, se están migrando progresivamente a React Native con GraphQL. El equipo construye módulos de puente nativos para integrar pantallas de React Native en las shells nativas existentes. HL gestiona más de 150.000 millones de libras en inversiones de clientes, haciendo que la app móvil sea uno de los puntos de contacto más críticos para más de un millón de usuarios activos. El rol es 50% entrega técnica y 50% gestión de personas y talento, colaborando con un Product Manager para impulsar la hoja de ruta del squad.",
+        "responsibilities": [
+          "Propiedad de la Plataforma: Diseñando y construyendo la plataforma móvil fundacional, incluyendo federación de módulos, componentes del sistema de diseño, pipelines de CI/CD y herramientas de experiencia de desarrollo que otros squads adoptarán.",
+          "Liderazgo de Personas: Gestionando un squad pequeño y de alto rendimiento de ingenieros sénior y de nivel medio. Enfocado en coaching, progresión profesional y crear un entorno donde los ingenieros puedan hacer su mejor trabajo.",
+          "Dirección Técnica: Definiendo la estrategia de arquitectura móvil, tomando decisiones técnicas clave sobre gestión de estado, navegación, infraestructura de testing e integración con GraphQL de los servicios backend de HL.",
+          "Contratación y Formación de Equipo: Escribiendo descripciones de puestos, liderando el proceso de contratación e incorporando nuevos ingenieros al squad durante una fase crítica de crecimiento del hub de ingeniería de HL en Londres.",
+          "Entrega y Calidad: Siguiendo el ritmo de entrega, gestionando la deuda técnica y manteniendo altos estándares de ingeniería en toda la plataforma móvil. Construyendo la infraestructura de testing incluyendo tests E2E, APIs mock y utilidades de test compartidas.",
+          "Colaboración Multifuncional: Colaborando con Producto, Diseño y otros squads de la tribu (Web Platform, Portfolio & Accounts) para alinear capacidades compartidas de la plataforma y la hoja de ruta de transformación digital."
+        ],
+        "technologies": {
+          "languages": ["TypeScript", "Swift", "Kotlin"],
+          "frameworks": ["React Native", "React Native Bridging (Brownfield)", "Apollo Client (GraphQL)", "React Navigation"],
+          "testing": { "unit": ["Jest", "React Native Testing Library"], "e2e": ["Appium"] },
+          "tools": ["Xcode", "Android Studio", "Git"],
+          "ci": null,
+          "methodology": ["Modelo Tribu/Squad"]
+        }
       }
     ]
   },
@@ -24,8 +38,8 @@
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
-        "endDate": "2026-03",
-        "description": "Lidero dos squads de ingeniería dentro del Agile Release Train Join, Onboard, Engage (JOE ART) basado en SAFe, parte del Portfolio Cross-Product Sales Experience de Sky. Mis responsabilidades abarcan propiedad de entrega, supervisión técnica, gestión de personas y colaboración interfuncional.",
+        "endDate": "2025-12",
+        "description": "Lideré dos squads de ingeniería dentro del Agile Release Train Join, Onboard, Engage (JOE ART) basado en SAFe, parte del Portfolio Cross-Product Sales Experience de Sky. Mis responsabilidades abarcaban propiedad de entrega, supervisión técnica, gestión de personas y colaboración interfuncional.",
         "responsibilities": [
           "Liderazgo de Personas: Gestiono 10+ ingenieros (permanentes, contratistas y principiantes), con foco en coaching, rendimiento y progresión a través de 1:1s regulares, feedback y mentoría.",
           "Entrega Ágil en SAFe: Opero dentro del framework SAFe, liderando la preparación del PI planning, participando en ART Syncs, colaborando con Product Management, y asegurando previsibilidad y alineación en el release train.",
@@ -60,6 +74,436 @@
           "ci": ["CircleCI"],
           "methodology": ["Scrum", "Kanban"]
         }
+      }
+    ]
+  },
+  {
+    "id": "31e29e56-a6dc-42cf-95b4-12e51c8a3388",
+    "company": "Stadion",
+    "logo": "/images/logos/stadion.svg",
+    "positions": [
+      {
+        "id": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+        "title": "Lead React Native Developer",
+        "startDate": "2022-09",
+        "endDate": "2022-11",
+        "description": "Lideré un equipo que desarrollaba la app Chelsea 5th Stand. Mis tareas diarias consistían en mentorizar a desarrolladores junior, comunicarme con el cliente para entender sus requisitos y redactar/editar historias de usuario y tareas técnicas. Revisaba, planificaba y hacía POCs para verificar la viabilidad de nuevas funcionalidades.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "1519bf4f-73c6-4556-80e3-7cc0bca90396",
+    "company": "Candide",
+    "logo": "/images/logos/candide.svg",
+    "positions": [
+      {
+        "id": "d4e5f6a7-b8c9-0123-def0-456789012345",
+        "title": "Senior Software Engineer",
+        "startDate": "2022-04",
+        "endDate": "2022-07",
+        "description": "Desarrollé las nuevas apps para BabylonStoren y The Newt.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Kanban"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "bfb3c0e3-3e58-4ea6-aa6f-39b52d6d674f",
+    "company": "xDesign",
+    "logo": "/images/logos/xdesign.svg",
+    "positions": [
+      {
+        "id": "e5f6a7b8-c9d0-1234-ef01-567890123456",
+        "title": "Lead React Native Developer",
+        "startDate": "2021-09",
+        "endDate": "2022-04",
+        "description": "Trabajé como Lead React Native Developer en xDesign, entregando proyectos para distintos clientes como FanDuel y Zonal.",
+        "responsibilities": null,
+        "technologies": null
+      },
+      {
+        "id": "6d263e52-5ebf-4394-9ff6-8d9aa9d16690",
+        "title": "Lead React Native Developer",
+        "startDate": "2022-01",
+        "endDate": "2022-04",
+        "description": "Fui ingeniero de software líder para FanDuel, una empresa de apuestas. Lideraba un equipo multifuncional que trabajaba con NodeJS, ReactJS y React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "ReactJS", "Redux", "RxJS", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        },
+        "client": {
+          "name": "Fanduel",
+          "logo": "/images/logos/fanduel.svg"
+        }
+      },
+      {
+        "id": "e0686319-2744-4b1b-abec-b90d0832d0b7",
+        "title": "Senior React Native Developer",
+        "startDate": "2021-09",
+        "endDate": "2021-12",
+        "description": "Formé parte del equipo que trabajaba para un cliente llamado Zonal. Zonal es el proveedor tecnológico de muchos restaurantes como Wetherspoon, PizzaExpress, The Restaurant Group, entre otros. El proyecto consistía en crear un TPV (Terminal Punto de Venta) para tablets.\n\nMe incorporaron como Senior Developer de React Native para liderar el equipo y lograr el lanzamiento de un MVP en 4 meses. Mis tareas principales fueron iniciar el proyecto de React Native en TypeScript y definir la arquitectura. Al mismo tiempo, participé en reuniones de arquitectura sobre cómo xDesign abordaría futuros proyectos de React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": {
+            "unit": ["React Native Testing Library"],
+            "e2e": ["Detox"]
+          },
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["Bitrise"],
+          "methodology": ["Scrum"]
+        },
+        "client": {
+          "name": "Zonal",
+          "logo": "/images/logos/zonal.svg"
+        }
+      }
+    ]
+  },
+  {
+    "id": "86bef9b9-0186-467e-8eac-df5df88131a7",
+    "company": "Concentrix TigerSpike",
+    "logo": "/images/logos/tigerspike.svg",
+    "positions": [
+      {
+        "id": "f6a7b8c9-d0e1-2345-f012-678901234567",
+        "title": "Senior Software Engineer",
+        "startDate": "2021-04",
+        "endDate": "2021-09",
+        "description": "Lideré un squad de transformación que tenía la tarea de convertir las apps Priority Pass, Mastercard Airport Experience y Lounge Key de iOS y Android nativos a React Native.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "React Native",
+            "Redux",
+            "Redux Toolkit",
+            "Redux Thunk",
+            "React Navigation v6"
+          ],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["Bitrise"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "868f37a1-a30b-46b7-985c-6cc9199c6208",
+    "company": "OpenHealth Group",
+    "logo": "/images/logos/openhealth.svg",
+    "positions": [
+      {
+        "id": "a7b8c9d0-e1f2-3456-0123-789012345678",
+        "title": "Senior Software Engineer",
+        "startDate": "2020-11",
+        "endDate": "2021-04",
+        "description": "Mi rol en el equipo era liderar y desarrollar proyectos en React Native para los distintos clientes de OpenHealth. Participé en un proyecto para desarrollar una app que se conectaba a un dispositivo Bluetooth propietario y recopilaba información médica.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git"],
+          "ci": ["CircleCI"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "d399b4a7-0868-487e-b867-2c85f430b883",
+    "company": "BP",
+    "logo": "/images/logos/bp.svg",
+    "positions": [
+      {
+        "id": "b8c9d0e1-f2a3-4567-1234-890123456789",
+        "title": "Senior Software Engineer",
+        "startDate": "2019-11",
+        "endDate": "2020-05",
+        "description": "Mi rol en el equipo era liderar y desarrollar una plataforma que posteriormente sería utilizada por otros proyectos. Usando Lerna y su enfoque de mono-repo, logramos la capacidad de crear una app desde cero simplemente instalando funcionalidades y haciendo una configuración mínima. Con este enfoque, el código repetitivo y el tiempo de desarrollo se redujeron considerablemente. La plataforma creada proporcionaba a cualquier nueva app funcionalidades como: tematización, fuentes, paleta de colores, traducciones, redux-store, analítica, seguridad y una librería de componentes.\n\nAdemás, participé en la creación de la nueva versión de BPme México, utilizando la plataforma recién creada.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git", "Jira"],
+          "ci": ["Azure DevOps"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b90bdfea-2f6b-4268-b7a4-93a7bfc5e6a8",
+    "company": "Shell",
+    "logo": "/images/logos/newmotion.svg",
+    "positions": [
+      {
+        "id": "c9d0e1f2-a3b4-5678-2345-901234567890",
+        "title": "Software Engineer",
+        "startDate": "2018-11",
+        "endDate": "2019-11",
+        "description": "Mi rol en el equipo era desarrollar una app para encontrar puntos de carga para coches eléctricos. Como parte de mis tareas diarias, configuré el proyecto base que el equipo utiliza actualmente y creé los tests unitarios e de integración iniciales para la app usando Detox. Como parte de BDD y TDD, desarrollábamos primero los tests unitarios y de integración antes de crear cualquier componente o pantalla.\n\nAdemás, desarrollé la librería de componentes que usábamos para mostrar nuestros componentes a los equipos de negocio, diseño y QA. También creé la capacidad de cambiar dinámicamente entre los temas de Shell o NewMotion (aplicando automáticamente el estilo correspondiente a todas las pantallas y componentes de la app simplemente seleccionando un tema).",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git", "Jira"],
+          "ci": ["Azure DevOps"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "e33e0393-f6e4-41ae-8d42-6ed42bd52490",
+    "company": "WonderBill",
+    "logo": "/images/logos/wonderbill.svg",
+    "positions": [
+      {
+        "id": "d0e1f2a3-b4c5-6789-3456-012345678901",
+        "title": "Software Engineer",
+        "startDate": "2017-12",
+        "endDate": "2018-11",
+        "description": "Formé parte del equipo de aplicaciones donde desarrollamos la React Web App y la React Native Mobile App. También desarrollé tests de integración para todos los proyectos de React Native en los que participé.\n\n**Proyectos en los que participé:**\n- **Tab Navigator**: La app cambió los diseños de un menú hamburguesa a un tab navigator.\n- **Pantalla Timeline**: Uno de los cambios que acompañó al tab navigator fue reemplazar el Dashboard por un Timeline.\n- **Máquinas Virtuales**: Mejoré nuestro proceso de build creando VMs que ejecutaban nuestros tests de integración, compilaban la app candidata a release de iOS y la subían a iTunes Connect para su publicación en producción.\n- **Pantalla Deals v1**: Primera versión de una nueva pantalla en la app.\n- **Pantalla Deals v2**: Segunda versión de la pantalla de ofertas que muestra al usuario el ahorro total que podría obtener si cambia de un proveedor a otro.\n- **Pantalla Your Deals**: Pantalla que muestra un conjunto de ofertas personalizadas para un usuario específico.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["JavaScript"],
+          "frameworks": ["React Native", "Redux", "Redux Thunk", "React Navigation"],
+          "testing": null,
+          "tools": ["WebStorm", "Xcode", "Android Studio", "Git", "Jira"],
+          "ci": ["Gitlab"],
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "a9afc50f-4a09-4e69-b98c-4019fbf9d415",
+    "company": "Nucleus Central",
+    "logo": "/images/logos/nucleus.svg",
+    "positions": [
+      {
+        "id": "e1f2a3b4-c5d6-7890-4567-123456789012",
+        "title": "Frontend Developer",
+        "startDate": "2017-07",
+        "endDate": "2017-11",
+        "description": "Desarrollaba aplicaciones frontend con Angular 4.\n\n**Proyectos:**\n- **Informed Patients**: Migré una aplicación web desarrollada originalmente en Angular JS 1.x a Angular 4. Esta webapp estaba pensada para buscar el hospital más adecuado según ciertos filtros como tipo de cáncer, tratamiento, etc.\n",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": ["Angular 4", "Webpack"],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "75a4c397-d6b6-4fb9-840f-13419e394498",
+    "company": "Lexel Software Ltd",
+    "logo": "/images/logos/lexel.svg",
+    "positions": [
+      {
+        "id": "f2a3b4c5-d6e7-8901-5678-234567890123",
+        "title": "Multiplatform Developer",
+        "startDate": "2016-09",
+        "endDate": "2017-06",
+        "description": "Desarrollaba aplicaciones web con Angular 4 y aplicaciones móviles Android.\n\n**Proyectos:**\n\n - **Dimble Android App**: Desarrollé una app Android para vender ropa y complementos. Usé Retrofit 2 para las llamadas a la API REST. Usé Glide para la gestión de imágenes. Usé MVC y managers para encapsular la comunicación con el backend. Usé herencia y polimorfismo para lograr un alto nivel de modularización y reutilización en el código. Usé Crashlytics para el análisis y diagnóstico de errores.\n - **Dimble Angular JS WebApp**: Desarrollé un sistema de gestión en Angular 4 para analizar ventas, gestionar productos, etc. La arquitectura usada en este proyecto fue MVP y RxJS para la comunicación entre componentes.\n - **This Is Me Angular JS WebApp**: Desarrollé un sistema de gestión en Angular 4 para administrar admins y usuarios. Con la webapp, el administrador podía bloquear usuarios que tuvieran mal comportamiento en la app de iOS. La arquitectura usada fue MVP y RxJS para la comunicación entre componentes.\n - **Project Cost Calculator Angular JS WebApp y JHipster Backend**: Desarrollé una webapp donde el cliente responde unas preguntas. Tras el cuestionario, el posible cliente obtiene un presupuesto para el proyecto. La arquitectura usada para el proyecto Angular 4 fue MVP y RxJS para la comunicación entre componentes. Usé JHipster para el backend.\n",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript", "Java"],
+          "frameworks": ["Angular JS 4", "Webpack", "Android"],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku", "Android Studio"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "16a33b33-9fc1-4374-8cc8-b107887d5ef1",
+    "company": "All Now Europe S.L.",
+    "logo": "/images/logos/allnowcorp.svg",
+    "positions": [
+      {
+        "id": "a3b4c5d6-e7f8-9012-6789-345678901234",
+        "title": "Frontend Developer",
+        "startDate": "2016-05",
+        "endDate": "2016-09",
+        "description": "Investigué y desarrollé una aplicación web que contenía sub-apps. Cada sub-app tenía componentes reutilizables creados con React, Redux y Redux-Sagas. Los componentes tenían su propio ciclo de vida React+Redux+Saga y se comunicaban entre ellos mediante handlers.\n\nInvestigué un sistema para publicar componentes en un repositorio NPM y descubrí Sinopia. Usando Docker, publiqué mis componentes en un \"servidor de repositorio NPM Sinopia\". Estos eran accesibles mediante instalación NPM en cualquier proyecto.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript"],
+          "frameworks": [
+            "Angular JS 2",
+            "RxJS",
+            "React",
+            "Redux",
+            "Sagas",
+            "Mocha",
+            "Chai",
+            "Gulp",
+            "Webpack"
+          ],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku", "Android Studio"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "bdc79e4b-0f16-4e0d-bf15-65428ac801dc",
+    "company": "Altran",
+    "logo": "/images/logos/altran.svg",
+    "positions": [
+      {
+        "id": "b4c5d6e7-f8a9-0123-7890-456789012345",
+        "title": "Full Stack Developer & Teacher",
+        "startDate": "2015-12",
+        "endDate": "2016-03",
+        "description": "Sabía crear y configurar servicios web REST con seguridad OAuth2 y realizar operaciones CRUD desde un frontend en Angular JS 1.X.\n\nAdemás, me dieron la oportunidad de impartir un curso de 20 horas de JavaScript llamado \"Javascript from beginner to advanced\". Los requisitos del curso eran que el alumno tuviera conocimientos básicos de HTML, CSS y JavaScript. El objetivo era que, a partir de los conocimientos impartidos, el alumno tuviera las herramientas y recursos que le permitieran ser autosuficiente para progresar en su carrera como desarrollador. A partir de este curso, el alumno podía aprender frameworks como Angular JS o Node.js y/o asistir a formación MEAN.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["TypeScript", "Java"],
+          "frameworks": ["Angular JS 2", "Webpack", "Android"],
+          "testing": null,
+          "tools": ["WebStorm", "Git", "Jira", "Heroku", "Android Studio"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "b32665f2-4c85-4b7d-8c02-cf42bb4c8265",
+    "company": "Desigual",
+    "logo": "/images/logos/desigual.svg",
+    "positions": [
+      {
+        "id": "c5d6e7f8-a9b0-1234-8901-567890123456",
+        "title": "Software Developer",
+        "startDate": "2015-08",
+        "endDate": "2015-12",
+        "description": "Fui desarrollador Java para Desigual. Mis tareas consistían en desarrollar mejoras en los schedulers de ATG.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["Java"],
+          "frameworks": ["Oracle ATG 9.4"],
+          "testing": null,
+          "tools": ["Eclipse", "Git", "Jira"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "29f99d9a-72f5-4a6c-a24b-852e2021c10d",
+    "company": "Everis NTT Data",
+    "logo": "/images/logos/everis.svg",
+    "positions": [
+      {
+        "id": "d6e7f8a9-b0c1-2345-9012-678901234567",
+        "title": "Backend Developer",
+        "startDate": "2015-04",
+        "endDate": "2015-06",
+        "description": "Fui desarrollador Java para el cliente \"La CaixaBank\". Everis desarrolló un framework llamado ABSIS basado en Spring y otras tecnologías. Mi tarea era desarrollar aplicaciones Spring Batch para automatizar la ejecución de ciertas tareas.",
+        "responsibilities": null,
+        "technologies": {
+          "languages": ["Java", "UNIX bash shell scripting"],
+          "frameworks": ["Spring Batch Framework", "BEA Weblogic Servers"],
+          "testing": null,
+          "tools": ["IntelliJ IDEA", "Eclipse", "STS", "Maven", "SVN SCM", "Jira"],
+          "ci": null,
+          "methodology": ["Scrum"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "0d387a9f-f6c1-48df-8649-faf3dcf6a939",
+    "company": "Teknon Uroclínica Barcelona",
+    "logo": "/images/logos/teknon.svg",
+    "positions": [
+      {
+        "id": "e7f8a9b0-c1d2-3456-0123-789012345678",
+        "title": "Full Stack Developer",
+        "startDate": "2014-10",
+        "endDate": "2015-04",
+        "description": "Desarrollé un sistema médico utilizando el siguiente stack tecnológico:\n\n - Spring Boot Framework, integración Spring/Hibernate con MySQL y API de Spring MVC Restful Web Services.\n - Android con Material Design UI para Lollipop y compatibilidad con versiones anteriores.\n - OpenShift RedHat Cloud: servidor Apache HTTP + Apache Tomcat 7.\n - Sistema de seguridad completo de extremo a extremo: cifrado AES, CBC y PKCS5 en la base de datos local de Android, comunicación HTTPS cliente/servidor, algoritmo de hashing de Spring Security para la base de datos MySQL remota.\n - Sincronización bidireccional entre la base de datos local de Android y la base de datos MySQL remota mediante API REST. Esta funcionalidad permitía al usuario cambiar entre distintos dispositivos.\n - Herramientas de desarrollo: IntelliJ IDEA, Maven Build System, FindBugs, GitHub y Bitbucket SCMs, plataforma de gestión de proyectos Basecamp. Metodología ágil con un enfoque riguroso de desarrollo iterativo.\n\nLos pacientes, usando sus credenciales, introducían mediciones urológicas en la app Android. La app enviaba esas mediciones al servicio web Spring Boot programado con la API Rest Template. El backend usaba Hibernate para gestionar todos los objetos Java y guardar los datos en la base de datos. Marc Fuentes desarrollaba una app similar con Ionic para cubrir otros sistemas operativos además de Android. Alberto Méndez desarrollaba un sitio web con Angular JS para que los doctores pudieran consultar los datos y ver gráficos filtrando por distintos tipos de ajustes.",
+        "responsibilities": null,
+        "technologies": null
+      }
+    ]
+  },
+  {
+    "id": "057bcc45-c451-4d34-a13b-d01f2f6c1351",
+    "company": "Edenic Games",
+    "logo": "/images/logos/edenic.svg",
+    "positions": [
+      {
+        "id": "f8a9b0c1-d2e3-4567-1234-890123456789",
+        "title": "Android Teacher in Edenic Games",
+        "startDate": "2012-10",
+        "endDate": "2014-07",
+        "description": "Impartí clases de Android en sesiones de formación en inglés por toda Europa como parte del programa internacional \"Smart Employability Program\". Este proyecto tenía como objetivo formar a formadores y profesores en nuevas tecnologías para que, a su vez, pudieran formar a sus alumnos en estas tecnologías y mejorar su empleabilidad en el mercado laboral global. Impartí clases de Android en Barcelona, Berlín, Hameln, Ryde y Piotrków Trybunalski.",
+        "responsibilities": null,
+        "technologies": null
       }
     ]
   }

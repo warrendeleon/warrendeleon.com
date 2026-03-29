@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/index';
+import type { Locale } from '../../i18n/index';
+import education from '../../data/education-ca.json';
+
+const locale: Locale = 'ca';
+const i18n = t(locale);
+
+const qualifications = education.filter(e => e.endDate && e.endDate !== e.startDate);
+const certifications = education.filter(e => !e.endDate || e.endDate === e.startDate);
+---
+
+<BaseLayout
+  title="Formació | Warren de Leon"
+  description="Formació, titulacions i certificacions de Warren de Leon."
+  locale={locale}
+  currentPath="/ca/education/"
+>
+  <section class="section">
+    <div class="container">
+      <h1 class="section-heading">Formació</h1>
+
+      {qualifications.length > 0 && (
+        <div class="edu-section">
+          <h2 class="edu-section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"></path>
+            </svg>
+            Titulacions
+          </h2>
+          <div class="edu-grid">
+            {qualifications.map(item => (
+              <div class="edu-card">
+                <div class="edu-card-logo">
+                  <img src={item.logo} alt="" />
+                </div>
+                <div class="edu-card-content">
+                  <h3 class="edu-card-title">{item.title}</h3>
+                  <span class="edu-card-institution">{item.institution}</span>
+                  <span class="edu-card-date">{item.startDate} — {item.endDate}</span>
+                  {item.description && (
+                    <p class="edu-card-desc">{item.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {certifications.length > 0 && (
+        <div class="edu-section">
+          <h2 class="edu-section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+            Certificacions i Cursos
+          </h2>
+          <div class="edu-grid">
+            {certifications.map(item => (
+              <div class="edu-card">
+                <div class="edu-card-logo">
+                  <img src={item.logo} alt="" />
+                </div>
+                <div class="edu-card-content">
+                  <h3 class="edu-card-title">{item.title}</h3>
+                  <span class="edu-card-institution">{item.institution}</span>
+                  <span class="edu-card-date">{item.startDate}</span>
+                  {item.description && (
+                    <p class="edu-card-desc">{item.description}</p>
+                  )}
+                  {item.certificateUrl && (
+                    <a href={item.certificateUrl} target="_blank" rel="noopener noreferrer" class="edu-card-cert">
+                      Veure certificat
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .edu-section {
+    margin-bottom: 3rem;
+  }
+
+  .edu-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+  }
+
+  .edu-section-title svg {
+    color: var(--color-green);
+  }
+
+  .edu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .edu-card {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .edu-card-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    background: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .edu-card-logo img {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+  }
+
+  .edu-card-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .edu-card-title {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+  }
+
+  .edu-card-institution {
+    font-size: 0.95rem;
+    color: var(--color-green);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+
+  .edu-card-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .edu-card-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .edu-card-cert {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-green);
+    margin-top: 0.5rem;
+    transition: gap 0.2s ease;
+  }
+
+  .edu-card-cert:hover {
+    gap: 0.6rem;
+  }
+
+  @media (max-width: 768px) {
+    .edu-card {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .edu-card-logo {
+      width: 64px;
+      height: 64px;
+    }
+  }
+</style>

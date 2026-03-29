@@ -12,9 +12,10 @@ interface Props {
   canonicalPath?: string;
   jsonLd?: object;
   ogImage?: string;
+  ogType?: string;
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType } = Astro.props;
 
 const siteUrl = 'https://warrendeleon.com';
 const canonical = `${siteUrl}${canonicalPath || currentPath}`;
@@ -47,11 +48,13 @@ const cleanPath = getCleanPath(currentPath);
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType || "website"} />
     <meta property="og:url" content={`https://warrendeleon.com${currentPath}`} />
     <meta property="og:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/avatar.png"} />
     <meta property="og:locale" content={locale} />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@warren_deleon" />
+    <meta name="twitter:creator" content="@warren_deleon" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/avatar.png"} />
@@ -75,6 +78,15 @@ const cleanPath = getCleanPath(currentPath);
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
+
+    <!-- Google Analytics -->
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-8FWR6HT36Y"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8FWR6HT36Y');
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>

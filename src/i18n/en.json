@@ -4,7 +4,8 @@
     "workExperience": "Work Experience",
     "cv": "CV",
     "bookACall": "Book a Call",
-    "blog": "Blog"
+    "blog": "Blog",
+    "education": "Education"
   },
   "home": {
     "title": "Warren de Leon",
@@ -50,6 +51,28 @@
   "footer": {
     "copyright": "All rights reserved.",
     "backToTop": "Back to top"
+  },
+  "blog": {
+    "latestPost": "Latest post",
+    "minRead": "min read",
+    "backToBlog": "Back to blog",
+    "contents": "Contents",
+    "sharePost": "Share this post:",
+    "copyLink": "Copy link",
+    "copied": "Copied!",
+    "copyCode": "Copy",
+    "codeCopied": "Copied!",
+    "relatedPosts": "Related posts",
+    "previous": "Previous",
+    "next": "Next",
+    "viewProfile": "View profile",
+    "noPostsYet": "No posts yet. Check back soon.",
+    "postsTagged": "Posts tagged:",
+    "post": "post",
+    "posts": "posts",
+    "filterByTag": "Filter by tag",
+    "authorBio": "Software Engineering Manager at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.",
+    "clientProjects": "Client projects"
   },
   "seo": {
     "homeTitle": "Warren de Leon | Software Engineering Manager",

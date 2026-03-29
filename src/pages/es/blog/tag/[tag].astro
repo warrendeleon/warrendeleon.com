@@ -1,9 +1,9 @@
 ---
-import BlogTagPage from '../../../components/blog/BlogTagPage.astro';
-import { getPostsForLocale } from '../../../utils/blogHelpers';
+import BlogTagPage from '../../../../components/blog/BlogTagPage.astro';
+import { getPostsForLocale } from '../../../../utils/blogHelpers';
 
 export async function getStaticPaths() {
-  const posts = await getPostsForLocale('en');
+  const posts = await getPostsForLocale('es');
   const tags = [...new Set(posts.flatMap(post => post.data.tags))];
   return tags.map(tag => {
     const tagPosts = posts
@@ -16,4 +16,4 @@ export async function getStaticPaths() {
 const { posts, tag } = Astro.props;
 ---
 
-<BlogTagPage locale="en" posts={posts} tag={tag} />
+<BlogTagPage locale="es" posts={posts} tag={tag} />

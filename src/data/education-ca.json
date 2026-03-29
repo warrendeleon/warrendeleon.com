@@ -1,0 +1,62 @@
+[
+  {
+    "id": "0dad2be7-5c90-48f4-a332-d97c8aebd592",
+    "institution": "Stucom Centre d'Estudis",
+    "logo": "/images/logos/stucom.svg",
+    "title": "Desenvolupament d'Aplicacions Multiplataforma",
+    "startDate": "2014",
+    "endDate": "2016",
+    "description": "Cicle Formatiu de Grau Superior (CFGS) en Desenvolupament d'Aplicacions Multiplataforma. Va abastar Java, Android, bases de dades, enginyeria de programari i gestió de projectes.",
+    "certificateUrl": null
+  },
+  {
+    "id": "c8d37044-1e99-4dcd-878d-446168f25a3f",
+    "institution": "Stucom Centre d'Estudis",
+    "logo": "/images/logos/stucom.svg",
+    "title": "Curs Oracle Certification Associate, Java SE7",
+    "startDate": "2014",
+    "endDate": "2014",
+    "description": "Curs de preparació per a la certificació Oracle Certified Associate Java SE 7 Programmer.",
+    "certificateUrl": null
+  },
+  {
+    "id": "78a074b4-22fd-4d9f-b729-2b3b102099f1",
+    "institution": "Stucom Centre d'Estudis",
+    "logo": "/images/logos/stucom.svg",
+    "title": "Desenvolupament d'Aplicacions Web",
+    "startDate": "2012",
+    "endDate": "2014",
+    "description": "Cicle Formatiu de Grau Superior (CFGS) en Desenvolupament d'Aplicacions Web. Va abastar HTML, CSS, JavaScript, PHP, Java, bases de dades i administració de sistemes.",
+    "certificateUrl": null
+  },
+  {
+    "id": "8240a948-1871-4385-b2a7-e3cf818862a3",
+    "institution": "Stucom Centre d'Estudis",
+    "logo": "/images/logos/stucom.svg",
+    "title": "Sistemes Microinformàtics i Xarxes",
+    "startDate": "2009",
+    "endDate": "2011",
+    "description": "Cicle Formatiu de Grau Mitjà en xarxes, maquinari, sistemes operatius i administració de sistemes microinformàtics.",
+    "certificateUrl": null
+  },
+  {
+    "id": "37e3cfcd-876b-4a13-a440-b1a55aa08d40",
+    "institution": "Udemy",
+    "logo": "/images/logos/udemy.svg",
+    "title": "CircleCI: The complete introduction",
+    "startDate": "2021",
+    "endDate": null,
+    "description": null,
+    "certificateUrl": "https://udemy-certificate.s3.amazonaws.com/image/UC-48287ad9-9737-488f-966f-8dc85aaac0e5.jpg"
+  },
+  {
+    "id": "6934b98f-7aa0-409d-9b8b-e9720cf51530",
+    "institution": "Udemy",
+    "logo": "/images/logos/udemy.svg",
+    "title": "Fastlane for React Native: Deploy your app autonomously!",
+    "startDate": "2021",
+    "endDate": null,
+    "description": null,
+    "certificateUrl": "https://udemy-certificate.s3.amazonaws.com/image/UC-05701626-d6fb-4a5c-825d-756a1d7e655b.jpg"
+  }
+]

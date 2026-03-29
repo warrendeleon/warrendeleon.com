@@ -1,0 +1,442 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t, getLocalePath } from '../../i18n/index';
+import type { Locale } from '../../i18n/index';
+import { getReadingTime } from '../../utils/readingTime';
+import { getPostsForLocale, getPostSlug, formatBlogDate } from '../../utils/blogHelpers';
+
+interface Props {
+  locale: Locale;
+  post: any;
+  Content: any;
+  headings: any[];
+}
+
+const { locale, post, Content, headings } = Astro.props;
+const i18n = t(locale);
+
+const showToc = headings.filter(h => h.depth <= 3).length >= 3;
+const readingTime = getReadingTime(post.body ?? '');
+const postSlug = getPostSlug(post.id);
+const postPath = getLocalePath(locale, `/blog/${postSlug}/`);
+const blogPath = getLocalePath(locale, '/blog/');
+
+const allPosts = await getPostsForLocale(locale);
+const sortedAsc = [...allPosts].sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+
+const currentIndex = sortedAsc.findIndex(p => getPostSlug(p.id) === postSlug);
+const prevPost = currentIndex > 0 ? sortedAsc[currentIndex - 1] : null;
+const nextPost = currentIndex < sortedAsc.length - 1 ? sortedAsc[currentIndex + 1] : null;
+
+const blogPostingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  image: post.data.heroImage ? `https://warrendeleon.com${post.data.heroImage}` : undefined,
+  datePublished: post.data.publishDate.toISOString(),
+  inLanguage: locale,
+  author: {
+    '@type': 'Person',
+    name: 'Warren de Leon',
+    url: 'https://warrendeleon.com',
+  },
+  publisher: {
+    '@type': 'Person',
+    name: 'Warren de Leon',
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://warrendeleon.com${postPath}`,
+  },
+};
+
+const relatedPosts = sortedAsc
+  .filter(p => getPostSlug(p.id) !== postSlug)
+  .map(p => ({
+    post: p,
+    sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
+  }))
+  .filter(p => p.sharedTags > 0)
+  .sort((a, b) => b.sharedTags - a.sharedTags)
+  .slice(0, 3)
+  .map(p => p.post);
+
+const shareUrl = `https://warrendeleon.com${postPath}`;
+---
+
+<BaseLayout
+  title={`${post.data.title} | Warren de Leon`}
+  description={post.data.description}
+  locale={locale}
+  currentPath={postPath}
+  ogImage={post.data.heroImage}
+  ogType="article"
+  jsonLd={blogPostingJsonLd}
+>
+  <!-- Reading progress bar -->
+  <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label={i18n.blog.contents}>
+    <div class="reading-progress-bar"></div>
+  </div>
+
+  {post.data.heroImage && (
+    <div class="post-hero-image">
+      <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} />
+      <div class="post-hero-image-overlay"></div>
+    </div>
+  )}
+
+  <section class="post-hero section-alt" aria-label="Post header">
+    <div class="container">
+      <a href={blogPath} class="blog-back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        {i18n.blog.backToBlog}
+      </a>
+
+      <h1>{post.data.title}</h1>
+
+      <div class="post-meta">
+        <time datetime={post.data.publishDate.toISOString()}>
+          {formatBlogDate(post.data.publishDate, locale)}
+        </time>
+        <span class="post-meta-separator" aria-hidden="true">&middot;</span>
+        <span class="post-meta-reading">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          {readingTime} {i18n.blog.minRead}
+        </span>
+        {post.data.tags.length > 0 && (
+          <>
+            <span class="post-meta-separator" aria-hidden="true">&middot;</span>
+            <div class="post-tags">
+              {post.data.tags.map(tag => (
+                <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="post-tag">{tag}</a>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <article class="section post-content-section">
+    <div class="container">
+      <div class={showToc ? 'post-layout' : ''}>
+        {showToc && (
+          <nav class="toc" aria-label={i18n.blog.contents}>
+            <h3 id="toc-heading">{i18n.blog.contents}</h3>
+            <ul aria-labelledby="toc-heading">
+              {headings.filter(h => h.depth <= 3).map(h => (
+                <li class={`toc-item toc-depth-${h.depth}`}>
+                  <a href={`#${h.slug}`} title={h.text} data-toc-link>{h.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+
+      <div class="author-card">
+        <img src="/images/photos/profile-04.jpg" alt="Warren de Leon" class="author-avatar" />
+        <div class="author-info">
+          <strong>Warren de Leon</strong>
+          <p>{i18n.blog.authorBio}</p>
+          <a href={getLocalePath(locale, '/')} class="author-profile-link">
+            {i18n.blog.viewProfile}
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="share-links" aria-label={i18n.blog.sharePost}>
+        <span>{i18n.blog.sharePost}</span>
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn (opens in new tab)" class="share-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(post.data.title)}`} target="_blank" rel="noopener noreferrer" aria-label="Share on X (opens in new tab)" class="share-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <button class="copy-link-btn share-btn" data-url={shareUrl} aria-label={i18n.blog.copyLink}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          <span>{i18n.blog.copyLink}</span>
+        </button>
+      </div>
+
+      {relatedPosts.length > 0 && (
+        <section class="related-posts" aria-label={i18n.blog.relatedPosts}>
+          <h3>{i18n.blog.relatedPosts}</h3>
+          <div class="related-grid">
+            {relatedPosts.map(rp => (
+              <a href={getLocalePath(locale, `/blog/${getPostSlug(rp.id)}/`)} class="related-card">
+                {rp.data.heroImage && (
+                  <div class="related-card-image">
+                    <img src={rp.data.heroImage} alt={rp.data.heroAlt || rp.data.title} loading="lazy" />
+                  </div>
+                )}
+                <div class="related-card-content">
+                  <time datetime={rp.data.publishDate.toISOString()}>{formatBlogDate(rp.data.publishDate, locale)}</time>
+                  <h4>{rp.data.title}</h4>
+                  <div class="post-tags related-card-tags">
+                    {rp.data.tags.map(tag => (
+                      <span class="post-tag" style="pointer-events: none;">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <nav class="blog-nav" aria-label={`${i18n.blog.previous} / ${i18n.blog.next}`}>
+        {prevPost ? (
+          <a href={getLocalePath(locale, `/blog/${getPostSlug(prevPost.id)}/`)} class="blog-nav-link blog-nav-prev">
+            <span class="blog-nav-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              {i18n.blog.previous}
+            </span>
+            <span class="blog-nav-title">{prevPost.data.title}</span>
+          </a>
+        ) : <span />}
+        {nextPost ? (
+          <a href={getLocalePath(locale, `/blog/${getPostSlug(nextPost.id)}/`)} class="blog-nav-link blog-nav-next">
+            <span class="blog-nav-label">
+              {i18n.blog.next}
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+            <span class="blog-nav-title">{nextPost.data.title}</span>
+          </a>
+        ) : <span />}
+      </nav>
+    </div>
+  </article>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-to-top" aria-label={i18n.blog.viewProfile} hidden>
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
+  <!-- i18n data for scripts -->
+  <div id="blog-i18n"
+    data-copy={i18n.blog.copyCode}
+    data-copied={i18n.blog.codeCopied}
+    data-copy-link={i18n.blog.copyLink}
+    data-link-copied={i18n.blog.copied}
+    hidden
+  />
+</BaseLayout>
+
+<script is:inline>
+/* i18n strings for scripts */
+var i18nEl = document.getElementById('blog-i18n');
+var i18nData = i18nEl ? i18nEl.dataset : {};
+
+/* Copy link button */
+document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    navigator.clipboard.writeText(btn.dataset.url);
+    var label = btn.querySelector('span');
+    if (label) {
+      label.textContent = i18nData.linkCopied || 'Copied!';
+      setTimeout(function() { label.textContent = i18nData.copyLink || 'Copy link'; }, 2000);
+    }
+  });
+});
+
+/* Code block wrappers */
+document.querySelectorAll('.prose pre').forEach(function(pre) {
+  var code = pre.querySelector('code');
+  var lang = code ? (code.getAttribute('data-language') || '') : '';
+  var wrapper = document.createElement('div');
+  wrapper.className = 'code-block-wrapper';
+  var header = document.createElement('div');
+  header.className = 'code-block-header';
+  var langLabel = document.createElement('span');
+  langLabel.className = 'code-block-lang';
+  langLabel.textContent = lang || 'code';
+  var copyIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  var btn = document.createElement('button');
+  btn.className = 'code-copy-btn';
+  btn.innerHTML = copyIcon + '<span>' + (i18nData.copy || 'Copy') + '</span>';
+  btn.setAttribute('aria-label', i18nData.copy || 'Copy');
+  btn.addEventListener('click', function() {
+    var text = code ? code.textContent : pre.textContent;
+    navigator.clipboard.writeText(text);
+    btn.querySelector('span').textContent = i18nData.copied || 'Copied!';
+    setTimeout(function() { btn.querySelector('span').textContent = i18nData.copy || 'Copy'; }, 2000);
+  });
+  header.appendChild(langLabel);
+  header.appendChild(btn);
+  pre.parentNode.insertBefore(wrapper, pre);
+  wrapper.appendChild(header);
+  wrapper.appendChild(pre);
+});
+
+/* Reading progress bar */
+(function() {
+  var bar = document.querySelector('.reading-progress-bar');
+  var progressEl = document.querySelector('.reading-progress');
+  if (!bar || !progressEl) return;
+  function update() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+    bar.style.width = pct + '%';
+    progressEl.setAttribute('aria-valuenow', Math.round(pct));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* TOC active state */
+(function() {
+  var tocLinks = document.querySelectorAll('[data-toc-link]');
+  if (!tocLinks.length) return;
+  var headingEls = [];
+  tocLinks.forEach(function(link) {
+    var id = link.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) headingEls.push({ el: el, link: link });
+  });
+  function updateActive() {
+    var scrollPos = window.scrollY + 100;
+    var current = null;
+    for (var i = 0; i < headingEls.length; i++) {
+      if (headingEls[i].el.offsetTop <= scrollPos) current = headingEls[i];
+    }
+    tocLinks.forEach(function(link) {
+      link.classList.remove('toc-active');
+      link.removeAttribute('aria-current');
+    });
+    if (current) {
+      current.link.classList.add('toc-active');
+      current.link.setAttribute('aria-current', 'true');
+    }
+  }
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
+
+/* Scroll to top */
+(function() {
+  var btn = document.querySelector('.scroll-to-top');
+  if (!btn) return;
+  function toggle() {
+    if (window.scrollY > 400) { btn.hidden = false; } else { btn.hidden = true; }
+  }
+  window.addEventListener('scroll', toggle, { passive: true });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  toggle();
+})();
+</script>
+
+<style is:global>
+  .reading-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 200; background: transparent; }
+  .reading-progress-bar { height: 100%; width: 0; background: var(--color-green); transition: width 0.1s linear; }
+  .post-hero-image { position: relative; width: 100%; max-height: 420px; overflow: hidden; }
+  .post-hero-image img { width: 100%; height: 420px; object-fit: cover; display: block; }
+  .post-hero-image-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to bottom, transparent, var(--bg-secondary)); pointer-events: none; }
+  .post-hero { padding: 2rem 0 1.5rem; background: var(--bg-secondary); margin-bottom: 0; }
+  .post-content-section { padding-top: 1.5rem; }
+  .post-hero h1 { font-size: 2.4rem; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+  .post-meta { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-muted); }
+  .post-meta-separator { color: var(--text-muted); opacity: 0.4; }
+  .post-meta-reading { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .post-meta-reading svg { opacity: 0.6; }
+  .post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .post-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; background: var(--badge-bg); color: var(--badge-text); border: 1px solid var(--border-color); text-decoration: none; transition: border-color 0.2s ease, color 0.2s ease; }
+  .post-tag:hover { border-color: var(--color-green); color: var(--color-green); }
+  .post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; overflow: hidden; }
+  .post-layout > .toc { grid-column: 2; grid-row: 1; }
+  .post-layout > .prose { grid-column: 1; grid-row: 1; }
+  .toc { position: sticky; top: 5rem; padding: 1.25rem; background: var(--bg-secondary); border-radius: 12px; border: 1px solid var(--border-color); overflow: hidden; min-width: 0; }
+  .toc h3 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .toc ul { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--border-color); }
+  .toc li { margin-bottom: 0; }
+  .toc a { font-size: 0.85rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s ease, border-color 0.2s ease; display: block; padding: 0.35rem 0 0.35rem 1rem; line-height: 1.4; border-left: 2px solid transparent; margin-left: -2px; }
+  .toc a:hover { color: var(--color-green); }
+  .toc a.toc-active { color: var(--color-green); border-left-color: var(--color-green); font-weight: 600; }
+  .toc-depth-3 a { padding-left: 2rem; }
+  .blog-back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
+  .blog-back-link:hover { color: var(--color-green); gap: 0.6rem; }
+  .author-card { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; background: var(--bg-secondary); border-radius: 16px; margin-top: 3rem; border: 1px solid var(--border-color); }
+  .author-avatar { width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0; border: 3px solid var(--border-color); }
+  .author-info strong { display: block; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.35rem; }
+  .author-info p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.6rem; }
+  .author-profile-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; color: var(--color-green); font-weight: 600; transition: gap 0.2s ease; }
+  .author-profile-link:hover { gap: 0.6rem; }
+  .share-links { display: flex; align-items: center; gap: 0.75rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; }
+  .share-links > span { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
+  .share-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.85rem; padding: 0.45rem 0.85rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; text-decoration: none; font-weight: 500; transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease; font-family: inherit; }
+  .share-btn:hover { border-color: var(--color-green); color: var(--color-green); transform: translateY(-1px); }
+  .share-btn svg { flex-shrink: 0; }
+  .related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+  .related-posts h3 { font-size: 1.15rem; margin-bottom: 1.25rem; color: var(--text-primary); }
+  .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; }
+  .related-card { border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; color: var(--text-primary); transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; overflow: hidden; }
+  .related-card:hover { border-color: var(--color-green); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+  .related-card-image { width: 100%; height: 140px; overflow: hidden; }
+  .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .related-card:hover .related-card-image img { transform: scale(1.03); }
+  .related-card-content { padding: 1.25rem; }
+  .related-card time { font-size: 0.85rem; color: var(--text-muted); }
+  .related-card h4 { font-size: 1rem; margin-top: 0.35rem; line-height: 1.35; transition: color 0.2s ease; }
+  .related-card:hover h4 { color: var(--color-green); }
+  .related-card-tags { margin-top: 0.75rem; }
+  .blog-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
+  .blog-nav-link { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
+  .blog-nav-link:hover { border-color: var(--color-green); transform: translateY(-2px); }
+  .blog-nav-label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-green); }
+  .blog-nav-title { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); line-height: 1.35; }
+  .blog-nav-next { text-align: right; }
+  .blog-nav-next .blog-nav-label { justify-content: flex-end; }
+  .scroll-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; z-index: 50; }
+  .scroll-to-top:hover { border-color: var(--color-green); color: var(--color-green); transform: translateY(-2px); }
+  .scroll-to-top[hidden] { display: none; }
+
+  @media (max-width: 1200px) {
+    .post-hero h1 { font-size: 1.8rem; }
+    .post-layout { grid-template-columns: 1fr; }
+    .post-layout .prose { max-width: none; }
+    .post-layout > .toc { grid-column: 1; grid-row: auto; }
+    .post-layout > .prose { grid-column: 1; grid-row: auto; }
+    .toc { position: static; margin-bottom: 1rem; }
+  }
+
+  @media (max-width: 768px) {
+    .post-hero h1 { font-size: 1.6rem; }
+    .post-hero-image img { height: 260px; }
+    .post-hero-image { max-height: 260px; }
+    .author-card { flex-direction: column; text-align: center; padding: 1.5rem; }
+    .author-avatar { width: 72px; height: 72px; }
+    .blog-nav { grid-template-columns: 1fr; }
+    .blog-nav-next { text-align: left; }
+    .blog-nav-next .blog-nav-label { justify-content: flex-start; }
+    .share-links { gap: 0.5rem; }
+    .scroll-to-top { bottom: 1.25rem; right: 1.25rem; }
+  }
+</style>

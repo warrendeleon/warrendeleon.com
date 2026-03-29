@@ -6,12 +6,26 @@
     "positions": [
       {
         "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
-        "title": "Software Engineering Manager",
+        "title": "Engineering Manager — Mobile Platform",
         "startDate": "2026-03",
         "endDate": "",
-        "description": "",
-        "responsibilities": null,
-        "technologies": null
+        "description": "Lidero l'squad de Mobile Platform dins de la tribu UCX-Core, part de la divisió de Digital Product Engineering de Hargreaves Lansdown. El meu equip està construint la nova app mòbil d'HL en React Native des de zero, substituint les apps natives existents d'iOS i Android. Som els responsables de l'arquitectura de la plataforma que tots els equips mòbils d'HL utilitzen.\n\nÉs un projecte brownfield: les apps existents, construïdes en Swift (iOS) i Kotlin (Android) amb APIs REST, s'estan migrant progressivament a React Native amb GraphQL. L'equip construeix mòduls de pont natius per integrar pantalles de React Native a les shells natives existents. HL gestiona més de 150.000 milions de lliures en inversions de clients, fent que l'app mòbil sigui un dels punts de contacte més crítics per a més d'un milió d'usuaris actius. El rol és 50% lliurament tècnic i 50% gestió de persones i talent, col·laborant amb un Product Manager per impulsar el full de ruta de l'squad.",
+        "responsibilities": [
+          "Propietat de la Plataforma: Dissenyant i construint la plataforma mòbil fundacional, incloent federació de mòduls, components del sistema de disseny, pipelines de CI/CD i eines d'experiència de desenvolupament que altres squads adoptaran.",
+          "Lideratge de Persones: Gestionant un squad petit i d'alt rendiment d'enginyers sènior i de nivell mitjà. Enfocat en coaching, progressió professional i crear un entorn on els enginyers puguin fer la seva millor feina.",
+          "Direcció Tècnica: Definint l'estratègia d'arquitectura mòbil, prenent decisions tècniques clau sobre gestió d'estat, navegació, infraestructura de testing i integració amb GraphQL dels serveis backend d'HL.",
+          "Contractació i Formació d'Equip: Escrivint descripcions de llocs, liderant el procés de contractació i incorporant nous enginyers a l'squad durant una fase crítica de creixement del hub d'enginyeria d'HL a Londres.",
+          "Lliurament i Qualitat: Seguint el ritme de lliurament, gestionant el deute tècnic i mantenint alts estàndards d'enginyeria a tota la plataforma mòbil. Construint la infraestructura de testing incloent tests E2E, APIs mock i utilitats de test compartides.",
+          "Col·laboració Multifuncional: Col·laborant amb Producte, Disseny i altres squads de la tribu (Web Platform, Portfolio & Accounts) per alinear capacitats compartides de la plataforma i el full de ruta de transformació digital."
+        ],
+        "technologies": {
+          "languages": ["TypeScript", "Swift", "Kotlin"],
+          "frameworks": ["React Native", "React Native Bridging (Brownfield)", "Apollo Client (GraphQL)", "React Navigation"],
+          "testing": { "unit": ["Jest", "React Native Testing Library"], "e2e": ["Appium"] },
+          "tools": ["Xcode", "Android Studio", "Git"],
+          "ci": null,
+          "methodology": ["Model Tribu/Squad"]
+        }
       }
     ]
   },
@@ -24,8 +38,8 @@
         "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
-        "endDate": "2026-03",
-        "description": "Lidero dos squads d'enginyeria dins de l'Agile Release Train Join, Onboard, Engage (JOE ART) basat en SAFe, part del Portfolio Cross-Product Sales Experience de Sky. Les meves responsabilitats abarquen propietat de lliurament, supervisió tècnica, gestió de persones i col·laboració interfuncional.",
+        "endDate": "2025-12",
+        "description": "Vaig liderar dos squads d'enginyeria dins de l'Agile Release Train Join, Onboard, Engage (JOE ART) basat en SAFe, part del Portfolio Cross-Product Sales Experience de Sky. Les meves responsabilitats abarcaven propietat de lliurament, supervisió tècnica, gestió de persones i col·laboració interfuncional.",
         "responsibilities": [
           "Lideratge de Persones: Gestiono 10+ enginyers (permanents, contractistes i principiants), amb focus en coaching, rendiment i progressió a través d'1:1s regulars, feedback i mentoria.",
           "Lliurament Àgil en SAFe: Opero dins del framework SAFe, liderant la preparació del PI planning, participant en ART Syncs, col·laborant amb Product Management, i assegurant previsibilitat i alineació en el release train.",
