@@ -1,5 +1,5 @@
 ---
-title: "Per què vaig canviar la nostra prova tècnica de React Native la meva primera setmana"
+title: "Per què vaig redissenyar la nostra prova tècnica de React Native la meva primera setmana"
 description: "Em vaig incorporar com a Engineering Manager i un dels meus primers projectes va ser repensar el procés de contractació per a rols de plataforma. Aquí explico què vaig aprendre i què vaig construir."
 publishDate: 2026-03-29
 tags: ["gestió-d-enginyeria", "contractació", "react-native"]

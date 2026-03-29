@@ -1,5 +1,5 @@
 ---
-title: "Why I replaced our React Native tech test in my first week"
+title: "Why I redesigned our React Native tech test in my first week"
 description: "I joined as Engineering Manager and one of my first projects was rethinking the hiring process for platform roles. Here's what I learned and what I built."
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "react-native"]

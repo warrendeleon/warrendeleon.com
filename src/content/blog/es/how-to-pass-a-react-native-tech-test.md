@@ -16,7 +16,7 @@ Reviso entregas de pruebas técnicas de React Native. He visto qué hace que con
 
 Este post es el consejo que le daría a un amigo antes de entregar una prueba técnica para hacer en casa. No es teoría. Son cosas específicas y prácticas que te llevan de "tal vez" a "sí."
 
-*Escribí sobre por qué rediseñé una prueba técnica desde la perspectiva del hiring manager en [otro post](/es/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/). Este es el otro lado: cómo aprobar una.*
+*Escribí sobre por qué rediseñé una prueba técnica desde la perspectiva del hiring manager en [otro post](/es/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). Este es el otro lado: cómo aprobar una.*
 
 ## Leé el brief dos veces. Después leelo otra vez.
 
