@@ -6,6 +6,8 @@ tags: ["gestión-de-ingeniería", "contratación", "react-native"]
 locale: es
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
+hiringUrl: "https://www.linkedin.com/jobs/view/4391097156/"
+hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 ---
 
 ## Una prueba pensada para otro momento

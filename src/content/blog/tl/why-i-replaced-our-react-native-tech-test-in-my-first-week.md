@@ -6,6 +6,8 @@ tags: ["engineering-management", "pagkuha-ng-empleyado", "react-native"]
 locale: tl
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Pagre-redesign ng tech test para sa React Native hiring"
+hiringUrl: "https://www.linkedin.com/jobs/view/4391097156/"
+hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 ---
 
 ## Isang test na gawa para sa ibang panahon

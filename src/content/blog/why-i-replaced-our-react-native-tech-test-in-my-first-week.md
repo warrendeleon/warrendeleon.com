@@ -6,6 +6,8 @@ tags: ["engineering-management", "hiring", "react-native"]
 locale: en
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Redesigning a tech test for React Native hiring"
+hiringUrl: "https://www.linkedin.com/jobs/view/4391097156/"
+hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 ---
 
 ## A test built for a different time
