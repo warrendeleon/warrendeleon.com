@@ -4,11 +4,14 @@ import HeroCarousel from '../../components/HeroCarousel.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
 import { t, getLocalePath, slugify, formatDateRange } from '../../i18n/index';
 import workxp from '../../data/workxp-tl.json';
+import { getPostsForLocale, getPostSlug, formatBlogDate } from '../../utils/blogHelpers';
+import { getReadingTime } from '../../utils/readingTime';
 
 const locale = 'tl' as const;
 const i18n = t(locale);
 const currentRole = workxp[0];
 const latestPosition = currentRole.positions[0];
+const latestPosts = (await getPostsForLocale(locale)).slice(0, 2);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -94,5 +97,36 @@ const jsonLd = {
       </div>
     </div>
   </section>
+
+  {latestPosts.length > 0 && (
+    <section class="section section-alt">
+      <div class="container">
+        <h2 class="section-heading">{i18n.home.latestPosts}</h2>
+        <div class="latest-posts-grid">
+          {latestPosts.map(post => {
+            const slug = getPostSlug(post.id);
+            const readingTime = getReadingTime(post.body ?? '');
+            return (
+              <a href={getLocalePath(locale, `/blog/${slug}/`)} class="latest-post-card">
+                {post.data.heroImage && (
+                  <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} class="latest-post-image" loading="lazy" />
+                )}
+                <div class="latest-post-content">
+                  <h3 class="latest-post-title">{post.data.title}</h3>
+                  <p class="latest-post-desc">{post.data.description}</p>
+                  <span class="latest-post-meta">
+                    {formatBlogDate(post.data.publishDate, locale)} · {readingTime} min read
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+        <a href={getLocalePath(locale, '/blog/')} class="btn btn-outline mt-3">
+          {i18n.home.viewAllPosts}
+        </a>
+      </div>
+    </section>
+  )}
 </BaseLayout>
 

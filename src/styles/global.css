@@ -282,6 +282,69 @@ h4 { font-size: 1.25rem; }
   line-height: 1.7;
 }
 
+/* Latest blog posts */
+.latest-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.latest-post-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.latest-post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.latest-post-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.latest-post-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.latest-post-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.latest-post-card:hover .latest-post-title {
+  color: var(--color-green);
+}
+
+.latest-post-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.latest-post-meta {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 /* About section */
 .about-text {
   font-size: 1.05rem;
@@ -662,6 +725,10 @@ main {
 
   .current-role-inner {
     grid-template-columns: 60px 1fr;
+  }
+
+  .latest-posts-grid {
+    grid-template-columns: 1fr;
   }
 
   .about-content {
