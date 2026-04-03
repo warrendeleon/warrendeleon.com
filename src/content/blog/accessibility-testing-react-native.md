@@ -12,7 +12,7 @@ heroAlt: "Accessibility testing in React Native"
 
 Accessibility in React Native usually means "add some `accessibilityLabel` props and hope for the best." Maybe someone runs VoiceOver manually before a release. Maybe they don't.
 
-The result: buttons too small to tap reliably, text with insufficient contrast, forms with no focus order, error messages that screen readers never announce. These aren't edge cases. They affect real users, and in Europe, the European Accessibility Act (EAA) makes them legal requirements.
+The result: buttons too small to tap reliably, text with insufficient contrast, forms with no focus order, error messages that screen readers never announce. These aren't edge cases. They affect real users, and in Europe, the European Accessibility Act (EAA) makes them legal requirements. EAA enforcement started in June 2025. If your app serves EU users, this isn't optional.
 
 The problem isn't that teams don't care. It's that accessibility testing feels manual, slow, and disconnected from the regular test suite. You run your Jest tests, they pass, and nobody checks whether the submit button is 44 points wide.
 
@@ -450,7 +450,7 @@ Each test category maps to a WCAG requirement:
 
 ### Contrast testing
 
-Contrast tests work differently. They don't render components. They validate your colour constants:
+Contrast tests work differently. They don't render components. They validate your design system colour constants. If your colour variables are compliant, every component using them is too:
 
 ```typescript
 // src/test-utils/__tests__/highContrast.rntl.tsx
@@ -557,5 +557,7 @@ What you get: automated regression testing for every WCAG requirement that can b
 These tests don't replace manual accessibility testing. A real user with VoiceOver will find issues that automated tests miss (reading order within complex layouts, gesture conflicts, missing context). But they catch the mechanical regressions: the button that got 2 points smaller, the colour that lost contrast, the error message that lost its live region.
 
 > Automated accessibility tests don't make your app accessible. They keep it accessible after someone changes the code.
+
+*This post covers automated accessibility testing with Jest. For E2E accessibility testing with VoiceOver and TalkBack feature files, see [Detox + Cucumber BDD for React Native E2E testing](/blog/detox-cucumber-bdd-react-native-e2e-testing/). The two approaches complement each other: Jest catches regressions on every PR; Detox validates the full user flow on a real device.*
 
 *The code examples in this post are from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), my personal React Native project. The full accessibility testing utilities, contrast validators, and screen-specific test files are all in the repo.*
