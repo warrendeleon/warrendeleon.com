@@ -1,6 +1,6 @@
 ---
 title: "Com aprovar una prova tècnica de React Native"
-description: "Consells pràctics d'algú que revisa proves tècniques. Què importa de debò, què no, i els errors que costen el lloc als candidats."
+description: "Consells pràctics d'algú que revisa entregues de proves tècniques take-home. Què importa de debò, què no, i els errors que costen el lloc als candidats."
 publishDate: 2026-04-07
 tags: ["react-native", "contractació", "consells-de-carrera"]
 locale: ca
@@ -111,7 +111,7 @@ El que no vull veure:
 
 ## Gestiona els estats de càrrega, error i buit
 
-Això separa els juniors dels mids. Qualsevol pot construir el camí feliç. La pregunta és: què passa quan les coses van malament?
+Aquí és on els candidats destaquen. Qualsevol pot construir el camí feliç. La pregunta és: què passa quan les coses van malament?
 
 **Estats de càrrega:** mostra un spinner o skeleton a la primera càrrega. Mostra un indicador subtil quan es carreguen més dades (paginació). No mostris un spinner de pantalla completa per 100ms.
 
@@ -135,7 +135,7 @@ Això separa els juniors dels mids. Qualsevol pot construir el camí feliç. La 
 
 ## Els edge cases són on destaquis
 
-El camí feliç és el mínim. El que separa una entrega de nivell mid d'una de senior és la gestió d'edge cases:
+El camí feliç és el mínim. El que separa una entrega de nivell Software Engineer d'una de Senior és la gestió d'edge cases:
 
 - **Llista plena?** Què passa quan algú intenta afegir un 7è item? Un toast, un botó deshabilitat, un modal. Qualsevol cosa excepte fallar silenciosament.
 - **Llista buida?** Mostra un estat buit amb sentit, no una pantalla en blanc.
