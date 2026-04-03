@@ -10,13 +10,13 @@ heroAlt: "Configurant MSW v2 a React Native per a testing"
 
 ## Per què MSW en comptes de mocks manuals
 
-La majoria de projectes React Native mockegen la seva capa d'API amb `jest.fn()`. Mockeges `fetch` o la teva instància d'Axios, defineixes què retorna, i testegis contra això.
+La majoria de projectes React Native simulen la seva capa d'API amb `jest.fn()`. Simules `fetch` o la teva instància d'Axios, defineixes què retorna, i proves contra això.
 
 Funciona. Fins que no.
 
-El problema: estàs testejant la interacció del teu codi amb un mock, no amb una capa HTTP. Si el teu client d'API canvia com construeix URLs, afegeix headers o gestiona reintents, el mock no detecta la regressió. El mock sempre retorna el que li has dit, independentment del que el codi realment ha enviat.
+El problema: estàs verificant la interacció del teu codi amb un mock, no amb una capa HTTP. Si el teu client d'API canvia com construeix URLs, afegeix headers o gestiona reintents, el mock no detecta la regressió. El mock sempre retorna el que li has dit, independentment del que el codi realment ha enviat.
 
-**Mock Service Worker (MSW)** intercepta les peticions a nivell de xarxa. El teu codi fa crides HTTP reals. MSW les captura abans que surtin del procés i retorna les teves respostes mockejades. Tot el que hi ha entre el teu component i la xarxa s'exercita: el thunk de Redux, els interceptors d'Axios, la gestió d'errors, el parseig de la resposta.
+**Mock Service Worker (MSW)** intercepta les peticions a nivell de xarxa. El teu codi fa crides HTTP reals. MSW les captura abans que surtin del procés i retorna les teves respostes simulades. Tot el que hi ha entre el teu component i la xarxa s'exercita: el thunk de Redux, els interceptors d'Axios, la gestió d'errors, el parseig de la resposta.
 
 > 💡 **La diferència clau:** els mocks manuals reemplacen el teu codi. MSW reemplaça la xarxa. El teu codi s'executa exactament com ho faria en producció, fins al punt on la petició sortiria del dispositiu.
 
@@ -159,7 +159,7 @@ export const offlineHandlers = [
 
 Al meu projecte, tinc **11 handler sets**:
 
-| Handler set | Status | Què testeja |
+| Handler set | Status | Què verifica |
 |---|---|---|
 | `handlers` | 200 | Respostes exitoses per defecte |
 | `errorHandlers` | 500 | Gestió d'errors del servidor |
@@ -175,11 +175,11 @@ Al meu projecte, tinc **11 handler sets**:
 
 Cada set s'exporta i es pot intercanviar per test.
 
-> 💡 **Consell:** El handler de timeout usa `await new Promise(resolve => setTimeout(resolve, 60000))` per simular una petició que mai acaba. El timeout del teu codi es dispararà primer, testejant el path de gestió de timeout.
+> 💡 **Consell:** El handler de timeout usa `await new Promise(resolve => setTimeout(resolve, 60000))` per simular una petició que mai acaba. El timeout del teu codi es dispararà primer, verificant el path de gestió de timeout.
 
 ## Usant handlers en tests
 
-Els handlers per defecte s'executen automàticament (registrats a `setupServer`). Per testejar escenaris d'error, sobreescriu-los per test:
+Els handlers per defecte s'executen automàticament (registrats a `setupServer`). Per provar escenaris d'error, sobreescriu-los per test:
 
 ```typescript
 import { server } from '@app/test-utils/msw/server';
@@ -206,7 +206,7 @@ L'spread (`...errorHandlers`) reemplaça els handlers que coincideixen. Els hand
 
 ## El wrapper de render personalitzat
 
-MSW funciona millor amb un store real de Redux, no un de mockejat. El punt és testejar la integració completa: component → thunk de Redux → petició HTTP → intercepció de MSW → resposta → actualització d'estat → actualització d'UI.
+MSW funciona millor amb un store real de Redux, no un de simulat. El punt és provar la integració completa: component → thunk de Redux → petició HTTP → intercepció de MSW → resposta → actualització d'estat → actualització d'UI.
 
 ```typescript
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
@@ -275,7 +275,7 @@ it('shows error state on failure', async () => {
 });
 ```
 
-Sense mockeig manual de dispatch, selectors o fetch. Tot l'stack és real excepte la xarxa.
+Sense simulació manual de dispatch, selectors o fetch. Tot l'stack és real excepte la xarxa.
 
 ## Overrides de handlers inline
 
@@ -289,7 +289,7 @@ it('handles unexpected response shape', async () => {
     })
   );
 
-  // Testejar que el codi gestiona respostes malformades correctament
+  // Verificar que el codi gestiona respostes malformades correctament
 });
 ```
 
@@ -327,7 +327,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 ## En resum
 
-Sí. El setup porta uns 30 minuts. Després d'això, cada test nou és més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers són reutilitzables a cada fitxer de test. I estàs testejant comportament d'integració real, no comportament de mocks.
+Sí. El setup porta uns 30 minuts. Després d'això, cada test nou és més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers són reutilitzables a cada fitxer de test. I estàs verificant comportament d'integració real, no comportament de mocks.
 
 Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis.
 

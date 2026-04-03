@@ -159,7 +159,7 @@ export const SupabaseIdentityDataSchema = z.object({
 
 | Método de Zod | Qué hace |
 |---|---|
-| `z.union([A, B])` | Los datos deben matchear A o B |
+| `z.union([A, B])` | Los datos deben coincidir con A o B |
 | `.passthrough()` | Permite campos extra más allá de los definidos |
 | `.nullable()` | Permite que el valor sea null |
 | `.nullish()` | Permite null o undefined |
@@ -401,7 +401,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **No uses `.parse()` en loops de render.** La validación tiene un coste. Parsea una sola vez cuando llegan los datos (en la capa de API), no cada vez que un componente se re-renderiza. Los datos validados y tipados fluyen por Redux y props sin re-validación.
 
-**No ignores la variante segura.** No toda falla de validación debería crashear la app. Si un campo secundario es inválido pero los datos principales están bien, `validateResponseSafe` devuelve null y loguea un warning. La app sigue funcionando con un fallback elegante.
+**No ignores la variante segura.** No todo fallo de validación debería romper la app. Si un campo secundario es inválido pero los datos principales están bien, `validateResponseSafe` devuelve null y registra un warning. La app sigue funcionando con un fallback elegante.
 
 **No te saltes los tests de schemas.** Un schema sin tests es un schema en el que no puedes confiar. El test de validación contra fixtures (`safeParse(mockData)`) es tu canario en la mina. Si falla, o la fixture o el schema están mal. De cualquier manera, necesitas saberlo antes de que la app se publique.
 

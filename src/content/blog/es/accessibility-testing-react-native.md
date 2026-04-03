@@ -12,7 +12,7 @@ heroAlt: "Testing de accesibilidad en React Native"
 
 Accesibilidad en React Native generalmente significa "agregar algunos props `accessibilityLabel` y cruzar los dedos." Igual alguien corre VoiceOver manualmente antes de un release. Igual no.
 
-El resultado: botones demasiado pequeños para tappear de forma fiable, texto con contraste insuficiente, formularios sin orden de foco, mensajes de error que los screen readers nunca anuncian. No son edge cases. Afectan a usuarios reales, y en Europa, el European Accessibility Act (EAA) los convierte en requisitos legales. La aplicación del EAA empezó en junio de 2025. Si tu app tiene usuarios en la UE, esto no es opcional.
+El resultado: botones demasiado pequeños para pulsar de forma fiable, texto con contraste insuficiente, formularios sin orden de foco, mensajes de error que los screen readers nunca anuncian. No son edge cases. Afectan a usuarios reales, y en Europa, el European Accessibility Act (EAA) los convierte en requisitos legales. La aplicación del EAA empezó en junio de 2025. Si tu app tiene usuarios en la UE, esto no es opcional.
 
 El problema no es que a los equipos no les importe. Es que el testing de accesibilidad se siente manual, lento y desconectado del test suite regular. Corres tus tests de Jest, pasan, y nadie verifica si el botón de submit tiene 44 puntos de ancho.
 
@@ -27,7 +27,7 @@ Esta no es una guía para hacer tu app accesible. Es una guía para *testear* qu
 | Tamaño del touch target | 2.5.5 | Verificar `minWidth`/`minHeight` >= 44pt (iOS) o 48dp (Android) |
 | Contraste de color | 1.4.3 | Calcular ratio de luminancia >= 4.5:1 para texto, 3:1 para texto grande |
 | Orden de foco | 2.4.3 | Verificar que `accessibilityOrder` o el orden del DOM coincida con la secuencia esperada |
-| Roles de accesibilidad | 4.1.2 | Asegurar que `accessibilityRole` esté seteado en elementos interactivos |
+| Roles de accesibilidad | 4.1.2 | Asegurar que `accessibilityRole` esté configurado en elementos interactivos |
 | Anuncios de screen reader | 4.1.3 | Verificar `accessibilityLiveRegion` en contenido dinámico |
 | Identificación de errores | 3.3.1 | Verificar que los mensajes de error tengan `role="alert"` y live region |
 | Labels y hints | 3.3.2 | Asegurar que `accessibilityLabel` y `accessibilityHint` existan en inputs de formulario |
@@ -46,7 +46,7 @@ Un solo archivo exporta todos los helpers de accesibilidad. Cada función mapea 
 
 ### Validación de touch targets
 
-La falla de accesibilidad más común en apps mobile: botones e inputs demasiado pequeños para tappear de forma fiable.
+La falla de accesibilidad más común en apps mobile: botones e inputs demasiado pequeños para pulsar de forma fiable.
 
 ```typescript
 // src/test-utils/accessibility.ts
@@ -157,7 +157,7 @@ La función verifica tres capas:
 2. **Props directos** para componentes de GlueStack/NativeWind (`minHeight={50}`, `h="$12"`)
 3. **Valores de tamaño completo** como `w="$full"` o `"100%"` que llenan su contenedor
 
-Los tokens de GlueStack (`$11` = 44px, `$12` = 48px) se resuelven a valores en píxeles automáticamente. Si no existe un tamaño medible y no hay `hitSlop` seteado, la función lanza un error en vez de pasar silenciosamente.
+Los tokens de GlueStack (`$11` = 44px, `$12` = 48px) se resuelven a valores en píxeles automáticamente. Si no existe un tamaño medible y no hay `hitSlop` configurado, la función lanza un error en vez de pasar silenciosamente.
 
 > ⚠️ **Usuarios de GlueStack/NativeWind:** En el entorno de test de Jest, NativeWind normalmente está mockeado, así que los estilos basados en `className` no van a ser visibles. Esta función lee los props de GlueStack directamente de `element.props`, lo cual funciona para valores numéricos (`minHeight={50}`) y tokens de GlueStack (`h="$12"`). Asegúrate de que tus componentes interactivos usen props de tamaño explícitos, no solo layout del padre, para cumplir con los touch targets.
 

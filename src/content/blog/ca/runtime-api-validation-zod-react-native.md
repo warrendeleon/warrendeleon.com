@@ -24,7 +24,7 @@ El resultat: l'app peta en accedir a una propietat, mostra camps buits o emmagat
 
 Zod és una llibreria de declaració i validació d'esquemes. Defineixes un esquema un cop, i et dóna dues coses:
 
-1. **Validació en temps d'execució.** Parseja qualsevol dada `unknown` contra l'esquema. Si no coincideix, obtens un error detallat amb el camp exacte i el motiu.
+1. **Validació en temps d'execució.** Analitza qualsevol dada `unknown` contra l'esquema. Si no coincideix, obtens un error detallat amb el camp exacte i el motiu.
 2. **Tipus TypeScript.** Infereix el tipus directament de l'esquema amb `z.infer`. Sense definicions d'interfície duplicades. El tipus i la validació són la mateixa font de veritat.
 
 ```typescript
@@ -277,9 +277,9 @@ async signIn(request: SupabaseSignInRequest): Promise<SupabaseSession> {
 
 Si el proveïdor d'autenticació canvia el format de la seva resposta, `validateResponse` ho detecta al límit. El missatge d'error inclou `"Supabase Auth signIn"` com a context, així saps quina crida ha fallat sense rastrejar la pila.
 
-## Testejant esquemes
+## Provant esquemes
 
-Els esquemes són unitats testejables. Cada esquema té el seu propi fitxer de test que valida contra dades fixture reals i comprova el rebuig d'entrades invàlides.
+Els esquemes són unitats provables. Cada esquema té el seu propi fitxer de test que valida contra dades fixture reals i comprova el rebuig d'entrades invàlides.
 
 ```typescript
 // src/schemas/__tests__/profile.schema.rntl.ts
@@ -399,7 +399,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **No defineixis tipus separats dels esquemes.** Si tens una interfície `Profile` i un `ProfileSchema`, divergiran. Usa `z.infer<typeof ProfileSchema>` com a única font de veritat. Elimina la interfície.
 
-**No usis `.parse()` en bucles de renderització.** La validació té un cost. Parseja un cop quan les dades arriben (a la capa d'API), no cada cop que un component es re-renderitza. Les dades validades i tipades flueixen per Redux i props sense re-validació.
+**No usis `.parse()` en bucles de renderització.** La validació té un cost. Analitza un cop quan les dades arriben (a la capa d'API), no cada cop que un component es re-renderitza. Les dades validades i tipades flueixen per Redux i props sense re-validació.
 
 **No ignoris la variant segura.** No totes les fallades de validació haurien de petar l'app. Si un camp secundari és invàlid però les dades principals estan bé, `validateResponseSafe` retorna null i registra un warning. L'app continua amb un fallback elegant.
 
