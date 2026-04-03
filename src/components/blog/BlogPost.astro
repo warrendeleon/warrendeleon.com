@@ -56,7 +56,7 @@ const blogPostingJsonLd = {
 };
 
 const relatedPosts = sortedAsc
-  .filter(p => getPostSlug(p.id) !== postSlug && p.data.publishDate <= now)
+  .filter(p => getPostSlug(p.id) !== postSlug && (import.meta.env.DEV || p.data.publishDate <= now))
   .map(p => ({
     post: p,
     sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
