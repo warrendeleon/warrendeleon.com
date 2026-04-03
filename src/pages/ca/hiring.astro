@@ -5,12 +5,14 @@ const locale = 'ca' as const;
 
 const openRoles = [
   {
-    title: 'Software Engineer — React Native',
+    title: 'Software Engineer — React Native (Platform)',
     team: 'Mobile Platform, UCX-Core',
     location: 'Londres, Regne Unit (Híbrid)',
-    url: 'https://www.linkedin.com/jobs/view/4391097156/',
+    url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/HargreavesLansdown/job/Software-Engineer--React-Native---Platform----UCX_R9031?locationCountry=29247e57dbaf46fb855b224e03170bc7',
   },
 ];
+
+const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/HargreavesLansdown?locationCountry=29247e57dbaf46fb855b224e03170bc7&jobFamilyGroup=32c04e37b469014cf1d02d4fcd2301b1';
 ---
 
 <BaseLayout
@@ -46,7 +48,7 @@ const openRoles = [
                   <span class="hiring-role-location">{role.location}</span>
                 </div>
                 <span class="hiring-role-cta">
-                  Aplicar a LinkedIn
+                  Aplica ara
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
@@ -59,9 +61,21 @@ const openRoles = [
         </div>
       ) : (
         <div class="hiring-empty">
-          <p>No hi ha rols oberts en aquest moment. Torna aviat, o connecta amb mi a <a href="https://www.linkedin.com/in/warrendeleon/" target="_blank" rel="noopener noreferrer">LinkedIn</a> per assabentar-te de futures vacants.</p>
+          <p>No hi ha rols oberts al meu equip en aquest moment.</p>
         </div>
       )}
+
+      <div class="hiring-all-roles">
+        <p>Busques altres rols d'enginyeria a Hargreaves Lansdown?</p>
+        <a href={allRolesUrl} target="_blank" rel="noopener noreferrer" class="hiring-all-roles-link">
+          Veure tots els rols de desenvolupament a HL
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
