@@ -81,7 +81,7 @@ One thing I wanted from day one was a **structured scorecard**. When you're scal
 
 I built a scorecard that breaks the evaluation into weighted sections: does the app work, is the data layer sound, is the code well-structured, are there tests, and can the candidate explain it all in the walkthrough. Each section has specific criteria on a consistent scale. **Every interviewer evaluates the same things in the same order.**
 
-The scorecard also maps scores to levels. A number tells you whether someone is graduate, junior, mid, or senior level. This removes ambiguity from the levelling conversation. The rubric does the thinking. The humans verify it.
+The scorecard also maps scores to levels. A number tells you whether someone is Graduate, Associate, Software Engineer, or Senior level. This removes ambiguity from the levelling conversation. The rubric does the thinking. The humans verify it.
 
 ## Senior candidates get a harder round
 

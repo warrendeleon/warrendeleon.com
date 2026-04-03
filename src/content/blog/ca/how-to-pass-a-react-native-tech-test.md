@@ -1,7 +1,7 @@
 ---
 title: "Com aprovar una prova tècnica de React Native"
 description: "Consells pràctics d'algú que revisa proves tècniques. Què importa de debò, què no, i els errors que costen el lloc als candidats."
-publishDate: 2026-04-06
+publishDate: 2026-04-07
 tags: ["react-native", "contractació", "consells-de-carrera"]
 locale: ca
 heroImage: "/images/blog/react-native-tech-test-tips.jpg"

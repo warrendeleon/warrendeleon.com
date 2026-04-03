@@ -675,6 +675,43 @@ main {
   width: 60px;
 }
 
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  display: block;
+}
+
+.prose thead {
+  background: var(--bg-secondary);
+}
+
+.prose th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--color-green);
+  white-space: nowrap;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+
+.prose tbody tr:hover {
+  background: var(--bg-secondary);
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .prose strong {
   color: var(--text-primary);
   font-weight: 600;

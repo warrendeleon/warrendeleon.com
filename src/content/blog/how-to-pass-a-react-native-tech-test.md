@@ -1,7 +1,7 @@
 ---
 title: "How to pass a React Native tech test"
-description: "Practical advice from someone who reviews tech test submissions. What actually matters, what doesn't, and the mistakes that cost candidates the job."
-publishDate: 2026-04-06
+description: "Practical advice from someone who reviews take-home tech test submissions. What actually matters, what doesn't, and the mistakes that cost candidates the job."
+publishDate: 2026-04-07
 tags: ["react-native", "hiring", "career-advice"]
 locale: en
 heroImage: "/images/blog/react-native-tech-test-tips.jpg"
@@ -14,7 +14,7 @@ hiringText: "We're looking for React Native engineers to join the Mobile Platfor
 
 I review React Native tech test submissions. I've seen what gets people hired and what gets them rejected. Most of the rejections aren't because the candidate can't code. They're because the candidate didn't show the right things.
 
-This post is the advice I'd give a friend before they submitted a take-home test. Not theory. Specific, practical things that move you from "maybe" to "yes."
+This post is the advice I'd give a friend before they submitted a take-home tech test. Not theory. Specific, practical things that move you from "maybe" to "yes."
 
 *I wrote about why I redesigned a tech test from the hiring manager's perspective in [a separate post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). This one is the other side: how to pass one.*
 
@@ -111,7 +111,7 @@ What I don't want to see:
 
 ## Handle loading, errors, and empty states
 
-This separates juniors from mids. Anyone can build the happy path. The question is: what happens when things go wrong?
+This is where candidates stand out. Anyone can build the happy path. The question is: what happens when things go wrong?
 
 **Loading states:** show a spinner or skeleton on first load. Show a subtle indicator when loading more data (pagination). Don't flash a full-screen spinner for 100ms.
 
@@ -135,7 +135,7 @@ This separates juniors from mids. Anyone can build the happy path. The question 
 
 ## Edge cases are where you stand out
 
-The happy path is the minimum. What separates a mid-level submission from a senior one is edge case handling:
+The happy path is the minimum. What separates a Software Engineer submission from a Senior one is edge case handling:
 
 - **Full list?** What happens when someone tries to add a 7th item? A toast, a disabled button, a modal. Anything except silently failing.
 - **Empty list?** Show a meaningful empty state, not a blank screen.
