@@ -104,7 +104,3 @@ I si la teva prova tècnica ja no reflecteix el que estàs buscant, val la pena 
 Dissenya una prova que reflecteixi la feina real. Dona als candidats un starter project perquè estiguis avaluant *enginyeria*, no *configuració*. Fes els requisits clars però deixa'ls prendre les seves pròpies decisions. Després seu davant d'ells i pregunta ***per què***.
 
 > La combinació de codi take-home ben pensat i un walkthrough estructurat et dona més senyal en dues hores que qualsevol exercici de live coding en dos dies.
-
-*Si t'estàs preparant per a una prova tècnica de React Native, vaig escriure un post complementari amb consells pràctics: [Com aprovar una prova tècnica de React Native](/ca/blog/how-to-pass-a-react-native-tech-test/).*
-
-*Si t'estàs preparant per a una prova tècnica de React Native, vaig escriure un post complementari amb consells pràctics: [Com aprovar una prova tècnica de React Native](/ca/blog/how-to-pass-a-react-native-tech-test/).*

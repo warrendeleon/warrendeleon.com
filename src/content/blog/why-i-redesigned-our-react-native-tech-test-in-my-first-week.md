@@ -104,5 +104,3 @@ And if your tech test no longer matches what you're hiring for, it's worth revis
 Design a test that mirrors the actual job. Give candidates a starter project so you're testing *engineering*, not *configuration*. Make the requirements clear but let them make their own decisions. Then sit across from them and ask ***why***.
 
 > The combination of thoughtful take-home code and a structured walkthrough gives you more signal in two hours than any live coding exercise gives you in two days.
-
-*If you're preparing for a React Native tech test, I wrote a companion post with practical advice: [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).*
