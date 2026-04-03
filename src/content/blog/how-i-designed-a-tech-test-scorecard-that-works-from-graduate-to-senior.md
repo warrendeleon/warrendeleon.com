@@ -27,7 +27,7 @@ Two people reviewed the same submission. One scored the TypeScript a 3 ("types a
 
 The fix was embarrassingly simple: replace every subjective score with a **yes/no checklist**.
 
-Here's what a single criterion looked like before and after. This is TypeScript usage:
+A single criterion, before and after. This is TypeScript usage:
 
 ### Before: subjective rubric
 
@@ -59,17 +59,17 @@ The first four checks are baseline (any competent candidate will have these in a
 
 I did this for every criterion across four sections:
 
-- **Core Functionality** — does the app work?
-- **Data Layer & API** — how does it fetch and manage data?
-- **Code Quality** — is the code well-written and well-organised?
-- **Testing** — is it tested, and how?
+- **Core Functionality**: does the app work?
+- **Data Layer & API**: how does it fetch and manage data?
+- **Code Quality**: is the code well-written and well-organised?
+- **Testing**: is it tested, and how?
 
 **100 checks. 100 points. One point each.**
 
 
 ## Same test, different ceiling
 
-Here's the part I'm most excited about. The checks are ordered by how much investment they represent.
+This is the part I'm most excited about. The checks are ordered by how much investment they represent.
 
 The first few checks in each criterion are things any competent candidate will achieve in **4–6 hours**:
 
@@ -144,7 +144,7 @@ For Senior candidates, there's an additional **system design section** in the sa
 
 ## What I learnt building this
 
-Building this scorecard taught me more about hiring design than anything I've read about it. Here's what stuck:
+Building this scorecard taught me more about hiring design than anything I've read about it. The lessons that stuck:
 
 **Start with checklists, not rubrics.** Every time I wrote a rubric ("5 = excellent, 3 = good, 1 = poor"), it turned into a debate about what "good" means. Checklists end the debate. Either the thing exists in the code or it doesn't.
 

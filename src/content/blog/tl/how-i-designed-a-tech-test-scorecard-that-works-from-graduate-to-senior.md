@@ -59,10 +59,10 @@ Ang unang apat na checks ang baseline (makukuha ng kahit sinong competent na can
 
 Ginawa ko ito sa bawat criterion sa apat na sections:
 
-- **Core Functionality** — gumagana ba ang app?
-- **Data Layer at API** — paano nito kinu-kuha at mina-manage ang data?
-- **Code Quality** — maganda ba ang pagkakasulat at pagkaka-organisa ng code?
-- **Testing** — naka-test ba, at paano?
+- **Core Functionality**: gumagana ba ang app?
+- **Data Layer at API**: paano nito kinu-kuha at mina-manage ang data?
+- **Code Quality**: maganda ba ang pagkakasulat at pagkaka-organisa ng code?
+- **Testing**: naka-test ba, at paano?
 
 **100 checks. 100 points. Isang point bawat isa.**
 

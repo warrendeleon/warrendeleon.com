@@ -1,6 +1,6 @@
 ---
 title: "How to write a take-home tech test that candidates actually want to do"
-description: "Most take-home tests fail because of setup friction, unclear briefs, or disrespecting people's time. Here's how I designed one that candidates thank us for."
+description: "Most take-home tests fail because of setup friction, unclear briefs, or disrespecting people's time. This is how I designed one that candidates thank us for."
 publishDate: 2026-04-20
 tags: ["engineering-management", "hiring", "react-native"]
 locale: en
@@ -79,7 +79,7 @@ I give candidates a fully configured project. Not a blank repo. A working app.
 | ESLint + Prettier | Consistent code style from line one |
 | Path aliases (`@app/*`) | No `../../../` import chains |
 | Custom test render wrapper | NavigationContainer included, just render and assert |
-| Three placeholder screens | "Replace me" — clear starting point |
+| Three placeholder screens | "Replace me", clear starting point |
 | A passing smoke test | Proof the setup works before they change anything |
 
 **Everything compiles. Everything runs. The smoke test passes.**
@@ -143,9 +143,9 @@ We also tell them upfront that we might use AI tooling as a pre-check, but every
 
 The walkthrough is a conversation. The candidate drives for the first 10 minutes:
 
-1. **Demo the app** — walk through all screens, show the features working
-2. **Run the tests** — show them passing live
-3. **Walk through the code** — explain structure and decisions
+1. **Demo the app**: walk through all screens, show the features working
+2. **Run the tests**: show them passing live
+3. **Walk through the code**: explain structure and decisions
 
 After the presentation, we ask questions. But the framing matters. We say:
 
@@ -171,7 +171,7 @@ Every question a candidate might have is answered before they need to ask it. Th
 
 ## What I'd change next time
 
-The test isn't perfect. Here's what's on my list:
+The test isn't perfect. What's on my list:
 
 - **A video walkthrough of the starter project.** A 3-minute Loom showing the folder structure, how to run it, and where to start. Some people learn better from video than docs.
 - **A `.env.example` file.** Even though the test uses a public API with no keys, it sets the right pattern.
