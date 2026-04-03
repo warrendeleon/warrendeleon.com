@@ -125,13 +125,13 @@ These files are imported at bundle time and exported through a barrel file:
 
 ```typescript
 // src/test-utils/fixtures/index.ts
-import profileEN from './api/en/profile.json';
-import educationEN from './api/en/education.json';
-import workxpEN from './api/en/workxp.json';
+import profileENData from './api/en/profile.json';
+import educationENData from './api/en/education.json';
+import workxpENData from './api/en/workxp.json';
 
-export const mockProfileEN = profileEN as Profile;
-export const mockEducationEN = educationEN as Education[];
-export const mockWorkXPEN = workxpEN as WorkExperience[];
+export const mockProfileEN = profileENData as Profile;
+export const mockEducationEN = educationENData as Education[];
+export const mockWorkXPEN = workxpENData as WorkExperience[];
 ```
 
 The fixtures are typed. If the API response shape changes and the fixture doesn't match, TypeScript catches it at compile time.

@@ -54,12 +54,13 @@ export enum SecureStoreKey {
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
 export const SecureStore = {
-  async set(key: SecureStoreKey, value: string): Promise<void> {
+  async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
       accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
+    return true;
   },
 
   async get(key: SecureStoreKey): Promise<string | null> {
@@ -69,18 +70,20 @@ export const SecureStore = {
     return result ? result.password : null;
   },
 
-  async remove(key: SecureStoreKey): Promise<void> {
+  async remove(key: SecureStoreKey): Promise<boolean> {
     await Keychain.resetGenericPassword({
       service: `${SERVICE_PREFIX}.${key}`,
     });
+    return true;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     for (const key of Object.values(SecureStoreKey)) {
       await Keychain.resetGenericPassword({
         service: `${SERVICE_PREFIX}.${key}`,
       });
     }
+    return true;
   },
 };
 ```
@@ -116,24 +119,27 @@ export enum EncryptedStoreKey {
 }
 
 export const EncryptedStore = {
-  async set(key: EncryptedStoreKey, value: string): Promise<void> {
+  async set(key: EncryptedStoreKey, value: string): Promise<boolean> {
     await EncryptedStorage.setItem(key, value);
+    return true;
   },
 
   async get(key: EncryptedStoreKey): Promise<string | null> {
     return await EncryptedStorage.getItem(key);
   },
 
-  async remove(key: EncryptedStoreKey): Promise<void> {
+  async remove(key: EncryptedStoreKey): Promise<boolean> {
     await EncryptedStorage.removeItem(key);
+    return true;
   },
 
   async setMultiple(
     items: { key: EncryptedStoreKey; value: string }[]
-  ): Promise<void> {
+  ): Promise<boolean> {
     for (const item of items) {
       await EncryptedStorage.setItem(item.key, item.value);
     }
+    return true;
   },
 
   async getMultiple(
@@ -146,8 +152,9 @@ export const EncryptedStore = {
     return result;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     await EncryptedStorage.clear();
+    return true;
   },
 };
 ```
