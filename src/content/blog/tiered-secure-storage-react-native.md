@@ -357,7 +357,7 @@ The rule is simple: if it grants access, Tier 1. If it identifies a person, Tier
 
 **Redux Persist whitelist, not blacklist.** Use `whitelist` to name what should persist. A `blacklist` approach is dangerous because new slices are persisted by default. One new slice with sensitive data and you've got a leak. `whitelist` is opt-in. Safer.
 
-## Is it worth three libraries?
+## Why three libraries
 
 Yes. The alternative is one library (AsyncStorage) with no encryption, or one library (react-native-keychain) that's too slow for non-sensitive reads. Three libraries, three wrappers, three enums. Each wrapper is under 50 lines. The setup takes an afternoon.
 
