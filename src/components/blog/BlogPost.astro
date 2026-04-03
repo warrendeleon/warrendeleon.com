@@ -23,13 +23,14 @@ const blogPath = getLocalePath(locale, '/blog/');
 
 const now = new Date();
 now.setHours(0, 0, 0, 0);
-const publishedPosts = (await getPostsForLocale(locale, true))
-  .filter(p => p.data.publishDate <= now);
-const sortedAsc = [...publishedPosts].sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+const allPosts = await getPostsForLocale(locale, true);
+const sortedAsc = [...allPosts].sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
 
 const currentIndex = sortedAsc.findIndex(p => getPostSlug(p.id) === postSlug);
-const prevPost = currentIndex > 0 ? sortedAsc[currentIndex - 1] : null;
-const nextPost = currentIndex < sortedAsc.length - 1 ? sortedAsc[currentIndex + 1] : null;
+const prevCandidate = currentIndex > 0 ? sortedAsc[currentIndex - 1] : null;
+const nextCandidate = currentIndex < sortedAsc.length - 1 ? sortedAsc[currentIndex + 1] : null;
+const prevPost = prevCandidate && prevCandidate.data.publishDate <= now ? prevCandidate : null;
+const nextPost = nextCandidate && nextCandidate.data.publishDate <= now ? nextCandidate : null;
 
 const blogPostingJsonLd = {
   '@context': 'https://schema.org',
