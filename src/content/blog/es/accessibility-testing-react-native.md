@@ -547,7 +547,7 @@ src/
       ProfileScreen.accessibility.rntl.tsx
 ```
 
-## ¿Vale la pena?
+## El costo del setup
 
 El archivo de utilidades tiene unas 200 líneas. Cada archivo de test de accesibilidad por pantalla tiene entre 100 y 500 líneas. El setup es una tarde.
 

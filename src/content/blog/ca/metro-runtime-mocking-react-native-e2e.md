@@ -29,7 +29,7 @@ Cada un d'aquests ha causat una fallada de test en un projecte on he treballat. 
 
 ## Per què mockejar el backend?
 
-Mockejar el backend en tests E2E et dona tres coses:
+Per què?
 
 **1. Determinisme.** El mateix test produeix el mateix resultat cada cop. Sense variabilitat de xarxa, sense estat compartit, sense dependències externes. Si un test falla, és perquè l'app està trencada, no perquè l'API ha tingut un mal dia.
 
@@ -266,7 +266,7 @@ El build mockejat i el build real són binaris d'app separats. El mockejat s'usa
 
 **Filtrar estat mock entre escenaris.** Cada escenari de Detox hauria de començar amb un estat d'app net. Usa `device.reloadReactNative()` al hook `Before` per reiniciar-ho tot. No confiïs en l'estat mock d'un escenari anterior.
 
-## Val la pena?
+## El resultat
 
 El setup és un dia de feina. Després d'això, la teva suite E2E s'executa sense backend, sense dependències de xarxa i sense fallades inestables de serveis externs.
 

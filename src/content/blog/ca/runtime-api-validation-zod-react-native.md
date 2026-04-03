@@ -407,7 +407,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **No oblidis `.passthrough()` per a APIs de tercers.** Sense ell, Zod elimina els camps desconeguts. Si un backend afegeix un camp nou, el teu objecte validat el perd. Per a APIs que controles, eliminar camps està bé (prevé la contaminació de dades). Per a APIs de tercers, usa `.passthrough()` per ser compatible amb el futur.
 
-## Val la pena?
+## El que costa, el que atrapa
 
 El setup és una feina d'un matí. Un esquema per resposta d'API, dues funcions auxiliars, un test per esquema.
 
@@ -415,6 +415,6 @@ Què obtens: cada resposta d'API es valida abans que l'app la toqui. Quan el bac
 
 Al meu projecte, els esquemes Zod van detectar dos canvis de backend durant el desenvolupament que haurien sortit com a bugs silenciosos. Un era un camp nullable que va passar a ser obligatori. L'altre era un camp d'URL que va començar a retornar paths relatius en comptes d'URLs absolutes. La validació els va detectar tots dos abans que arribessin a cap component.
 
-> El millor moment per detectar una resposta d'API incorrecta és al límit. El pitjor moment és en un informe de crash.
+> Atrapa-ho al límit de l'API o depura-ho en un informe de crash. Tu tries.
 
 *Els exemples de codi d'aquest post són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. Les definicions completes d'esquemes Zod, les funcions auxiliars de validació i els tests són al repo.*

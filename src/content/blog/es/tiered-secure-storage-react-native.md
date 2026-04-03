@@ -350,7 +350,7 @@ La regla es simple: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2.
 
 **Whitelist de Redux Persist, no blacklist.** Usá `whitelist` para nombrar lo que debe persistir. Un enfoque con `blacklist` es peligroso porque los slices nuevos se persisten por defecto. Un slice nuevo con datos sensibles y ya tenés un leak. `whitelist` es opt-in. Más seguro.
 
-## ¿Valen la pena tres librerías?
+## Por qué tres librerías
 
 Sí. La alternativa es una librería (AsyncStorage) sin cifrado, o una librería (react-native-keychain) que es demasiado lenta para lecturas no sensibles. Tres librerías, tres wrappers, tres enums. Cada wrapper tiene menos de 50 líneas. El setup lleva una tarde.
 

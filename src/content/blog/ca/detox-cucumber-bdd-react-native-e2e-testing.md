@@ -533,17 +533,17 @@ e2e/
     TalkBackGestures.feature     # Tests de lector de pantalla Android
 ```
 
-## Val la pena el setup?
+## Què guanyes
 
 El setup porta un matí. Escriure el primer fitxer feature porta una tarda. Després, afegir nous escenaris és ràpid perquè les definicions de passos són reutilitzables.
 
-El retorn és triple:
+El retorn:
 
 1. **Tests que qualsevol pot llegir.** Product managers, QA, dissenyadors. Els fitxers Gherkin són l'especificació i el test alhora.
 2. **Execució paral·lela de sèrie.** El paral·lelisme integrat de Cucumber funciona amb Detox. Tres simuladors, tres workers, tres vegades més ràpid.
 3. **Detecció de regressions d'accessibilitat.** 50 escenaris verifiquen que labels, rols i traits siguin correctes. No reemplacen el testing manual amb lector de pantalla, però són una xarxa de seguretat que evita que les regressions arribin a QA.
 
-> Els millors tests E2E són els que t'expliquen què s'ha trencat en un llenguatge que no necessites descodificar.
+> Quan un test E2E falla, hauries de saber què s'ha trencat sense llegir el codi del test.
 
 *Aquest post cobreix testing E2E. Per a tests unitaris i d'integració, uso [MSW v2 per mockejar la capa de xarxa](/ca/blog/setting-up-msw-v2-in-react-native/) en comptes de `jest.fn()`. Els dos enfocaments es complementen: MSW per a tests ràpids i enfocats contra crides HTTP reals; Detox + Cucumber per a fluxos complets d'usuari en un dispositiu real.*
 

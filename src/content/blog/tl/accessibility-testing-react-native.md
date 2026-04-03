@@ -547,7 +547,7 @@ src/
       ProfileScreen.accessibility.rntl.tsx
 ```
 
-## Sulit ba ito?
+## Ang gastos sa setup
 
 Mga 200 linya ang utility file. Bawat screen accessibility test file ay 100-500 linya. Isang hapon lang ang setup.
 

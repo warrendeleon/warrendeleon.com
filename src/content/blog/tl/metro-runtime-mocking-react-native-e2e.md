@@ -29,7 +29,7 @@ Bawat isa sa mga ito ay naging dahilan ng test failure sa mga project na pinagta
 
 ## Bakit i-mock ang backend?
 
-Tatlong bagay ang ibinibigay ng pag-mock ng backend sa E2E tests:
+Bakit mag-effort?
 
 **1. Determinism.** Pare-pareho ang resulta ng parehong test sa bawat pagpapatakbo. Walang network variability, walang shared state, walang external dependencies. Kung nag-fail ang test, dahil sira ang app, hindi dahil masama ang araw ng API.
 
@@ -266,7 +266,7 @@ Magkahiwalay na app binaries ang mocked build at ang tunay na build. Ginagamit a
 
 **Nale-leak ang mock state sa pagitan ng scenarios.** Dapat magsimula ang bawat Detox scenario sa bagong app state. Gamitin ang `device.reloadReactNative()` sa `Before` hook para i-reset ang lahat. Huwag umasa sa mock state mula sa nakaraang scenario.
 
-## Sulit ba?
+## Ang resulta
 
 Isang araw na trabaho ang setup. Pagkatapos niyan, tumatakbo ang E2E suite mo nang walang backend, walang network dependencies, at walang flaky failures mula sa external services.
 

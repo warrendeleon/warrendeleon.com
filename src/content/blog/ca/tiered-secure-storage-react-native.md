@@ -350,7 +350,7 @@ La regla és senzilla: si dona accés, Nivell 1. Si identifica una persona, Nive
 
 **Whitelist a Redux Persist, no blacklist.** Usa `whitelist` per especificar què ha de persistir. Un enfocament amb `blacklist` és perillós perquè els slices nous es persisteixen per defecte. Un sol slice nou amb dades sensibles i tens una filtració. `whitelist` és opt-in. Més segur.
 
-## Val la pena tres biblioteques?
+## Per què tres biblioteques
 
 Sí. L'alternativa és una biblioteca (AsyncStorage) sense xifrat, o una biblioteca (react-native-keychain) que és massa lenta per a lectures no sensibles. Tres biblioteques, tres wrappers, tres enums. Cada wrapper fa menys de 50 línies. El setup porta una tarda.
 
