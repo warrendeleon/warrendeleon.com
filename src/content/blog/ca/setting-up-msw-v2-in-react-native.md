@@ -318,16 +318,11 @@ src/
     index.ts             # Barrel export
 ```
 
-El barrel export (`index.ts`) permet que els tests importin tot des d'un sol lloc:
+El barrel export (`index.ts`) permet que els tests importin utilitats comunes des d'un sol lloc. Per a handler sets específics, importa directament del fitxer de handlers:
 
 ```typescript
-import {
-  server,
-  handlers,
-  errorHandlers,
-  unauthorizedHandlers,
-  renderWithProviders,
-} from '@app/test-utils';
+import { server, renderWithProviders } from '@app/test-utils';
+import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handlers';
 ```
 
 ## Val la pena el setup?

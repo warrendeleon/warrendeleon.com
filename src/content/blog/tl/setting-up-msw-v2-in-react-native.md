@@ -318,16 +318,11 @@ src/
     index.ts             # Barrel export
 ```
 
-Pinapayagan ng barrel export (`index.ts`) ang tests na mag-import ng lahat mula sa iisang lugar:
+Pinapayagan ng barrel export (`index.ts`) ang tests na mag-import ng mga karaniwang utilities mula sa iisang lugar. Para sa mga specific handler sets, mag-import nang direkta mula sa handlers file:
 
 ```typescript
-import {
-  server,
-  handlers,
-  errorHandlers,
-  unauthorizedHandlers,
-  renderWithProviders,
-} from '@app/test-utils';
+import { server, renderWithProviders } from '@app/test-utils';
+import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handlers';
 ```
 
 ## Sulit ba ang setup?
