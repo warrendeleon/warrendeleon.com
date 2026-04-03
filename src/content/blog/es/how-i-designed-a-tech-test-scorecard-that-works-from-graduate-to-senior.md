@@ -1,7 +1,7 @@
 ---
 title: "Cómo diseñé un scorecard de prueba técnica que funciona de Graduate a Senior"
 description: "Cómo un scorecard basado en checklists hizo que nuestra prueba de React Native funcione para todos los niveles, de Graduate a Senior. Una guía práctica para diseñar un proceso de contratación justo."
-publishDate: 2026-04-14
+publishDate: 2026-04-13
 tags: ["gestión-de-ingeniería", "contratación", "react-native"]
 locale: es
 heroImage: "/images/blog/tech-test-scorecard.jpg"

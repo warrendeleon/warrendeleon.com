@@ -1,7 +1,7 @@
 ---
 title: "How I designed a tech test scorecard that works from Graduate to Senior"
 description: "How a checklist-based scorecard made our React Native take-home test work for every level, from Graduate to Senior. A practical guide to designing a fair hiring process."
-publishDate: 2026-04-14
+publishDate: 2026-04-13
 tags: ["engineering-management", "hiring", "react-native"]
 locale: en
 heroImage: "/images/blog/tech-test-scorecard.jpg"

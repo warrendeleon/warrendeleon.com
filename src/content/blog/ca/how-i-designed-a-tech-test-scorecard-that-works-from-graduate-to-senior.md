@@ -1,7 +1,7 @@
 ---
 title: "Com vaig dissenyar un scorecard de prova tècnica que funciona de Graduate a Senior"
 description: "Com un scorecard basat en checklists va fer que la nostra prova de React Native funcionés per a tots els nivells, de Graduate a Senior. Una guia pràctica per dissenyar un procés de contractació just."
-publishDate: 2026-04-14
+publishDate: 2026-04-13
 tags: ["gestió-d-enginyeria", "contractació", "react-native"]
 locale: ca
 heroImage: "/images/blog/tech-test-scorecard.jpg"
