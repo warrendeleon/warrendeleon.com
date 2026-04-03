@@ -10,22 +10,22 @@ heroAlt: "Mocking en runtime de Metro para testing E2E en React Native"
 
 ## El problema con backends reales en tests E2E
 
-Tus tests de Detox corren en un dispositivo real (o simulador). Tocan botones, escriben texto, navegan pantallas. En algún momento, la app hace una llamada a la API. Y ahí es donde todo se pone frágil.
+Tus tests de Detox corren en un dispositivo real (o simulador). Tocan botones, escriben texto, navegan pantallas. En algún momento, la app hace una llamada a la API. Y ahí es donde todo se vuelve frágil.
 
 **Los backends reales hacen que los tests E2E sean no deterministas.** El mismo test puede pasar o fallar dependiendo de:
 
 | Factor | Qué sale mal |
 |---|---|
-| Latencia de red | Timeout en CI, pasa localmente |
-| Rate limiting de la API | Los tests fallan si se corren muy seguido |
-| Datos de test compartidos | Otra corrida de tests mutó el mismo usuario |
-| Deploys del backend | La API cambió entre tu build y tu corrida de tests |
+| Latencia de red | Timeout en CI, pasa en local |
+| Rate limiting de la API | Los tests fallan si se ejecutan muy seguido |
+| Datos de test compartidos | Otra ejecución de tests mutó el mismo usuario |
+| Deploys del backend | La API cambió entre tu build y tu ejecución de tests |
 | Caídas de terceros | El proveedor de auth está caído, todos los tests de login fallan |
-| Estado de la base de datos | El test espera 3 items, alguien agregó un 4to |
+| Estado de la base de datos | El test espera 3 items, alguien añadió un 4to |
 
 Cada uno de estos causó un test fallido en un proyecto en el que trabajé. Ninguno era un bug real en la app.
 
-> 💡 **Un test flaky es peor que no tener test.** Entrena al equipo a ignorar las fallas. Una vez que la gente empieza a re-correr la suite "por las dudas", perdiste la confianza en tu infraestructura de tests.
+> 💡 **Un test flaky es peor que no tener test.** Entrena al equipo a ignorar los fallos. Una vez que la gente empieza a relanzar la suite "por si acaso", has perdido la confianza en tu infraestructura de tests.
 
 ## Por qué mockear el backend
 
@@ -35,20 +35,20 @@ Cada uno de estos causó un test fallido en un proyecto en el que trabajé. Ning
 
 **2. Velocidad.** Sin round trips de red. Sin esperar queries a la base de datos. Las respuestas mockeadas vuelven al instante. Una suite que tarda 8 minutos contra un backend real puede bajar a 3 minutos con mocks.
 
-**3. Estados de error testeables.** Con un backend real, testear un error 500 significa romper el servidor o construir un endpoint especial. Con mocks, pasás un argumento de lanzamiento y la app devuelve el error que necesites.
+**3. Estados de error testeables.** Con un backend real, testear un error 500 significa romper el servidor o construir un endpoint especial. Con mocks, pasas un argumento de lanzamiento y la app devuelve el error que necesites.
 
 ## Los trade-offs
 
 Mockear no es gratis. Estás eligiendo a qué renunciar.
 
-| Lo que ganás | Lo que perdés |
+| Lo que ganas | Lo que pierdes |
 |---|---|
 | Resultados deterministas | Confianza en que la integración real con la API funciona |
 | Ejecución rápida | Cobertura de edge cases de red (timeouts, reintentos) |
 | Sin infraestructura necesaria | Los datos fixture pueden desviarse de las respuestas reales de la API |
 | Estados de error testeables | Necesidad de mantener los fixtures a medida que la API evoluciona |
 
-La respuesta honesta: **necesitás ambos.** Mockeá el backend para tu suite E2E diaria (la que corre en cada PR). Corré un set más chico de smoke tests contra el backend real con un schedule (nightly, pre-release). La suite mockeada detecta regresiones rápido. La suite real detecta drift en la integración.
+La respuesta honesta: **necesitas ambos.** Mockea el backend para tu suite E2E diaria (la que corre en cada PR). Ejecuta un conjunto más pequeño de smoke tests contra el backend real con un schedule (nightly, pre-release). La suite mockeada detecta regresiones rápido. La suite real detecta drift en la integración.
 
 ## Por qué no MSW
 
@@ -56,11 +56,11 @@ La respuesta honesta: **necesitás ambos.** Mockeá el backend para tu suite E2E
 
 Los tests E2E de Detox son diferentes. La app corre en un proceso nativo de iOS o Android, no en Node.js. MSW no puede interceptar peticiones dentro de un proceso nativo. Las llamadas de red salen del runtime de JavaScript y pasan por el stack de networking nativo de la plataforma (NSURLSession en iOS, OkHttp en Android).
 
-Necesitás una estrategia de mocking que funcione dentro de la app misma. Ahí es donde entra el mocking en runtime de Metro.
+Necesitas una estrategia de mocking que funcione dentro de la propia app. Ahí es donde entra el mocking en runtime de Metro.
 
 ## Cómo funciona
 
-La idea es simple: al momento del build, metés un flag en el bundle de JavaScript. En runtime, cada función de API chequea el flag. Si el mocking está habilitado, devuelve datos fixture en vez de hacer una llamada real a la red.
+La idea es simple: en el momento del build, metes un flag en el bundle de JavaScript. En runtime, cada función de API comprueba el flag. Si el mocking está habilitado, devuelve datos fixture en vez de hacer una llamada real a la red.
 
 ### Paso 1: La variable de entorno
 
@@ -76,7 +76,7 @@ module.exports = {
 };
 ```
 
-Cuando compilás con `E2E_MOCK=true`, cada referencia a `process.env.E2E_MOCK` se convierte en el string `"true"` en el JavaScript compilado. No es un lookup en runtime. Es un valor estático embebido en el bundle.
+Cuando compilas con `E2E_MOCK=true`, cada referencia a `process.env.E2E_MOCK` se convierte en el string `"true"` en el JavaScript compilado. No es un lookup en runtime. Es un valor estático embebido en el bundle.
 
 ### Paso 2: El módulo de configuración
 
@@ -99,7 +99,7 @@ export function setE2EMockOverride(value: boolean | null): void {
 }
 ```
 
-El override en runtime es útil para testing durante el desarrollo. Un dev puede activar/desactivar el mocking sin recompilar la app. Para tests E2E, el flag de build-time es todo lo que necesitás.
+El override en runtime es útil para testing durante el desarrollo. Un dev puede activar/desactivar el mocking sin recompilar la app. Para tests E2E, el flag de build-time es todo lo que necesitas.
 
 ### Paso 3: Los archivos de fixtures
 
@@ -134,11 +134,11 @@ export const mockEducationEN = educationEN as Education[];
 export const mockWorkXPEN = workxpEN as WorkExperience[];
 ```
 
-Los fixtures están tipados. Si la forma de la respuesta de la API cambia y el fixture no matchea, TypeScript lo detecta en tiempo de compilación.
+Los fixtures están tipados. Si la forma de la respuesta de la API cambia y el fixture no coincide, TypeScript lo detecta en tiempo de compilación.
 
 ### Paso 4: El switch en la API
 
-Cada función de API chequea el flag al principio. Si el mocking está habilitado, devuelve datos fixture envueltos en una respuesta compatible con Axios:
+Cada función de API comprueba el flag al principio. Si el mocking está habilitado, devuelve datos fixture envueltos en una respuesta compatible con Axios:
 
 ```typescript
 export const fetchProfileData = async (
@@ -166,14 +166,14 @@ export const fetchProfileData = async (
 
 Detalles clave:
 
-- ✅ El path mock devuelve un objeto de respuesta Axios completo. Redux, selectores y componentes no pueden notar la diferencia
+- ✅ El path mock devuelve un objeto de respuesta Axios completo. Redux, selectores y componentes no notan la diferencia
 - ✅ Fixtures específicos por idioma con fallback a inglés
 - ✅ El path real sigue validando con Zod. El path mock se salta la validación porque los fixtures ya están tipados
 - ✅ Sin imports condicionales. Ambos paths existen en la misma función
 
 ### Paso 5: Simulación de errores
 
-El verdadero poder de este approach: testing de errores determinista. Los argumentos de lanzamiento controlan qué endpoints fallan y cómo:
+El verdadero poder de este enfoque: testing de errores determinista. Los argumentos de lanzamiento controlan qué endpoints fallan y cómo:
 
 ```typescript
 // src/config/e2e-error.ts
@@ -190,7 +190,7 @@ interface E2EErrorConfig {
 }
 ```
 
-En tu función de API, chequeá la simulación de error antes de devolver datos fixture:
+En tu función de API, comprueba la simulación de error antes de devolver datos fixture:
 
 ```typescript
 if (isE2EMockEnabled()) {
@@ -202,7 +202,7 @@ if (isE2EMockEnabled()) {
 }
 ```
 
-En tu test de Detox, lanzá la app con argumentos de error:
+En tu test de Detox, lanza la app con argumentos de error:
 
 ```typescript
 await device.launchApp({
@@ -213,11 +213,11 @@ await device.launchApp({
 });
 ```
 
-Ahora podés testear cada estado de error de forma determinista: fallas de red, 500s, 404s, timeouts. Cada uno es un argumento de lanzamiento, no un servidor roto.
+Ahora puedes testear cada estado de error de forma determinista: fallos de red, 500s, 404s, timeouts. Cada uno es un argumento de lanzamiento, no un servidor roto.
 
 ## Mocking de autenticación
 
-Auth es la parte más complicada. Los flujos reales de auth involucran tokens, sesiones, verificación de email, reset de contraseña. Mockear estos requiere mantener estado dentro del mock:
+Auth es la parte más complicada. Los flujos reales de auth implican tokens, sesiones, verificación de email, reset de contraseña. Mockear estos requiere mantener estado dentro del mock:
 
 ```typescript
 async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
@@ -246,31 +246,31 @@ Para testing de errores, una convención simple funciona bien: contraseñas que 
 # Compilar la app con mocking habilitado
 E2E_MOCK=true yarn detox:ios:build
 
-# Correr tests E2E (la app usa datos fixture)
+# Ejecutar tests E2E (la app usa datos fixture)
 yarn detox:ios:test
 
-# Correr smoke tests contra el backend real (build separado)
+# Ejecutar smoke tests contra el backend real (build separado)
 yarn detox:ios:build
 yarn detox:ios:test --tags @smoke
 ```
 
-El build mockeado y el build real son binarios de app separados. El mockeado se usa para la suite E2E completa. El real se usa para una suite de smoke más chica.
+El build mockeado y el build real son binarios de app separados. El mockeado se usa para la suite E2E completa. El real se usa para una suite de smoke más pequeña.
 
 ## Errores comunes
 
-**Los fixtures se desacoplan de la API real.** El mayor riesgo. Si el backend agrega un campo y tus fixtures no lo tienen, los tests mock pasan pero la app real se rompe. Solucioná esto corriendo tu validación de esquema Zod contra tus fixtures en un test unitario. Si el fixture no matchea el esquema, el test falla.
+**Los fixtures se desacoplan de la API real.** El mayor riesgo. Si el backend añade un campo y tus fixtures no lo tienen, los tests mock pasan pero la app real se rompe. Soluciona esto ejecutando tu validación de esquema Zod contra tus fixtures en un test unitario. Si el fixture no coincide con el esquema, el test falla.
 
-**Mockear demasiado.** Si cada llamada a la API está mockeada, estás testeando tus fixtures, no tu app. Mantené el mocking en el límite HTTP. Redux, manejo de estado, navegación y renderizado de UI deben ser reales.
+**Mockear demasiado.** Si cada llamada a la API está mockeada, estás testeando tus fixtures, no tu app. Mantén el mocking en el límite HTTP. Redux, manejo de estado, navegación y renderizado de UI deben ser reales.
 
-**Olvidarse de testear la integración real.** Los tests E2E mockeados detectan regresiones de UI. No detectan cambios en el contrato de la API. Corré una suite de smoke contra el backend real con un schedule, aunque sea solo 5 paths críticos.
+**Olvidarse de testear la integración real.** Los tests E2E mockeados detectan regresiones de UI. No detectan cambios en el contrato de la API. Ejecuta una suite de smoke contra el backend real con un schedule, aunque sea solo 5 paths críticos.
 
-**Filtrar estado mock entre escenarios.** Cada escenario de Detox debe arrancar con un estado de app limpio. Usá `device.reloadReactNative()` en el hook `Before` para resetear todo. No te apoyes en estado mock de un escenario previo.
+**Filtrar estado mock entre escenarios.** Cada escenario de Detox debe arrancar con un estado de app limpio. Usa `device.reloadReactNative()` en el hook `Before` para resetear todo. No te apoyes en estado mock de un escenario previo.
 
 ## El resultado
 
-El setup es un día de trabajo. Después de eso, tu suite E2E corre sin backend, sin dependencias de red y sin fallas flaky de servicios externos.
+El setup es un día de trabajo. Después de eso, tu suite E2E corre sin backend, sin dependencias de red y sin fallos flaky de servicios externos.
 
-En mi proyecto, la suite mockeada corre en 3 minutos. Los mismos tests contra un backend real tardaban 8 minutos y fallaban intermitentemente. La suite mockeada estuvo verde por semanas. La suite real necesitaba supervisión.
+En mi proyecto, la suite mockeada corre en 3 minutos. Los mismos tests contra un backend real tardaban 8 minutos y fallaban intermitentemente. La suite mockeada estuvo verde durante semanas. La suite real necesitaba supervisión.
 
 Los dos enfoques funcionan juntos. Mock para velocidad y determinismo en cada PR. Backend real para confianza en la integración con un schedule. Ninguno solo es suficiente.
 
