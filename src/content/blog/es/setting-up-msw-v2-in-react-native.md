@@ -10,7 +10,7 @@ heroAlt: "Configurando MSW v2 en React Native para testing"
 
 ## Por qué MSW en vez de mocks manuales
 
-La mayoría de los proyectos React Native mockean su capa de API con `jest.fn()`. Mockeás `fetch` o tu instancia de Axios, definís lo que devuelve, y testeás contra eso.
+La mayoría de los proyectos React Native mockean su capa de API con `jest.fn()`. Mockeas `fetch` o tu instancia de Axios, defines lo que devuelve, y testeas contra eso.
 
 Funciona. Hasta que no.
 
@@ -32,7 +32,7 @@ Eso es todo. Sin polyfills, sin cambios en la config de Metro, sin linking de m�
 
 ## El servidor
 
-Creá `src/test-utils/msw/server.ts`:
+Crea `src/test-utils/msw/server.ts`:
 
 ```typescript
 import { setupServer } from 'msw/node';
@@ -45,7 +45,7 @@ Tres líneas. El servidor toma tus handlers por defecto (respuestas exitosas) e 
 
 ## Conectándolo con Jest
 
-En tu `jest.setup.ts` (o `.js`), agregá el ciclo de vida de MSW:
+En tu `jest.setup.ts` (o `.js`), añade el ciclo de vida de MSW:
 
 ```typescript
 import { server } from './src/test-utils/msw/server';
@@ -103,7 +103,7 @@ Cosas clave a notar:
 
 ## Handler sets para cada escenario
 
-Los handlers de éxito por defecto son el punto de partida. Pero las apps reales necesitan manejar errores también. Acá es donde la mayoría de los setups de MSW se detienen. **No te detengas acá.**
+Los handlers de éxito por defecto son el punto de partida. Pero las apps reales necesitan manejar errores también. Aquí es donde la mayoría de los setups de MSW se detienen. **No te detengas aquí.**
 
 Yo creo handler sets separados para cada escenario de error que la app necesita manejar:
 
@@ -149,7 +149,7 @@ export const timeoutHandlers = [
   }),
 ];
 
-// Offline (falla de red)
+// Offline (fallo de red)
 export const offlineHandlers = [
   http.get(`${BASE_URL}/items`, () => {
     return HttpResponse.error();
@@ -171,7 +171,7 @@ En mi proyecto, tengo **11 handler sets**:
 | `emailNotConfirmedHandlers` | 400 | Verificación de email requerida |
 | `storageErrorHandlers` | 413/404 | Errores de subida/eliminación de archivos |
 | `timeoutHandlers` | 408 | Simulación de timeout de red |
-| `offlineHandlers` | Error | Falla total de red |
+| `offlineHandlers` | Error | Fallo total de red |
 
 Cada set se exporta y se puede intercambiar por test.
 
@@ -279,7 +279,7 @@ Sin mockeo manual de dispatch, selectores o fetch. Todo el stack es real excepto
 
 ## Overrides de handlers inline
 
-A veces necesitás una respuesta puntual que no encaja en ningún handler set. Definila inline:
+A veces necesitas una respuesta puntual que no encaja en ningún handler set. Defínela inline:
 
 ```typescript
 it('handles unexpected response shape', async () => {
@@ -297,13 +297,13 @@ Esto es útil para edge cases como JSON malformado, campos faltantes o códigos 
 
 ## Errores comunes
 
-**Los handlers se matchean en orden.** Si dos handlers matchean la misma petición, el primero gana. Cuando usás `server.use(...overrides)`, los overrides se agregan al principio, así que tienen prioridad sobre los defaults.
+**Los handlers se matchean en orden.** Si dos handlers matchean la misma petición, el primero gana. Cuando usas `server.use(...overrides)`, los overrides se agregan al principio, así que tienen prioridad sobre los defaults.
 
-**`HttpResponse.error()` simula una falla de red**, no un error HTTP. La petición nunca recibe respuesta. Usá esto para escenarios offline/sin red. Para errores HTTP (500, 401, etc.), usá `HttpResponse.json()` con un código de estado.
+**`HttpResponse.error()` simula un fallo de red**, no un error HTTP. La petición nunca recibe respuesta. Usa esto para escenarios offline/sin red. Para errores HTTP (500, 401, etc.), usa `HttpResponse.json()` con un código de estado.
 
 **Los handlers async necesitan `await`.** Si tu handler lee el body del request (`request.json()`), la función del handler tiene que ser `async`. Olvidar esto hace que el handler devuelva `undefined` en vez de una respuesta.
 
-**Las peticiones sin handler son silenciosas por defecto.** Siempre usá `onUnhandledRequest: 'warn'` (o `'error'` en CI) para atrapar handlers faltantes. Una petición sin handler silenciosa significa que tu test pasa por la razón equivocada.
+**Las peticiones sin handler son silenciosas por defecto.** Siempre usa `onUnhandledRequest: 'warn'` (o `'error'` en CI) para atrapar handlers faltantes. Una petición sin handler silenciosa significa que tu test pasa por la razón equivocada.
 
 ## La estructura de archivos completa
 
@@ -318,7 +318,7 @@ src/
     index.ts             # Barrel export
 ```
 
-El barrel export (`index.ts`) permite que los tests importen utilidades comunes desde un solo lugar. Para handler sets específicos, importá directamente del archivo de handlers:
+El barrel export (`index.ts`) permite que los tests importen utilidades comunes desde un solo lugar. Para handler sets específicos, importa directamente del archivo de handlers:
 
 ```typescript
 import { server, renderWithProviders } from '@app/test-utils';
@@ -327,10 +327,10 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 ## En resumen
 
-Sí. El setup lleva unos 30 minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribís `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y estás testeando comportamiento de integración real, no comportamiento de mocks.
+Sí. El setup lleva unos 30 minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribes `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y estás testeando comportamiento de integración real, no comportamiento de mocks.
 
-Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando agrego un nuevo endpoint de API, agrego handlers una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis.
+Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando añado un nuevo endpoint de API, añado handlers una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis.
 
-> Si escribir el próximo test es más difícil que salteártelo, tu infraestructura de test es el problema.
+> Si escribir el próximo test es más difícil que saltártelo, tu infraestructura de test es el problema.
 
 *Los ejemplos de código en este post son de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), mi proyecto personal de React Native. El setup completo de MSW, los handler sets y el wrapper de render personalizado están en el repo.*

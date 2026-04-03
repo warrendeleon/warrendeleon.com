@@ -19,7 +19,7 @@ await element(by.id('login-button')).tap();
 await expect(element(by.id('home-screen'))).toBeVisible();
 ```
 
-Funciona. Pero se lee como código, no como una especificación de test. Cuando un product manager pregunta "¿qué cubre el test de login?", le pasás un archivo TypeScript y esperás lo mejor.
+Funciona. Pero se lee como código, no como una especificación de test. Cuando un product manager pregunta "¿qué cubre el test de login?", le pasas un archivo TypeScript y esperas lo mejor.
 
 **Cucumber BDD** te permite escribir tests en lenguaje natural usando sintaxis Gherkin:
 
@@ -37,11 +37,11 @@ Feature: User Authentication
 
 Mismo test. Los mismos comandos de Detox por debajo. Pero ahora cualquiera del equipo puede leerlo, revisarlo y sugerir escenarios faltantes.
 
-> 💡 **La ventaja clave:** los feature files se convierten en documentación viva. Cuando un escenario pasa, sabés que la app soporta ese comportamiento. Cuando falla, sabés exactamente qué flujo de usuario se rompió, en lenguaje claro.
+> 💡 **La ventaja clave:** los feature files se convierten en documentación viva. Cuando un escenario pasa, sabes que la app soporta ese comportamiento. Cuando falla, sabes exactamente qué flujo de usuario se rompió, en lenguaje claro.
 
 ## Instalación
 
-Necesitás Detox (para la automatización del dispositivo) y Cucumber (para la capa de BDD):
+Necesitas Detox (para la automatización del dispositivo) y Cucumber (para la capa de BDD):
 
 ```bash
 yarn add -D detox @cucumber/cucumber ts-node
@@ -215,7 +215,7 @@ AfterAll(async function () {
 | `After` | default | Toma un screenshot si falla, notifica a Detox |
 | `AfterAll` | default | Cierra Detox |
 
-El truco de sincronización vale la pena mencionarlo: lanzá la app con la sincronización deshabilitada (`detoxEnableSynchronization: 0`), y después habilitala una vez que la app está corriendo. Esto evita que Detox haga timeout durante la carga inicial del bundle.
+El truco de sincronización vale la pena mencionarlo: lanza la app con la sincronización deshabilitada (`detoxEnableSynchronization: 0`), y después habilítala una vez que la app está corriendo. Esto evita que Detox haga timeout durante la carga inicial del bundle.
 
 ### world.ts
 
@@ -358,7 +358,7 @@ When('I tap the text {string}', async function (text: string) {
 });
 ```
 
-Probá `by.text()` primero (texto visible), fallback a `by.label()` (accessibility label), después `by.id()` (testID). Esto maneja botones que renderizan texto de forma distinta entre plataformas.
+Prueba `by.text()` primero (texto visible), fallback a `by.label()` (accessibility label), después `by.id()` (testID). Esto maneja botones que renderizan texto de forma distinta entre plataformas.
 
 ## El formatter personalizado
 
@@ -437,7 +437,7 @@ El hook `BeforeAll` lee `CUCUMBER_WORKER_ID` para inicializar cada worker con su
 | Reintentos en fallo | 1 | 1 |
 | Fail fast | No | No |
 
-> 💡 **Tip:** Deshabilitá fail-fast en modo paralelo. Un escenario inestable no debería frenar a los otros workers. Con reintentos habilitados, el test inestable tiene una segunda oportunidad mientras el resto sigue corriendo.
+> 💡 **Tip:** Deshabilita fail-fast en modo paralelo. Un escenario inestable no debería frenar a los otros workers. Con reintentos habilitados, el test inestable tiene una segunda oportunidad mientras el resto sigue corriendo.
 
 ## Testing de accesibilidad con BDD
 
@@ -505,11 +505,11 @@ Los scripts de package.json hacen que el flujo de trabajo sea limpio:
 
 **La sincronización es la parte más difícil.** Detox intenta esperar automáticamente a que la app esté idle, pero las animaciones, timers y llamadas de red pueden confundirlo. El patrón de lanzar con sincronización deshabilitada (`detoxEnableSynchronization: 0` y después `enableSynchronization()`) evita el timeout más común.
 
-**`typeText` agrega, `replaceText` reemplaza.** Si un campo tiene texto placeholder o input previo, `typeText` le agrega encima. Usá `replaceText` para inputs de formularios donde querés un valor limpio.
+**`typeText` agrega, `replaceText` reemplaza.** Si un campo tiene texto placeholder o input previo, `typeText` le agrega encima. Usa `replaceText` para inputs de formularios donde quieres un valor limpio.
 
-**Los screenshots en fallo son esenciales.** El hook `After` captura un screenshot cuando un escenario falla. Sin esto, debuggear fallos en CI es adivinanza. Nombrá el screenshot con el nombre del escenario para poder matchear fallos con imágenes.
+**Los screenshots en fallo son esenciales.** El hook `After` captura un screenshot cuando un escenario falla. Sin esto, debuggear fallos en CI es adivinanza. Nombra el screenshot con el nombre del escenario para poder matchear fallos con imágenes.
 
-**Los feature files deberían describir comportamiento, no implementación.** Escribí "When I log in", no "When I type into email-input and tap login-button". Los detalles de implementación van en las definiciones de pasos, no en el Gherkin.
+**Los feature files deberían describir comportamiento, no implementación.** Escribe "When I log in", no "When I type into email-input and tap login-button". Los detalles de implementación van en las definiciones de pasos, no en el Gherkin.
 
 ## La estructura de archivos completa
 
@@ -533,7 +533,7 @@ e2e/
     TalkBackGestures.feature     # Tests de screen reader para Android
 ```
 
-## Qué ganás
+## Qué ganas
 
 El setup toma una mañana. Escribir el primer feature file toma una tarde. Después de eso, agregar nuevos escenarios es rápido porque las definiciones de pasos son reutilizables.
 

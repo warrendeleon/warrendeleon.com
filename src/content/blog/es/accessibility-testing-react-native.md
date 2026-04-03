@@ -8,13 +8,13 @@ heroImage: "/images/blog/accessibility-testing-rn.jpg"
 heroAlt: "Testing de accesibilidad en React Native"
 ---
 
-## La mayoría de las apps se saltean el testing de accesibilidad por completo
+## La mayoría de las apps se saltan el testing de accesibilidad por completo
 
-Accesibilidad en React Native generalmente significa "agregar algunos props `accessibilityLabel` y cruzar los dedos." Capaz alguien corre VoiceOver manualmente antes de un release. Capaz no.
+Accesibilidad en React Native generalmente significa "agregar algunos props `accessibilityLabel` y cruzar los dedos." Igual alguien corre VoiceOver manualmente antes de un release. Igual no.
 
-El resultado: botones demasiado chicos para tappear de forma confiable, texto con contraste insuficiente, formularios sin orden de foco, mensajes de error que los screen readers nunca anuncian. No son edge cases. Afectan a usuarios reales, y en Europa, el European Accessibility Act (EAA) los convierte en requisitos legales. La aplicación del EAA empezó en junio de 2025. Si tu app tiene usuarios en la UE, esto no es opcional.
+El resultado: botones demasiado pequeños para tappear de forma fiable, texto con contraste insuficiente, formularios sin orden de foco, mensajes de error que los screen readers nunca anuncian. No son edge cases. Afectan a usuarios reales, y en Europa, el European Accessibility Act (EAA) los convierte en requisitos legales. La aplicación del EAA empezó en junio de 2025. Si tu app tiene usuarios en la UE, esto no es opcional.
 
-El problema no es que a los equipos no les importe. Es que el testing de accesibilidad se siente manual, lento y desconectado del test suite regular. Corrés tus tests de Jest, pasan, y nadie verifica si el botón de submit tiene 44 puntos de ancho.
+El problema no es que a los equipos no les importe. Es que el testing de accesibilidad se siente manual, lento y desconectado del test suite regular. Corres tus tests de Jest, pasan, y nadie verifica si el botón de submit tiene 44 puntos de ancho.
 
 > 💡 **La solución:** tratar los requisitos de accesibilidad como aserciones testeables. El tamaño del touch target es un número. El ratio de contraste es un cálculo. El orden de foco es una secuencia. Todo esto puede correr en Jest junto con tus tests unitarios.
 
@@ -34,7 +34,7 @@ Esta no es una guía para hacer tu app accesible. Es una guía para *testear* qu
 
 ## Instalación
 
-Sin dependencias extra. Las utilidades de testing usan React Native Testing Library (que ya tenés para tus tests de componentes) y aserciones de Jest puras:
+Sin dependencias extra. Las utilidades de testing usan React Native Testing Library (que ya tienes para tus tests de componentes) y aserciones de Jest puras:
 
 ```bash
 yarn add -D @testing-library/react-native
@@ -42,11 +42,11 @@ yarn add -D @testing-library/react-native
 
 ## Las utilidades de testing de accesibilidad
 
-Un solo archivo exporta todos los helpers de accesibilidad. Cada función mapea a un criterio WCAG y recibe un `ReactTestInstance` (el elemento que obtenés de `getByTestId`).
+Un solo archivo exporta todos los helpers de accesibilidad. Cada función mapea a un criterio WCAG y recibe un `ReactTestInstance` (el elemento que obtienes de `getByTestId`).
 
 ### Validación de touch targets
 
-La falla de accesibilidad más común en apps mobile: botones e inputs demasiado chicos para tappear de forma confiable.
+La falla de accesibilidad más común en apps mobile: botones e inputs demasiado pequeños para tappear de forma fiable.
 
 ```typescript
 // src/test-utils/accessibility.ts
@@ -159,11 +159,11 @@ La función verifica tres capas:
 
 Los tokens de GlueStack (`$11` = 44px, `$12` = 48px) se resuelven a valores en píxeles automáticamente. Si no existe un tamaño medible y no hay `hitSlop` seteado, la función lanza un error en vez de pasar silenciosamente.
 
-> ⚠️ **Usuarios de GlueStack/NativeWind:** En el entorno de test de Jest, NativeWind normalmente está mockeado, así que los estilos basados en `className` no van a ser visibles. Esta función lee los props de GlueStack directamente de `element.props`, lo cual funciona para valores numéricos (`minHeight={50}`) y tokens de GlueStack (`h="$12"`). Asegurate de que tus componentes interactivos usen props de tamaño explícitos, no solo layout del padre, para cumplir con los touch targets.
+> ⚠️ **Usuarios de GlueStack/NativeWind:** En el entorno de test de Jest, NativeWind normalmente está mockeado, así que los estilos basados en `className` no van a ser visibles. Esta función lee los props de GlueStack directamente de `element.props`, lo cual funciona para valores numéricos (`minHeight={50}`) y tokens de GlueStack (`h="$12"`). Asegúrate de que tus componentes interactivos usen props de tamaño explícitos, no solo layout del padre, para cumplir con los touch targets.
 
 ### Validación de hitSlop
 
-Para elementos visualmente chicos (botones de ícono, botones de cerrar) que usan `hitSlop` para extender el área de toque:
+Para elementos visualmente pequeños (botones de icono, botones de cerrar) que usan `hitSlop` para extender el área de toque:
 
 ```typescript
 export function expectMinHitSlop(
@@ -234,7 +234,7 @@ export function expectAccessibilityProps(
 }
 ```
 
-Pasá `label: true` para verificar que existe (cualquier valor). Pasá `label: 'Submit'` para verificar el texto exacto. Lo mismo para `hint`. La opción `state` verifica propiedades de `accessibilityState` como `disabled`, `selected` y `expanded`.
+Pasa `label: true` para verificar que existe (cualquier valor). Pasa `label: 'Submit'` para verificar el texto exacto. Lo mismo para `hint`. La opción `state` verifica propiedades de `accessibilityState` como `disabled`, `selected` y `expanded`.
 
 ### Anuncios de screen reader
 
@@ -350,7 +350,7 @@ export function expectColorContrast(
 }
 ```
 
-Pasá tu color de texto y color de fondo como strings hexadecimales. La función calcula el ratio y falla si está por debajo del mínimo.
+Pasa tu color de texto y color de fondo como strings hexadecimales. La función calcula el ratio y falla si está por debajo del mínimo.
 
 ## Escribiendo tests de accesibilidad
 
@@ -444,7 +444,7 @@ Cada categoría de test mapea a un requisito WCAG:
 | Grupo de tests | WCAG | Qué detecta |
 |---|---|---|
 | Orden de foco | 2.4.3 | Regresiones en el orden de tabulación después de cambios de layout |
-| Touch targets | 2.5.5 | Botones que se achican por debajo de 44pt después de cambios de estilo |
+| Touch targets | 2.5.5 | Botones que se reducen por debajo de 44pt después de cambios de estilo |
 | Anuncios | 4.1.3 | `liveRegion` faltante después de refactorizar componentes de error |
 | Roles y labels | 4.1.2 | `accessibilityRole` faltante en componentes nuevos |
 
@@ -514,19 +514,19 @@ La convención de nombres `*.accessibility.rntl.tsx` te permite correrlos como u
 yarn jest --testPathPattern='accessibility'
 ```
 
-O correlos todos juntos. Son tests regulares de Jest. Sin configuración especial, sin test runner separado.
+O córrelos todos juntos. Son tests regulares de Jest. Sin configuración especial, sin test runner separado.
 
 ## Errores comunes
 
-**No testees implementación, testeá requisitos.** `expect(element.props.accessibilityLabel).toBe('Submit')` es frágil. `expect(element.props.accessibilityLabel).toBeTruthy()` verifica el requisito (el label existe) sin acoplarse al texto exacto. Testeá el texto exacto solo cuando la redacción importa para la experiencia del usuario.
+**No testees implementación, testea requisitos.** `expect(element.props.accessibilityLabel).toBe('Submit')` es frágil. `expect(element.props.accessibilityLabel).toBeTruthy()` verifica el requisito (el label existe) sin acoplarse al texto exacto. Testea el texto exacto solo cuando la redacción importa para la experiencia del usuario.
 
-**No te olvides de `accessibilityState`.** Un botón deshabilitado que no setea `accessibilityState.disabled = true` se ve deshabilitado visualmente pero los screen readers lo siguen anunciando como tapeable. Siempre testeá el estado junto con el role.
+**No te olvides de `accessibilityState`.** Un botón deshabilitado que no setea `accessibilityState.disabled = true` se ve deshabilitado visualmente pero los screen readers lo siguen anunciando como tapeable. Siempre testea el estado junto con el role.
 
-**No te saltees dark mode.** Los ratios de contraste que pasan en light mode muchas veces fallan en dark mode. Testeá ambos esquemas de color.
+**No te saltes dark mode.** Los ratios de contraste que pasan en light mode muchas veces fallan en dark mode. Testea ambos esquemas de color.
 
 **No confíes solo en los estilos para los touch targets.** Un botón puede tener `width: 44` pero estar dentro de un contenedor con `overflow: hidden` que lo recorta. `expectMinTouchTarget` verifica los estilos propios del elemento. El testing visual (screenshots de Detox) detecta el recorte.
 
-**Las live regions necesitan contenido.** Setear `accessibilityLiveRegion="assertive"` en un elemento vacío no anuncia nada. Testeá que el elemento tenga contenido cuando la live region se activa.
+**Las live regions necesitan contenido.** Setear `accessibilityLiveRegion="assertive"` en un elemento vacío no anuncia nada. Testea que el elemento tenga contenido cuando la live region se activa.
 
 ## La estructura de archivos
 
@@ -547,16 +547,16 @@ src/
       ProfileScreen.accessibility.rntl.tsx
 ```
 
-## El costo del setup
+## El coste del setup
 
 El archivo de utilidades tiene unas 200 líneas. Cada archivo de test de accesibilidad por pantalla tiene entre 100 y 500 líneas. El setup es una tarde.
 
-Lo que obtenés: testing de regresión automatizado para cada requisito WCAG que se pueda expresar como una aserción de Jest. Touch targets, ratios de contraste, orden de foco, roles, labels, anuncios. Todo corriendo en cada PR, detectando regresiones que nadie notaría hasta que un usuario de screen reader lo reporte.
+Lo que obtienes: testing de regresión automatizado para cada requisito WCAG que se pueda expresar como una aserción de Jest. Touch targets, ratios de contraste, orden de foco, roles, labels, anuncios. Todo corriendo en cada PR, detectando regresiones que nadie notaría hasta que un usuario de screen reader lo reporte.
 
-Estos tests no reemplazan el testing manual de accesibilidad. Un usuario real con VoiceOver va a encontrar problemas que los tests automatizados no detectan (orden de lectura dentro de layouts complejos, conflictos de gestos, contexto faltante). Pero sí detectan las regresiones mecánicas: el botón que se achicó 2 puntos, el color que perdió contraste, el mensaje de error que perdió su live region.
+Estos tests no reemplazan el testing manual de accesibilidad. Un usuario real con VoiceOver va a encontrar problemas que los tests automatizados no detectan (orden de lectura dentro de layouts complejos, conflictos de gestos, contexto faltante). Pero sí detectan las regresiones mecánicas: el botón que se redujo 2 puntos, el color que perdió contraste, el mensaje de error que perdió su live region.
 
 > Los tests automatizados de accesibilidad no hacen tu app accesible. La mantienen accesible después de que alguien cambia el código.
 
-*Este post cubre testing de accesibilidad automatizado con Jest. Para testing E2E de accesibilidad con feature files de VoiceOver y TalkBack, mirá [Detox + Cucumber BDD para testing E2E en React Native](/es/blog/detox-cucumber-bdd-react-native-e2e-testing/). Los dos enfoques se complementan: Jest atrapa regresiones en cada PR; Detox valida el flujo completo del usuario en un dispositivo real.*
+*Este post cubre testing de accesibilidad automatizado con Jest. Para testing E2E de accesibilidad con feature files de VoiceOver y TalkBack, mira [Detox + Cucumber BDD para testing E2E en React Native](/es/blog/detox-cucumber-bdd-react-native-e2e-testing/). Los dos enfoques se complementan: Jest atrapa regresiones en cada PR; Detox valida el flujo completo del usuario en un dispositivo real.*
 
 *Los ejemplos de código en este post son de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), mi proyecto personal de React Native. Las utilidades completas de testing de accesibilidad, los validadores de contraste y los archivos de test por pantalla están en el repo.*

@@ -10,7 +10,7 @@ heroAlt: "Validación de respuestas de API en runtime con Zod en React Native"
 
 ## TypeScript no te protege en runtime
 
-Tenés una interfaz `Profile`. Tu API devuelve un objeto de perfil. TypeScript dice que los tipos coinciden. Todo compila. La app se publica.
+Tienes una interfaz `Profile`. Tu API devuelve un objeto de perfil. TypeScript dice que los tipos coinciden. Todo compila. La app se publica.
 
 Después, el equipo de backend renombra `profilePicture` a `avatar`. O cambia `phone` de un string a un objeto con campos `countryCode` y `number`. O empieza a devolver `null` donde antes devolvía un string vacío.
 
@@ -18,14 +18,14 @@ TypeScript no puede atrapar nada de esto. Verifica tipos en tiempo de compilaci�
 
 El resultado: tu app crashea por un acceso a propiedad, muestra campos vacíos o guarda datos corruptos silenciosamente. Y el mensaje de error no te dice nada útil porque la falla está a tres capas de distancia de la causa.
 
-> 💡 **La brecha:** TypeScript valida la forma de tu código. Zod valida la forma de tus datos. Necesitás ambos.
+> 💡 **La brecha:** TypeScript valida la forma de tu código. Zod valida la forma de tus datos. Necesitas ambos.
 
 ## Qué hace Zod
 
-Zod es una librería de declaración y validación de schemas. Definís un schema una vez, y te da dos cosas:
+Zod es una librería de declaración y validación de schemas. Defines un schema una vez, y te da dos cosas:
 
-1. **Validación en runtime.** Parseá cualquier dato `unknown` contra el schema. Si no coincide, obtenés un error detallado con el campo exacto y el motivo.
-2. **Tipos de TypeScript.** Inferí el tipo directamente del schema con `z.infer`. Sin definiciones de interfaces duplicadas. El tipo y la validación son la misma fuente de verdad.
+1. **Validación en runtime.** Parsea cualquier dato `unknown` contra el schema. Si no coincide, obtienes un error detallado con el campo exacto y el motivo.
+2. **Tipos de TypeScript.** Infiere el tipo directamente del schema con `z.infer`. Sin definiciones de interfaces duplicadas. El tipo y la validación son la misma fuente de verdad.
 
 ```typescript
 import { z } from 'zod';
@@ -57,7 +57,7 @@ Sin módulos nativos, sin config de Metro, sin polyfills.
 
 ## Escribiendo schemas
 
-Cada respuesta de API tiene su propio archivo de schema. Los schemas se componen: schemas chicos se combinan en más grandes.
+Cada respuesta de API tiene su propio archivo de schema. Los schemas se componen: schemas pequeños se combinan en más grandes.
 
 ### Schema simple
 
@@ -202,7 +202,7 @@ export function validateResponse<T>(
 }
 ```
 
-Cuando la validación falla, el mensaje de error incluye la ruta del primer campo que falló: `"Invalid response from server: user.profile.email Invalid email"`. Sabés exactamente qué se rompió y dónde.
+Cuando la validación falla, el mensaje de error incluye la ruta del primer campo que falló: `"Invalid response from server: user.profile.email Invalid email"`. Sabes exactamente qué se rompió y dónde.
 
 ### Validación segura (devuelve null si falla)
 
@@ -226,7 +226,7 @@ export function validateResponseSafe<T>(
 }
 ```
 
-Usá `validateResponse` para datos sin los cuales la app no puede funcionar (tokens de autenticación, contenido principal). Usá `validateResponseSafe` para datos opcionales donde un fallback a null es aceptable (contenido secundario, metadata de analytics).
+Usa `validateResponse` para datos sin los cuales la app no puede funcionar (tokens de autenticación, contenido principal). Usa `validateResponseSafe` para datos opcionales donde un fallback a null es aceptable (contenido secundario, metadata de analytics).
 
 ## Usando validación en funciones de API
 
@@ -275,7 +275,7 @@ async signIn(request: SupabaseSignInRequest): Promise<SupabaseSession> {
 }
 ```
 
-Si el proveedor de autenticación cambia el formato de su respuesta, `validateResponse` lo atrapa en la frontera. El mensaje de error incluye `"Supabase Auth signIn"` como contexto, así sabés qué llamada falló sin rastrear el stack.
+Si el proveedor de autenticación cambia el formato de su respuesta, `validateResponse` lo atrapa en la frontera. El mensaje de error incluye `"Supabase Auth signIn"` como contexto, así sabes qué llamada falló sin rastrear el stack.
 
 ## Testeando schemas
 
@@ -397,24 +397,24 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 ## Errores comunes
 
-**No definas tipos separados de los schemas.** Si tenés una interfaz `Profile` y un `ProfileSchema`, van a divergir. Usá `z.infer<typeof ProfileSchema>` como tu única fuente de verdad. Eliminá la interfaz.
+**No definas tipos separados de los schemas.** Si tienes una interfaz `Profile` y un `ProfileSchema`, van a divergir. Usa `z.infer<typeof ProfileSchema>` como tu única fuente de verdad. Elimina la interfaz.
 
-**No uses `.parse()` en loops de render.** La validación tiene un costo. Parseá una sola vez cuando llegan los datos (en la capa de API), no cada vez que un componente se re-renderiza. Los datos validados y tipados fluyen por Redux y props sin re-validación.
+**No uses `.parse()` en loops de render.** La validación tiene un coste. Parsea una sola vez cuando llegan los datos (en la capa de API), no cada vez que un componente se re-renderiza. Los datos validados y tipados fluyen por Redux y props sin re-validación.
 
 **No ignores la variante segura.** No toda falla de validación debería crashear la app. Si un campo secundario es inválido pero los datos principales están bien, `validateResponseSafe` devuelve null y loguea un warning. La app sigue funcionando con un fallback elegante.
 
-**No te saltees los tests de schemas.** Un schema sin tests es un schema en el que no podés confiar. El test de validación contra fixtures (`safeParse(mockData)`) es tu canario en la mina. Si falla, o la fixture o el schema están mal. De cualquier manera, necesitás saberlo antes de que la app se publique.
+**No te saltes los tests de schemas.** Un schema sin tests es un schema en el que no puedes confiar. El test de validación contra fixtures (`safeParse(mockData)`) es tu canario en la mina. Si falla, o la fixture o el schema están mal. De cualquier manera, necesitas saberlo antes de que la app se publique.
 
-**No te olvides de `.passthrough()` para APIs de terceros.** Sin él, Zod elimina los campos desconocidos. Si un backend agrega un campo nuevo, tu objeto validado lo pierde. Para APIs que controlás, eliminar campos está bien (previene contaminación de datos). Para APIs de terceros, usá `.passthrough()` para estar preparado a futuro.
+**No te olvides de `.passthrough()` para APIs de terceros.** Sin él, Zod elimina los campos desconocidos. Si un backend agrega un campo nuevo, tu objeto validado lo pierde. Para APIs que controlas, eliminar campos está bien (previene contaminación de datos). Para APIs de terceros, usa `.passthrough()` para estar preparado a futuro.
 
 ## Lo que cuesta, lo que atrapa
 
 El setup es trabajo de una mañana. Un schema por respuesta de API, dos funciones auxiliares, un test por schema.
 
-Lo que obtenés: cada respuesta de API se valida antes de que tu app la toque. Cuando el backend cambia, la validación lanza un error en la frontera con el campo exacto que se rompió. No más debuggear pantallas en blanco causadas por un campo renombrado a tres llamadas de API de profundidad.
+Lo que obtienes: cada respuesta de API se valida antes de que tu app la toque. Cuando el backend cambia, la validación lanza un error en la frontera con el campo exacto que se rompió. No más debuggear pantallas en blanco causadas por un campo renombrado a tres llamadas de API de profundidad.
 
 En mi proyecto, los schemas de Zod detectaron dos cambios del backend durante el desarrollo que se habrían publicado como bugs silenciosos. Uno era un campo nullable que pasó a ser requerido. El otro era un campo de URL que empezó a devolver paths relativos en vez de URLs absolutas. Ambos fueron atrapados por la validación antes de llegar a un componente.
 
-> Atrapalo en la frontera de la API o debuggealo en un reporte de crash. Tu decisión.
+> Atrápalo en la frontera de la API o debuggealo en un reporte de crash. Tú decides.
 
 *Los ejemplos de código en este post son de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), mi proyecto personal de React Native. Las definiciones completas de schemas de Zod, los helpers de validación y los tests están en el repo.*

@@ -12,13 +12,13 @@ heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
 
 ## Una prueba pensada para otro momento
 
-Cuatro días antes de empezar, fui a la oficina para un control de pasaporte. Mientras estaba ahí, mi jefe me comentó que iba a armar un equipo. Mi primera pregunta fue si podía cambiar el proceso de entrevistas. Dijo que sí. *Ni siquiera había tenido mi primer día.* Para cuando arranqué el 23, ya estaba construyendo la nueva prueba.
+Cuatro días antes de empezar, fui a la oficina para un control de pasaporte. Mientras estaba allí, mi jefe me comentó que iba a armar un equipo. Mi primera pregunta fue si podía cambiar el proceso de entrevistas. Dijo que sí. *Ni siquiera había tenido mi primer día.* Para cuando empecé el 23, ya estaba construyendo la nueva prueba.
 
 Soy el nuevo Engineering Manager del squad de **Mobile Platform**. Estamos reconstruyendo la app móvil en React Native, una migración brownfield desde las apps nativas de iOS y Android. Necesito ingenieros que puedan trabajar a nivel de plataforma.
 
-No tuve que pedir ver la prueba técnica. La había hecho yo mismo semanas antes. Así fue como me contrataron *a mí*: un ejercicio de live coding donde armás una app pequeña en una hora con el entrevistador mirando, seguido de preguntas técnicas de un cuestionario. La entrevista completa duraba unos 90 minutos.
+No tuve que pedir ver la prueba técnica. La había hecho yo mismo semanas antes. Así fue como me contrataron *a mí*: un ejercicio de live coding donde montas una app pequeña en una hora con el entrevistador mirando, seguido de preguntas técnicas de un cuestionario. La entrevista completa duraba unos 90 minutos.
 
-La prueba tenía sentido en su contexto original. Cuando el equipo era más chico y se contrataba para otros roles, era una forma razonable de filtrar candidatos rápido. Pero nuestras necesidades habían cambiado. Ya no estábamos buscando a alguien para armar pantallas simples. Estábamos contratando **ingenieros de plataforma** que serían dueños de la arquitectura sobre la que todos los demás equipos móviles iban a construir.
+La prueba tenía sentido en su contexto original. Cuando el equipo era más pequeño y se contrataba para otros roles, era una forma razonable de filtrar candidatos rápido. Pero nuestras necesidades habían cambiado. Ya no estábamos buscando a alguien para montar pantallas simples. Estábamos contratando **ingenieros de plataforma** que serían dueños de la arquitectura sobre la que todos los demás equipos móviles iban a construir.
 
 Necesitaba que la prueba respondiera preguntas distintas:
 
@@ -33,7 +33,7 @@ La prueba existente estaba diseñada para preguntas distintas. Necesitaba constr
 
 El live coding te dice si alguien programa cómodo mientras lo observan. Para algunos roles, eso importa. Para el nuestro, necesitaba ver otra cosa.
 
-Estuve de ambos lados. Tan recientemente como enero de este año, me fue fatal en un ejercicio de live coding para un puesto para el que estaba perfectamente calificado. El problema era simple. Sabía cómo resolverlo. Pero con alguien observando cada tecla que presionaba, mi mente se quedó en blanco. *No pasé.*
+Estuve de ambos lados. Tan recientemente como enero de este año, me fue fatal en un ejercicio de live coding para un puesto para el que estaba perfectamente cualificado. El problema era simple. Sabía cómo resolverlo. Pero con alguien observando cada tecla que presionaba, mi mente se quedó en blanco. *No pasé.*
 
 Como entrevistador, vi lo mismo pasarle a candidatos. Ingenieros capaces que se bloquean en problemas que resolverían en cinco minutos sentados en su escritorio. El live coding mide la compostura bajo observación. Es una señal válida para algunos roles, pero no era la señal que yo necesitaba.
 
@@ -65,13 +65,13 @@ Cuatro principios guiaron el diseño:
 
 El código del take-home es la mitad de la evaluación. La otra mitad es una llamada de walkthrough: el candidato **hace demo de la app**, corre sus tests en vivo y recorre el código.
 
-Acá es donde aprendés qué tan profundamente alguien entiende lo que construyó. En la era del desarrollo asistido por IA, esa comprensión importa más que nunca.
+Aquí es donde descubres qué tan profundamente alguien entiende lo que construyó. En la era del desarrollo asistido por IA, esa comprensión importa más que nunca.
 
 Tres cosas que busco:
 
-**Ownership.** *"Navegá al archivo donde manejás la respuesta de la API."* Si lo escribieron, van directo. Si no se sienten del todo cómodos con el código, eso se nota rápido.
+**Ownership.** *"Navega al archivo donde manejas la respuesta de la API."* Si lo escribieron, van directo. Si no se sienten del todo cómodos con el código, eso se nota rápido.
 
-**Pensamiento en trade-offs.** Pregunto por cada decisión significativa. *"¿Por qué este enfoque de state management?"* La respuesta que quiero no es "porque es el mejor." La respuesta que quiero es *"porque se ajusta a este alcance, pero acá es donde se quebraría, y acá es a lo que migraría."* Los ingenieros que piensan en trade-offs construyen mejores sistemas que los que piensan en absolutos.
+**Pensamiento en trade-offs.** Pregunto por cada decisión significativa. *"¿Por qué este enfoque de state management?"* La respuesta que quiero no es "porque es el mejor." La respuesta que quiero es *"porque se ajusta a este alcance, pero aquí es donde se quebraría, y aquí es a lo que migraría."* Los ingenieros que piensan en trade-offs construyen mejores sistemas que los que piensan en absolutos.
 
 **Autoconocimiento.** *"¿Qué cambiarías si tuvieras más tiempo?"* Los candidatos fuertes se iluminan con esta pregunta. Tienen una lista. Saben dónde cortaron esquinas. Saben qué es frágil. Vienen pensando en mejoras desde que entregaron. Los candidatos con menos experiencia suelen decir *"estoy conforme"* y siguen adelante.
 
@@ -85,7 +85,7 @@ El scorecard también mapea puntuaciones a niveles. Un número te dice si alguie
 
 ## Los candidatos senior tienen una ronda más difícil
 
-Para contrataciones senior, hay una conversación adicional de **system design**. Sin pizarra. Sin *"diseñá Twitter en 45 minutos."* Hablamos sobre escenarios reales relevantes a la plataforma que estamos construyendo. ¿Qué cambia cuando 20 equipos construyen sobre la misma plataforma móvil? ¿Cómo manejás dependencias compartidas? ¿Cuál es tu enfoque para backwards compatibility?
+Para contrataciones senior, hay una conversación adicional de **system design**. Sin pizarra. Sin *"diseña Twitter en 45 minutos."* Hablamos sobre escenarios reales relevantes a la plataforma que estamos construyendo. ¿Qué cambia cuando 20 equipos construyen sobre la misma plataforma móvil? ¿Cómo manejas dependencias compartidas? ¿Cuál es tu enfoque para backwards compatibility?
 
 Es una conversación entre dos ingenieros, no una actuación para un público. Los mejores candidatos **cuestionan** mis supuestos y hacen preguntas de clarificación. Ese es exactamente el comportamiento que quiero de un senior en el equipo.
 
@@ -93,14 +93,14 @@ Es una conversación entre dos ingenieros, no una actuación para un público. L
 
 En mi primera semana, contraté a un Senior Engineer a través del proceso existente (eso pasó el segundo día, antes de que la nueva prueba estuviera lista). De ahora en adelante, el nuevo proceso es el estándar para toda contratación de React Native en la organización. Mi par EM, que lidera otro squad, revisó la prueba y el scorecard y aceptó adoptarlo para las contrataciones de su equipo también. Esa es la ventaja de un sistema bien documentado: **escala más allá del squad de un solo manager.**
 
-Estoy por contratar dos Software Engineers con el nuevo proceso. Cada candidato recibirá la misma prueba, el mismo starter project, los mismos criterios de evaluación y la misma rúbrica de puntuación. La superficie de sesgo se reduce cuando estandarizás.
+Estoy por contratar dos Software Engineers con el nuevo proceso. Cada candidato recibirá la misma prueba, el mismo starter project, los mismos criterios de evaluación y la misma rúbrica de puntuación. La superficie de sesgo se reduce cuando estandarizas.
 
 ## La lección
 
-Si te estás sumando a un equipo nuevo como engineering manager, **mirá el proceso de contratación temprano**. No esperes hasta haber "aprendido el codebase" o "entendido la cultura." La contratación es una de las actividades de mayor apalancamiento que tenés. Cada persona que traés moldea al equipo por años.
+Si te estás sumando a un equipo nuevo como engineering manager, **mira el proceso de contratación temprano**. No esperes hasta haber "aprendido el codebase" o "entendido la cultura." La contratación es una de las actividades de mayor apalancamiento que tienes. Cada persona que traes moldea al equipo por años.
 
 Y si tu prueba técnica ya no refleja lo que estás buscando, vale la pena revisarla. Los mejores procesos de contratación evolucionan junto con las necesidades del equipo.
 
-Diseñá una prueba que refleje el trabajo real. Dale a los candidatos un starter project para que estés evaluando *ingeniería*, no *configuración*. Hacé los requisitos claros pero dejalos tomar sus propias decisiones. Después sentate frente a ellos y preguntá ***por qué***.
+Diseña una prueba que refleje el trabajo real. Da a los candidatos un starter project para que estés evaluando *ingeniería*, no *configuración*. Haz los requisitos claros pero déjalos tomar sus propias decisiones. Después siéntate frente a ellos y pregunta ***por qué***.
 
 > La combinación de código take-home bien pensado y un walkthrough estructurado te da más señal en dos horas que cualquier ejercicio de live coding en dos días.
