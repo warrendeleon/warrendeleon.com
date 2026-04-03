@@ -40,18 +40,18 @@
 /* Dark theme */
 [data-theme="dark"] {
   --bg-primary: #111111;
-  --bg-secondary: #1a1a1a;
-  --bg-card: #1e1e1e;
+  --bg-secondary: #1e1e1e;
+  --bg-card: #222222;
   --bg-nav: rgba(17, 17, 17, 0.95);
   --text-primary: #f0f0f0;
   --text-secondary: #b0b0b0;
   --text-muted: #999;
-  --border-color: #2a2a2a;
+  --border-color: #333333;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
   --badge-bg: #2a2a2a;
   --badge-text: #d0d0d0;
-  --timeline-line: #2a2a2a;
+  --timeline-line: #333333;
   --timeline-dot: #6dc402;
   --code-bg: #1a1a1a;
 }
@@ -517,7 +517,7 @@ main {
   background: rgba(229, 62, 62, 0.06);
 }
 .prose blockquote.callout-danger::before { content: '🚩'; }
-[data-theme="dark"] .prose blockquote.callout-danger { background: rgba(229, 62, 62, 0.12); }
+[data-theme="dark"] .prose blockquote.callout-danger { background: rgba(229, 62, 62, 0.15); border-left-color: #e53e3e; }
 
 /* Tip */
 .prose blockquote.callout-tip {
@@ -525,7 +525,7 @@ main {
   background: var(--bg-secondary);
 }
 .prose blockquote.callout-tip::before { content: '💡'; }
-[data-theme="dark"] .prose blockquote.callout-tip { background: var(--bg-secondary); }
+[data-theme="dark"] .prose blockquote.callout-tip { background: rgba(245, 158, 11, 0.1); }
 
 /* Warning */
 .prose blockquote.callout-warning {
@@ -533,7 +533,7 @@ main {
   background: rgba(214, 158, 46, 0.06);
 }
 .prose blockquote.callout-warning::before { content: '⚠️'; }
-[data-theme="dark"] .prose blockquote.callout-warning { background: rgba(214, 158, 46, 0.12); }
+[data-theme="dark"] .prose blockquote.callout-warning { background: rgba(214, 158, 46, 0.15); border-left-color: #d69e2e; }
 
 /* Info */
 .prose blockquote.callout-info {
@@ -541,7 +541,7 @@ main {
   background: rgba(49, 130, 206, 0.06);
 }
 .prose blockquote.callout-info::before { content: 'ℹ️'; }
-[data-theme="dark"] .prose blockquote.callout-info { background: rgba(49, 130, 206, 0.12); }
+[data-theme="dark"] .prose blockquote.callout-info { background: rgba(49, 130, 206, 0.15); border-left-color: #3182ce; }
 
 .prose code {
   background: var(--code-bg);
@@ -677,11 +677,14 @@ main {
 
 .prose table {
   width: 100%;
+  min-width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
   font-size: 0.95rem;
   overflow-x: auto;
-  display: block;
+  display: table;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
 }
 
 .prose thead {
@@ -704,8 +707,12 @@ main {
   vertical-align: top;
 }
 
-.prose tbody tr:hover {
+.prose tbody tr:nth-child(even) {
   background: var(--bg-secondary);
+}
+
+.prose tbody tr:hover {
+  background: var(--bg-card);
 }
 
 .prose tbody tr:last-child td {
