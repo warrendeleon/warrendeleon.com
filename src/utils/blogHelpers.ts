@@ -15,7 +15,7 @@ const dateLocaleMap: Record<Locale, string> = {
  * Returns all published (non-draft) blog posts for a given locale,
  * sorted by publish date descending (newest first).
  */
-export async function getPostsForLocale(locale: Locale, includeFuture = false) {
+export async function getPostsForLocale(locale: Locale, includeFuture = import.meta.env.DEV) {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
   return (await getCollection('blog'))
