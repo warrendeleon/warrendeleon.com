@@ -59,10 +59,10 @@ Los primeros cuatro checks son la línea base (cualquier candidato competente lo
 
 Hice esto para cada criterio en cuatro secciones:
 
-- **Funcionalidad Core** — ¿funciona la app?
-- **Capa de Datos y API** — ¿cómo obtiene y maneja los datos?
-- **Calidad de Código** — ¿el código está bien escrito y bien organizado?
-- **Testing** — ¿está testeado, y cómo?
+- **Funcionalidad Core**: ¿funciona la app?
+- **Capa de Datos y API**: ¿cómo obtiene y maneja los datos?
+- **Calidad de Código**: ¿el código está bien escrito y bien organizado?
+- **Testing**: ¿está testeado, y cómo?
 
 **100 checks. 100 puntos. Un punto cada uno.**
 
