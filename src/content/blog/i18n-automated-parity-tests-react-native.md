@@ -433,7 +433,7 @@ src/
     i18next.d.ts                # TypeScript module augmentation
 ```
 
-## Is it worth it?
+## One morning, one test, zero missed translations
 
 The setup is a morning. i18next configuration, five JSON files, one type declaration, one parity test. After that, adding a new language is: copy `en.json`, translate it, add it to `resources.ts`, add it to the parity test. The test catches any missed keys immediately.
 

@@ -548,7 +548,7 @@ src/
       ProfileScreen.accessibility.rntl.tsx
 ```
 
-## Is it worth it?
+## The setup cost
 
 The utility file is about 200 lines. Each screen's accessibility test file is 100-500 lines. The setup is an afternoon.
 

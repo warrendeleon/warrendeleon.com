@@ -22,7 +22,7 @@ The result: your app crashes on a property access, shows blank fields, or silent
 
 ## What Zod does
 
-Zod is a schema declaration and validation library. You define a schema once, and it gives you two things:
+Zod is a schema declaration and validation library. You define a schema once, and you get:
 
 1. **Runtime validation.** Parse any `unknown` data against the schema. If it doesn't match, you get a detailed error with the exact field and reason.
 2. **TypeScript types.** Infer the type directly from the schema with `z.infer`. No duplicate interface definitions. The type and the validation are the same source of truth.
@@ -407,7 +407,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **Don't forget `.passthrough()` for third-party APIs.** Without it, Zod strips unknown fields. If a backend adds a new field, your validated object loses it. For APIs you control, stripping is fine (it prevents data pollution). For third-party APIs, use `.passthrough()` to stay future-proof.
 
-## Is it worth it?
+## What it costs, what it catches
 
 The setup is a morning's work. One schema per API response, two helper functions, a test per schema.
 
@@ -415,6 +415,6 @@ What you get: every API response is validated before your app touches it. When t
 
 In my project, Zod schemas caught two backend changes during development that would have shipped as silent bugs. One was a nullable field that became required. The other was a URL field that started returning relative paths instead of absolute URLs. Both were caught by validation before reaching a component.
 
-> The best time to catch a bad API response is at the boundary. The worst time is in a crash report.
+> Catch it at the API boundary or debug it in a crash report. Your choice.
 
 *The code examples in this post are from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), my personal React Native project. The full Zod schema definitions, validation helpers, and tests are all in the repo.*

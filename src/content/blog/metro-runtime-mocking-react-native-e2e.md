@@ -29,7 +29,7 @@ Every one of these has caused a test failure in a project I've worked on. None o
 
 ## Why mock the backend?
 
-Mocking the backend in E2E tests gives you three things:
+Why bother?
 
 **1. Determinism.** The same test produces the same result every time. No network variability, no shared state, no external dependencies. If a test fails, it's because the app is broken, not because the API had a bad day.
 
@@ -266,7 +266,7 @@ The mocked build and the real build are separate app binaries. The mocked one is
 
 **Leaking mock state between scenarios.** Each Detox scenario should start with a fresh app state. Use `device.reloadReactNative()` in the `Before` hook to reset everything. Don't rely on mock state from a previous scenario.
 
-## Is it worth it?
+## The result
 
 The setup is a day of work. After that, your E2E suite runs without a backend, without network dependencies, and without flaky failures from external services.
 
