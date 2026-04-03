@@ -28,8 +28,15 @@ All tutorials link to code examples in https://github.com/warrendeleon/rn-warren
 - **Files to reference:** `src/test-utils/msw/handlers.ts`, `src/test-utils/renderWithProviders.tsx`
 
 ### Detox + Cucumber BDD for React Native E2E testing
+- **Target:** May 4
 - **Angle:** Most teams don't know Gherkin feature files work with Detox. Step-by-step guide.
 - **Files to reference:** `e2e/*.feature`, `e2e/*.cucumber.tsx`, `.detoxrc.js`, `CheckmarkFormatter.js`
+
+### Metro runtime mocking for deterministic E2E tests
+- **Target:** May 11
+- **Angle:** How to mock your entire API layer at bundle time using environment variables and JSON fixtures. No network interception, no flaky tests. The mocking strategy behind the Detox + Cucumber setup.
+- **Key content:** E2E_MOCK env var, Metro bundler config, fixture structure per locale, switching between real and mock API at build time
+- **Files to reference:** Metro config, fixture files in `src/test-utils/fixtures/api/`, conditional API client setup
 
 ### Tiered secure storage in React Native
 - **Angle:** Three storage tiers: Keychain for tokens, encrypted storage for PII, AsyncStorage for preferences. Why each tier exists and when to use it.
