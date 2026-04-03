@@ -81,7 +81,7 @@ Algo que quise desde el primer día fue un **scorecard estructurado**. Cuando es
 
 Construí un scorecard que divide la evaluación en secciones ponderadas: la app funciona, la capa de datos es sólida, el código está bien estructurado, hay tests y el candidato puede explicar todo en el walkthrough. Cada sección tiene criterios específicos en una escala consistente. **Cada entrevistador evalúa las mismas cosas en el mismo orden.**
 
-El scorecard también mapea puntuaciones a niveles. Un número te dice si alguien está a nivel graduate, junior, mid o senior. Esto elimina la ambigüedad de la conversación de nivelación. La rúbrica hace el trabajo de pensar. Los humanos la verifican.
+El scorecard también mapea puntuaciones a niveles. Un número te dice si alguien está a nivel Graduate, Associate, Software Engineer o Senior. Esto elimina la ambigüedad de la conversación de nivelación. La rúbrica hace el trabajo de pensar. Los humanos la verifican.
 
 ## Los candidatos senior tienen una ronda más difícil
 

@@ -81,7 +81,7 @@ Isang bagay na gusto ko agad mula day one ay isang **structured scorecard**. Kap
 
 Gumawa ako ng scorecard na hinahati ang evaluation sa mga weighted sections: gumagana ba ang app, matino ba ang data layer, maayos ba ang pagkakastruktura ng code, may tests ba, at kaya ba ng candidate i-explain ang lahat sa walkthrough. Bawat section may specific criteria sa isang consistent scale. **Bawat interviewer, parehong mga bagay ang ine-evaluate sa parehong pagkakasunod-sunod.**
 
-Ang scorecard, nima-map din ng scores sa levels. Isang number ang nagsasabi sa'yo kung graduate, junior, mid, o senior level ang isang tao. Tinatanggal nito ang ambiguity sa levelling conversation. Ang rubric ang nag-iisip. Ang mga tao ang nagve-verify.
+Ang scorecard, nima-map din ng scores sa levels. Isang number ang nagsasabi sa'yo kung Graduate, Associate, Software Engineer, o Senior level ang isang tao. Tinatanggal nito ang ambiguity sa levelling conversation. Ang rubric ang nag-iisip. Ang mga tao ang nagve-verify.
 
 ## Ang mga senior candidate may mas mahirap na round
 

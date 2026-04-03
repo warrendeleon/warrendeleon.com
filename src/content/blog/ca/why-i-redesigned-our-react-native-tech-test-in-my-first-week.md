@@ -81,7 +81,7 @@ Una cosa que vaig voler des del primer dia va ser un **scorecard estructurat**. 
 
 Vaig construir un scorecard que divideix l'avaluació en seccions ponderades: l'app funciona, la capa de dades és sòlida, el codi està ben estructurat, hi ha tests i el candidat pot explicar-ho tot al walkthrough. Cada secció té criteris específics en una escala consistent. **Cada entrevistador avalua les mateixes coses en el mateix ordre.**
 
-El scorecard també mapeja puntuacions a nivells. Un número et diu si algú està a nivell graduate, junior, mid o senior. Això elimina l'ambigüitat de la conversa de nivell·lació. La rúbrica fa la feina de pensar. Els humans la verifiquen.
+El scorecard també mapeja puntuacions a nivells. Un número et diu si algú està a nivell Graduate, Associate, Software Engineer o Senior. Això elimina l'ambigüitat de la conversa de nivell·lació. La rúbrica fa la feina de pensar. Els humans la verifiquen.
 
 ## Els candidats senior tenen una ronda més difícil
 

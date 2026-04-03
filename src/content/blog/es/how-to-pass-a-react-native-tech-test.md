@@ -1,6 +1,6 @@
 ---
 title: "Cómo aprobar una prueba técnica de React Native"
-description: "Consejos prácticos de alguien que revisa pruebas técnicas. Qué importa realmente, qué no, y los errores que les cuestan el puesto a los candidatos."
+description: "Consejos prácticos de alguien que revisa entregas de pruebas técnicas take-home. Qué importa realmente, qué no, y los errores que les cuestan el puesto a los candidatos."
 publishDate: 2026-04-07
 tags: ["react-native", "contratación", "consejos-de-carrera"]
 locale: es
@@ -111,7 +111,7 @@ Lo que no quiero ver:
 
 ## Manejá los estados de carga, error y vacío
 
-Esto separa a los juniors de los mids. Cualquiera puede construir el camino feliz. La pregunta es: ¿qué pasa cuando las cosas salen mal?
+Aquí es donde los candidatos destacan. Cualquiera puede construir el camino feliz. La pregunta es: ¿qué pasa cuando las cosas salen mal?
 
 **Estados de carga:** mostrá un spinner o skeleton en la primera carga. Mostrá un indicador sutil cuando se cargan más datos (paginación). No muestres un spinner de pantalla completa por 100ms.
 
@@ -135,7 +135,7 @@ Esto separa a los juniors de los mids. Cualquiera puede construir el camino feli
 
 ## Los edge cases son donde te destacás
 
-El camino feliz es el mínimo. Lo que separa una entrega de nivel mid de una senior es el manejo de edge cases:
+El camino feliz es el mínimo. Lo que separa una entrega de nivel Software Engineer de una Senior es el manejo de edge cases:
 
 - **¿Lista llena?** ¿Qué pasa cuando alguien intenta agregar un 7mo item? Un toast, un botón deshabilitado, un modal. Cualquier cosa excepto fallar silenciosamente.
 - **¿Lista vacía?** Mostrá un estado vacío con sentido, no una pantalla en blanco.

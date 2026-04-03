@@ -1,6 +1,6 @@
 ---
 title: "Paano pumasa sa React Native tech test"
-description: "Mga practical na advice mula sa taong nagrereview ng tech test submissions. Ano ang talagang mahalaga, ano ang hindi, at ang mga pagkakamaling nagko-cost ng trabaho sa mga kandidato."
+description: "Mga practical na advice mula sa taong nagrereview ng take-home tech test submissions. Ano ang talagang mahalaga, ano ang hindi, at ang mga pagkakamaling nagko-cost ng trabaho sa mga kandidato."
 publishDate: 2026-04-07
 tags: ["react-native", "pagkuha-ng-empleyado", "career-advice"]
 locale: tl
@@ -111,7 +111,7 @@ Ang ayaw kong makita:
 
 ## I-handle ang loading, errors, at empty states
 
-Ito ang naghihiwalay sa mga junior mula sa mga mid. Kahit sino ay kaya mag-build ng happy path. Ang tanong ay: ano ang mangyayari kapag may nagkamali?
+Dito nag-sta-stand out ang mga kandidato. Kahit sino ay kaya mag-build ng happy path. Ang tanong ay: ano ang mangyayari kapag may nagkamali?
 
 **Loading states:** magpakita ng spinner o skeleton sa unang load. Magpakita ng subtle indicator kapag naglo-load ng dagdag na data (pagination). Huwag mag-flash ng full-screen spinner sa loob ng 100ms.
 
@@ -135,7 +135,7 @@ Ito ang naghihiwalay sa mga junior mula sa mga mid. Kahit sino ay kaya mag-build
 
 ## Sa edge cases ka mag-sta-stand out
 
-Ang happy path ang minimum. Ang naghihiwalay ng mid-level na submission mula sa senior ay ang edge case handling:
+Ang happy path ang minimum. Ang naghihiwalay ng Software Engineer submission mula sa Senior ay ang edge case handling:
 
 - **Puno na ang list?** Ano ang mangyayari kapag may nag-try mag-add ng ika-7 na item? Isang toast, disabled button, modal. Kahit ano maliban sa tahimik na pag-fail.
 - **Walang laman ang list?** Magpakita ng meaningful na empty state, hindi blangkong screen.
