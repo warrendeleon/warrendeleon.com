@@ -61,7 +61,7 @@ afterAll(() => server.close());
 | `afterEach` | Resetea los handlers a los defaults entre tests (para que los overrides de un test no se filtren) |
 | `afterAll` | Apaga el servidor después de que todos los tests terminan |
 
-La opción `onUnhandledRequest: 'warn'` loguea un warning si tu código hace una petición que ningún handler matchea. Esto atrapa handlers faltantes temprano en vez de dejar que los tests fallen con errores de red crípticos.
+La opción `onUnhandledRequest: 'warn'` registra un warning si tu código hace una petición que ningún handler coincide. Esto atrapa handlers faltantes temprano en vez de dejar que los tests fallen con errores de red crípticos.
 
 ## Escribiendo handlers
 

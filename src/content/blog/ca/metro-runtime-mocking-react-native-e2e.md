@@ -1,6 +1,6 @@
 ---
 title: "Mocking en temps d'execució amb Metro per a tests E2E deterministes a React Native"
-description: "Per què mockejar el backend en tests E2E importa, i com fer-ho a nivell del bundle de Metro. Sense intercepció de xarxa, sense tests inestables, sense dependències externes."
+description: "Per què simular el backend en tests E2E importa, i com fer-ho a nivell del bundle de Metro. Sense intercepció de xarxa, sense tests inestables, sense dependències externes."
 publishDate: 2026-05-11
 tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: ca
@@ -27,28 +27,28 @@ Cada un d'aquests ha causat una fallada de test en un projecte on he treballat. 
 
 > 💡 **Un test inestable és pitjor que cap test.** Entrena l'equip a ignorar les fallades. Un cop la gent comença a re-executar la suite "per si de cas", has perdut la confiança en la teva infraestructura de test.
 
-## Per què mockejar el backend?
+## Per què simular el backend?
 
 Per què?
 
 **1. Determinisme.** El mateix test produeix el mateix resultat cada cop. Sense variabilitat de xarxa, sense estat compartit, sense dependències externes. Si un test falla, és perquè l'app està trencada, no perquè l'API ha tingut un mal dia.
 
-**2. Velocitat.** Sense viatges de xarxa d'anada i tornada. Sense esperar consultes a la base de dades. Les respostes mockejades retornen instantàniament. Una suite que triga 8 minuts contra un backend real pot baixar a 3 minuts amb mocks.
+**2. Velocitat.** Sense viatges de xarxa d'anada i tornada. Sense esperar consultes a la base de dades. Les respostes simulades retornen instantàniament. Una suite que triga 8 minuts contra un backend real pot baixar a 3 minuts amb mocks.
 
-**3. Estats d'error testejables.** Amb un backend real, testejar un error 500 vol dir trencar el servidor o construir un endpoint especial. Amb mocks, passes un argument de llançament i l'app retorna l'error que necessitis.
+**3. Estats d'error verificables.** Amb un backend real, provar un error 500 vol dir trencar el servidor o construir un endpoint especial. Amb mocks, passes un argument de llançament i l'app retorna l'error que necessitis.
 
 ## Els compromisos
 
-Mockejar no és gratis. Tries què cedir.
+Simular no és gratis. Tries què cedir.
 
 | Què guanyes | Què perds |
 |---|---|
 | Resultats deterministes | Confiança que la integració real amb l'API funciona |
 | Execució ràpida | Cobertura de casos extrems de xarxa (timeouts, reintents) |
 | Sense infraestructura necessària | Les dades fixture poden divergir de les respostes reals de l'API |
-| Estats d'error testejables | Cal mantenir les fixtures quan l'API evoluciona |
+| Estats d'error verificables | Cal mantenir les fixtures quan l'API evoluciona |
 
-La resposta honesta: **necessites les dues coses.** Mockeja el backend per a la teva suite E2E diària (la que s'executa a cada PR). Executa un conjunt més petit de tests de smoke contra el backend real amb una programació (cada nit, pre-release). La suite mockejada detecta regressions ràpidament. La suite real detecta la deriva d'integració.
+La resposta honesta: **necessites les dues coses.** Simula el backend per a la teva suite E2E diària (la que s'executa a cada PR). Executa un conjunt més petit de tests de smoke contra el backend real amb una programació (cada nit, pre-release). La suite simulada detecta regressions ràpidament. La suite real detecta la deriva d'integració.
 
 ## Per què no MSW?
 
@@ -213,11 +213,11 @@ await device.launchApp({
 });
 ```
 
-Ara pots testejar cada estat d'error de forma determinista: fallades de xarxa, 500s, 404s, timeouts. Cada un és un argument de llançament, no un servidor trencat.
+Ara pots provar cada estat d'error de forma determinista: fallades de xarxa, 500s, 404s, timeouts. Cada un és un argument de llançament, no un servidor trencat.
 
 ## Mocking d'autenticació
 
-L'auth és la part més complicada. Els fluxos d'auth reals impliquen tokens, sessions, verificació d'email, restabliment de contrasenya. Mockejar-los requereix mantenir estat dins del mock:
+L'auth és la part més complicada. Els fluxos d'auth reals impliquen tokens, sessions, verificació d'email, restabliment de contrasenya. Simular-los requereix mantenir estat dins del mock:
 
 ```typescript
 async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
@@ -254,15 +254,15 @@ yarn detox:ios:build
 yarn detox:ios:test --tags @smoke
 ```
 
-El build mockejat i el build real són binaris d'app separats. El mockejat s'usa per a la suite E2E completa. El real s'usa per a una suite de smoke més petita.
+El build simulat i el build real són binaris d'app separats. El simulat s'usa per a la suite E2E completa. El real s'usa per a una suite de smoke més petita.
 
 ## Errors comuns
 
 **Les fixtures divergeixen de l'API real.** El risc més gran. Si el backend afegeix un camp i les teves fixtures no el tenen, els tests mock passen, però l'app real es trenca. Resol-ho executant la validació del teu esquema Zod contra les fixtures en un test unitari. Si la fixture no coincideix amb l'esquema, el test falla.
 
-**Mockejar massa.** Si cada crida d'API està mockejada, estàs testejant les teves fixtures, no la teva app. Manté el mocking al límit HTTP. Redux, gestió d'estat, navegació i renderització d'UI han de ser reals.
+**Simular massa.** Si cada crida d'API està simulada, estàs provant les teves fixtures, no la teva app. Manté el mocking al límit HTTP. Redux, gestió d'estat, navegació i renderització d'UI han de ser reals.
 
-**Oblidar-se de testejar la integració real.** Els tests E2E mockejats detecten regressions d'UI. No detecten canvis en el contracte de l'API. Executa una suite de smoke amb backend real amb una programació, encara que siguin només 5 paths crítics.
+**Oblidar-se de provar la integració real.** Els tests E2E simulats detecten regressions d'UI. No detecten canvis en el contracte de l'API. Executa una suite de smoke amb backend real amb una programació, encara que siguin només 5 paths crítics.
 
 **Filtrar estat mock entre escenaris.** Cada escenari de Detox hauria de començar amb un estat d'app net. Usa `device.reloadReactNative()` al hook `Before` per reiniciar-ho tot. No confiïs en l'estat mock d'un escenari anterior.
 
@@ -270,10 +270,10 @@ El build mockejat i el build real són binaris d'app separats. El mockejat s'usa
 
 El setup és un dia de feina. Després d'això, la teva suite E2E s'executa sense backend, sense dependències de xarxa i sense fallades inestables de serveis externs.
 
-Al meu projecte, la suite mockejada s'executa en 3 minuts. Els mateixos tests contra un backend real trigaven 8 minuts i fallaven intermitentment. La suite mockejada ha estat verda durant setmanes. La suite real necessitava supervisió.
+Al meu projecte, la suite simulada s'executa en 3 minuts. Els mateixos tests contra un backend real trigaven 8 minuts i fallaven intermitentment. La suite simulada ha estat verda durant setmanes. La suite real necessitava supervisió.
 
 Els dos enfocaments funcionen junts. Mock per a velocitat i determinisme a cada PR. Backend real per a confiança d'integració amb una programació. Cap dels dos sol és suficient.
 
-> El propòsit dels tests E2E és detectar regressions de l'app, no testejar la teva connexió de xarxa.
+> El propòsit dels tests E2E és detectar regressions de l'app, no provar la teva connexió de xarxa.
 
 *Aquest post forma part d'una sèrie sobre testing d'apps React Native. Els posts anteriors cobreixen [MSW v2 per a tests unitaris i d'integració](/blog/setting-up-msw-v2-in-react-native/) i [Detox + Cucumber BDD per a testing E2E](/blog/detox-cucumber-bdd-react-native-e2e-testing/). Els exemples de codi són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).*

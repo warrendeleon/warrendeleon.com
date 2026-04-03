@@ -340,7 +340,7 @@ La regla es simple: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2.
 
 ## Errores comunes
 
-**No guardes tokens en Redux.** El estado de Redux se puede serializar, loguear, persistir en AsyncStorage vía Redux Persist, e inspeccionar con DevTools. Aunque pongas el slice de auth en blacklist para la persistencia, una sola mala configuración expone los tokens. Guarda los tokens en SecureStore, punto.
+**No guardes tokens en Redux.** El estado de Redux se puede serializar, registrar en logs, persistir en AsyncStorage vía Redux Persist, e inspeccionar con DevTools. Aunque pongas el slice de auth en blacklist para la persistencia, una sola mala configuración expone los tokens. Guarda los tokens en SecureStore, punto.
 
 **No te saltes los enums tipados.** Sin los enums `SecureStoreKey` y `EncryptedStoreKey`, estás pasando strings sueltos. Un typo y estás leyendo de la clave equivocada. Un nivel equivocado y estás guardando un token en texto plano. El sistema de tipos es tu auditoría de seguridad más barata.
 

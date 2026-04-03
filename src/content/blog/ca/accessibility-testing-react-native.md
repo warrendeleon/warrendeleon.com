@@ -16,11 +16,11 @@ El resultat: botons massa petits per tocar de manera fiable, text amb contrast i
 
 El problema no és que els equips no s'hi preocupin. És que el testing d'accessibilitat es percep com a manual, lent i desconnectat de la suite de tests habitual. Executes els teus tests de Jest, passen, i ningú comprova si el botó de submit fa 44 punts d'ample.
 
-> 💡 **La solució:** tractar els requisits d'accessibilitat com a assercions testejables. La mida del touch target és un número. El ràtio de contrast és un càlcul. L'ordre de focus és una seqüència. Tot això es pot executar a Jest al costat dels teus tests unitaris.
+> 💡 **La solució:** tractar els requisits d'accessibilitat com a assercions verificables. La mida del touch target és un número. El ràtio de contrast és un càlcul. L'ordre de focus és una seqüència. Tot això es pot executar a Jest al costat dels teus tests unitaris.
 
-## Què estem testejant
+## Què estem verificant
 
-Això no és una guia per fer la teva app accessible. És una guia per *testejar* que es manté accessible. La distinció és important: la implementació és als teus components. Els tests detecten regressions quan algú canvia un estil, refactoritza un layout o afegeix una pantalla nova.
+Això no és una guia per fer la teva app accessible. És una guia per *verificar* que es manté accessible. La distinció és important: la implementació és als teus components. Els tests detecten regressions quan algú canvia un estil, refactoritza un layout o afegeix una pantalla nova.
 
 | Què | Criteri WCAG | Com ho testem |
 |---|---|---|
@@ -78,7 +78,7 @@ const FULL_SIZE_VALUES = new Set([
 function getNumericValue(value: unknown): number | undefined {
   if (typeof value === 'number') return value;
   if (typeof value === 'string') {
-    // Primer prova el token de GlueStack, després parsejar com a número
+    // Primer prova el token de GlueStack, després analitzar com a número
     if (GLUESTACK_SPACE_TOKENS[value] !== undefined) {
       return GLUESTACK_SPACE_TOKENS[value];
     }
@@ -159,7 +159,7 @@ La funció comprova tres capes:
 
 Els tokens de GlueStack (`$11` = 44px, `$12` = 48px) es resolen a valors en píxels automàticament. Si no existeix cap mida mesurable i no hi ha `hitSlop` definit, la funció llança un error en comptes de passar silenciosament.
 
-> ⚠️ **Usuaris de GlueStack/NativeWind:** A l'entorn de test de Jest, NativeWind normalment està mockejat, així que els estils basats en `className` no seran visibles. Aquesta funció llegeix les props de GlueStack directament de `element.props`, cosa que funciona per a valors numèrics (`minHeight={50}`) i tokens de GlueStack (`h="$12"`). Assegura't que els teus components interactius usen props de dimensió explícites, no només el layout del pare, per al compliment dels touch targets.
+> ⚠️ **Usuaris de GlueStack/NativeWind:** A l'entorn de test de Jest, NativeWind normalment està simulat, així que els estils basats en `className` no seran visibles. Aquesta funció llegeix les props de GlueStack directament de `element.props`, cosa que funciona per a valors numèrics (`minHeight={50}`) i tokens de GlueStack (`h="$12"`). Assegura't que els teus components interactius usen props de dimensió explícites, no només el layout del pare, per al compliment dels touch targets.
 
 ### Validació de hitSlop
 
@@ -518,15 +518,15 @@ O executar-ho tot junt. Són tests de Jest normals. Sense configuració especial
 
 ## Errors habituals
 
-**No testegis la implementació, testeja els requisits.** `expect(element.props.accessibilityLabel).toBe('Submit')` és fràgil. `expect(element.props.accessibilityLabel).toBeTruthy()` comprova el requisit (l'etiqueta existeix) sense acoblar-se al text exacte. Testeja el text exacte només quan la redacció importa per a l'experiència d'usuari.
+**No provis la implementació, prova els requisits.** `expect(element.props.accessibilityLabel).toBe('Submit')` és fràgil. `expect(element.props.accessibilityLabel).toBeTruthy()` comprova el requisit (l'etiqueta existeix) sense acoblar-se al text exacte. Prova el text exacte només quan la redacció importa per a l'experiència d'usuari.
 
-**No oblidis `accessibilityState`.** Un botó deshabilitat que no defineix `accessibilityState.disabled = true` es veu deshabilitat visualment, però els lectors de pantalla el segueixen anunciant com a interactiu. Testeja sempre l'estat juntament amb el rol.
+**No oblidis `accessibilityState`.** Un botó deshabilitat que no defineix `accessibilityState.disabled = true` es veu deshabilitat visualment, però els lectors de pantalla el segueixen anunciant com a interactiu. Verifica sempre l'estat juntament amb el rol.
 
-**No t'oblidis del dark mode.** Els ràtios de contrast que passen en light mode sovint fallen en dark mode. Testeja els dos esquemes de color.
+**No t'oblidis del dark mode.** Els ràtios de contrast que passen en light mode sovint fallen en dark mode. Prova els dos esquemes de color.
 
 **No confiïs només en l'estil per als touch targets.** Un botó pot tenir `width: 44` però estar dins un contenidor amb `overflow: hidden` que el retalla. `expectMinTouchTarget` comprova els estils propis de l'element. El testing visual (captures de pantalla amb Detox) detecta el retallament.
 
-**Les live regions necessiten contingut.** Definir `accessibilityLiveRegion="assertive"` en un element buit no anuncia res. Testeja que l'element té contingut quan la live region s'activa.
+**Les live regions necessiten contingut.** Definir `accessibilityLiveRegion="assertive"` en un element buit no anuncia res. Verifica que l'element té contingut quan la live region s'activa.
 
 ## L'estructura de fitxers
 

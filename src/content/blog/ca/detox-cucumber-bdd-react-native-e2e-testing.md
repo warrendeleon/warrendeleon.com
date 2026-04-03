@@ -443,7 +443,7 @@ El hook `BeforeAll` llegeix `CUCUMBER_WORKER_ID` per inicialitzar cada worker am
 
 Detox no pot controlar VoiceOver o TalkBack directament. El testing manual amb lector de pantalla segueix sent essencial. Però el que Detox *sí pot* fer és verificar que els labels, rols i traits d'accessibilitat estiguin correctes a cada element. Escrits en Gherkin, aquests tests detecten regressions d'accessibilitat abans que un tester humà obri VoiceOver.
 
-El meu projecte té dos fitxers feature que testegen propietats d'accessibilitat: un per a patrons d'iOS i un per a Android.
+El meu projecte té dos fitxers feature que verifiquen propietats d'accessibilitat: un per a patrons d'iOS i un per a Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -545,6 +545,6 @@ El retorn:
 
 > Quan un test E2E falla, hauries de saber què s'ha trencat sense llegir el codi del test.
 
-*Aquest post cobreix testing E2E. Per a tests unitaris i d'integració, uso [MSW v2 per mockejar la capa de xarxa](/ca/blog/setting-up-msw-v2-in-react-native/) en comptes de `jest.fn()`. Els dos enfocaments es complementen: MSW per a tests ràpids i enfocats contra crides HTTP reals; Detox + Cucumber per a fluxos complets d'usuari en un dispositiu real.*
+*Aquest post cobreix testing E2E. Per a tests unitaris i d'integració, uso [MSW v2 per simular la capa de xarxa](/ca/blog/setting-up-msw-v2-in-react-native/) en comptes de `jest.fn()`. Els dos enfocaments es complementen: MSW per a tests ràpids i enfocats contra crides HTTP reals; Detox + Cucumber per a fluxos complets d'usuari en un dispositiu real.*
 
 *Els exemples de codi d'aquest post són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. El setup complet de Detox + Cucumber, les definicions de passos, el formatter personalitzat i els fitxers feature d'accessibilitat són al repo.*

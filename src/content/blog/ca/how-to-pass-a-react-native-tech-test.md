@@ -105,7 +105,7 @@ No necessites un 90% de cobertura. Necessites tests *significatius*. Tres bons t
 
 | Tipus de test | Exemple |
 |---|---|
-| Lògica de negoci | Si hi ha una regla (màxim 6 a la llista, sense duplicats), testeja-la. Els reducers i selectors són els tests de més valor. |
+| Lògica de negoci | Si hi ha una regla (màxim 6 a la llista, sense duplicats), prova-la. Els reducers i selectors són els tests de més valor. |
 | Interaccions d'usuari | Renderitza un component amb RNTL, prem un botó, comprova el resultat. Fes servir `render`, `fireEvent`, `waitFor`. |
 | Edge cases | Què passa quan intentes afegir un duplicat? Quan la llista és buida? Al límit de paginació? |
 | Tests que passin | Executa'ls abans d'entregar. Tests que fallen són senyal de feina inacabada. |
@@ -113,7 +113,7 @@ No necessites un 90% de cobertura. Necessites tests *significatius*. Tres bons t
 **El que no vull veure:**
 
 - ❌ **Snapshot tests a tot arreu.** Es trenquen amb cada canvi de UI i no demostren res sobre el comportament.
-- ❌ **Tests que ho mockegen tot.** Si el teu test mockeja la funció que està testejant, està testejant el mock.
+- ❌ **Tests que ho simulen tot.** Si el teu test simula la funció que està provant, està provant el mock.
 - ❌ **Cap test.** És difícil recuperar-se d'això al walkthrough.
 
 > 💡 **Tip:** 5-10 tests enfocats que cobreixin els camins crítics. Reducers, selectors, interaccions clau. Amb això n'hi ha prou.
@@ -218,4 +218,4 @@ Qualsevol pot construir pantalles. Els candidats que són contractats són els q
 
 La prova tècnica no està avaluant si pots escriure React Native. Està avaluant si pots prendre bones decisions i comunicar-les amb claredat.
 
-> Construeix alguna cosa neta, testeja les parts importants, documenta el teu raonament, i prepara't per parlar-ne amb honestedat. Això és tot. Aquest és tot el secret.
+> Construeix alguna cosa neta, prova les parts importants, documenta el teu raonament, i prepara't per parlar-ne amb honestedat. Això és tot. Aquest és tot el secret.

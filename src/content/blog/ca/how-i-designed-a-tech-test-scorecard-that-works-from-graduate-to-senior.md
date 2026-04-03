@@ -62,7 +62,7 @@ Vaig fer això per a cada criteri en quatre seccions:
 - **Funcionalitat Core**: funciona l'app?
 - **Capa de Dades i API**: com obté i gestiona les dades?
 - **Qualitat de Codi**: el codi està ben escrit i ben organitzat?
-- **Testing**: està testejat, i com?
+- **Testing**: està provat, i com?
 
 **100 checks. 100 punts. Un punt cadascun.**
 

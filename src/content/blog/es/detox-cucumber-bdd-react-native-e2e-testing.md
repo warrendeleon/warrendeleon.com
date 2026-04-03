@@ -507,7 +507,7 @@ Los scripts de package.json hacen que el flujo de trabajo sea limpio:
 
 **`typeText` agrega, `replaceText` reemplaza.** Si un campo tiene texto placeholder o input previo, `typeText` le agrega encima. Usa `replaceText` para inputs de formularios donde quieres un valor limpio.
 
-**Los screenshots en fallo son esenciales.** El hook `After` captura un screenshot cuando un escenario falla. Sin esto, debuggear fallos en CI es adivinanza. Nombra el screenshot con el nombre del escenario para poder matchear fallos con imágenes.
+**Los screenshots en fallo son esenciales.** El hook `After` captura un screenshot cuando un escenario falla. Sin esto, debuggear fallos en CI es adivinanza. Nombra el screenshot con el nombre del escenario para poder relacionar fallos con imágenes.
 
 **Los feature files deberían describir comportamiento, no implementación.** Escribe "When I log in", no "When I type into email-input and tap login-button". Los detalles de implementación van en las definiciones de pasos, no en el Gherkin.
 
