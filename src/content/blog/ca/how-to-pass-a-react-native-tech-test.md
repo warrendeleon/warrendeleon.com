@@ -26,7 +26,7 @@ Si el brief diu "construeix tres pantalles amb navegació," no en construeixis d
 
 **Els revisors verifiquen els requisits com una checklist.** Cada requisit que falta són punts perduts. No perquè siguem pedants, sinó perquè seguir una especificació és part de la feina. Si et saltes requisits en una prova tècnica amb un brief clar, què passa amb un ticket de Jira ambigu?
 
-Llegeix el brief abans de començar. Torna'l a llegir a la meitat. Llegeix-lo un últim cop abans d'entregar.
+> 💡 **Tip:** Llegeix el brief abans de començar. Torna'l a llegir a la meitat. Llegeix-lo un últim cop abans d'entregar.
 
 ## L'estructura del projecte importa més del que et penses
 
@@ -64,9 +64,11 @@ Encara que el brief digui "TypeScript preferit," tracta-ho com a obligatori. Ent
 
 Però no n'hi ha prou amb fer servir TypeScript. Fes-lo servir *bé*:
 
-- **Tipa les teves props.** Cada component hauria de tenir una interfície de props tipada.
-- **Tipa les respostes de l'API.** No facis servir `any` per les dades que tornen del servidor.
-- **Tipa els params de navegació.** React Navigation té un suport de TypeScript excel·lent. Fes-lo servir.
+| Fes això | Per què importa |
+|---|---|
+| Tipa les teves props | Cada component hauria de tenir una interfície de props tipada |
+| Tipa les respostes de l'API | No facis servir `any` per les dades que tornen del servidor |
+| Tipa els params de navegació | React Navigation té un suport de TypeScript excel·lent |
 
 L'únic `any` que perdonaré: tipus complexos de llibreries de tercers que portarien una hora a resoldre. Reconeix-ho en un comentari. *"// TODO: tipar això bé — em vaig quedar sense temps"* és millor que fer veure que no existeix.
 
@@ -76,62 +78,69 @@ L'únic `any` que perdonaré: tipus complexos de llibreries de tercers que porta
 
 No m'importa si fas servir Redux Toolkit, Zustand, React Context o Jotai. M'importa que ho hagis triat deliberadament i puguis explicar per què.
 
-- **Context** per a una app de tres pantalles? Perfectament raonable. Lleuger, sense dependències.
-- **Redux Toolkit** per a una app de tres pantalles? Bé, però et preguntaré per què. Si dius "perquè és el que millor conec," és una resposta honesta. Si dius "perquè és el millor," és una resposta més feble.
-- **Zustand** amb un store net? Mostra que estàs al dia amb l'ecosistema.
+| Elecció | Quin senyal dona |
+|---|---|
+| **Context** per a una app de tres pantalles | Perfectament raonable. Lleuger, sense dependències. |
+| **Redux Toolkit** per a una app de tres pantalles | Bé, però et preguntaré per què. "És el que millor conec" és una resposta honesta. |
+| **Zustand** amb un store net | Mostra que estàs al dia amb l'ecosistema. |
 
 Si tries Redux, **fes servir Redux Toolkit**. No el vell patró de reducer amb `switch/case`. Si veig `createStore` en lloc de `configureStore`, o constants manuals d'action types en lloc de `createSlice`, suggereix que el coneixement de Redux podria necessitar una actualització.
 
-**Separa els teus concerns.** Si fas servir Redux Toolkit, divideix-ho en `actions.ts`, `reducers.ts` i `selectors.ts`. Escriu tests per a cadascun. Els selectors són funcions pures. Són trivials de testejar i els tests mai fallen intermitentment. Els tests de reducers demostren que la teva lògica de negoci funciona. Són els tests de més valor que pots escriure.
+**El que realment importa:**
 
-**No facis dispatch d'un fetch cada vegada que es munta una pantalla.** Si navego a una pantalla de detall, torno enrere, i navego a la mateixa pantalla de detall, no hauria de veure un spinner de càrrega una altra vegada. Guarda les dades en cache. Comprova si ja existeixen abans de fer dispatch. Un simple `if (!data[id])` abans del teu `dispatch(fetchDetails(id))` és suficient.
+- ✅ Lògica d'estat separada de la UI
+- ✅ Actions, reducers i selectors en els seus propis fitxers
+- ✅ Regles de negoci (com la mida màxima del grup) aplicades a la capa d'estat
+- ✅ Actualitzacions predictibles
+- ❌ Lògica de negoci vivint dins dels components
+- ❌ Estat escampat entre crides a `useState` sense cap patró clar
 
-**El que realment importa:** la lògica d'estat està separada de la UI? Puc trobar el teu codi de state management sense buscar? Les teves actualitzacions són predictibles?
-
-> 🚩 **Red flag:** Lògica de negoci vivint dins dels components. Estat escampat entre crides a `useState` sense cap patró clar.
+**No facis dispatch d'un fetch cada vegada que es munta una pantalla.** Si navego a una pantalla de detall, torno enrere, i navego a la mateixa pantalla de detall, no hauria de veure un spinner de càrrega una altra vegada. Un simple `if (!data[id])` abans del teu `dispatch(fetchDetails(id))` és suficient.
 
 ## Tests: qualitat per sobre de cobertura
 
 No necessites un 90% de cobertura. Necessites tests *significatius*. Tres bons tests guanyen a vint snapshot tests.
 
-El que vull veure:
+**El que vull veure:**
 
-- **Testeja la teva lògica de negoci.** Si hi ha una regla (màxim 6 a la llista, sense duplicats), testeja-la. Testeja els teus reducers, testeja els teus selectors. Són els tests de més valor perquè demostren que la lògica central funciona i mai fallen intermitentment.
-- **Testeja interaccions d'usuari amb React Native Testing Library.** Renderitza un component, prem un botó, comprova el resultat. Fes servir `render`, `screen`, `fireEvent` i `waitFor` de `@testing-library/react-native`. No Enzyme. No només snapshot tests.
-- **Testeja els edge cases.** Què passa quan intentes afegir un duplicat? Què passa quan la llista és buida? Què passa al límit de paginació? Testeja els camins tristos, no només els feliços.
-- **Assegura't que tots els tests passin abans d'entregar.** Executa'ls. Si un test falla, arregla'l o elimina'l. Tests que fallen o codi de test comentat és senyal de feina inacabada.
+| Tipus de test | Exemple |
+|---|---|
+| Lògica de negoci | Si hi ha una regla (màxim 6 a la llista, sense duplicats), testeja-la. Els reducers i selectors són els tests de més valor. |
+| Interaccions d'usuari | Renderitza un component amb RNTL, prem un botó, comprova el resultat. Fes servir `render`, `fireEvent`, `waitFor`. |
+| Edge cases | Què passa quan intentes afegir un duplicat? Quan la llista és buida? Al límit de paginació? |
+| Tests que passin | Executa'ls abans d'entregar. Tests que fallen són senyal de feina inacabada. |
 
-El que no vull veure:
+**El que no vull veure:**
 
-- **Snapshot tests a tot arreu.** Es trenquen amb cada canvi de UI i no demostren res sobre el comportament.
-- **Tests que ho mockegen tot.** Si el teu test mockeja la funció que està testejant, està testejant el mock, no el codi.
-- **Cap test.** És difícil recuperar-se d'això al walkthrough.
+- ❌ **Snapshot tests a tot arreu.** Es trenquen amb cada canvi de UI i no demostren res sobre el comportament.
+- ❌ **Tests que ho mockegen tot.** Si el teu test mockeja la funció que està testejant, està testejant el mock.
+- ❌ **Cap test.** És difícil recuperar-se d'això al walkthrough.
 
-> 💡 **Tip:** 5-10 tests enfocats que cobreixin els camins crítics. Reducers, selectors, interaccions clau.
+> 💡 **Tip:** 5-10 tests enfocats que cobreixin els camins crítics. Reducers, selectors, interaccions clau. Amb això n'hi ha prou.
 
 ## Gestiona els estats de càrrega, error i buit
 
 Aquí és on els candidats destaquen. Qualsevol pot construir el camí feliç. La pregunta és: què passa quan les coses van malament?
 
-**Estats de càrrega:** mostra un spinner o skeleton a la primera càrrega. Mostra un indicador subtil quan es carreguen més dades (paginació). No mostris un spinner de pantalla completa per 100ms.
+| Estat | Què fer |
+|---|---|
+| **Càrrega** | Mostra un spinner o skeleton a la primera càrrega. Mostra un indicador subtil durant la paginació. No mostris un spinner de pantalla completa per 100ms. |
+| **Error** | Si l'API falla, digues-ho a l'usuari. Un botó de reintentar és millor que res. Un missatge informatiu és millor que "Alguna cosa ha anat malament." |
+| **Buit** | Si la llista és buida o no hi ha items desats, mostra alguna cosa útil. No una pantalla en blanc. |
 
-**Estats d'error:** si l'API falla, digues-ho a l'usuari. Un botó de reintentar és millor que res. Un missatge informatiu és millor que "Alguna cosa ha anat malament."
-
-**Estats buits:** si la llista és buida o no hi ha items desats, mostra alguna cosa útil. No una pantalla en blanc.
-
-> 🚩 **Red flag:** L'app peta amb una xarxa lenta. Sense estat de càrrega, sense gestió d'errors. El revisor obre DevTools, limita la xarxa, i l'app s'ensorri.
+> 🚩 **Red flag:** L'app peta amb una xarxa lenta. Sense estat de càrrega, sense gestió d'errors. El revisor obre DevTools, limita la xarxa, i l'app s'ensorra.
 
 ## La crida a l'API importa
 
 **GraphQL vs REST:** si el brief ofereix tots dos, GraphQL és l'opció més forta. Mostra que pots treballar amb patrons d'API moderns. Però un client REST ben implementat guanya a un setup de GraphQL desordenat.
 
-**Caching:** si fas fetch d'una pantalla de detall, tornes, i fas fetch una altra vegada, això és feina malgastada. Fes servir React Query, el cache d'Apollo, o fins i tot un simple cache en memòria. El revisor *se n'adonarà* si cada navegació dispara un refetch.
+**Fes servir FlatList o FlashList. Mai ScrollView per a llistes.** `ScrollView` renderitza cada item de cop. Amb més de 100 items, veuràs caigudes de frames, pics de memòria i crashes eventuals. `FlatList` virtualitza la llista, renderitzant només el que és a la pantalla. Si veig un `ScrollView` embolcallant un `.map()` per a una llista de dades, suggereix una bretxa en la comprensió del model de renderitzat de React Native.
 
-**Paginació:** si l'API ho suporta, fes-lo servir. No facis fetch de 1000 items a la primera càrrega. Scroll infinit o fetching paginat mostra que penses en rendiment.
+**Altres coses que es noten:**
 
-**Fes servir FlatList o FlashList. Mai ScrollView per a llistes.** Això és un red flag fort. `ScrollView` renderitza cada item de cop. Amb més de 100 items, veuràs caigudes de frames, pics de memòria i crashes eventuals. `FlatList` virtualitza la llista, renderitzant només el que és a la pantalla. Si no coneixes la diferència, aprèn-la abans de la teva prova tècnica. Si veig un `ScrollView` embolcallant un `.map()` per a una llista de dades, suggereix una bretxa en la comprensió del model de renderitzat de React Native.
-
-**Embolcalla la teva app en un ErrorBoundary.** Això és una cosa petita que dóna punts extra. Un component `ErrorBoundary` de nivell superior captura errors de JavaScript i mostra un fallback en lloc d'una pantalla blanca. La majoria dels candidats no fan això. Si tu ho fas, indica que penses en resiliència per a producció.
+- ✅ Caching: no tornis a fer fetch de dades que ja tens
+- ✅ Paginació: no facis fetch de 1000 items a la primera càrrega
+- ✅ ErrorBoundary: captura errors de JavaScript i mostra un fallback en lloc d'una pantalla blanca
 
 ## Els edge cases són on destaquis
 
@@ -140,8 +149,8 @@ El camí feliç és el mínim. El que separa una entrega de nivell Software Engi
 - **Llista plena?** Què passa quan algú intenta afegir un 7è item? Un toast, un botó deshabilitat, un modal. Qualsevol cosa excepte fallar silenciosament.
 - **Llista buida?** Mostra un estat buit amb sentit, no una pantalla en blanc.
 - **Taps ràpids?** Prémer "afegir" cinc vegades ràpid causa duplicats o crashes?
-- **Navegació enrere?** Quan torno del detall a la llista, es preserva la meva posició de scroll? Si no, és un problema d'UX notable.
-- **Final de la llista?** La paginació s'atura netament quan no hi ha més dades? O segueix disparant requests?
+- **Navegació enrere?** Quan torno del detall a la llista, es preserva la meva posició de scroll?
+- **Final de la llista?** La paginació s'atura netament quan no hi ha més dades?
 
 No necessites gestionar tots aquests. Però gestionar-ne *alguns* mostra que penses en usuaris reals, no només en complir requisits.
 
@@ -149,12 +158,14 @@ No necessites gestionar tots aquests. Però gestionar-ne *alguns* mostra que pen
 
 Escriu un README. No una novel·la. Un document curt que cobreixi:
 
-1. **Com executar-ho.** `yarn install`, `yarn ios`, fet. Si hi ha passos extra, documenta'ls.
-2. **Què has construït.** Un paràgraf de resum.
-3. **Decisions que has pres.** Per què aquest state management? Per què aquesta estructura de carpetes? Dues frases cadascuna.
-4. **Què milloraries.** Aquesta és la secció més important. Mostra autoconsciència.
+| Secció | Què escriure |
+|---|---|
+| **Com executar-ho** | `yarn install`, `yarn ios`, fet. Passos extra documentats. |
+| **Què has construït** | Un paràgraf de resum. |
+| **Decisions que has pres** | Per què aquest state management? Per què aquesta estructura de carpetes? Dues frases cadascuna. |
+| **Què milloraries** | Aquesta és la secció més important. Mostra autoconsciència. |
 
-**La secció de "què milloraria" és un truc.** Et permet reconèixer els dreceres que has pres sense que el revisor els descobreixi com a defectes. *"Amb més temps, afegiria tests E2E amb Detox i implementaria caching adequat"* converteix una feature que falta en una demostració de criteri.
+> 💡 **La secció de "què milloraria" és un truc.** Et permet reconèixer les dreceres que has pres sense que el revisor les descobreixi com a defectes. *"Amb més temps, afegiria tests E2E amb Detox i implementaria caching adequat"* converteix una feature que falta en una demostració de criteri.
 
 ## El walkthrough: aquí és on es guanyen els llocs
 
@@ -172,32 +183,32 @@ Si la prova té una trucada de walkthrough, prepara't. El codi t'ha ficat a la s
 
 ## Stretch goals: fes-los, però fes-los bé
 
-Si el brief menciona extras opcionals (cerca, persistència, animacions, dark mode, accessibilitat), tria'n un o dos que puguis fer *bé*. No intentis fer-los tots malament.
+Si el brief menciona extras opcionals, tria'n un o dos que puguis fer *bé*. No intentis fer-los tots malament.
 
-**Millors stretch goals per triar:**
-- **Cerca/filtre** a la llista. Ràpid d'implementar, immediatament visible, mostra que penses en UX.
-- **Accessibilitat.** Labels, roles, contrast. La majoria dels candidats se la salten completament. Fer fins i tot accessibilitat bàsica et fa destacar.
-- **Gestió d'errors/offline.** Un botó de reintentar quan falla la xarxa. Mostra que penses en condicions del món real.
+| Val la pena triar | Per què |
+|---|---|
+| **Cerca/filtre** | Ràpid d'implementar, immediatament visible, mostra que penses en UX. |
+| **Accessibilitat** | Labels, roles, contrast. La majoria dels candidats se la salten. Fer fins i tot accessibilitat bàsica et fa destacar. |
+| **Gestió d'errors/offline** | Un botó de reintentar quan falla la xarxa. Mostra que penses en condicions del món real. |
 
-**Stretch goals a evitar tret que els puguis fer bé:**
-- **Animacions.** Les animacions a mig fer es veuen pitjor que no tenir animacions.
-- **Dark mode.** Si no és consistent a totes les pantalles, és un problema.
+| Evitar tret que ho puguis fer bé | Per què |
+|---|---|
+| **Animacions** | Les animacions a mig fer es veuen pitjor que no tenir animacions. |
+| **Dark mode** | Si no és consistent a totes les pantalles, és un problema. |
 
-Un stretch goal ben executat val més que tres a mig fer.
+> 💡 **Un stretch goal ben executat val més que tres a mig fer.**
 
 ## Els errors que realment costen el lloc a la gent
 
 No són sobre qualitat de codi. Són sobre senyals.
 
-**No llegir el brief bé.** Saltar-se un requisit central. Construir dues pantalles quan el brief en diu tres.
-
-**Cap test.** Fins i tot dos o tres tests mostren que et preocupa la qualitat. Zero tests envia un senyal negatiu fort.
-
-**Codi generat per IA que no pots explicar.** Fer servir IA per ajudar-te està bé. Entregar codi que no entens, no. Això es fa evident durant el walkthrough.
-
-**Sobreenginyeria.** Una prova tècnica no necessita un design system, una llibreria de components i una arquitectura de micro-frontends. Construeix el que demana el brief, bé. Guarda l'astronàutica d'arquitectura per l'entrevista de system design.
-
-**Entregar tard sense comunicar.** Si necessites més temps, demana'l. La majoria de les empreses et donaran un o dos dies extra. Desaparèixer i entregar tres dies tard sense explicació és un red flag.
+| Error | Per què fa mal |
+|---|---|
+| **No llegir el brief bé** | Saltar-se un requisit central. Construir dues pantalles quan el brief en diu tres. |
+| **Cap test** | Fins i tot dos o tres tests mostren que et preocupa la qualitat. Zero és un senyal negatiu fort. |
+| **Codi generat per IA que no pots explicar** | Fer servir IA per ajudar-te està bé. Entregar codi que no entens, no. Es fa evident al walkthrough. |
+| **Sobreenginyeria** | Una prova tècnica no necessita un design system i una arquitectura de micro-frontends. Construeix el que demana el brief, bé. |
+| **Entregar tard sense comunicar** | Si necessites més temps, demana'l. Desaparèixer i entregar tres dies tard és un red flag. |
 
 ## El que més importa de tot
 
