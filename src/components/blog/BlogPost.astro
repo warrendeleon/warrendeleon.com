@@ -273,8 +273,6 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share`;
     data-link-copied={i18n.blog.copied}
     hidden
   />
-</BaseLayout>
-
 <script is:inline>
 /* i18n strings for scripts */
 var i18nEl = document.getElementById('blog-i18n');
@@ -316,7 +314,7 @@ document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
 var plainLangs = ['', 'text', 'plaintext', 'txt'];
 document.querySelectorAll('.prose pre').forEach(function(pre) {
   var code = pre.querySelector('code');
-  var lang = code ? (code.getAttribute('data-language') || '') : '';
+  var lang = pre.getAttribute('data-language') || '';
   var isPlain = plainLangs.indexOf(lang) !== -1;
 
   /* Hide line numbers for plain text blocks */
@@ -415,6 +413,7 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   toggle();
 })();
 </script>
+</BaseLayout>
 
 <style is:global>
   .hiring-banner { background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 0.75rem 0; }
