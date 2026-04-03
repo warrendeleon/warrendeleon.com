@@ -407,7 +407,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **Huwag kalimutan ang `.passthrough()` para sa third-party APIs.** Kung wala ito, inaalis ng Zod ang mga hindi kilalang field. Kung nagdagdag ng bagong field ang backend, mawawala ito sa validated object mo. Para sa APIs na kontrolado mo, ayos lang ang pag-strip (pinipigilan ang data pollution). Para sa third-party APIs, gamitin ang `.passthrough()` para maging future-proof.
 
-## Sulit ba?
+## Ang gastos at ang nahuhuli
 
 Isang umaga lang ang setup. Isang schema bawat API response, dalawang helper function, isang test bawat schema.
 
@@ -415,6 +415,6 @@ Ang makukuha mo: bawat API response ay vina-validate bago ito galawin ng app mo.
 
 Sa project ko, dalawang backend change ang nahuli ng Zod schemas habang nagde-develop na sana ay nai-ship bilang tahimik na bugs. Ang isa ay nullable field na naging required. Ang isa pa ay URL field na nagsimulang magbalik ng relative paths sa halip na absolute URLs. Pareho ay nahuli ng validation bago umabot sa component.
 
-> Ang pinakamabuting oras para mahuli ang masamang API response ay sa boundary. Ang pinakamasamang oras ay sa crash report.
+> Hulihin sa API boundary o i-debug sa crash report. Ikaw ang pipili.
 
 *Ang mga code examples sa post na ito ay mula sa [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), ang aking personal na React Native project. Nasa repo ang kumpletong Zod schema definitions, validation helpers, at tests.*

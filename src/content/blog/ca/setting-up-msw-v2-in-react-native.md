@@ -65,7 +65,7 @@ L'opció `onUnhandledRequest: 'warn'` registra un warning si el teu codi fa una 
 
 ## Escrivint handlers
 
-Aquí és on MSW brilla. Cada handler és una funció que coincideix amb un mètode HTTP i una URL, i retorna una resposta.
+Cada handler és una funció que coincideix amb un mètode HTTP i una URL, i retorna una resposta.
 
 Un handler bàsic per a una REST API:
 
@@ -325,12 +325,12 @@ import { server, renderWithProviders } from '@app/test-utils';
 import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handlers';
 ```
 
-## Val la pena el setup?
+## En resum
 
 Sí. El setup porta uns 30 minuts. Després d'això, cada test nou és més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers són reutilitzables a cada fitxer de test. I estàs testejant comportament d'integració real, no comportament de mocks.
 
 Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis.
 
-> La millor infraestructura de test és la que fa que escriure el pròxim test sigui més fàcil que saltar-se'l.
+> Si escriure el pròxim test és més difícil que saltar-se'l, la teva infraestructura de test és el problema.
 
 *Els exemples de codi d'aquest post són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. El setup complet de MSW, els handler sets i el wrapper de render personalitzat són al repo.*

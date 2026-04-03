@@ -350,7 +350,7 @@ Simple lang ang patakaran: kung nagbibigay ito ng access, Tier 1. Kung nagpapaki
 
 **Redux Persist whitelist, hindi blacklist.** Gumamit ng `whitelist` para pangalanan kung ano ang dapat i-persist. Delikado ang `blacklist` approach dahil nape-persist ang mga bagong slices bilang default. Isang bagong slice na may sensitive data at may leak ka na. Ang `whitelist` ay opt-in. Mas ligtas.
 
-## Sulit ba ang tatlong libraries?
+## Bakit tatlong libraries
 
 Oo. Ang alternatibo ay isang library (AsyncStorage) na walang encryption, o isang library (react-native-keychain) na masyadong mabagal para sa mga hindi sensitive na reads. Tatlong libraries, tatlong wrappers, tatlong enums. Bawat wrapper ay wala pang 50 linya. Isang hapon lang ang setup.
 

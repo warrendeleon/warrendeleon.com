@@ -29,7 +29,7 @@ Cada uno de estos causó un test fallido en un proyecto en el que trabajé. Ning
 
 ## Por qué mockear el backend
 
-Mockear el backend en tests E2E te da tres cosas:
+¿Para qué?
 
 **1. Determinismo.** El mismo test produce el mismo resultado cada vez. Sin variabilidad de red, sin estado compartido, sin dependencias externas. Si un test falla, es porque la app está rota, no porque la API tuvo un mal día.
 
@@ -266,7 +266,7 @@ El build mockeado y el build real son binarios de app separados. El mockeado se 
 
 **Filtrar estado mock entre escenarios.** Cada escenario de Detox debe arrancar con un estado de app limpio. Usá `device.reloadReactNative()` en el hook `Before` para resetear todo. No te apoyes en estado mock de un escenario previo.
 
-## Vale la pena
+## El resultado
 
 El setup es un día de trabajo. Después de eso, tu suite E2E corre sin backend, sin dependencias de red y sin fallas flaky de servicios externos.
 

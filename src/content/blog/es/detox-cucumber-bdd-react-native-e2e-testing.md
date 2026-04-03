@@ -533,17 +533,17 @@ e2e/
     TalkBackGestures.feature     # Tests de screen reader para Android
 ```
 
-## ¿Vale la pena el setup?
+## Qué ganás
 
 El setup toma una mañana. Escribir el primer feature file toma una tarde. Después de eso, agregar nuevos escenarios es rápido porque las definiciones de pasos son reutilizables.
 
-El beneficio es triple:
+El beneficio:
 
 1. **Tests que cualquiera puede leer.** Product managers, QA, diseñadores. Los archivos Gherkin son la especificación y el test en uno.
 2. **Ejecución en paralelo lista para usar.** El paralelismo nativo de Cucumber funciona con Detox. Tres simuladores, tres workers, tres veces más rápido.
 3. **Detección de regresiones de accesibilidad.** 50 escenarios verifican que labels, roles y traits estén correctos. No reemplazan el testing manual con screen reader, pero son una red de seguridad que evita que las regresiones lleguen a QA.
 
-> Los mejores tests E2E son los que te dicen qué se rompió en un lenguaje que no necesitás decodificar.
+> Cuando un test E2E falla, deberías saber qué se rompió sin leer el código del test.
 
 *Este post cubre testing E2E. Para tests unitarios y de integración, uso [MSW v2 para mockear la capa de red](/es/blog/setting-up-msw-v2-in-react-native/) en vez de `jest.fn()`. Los dos enfoques se complementan: MSW para tests rápidos y enfocados contra llamadas HTTP reales; Detox + Cucumber para flujos completos de usuario en un dispositivo real.*
 

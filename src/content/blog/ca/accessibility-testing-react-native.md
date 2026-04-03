@@ -547,7 +547,7 @@ src/
       ProfileScreen.accessibility.rntl.tsx
 ```
 
-## Val la pena?
+## El cost del setup
 
 El fitxer d'utilitats són unes 200 línies. Cada fitxer de test d'accessibilitat per pantalla són 100-500 línies. El setup és una tarda.
 
