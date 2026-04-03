@@ -90,6 +90,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share`;
 
   {post.data.heroImage && (
     <div class="post-hero-image">
+      <div class="post-hero-image-bg" style={`background-image: url(${post.data.heroImage})`}></div>
       <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} />
       <div class="post-hero-image-overlay"></div>
     </div>
@@ -425,9 +426,11 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
 
   .reading-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 200; background: transparent; }
   .reading-progress-bar { height: 100%; width: 0; background: var(--color-green); transition: width 0.1s linear; }
-  .post-hero-image { position: relative; width: 100%; max-height: 420px; overflow: hidden; }
-  .post-hero-image img { width: 100%; height: 420px; object-fit: cover; display: block; }
-  .post-hero-image-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to bottom, transparent, var(--bg-secondary)); pointer-events: none; }
+  .post-hero-image { position: relative; width: 100vw; height: 420px; overflow: hidden; margin-left: calc(-50vw + 50%); }
+  .post-hero-image-bg { position: absolute; inset: -60px; background-size: cover; background-position: center; filter: blur(24px) saturate(1.4) brightness(0.9); z-index: 0; }
+  .post-hero-image img { position: relative; max-width: 1080px; width: 100%; height: 420px; object-fit: cover; display: block; margin: 0 auto; z-index: 1; }
+  .post-hero-image-overlay { display: none; }
+  .post-hero-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100%; background: linear-gradient(to bottom, transparent 90%, var(--bg-secondary)); pointer-events: none; z-index: 2; }
   .post-hero { padding: 2rem 0 1.5rem; background: var(--bg-secondary); margin-bottom: 0; }
   .post-content-section { padding-top: 1.5rem; }
   .post-hero h1 { font-size: 2.4rem; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
@@ -497,8 +500,8 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
 
   @media (max-width: 768px) {
     .post-hero h1 { font-size: 1.6rem; }
-    .post-hero-image img { height: 260px; }
     .post-hero-image { max-height: 260px; }
+    .post-hero-image img { height: 260px; }
     .author-card { flex-direction: column; text-align: center; padding: 1.5rem; }
     .author-avatar { width: 72px; height: 72px; }
     .blog-nav { grid-template-columns: 1fr; }
