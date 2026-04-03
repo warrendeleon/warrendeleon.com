@@ -296,12 +296,38 @@ export const CONTRAST_RATIOS = {
   uiComponents: 3,
 } as const;
 
+function parseColorToRGB(color: string): { r: number; g: number; b: number } | null {
+  const hex = color.replace('#', '');
+  if (hex.length !== 6) return null;
+  return {
+    r: parseInt(hex.slice(0, 2), 16) / 255,
+    g: parseInt(hex.slice(2, 4), 16) / 255,
+    b: parseInt(hex.slice(4, 6), 16) / 255,
+  };
+}
+
+function getRelativeLuminance(r: number, g: number, b: number): number {
+  const [rs, gs, bs] = [r, g, b].map(c =>
+    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
+  );
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
 export function calculateContrastRatio(
   foreground: string,
   background: string
 ): number {
-  const fgLuminance = getRelativeLuminance(foreground);
-  const bgLuminance = getRelativeLuminance(background);
+  const fgRGB = parseColorToRGB(foreground);
+  const bgRGB = parseColorToRGB(background);
+
+  if (!fgRGB || !bgRGB) {
+    throw new Error(
+      `Cannot parse colours: foreground="${foreground}", background="${background}"`
+    );
+  }
+
+  const fgLuminance = getRelativeLuminance(fgRGB.r, fgRGB.g, fgRGB.b);
+  const bgLuminance = getRelativeLuminance(bgRGB.r, bgRGB.g, bgRGB.b);
 
   const lighter = Math.max(fgLuminance, bgLuminance);
   const darker = Math.min(fgLuminance, bgLuminance);
@@ -310,8 +336,8 @@ export function calculateContrastRatio(
 }
 
 export function expectColorContrast(
-  foreground: string,
-  background: string,
+  foregroundColor: string,
+  backgroundColor: string,
   options: {
     type?: 'normalText' | 'largeText' | 'uiComponents';
     minRatio?: number;
@@ -319,7 +345,7 @@ export function expectColorContrast(
 ): void {
   const { type = 'normalText', minRatio } = options;
   const minimum = minRatio ?? CONTRAST_RATIOS[type];
-  const ratio = calculateContrastRatio(foreground, background);
+  const ratio = calculateContrastRatio(foregroundColor, backgroundColor);
   expect(ratio).toBeGreaterThanOrEqual(minimum);
 }
 ```
