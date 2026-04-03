@@ -441,7 +441,9 @@ El hook `BeforeAll` lee `CUCUMBER_WORKER_ID` para inicializar cada worker con su
 
 ## Testing de accesibilidad con BDD
 
-Acá es donde BDD y testing E2E se combinan en algo poderoso. Mi proyecto tiene dos feature files completos dedicados a testing de screen reader: uno para VoiceOver (iOS) y otro para TalkBack (Android).
+Detox no puede controlar VoiceOver o TalkBack directamente. El testing manual con screen reader sigue siendo esencial. Pero lo que Detox *sí puede* hacer es verificar que los labels, roles y traits de accesibilidad estén correctos en cada elemento. Escritos en Gherkin, estos tests detectan regresiones de accesibilidad antes de que un tester humano abra VoiceOver.
+
+Mi proyecto tiene dos feature files que testean propiedades de accesibilidad: uno para patrones de iOS y otro para Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -482,7 +484,7 @@ interface AccessibilityState {
 }
 ```
 
-Esto trackea qué elemento tiene el foco, qué se anunció, y la granularidad de lectura actual. 50 escenarios en ambos feature files cubren navegación por swipe, controles del rotor, exploración táctil, live regions y acciones personalizadas.
+Esto trackea el orden de foco esperado, el texto de los anuncios y la granularidad de lectura. 50 escenarios en ambos feature files verifican labels de accesibilidad, comportamiento de foco, anuncios de live regions y acciones personalizadas. No reemplazan el testing manual con un screen reader real, pero evitan que las regresiones lleguen a producción.
 
 ## Los scripts
 
@@ -539,7 +541,7 @@ El beneficio es triple:
 
 1. **Tests que cualquiera puede leer.** Product managers, QA, diseñadores. Los archivos Gherkin son la especificación y el test en uno.
 2. **Ejecución en paralelo lista para usar.** El paralelismo nativo de Cucumber funciona con Detox. Tres simuladores, tres workers, tres veces más rápido.
-3. **Testing de accesibilidad que escala.** Escribir tests de VoiceOver y TalkBack en Gherkin los hace mantenibles. 50 escenarios en mi proyecto, cada uno legible sin conocer la API de Detox.
+3. **Detección de regresiones de accesibilidad.** 50 escenarios verifican que labels, roles y traits estén correctos. No reemplazan el testing manual con screen reader, pero son una red de seguridad que evita que las regresiones lleguen a QA.
 
 > Los mejores tests E2E son los que te dicen qué se rompió en un lenguaje que no necesitás decodificar.
 
