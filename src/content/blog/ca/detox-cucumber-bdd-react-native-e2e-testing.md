@@ -441,7 +441,9 @@ El hook `BeforeAll` llegeix `CUCUMBER_WORKER_ID` per inicialitzar cada worker am
 
 ## Tests d'accessibilitat amb BDD
 
-Aquí és on BDD i els tests E2E es combinen en una cosa potent. El meu projecte té dos fitxers feature complets dedicats a tests de lector de pantalla: un per a VoiceOver (iOS) i un per a TalkBack (Android).
+Detox no pot controlar VoiceOver o TalkBack directament. El testing manual amb lector de pantalla segueix sent essencial. Però el que Detox *sí pot* fer és verificar que els labels, rols i traits d'accessibilitat estiguin correctes a cada element. Escrits en Gherkin, aquests tests detecten regressions d'accessibilitat abans que un tester humà obri VoiceOver.
+
+El meu projecte té dos fitxers feature que testegen propietats d'accessibilitat: un per a patrons d'iOS i un per a Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -482,7 +484,7 @@ interface AccessibilityState {
 }
 ```
 
-Això fa seguiment de quin element té el focus, què s'ha anunciat i la granularitat de lectura actual. 50 escenaris entre els dos fitxers feature cobreixen la navegació per lliscament, controls del rotor, exploració tàctil, regions en viu i accions personalitzades.
+Això fa seguiment de l'ordre de focus esperat, el text dels anuncis i la granularitat de lectura. 50 escenaris entre els dos fitxers feature verifiquen labels d'accessibilitat, comportament de focus, anuncis de live regions i accions personalitzades. No reemplacen el testing manual amb un lector de pantalla real, però eviten que les regressions arribin a producció.
 
 ## Els scripts
 
@@ -539,7 +541,7 @@ El retorn és triple:
 
 1. **Tests que qualsevol pot llegir.** Product managers, QA, dissenyadors. Els fitxers Gherkin són l'especificació i el test alhora.
 2. **Execució paral·lela de sèrie.** El paral·lelisme integrat de Cucumber funciona amb Detox. Tres simuladors, tres workers, tres vegades més ràpid.
-3. **Tests d'accessibilitat que escalen.** Escriure tests de VoiceOver i TalkBack en Gherkin els fa mantenibles. 50 escenaris al meu projecte, cadascun llegible sense conèixer l'API de Detox.
+3. **Detecció de regressions d'accessibilitat.** 50 escenaris verifiquen que labels, rols i traits siguin correctes. No reemplacen el testing manual amb lector de pantalla, però són una xarxa de seguretat que evita que les regressions arribin a QA.
 
 > Els millors tests E2E són els que t'expliquen què s'ha trencat en un llenguatge que no necessites descodificar.
 

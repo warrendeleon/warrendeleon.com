@@ -441,7 +441,9 @@ Binabasa ng `BeforeAll` hook ang `CUCUMBER_WORKER_ID` para i-initialise ang bawa
 
 ## Accessibility testing gamit ang BDD
 
-Dito nagsasanib ang BDD at E2E testing sa isang bagay na makapangyarihan. Ang aking project ay may dalawang buong feature file na nakalaan sa screen reader testing: isa para sa VoiceOver (iOS) at isa para sa TalkBack (Android).
+Hindi kayang i-drive ng Detox ang VoiceOver o TalkBack nang direkta. Mahalaga pa rin ang manual na screen reader testing. Pero ang kaya ng Detox ay i-verify na tama ang mga accessibility labels, roles, at traits sa bawat element. Nakasulat sa Gherkin, nahuhuli ng mga tests na ito ang accessibility regressions bago pa man mag-bukas ng VoiceOver ang isang human tester.
+
+Ang aking project ay may dalawang feature file na nagti-test ng accessibility properties: isa para sa iOS patterns at isa para sa Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -482,7 +484,7 @@ interface AccessibilityState {
 }
 ```
 
-Tina-track nito kung aling element ang may focus, kung ano ang na-announce, at ang kasalukuyang reading granularity. 50 scenarios sa dalawang feature file ang sumasaklaw sa swipe navigation, rotor controls, touch exploration, live regions, at custom actions.
+Tina-track nito ang expected focus order, announcement text, at reading granularity. 50 scenarios sa dalawang feature file ang nagve-verify ng accessibility labels, focus behaviour, live region announcements, at custom actions. Hindi nito pinapalitan ang manual testing gamit ang tunay na screen reader, pero pinipigilan nito ang mga regression na ma-ship.
 
 ## Ang mga scripts
 
@@ -539,7 +541,7 @@ Tatlong beses ang balik:
 
 1. **Tests na mababasa ng kahit sino.** Product managers, QA, designers. Ang Gherkin files ang spec at ang test na pinagsama.
 2. **Parallel execution na kasama na agad.** Gumagana ang built-in parallelism ng Cucumber sa Detox. Tatlong simulators, tatlong workers, tatlong beses na mas mabilis.
-3. **Accessibility testing na nag-i-scale.** Ang pagsulat ng VoiceOver at TalkBack tests sa Gherkin ang nagpapaging maintainable sa kanila. 50 scenarios sa aking project, bawat isa nababasa nang hindi kailangang malaman ang API ng Detox.
+3. **Pagkakahuli ng accessibility regressions.** 50 scenarios ang nagve-verify na tama ang mga labels, roles, at traits. Hindi pinapalitan ang manual screen reader testing, pero isa itong safety net na pumipigil sa mga regression na makarating sa QA.
 
 > Ang pinakamahusay na E2E tests ay ang mga nagsasabi sa iyo kung ano ang nasira sa wikang hindi mo kailangang i-decode.
 

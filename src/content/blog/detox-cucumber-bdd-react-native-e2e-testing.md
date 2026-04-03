@@ -1,6 +1,6 @@
 ---
 title: "Detox + Cucumber BDD for React Native E2E testing"
-description: "Most teams don't know Gherkin feature files work with Detox. A step-by-step guide to setting up BDD-style E2E tests in React Native with custom formatters, parallel execution, and accessibility testing."
+description: "Most teams don't know Gherkin feature files work with Detox. A step-by-step guide to setting up BDD-style E2E tests in React Native with custom formatters, parallel execution, and accessibility regression tests."
 publishDate: 2026-05-04
 tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: en
@@ -441,7 +441,9 @@ The `BeforeAll` hook reads `CUCUMBER_WORKER_ID` to initialise each worker with i
 
 ## Accessibility testing with BDD
 
-This is where BDD and E2E testing combine into something powerful. My project has two full feature files dedicated to screen reader testing: one for VoiceOver (iOS) and one for TalkBack (Android).
+Detox can't drive VoiceOver or TalkBack directly. Manual screen reader testing is still essential. But what Detox *can* do is verify that the right accessibility labels, roles, and traits are set on every element. Written in Gherkin, these tests catch accessibility regressions before a human tester ever opens VoiceOver.
+
+My project has two feature files that test accessibility properties: one for iOS patterns and one for Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -482,7 +484,7 @@ interface AccessibilityState {
 }
 ```
 
-This tracks which element has focus, what's been announced, and the current reading granularity. 50 scenarios across both feature files cover swipe navigation, rotor controls, touch exploration, live regions, and custom actions.
+This tracks expected focus order, announcement text, and reading granularity. 50 scenarios across both feature files verify accessibility labels, focus behaviour, live region announcements, and custom actions. They don't replace manual testing with a real screen reader, but they stop regressions from shipping.
 
 ## The scripts
 
@@ -539,7 +541,7 @@ The payoff is threefold:
 
 1. **Tests that anyone can read.** Product managers, QA, designers. The Gherkin files are the spec and the test rolled into one.
 2. **Parallel execution out of the box.** Cucumber's built-in parallelism works with Detox. Three simulators, three workers, three times faster.
-3. **Accessibility testing that scales.** Writing VoiceOver and TalkBack tests in Gherkin makes them maintainable. 50 scenarios in my project, each one readable without knowing Detox's API.
+3. **Accessibility regression catching.** 50 scenarios verify that labels, roles, and traits are correct. Not a replacement for manual screen reader testing, but a safety net that stops regressions from reaching QA.
 
 > The best E2E tests are the ones that tell you what broke in a language you don't need to decode.
 
