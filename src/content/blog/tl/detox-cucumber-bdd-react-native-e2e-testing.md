@@ -1,7 +1,7 @@
 ---
 title: "Detox + Cucumber BDD para sa React Native E2E testing"
 description: "Karamihan ng mga team ay hindi alam na gumagana ang Gherkin feature files sa Detox. Isang step-by-step na gabay sa pag-setup ng BDD-style E2E tests sa React Native gamit ang custom formatters, parallel execution, at accessibility testing."
-publishDate: 2026-05-04
+publishDate: 2026-05-11
 tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: tl
 heroImage: "/images/blog/detox-cucumber-rn.jpg"

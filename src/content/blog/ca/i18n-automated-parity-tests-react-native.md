@@ -1,7 +1,7 @@
 ---
 title: "i18n amb tests automatitzats de paritat a React Native"
 description: "5 idiomes amb un test que verifica que cada locale té claus idèntiques. Com configurar i18next amb seguretat de tipus TypeScript, detecció de l'idioma del dispositiu i tests automatitzats de paritat que detecten traduccions que falten abans de publicar."
-publishDate: 2026-06-08
+publishDate: 2026-06-15
 tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: ca
 heroImage: "/images/blog/i18n-parity-tests.jpg"
