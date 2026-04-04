@@ -67,11 +67,12 @@ const relatedPosts = sortedAsc
   .map(p => p.post);
 
 const shareUrl = `https://warrendeleon.com${postPath}`;
-const shareUrlLinkedIn = `${shareUrl}?utm_source=linkedin&utm_medium=share`;
-const shareUrlX = `${shareUrl}?utm_source=x&utm_medium=share`;
-const shareUrlFacebook = `${shareUrl}?utm_source=facebook&utm_medium=share`;
-const shareUrlWhatsApp = `${shareUrl}?utm_source=whatsapp&utm_medium=share`;
-const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share`;
+const campaignParam = `&utm_campaign=${post.data.campaign}`;
+const shareUrlLinkedIn = `${shareUrl}?utm_source=linkedin&utm_medium=share${campaignParam}`;
+const shareUrlX = `${shareUrl}?utm_source=x&utm_medium=share${campaignParam}`;
+const shareUrlFacebook = `${shareUrl}?utm_source=facebook&utm_medium=share${campaignParam}`;
+const shareUrlWhatsApp = `${shareUrl}?utm_source=whatsapp&utm_medium=share${campaignParam}`;
+const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignParam}`;
 ---
 
 <BaseLayout

@@ -54,6 +54,72 @@ All tutorials link to code examples in https://github.com/warrendeleon/rn-warren
 - **Angle:** 5 languages with a test that verifies every locale has identical keys. The testing side of i18n nobody writes about.
 - **Files to reference:** `src/i18n/`, `src/i18n/__tests__/localesParity.rntl.ts`, `src/types/i18next.d.ts`
 
+## Architecture and Security Series
+
+All tutorials link to code examples in https://github.com/warrendeleon/rn-warrendeleon
+
+### 12. Feature-first project structure in React Native
+- **Target:** June 15
+- **Angle:** Why type-first (screens/, hooks/, services/) breaks down at scale. How 12 self-contained features with co-located stores, tests, and screens keep things maintainable.
+- **Files to reference:** `src/features/`, feature-level `store/`, `__tests__/`, `screens/`
+
+### 13. Building a Supabase REST client without the SDK
+- **Target:** June 22
+- **Angle:** Why I went with Axios over the official Supabase SDK. Typed interceptors, request/response handling, and full control over the HTTP layer.
+- **Files to reference:** `src/httpClients/SupabaseAuthClient.ts`
+
+### 14. Token refresh race condition prevention in React Native
+- **Target:** June 29
+- **Angle:** Multiple 401s fire at once. Without a subscriber queue, you get multiple refresh attempts and broken sessions. The Axios interceptor pattern that prevents it.
+- **Files to reference:** `src/httpClients/SupabaseAuthClient.ts` (response interceptor, subscriber queue)
+
+### 15. Deep linking with Supabase auth callbacks in React Native
+- **Target:** July 6
+- **Angle:** Hash fragment parsing for password reset, signup verification, email change, and magic links. Each callback type routes differently.
+- **Files to reference:** `src/navigation/linking.ts`, `src/features/Auth/`
+
+### 16. Form validation with a common password blacklist
+- **Target:** July 13
+- **Angle:** Yup custom rules that check against 10,000 common passwords from SecLists, validate Unicode normalization to prevent mixed-script attacks, and enforce strong password rules.
+- **Files to reference:** `src/features/Auth/validation/customRules.ts`
+
+### 17. ErrorBoundary with production vs dev fallback in React Native
+- **Target:** July 20
+- **Angle:** Different UX in dev (show the error) vs production (hide it). "Try Again" and "Go Home" recovery paths.
+- **Files to reference:** `src/shared/components/ErrorBoundary/`
+
+### 18. PII masking in production logs
+- **Target:** July 27
+- **Angle:** Your logger auto-masks tokens, emails, passwords, and phone numbers. Production-safe logging that doesn't leak user data.
+- **Files to reference:** `src/utils/logger.ts`
+
+### 19. Profile picture uploads with exponential backoff in React Native
+- **Target:** August 3
+- **Angle:** Upload flow with retry logic, old picture cleanup, file naming conventions, and custom error classes.
+- **Files to reference:** `src/httpClients/SupabaseStorageClient.ts`
+
+### 20. Semantic haptic feedback that respects accessibility
+- **Target:** August 10
+- **Angle:** useHapticFeedback hook with success/error/warning/selection patterns. Respects useReducedMotion so users who opt out don't get vibrations.
+- **Files to reference:** `src/shared/hooks/useHapticFeedback.ts`, `src/shared/hooks/useReducedMotion.ts`
+
+### 21. Storybook in React Native
+- **Target:** August 17
+- **Angle:** On-device component development with a dev menu toggle. Stories co-located with components.
+- **Files to reference:** `.rnstorybook/`, `*.stories.tsx` files
+
+## Web and DX Series
+
+### 22. Building a multilingual blog with Astro
+- **Target:** August 24
+- **Angle:** 4 locales (EN/ES/CA/TL) with shared components, thin route files, same-slug language switching, and DEV-aware content scheduling (future posts visible on localhost, hidden in production).
+- **Files to reference:** `src/components/blog/`, `src/pages/blog/`, `src/pages/es/blog/`, `src/utils/blogHelpers.ts`, `src/i18n/`
+
+### 23. CSS-only blurred hero image fill
+- **Target:** August 31
+- **Angle:** Image capped at 1080px, blurred version fills the full viewport behind it. No JS, no image processing, works with any aspect ratio. The same technique YouTube uses for vertical videos.
+- **Files to reference:** `src/components/blog/BlogPost.astro` (hero image CSS)
+
 ## Backlog
 
 _Add ideas here as they come up. One heading per idea, with a few bullet points on the angle._
