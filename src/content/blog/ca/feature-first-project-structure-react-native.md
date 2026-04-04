@@ -1,7 +1,7 @@
 ---
 title: "Estructura de projecte per funcionalitat a React Native"
 description: "Per què les estructures de carpetes per tipus deixen de funcionar a escala, i com organitzar per funcionalitat amb stores, tests i pantalles co-localitzats manté un codebase React Native mantenible a mesura que creix."
-publishDate: 2026-06-15
+publishDate: 2026-05-18
 tags: ["react-native", "architecture", "typescript", "tutorial"]
 locale: ca
 heroImage: "/images/blog/feature-first-rn.jpg"
