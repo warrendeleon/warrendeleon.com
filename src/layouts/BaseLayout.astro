@@ -93,6 +93,14 @@ const cleanPath = getCleanPath(currentPath);
 
     <!-- Umami Analytics (first-party proxy) -->
     <script is:inline async defer src="/a/s.js" data-website-id="b0b688d0-04ce-4773-a8d1-86d9980ed27e" data-host-url="/a"></script>
+
+    <!-- Event tracking helper (fires both GA + Umami) -->
+    <script is:inline>
+      function t(e, d) {
+        if (window.umami) umami.track(e, d);
+        if (window.gtag) gtag('event', e, d);
+      }
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
@@ -142,9 +150,16 @@ const cleanPath = getCleanPath(currentPath);
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
         updateThemeToggleLabel();
+        t('theme_toggle', { theme: next });
       });
 
       updateThemeToggleLabel();
+
+      document.querySelectorAll('[data-track-social]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          t('social_click', { platform: link.dataset.trackSocial });
+        });
+      });
     </script>
   </body>
 </html>

@@ -304,11 +304,36 @@ document.querySelectorAll('.prose blockquote').forEach(function(bq) {
 document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
     navigator.clipboard.writeText(btn.dataset.url);
+    t('blog_copy_link');
     var label = btn.querySelector('span');
     if (label) {
       label.textContent = i18nData.linkCopied || 'Copied!';
       setTimeout(function() { label.textContent = i18nData.copyLink || 'Copy link'; }, 2000);
     }
+  });
+});
+
+/* Share button tracking */
+document.querySelectorAll('.share-btn[href]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var href = btn.getAttribute('href') || '';
+    var platform = href.includes('linkedin') ? 'linkedin' : href.includes('x.com') ? 'x' : href.includes('facebook') ? 'facebook' : href.includes('wa.me') ? 'whatsapp' : 'unknown';
+    t('blog_share', { platform: platform });
+  });
+});
+
+/* Related post tracking */
+document.querySelectorAll('.related-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    t('related_post_click', { post: card.getAttribute('href') });
+  });
+});
+
+/* Blog prev/next tracking */
+document.querySelectorAll('.blog-nav-link').forEach(function(link) {
+  link.addEventListener('click', function() {
+    var direction = link.classList.contains('blog-nav-prev') ? 'prev' : 'next';
+    t('blog_nav', { direction: direction });
   });
 });
 
@@ -346,6 +371,7 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   btn.addEventListener('click', function() {
     var text = code ? code.textContent : pre.textContent;
     navigator.clipboard.writeText(text);
+    t('code_copy', { language: lang });
     btn.querySelector('span').textContent = i18nData.copied || 'Copied!';
     setTimeout(function() { btn.querySelector('span').textContent = i18nData.copy || 'Copy'; }, 2000);
   });
@@ -381,6 +407,7 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
     var id = link.getAttribute('href').slice(1);
     var el = document.getElementById(id);
     if (el) headingEls.push({ el: el, link: link });
+    link.addEventListener('click', function() { t('toc_click', { section: link.textContent }); });
   });
   function updateActive() {
     var scrollPos = window.scrollY + 100;
