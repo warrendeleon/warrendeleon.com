@@ -143,7 +143,7 @@ const blogBase = getLocalePath(locale, '/blog/');
         </nav>
       )}
 
-      <p id="blog-empty" class="blog-empty" style="display: none;">{i18n.blog.noPostsYet}</p>
+      <p id="blog-empty" class="blog-empty" style="display: none;" data-is-dev={import.meta.env.DEV ? 'true' : undefined}>{i18n.blog.noPostsYet}</p>
     </div>
   </section>
 </BaseLayout>
@@ -151,6 +151,10 @@ const blogBase = getLocalePath(locale, '/blog/');
 <script is:inline>
 (function () {
   function filterPosts() {
+    var emptyMsg = document.getElementById('blog-empty');
+    var isDev = emptyMsg && emptyMsg.hasAttribute('data-is-dev');
+    if (isDev) return;
+
     var now = new Date();
     var todayStr = now.getFullYear() + '-' +
       String(now.getMonth() + 1).padStart(2, '0') + '-' +
@@ -165,7 +169,6 @@ const blogBase = getLocalePath(locale, '/blog/');
         visibleCount++;
       }
     });
-    var emptyMsg = document.getElementById('blog-empty');
     if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
 
     document.querySelectorAll('.blog-tag-filter-link[data-tag-dates]').forEach(function (link) {

@@ -19,11 +19,11 @@ Hindi naman ang problema ay walang pakialam ang mga teams. Ang problema ay pakir
 
 > 💡 **Ang solusyon:** ituring ang accessibility requirements bilang testable assertions. Ang touch target size ay isang numero. Ang contrast ratio ay isang kalkulasyon. Ang focus order ay isang sequence. Lahat ng ito ay puwedeng patakbuhin sa Jest kasama ng iyong unit tests.
 
-## Ano ang tine-test natin
+## Ano ang tine-test ko
 
 Hindi ito gabay para gawing accessible ang iyong app. Ito ay gabay para *i-test* na nananatili itong accessible. Mahalaga ang pagkakaiba: nasa iyong components ang implementation. Hinuhuli ng tests ang regressions kapag may nagbago ng style, nag-refactor ng layout, o nagdagdag ng bagong screen.
 
-| Ano | WCAG criterion | Paano natin tine-test |
+| Ano | WCAG criterion | Paano ko tine-test |
 |---|---|---|
 | Touch target size | 2.5.5 | I-check ang `minWidth`/`minHeight` >= 44pt (iOS) o 48dp (Android) |
 | Colour contrast | 1.4.3 | Kalkulahin ang luminance ratio >= 4.5:1 para sa text, 3:1 para sa malaking text |

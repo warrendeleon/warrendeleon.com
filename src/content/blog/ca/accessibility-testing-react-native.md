@@ -19,11 +19,11 @@ El problema no és que els equips no s'hi preocupin. És que el testing d'access
 
 > 💡 **La solució:** tractar els requisits d'accessibilitat com a assercions verificables. La mida del touch target és un número. El ràtio de contrast és un càlcul. L'ordre de focus és una seqüència. Tot això es pot executar a Jest al costat dels teus tests unitaris.
 
-## Què estem verificant
+## Què estic verificant
 
 Això no és una guia per fer la teva app accessible. És una guia per *verificar* que es manté accessible. La distinció és important: la implementació és als teus components. Els tests detecten regressions quan algú canvia un estil, refactoritza un layout o afegeix una pantalla nova.
 
-| Què | Criteri WCAG | Com ho testem |
+| Què | Criteri WCAG | Com ho testo |
 |---|---|---|
 | Mida del touch target | 2.5.5 | Comprovar `minWidth`/`minHeight` >= 44pt (iOS) o 48dp (Android) |
 | Contrast de color | 1.4.3 | Calcular el ràtio de lluminositat >= 4.5:1 per a text, 3:1 per a text gran |

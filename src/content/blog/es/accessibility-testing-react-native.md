@@ -19,11 +19,11 @@ El problema no es que a los equipos no les importe. Es que el testing de accesib
 
 > 💡 **La solución:** tratar los requisitos de accesibilidad como aserciones testeables. El tamaño del touch target es un número. El ratio de contraste es un cálculo. El orden de foco es una secuencia. Todo esto puede correr en Jest junto con tus tests unitarios.
 
-## Qué vamos a testear
+## Qué voy a testear
 
 Esta no es una guía para hacer tu app accesible. Es una guía para *testear* que siga siendo accesible. La distinción importa: la implementación está en tus componentes. Los tests detectan regresiones cuando alguien cambia un estilo, refactoriza un layout o agrega una pantalla nueva.
 
-| Qué | Criterio WCAG | Cómo lo testeamos |
+| Qué | Criterio WCAG | Cómo lo testeo |
 |---|---|---|
 | Tamaño del touch target | 2.5.5 | Verificar `minWidth`/`minHeight` >= 44pt (iOS) o 48dp (Android) |
 | Contraste de color | 1.4.3 | Calcular ratio de luminancia >= 4.5:1 para texto, 3:1 para texto grande |
