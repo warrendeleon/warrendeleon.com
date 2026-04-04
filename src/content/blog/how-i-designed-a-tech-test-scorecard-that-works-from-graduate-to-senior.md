@@ -172,4 +172,6 @@ The structure is right though:
 
 If you're building a hiring process and your interviewers keep disagreeing on scores, try replacing your rubric with a checklist. You might be surprised how much agreement you get when you stop asking *"how good is this?"* and start asking *"is this here?"*
 
+*If you want the candidate's perspective on what this scorecard evaluates, I wrote a companion post: [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).*
+
 > The best scoring systems don't measure how you feel about the code. They measure what's in the code.

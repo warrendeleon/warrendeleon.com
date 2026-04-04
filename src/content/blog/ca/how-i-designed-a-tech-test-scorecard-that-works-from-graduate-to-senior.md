@@ -173,3 +173,5 @@ L'estructura és correcta, això sí:
 Si estàs muntant un procés de contractació i els teus entrevistadors segueixen sense posar-se d'acord en les puntuacions, prova de substituir la teva rúbrica per un checklist. Et sorprendrà quant d'acord aconsegueixes quan deixes de preguntar *"com de bo és això?"* i comences a preguntar *"això hi és?"*
 
 > Els millors sistemes de puntuació no mesuren el que sents sobre el codi. Mesuren el que hi ha al codi.
+
+*Si vols veure la perspectiva del candidat sobre el que avalua aquest scorecard, vaig escriure un post complementari: [Com aprovar una prova tècnica de React Native](/blog/how-to-pass-a-react-native-tech-test/).*
