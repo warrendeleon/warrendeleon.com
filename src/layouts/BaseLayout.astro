@@ -82,21 +82,27 @@ const cleanPath = getCleanPath(currentPath);
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
-    <!-- Google Analytics -->
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-8FWR6HT36Y"></script>
+    <!-- Google Analytics (production only) -->
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-8FWR6HT36Y');
+      if (location.hostname === 'warrendeleon.com') {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8FWR6HT36Y';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8FWR6HT36Y');
+      }
     </script>
 
-    <!-- Umami Analytics (first-party proxy) -->
-    <script is:inline async defer src="/a/s.js" data-website-id="b0b688d0-04ce-4773-a8d1-86d9980ed27e" data-host-url="/a"></script>
+    <!-- Umami Analytics (production only, first-party proxy) -->
+    <script is:inline async defer src="/a/s.js" data-website-id="b0b688d0-04ce-4773-a8d1-86d9980ed27e" data-host-url="/a" data-domains="warrendeleon.com"></script>
 
     <!-- Event tracking helper (fires both GA + Umami) -->
     <script is:inline>
       function t(e, d) {
+        if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
         if (window.umami) umami.track(e, d);
         if (window.gtag) gtag('event', e, d);
       }
