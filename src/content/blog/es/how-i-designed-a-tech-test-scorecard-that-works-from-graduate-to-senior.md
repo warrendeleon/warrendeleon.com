@@ -173,3 +173,5 @@ La estructura está bien, eso sí:
 Si estás montando un proceso de contratación y tus entrevistadores siguen sin ponerse de acuerdo en las puntuaciones, prueba a reemplazar tu rúbrica con un checklist. Te vas a sorprender de cuánto acuerdo consigues cuando dejas de preguntar *"¿qué tan bueno es esto?"* y empiezas a preguntar *"¿esto está aquí?"*
 
 > Los mejores sistemas de puntuación no miden lo que sientes sobre el código. Miden lo que hay en el código.
+
+*Si quieres ver la perspectiva del candidato sobre lo que evalúa este scorecard, escribí un post complementario: [Cómo aprobar una prueba técnica de React Native](/blog/how-to-pass-a-react-native-tech-test/).*
