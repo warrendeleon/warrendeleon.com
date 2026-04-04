@@ -1,5 +1,20 @@
 # warrendeleon.com
 
+<p align="center">
+  <img src="https://img.shields.io/badge/astro-6.1-BC52EE?style=for-the-badge&logo=astro" />
+  <img src="https://img.shields.io/badge/typescript-5.x-3178C6?style=for-the-badge&logo=typescript" />
+  <img src="https://img.shields.io/badge/cloudflare-CDN-F38020?style=for-the-badge&logo=cloudflare" />
+  <img src="https://img.shields.io/website?url=https%3A%2F%2Fwarrendeleon.com&style=for-the-badge" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/locales-EN%20%7C%20ES%20%7C%20CA%20%7C%20TL-blue?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/blog%20posts-12-brightgreen?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" />
+</p>
+
+---
+
 Personal website and multilingual blog. Built with [Astro](https://astro.build/).
 
 **Live:** [warrendeleon.com](https://warrendeleon.com)
