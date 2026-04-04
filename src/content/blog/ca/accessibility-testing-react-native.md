@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "accessibility", "tutorial"]
 locale: ca
 heroImage: "/images/blog/accessibility-testing-rn.jpg"
 heroAlt: "Testing d'accessibilitat a React Native"
+campaign: "accessibility-testing"
 ---
 
 ## La majoria d'apps s'estalvien el testing d'accessibilitat

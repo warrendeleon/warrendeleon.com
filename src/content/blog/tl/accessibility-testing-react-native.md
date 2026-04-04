@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "accessibility", "tutorial"]
 locale: tl
 heroImage: "/images/blog/accessibility-testing-rn.jpg"
 heroAlt: "Accessibility testing sa React Native"
+campaign: "accessibility-testing"
 ---
 
 ## Karamihan ng apps ay nilalaktawan ang accessibility testing

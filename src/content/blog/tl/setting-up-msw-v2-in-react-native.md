@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: tl
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Pag-setup ng MSW v2 sa React Native para sa testing"
+campaign: "msw-v2-react-native"
 ---
 
 ## Bakit MSW sa halip na manual mocks

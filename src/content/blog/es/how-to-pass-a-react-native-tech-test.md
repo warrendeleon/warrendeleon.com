@@ -8,6 +8,7 @@ heroImage: "/images/blog/react-native-tech-test-tips.jpg"
 heroAlt: "Cómo aprobar una prueba técnica de React Native"
 
 
+campaign: "pass-rn-tech-test"
 ---
 
 ## Esto es desde el otro lado de la mesa

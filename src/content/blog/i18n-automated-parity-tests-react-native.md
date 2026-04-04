@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: en
 heroImage: "/images/blog/i18n-parity-tests.jpg"
 heroAlt: "i18n with automated parity tests in React Native"
+campaign: "i18n-parity-tests"
 ---
 
 ## The translation nobody notices is missing

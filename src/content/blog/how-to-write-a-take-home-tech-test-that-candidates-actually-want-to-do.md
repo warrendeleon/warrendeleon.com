@@ -8,6 +8,7 @@ heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Designing a take-home tech test for software engineers"
 
 
+campaign: "take-home-tech-test"
 ---
 
 ## The test nobody finishes

@@ -6,6 +6,7 @@ tags: ["react-native", "security", "typescript", "tutorial"]
 locale: ca
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Emmagatzematge segur per nivells a React Native"
+campaign: "tiered-secure-storage"
 ---
 
 ## El problema d'una sola solució d'emmagatzematge

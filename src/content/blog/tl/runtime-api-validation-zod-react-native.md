@@ -6,6 +6,7 @@ tags: ["react-native", "typescript", "security", "tutorial"]
 locale: tl
 heroImage: "/images/blog/zod-runtime-validation.jpg"
 heroAlt: "Runtime API response validation gamit ang Zod sa React Native"
+campaign: "zod-runtime-validation"
 ---
 
 ## Hindi ka pinoprotektahan ng TypeScript sa runtime

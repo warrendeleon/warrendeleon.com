@@ -8,6 +8,7 @@ heroImage: "/images/blog/react-native-tech-test-tips.jpg"
 heroAlt: "How to pass a React Native tech test"
 
 
+campaign: "pass-rn-tech-test"
 ---
 
 ## This is from the other side of the table

@@ -8,6 +8,7 @@ heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
 
 
+campaign: "rn-tech-test-redesign"
 ---
 
 ## Una prueba pensada para otro momento

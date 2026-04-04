@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: tl
 heroImage: "/images/blog/detox-cucumber-rn.jpg"
 heroAlt: "Detox at Cucumber BDD para sa React Native E2E testing"
+campaign: "detox-cucumber-bdd"
 ---
 
 ## Bakit BDD para sa E2E tests

@@ -8,6 +8,7 @@ heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Dissenyant una prova tècnica per fer a casa per a enginyers de software"
 
 
+campaign: "take-home-tech-test"
 ---
 
 ## La prova que ningú acaba

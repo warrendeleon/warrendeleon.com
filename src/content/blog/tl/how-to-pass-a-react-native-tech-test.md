@@ -8,6 +8,7 @@ heroImage: "/images/blog/react-native-tech-test-tips.jpg"
 heroAlt: "Paano pumasa sa React Native tech test"
 
 
+campaign: "pass-rn-tech-test"
 ---
 
 ## Ito ay mula sa kabilang panig ng mesa

@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: es
 heroImage: "/images/blog/i18n-parity-tests.jpg"
 heroAlt: "i18n con tests automáticos de paridad en React Native"
+campaign: "i18n-parity-tests"
 ---
 
 ## La traducción que nadie nota que falta

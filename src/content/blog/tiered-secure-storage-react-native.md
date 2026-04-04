@@ -6,6 +6,7 @@ tags: ["react-native", "security", "typescript", "tutorial"]
 locale: en
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Tiered secure storage in React Native"
+campaign: "tiered-secure-storage"
 ---
 
 ## The problem with one storage solution

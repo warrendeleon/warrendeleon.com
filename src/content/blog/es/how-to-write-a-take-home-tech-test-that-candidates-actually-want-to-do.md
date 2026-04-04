@@ -8,6 +8,7 @@ heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Diseñando una prueba técnica para casa para ingenieros de software"
 
 
+campaign: "take-home-tech-test"
 ---
 
 ## La prueba que nadie termina

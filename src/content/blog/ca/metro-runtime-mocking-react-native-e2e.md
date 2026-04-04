@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: ca
 heroImage: "/images/blog/metro-runtime-mocking.jpg"
 heroAlt: "Mocking en temps d'execució amb Metro per a testing E2E de React Native"
+campaign: "metro-runtime-mocking"
 ---
 
 ## El problema dels backends reals en tests E2E

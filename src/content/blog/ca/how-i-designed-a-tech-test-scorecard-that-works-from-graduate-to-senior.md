@@ -8,6 +8,7 @@ heroImage: "/images/blog/tech-test-scorecard.jpg"
 heroAlt: "Dissenyant un scorecard de prova tècnica per a contractació en React Native"
 
 
+campaign: "tech-test-scorecard"
 ---
 
 ## El problema del "això és un 3 o un 4?"

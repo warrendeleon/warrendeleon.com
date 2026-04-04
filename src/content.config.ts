@@ -14,6 +14,7 @@ const blog = defineCollection({
     heroAlt: z.string().optional(),
     
     
+    campaign: z.string(),
   }),
 });
 
