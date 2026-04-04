@@ -42,7 +42,7 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
           </h2>
           <div class="hiring-role-grid">
             {openRoles.map(role => (
-              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card" data-closing-date={role.closingDate}>
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title}'})`}>
                 <div class="hiring-role-content">
                   <h3 class="hiring-role-title">{role.title}</h3>
                   <span class="hiring-role-team">{role.team}</span>

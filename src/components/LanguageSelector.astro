@@ -116,6 +116,8 @@ function getPathForLocale(targetLocale: Locale, path: string): string {
   document.querySelectorAll('.lang-option').forEach(function(link) {
     link.addEventListener('click', function() {
       localStorage.setItem('lang-detected', '1');
+      var lang = link.textContent.trim();
+      t('language_change', { language: lang });
     });
   });
 </script>
