@@ -169,7 +169,7 @@ Detalles clave:
 
 - ✅ El path mock devuelve un objeto de respuesta Axios completo. Redux, selectores y componentes no notan la diferencia
 - ✅ Fixtures específicos por idioma con fallback a inglés
-- ✅ El path real sigue validando con Zod. El path mock se salta la validación porque los fixtures ya están tipados
+- ✅ El path real sigue [validando con Zod](/blog/runtime-api-validation-zod-react-native/). El path mock se salta la validación porque los fixtures ya están tipados
 - ✅ Sin imports condicionales. Ambos paths existen en la misma función
 
 ### Paso 5: Simulación de errores
@@ -237,7 +237,7 @@ async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
 }
 ```
 
-El mock guarda el email del usuario en encrypted storage, igual que lo haría el flujo real. Las llamadas subsiguientes a la API (login, fetch de perfil) pueden leer este estado almacenado para mantener consistencia a lo largo de la sesión.
+El mock guarda el email del usuario en [encrypted storage](/blog/tiered-secure-storage-react-native/), igual que lo haría el flujo real. Las llamadas subsiguientes a la API (login, fetch de perfil) pueden leer este estado almacenado para mantener consistencia a lo largo de la sesión.
 
 Para testing de errores, una convención simple funciona bien: contraseñas que empiezan con "Wrong" disparan un error de auth. Sin configuración especial.
 

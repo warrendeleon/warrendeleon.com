@@ -169,7 +169,7 @@ Mga pangunahing detalye:
 
 - ✅ Nagbabalik ang mock path ng buong Axios response object. Hindi malalaman ng Redux, selectors, at components ang pagkakaiba
 - ✅ Language-specific fixtures na may fallback sa English
-- ✅ Nagva-validate pa rin ang tunay na path gamit ang Zod. Nila-laktawan ng mock path ang validation dahil typed na ang fixtures
+- ✅ Nagva-validate pa rin ang tunay na path [gamit ang Zod](/blog/runtime-api-validation-zod-react-native/). Nila-laktawan ng mock path ang validation dahil typed na ang fixtures
 - ✅ Walang conditional imports. Parehong path ay nasa iisang function
 
 ### Step 5: Error simulation
@@ -237,7 +237,7 @@ async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
 }
 ```
 
-Sino-store ng mock ang user email sa encrypted storage, katulad ng gagawin ng tunay na flow. Mababasa ng mga sumunod na API calls (login, profile fetch) ang stored state na ito para mapanatili ang consistency sa buong session.
+Sino-store ng mock ang user email sa [encrypted storage](/blog/tiered-secure-storage-react-native/), katulad ng gagawin ng tunay na flow. Mababasa ng mga sumunod na API calls (login, profile fetch) ang stored state na ito para mapanatili ang consistency sa buong session.
 
 Para sa error testing, isang simpleng convention ang gumagana nang maayos: mga password na nagsisimula sa "Wrong" ay nagti-trigger ng auth error. Walang espesyal na configuration na kailangan.
 

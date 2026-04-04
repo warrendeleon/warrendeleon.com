@@ -42,7 +42,7 @@ src/
     └── dateFormatter.ts
 ```
 
-Fitxers agrupats pel que *són*, no pel que *fan*. **Per tipus.** Queda net quan l'app té tres pantalles.
+Fitxers agrupats pel que *són*, no pel que *fan*. **Per tipus.** Queda net quan l'app té tres pantalles. Si alguna vegada has fet una prova tècnica, [l'estructura de carpetes és una de les primeres coses que mira un revisor](/blog/how-to-pass-a-react-native-tech-test/).
 
 Llavors afegeixes autenticació amb configuració de PIN, verificació per correu, recuperació de contrasenya. Afegeixes gestió del perfil amb pujada de fotos, edició del compte, canvi de contrasenya. De cop `screens/` té 25 fitxers i trobar el hook de la pujada de foto de perfil vol dir escanejar una llista alfabètica de *tots els hooks de l'app*.
 
