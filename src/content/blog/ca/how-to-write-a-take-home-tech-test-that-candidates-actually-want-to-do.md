@@ -8,6 +8,7 @@ heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Dissenyant una prova tècnica per fer a casa per a enginyers de software"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "take-home-tech-test"
 ---
 
 ## La prova que ningú acaba

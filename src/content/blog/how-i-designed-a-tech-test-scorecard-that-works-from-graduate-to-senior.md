@@ -8,6 +8,7 @@ heroImage: "/images/blog/tech-test-scorecard.jpg"
 heroAlt: "Designing a tech test scorecard for React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "tech-test-scorecard"
 ---
 
 ## The problem with "is this a 3 or a 4?"

@@ -8,6 +8,7 @@ heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "rn-tech-test-redesign"
 ---
 
 ## Una prueba pensada para otro momento

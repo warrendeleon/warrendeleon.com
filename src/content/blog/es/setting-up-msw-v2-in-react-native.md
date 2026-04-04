@@ -6,6 +6,7 @@ tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: es
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Configurando MSW v2 en React Native para testing"
+campaign: "msw-v2-react-native"
 ---
 
 ## Por qué MSW en vez de mocks manuales

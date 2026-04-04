@@ -8,6 +8,7 @@ heroImage: "/images/blog/react-native-tech-test-tips.jpg"
 heroAlt: "Paano pumasa sa React Native tech test"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "pass-rn-tech-test"
 ---
 
 ## Ito ay mula sa kabilang panig ng mesa

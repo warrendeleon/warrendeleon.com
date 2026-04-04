@@ -8,6 +8,7 @@ heroImage: "/images/blog/react-native-tech-test-tips.jpg"
 heroAlt: "Com aprovar una prova tècnica de React Native"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "pass-rn-tech-test"
 ---
 
 ## Això és des de l'altre costat de la taula

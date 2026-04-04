@@ -8,6 +8,7 @@ heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Pagdidisenyo ng take-home tech test para sa mga software engineer"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "take-home-tech-test"
 ---
 
 ## Ang test na walang natatapos

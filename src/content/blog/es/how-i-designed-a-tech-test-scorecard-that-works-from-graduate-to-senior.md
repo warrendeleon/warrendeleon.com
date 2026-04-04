@@ -8,6 +8,7 @@ heroImage: "/images/blog/tech-test-scorecard.jpg"
 heroAlt: "Diseñando un scorecard de prueba técnica para contratación en React Native"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "tech-test-scorecard"
 ---
 
 ## El problema del "¿esto es un 3 o un 4?"

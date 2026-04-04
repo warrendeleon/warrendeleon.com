@@ -6,6 +6,7 @@ tags: ["react-native", "typescript", "security", "tutorial"]
 locale: ca
 heroImage: "/images/blog/zod-runtime-validation.jpg"
 heroAlt: "Validació de respostes d'API en temps d'execució amb Zod a React Native"
+campaign: "zod-runtime-validation"
 ---
 
 ## TypeScript no et protegeix en temps d'execució

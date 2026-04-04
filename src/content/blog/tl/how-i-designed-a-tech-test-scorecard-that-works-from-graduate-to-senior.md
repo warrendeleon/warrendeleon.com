@@ -8,6 +8,7 @@ heroImage: "/images/blog/tech-test-scorecard.jpg"
 heroAlt: "Pagdidisenyo ng tech test scorecard para sa React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
+campaign: "tech-test-scorecard"
 ---
 
 ## Ang problema sa "3 ba 'to o 4?"
