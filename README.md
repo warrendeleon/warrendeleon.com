@@ -1,43 +1,61 @@
-# Astro Starter Kit: Minimal
+# warrendeleon.com
 
-```sh
-npm create astro@latest -- --template minimal
+Personal website and multilingual blog. Built with [Astro](https://astro.build/).
+
+**Live:** [warrendeleon.com](https://warrendeleon.com)
+
+## What's in here
+
+- **Portfolio** with work experience, education, CV, and a hiring page
+- **Blog** with 12 posts (and growing) covering engineering management, hiring, and React Native
+- **4 locales**: English, Spanish (Spain), Catalan, Tagalog
+- **RSS feed** at `/rss.xml`
+
+## Project structure
+
+```
+src/
+├── components/         # Shared UI components (Nav, Footer, etc.)
+│   └── blog/           # Blog-specific components (BlogPost, BlogListing)
+├── content/
+│   └── blog/           # Markdown blog posts
+│       ├── *.md        # English (default)
+│       ├── es/         # Spanish translations
+│       ├── ca/         # Catalan translations
+│       └── tl/         # Tagalog translations
+├── i18n/               # Translation strings (en/es/ca/tl JSON files)
+├── layouts/            # BaseLayout
+├── pages/              # Astro page routes
+│   ├── blog/           # Blog listing and post pages
+│   ├── es/             # Spanish routes
+│   ├── ca/             # Catalan routes
+│   └── tl/             # Tagalog routes
+└── utils/              # Blog helpers, reading time
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Blog
 
-## 🚀 Project Structure
+Posts are markdown files in `src/content/blog/`. Each post has a frontmatter schema defined in `src/content.config.ts` with required fields: `title`, `description`, `publishDate`, `tags`, `locale`, `campaign`.
 
-Inside of your Astro project, you'll see the following folders and files:
+Posts with a future `publishDate` are visible on localhost but hidden in production. The client-side filter in `BlogListing.astro` handles this.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+Translations share the same slug across locales. The English post lives at the root, translations in their locale subdirectory.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deployment
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Deployed to IONOS via a self-hosted blog-publisher service that:
 
-Any static assets, like images, can be placed in the `public/` directory.
+1. Listens for GitHub webhooks on push to `main`
+2. Pulls, builds, and rsyncs `dist/` to IONOS
+3. Purges the Cloudflare cache
+4. Cross-posts to dev.to and Hashnode with UTM tracking
+5. Schedules future posts for automatic deployment at 08:30 London time
 
-## 🧞 Commands
+## Commands
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+| Command | Action |
+|---|---|
+| `npm install` | Install dependencies |
+| `npm run dev` | Start dev server at `localhost:4321` |
+| `npm run build` | Build production site to `./dist/` |
+| `npm run preview` | Preview production build locally |
