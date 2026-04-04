@@ -42,7 +42,7 @@ src/
     └── dateFormatter.ts
 ```
 
-Mga files na grouped ayon sa kung ano sila, hindi sa kung ano ang ginagawa nila. **Type-first.** Malinis siya kapag tatlong screens lang ang app.
+Mga files na grouped ayon sa kung ano sila, hindi sa kung ano ang ginagawa nila. **Type-first.** Malinis siya kapag tatlong screens lang ang app. Kung nag-take-home tech test ka na, [ang folder structure mo ay isa sa mga unang tinitingnan ng reviewer](/blog/how-to-pass-a-react-native-tech-test/).
 
 Tapos magdadagdag ka ng authentication na may PIN setup, email verification, password recovery. Magdadagdag ka ng profile management na may picture uploads, account editing, password changes. Bigla na lang 25 files na ang `screens/` at para mahanap ang hook na para sa profile picture upload, kailangan mong mag-scan ng alphabetical list ng *bawat hook sa buong app*.
 

@@ -42,7 +42,7 @@ src/
     └── dateFormatter.ts
 ```
 
-Files grouped by what they *are*, not by what they *do*. **Type-first.** It's clean when the app has three screens.
+Files grouped by what they *are*, not by what they *do*. **Type-first.** It's clean when the app has three screens. If you've ever done a take-home tech test, [your folder structure is one of the first things a reviewer looks at](/blog/how-to-pass-a-react-native-tech-test/).
 
 Then you add authentication with PIN setup, email verification, password recovery. You add profile management with picture uploads, account editing, password changes. Suddenly `screens/` has 25 files and finding the hook that belongs to the profile picture upload means scanning an alphabetical list of *every hook in the app*.
 

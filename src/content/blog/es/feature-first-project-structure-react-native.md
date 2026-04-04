@@ -42,7 +42,7 @@ src/
     └── dateFormatter.ts
 ```
 
-Ficheros agrupados por lo que *son*, no por lo que *hacen*. **Type-first.** Queda limpio cuando la app tiene tres pantallas.
+Ficheros agrupados por lo que *son*, no por lo que *hacen*. **Type-first.** Queda limpio cuando la app tiene tres pantallas. Si alguna vez has hecho una prueba técnica, [la estructura de carpetas es una de las primeras cosas que mira un revisor](/blog/how-to-pass-a-react-native-tech-test/).
 
 Luego añades autenticación con configuración de PIN, verificación de email, recuperación de contraseña. Añades gestión de perfil con subida de fotos, edición de cuenta, cambio de contraseña. De repente `screens/` tiene 25 ficheros y encontrar el hook que pertenece a la subida de foto de perfil implica escanear una lista alfabética de *todos los hooks de la app*.
 
