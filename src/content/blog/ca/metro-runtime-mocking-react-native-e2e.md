@@ -1,7 +1,7 @@
 ---
 title: "Mocking en temps d'execució amb Metro per a tests E2E deterministes a React Native"
 description: "Per què simular el backend en tests E2E importa, i com fer-ho a nivell del bundle de Metro. Sense intercepció de xarxa, sense tests inestables, sense dependències externes."
-publishDate: 2026-06-01
+publishDate: 2026-06-08
 tags: ["react-native", "testing", "typescript", "tutorial"]
 locale: ca
 heroImage: "/images/blog/metro-runtime-mocking.jpg"

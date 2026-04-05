@@ -1,7 +1,7 @@
 ---
 title: "Runtime API response validation with Zod in React Native"
 description: "Your TypeScript types don't protect you at runtime. How to catch backend contract changes before they crash your app using Zod schemas that double as your type definitions."
-publishDate: 2026-05-25
+publishDate: 2026-06-01
 tags: ["react-native", "typescript", "security", "tutorial"]
 locale: en
 heroImage: "/images/blog/zod-runtime-validation.jpg"
