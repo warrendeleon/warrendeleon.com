@@ -276,7 +276,7 @@ async signIn(request: SupabaseSignInRequest): Promise<SupabaseSession> {
 }
 ```
 
-Si el proveedor de autenticación cambia el formato de su respuesta, `validateResponse` lo atrapa en la frontera. El mensaje de error incluye `"Supabase Auth signIn"` como contexto, así sabes qué llamada falló sin rastrear el stack.
+Si el proveedor de autenticación cambia el formato de su respuesta, `validateResponse` lo atrapa en la frontera. El mensaje de error incluye `"Supabase Auth signIn"` como contexto, así sabes qué llamada falló sin rastrear el stack. Escribí sobre por qué construí este [cliente REST personalizado en vez de usar el SDK de Supabase](/blog/building-a-supabase-rest-client-without-the-sdk/).
 
 ## Testeando schemas
 

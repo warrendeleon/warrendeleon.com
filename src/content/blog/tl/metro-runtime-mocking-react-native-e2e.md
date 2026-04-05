@@ -139,7 +139,7 @@ Typed ang fixtures. Kung magbago ang API response shape at hindi tugma ang fixtu
 
 ### Step 4: Ang API switch
 
-Tine-check ng bawat API function ang flag sa simula. Kung naka-enable ang mocking, nagbabalik ito ng fixture data na naka-wrap sa Axios-compatible response:
+Tine-check ng bawat API function ang flag sa simula. Kung naka-enable ang mocking, nagbabalik ito ng fixture data na naka-wrap sa Axios-compatible response. Gumagana lang ang pattern na ito dahil [gumawa ako ng sarili kong REST client](/blog/building-a-supabase-rest-client-without-the-sdk/) sa halip na gamitin ang Supabase SDK. Kinokontrol ko ang HTTP layer, kaya kayang palitan ito sa build time:
 
 ```typescript
 export const fetchProfileData = async (

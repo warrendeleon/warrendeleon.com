@@ -276,7 +276,7 @@ async signIn(request: SupabaseSignInRequest): Promise<SupabaseSession> {
 }
 ```
 
-Si el proveïdor d'autenticació canvia el format de la seva resposta, `validateResponse` ho detecta al límit. El missatge d'error inclou `"Supabase Auth signIn"` com a context, així saps quina crida ha fallat sense rastrejar la pila.
+Si el proveïdor d'autenticació canvia el format de la seva resposta, `validateResponse` ho detecta al límit. El missatge d'error inclou `"Supabase Auth signIn"` com a context, així saps quina crida ha fallat sense rastrejar la pila. Vaig escriure sobre per què vaig construir aquest [client REST personalitzat en lloc d'usar el SDK de Supabase](/blog/building-a-supabase-rest-client-without-the-sdk/).
 
 ## Provant esquemes
 
