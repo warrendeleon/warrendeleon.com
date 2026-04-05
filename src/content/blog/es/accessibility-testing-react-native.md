@@ -1,7 +1,7 @@
 ---
 title: "Testing de accesibilidad en React Native"
 description: "Testing de accesibilidad automatizado y práctico para React Native. Validación de touch targets, verificación de contraste de colores, orden de foco y anuncios de screen reader. Todo en Jest, sin testing manual."
-publishDate: 2026-06-08
+publishDate: 2026-06-15
 tags: ["react-native", "testing", "accessibility", "tutorial"]
 locale: es
 heroImage: "/images/blog/accessibility-testing-rn.jpg"
