@@ -139,7 +139,7 @@ Les fixtures estan tipades. Si la forma de la resposta de l'API canvia i la fixt
 
 ### Pas 4: L'interruptor d'API
 
-Cada funció d'API comprova el flag al principi. Si el mocking està activat, retorna dades fixture embolcallades en una resposta compatible amb Axios:
+Cada funció d'API comprova el flag al principi. Si el mocking està activat, retorna dades fixture embolcallades en una resposta compatible amb Axios. Aquest patró només funciona perquè vaig [construir el meu propi client REST](/blog/building-a-supabase-rest-client-without-the-sdk/) en lloc d'usar el SDK de Supabase. Controlo la capa HTTP, així que la puc intercanviar en temps de build:
 
 ```typescript
 export const fetchProfileData = async (
