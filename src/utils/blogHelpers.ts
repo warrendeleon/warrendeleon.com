@@ -17,7 +17,7 @@ const dateLocaleMap: Record<Locale, string> = {
  */
 export async function getPostsForLocale(locale: Locale, includeFuture = import.meta.env.DEV) {
   const now = new Date();
-  now.setHours(0, 0, 0, 0);
+  now.setUTCHours(23, 59, 59, 999);
   return (await getCollection('blog'))
     .filter(post => !post.data.draft && (post.data.locale || 'en') === locale && (includeFuture || post.data.publishDate <= now))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
