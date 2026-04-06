@@ -2,11 +2,12 @@
 title: "Configurant MSW v2 a React Native"
 description: "Una guia pràctica per configurar Mock Service Worker v2 en un projecte React Native. Des de la instal·lació fins a handler sets de nivell producció que cobreixen èxit, errors, timeouts i escenaris offline."
 publishDate: 2026-04-27
-tags: ["react-native", "testing", "typescript", "tutorial"]
+tags: ["react-native", "testing", "mocking", "jest"]
 locale: ca
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Configurant MSW v2 a React Native per a testing"
 campaign: "msw-v2-react-native"
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e"]
 ---
 
 ## Per què MSW en comptes de mocks manuals

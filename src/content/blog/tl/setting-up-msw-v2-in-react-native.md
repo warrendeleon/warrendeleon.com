@@ -2,11 +2,12 @@
 title: "Pag-setup ng MSW v2 sa React Native"
 description: "Isang praktikal na gabay sa pag-setup ng Mock Service Worker v2 sa isang React Native project. Mula sa installation hanggang sa production-grade na handler sets na sumasaklaw sa success, errors, timeouts, at offline scenarios."
 publishDate: 2026-04-27
-tags: ["react-native", "testing", "typescript", "tutorial"]
+tags: ["react-native", "testing", "mocking", "jest"]
 locale: tl
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Pag-setup ng MSW v2 sa React Native para sa testing"
 campaign: "msw-v2-react-native"
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e"]
 ---
 
 ## Bakit MSW sa halip na manual mocks

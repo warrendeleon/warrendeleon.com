@@ -2,13 +2,14 @@
 title: "Por qué rediseñé nuestra prueba técnica de React Native en mi primera semana"
 description: "Me incorporé como Engineering Manager y uno de mis primeros proyectos fue repensar el proceso de contratación para roles de plataforma. Esto es lo que aprendí y lo que construí."
 publishDate: 2026-03-29
-tags: ["gestión-de-ingeniería", "contratación", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
 
 
 campaign: "rn-tech-test-redesign"
+relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## Una prueba pensada para otro momento

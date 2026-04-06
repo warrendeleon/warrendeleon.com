@@ -9,6 +9,7 @@ heroAlt: "Pagre-redesign ng tech test para sa React Native hiring"
 
 
 campaign: "rn-tech-test-redesign"
+relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## Isang test na gawa para sa ibang panahon

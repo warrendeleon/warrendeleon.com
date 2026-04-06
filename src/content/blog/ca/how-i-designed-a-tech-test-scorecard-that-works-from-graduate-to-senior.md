@@ -9,6 +9,7 @@ heroAlt: "Dissenyant un scorecard de prova tècnica per a contractació en React
 
 
 campaign: "tech-test-scorecard"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## El problema del "això és un 3 o un 4?"

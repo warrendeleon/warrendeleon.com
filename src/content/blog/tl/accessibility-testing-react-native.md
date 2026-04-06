@@ -2,11 +2,12 @@
 title: "Accessibility testing sa React Native"
 description: "Praktikal at automated na accessibility testing para sa React Native. Touch target validation, contrast ratio checking, focus order verification, at screen reader announcements. Lahat sa Jest, walang manual testing na kailangan."
 publishDate: 2026-06-15
-tags: ["react-native", "testing", "accessibility", "tutorial"]
+tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: tl
 heroImage: "/images/blog/accessibility-testing-rn.jpg"
 heroAlt: "Accessibility testing sa React Native"
 campaign: "accessibility-testing"
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
 
 ## Karamihan ng apps ay nilalaktawan ang accessibility testing

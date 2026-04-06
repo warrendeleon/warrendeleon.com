@@ -2,11 +2,12 @@
 title: "i18n con tests automáticos de paridad en React Native"
 description: "5 idiomas con un test que verifica que cada locale tiene las mismas claves. Cómo configurar i18next con seguridad de tipos en TypeScript, detección del idioma del dispositivo y tests automáticos de paridad que detectan traducciones faltantes antes de publicar."
 publishDate: 2026-06-22
-tags: ["react-native", "testing", "typescript", "tutorial"]
+tags: ["react-native", "i18n", "testing", "localisation"]
 locale: es
 heroImage: "/images/blog/i18n-parity-tests.jpg"
 heroAlt: "i18n con tests automáticos de paridad en React Native"
 campaign: "i18n-parity-tests"
+relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]
 ---
 
 ## La traducción que nadie nota que falta

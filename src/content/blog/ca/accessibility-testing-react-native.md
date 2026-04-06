@@ -2,11 +2,12 @@
 title: "Testing d'accessibilitat a React Native"
 description: "Testing d'accessibilitat automatitzat i pràctic per a React Native. Validació de touch targets, comprovació de ràtios de contrast, verificació de l'ordre de focus i anuncis del lector de pantalla. Tot amb Jest, sense testing manual."
 publishDate: 2026-06-15
-tags: ["react-native", "testing", "accessibility", "tutorial"]
+tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: ca
 heroImage: "/images/blog/accessibility-testing-rn.jpg"
 heroAlt: "Testing d'accessibilitat a React Native"
 campaign: "accessibility-testing"
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
 
 ## La majoria d'apps s'estalvien el testing d'accessibilitat

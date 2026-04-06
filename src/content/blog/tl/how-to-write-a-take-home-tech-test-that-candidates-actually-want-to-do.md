@@ -9,6 +9,7 @@ heroAlt: "Pagdidisenyo ng take-home tech test para sa mga software engineer"
 
 
 campaign: "take-home-tech-test"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior"]
 ---
 
 ## Ang test na walang natatapos

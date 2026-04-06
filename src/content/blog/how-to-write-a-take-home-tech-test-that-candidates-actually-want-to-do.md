@@ -2,13 +2,14 @@
 title: "How to write a take-home tech test that candidates actually want to do"
 description: "Most take-home tests fail because of setup friction, unclear briefs, or disrespecting people's time. This is how I designed one that candidates thank us for."
 publishDate: 2026-04-20
-tags: ["engineering-management", "hiring", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: en
 heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Designing a take-home tech test for software engineers"
 
 
 campaign: "take-home-tech-test"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior"]
 ---
 
 ## The test nobody finishes

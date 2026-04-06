@@ -9,6 +9,7 @@ heroAlt: "Pagdidisenyo ng tech test scorecard para sa React Native hiring"
 
 
 campaign: "tech-test-scorecard"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## Ang problema sa "3 ba 'to o 4?"
