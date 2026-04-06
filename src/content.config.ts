@@ -15,6 +15,7 @@ const blog = defineCollection({
     
     
     campaign: z.string(),
+    relatedPosts: z.array(z.string()).optional(),
   }),
 });
 

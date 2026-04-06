@@ -55,16 +55,22 @@ const blogPostingJsonLd = {
   },
 };
 
-const relatedPosts = sortedAsc
-  .filter(p => getPostSlug(p.id) !== postSlug && (import.meta.env.DEV || p.data.publishDate <= now))
-  .map(p => ({
-    post: p,
-    sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
-  }))
-  .filter(p => p.sharedTags > 0)
-  .sort((a, b) => b.sharedTags - a.sharedTags)
-  .slice(0, 3)
-  .map(p => p.post);
+const manualRelated = post.data.relatedPosts || [];
+const relatedPosts = manualRelated.length > 0
+  ? manualRelated
+      .map(slug => sortedAsc.find(p => getPostSlug(p.id) === slug))
+      .filter(p => p && (import.meta.env.DEV || p.data.publishDate <= now))
+      .slice(0, 3)
+  : sortedAsc
+      .filter(p => getPostSlug(p.id) !== postSlug && (import.meta.env.DEV || p.data.publishDate <= now))
+      .map(p => ({
+        post: p,
+        sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
+      }))
+      .filter(p => p.sharedTags > 0)
+      .sort((a, b) => b.sharedTags - a.sharedTags)
+      .slice(0, 3)
+      .map(p => p.post);
 
 const shareUrl = `https://warrendeleon.com${postPath}`;
 const campaignParam = `&utm_campaign=${post.data.campaign}`;
