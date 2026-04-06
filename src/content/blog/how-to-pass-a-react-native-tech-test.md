@@ -2,13 +2,14 @@
 title: "How to pass a React Native tech test"
 description: "Practical advice from someone who reviews take-home tech test submissions. What actually matters, what doesn't, and the mistakes that cost candidates the job."
 publishDate: 2026-04-06
-tags: ["react-native", "hiring", "career-advice"]
+tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: en
 heroImage: "/images/blog/react-native-tech-test-tips.jpg"
 heroAlt: "How to pass a React Native tech test"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 campaign: "pass-rn-tech-test"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## This is from the other side of the table

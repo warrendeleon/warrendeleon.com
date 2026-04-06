@@ -2,11 +2,12 @@
 title: "Feature-first na project structure sa React Native"
 description: "Bakit nasisira ang type-first na folder structures kapag lumaki na ang app, at paano nakakatulong ang pag-organisa by feature na may co-located stores, tests, at screens para mapanatiling maintainable ang React Native codebase habang lumalaki ito."
 publishDate: 2026-05-18
-tags: ["react-native", "architecture", "typescript", "tutorial"]
+tags: ["react-native", "architecture", "project-structure"]
 locale: tl
 heroImage: "/images/blog/feature-first-rn.jpg"
 heroAlt: "Feature-first na project structure sa React Native"
 campaign: "feature-first-structure"
+relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]
 ---
 
 ## 85 files para sa isang feature

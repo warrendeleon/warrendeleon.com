@@ -2,13 +2,14 @@
 title: "Why I redesigned our React Native tech test in my first week"
 description: "I joined Hargreaves Lansdown as Engineering Manager and one of my first projects was rethinking the hiring process for platform roles. What I learned and what I built."
 publishDate: 2026-03-29
-tags: ["engineering-management", "hiring", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Redesigning a tech test for React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 campaign: "rn-tech-test-redesign"
+relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## A test built for a different time

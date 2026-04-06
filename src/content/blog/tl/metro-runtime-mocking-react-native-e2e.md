@@ -2,11 +2,12 @@
 title: "Metro runtime mocking para sa deterministic na React Native E2E tests"
 description: "Bakit mahalaga ang pag-mock ng backend sa E2E tests, at paano gawin ito sa Metro bundle level. Walang network interception, walang flaky tests, walang external dependencies."
 publishDate: 2026-06-08
-tags: ["react-native", "testing", "typescript", "tutorial"]
+tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: tl
 heroImage: "/images/blog/metro-runtime-mocking.jpg"
 heroAlt: "Metro runtime mocking para sa React Native E2E testing"
 campaign: "metro-runtime-mocking"
+relatedPosts: ["setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing", "building-a-supabase-rest-client-without-the-sdk"]
 ---
 
 ## Ang problema sa tunay na backends sa E2E tests

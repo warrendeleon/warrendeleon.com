@@ -9,6 +9,7 @@ heroAlt: "Cómo aprobar una prueba técnica de React Native"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 campaign: "pass-rn-tech-test"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## Esto es desde el otro lado de la mesa

@@ -2,11 +2,12 @@
 title: "Tiered secure storage in React Native"
 description: "Three storage tiers for React Native: Keychain for tokens, encrypted storage for PII, AsyncStorage for preferences. Why each tier exists, when to use it, and how Redux Persist fits in."
 publishDate: 2026-05-04
-tags: ["react-native", "security", "typescript", "tutorial"]
+tags: ["react-native", "security", "storage", "mobile-security"]
 locale: en
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Tiered secure storage in React Native"
 campaign: "tiered-secure-storage"
+relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
 ---
 
 ## The problem with one storage solution

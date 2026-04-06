@@ -2,11 +2,12 @@
 title: "Feature-first project structure in React Native"
 description: "Why type-first folder structures break down at scale, and how organising by feature with co-located stores, tests, and screens keeps a React Native codebase maintainable as it grows."
 publishDate: 2026-05-18
-tags: ["react-native", "architecture", "typescript", "tutorial"]
+tags: ["react-native", "architecture", "project-structure"]
 locale: en
 heroImage: "/images/blog/feature-first-rn.jpg"
 heroAlt: "Feature-first project structure in React Native"
 campaign: "feature-first-structure"
+relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]
 ---
 
 ## 85 files for one feature

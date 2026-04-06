@@ -15,6 +15,7 @@ const blog = defineCollection({
     hiringUrl: z.string().optional(),
     hiringText: z.string().optional(),
     campaign: z.string(),
+    relatedPosts: z.array(z.string()).optional(),
   }),
 });
 

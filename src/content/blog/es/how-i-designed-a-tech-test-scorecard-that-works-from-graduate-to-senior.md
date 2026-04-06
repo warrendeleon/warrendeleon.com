@@ -9,6 +9,7 @@ heroAlt: "Diseñando un scorecard de prueba técnica para contratación en React
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
 campaign: "tech-test-scorecard"
+relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## El problema del "¿esto es un 3 o un 4?"

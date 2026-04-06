@@ -2,11 +2,12 @@
 title: "Validació de respostes d'API en temps d'execució amb Zod a React Native"
 description: "Els teus tipus de TypeScript no et protegeixen en temps d'execució. Com detectar canvis de contracte del backend abans que l'app peti usant esquemes Zod que també serveixen com a definicions de tipus."
 publishDate: 2026-06-01
-tags: ["react-native", "typescript", "security", "tutorial"]
+tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: ca
 heroImage: "/images/blog/zod-runtime-validation.jpg"
 heroAlt: "Validació de respostes d'API en temps d'execució amb Zod a React Native"
 campaign: "zod-runtime-validation"
+relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e"]
 ---
 
 ## TypeScript no et protegeix en temps d'execució

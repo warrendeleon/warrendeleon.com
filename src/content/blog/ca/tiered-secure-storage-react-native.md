@@ -2,11 +2,12 @@
 title: "Emmagatzematge segur per nivells a React Native"
 description: "Tres nivells d'emmagatzematge per a React Native: Keychain per a tokens, emmagatzematge xifrat per a dades personals, AsyncStorage per a preferències. Per què existeix cada nivell, quan usar-lo i com encaixa Redux Persist."
 publishDate: 2026-05-04
-tags: ["react-native", "security", "typescript", "tutorial"]
+tags: ["react-native", "security", "storage", "mobile-security"]
 locale: ca
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Emmagatzematge segur per nivells a React Native"
 campaign: "tiered-secure-storage"
+relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
 ---
 
 ## El problema d'una sola solució d'emmagatzematge
