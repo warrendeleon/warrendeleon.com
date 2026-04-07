@@ -41,7 +41,7 @@
   },
   "bookACall": {
     "title": "Book a Call",
-    "description": "Schedule a 60-minute video call with me."
+    "description": "Schedule a 30-minute phone/video call with me."
   },
   "common": {
     "download": "Download",
@@ -86,7 +86,7 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "CV of Warren de Leon, Software Engineering Manager at Hargreaves Lansdown. React Native, TypeScript, mobile architecture, and engineering leadership.",
     "bookACallTitle": "Book a Call | Warren de Leon",
-    "bookACallDescription": "Schedule a 60-minute video call with Warren de Leon to discuss engineering leadership, React Native, or career opportunities.",
+    "bookACallDescription": "Schedule a 30-minute phone/video call with Warren de Leon to discuss engineering leadership, React Native, or career opportunities.",
     "blogTitle": "Blog | Warren de Leon",
     "blogDescription": "Writing about engineering management, hiring, React Native, and building mobile teams. By Warren de Leon, Software Engineering Manager at Hargreaves Lansdown."
   }
