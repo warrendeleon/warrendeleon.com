@@ -41,7 +41,7 @@
   },
   "bookACall": {
     "title": "Reservar Llamada",
-    "description": "Programa una videollamada de 60 minutos conmigo."
+    "description": "Programa una llamada telefónica/videollamada de 30 minutos conmigo."
   },
   "common": {
     "download": "Descargar",
@@ -86,7 +86,7 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "Descarga o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Reservar Llamada | Warren de Leon",
-    "bookACallDescription": "Programa una videollamada con Warren de Leon para discutir oportunidades o colaboración.",
+    "bookACallDescription": "Programa una llamada telefónica/videollamada de 30 minutos con Warren de Leon para discutir oportunidades o colaboración.",
     "blogTitle": "Blog | Warren de Leon",
     "blogDescription": "Artículos sobre ingeniería de software, liderazgo de equipos y desarrollo móvil."
   }

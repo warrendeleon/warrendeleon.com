@@ -41,7 +41,7 @@
   },
   "bookACall": {
     "title": "Mag-book ng Tawag",
-    "description": "Mag-iskedyul ng 60-minutong video call sa akin."
+    "description": "Mag-iskedyul ng 30-minutong phone/video call sa akin."
   },
   "common": {
     "download": "I-download",
@@ -86,7 +86,7 @@
     "cvTitle": "CV | Warren de Leon",
     "cvDescription": "I-download o tingnan ang curriculum vitae ni Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Mag-book ng Tawag | Warren de Leon",
-    "bookACallDescription": "Mag-iskedyul ng video call kay Warren de Leon para sa mga oportunidad o kolaborasyon.",
+    "bookACallDescription": "Mag-iskedyul ng 30-minutong phone/video call kay Warren de Leon para sa mga oportunidad o kolaborasyon.",
     "blogTitle": "Blog | Warren de Leon",
     "blogDescription": "Mga artikulo tungkol sa software engineering, team leadership, at mobile development."
   }
