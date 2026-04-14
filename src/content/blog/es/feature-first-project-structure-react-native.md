@@ -1,7 +1,7 @@
 ---
 title: "Estructura de proyecto feature-first en React Native"
 description: "Por qué las estructuras de carpetas por tipo dejan de funcionar a escala, y cómo organizar por feature con stores, tests y screens co-localizados mantiene un codebase de React Native manejable a medida que crece."
-publishDate: 2026-05-18
+publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: es
 heroImage: "/images/blog/feature-first-rn.jpg"

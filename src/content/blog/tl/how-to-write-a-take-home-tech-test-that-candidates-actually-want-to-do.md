@@ -2,7 +2,7 @@
 title: "Paano magsulat ng take-home tech test na gusto talagang gawin ng mga kandidato"
 description: "Karamihan ng take-home tests, hindi gumana dahil sa setup friction, hindi malinaw na brief, o hindi nire-respeto ang oras ng tao. Ganito ko dinesign ang isa na pinasasalamatan kami ng mga kandidato."
 publishDate: 2026-04-20
-tags: ["engineering-management", "pagkuha-ng-empleyado", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: tl
 heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Pagdidisenyo ng take-home tech test para sa mga software engineer"

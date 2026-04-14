@@ -2,7 +2,7 @@
 title: "Com escriure una prova tècnica per fer a casa que els candidats realment vulguin fer"
 description: "La majoria de proves tècniques fallen per fricció en el setup, enunciats poc clars o per no respectar el temps de la gent. Així és com en vaig dissenyar una per la qual els candidats ens donen les gràcies."
 publishDate: 2026-04-20
-tags: ["gestió-d-enginyeria", "contractació", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: ca
 heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Dissenyant una prova tècnica per fer a casa per a enginyers de software"

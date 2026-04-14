@@ -1,7 +1,7 @@
 ---
 title: "i18n with automated parity tests in React Native"
 description: "5 languages with a test that verifies every locale has identical keys. How to set up i18next with TypeScript type safety, device locale detection, and automated parity testing that catches missing translations before they ship."
-publishDate: 2026-06-22
+publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: en
 heroImage: "/images/blog/i18n-parity-tests.jpg"
