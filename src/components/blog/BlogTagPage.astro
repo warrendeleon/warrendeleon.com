@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
+import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString } from '../../utils/blogHelpers';
 
@@ -14,11 +15,12 @@ interface Props {
 const { locale, posts, tag } = Astro.props;
 const i18n = t(locale);
 const blogPath = getLocalePath(locale, '/blog/');
+const tagLabel = getTagLabel(tag, locale);
 ---
 
 <BaseLayout
-  title={`${i18n.blog.postsTagged} ${tag} | Warren de Leon`}
-  description={`${i18n.blog.postsTagged} ${tag}`}
+  title={`${i18n.blog.postsTagged} ${tagLabel} | Warren de Leon`}
+  description={`${i18n.blog.postsTagged} ${tagLabel}`}
   locale={locale}
   currentPath={getLocalePath(locale, `/blog/tag/${tag}/`)}
 >
@@ -32,7 +34,7 @@ const blogPath = getLocalePath(locale, '/blog/');
           </svg>
           {i18n.blog.backToBlog}
         </a>
-        <h1 class="section-heading">{i18n.blog.postsTagged} {tag}</h1>
+        <h1 class="section-heading">{i18n.blog.postsTagged} {tagLabel}</h1>
         <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
       </div>
 
@@ -55,8 +57,8 @@ const blogPath = getLocalePath(locale, '/blog/');
               <h2 class="blog-card-title">{post.data.title}</h2>
               <p class="blog-card-desc">{post.data.description}</p>
               <div class="blog-card-tags">
-                {post.data.tags.map(t => (
-                  <span class="blog-tag">{t}</span>
+                {post.data.tags.map((t: string) => (
+                  <span class="blog-tag">{getTagLabel(t, locale)}</span>
                 ))}
               </div>
             </div>
