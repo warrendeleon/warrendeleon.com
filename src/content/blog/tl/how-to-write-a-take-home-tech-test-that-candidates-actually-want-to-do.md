@@ -4,7 +4,7 @@ description: "Karamihan ng take-home tests, hindi gumana dahil sa setup friction
 publishDate: 2026-04-20
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: tl
-heroImage: "/images/blog/take-home-tech-test-design.jpg"
+heroImage: "/images/blog/take-home-tech-test-design.webp"
 heroAlt: "Pagdidisenyo ng take-home tech test para sa mga software engineer"
 
 

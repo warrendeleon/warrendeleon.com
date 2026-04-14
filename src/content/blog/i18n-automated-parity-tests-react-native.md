@@ -4,7 +4,7 @@ description: "5 languages with a test that verifies every locale has identical k
 publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: en
-heroImage: "/images/blog/i18n-parity-tests.jpg"
+heroImage: "/images/blog/i18n-parity-tests.webp"
 heroAlt: "i18n with automated parity tests in React Native"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]

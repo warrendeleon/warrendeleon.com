@@ -4,7 +4,7 @@ description: "Consejos prácticos de alguien que revisa entregas de pruebas téc
 publishDate: 2026-04-06
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: es
-heroImage: "/images/blog/react-native-tech-test-tips.jpg"
+heroImage: "/images/blog/react-native-tech-test-tips.webp"
 heroAlt: "Cómo aprobar una prueba técnica de React Native"
 
 

@@ -4,7 +4,7 @@ description: "What happens when five API calls get a 401 at the same time. The r
 publishDate: 2026-07-06
 tags: ["react-native", "security", "authentication", "http"]
 locale: en
-heroImage: "/images/blog/token-refresh-race.jpg"
+heroImage: "/images/blog/token-refresh-race.webp"
 heroAlt: "Token refresh race condition prevention in React Native"
 campaign: "token-refresh-race"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "tiered-secure-storage-react-native", "runtime-api-validation-zod-react-native"]

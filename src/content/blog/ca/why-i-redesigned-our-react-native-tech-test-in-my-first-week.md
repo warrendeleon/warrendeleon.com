@@ -4,7 +4,7 @@ description: "Em vaig incorporar com a Engineering Manager i un dels meus primer
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: ca
-heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
+heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Redissenyant una prova tècnica per a contractació en React Native"
 
 

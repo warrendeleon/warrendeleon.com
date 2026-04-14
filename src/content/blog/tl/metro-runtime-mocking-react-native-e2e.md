@@ -4,7 +4,7 @@ description: "Bakit mahalaga ang pag-mock ng backend sa E2E tests, at paano gawi
 publishDate: 2026-06-15
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: tl
-heroImage: "/images/blog/metro-runtime-mocking.jpg"
+heroImage: "/images/blog/metro-runtime-mocking.webp"
 heroAlt: "Metro runtime mocking para sa React Native E2E testing"
 campaign: "metro-runtime-mocking"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing", "building-a-supabase-rest-client-without-the-sdk"]

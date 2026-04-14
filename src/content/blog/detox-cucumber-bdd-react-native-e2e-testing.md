@@ -4,7 +4,7 @@ description: "Most teams don't know Gherkin feature files work with Detox. A ste
 publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: en
-heroImage: "/images/blog/detox-cucumber-rn.jpg"
+heroImage: "/images/blog/detox-cucumber-rn.webp"
 heroAlt: "Detox and Cucumber BDD for React Native E2E testing"
 campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]

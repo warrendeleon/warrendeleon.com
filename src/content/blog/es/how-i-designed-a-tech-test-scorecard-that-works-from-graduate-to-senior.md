@@ -4,7 +4,7 @@ description: "Cómo un scorecard basado en checklists hizo que nuestra prueba de
 publishDate: 2026-04-13
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
-heroImage: "/images/blog/tech-test-scorecard.jpg"
+heroImage: "/images/blog/tech-test-scorecard.webp"
 heroAlt: "Diseñando un scorecard de prueba técnica para contratación en React Native"
 
 

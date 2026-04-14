@@ -4,7 +4,7 @@ description: "La majoria de proves tècniques fallen per fricció en el setup, e
 publishDate: 2026-04-20
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: ca
-heroImage: "/images/blog/take-home-tech-test-design.jpg"
+heroImage: "/images/blog/take-home-tech-test-design.webp"
 heroAlt: "Dissenyant una prova tècnica per fer a casa per a enginyers de software"
 
 

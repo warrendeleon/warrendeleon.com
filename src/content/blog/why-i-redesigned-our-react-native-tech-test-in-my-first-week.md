@@ -4,7 +4,7 @@ description: "I joined as Engineering Manager and one of my first projects was r
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
-heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
+heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Redesigning a tech test for React Native hiring"
 
 

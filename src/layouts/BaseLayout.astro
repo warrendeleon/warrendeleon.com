@@ -13,9 +13,10 @@ interface Props {
   jsonLd?: object;
   ogImage?: string;
   ogType?: string;
+  preloadImage?: string;
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType, preloadImage } = Astro.props;
 
 const siteUrl = 'https://warrendeleon.com';
 const canonical = `${siteUrl}${canonicalPath || currentPath}`;
@@ -47,12 +48,13 @@ const cleanPath = getCleanPath(currentPath);
     <link rel="canonical" href={canonical} />
 
     <link rel="alternate" type="application/rss+xml" title="Warren de Leon | Blog" href="/rss.xml" />
+    {preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/webp" />}
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType || "website"} />
     <meta property="og:url" content={`https://warrendeleon.com${currentPath}`} />
-    <meta property="og:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.jpg"} />
+    <meta property="og:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.webp"} />
     {ogImage && <meta property="og:image:width" content="1200" />}
     {ogImage && <meta property="og:image:height" content="630" />}
     <meta property="og:locale" content={locale} />
@@ -61,7 +63,7 @@ const cleanPath = getCleanPath(currentPath);
     <meta name="twitter:creator" content="@warren_deleon" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.jpg"} />
+    <meta name="twitter:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.webp"} />
 
     {locales.map(loc => (
       <link

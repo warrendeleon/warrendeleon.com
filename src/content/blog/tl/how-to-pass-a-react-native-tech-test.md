@@ -4,7 +4,7 @@ description: "Mga practical na advice mula sa taong nagrereview ng take-home tec
 publishDate: 2026-04-06
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: tl
-heroImage: "/images/blog/react-native-tech-test-tips.jpg"
+heroImage: "/images/blog/react-native-tech-test-tips.webp"
 heroAlt: "Paano pumasa sa React Native tech test"
 
 

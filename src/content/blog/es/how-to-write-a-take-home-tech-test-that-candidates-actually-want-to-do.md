@@ -4,7 +4,7 @@ description: "La mayoría de las pruebas técnicas fallan por fricción en el se
 publishDate: 2026-04-20
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: es
-heroImage: "/images/blog/take-home-tech-test-design.jpg"
+heroImage: "/images/blog/take-home-tech-test-design.webp"
 heroAlt: "Diseñando una prueba técnica para casa para ingenieros de software"
 
 

@@ -4,7 +4,7 @@ description: "Por qué importa mockear tu backend en tests E2E, y cómo hacerlo 
 publishDate: 2026-06-15
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: es
-heroImage: "/images/blog/metro-runtime-mocking.jpg"
+heroImage: "/images/blog/metro-runtime-mocking.webp"
 heroAlt: "Mocking en runtime de Metro para testing E2E en React Native"
 campaign: "metro-runtime-mocking"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing", "building-a-supabase-rest-client-without-the-sdk"]

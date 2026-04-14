@@ -4,7 +4,7 @@ description: "Pumasok ako bilang Engineering Manager at isa sa mga unang project
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: tl
-heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
+heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Pagre-redesign ng tech test para sa React Native hiring"
 
 

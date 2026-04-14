@@ -4,7 +4,7 @@ description: "Cómo pasé de Notion a markdown y de ahí a una app de React para
 publishDate: 2026-04-27
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: es
-heroImage: "/images/blog/interview-kit.jpg"
+heroImage: "/images/blog/interview-kit.webp"
 heroAlt: "Interview Kit ejecutándose en un portátil durante una entrevista técnica"
 campaign: "interview-kit"
 relatedPosts: ["how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]

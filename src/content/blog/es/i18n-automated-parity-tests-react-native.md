@@ -4,7 +4,7 @@ description: "5 idiomas con un test que verifica que cada locale tiene las misma
 publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: es
-heroImage: "/images/blog/i18n-parity-tests.jpg"
+heroImage: "/images/blog/i18n-parity-tests.webp"
 heroAlt: "i18n con tests automáticos de paridad en React Native"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]

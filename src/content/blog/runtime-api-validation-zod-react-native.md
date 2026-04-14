@@ -4,7 +4,7 @@ description: "Your TypeScript types don't protect you at runtime. How to catch b
 publishDate: 2026-06-08
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: en
-heroImage: "/images/blog/zod-runtime-validation.jpg"
+heroImage: "/images/blog/zod-runtime-validation.webp"
 heroAlt: "Runtime API response validation with Zod in React Native"
 campaign: "zod-runtime-validation"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]

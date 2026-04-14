@@ -4,7 +4,7 @@ description: "Karamihan ng mga team ay hindi alam na gumagana ang Gherkin featur
 publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: tl
-heroImage: "/images/blog/detox-cucumber-rn.jpg"
+heroImage: "/images/blog/detox-cucumber-rn.webp"
 heroAlt: "Detox at Cucumber BDD para sa React Native E2E testing"
 campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]

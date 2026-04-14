@@ -4,7 +4,7 @@ description: "Why type-first folder structures break down at scale, and how orga
 publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: en
-heroImage: "/images/blog/feature-first-rn.jpg"
+heroImage: "/images/blog/feature-first-rn.webp"
 heroAlt: "Feature-first project structure in React Native"
 campaign: "feature-first-structure"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]

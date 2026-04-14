@@ -4,7 +4,7 @@ description: "5 wika na may test na nagve-verify na magkapareho ang keys ng bawa
 publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: tl
-heroImage: "/images/blog/i18n-parity-tests.jpg"
+heroImage: "/images/blog/i18n-parity-tests.webp"
 heroAlt: "i18n na may automated parity tests sa React Native"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]

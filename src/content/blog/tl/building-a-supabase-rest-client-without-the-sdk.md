@@ -4,7 +4,7 @@ description: "Bakit Axios ang pinili ko imbes na ang official Supabase SDK para 
 publishDate: 2026-06-01
 tags: ["react-native", "architecture", "http", "authentication"]
 locale: tl
-heroImage: "/images/blog/supabase-rest-client.jpg"
+heroImage: "/images/blog/supabase-rest-client.webp"
 heroAlt: "Pagbuo ng Supabase REST client nang walang SDK sa React Native"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]
