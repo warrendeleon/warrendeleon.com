@@ -4,7 +4,7 @@ description: "Por qué las estructuras de carpetas por tipo dejan de funcionar a
 publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: es
-heroImage: "/images/blog/feature-first-rn.jpg"
+heroImage: "/images/blog/feature-first-rn.webp"
 heroAlt: "Estructura de proyecto feature-first en React Native"
 campaign: "feature-first-structure"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]

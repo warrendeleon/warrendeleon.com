@@ -4,7 +4,7 @@ description: "Kung paano ako napunta mula sa Notion patungo sa markdown at pagka
 publishDate: 2026-04-27
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: tl
-heroImage: "/images/blog/interview-kit.jpg"
+heroImage: "/images/blog/interview-kit.webp"
 heroAlt: "HL Interview Kit na tumatakbo sa isang laptop sa loob ng technical interview"
 campaign: "interview-kit"
 relatedPosts: ["how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]

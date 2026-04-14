@@ -4,7 +4,7 @@ description: "La mayoría de los equipos no saben que los feature files de Gherk
 publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: es
-heroImage: "/images/blog/detox-cucumber-rn.jpg"
+heroImage: "/images/blog/detox-cucumber-rn.webp"
 heroAlt: "Detox y Cucumber BDD para testing E2E en React Native"
 campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]

@@ -4,7 +4,7 @@ description: "Paano ginawa ng checklist-based scorecard na gumana ang React Nati
 publishDate: 2026-04-13
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: tl
-heroImage: "/images/blog/tech-test-scorecard.jpg"
+heroImage: "/images/blog/tech-test-scorecard.webp"
 heroAlt: "Pagdidisenyo ng tech test scorecard para sa React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

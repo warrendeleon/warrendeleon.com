@@ -4,7 +4,7 @@ description: "Tatlong storage tiers para sa React Native: Keychain para sa token
 publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: tl
-heroImage: "/images/blog/tiered-secure-storage.jpg"
+heroImage: "/images/blog/tiered-secure-storage.webp"
 heroAlt: "Tiered secure storage sa React Native"
 campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]

@@ -4,7 +4,7 @@ description: "How I went from Notion to markdown to a React app for running stru
 publishDate: 2026-04-27
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: en
-heroImage: "/images/blog/interview-kit.jpg"
+heroImage: "/images/blog/interview-kit.webp"
 heroAlt: "HL Interview Kit running on a laptop during a technical interview"
 campaign: "interview-kit"
 relatedPosts: ["how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]

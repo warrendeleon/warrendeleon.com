@@ -4,7 +4,7 @@ description: "Testing de accesibilidad automatizado y práctico para React Nativ
 publishDate: 2026-06-22
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: es
-heroImage: "/images/blog/accessibility-testing-rn.jpg"
+heroImage: "/images/blog/accessibility-testing-rn.webp"
 heroAlt: "Testing de accesibilidad en React Native"
 campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]

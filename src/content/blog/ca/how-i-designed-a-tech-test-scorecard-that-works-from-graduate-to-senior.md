@@ -4,7 +4,7 @@ description: "Com un scorecard basat en checklists va fer que la nostra prova de
 publishDate: 2026-04-13
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: ca
-heroImage: "/images/blog/tech-test-scorecard.jpg"
+heroImage: "/images/blog/tech-test-scorecard.webp"
 heroAlt: "Dissenyant un scorecard de prova tècnica per a contractació en React Native"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

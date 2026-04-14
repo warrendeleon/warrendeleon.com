@@ -4,7 +4,7 @@ description: "Bakit nasisira ang type-first na folder structures kapag lumaki na
 publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: tl
-heroImage: "/images/blog/feature-first-rn.jpg"
+heroImage: "/images/blog/feature-first-rn.webp"
 heroAlt: "Feature-first na project structure sa React Native"
 campaign: "feature-first-structure"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]

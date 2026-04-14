@@ -4,7 +4,7 @@ description: "A practical guide to setting up Mock Service Worker v2 in a React 
 publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: en
-heroImage: "/images/blog/msw-react-native.jpg"
+heroImage: "/images/blog/msw-react-native.webp"
 heroAlt: "Setting up MSW v2 in React Native for testing"
 campaign: "msw-v2-react-native"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]

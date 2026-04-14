@@ -4,7 +4,7 @@ description: "Tres nivells d'emmagatzematge per a React Native: Keychain per a t
 publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: ca
-heroImage: "/images/blog/tiered-secure-storage.jpg"
+heroImage: "/images/blog/tiered-secure-storage.webp"
 heroAlt: "Emmagatzematge segur per nivells a React Native"
 campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]

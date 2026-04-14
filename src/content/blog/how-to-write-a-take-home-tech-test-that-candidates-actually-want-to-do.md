@@ -4,7 +4,7 @@ description: "Most take-home tests fail because of setup friction, unclear brief
 publishDate: 2026-04-20
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: en
-heroImage: "/images/blog/take-home-tech-test-design.jpg"
+heroImage: "/images/blog/take-home-tech-test-design.webp"
 heroAlt: "Designing a take-home tech test for software engineers"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

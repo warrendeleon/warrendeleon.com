@@ -4,7 +4,7 @@ description: "La majoria d'equips no saben que els fitxers feature de Gherkin fu
 publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: ca
-heroImage: "/images/blog/detox-cucumber-rn.jpg"
+heroImage: "/images/blog/detox-cucumber-rn.webp"
 heroAlt: "Detox i Cucumber BDD per a tests E2E a React Native"
 campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]

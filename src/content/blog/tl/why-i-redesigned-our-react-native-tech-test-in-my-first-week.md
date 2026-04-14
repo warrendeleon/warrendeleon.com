@@ -4,7 +4,7 @@ description: "Pumasok ako sa Hargreaves Lansdown bilang Engineering Manager at i
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: tl
-heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
+heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Pagre-redesign ng tech test para sa React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

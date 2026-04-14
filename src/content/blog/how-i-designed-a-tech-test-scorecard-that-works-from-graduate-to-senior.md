@@ -4,7 +4,7 @@ description: "How a checklist-based scorecard made our React Native take-home te
 publishDate: 2026-04-13
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
-heroImage: "/images/blog/tech-test-scorecard.jpg"
+heroImage: "/images/blog/tech-test-scorecard.webp"
 heroAlt: "Designing a tech test scorecard for React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

@@ -4,7 +4,7 @@ description: "Isang praktikal na gabay sa pag-setup ng Mock Service Worker v2 sa
 publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: tl
-heroImage: "/images/blog/msw-react-native.jpg"
+heroImage: "/images/blog/msw-react-native.webp"
 heroAlt: "Pag-setup ng MSW v2 sa React Native para sa testing"
 campaign: "msw-v2-react-native"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]

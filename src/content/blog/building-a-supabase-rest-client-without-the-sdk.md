@@ -4,7 +4,7 @@ description: "Why I chose Axios over the official Supabase SDK for a React Nativ
 publishDate: 2026-06-01
 tags: ["react-native", "architecture", "http", "authentication"]
 locale: en
-heroImage: "/images/blog/supabase-rest-client.jpg"
+heroImage: "/images/blog/supabase-rest-client.webp"
 heroAlt: "Building a Supabase REST client without the SDK in React Native"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]

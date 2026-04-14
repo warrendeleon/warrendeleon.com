@@ -4,7 +4,7 @@ description: "Tus tipos de TypeScript no te protegen en runtime. Cómo detectar 
 publishDate: 2026-06-08
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: es
-heroImage: "/images/blog/zod-runtime-validation.jpg"
+heroImage: "/images/blog/zod-runtime-validation.webp"
 heroAlt: "Validación de respuestas de API en runtime con Zod en React Native"
 campaign: "zod-runtime-validation"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]

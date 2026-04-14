@@ -4,7 +4,7 @@ description: "Practical advice from someone who reviews take-home tech test subm
 publishDate: 2026-04-06
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: en
-heroImage: "/images/blog/react-native-tech-test-tips.jpg"
+heroImage: "/images/blog/react-native-tech-test-tips.webp"
 heroAlt: "How to pass a React Native tech test"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

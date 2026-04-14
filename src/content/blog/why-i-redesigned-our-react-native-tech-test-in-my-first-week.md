@@ -4,7 +4,7 @@ description: "I joined Hargreaves Lansdown as Engineering Manager and one of my 
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
-heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
+heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Redesigning a tech test for React Native hiring"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."

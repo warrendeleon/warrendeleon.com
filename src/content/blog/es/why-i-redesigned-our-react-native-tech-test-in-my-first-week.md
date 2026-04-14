@@ -4,7 +4,7 @@ description: "Entré a Hargreaves Lansdown como Engineering Manager y uno de mis
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
-heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
+heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
 hiringUrl: "/hiring/"
 hiringText: "We're looking for React Native engineers to join the Mobile Platform team at Hargreaves Lansdown."
