@@ -1,13 +1,13 @@
 ---
 title: "Setting up MSW v2 in React Native"
 description: "A practical guide to setting up Mock Service Worker v2 in a React Native project. From installation to production-grade handler sets covering success, errors, timeouts, and offline scenarios."
-publishDate: 2026-04-27
+publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: en
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Setting up MSW v2 in React Native for testing"
 campaign: "msw-v2-react-native"
-relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e"]
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]
 ---
 
 ## Why MSW over manual mocks
@@ -16,7 +16,7 @@ Most React Native projects mock their API layer with `jest.fn()`. You mock `fetc
 
 It works. Until it doesn't.
 
-The problem: you're testing your code's interaction with a mock, not with an HTTP layer. If your API client changes how it constructs URLs, adds headers, or handles retries, the mock doesn't catch the regression. The mock always returns what you told it to return, regardless of what the code actually sent.
+The problem: you're testing your code's interaction with a mock, not with an HTTP layer. If your API client changes how it constructs URLs, adds headers, or handles retries, the mock doesn't catch the regression. This is especially important if you're doing [runtime API validation with Zod](/blog/runtime-api-validation-zod-react-native/), because you want the validation layer to run against real response shapes, not hand-crafted mock objects. The mock always returns what you told it to return, regardless of what the code actually sent.
 
 **Mock Service Worker (MSW)** intercepts requests at the network level. Your code makes real HTTP calls. MSW catches them before they leave the process and returns your mock responses. Everything between your component and the network is exercised: the Redux thunk, the Axios interceptors, the error handling, the response parsing.
 
@@ -331,7 +331,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 Yes. The setup is about 30 minutes. After that, every new test is simpler than the manual mock equivalent. You write `server.use(...errorHandlers)` instead of `jest.fn().mockRejectedValue(new Error('Network error'))`. The handlers are reusable across every test file. And you're testing real integration behaviour, not mock behaviour.
 
-The 11 handler sets in my project cover every error path the app handles. When I add a new API endpoint, I add handlers for it once, and every test that touches that endpoint gets correct mocking for free.
+The 11 handler sets in my project cover every error path the app handles. When I add a new API endpoint, I add handlers for it once, and every test that touches that endpoint gets correct mocking for free. If you're also setting up E2E tests, the approach pairs well with [Detox and Cucumber BDD](/blog/detox-cucumber-bdd-react-native-e2e-testing/) for full user-flow coverage, and with [Metro runtime mocking](/blog/metro-runtime-mocking-react-native-e2e/) for controlling API responses during E2E runs.
 
 > If writing the next test is harder than skipping it, your test infrastructure is the problem.
 

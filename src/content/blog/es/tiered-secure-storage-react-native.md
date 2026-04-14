@@ -1,13 +1,13 @@
 ---
 title: "Almacenamiento seguro por niveles en React Native"
 description: "Tres niveles de almacenamiento para React Native: Keychain para tokens, almacenamiento cifrado para datos personales, AsyncStorage para preferencias. Por qué existe cada nivel, cuándo usarlo y cómo encaja Redux Persist."
-publishDate: 2026-05-04
+publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: es
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Almacenamiento seguro por niveles en React Native"
 campaign: "tiered-secure-storage"
-relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
+relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
 ## El problema de una sola solución de almacenamiento
@@ -294,7 +294,7 @@ La secuencia de logout es deliberada. Los Niveles 1 y 2 se limpian porque los to
 
 ### Renovación de token
 
-El interceptor de Axios maneja la renovación automática de tokens de forma transparente. Lee y escribe en SecureStore sin tocar los otros niveles:
+El interceptor de Axios maneja la [renovación automática de tokens](/blog/token-refresh-race-condition-react-native/) de forma transparente. Lee y escribe en SecureStore sin tocar los otros niveles:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -338,7 +338,7 @@ Cada dato almacenado tiene un lugar claro:
 | Tema | 3 (AsyncStorage) | Preferencia no sensible. Sobrevive al logout. |
 | Idioma | 3 (AsyncStorage) | Preferencia no sensible. Sobrevive al logout. |
 
-La regla es simple: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2. Si es solo una preferencia, Nivel 3.
+La regla es simple: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2. Si es solo una preferencia, Nivel 3. Esta clasificación encaja bien con una [estructura de proyecto feature-first](/blog/feature-first-project-structure-react-native/) donde cada feature gestiona su propio almacenamiento.
 
 ## Errores comunes
 

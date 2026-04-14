@@ -1,13 +1,13 @@
 ---
 title: "Emmagatzematge segur per nivells a React Native"
 description: "Tres nivells d'emmagatzematge per a React Native: Keychain per a tokens, emmagatzematge xifrat per a dades personals, AsyncStorage per a preferències. Per què existeix cada nivell, quan usar-lo i com encaixa Redux Persist."
-publishDate: 2026-05-04
+publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: ca
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Emmagatzematge segur per nivells a React Native"
 campaign: "tiered-secure-storage"
-relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
+relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
 ## El problema d'una sola solució d'emmagatzematge
@@ -294,7 +294,7 @@ La seqüència de tancament de sessió és deliberada. El Nivell 1 i el Nivell 2
 
 ### Renovació de token
 
-L'interceptor d'Axios gestiona la renovació automàtica de tokens de forma transparent. Llegeix i escriu a SecureStore sense tocar els altres nivells:
+L'interceptor d'Axios gestiona la [renovació automàtica de tokens](/blog/token-refresh-race-condition-react-native/) de forma transparent. Llegeix i escriu a SecureStore sense tocar els altres nivells:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -338,7 +338,7 @@ Cada peça de dades emmagatzemades té un lloc clar:
 | Tema | 3 (AsyncStorage) | Preferència no sensible. Sobreviu al tancament de sessió. |
 | Idioma | 3 (AsyncStorage) | Preferència no sensible. Sobreviu al tancament de sessió. |
 
-La regla és senzilla: si dona accés, Nivell 1. Si identifica una persona, Nivell 2. Si és una preferència, Nivell 3.
+La regla és senzilla: si dona accés, Nivell 1. Si identifica una persona, Nivell 2. Si és una preferència, Nivell 3. Aquesta classificació encaixa bé amb una [estructura de projecte feature-first](/blog/feature-first-project-structure-react-native/) on cada feature gestiona el seu propi emmagatzematge.
 
 ## Errors freqüents
 

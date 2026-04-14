@@ -1,13 +1,13 @@
 ---
 title: "Tiered secure storage sa React Native"
 description: "Tatlong storage tiers para sa React Native: Keychain para sa tokens, encrypted storage para sa PII, AsyncStorage para sa preferences. Bakit may kanya-kanyang tier, kailan gagamitin, at paano pumapasok ang Redux Persist."
-publishDate: 2026-05-04
+publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: tl
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Tiered secure storage sa React Native"
 campaign: "tiered-secure-storage"
-relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
+relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
 ## Ang problema sa iisang storage solution
@@ -294,7 +294,7 @@ Sinadya ang logout sequence. Kini-clear ang Tier 1 at Tier 2 dahil ang tokens at
 
 ### Token refresh
 
-Ang Axios interceptor ang nagha-handle ng awtomatikong token refresh nang transparent. Nagbabasa at nagsusulat ito sa SecureStore nang hindi ginagalaw ang ibang tiers:
+Ang Axios interceptor ang nagha-handle ng [awtomatikong token refresh](/blog/token-refresh-race-condition-react-native/) nang transparent. Nagbabasa at nagsusulat ito sa SecureStore nang hindi ginagalaw ang ibang tiers:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -338,7 +338,7 @@ Bawat piraso ng naka-store na data ay may malinaw na lugar:
 | Theme | 3 (AsyncStorage) | Hindi sensitive na preference. Nananatili pagkatapos mag-logout. |
 | Language | 3 (AsyncStorage) | Hindi sensitive na preference. Nananatili pagkatapos mag-logout. |
 
-Simple lang ang patakaran: kung nagbibigay ito ng access, Tier 1. Kung nagpapakilala ito ng tao, Tier 2. Kung preference lang, Tier 3.
+Simple lang ang patakaran: kung nagbibigay ito ng access, Tier 1. Kung nagpapakilala ito ng tao, Tier 2. Kung preference lang, Tier 3. Maganda ang pagkakatugnay ng classification na ito sa isang [feature-first project structure](/blog/feature-first-project-structure-react-native/) kung saan bawat feature ang nagma-manage ng sarili nitong storage.
 
 ## Mga karaniwang pagkakamali
 

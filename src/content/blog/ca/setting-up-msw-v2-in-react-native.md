@@ -1,13 +1,13 @@
 ---
 title: "Configurant MSW v2 a React Native"
 description: "Una guia pràctica per configurar Mock Service Worker v2 en un projecte React Native. Des de la instal·lació fins a handler sets de nivell producció que cobreixen èxit, errors, timeouts i escenaris offline."
-publishDate: 2026-04-27
+publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: ca
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Configurant MSW v2 a React Native per a testing"
 campaign: "msw-v2-react-native"
-relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e"]
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]
 ---
 
 ## Per què MSW en comptes de mocks manuals
@@ -16,7 +16,7 @@ La majoria de projectes React Native simulen la seva capa d'API amb `jest.fn()`.
 
 Funciona. Fins que no.
 
-El problema: estàs verificant la interacció del teu codi amb un mock, no amb una capa HTTP. Si el teu client d'API canvia com construeix URLs, afegeix headers o gestiona reintents, el mock no detecta la regressió. El mock sempre retorna el que li has dit, independentment del que el codi realment ha enviat.
+El problema: estàs verificant la interacció del teu codi amb un mock, no amb una capa HTTP. Si el teu client d'API canvia com construeix URLs, afegeix headers o gestiona reintents, el mock no detecta la regressió. (Una capa de [validació de respostes en temps d'execució amb Zod](/blog/runtime-api-validation-zod-react-native/) tampoc s'exercitaria). El mock sempre retorna el que li has dit, independentment del que el codi realment ha enviat.
 
 **Mock Service Worker (MSW)** intercepta les peticions a nivell de xarxa. El teu codi fa crides HTTP reals. MSW les captura abans que surtin del procés i retorna les teves respostes simulades. Tot el que hi ha entre el teu component i la xarxa s'exercita: el thunk de Redux, els interceptors d'Axios, la gestió d'errors, el parseig de la resposta.
 
@@ -331,7 +331,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 Sí. El setup porta uns 30 minuts. Després d'això, cada test nou és més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers són reutilitzables a cada fitxer de test. I estàs verificant comportament d'integració real, no comportament de mocks.
 
-Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis.
+Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Combinats amb [tests E2E escrits en Gherkin amb Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) i [mocking en temps d'execució a nivell de Metro](/blog/metro-runtime-mocking-react-native-e2e/), els handler sets cobreixen des de tests unitaris fins a fluxos complets d'usuari. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis.
 
 > Si escriure el pròxim test és més difícil que saltar-se'l, la teva infraestructura de test és el problema.
 
