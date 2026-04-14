@@ -6,21 +6,21 @@ interface Props {
 const { heading } = Astro.props;
 
 const photos = [
-  '/images/photos/warren-1.jpg',
-  '/images/photos/warren-2.jpg',
-  '/images/photos/warren-3.jpg',
-  '/images/photos/profile-01.jpg',
-  '/images/photos/profile-02.jpg',
-  '/images/photos/profile-03.jpg',
-  '/images/photos/profile-04.jpg',
-  '/images/photos/profile-05.jpg',
-  '/images/photos/profile-06.jpg',
-  '/images/photos/profile-07.jpg',
-  '/images/photos/profile-08.jpg',
-  '/images/photos/profile-09.jpg',
-  '/images/photos/profile-10.jpg',
-  '/images/photos/profile-11.jpg',
-  '/images/photos/profile-12.jpg',
+  '/images/photos/warren-1.webp',
+  '/images/photos/warren-2.webp',
+  '/images/photos/warren-3.webp',
+  '/images/photos/profile-01.webp',
+  '/images/photos/profile-02.webp',
+  '/images/photos/profile-03.webp',
+  '/images/photos/profile-04.webp',
+  '/images/photos/profile-05.webp',
+  '/images/photos/profile-06.webp',
+  '/images/photos/profile-07.webp',
+  '/images/photos/profile-08.webp',
+  '/images/photos/profile-09.webp',
+  '/images/photos/profile-10.webp',
+  '/images/photos/profile-11.webp',
+  '/images/photos/profile-12.webp',
 ];
 ---
 
@@ -30,7 +30,7 @@ const photos = [
     <div class="photo-grid">
       {photos.map((photo, i) => (
         <div class="photo-item">
-          <img src={photo} alt={`Photo ${i + 1}`} loading="lazy" />
+          <img src={photo} alt={`Photo ${i + 1}`} loading="lazy" width="400" height="400" />
         </div>
       ))}
     </div>
