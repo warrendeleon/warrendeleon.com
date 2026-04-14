@@ -6,6 +6,7 @@ export default defineConfig({
   site: 'https://warrendeleon.com',
   integrations: [sitemap()],
   output: 'static',
+  trailingSlash: 'always',
   markdown: {
     shikiConfig: {
       themes: {
