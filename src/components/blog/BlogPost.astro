@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
+import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostsForLocale, getPostSlug, formatBlogDate } from '../../utils/blogHelpers';
 
@@ -131,8 +132,8 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
           <>
             <span class="post-meta-separator" aria-hidden="true">&middot;</span>
             <div class="post-tags">
-              {post.data.tags.map(tag => (
-                <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="post-tag">{tag}</a>
+              {post.data.tags.map((tag: string) => (
+                <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="post-tag">{getTagLabel(tag, locale)}</a>
               ))}
             </div>
           </>
@@ -225,8 +226,8 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
                   <time datetime={rp.data.publishDate.toISOString()}>{formatBlogDate(rp.data.publishDate, locale)}</time>
                   <h4>{rp.data.title}</h4>
                   <div class="post-tags related-card-tags">
-                    {rp.data.tags.map(tag => (
-                      <span class="post-tag" style="pointer-events: none;">{tag}</span>
+                    {rp.data.tags.map((tag: string) => (
+                      <span class="post-tag" style="pointer-events: none;">{getTagLabel(tag, locale)}</span>
                     ))}
                   </div>
                 </div>

@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
+import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString } from '../../utils/blogHelpers';
 
@@ -43,7 +44,7 @@ const blogBase = getLocalePath(locale, '/blog/');
       {isFirstPage && allTags.length > 0 && (
         <nav class="blog-tag-filter" aria-label={i18n.blog.filterByTag}>
           {allTags.map(tag => (
-            <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="blog-tag-filter-link" data-tag-dates={getTagDates(tag)}>{tag}</a>
+            <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="blog-tag-filter-link" data-tag-dates={getTagDates(tag)}>{getTagLabel(tag, locale)}</a>
           ))}
         </nav>
       )}
@@ -68,8 +69,8 @@ const blogBase = getLocalePath(locale, '/blog/');
                 {formatBlogDate(featuredPost.data.publishDate, locale)} &middot; {getReadingTime(featuredPost.body ?? '')} {i18n.blog.minRead}
               </span>
               <div class="blog-card-tags">
-                {featuredPost.data.tags.map(tag => (
-                  <span class="blog-tag">{tag}</span>
+                {featuredPost.data.tags.map((tag: string) => (
+                  <span class="blog-tag">{getTagLabel(tag, locale)}</span>
                 ))}
               </div>
             </div>
@@ -97,8 +98,8 @@ const blogBase = getLocalePath(locale, '/blog/');
                 <h2 class="blog-card-title">{post.data.title}</h2>
                 <p class="blog-card-desc">{post.data.description}</p>
                 <div class="blog-card-tags">
-                  {post.data.tags.map(tag => (
-                    <span class="blog-tag">{tag}</span>
+                  {post.data.tags.map((tag: string) => (
+                    <span class="blog-tag">{getTagLabel(tag, locale)}</span>
                   ))}
                 </div>
               </div>
