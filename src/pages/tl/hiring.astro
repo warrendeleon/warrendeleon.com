@@ -1,17 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import roles from '../../data/hl-roles.json';
 
 const locale = 'tl' as const;
 
-const openRoles = [
-  {
-    title: 'Software Engineer — React Native (Platform)',
-    team: 'Mobile Platform, UCX-Core',
-    location: 'London, UK (Hybrid)',
-    url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/HargreavesLansdown/job/Software-Engineer--React-Native---Platform----UCX_R9031?locationCountry=29247e57dbaf46fb855b224e03170bc7',
-    closingDate: '2026-04-26',
-  },
-];
+interface Role { title: string; location: string; url: string; closingDate: string; team: string; }
+const myTeamRoles: Role[] = roles.filter((r: Role) => r.team === 'my-team');
+const otherRoles: Role[] = roles.filter((r: Role) => r.team !== 'my-team');
 
 const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/HargreavesLansdown?locationCountry=29247e57dbaf46fb855b224e03170bc7&jobFamilyGroup=32c04e37b469014cf1d02d4fcd2301b1';
 ---
@@ -31,21 +26,21 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
         <p>Kung gusto mong magtrabaho sa React Native at scale sa isang team na nagpapahalaga sa malinis na architecture, matibay na testing, at tunay na ownership, tingnan mo ang mga bukas na role sa baba.</p>
       </div>
 
-      {openRoles.length > 0 ? (
-        <div class="hiring-roles">
+      {myTeamRoles.length > 0 ? (
+        <div class="hiring-roles" id="my-team-roles">
           <h2 class="hiring-roles-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
-            Mga bukas na role
+            Mga bukas na role sa team ko
           </h2>
           <div class="hiring-role-grid">
-            {openRoles.map(role => (
-              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title}'})`}>
+            {myTeamRoles.map(role => (
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title.replace(/'/g, "\\'")}'})`}>
                 <div class="hiring-role-content">
                   <h3 class="hiring-role-title">{role.title}</h3>
-                  <span class="hiring-role-team">{role.team}</span>
+                  <span class="hiring-role-team">Mobile Platform, UCX-Core</span>
                   <span class="hiring-role-location">{role.location}</span>
                 </div>
                 <span class="hiring-role-cta">
@@ -61,15 +56,39 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
           </div>
         </div>
       ) : (
-        <div class="hiring-empty">
-          <p>Walang bukas na role sa team ko sa ngayon.</p>
+        <div class="hiring-empty" id="my-team-empty">
+          <p>Walang bukas na role sa team ko sa ngayon. Bumalik ka ulit, o kumonekta sa akin sa <a href="https://www.linkedin.com/in/warrendeleon/" target="_blank" rel="noopener noreferrer">LinkedIn</a> para malaman ang mga susunod na vacancies.</p>
+        </div>
+      )}
+
+      {otherRoles.length > 0 && (
+        <div class="hiring-other" id="other-roles">
+          <h2 class="hiring-other-title">Ibang engineering roles sa HL</h2>
+          <div class="hiring-role-grid">
+            {otherRoles.map(role => (
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card hiring-role-card--secondary" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title.replace(/'/g, "\\'")}'})`}>
+                <div class="hiring-role-content">
+                  <h3 class="hiring-role-title">{role.title}</h3>
+                  <span class="hiring-role-location">{role.location}</span>
+                </div>
+                <span class="hiring-role-cta">
+                  Tingnan ang role
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       )}
 
       <div class="hiring-all-roles">
-        <p>Naghahanap ng ibang engineering roles sa Hargreaves Lansdown?</p>
+        <p>Naghahanap ng ibang roles sa Hargreaves Lansdown?</p>
         <a href={allRolesUrl} target="_blank" rel="noopener noreferrer" class="hiring-all-roles-link">
-          Tingnan lahat ng development roles sa HL
+          Tingnan lahat ng HL roles sa Workday
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
             <polyline points="15 3 21 3 21 9"></polyline>
@@ -80,23 +99,23 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
     </div>
   </section>
 </BaseLayout>
+
 <script>
   const today = new Date().toISOString().slice(0, 10);
-  const cards = document.querySelectorAll('.hiring-role-card[data-closing-date]');
-  let visibleCount = cards.length;
-
-  cards.forEach(card => {
-    const closing = card.getAttribute('data-closing-date');
-    if (closing && today > closing) {
-      card.remove();
-      visibleCount--;
+  function pruneExpired(containerId: string, emptyId?: string) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const cards = container.querySelectorAll('.hiring-role-card[data-closing-date]');
+    let visible = cards.length;
+    cards.forEach(card => {
+      const closing = card.getAttribute('data-closing-date');
+      if (closing && today > closing) { card.remove(); visible--; }
+    });
+    if (visible === 0) {
+      container.style.display = 'none';
+      if (emptyId) { const empty = document.getElementById(emptyId); if (empty) empty.style.display = 'block'; }
     }
-  });
-
-  if (visibleCount === 0) {
-    const rolesSection = document.querySelector('.hiring-roles');
-    const emptySection = document.querySelector('.hiring-empty');
-    if (rolesSection) rolesSection.style.display = 'none';
-    if (emptySection) emptySection.style.display = 'block';
   }
+  pruneExpired('my-team-roles', 'my-team-empty');
+  pruneExpired('other-roles');
 </script>

@@ -2,7 +2,7 @@
 title: "Per què vaig redissenyar la nostra prova tècnica de React Native la meva primera setmana"
 description: "Vaig entrar a Hargreaves Lansdown com a Engineering Manager i un dels meus primers projectes va ser repensar el procés de contractació per a rols de plataforma. Aquí explico què vaig aprendre i què vaig construir."
 publishDate: 2026-03-29
-tags: ["gestió-d-enginyeria", "contractació", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: ca
 heroImage: "/images/blog/redesigning-react-native-tech-test.jpg"
 heroAlt: "Redissenyant una prova tècnica per a contractació en React Native"

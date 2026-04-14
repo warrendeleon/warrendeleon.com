@@ -310,7 +310,7 @@ document.querySelectorAll('.prose blockquote').forEach(function(bq) {
 document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
     navigator.clipboard.writeText(btn.dataset.url);
-    t('blog_copy_link');
+    t('blog_copy_link', { url: btn.dataset.url });
     var label = btn.querySelector('span');
     if (label) {
       label.textContent = i18nData.linkCopied || 'Copied!';
@@ -402,6 +402,51 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   }
   window.addEventListener('scroll', update, { passive: true });
   update();
+})();
+
+/* Scroll depth tracking */
+(function() {
+  var milestones = [25, 50, 75, 100];
+  var fired = {};
+  function checkDepth() {
+    var scrollTop = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight <= 0) return;
+    var pct = Math.min((scrollTop / docHeight) * 100, 100);
+    for (var i = 0; i < milestones.length; i++) {
+      var m = milestones[i];
+      if (pct >= m && !fired[m]) {
+        fired[m] = true;
+        t('scroll_depth', { depth: m });
+      }
+    }
+  }
+  window.addEventListener('scroll', checkDepth, { passive: true });
+})();
+
+/* Time on page */
+(function() {
+  var start = Date.now();
+  function sendTime() {
+    var seconds = Math.round((Date.now() - start) / 1000);
+    if (seconds > 3) t('time_on_page', { seconds: seconds });
+  }
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'hidden') sendTime();
+  });
+  window.addEventListener('beforeunload', sendTime);
+})();
+
+/* External link clicks */
+(function() {
+  document.querySelector('.prose').addEventListener('click', function(e) {
+    var link = e.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (href && href.startsWith('http') && !href.includes('warrendeleon.com')) {
+      t('external_link', { url: href });
+    }
+  });
 })();
 
 /* TOC active state */

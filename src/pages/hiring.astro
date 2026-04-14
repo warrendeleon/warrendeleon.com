@@ -3,15 +3,73 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const locale = 'en' as const;
 
-const openRoles = [
-  {
-    title: 'Software Engineer — React Native (Platform)',
-    team: 'Mobile Platform, UCX-Core',
-    location: 'London, UK (Hybrid)',
-    url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/HargreavesLansdown/job/Software-Engineer--React-Native---Platform----UCX_R9031?locationCountry=29247e57dbaf46fb855b224e03170bc7',
-    closingDate: '2026-04-26',
-  },
-];
+interface Role {
+  title: string;
+  location: string;
+  url: string;
+  closingDate: string;
+  team: string;
+}
+
+// Roles are synced from the Workday API via the blog-publisher on the minipc.
+// If a roles.json exists in src/data, use it. Otherwise fall back to hardcoded.
+let myTeamRoles: Role[] = [];
+let otherRoles: Role[] = [];
+
+try {
+  const rolesFile = await import('../data/hl-roles.json');
+  const roles: Role[] = rolesFile.default || rolesFile;
+  myTeamRoles = roles.filter(r => r.team === 'my-team');
+  otherRoles = roles.filter(r => r.team !== 'my-team');
+} catch {
+  // Fallback: hardcoded roles
+  myTeamRoles = [
+    {
+      title: 'Software Engineer (React Native) - UCX',
+      location: 'London',
+      url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/HargreavesLansdown/job/London/Software-Engineer--React-Native----UCX_R8922',
+      closingDate: '2026-04-26',
+      team: 'Mobile Platform, UCX-Core',
+    },
+    {
+      title: 'Software Engineer (React Native - Platform) - UCX',
+      location: 'London',
+      url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/HargreavesLansdown/job/London/Software-Engineer--React-Native---Platform----UCX_R9031',
+      closingDate: '2026-04-26',
+      team: 'Mobile Platform, UCX-Core',
+    },
+  ];
+  otherRoles = [
+    {
+      title: 'Cloud Platform Architect',
+      location: 'Bristol (Harbourside), Home Based',
+      url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/HargreavesLansdown/job/Bristol-Harbourside/Cloud-Platform-Architect_R8992-1',
+      closingDate: '2026-04-20',
+      team: 'Engineering',
+    },
+    {
+      title: 'Cloud Security Engineer',
+      location: 'Home Based',
+      url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/HargreavesLansdown/job/Home-Based/Cloud-Security-Engineer_R8969',
+      closingDate: '2026-04-20',
+      team: 'Engineering',
+    },
+    {
+      title: 'Software Engineer - Core Wealth',
+      location: 'London',
+      url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/HargreavesLansdown/job/London/Software-Engineer---Core-Wealth_R8145',
+      closingDate: '2026-04-30',
+      team: 'Engineering',
+    },
+    {
+      title: 'Software Engineering Manager',
+      location: 'Bristol (Harbourside), Home Based',
+      url: 'https://hargreaveslansdown.wd3.myworkdayjobs.com/HargreavesLansdown/job/Bristol-Harbourside/Software-Engineering-Manager_R8512-1',
+      closingDate: '2026-05-01',
+      team: 'Engineering',
+    },
+  ];
+}
 
 const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/HargreavesLansdown?locationCountry=29247e57dbaf46fb855b224e03170bc7&jobFamilyGroup=32c04e37b469014cf1d02d4fcd2301b1';
 ---
@@ -31,21 +89,22 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
         <p>If you want to work on React Native at scale in a team that values clean architecture, strong testing, and genuine ownership, have a look at the open roles below.</p>
       </div>
 
-      {openRoles.length > 0 ? (
-        <div class="hiring-roles">
+      {/* My team roles */}
+      {myTeamRoles.length > 0 ? (
+        <div class="hiring-roles" id="my-team-roles">
           <h2 class="hiring-roles-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
               <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
             </svg>
-            Open roles
+            Open roles on my team
           </h2>
           <div class="hiring-role-grid">
-            {openRoles.map(role => (
-              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title}'})`}>
+            {myTeamRoles.map(role => (
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title.replace(/'/g, "\\'")}'})`}>
                 <div class="hiring-role-content">
                   <h3 class="hiring-role-title">{role.title}</h3>
-                  <span class="hiring-role-team">{role.team}</span>
+                  <span class="hiring-role-team">Mobile Platform, UCX-Core</span>
                   <span class="hiring-role-location">{role.location}</span>
                 </div>
                 <span class="hiring-role-cta">
@@ -61,15 +120,40 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
           </div>
         </div>
       ) : (
-        <div class="hiring-empty">
+        <div class="hiring-empty" id="my-team-empty">
           <p>No open roles on my team right now. Check back soon, or connect with me on <a href="https://www.linkedin.com/in/warrendeleon/" target="_blank" rel="noopener noreferrer">LinkedIn</a> to hear about future openings.</p>
         </div>
       )}
 
+      {/* Other HL tech roles */}
+      {otherRoles.length > 0 && (
+        <div class="hiring-other" id="other-roles">
+          <h2 class="hiring-other-title">Other engineering roles at HL</h2>
+          <div class="hiring-role-grid">
+            {otherRoles.map(role => (
+              <a href={role.url} target="_blank" rel="noopener noreferrer" class="hiring-role-card hiring-role-card--secondary" data-closing-date={role.closingDate} onclick={`t('job_apply',{role:'${role.title.replace(/'/g, "\\'")}'})`}>
+                <div class="hiring-role-content">
+                  <h3 class="hiring-role-title">{role.title}</h3>
+                  <span class="hiring-role-location">{role.location}</span>
+                </div>
+                <span class="hiring-role-cta">
+                  View role
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div class="hiring-all-roles">
-        <p>Looking for other engineering roles at Hargreaves Lansdown?</p>
+        <p>Looking for more roles at Hargreaves Lansdown?</p>
         <a href={allRolesUrl} target="_blank" rel="noopener noreferrer" class="hiring-all-roles-link">
-          View all HL development roles
+          View all HL roles on Workday
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
             <polyline points="15 3 21 3 21 9"></polyline>
@@ -137,6 +221,14 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
     box-shadow: var(--shadow-hover);
   }
 
+  .hiring-role-card--secondary {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .hiring-role-card--secondary .hiring-role-title {
+    font-size: 1rem;
+  }
+
   .hiring-role-content {
     display: flex;
     flex-direction: column;
@@ -199,6 +291,16 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
     font-weight: 600;
   }
 
+  .hiring-other {
+    margin-top: 3rem;
+  }
+
+  .hiring-other-title {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+  }
+
   .hiring-all-roles {
     margin-top: 2.5rem;
     padding-top: 2rem;
@@ -238,21 +340,30 @@ const allRolesUrl = 'https://hargreaveslansdown.wd3.myworkdayjobs.com/en-US/Harg
 
 <script>
   const today = new Date().toISOString().slice(0, 10);
-  const cards = document.querySelectorAll('.hiring-role-card[data-closing-date]');
-  let visibleCount = cards.length;
 
-  cards.forEach(card => {
-    const closing = card.getAttribute('data-closing-date');
-    if (closing && today > closing) {
-      card.remove();
-      visibleCount--;
+  function pruneExpired(containerId: string, emptyId?: string) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const cards = container.querySelectorAll('.hiring-role-card[data-closing-date]');
+    let visible = cards.length;
+
+    cards.forEach(card => {
+      const closing = card.getAttribute('data-closing-date');
+      if (closing && today > closing) {
+        card.remove();
+        visible--;
+      }
+    });
+
+    if (visible === 0) {
+      container.style.display = 'none';
+      if (emptyId) {
+        const empty = document.getElementById(emptyId);
+        if (empty) empty.style.display = 'block';
+      }
     }
-  });
-
-  if (visibleCount === 0) {
-    const rolesSection = document.querySelector('.hiring-roles');
-    const emptySection = document.querySelector('.hiring-empty');
-    if (rolesSection) rolesSection.style.display = 'none';
-    if (emptySection) emptySection.style.display = 'block';
   }
+
+  pruneExpired('my-team-roles', 'my-team-empty');
+  pruneExpired('other-roles');
 </script>

@@ -2,7 +2,7 @@
 title: "Cómo escribir una prueba técnica para casa que los candidatos realmente quieran hacer"
 description: "La mayoría de las pruebas técnicas fallan por fricción en el setup, enunciados poco claros o por no respetar el tiempo de la gente. Así es como diseñé una por la que los candidatos nos dan las gracias."
 publishDate: 2026-04-20
-tags: ["gestión-de-ingeniería", "contratación", "react-native"]
+tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: es
 heroImage: "/images/blog/take-home-tech-test-design.jpg"
 heroAlt: "Diseñando una prueba técnica para casa para ingenieros de software"
