@@ -1,13 +1,13 @@
 ---
 title: "Runtime API response validation gamit ang Zod sa React Native"
 description: "Hindi ka pinoprotektahan ng TypeScript types mo sa runtime. Paano mahuhuli ang mga pagbabago sa backend contract bago mag-crash ang iyong app gamit ang Zod schemas na nagsisilbi ring type definitions."
-publishDate: 2026-06-01
+publishDate: 2026-06-08
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: tl
 heroImage: "/images/blog/zod-runtime-validation.jpg"
 heroAlt: "Runtime API response validation gamit ang Zod sa React Native"
 campaign: "zod-runtime-validation"
-relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e"]
+relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]
 ---
 
 ## Hindi ka pinoprotektahan ng TypeScript sa runtime

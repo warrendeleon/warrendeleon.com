@@ -1,13 +1,13 @@
 ---
 title: "Pag-setup ng MSW v2 sa React Native"
 description: "Isang praktikal na gabay sa pag-setup ng Mock Service Worker v2 sa isang React Native project. Mula sa installation hanggang sa production-grade na handler sets na sumasaklaw sa success, errors, timeouts, at offline scenarios."
-publishDate: 2026-04-27
+publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: tl
 heroImage: "/images/blog/msw-react-native.jpg"
 heroAlt: "Pag-setup ng MSW v2 sa React Native para sa testing"
 campaign: "msw-v2-react-native"
-relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e"]
+relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]
 ---
 
 ## Bakit MSW sa halip na manual mocks
@@ -16,7 +16,7 @@ Karamihan ng React Native projects ay nagmo-mock ng kanilang API layer gamit ang
 
 Gumagana. Hanggang hindi na.
 
-Ang problema: tine-test mo ang interaction ng iyong code sa isang mock, hindi sa isang HTTP layer. Kung ang iyong API client ay nagbago kung paano gumagawa ng URLs, nagdadagdag ng headers, o nagha-handle ng retries, hindi mahuhuli ng mock ang regression. Palaging ibinabalik ng mock ang sinabi mo, kahit ano pa ang talagang ipinadala ng code.
+Ang problema: tine-test mo ang interaction ng iyong code sa isang mock, hindi sa isang HTTP layer. Kung ang iyong API client ay nagbago kung paano gumagawa ng URLs, nagdadagdag ng headers, o nagha-handle ng retries, hindi mahuhuli ng mock ang regression. (Isang layer ng [runtime response validation gamit ang Zod](/blog/runtime-api-validation-zod-react-native/) ay hindi rin mae-exercise). Palaging ibinabalik ng mock ang sinabi mo, kahit ano pa ang talagang ipinadala ng code.
 
 **Mock Service Worker (MSW)** nag-iintercept ng requests sa network level. Ang iyong code ay gumagawa ng tunay na HTTP calls. Hinuhuli ng MSW ang mga ito bago umalis sa process at ibinabalik ang iyong mock responses. Lahat ng nasa pagitan ng iyong component at ng network ay nae-exercise: ang Redux thunk, ang Axios interceptors, ang error handling, ang response parsing.
 
@@ -331,7 +331,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 Oo. Mga 30 minuto lang ang setup. Pagkatapos niyan, bawat bagong test ay mas simple kaysa sa manual mock equivalent. Nagsusulat ka ng `server.use(...errorHandlers)` sa halip na `jest.fn().mockRejectedValue(new Error('Network error'))`. Reusable ang handlers sa bawat test file. At tine-test mo ang tunay na integration behaviour, hindi mock behaviour.
 
-Sinasaklaw ng 11 handler sets sa aking project ang bawat error path na hina-handle ng app. Kapag nagdagdag ako ng bagong API endpoint, nagdadagdag ako ng handlers isang beses, at bawat test na gumagamit ng endpoint na iyon ay nakakakuha ng tamang mocking nang libre.
+Sinasaklaw ng 11 handler sets sa aking project ang bawat error path na hina-handle ng app. Kasama ng [E2E tests na nakasulat sa Gherkin gamit ang Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) at [runtime mocking sa Metro level](/blog/metro-runtime-mocking-react-native-e2e/), sinasaklaw ng handler sets mula sa unit tests hanggang sa buong user flows. Kapag nagdagdag ako ng bagong API endpoint, nagdadagdag ako ng handlers isang beses, at bawat test na gumagamit ng endpoint na iyon ay nakakakuha ng tamang mocking nang libre.
 
 > Kung mas mahirap sumulat ng susunod na test kaysa sa pag-skip nito, ang test infrastructure mo ang problema.
 

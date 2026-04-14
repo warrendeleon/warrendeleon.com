@@ -1,13 +1,13 @@
 ---
 title: "Tiered secure storage in React Native"
 description: "Three storage tiers for React Native: Keychain for tokens, encrypted storage for PII, AsyncStorage for preferences. Why each tier exists, when to use it, and how Redux Persist fits in."
-publishDate: 2026-05-04
+publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: en
 heroImage: "/images/blog/tiered-secure-storage.jpg"
 heroAlt: "Tiered secure storage in React Native"
 campaign: "tiered-secure-storage"
-relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
+relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
 ## The problem with one storage solution
@@ -301,7 +301,7 @@ The logout sequence is deliberate. Tier 1 and Tier 2 are cleared because tokens 
 
 ### Token refresh
 
-The Axios interceptor handles automatic token refresh transparently. It reads from and writes to SecureStore without touching the other tiers:
+The Axios interceptor handles automatic [token refresh](/blog/token-refresh-race-condition-react-native/) transparently. It reads from and writes to SecureStore without touching the other tiers:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -345,7 +345,7 @@ Every piece of stored data has a clear home:
 | Theme | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 | Language | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 
-The rule is simple: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's just a preference, Tier 3.
+The rule is simple: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's just a preference, Tier 3. This classification also shapes your [project structure](/blog/feature-first-project-structure-react-native/): the storage wrappers live in a shared `utils/storage/` directory, while the auth flow that orchestrates them belongs to the Auth feature.
 
 ## Common pitfalls
 

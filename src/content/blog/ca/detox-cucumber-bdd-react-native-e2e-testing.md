@@ -1,13 +1,13 @@
 ---
 title: "Detox + Cucumber BDD per a tests E2E a React Native"
 description: "La majoria d'equips no saben que els fitxers feature de Gherkin funcionen amb Detox. Una guia pas a pas per configurar tests E2E amb estil BDD a React Native amb formatters personalitzats, execució paral·lela i tests d'accessibilitat."
-publishDate: 2026-05-11
+publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: ca
 heroImage: "/images/blog/detox-cucumber-rn.jpg"
 heroAlt: "Detox i Cucumber BDD per a tests E2E a React Native"
 campaign: "detox-cucumber-bdd"
-relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e"]
+relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]
 ---
 
 ## Per què BDD per a tests E2E
