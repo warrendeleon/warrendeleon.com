@@ -6,8 +6,6 @@ tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Redesigning a tech test for React Native hiring"
-
-
 campaign: "rn-tech-test-redesign"
 relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
@@ -16,9 +14,9 @@ relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-te
 
 Four days before I officially started, I went into the office for a passport check. While I was there, my manager mentioned I'd be hiring a team. My first question was whether I could change the interview process. He said yes. *I hadn't even had my first day yet.* By the time I started on the 23rd, I was already building the new test.
 
-I'm the new Engineering Manager for the **Mobile Platform** squad. We're rebuilding the mobile app in React Native, a brownfield migration from the existing native iOS and Android apps. I need engineers who can work at the platform level.
+I'm the new Engineering Manager for the mobile platform squad. We're rebuilding the mobile app in React Native, a brownfield migration from the existing native iOS and Android apps. I need engineers who can work at the platform level.
 
-I didn't need to ask to see the tech test. I'd been through it myself just weeks earlier. It's how I was hired: a live coding exercise where you build a small app in about an hour with the interviewer watching, followed by technical questions from a questionnaire. The whole interview ran about 90 minutes.
+I didn't need to ask to see the tech test. I'd been through it myself just weeks earlier. It's how they hired *me*: a live coding exercise where you build a small app in about an hour with the interviewer watching, followed by technical questions from a questionnaire. The whole interview ran about 90 minutes.
 
 The test made sense for its original context. When the team was smaller and hiring for different roles, it was a reasonable way to screen candidates quickly. But our needs had changed. We weren't hiring someone to build simple screens anymore. We were hiring **platform engineers** who'd own the architecture that every other mobile team would ship through.
 

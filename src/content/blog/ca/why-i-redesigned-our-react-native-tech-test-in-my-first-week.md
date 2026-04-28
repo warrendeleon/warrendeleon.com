@@ -1,20 +1,18 @@
 ---
 title: "Per què vaig redissenyar la nostra prova tècnica de React Native la meva primera setmana"
-description: "Em vaig incorporar com a Engineering Manager i un dels meus primers projectes va ser repensar el procés de contractació per a rols de plataforma. Aquí explico què vaig aprendre i què vaig construir."
+description: "Vaig entrar com a Engineering Manager i un dels meus primers projectes va ser repensar el procés de contractació per a rols de plataforma. Aquí explico què vaig aprendre i què vaig construir."
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: ca
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Redissenyant una prova tècnica per a contractació en React Native"
-
-
 campaign: "rn-tech-test-redesign"
 relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## Una prova pensada per a un altre moment
 
-Quatre dies abans de començar, vaig anar a l'oficina per una verificació de passaport. Mentre hi era, el meu cap em va comentar que hauria de muntar un equip. La meva primera pregunta va ser si podia canviar el procés d'entrevistes. Va dir que sí. *Ni tan sols havia tingut el meu primer dia.* Quan vaig començar el dia 23, ja estava construint la nova prova.
+Quatre dies abans de començar oficialment, vaig anar a l'oficina per una verificació de passaport. Mentre hi era, el meu cap em va comentar que hauria de muntar un equip. La meva primera pregunta va ser si podia canviar el procés d'entrevistes. Va dir que sí. *Ni tan sols havia tingut el meu primer dia.* Quan vaig començar el dia 23, ja estava construint la nova prova.
 
 Sóc el nou Engineering Manager de l'squad de **Mobile Platform**. Estem reconstruint l'app mòbil en React Native, una migració brownfield des de les apps natives d'iOS i Android. Necessito enginyers que puguin treballar a nivell de plataforma.
 
@@ -93,7 +91,7 @@ Per a contractacions senior, hi ha una conversa addicional de **system design**.
 
 ## Primers dies
 
-En la meva primera setmana, vaig contractar un Senior Engineer a través del procés existent (això va passar el segon dia, abans que la nova prova estigués llesta). D'ara endavant, el nou procés és l'estàndard per a tota contractació de React Native a l'organització. El meu company EM, que lidera un altre squad, va revisar la prova i el scorecard i va acceptar adoptar-lo per a les contractacions del seu equip també. Aquest és l'avantatge d'un sistema ben documentat: **escala més enllà de l'squad d'un sol manager.**
+En la meva primera setmana, vaig contractar un Senior Engineer a través del procés existent (això va passar el segon dia, abans que la nova prova estigués llesta). D'ara endavant, el nou procés és l'estàndard per a tota contractació de React Native a tota l'organització. El meu company EM, que lidera un altre squad, va revisar la prova i el scorecard i va acceptar adoptar-lo per a les contractacions del seu equip també. Aquest és l'avantatge d'un sistema ben documentat: **escala més enllà de l'squad d'un sol manager.**
 
 Estic a punt de contractar dos Software Engineers amb el nou procés. Cada candidat rebrà la mateixa prova, el mateix starter project, els mateixos criteris d'avaluació i la mateixa rúbrica de puntuació. La superfície de biaix es redueix quan estandarditzes.
 

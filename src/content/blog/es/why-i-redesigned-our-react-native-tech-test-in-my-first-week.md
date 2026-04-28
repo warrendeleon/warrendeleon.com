@@ -1,22 +1,20 @@
 ---
 title: "Por qué rediseñé nuestra prueba técnica de React Native en mi primera semana"
-description: "Me incorporé como Engineering Manager y uno de mis primeros proyectos fue repensar el proceso de contratación para roles de plataforma. Esto es lo que aprendí y lo que construí."
+description: "Entré como Engineering Manager y uno de mis primeros proyectos fue repensar el proceso de contratación para roles de plataforma. Esto es lo que aprendí y lo que construí."
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Rediseñando una prueba técnica para contratación en React Native"
-
-
 campaign: "rn-tech-test-redesign"
 relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
 ## Una prueba pensada para otro momento
 
-Cuatro días antes de empezar, fui a la oficina para un control de pasaporte. Mientras estaba allí, mi jefe me comentó que iba a armar un equipo. Mi primera pregunta fue si podía cambiar el proceso de entrevistas. Dijo que sí. *Ni siquiera había tenido mi primer día.* Para cuando empecé el 23, ya estaba construyendo la nueva prueba.
+Cuatro días antes de empezar oficialmente, fui a la oficina para un control de pasaporte. Mientras estaba allí, mi jefe me comentó que iba a armar un equipo. Mi primera pregunta fue si podía cambiar el proceso de entrevistas. Dijo que sí. *Ni siquiera había tenido mi primer día.* Para cuando empecé el 23, ya estaba construyendo la nueva prueba.
 
-Soy el nuevo Engineering Manager del squad de **Mobile Platform**. Estamos reconstruyendo la app móvil en React Native, una migración brownfield desde las apps nativas de iOS y Android. Necesito ingenieros que puedan trabajar a nivel de plataforma.
+Soy el nuevo Engineering Manager del squad de mobile platform. Estamos reconstruyendo la app móvil en React Native, una migración brownfield desde las apps nativas de iOS y Android. Necesito ingenieros que puedan trabajar a nivel de plataforma.
 
 No tuve que pedir ver la prueba técnica. La había hecho yo mismo semanas antes. Así fue como me contrataron *a mí*: un ejercicio de live coding donde montas una app pequeña en una hora con el entrevistador mirando, seguido de preguntas técnicas de un cuestionario. La entrevista completa duraba unos 90 minutos.
 

@@ -6,8 +6,6 @@ tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: tl
 heroImage: "/images/blog/react-native-tech-test-tips.webp"
 heroAlt: "Paano pumasa sa React Native tech test"
-
-
 campaign: "pass-rn-tech-test"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---

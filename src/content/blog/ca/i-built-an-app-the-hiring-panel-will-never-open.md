@@ -28,7 +28,7 @@ Ara imagina fer això en una **taula de markdown dins de VS Code**.
 
 ## Tres intents
 
-**Notion** va ser la meva primera idea. L'utilitzo per a tot el personal. Però no és una eina que utilitzem a la feina. Construir sobre una plataforma que seria només per a mi semblava un carreró sense sortida, així que vaig descartar la idea abans de començar.
+**Notion** va ser la meva primera idea. L'utilitzo per a tot el personal. Però no és una eina que fem servir a la feina. Construir sobre una plataforma que seria només per a mi semblava un carreró sense sortida, així que vaig descartar la idea abans de començar.
 
 **Fitxers markdown** van venir després. Un `.md` per scorecard, amb taules per a les puntuacions i espai per a notes. La revisió de codi funcionava bé així. Són 100 checks de sí o no que completes *després* de l'entrevista al teu propi ritme. Però els scorecards de walkthrough i conductual havien de funcionar *durant* la trucada. Trobar la fila correcta, escriure un número, fer scroll a la següent secció. Tot mentre un candidat em parlava. El markdown era precís però lent, i estava prestant més atenció al document que a la persona.
 

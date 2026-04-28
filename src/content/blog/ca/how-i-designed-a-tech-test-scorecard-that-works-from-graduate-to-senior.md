@@ -6,8 +6,6 @@ tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: ca
 heroImage: "/images/blog/tech-test-scorecard.webp"
 heroAlt: "Dissenyant un scorecard de prova tècnica per a contractació en React Native"
-
-
 campaign: "tech-test-scorecard"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
