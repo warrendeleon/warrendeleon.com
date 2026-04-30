@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Legacy WordPress/Divi paths and removed pages
+RewriteRule ^wp-content/ - [G,L]
+RewriteRule ^sky/?$ - [G,L]
+
 # Redirect old blog post URL to new one
 RewriteRule ^blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/?$ /blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ [R=301,L]
 RewriteRule ^es/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/?$ /es/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ [R=301,L]
