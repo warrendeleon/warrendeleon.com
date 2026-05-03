@@ -301,7 +301,7 @@ The logout sequence is deliberate. Tier 1 and Tier 2 are cleared because tokens 
 
 ### Token refresh
 
-The Axios interceptor handles automatic [token refresh](/blog/token-refresh-race-condition-react-native/) transparently. It reads from and writes to SecureStore without touching the other tiers:
+The Axios interceptor handles automatic token refresh transparently. It reads from and writes to SecureStore without touching the other tiers:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -345,7 +345,7 @@ Every piece of stored data has a clear home:
 | Theme | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 | Language | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 
-The rule is simple: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's just a preference, Tier 3. This classification also shapes your [project structure](/blog/feature-first-project-structure-react-native/): the storage wrappers live in a shared `utils/storage/` directory, while the auth flow that orchestrates them belongs to the Auth feature.
+The rule is simple: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's just a preference, Tier 3. This classification also shapes your project structure: the storage wrappers live in a shared `utils/storage/` directory, while the auth flow that orchestrates them belongs to the Auth feature.
 
 ## Common pitfalls
 
