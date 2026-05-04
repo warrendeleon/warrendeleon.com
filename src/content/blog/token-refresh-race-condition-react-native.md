@@ -135,13 +135,15 @@ Timeline (milliseconds):
 
 ## The subscriber queue
 
-The fix: **only one refresh runs at a time.** Every other 401 waits in a queue.
+The fix: **only one refresh runs at a time.** Every other 401 waits in a queue, and the queue notifies all waiters whether the refresh succeeded *or* failed.
 
 Two pieces of state:
 
 ```typescript
+type SubscriberCallback = (token: string | null, error?: unknown) => void;
+
 private isRefreshing = false;
-private refreshSubscribers: Array<(token: string) => void> = [];
+private refreshSubscribers: SubscriberCallback[] = [];
 ```
 
 `isRefreshing` is a gate. When the first 401 arrives, it flips to `true` and the refresh starts. When the second, third, fourth, and fifth 401s arrive, they see the gate is closed and **add themselves to the queue instead of starting their own refresh.**
@@ -151,8 +153,12 @@ if (isTokenExpired && !originalRequest._retry) {
   // Gate check: is someone already refreshing?
   if (this.isRefreshing) {
     // Yes. Don't refresh. Just wait.
-    return new Promise(resolve => {
-      this.refreshSubscribers.push((token: string) => {
+    return new Promise((resolve, reject) => {
+      this.refreshSubscribers.push((token, error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
         originalRequest.headers.Authorization = `Bearer ${token}`;
         resolve(this.axiosInstance(originalRequest));
       });
@@ -164,7 +170,7 @@ if (isTokenExpired && !originalRequest._retry) {
   this.isRefreshing = true;
 ```
 
-Each subscriber stores a **callback function**. The callback takes a token, attaches it to the original request, and retries. It's a promise that doesn't resolve until the refresh completes.
+Each subscriber stores a **callback function** that takes either a token (success) or an error (failure). On success, attach the token and retry. On failure, reject the queued promise so the caller sees the same error the refresh did.
 
 When the refresh finishes:
 
@@ -179,7 +185,7 @@ When the refresh finishes:
     await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
     await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
 
-    // Wake up everyone in the queue
+    // Wake up everyone in the queue with the new token
     this.refreshSubscribers.forEach(cb => cb(data.access_token));
     this.refreshSubscribers = [];
 
@@ -187,7 +193,9 @@ When the refresh finishes:
     originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
     return this.axiosInstance(originalRequest);
   } catch (refreshError) {
-    // Refresh failed. Clear everything. Logout.
+    // Refresh failed. Reject every queued request, clear storage, log out.
+    this.refreshSubscribers.forEach(cb => cb(null, refreshError));
+    this.refreshSubscribers = [];
     await SecureStore.clear();
     return Promise.reject(refreshError);
   } finally {
@@ -195,7 +203,7 @@ When the refresh finishes:
   }
 ```
 
-The `forEach` is the key line. It iterates through every waiting request and calls each callback with the new token. **All five requests retry simultaneously with a valid token.** The queue empties. The gate opens.
+Two `forEach`es, both load-bearing. The success path notifies subscribers with the new token so all five retries fire. The failure path notifies subscribers with the error so all four queued promises reject cleanly instead of hanging. Without the failure-path notification, the four queued requests would never resolve and the UI would freeze on a refresh failure.
 
 ## The fixed timeline
 
@@ -222,14 +230,11 @@ Timeline (milliseconds):
        A notifies B, C, D, E with new token
        isRefreshing = false
 
- 51ms  A retries with new token → 200 ✓
- 51ms  B retries with new token → 200 ✓
- 51ms  C retries with new token → 200 ✓
- 51ms  D retries with new token → 200 ✓
- 51ms  E retries with new token → 200 ✓
+ 51ms+ A, B, C, D, E retry with the new token. The retries fan out
+       through the network as normal. All five eventually succeed.
 ```
 
-**Five requests. One refresh. Zero failures. Zero logouts.** The user sees a 50ms delay on their home screen and nothing else.
+**Five requests. One refresh. Zero failures. Zero logouts.** The user sees a small delay on their home screen and nothing else.
 
 ## What about the 403?
 
@@ -266,7 +271,7 @@ When the refresh fails, `SecureStore.clear()` wipes all tokens. The user gets lo
 
 A few things to call out about the implementation:
 
-**Tokens live in the [secure enclave](/blog/tiered-secure-storage-react-native/), not in memory.** The interceptor reads from iOS Keychain / Android Keystore on every refresh. If the app gets backgrounded mid-refresh, the tokens survive. AsyncStorage or a JavaScript variable wouldn't give you that guarantee.
+**Tokens live in the [Keychain / Keystore](/blog/tiered-secure-storage-react-native/), not in memory.** The interceptor reads from iOS Keychain / Android Keystore on every refresh. If the app gets backgrounded mid-refresh, the tokens survive. (The Keychain database itself isn't *in* the Secure Enclave on iOS, but the encryption key that protects it is, which is the bit that matters here.) AsyncStorage or a JavaScript variable wouldn't give you that guarantee.
 
 **The `finally` block is load-bearing.** Without `isRefreshing = false` in the `finally`, a failed refresh leaves the gate permanently closed. Every subsequent 401 joins a queue that **never gets processed.** The app freezes on every API call. One missing line, and the recovery mechanism becomes the failure mode.
 
@@ -414,4 +419,4 @@ If you remove the `isRefreshing` gate and run the same test, `refreshCount` jump
 
 Most SDK-based implementations handle all of this for you. The Supabase SDK solves the race condition somewhere in its internals. You never see it. You also never see it break, and you never learn why it matters. I wrote about that trade-off in [Building a Supabase REST client without the SDK](/blog/building-a-supabase-rest-client-without-the-sdk/).
 
-The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/SupabaseAuthClient.ts`.
+The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/SupabaseAuthClient.ts`. Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
