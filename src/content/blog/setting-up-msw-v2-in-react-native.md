@@ -38,10 +38,12 @@ If you're on an older RN version, an Expo Jest preset, or no Redux, the *concept
 MSW v2 runs in Jest tests via the Node.js server. The browser service worker isn't relevant for mobile, so ignore everything in the MSW docs about service-worker registration.
 
 ```bash
-yarn add -D msw node-fetch web-streams-polyfill
+yarn add -D msw node-fetch@2 web-streams-polyfill
 ```
 
 `msw` is the obvious one. `node-fetch` and `web-streams-polyfill` are the polyfills MSW v2 needs in the React Native Jest environment, which I'll wire up in the next step.
+
+> 💡 **Why pin `node-fetch@2`?** `node-fetch` v3+ is ESM-only and won't load through `require()` in a CommonJS Jest setup file. Either pin to v2 (what this post does), or migrate the polyfills file to ESM. v2 is the lower-friction path on a default React Native Jest preset.
 
 > 💡 **Don't trust posts that say "no polyfills required".** MSW v2 is built on the Fetch API and Web Streams. Some Node + Jest combinations have these globals; the React Native Jest preset doesn't. Without the polyfills you'll see `ReferenceError: Response is not defined` or `TextEncoder is not defined` the first time MSW tries to construct a response.
 
