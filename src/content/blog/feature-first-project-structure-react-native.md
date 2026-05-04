@@ -1,8 +1,8 @@
 ---
-title: "Feature-first project structure in React Native"
-description: "Why type-first folder structures break down at scale, and how organising by feature with co-located stores, tests, and screens keeps a React Native codebase maintainable as it grows."
+title: "Why I use feature-first project structure in React Native"
+description: "An architectural argument for organising by feature instead of by type. Why type-first folder structures fall apart at scale, what the delete test reveals about your codebase, and the rule that keeps features from tangling into each other."
 publishDate: 2026-05-25
-tags: ["react-native", "architecture", "project-structure"]
+tags: ["react-native", "architecture", "project-structure", "opinion"]
 locale: en
 heroImage: "/images/blog/feature-first-rn.webp"
 heroAlt: "Feature-first project structure in React Native"
@@ -10,13 +10,15 @@ campaign: "feature-first-structure"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]
 ---
 
+> **A note on shape.** This post argues for an architecture, not how to set one up. The mechanics (path aliases, ESLint rules) are at the bottom. If you want the *why*, read straight through. If you just want the config, jump to "Setting it up".
+
 ## 85 files for one feature
 
 That's how many TypeScript files my Auth feature has. Six screens, a Redux store, a React context, a custom hook, PIN components with Storybook stories, form validation schemas against a **common password blacklist**, rate limiting, a lockout service, and tests at every level.
 
 In most React Native projects, those 85 files would be scattered across **7 different folders**. Screens in one place, hooks in another, the store slice somewhere else, validation in yet another. To understand how authentication works, you'd need to open 7 folders and mentally reconstruct the relationships between files that sit nowhere near each other.
 
-I tried that structure once. It lasted about four features before I couldn't keep track of what belonged to what.
+That layout looks clean at three or four screens. Past that, the relationship between files becomes invisible: the hook for a feature lives nowhere near the screen that uses it, the validation rules sit in a separate folder from the form they validate, and reviewing a feature means scanning multiple alphabetised lists looking for the relevant pieces.
 
 ## The structure that stops scaling
 
@@ -195,5 +197,81 @@ If your app has three screens and no state management, *don't do this*. A flat l
 The crossover point is somewhere around **5 features with their own state**. Below that, the structure costs more than it saves. Above that, type-first becomes the thing slowing you down.
 
 Open your `screens/` folder right now. Count the files. If you can't tell which ones belong together just by looking at the list, your structure has already stopped helping you.
+
+## Setting it up
+
+The structure above is a convention, not a tool, but two pieces of config make it stick.
+
+**Path aliases.** Without them, you end up with `import { authReducer } from '../../../features/Auth'` everywhere. Add aliases in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["./src/*"]
+    }
+  }
+}
+```
+
+And in `babel.config.js` so the runtime resolves them:
+
+```js
+module.exports = {
+  presets: ['module:@react-native/babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        alias: {
+          '@app': './src',
+        },
+      },
+    ],
+  ],
+};
+```
+
+```bash
+yarn add -D babel-plugin-module-resolver
+```
+
+Now `import { authReducer } from '@app/features/Auth'` resolves at compile time and runtime, regardless of where the importing file sits.
+
+**ESLint rule for the no-cross-imports rule.** This is the one that actually keeps the structure honest. Without it, someone will eventually `import { profileSelector } from '@app/features/Profile'` from inside Auth, and the moment that ships, the structure starts collapsing.
+
+```js
+// .eslintrc.js
+module.exports = {
+  rules: {
+    'no-restricted-imports': ['error', {
+      patterns: [
+        {
+          group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+          message: 'Import features only via their public index. Internals are private.',
+        },
+      ],
+    }],
+  },
+  overrides: [
+    {
+      // Allow features to import from their own internals
+      files: ['src/features/*/**'],
+      rules: { 'no-restricted-imports': 'off' },
+    },
+    {
+      // Cross-feature integration tests are the only place cross-imports are allowed
+      files: ['src/features/__tests__/**'],
+      rules: { 'no-restricted-imports': 'off' },
+    },
+  ],
+};
+```
+
+The pattern blocks any import from inside another feature. The override allows imports from the feature's own `index.ts`. Cross-feature tests sit outside any single feature, so they get an explicit exemption.
+
+That's it. Path aliases, one ESLint rule, and the discipline to keep each feature's internals private. The architecture survives because the tooling enforces what the convention asks for.
 
 The full project source is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).

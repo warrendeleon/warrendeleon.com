@@ -41,20 +41,38 @@ Same test. Same Detox commands underneath. But now anyone on the team can read i
 
 > 💡 **The key advantage:** feature files become living documentation. When a scenario passes, you know the app supports that behaviour. When it fails, you know exactly which user flow broke, in plain language.
 
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare workflow, not Expo)
+- TypeScript with the standard RN Babel config
+- macOS host (iOS simulator + Android emulator setup)
+- Xcode 15+ with Command Line Tools, an iOS simulator created (e.g. iPhone 17 Pro)
+- Android Studio with at least one AVD created (e.g. Pixel 7 API 35)
+- Node 18 or later
+
+If you're on Expo, Detox needs a custom dev client. The Cucumber layer is the same regardless.
+
 ## Installation
 
-You need Detox (for the device automation) and Cucumber (for the BDD layer):
+Install Detox, Cucumber, and the TypeScript loader as dev dependencies:
 
 ```bash
 yarn add -D detox @cucumber/cucumber ts-node
+cd ios && pod install && cd ..
 ```
 
-Detox also needs its CLI:
+The iOS pod install is required because Detox ships an Xcode test target.
+
+You also need two host-level tools that aren't npm packages:
 
 ```bash
 brew tap wix/brew
 brew install applesimutils
 ```
+
+`applesimutils` is what Detox uses to drive the iOS simulator. For Android you need a working emulator with USB debugging enabled. Detox's CLI is invoked via `npx detox`, so no global install is needed.
 
 ## The configuration files
 
@@ -217,7 +235,7 @@ AfterAll(async function () {
 | `After` | default | Takes a screenshot on failure, notifies Detox |
 | `AfterAll` | default | Tears down Detox |
 
-The synchronisation trick is worth noting: launch with synchronisation disabled (`detoxEnableSynchronization: 0`), then enable it after the app is running. This avoids Detox timing out during the initial bundle load.
+The synchronisation trick matters: launch with synchronisation disabled (`detoxEnableSynchronization: 0`), then enable it after the app is running. This avoids Detox timing out during the initial bundle load.
 
 ### world.ts
 
@@ -286,6 +304,8 @@ yarn detox test --tags "@accessibility and @ios"
 ## Writing step definitions
 
 Each Gherkin step maps to a function. These are the reusable building blocks that make BDD powerful.
+
+> 💡 **Detox globals.** `device`, `element`, `by`, and `waitFor` are exposed as globals by Detox at runtime. TypeScript needs to know about them, so add `"types": ["detox", "node"]` to your `tsconfig.cucumber.json` (or import them explicitly via `import { device, element, by, waitFor } from 'detox'`). Without one of these, every step definition will show red squigglies on `device.launchApp`.
 
 ### Common steps
 
@@ -502,6 +522,28 @@ Package.json scripts make the workflow clean:
   }
 }
 ```
+
+First run looks like this:
+
+```bash
+yarn e2e:ios
+```
+
+```text
+$ detox build -c ios.sim.debug
+Building app for ios.sim.debug...
+xcodebuild ... ** BUILD SUCCEEDED **
+
+$ detox test -c ios.sim.debug
+✓ Feature: User Authentication
+  ✓ Scenario: Successful login (2340ms)
+  ✓ Scenario: Login with invalid credentials (1820ms)
+
+2 scenarios (2 passed)
+12 steps (12 passed)
+```
+
+If `xcodebuild` fails on the first run, double-check that the iOS simulator named in `.detoxrc.js` actually exists (`xcrun simctl list devices`). The most common first-run failure is a hardcoded `iPhone 17 Pro` that hasn't been created in Xcode yet.
 
 ## Common pitfalls
 

@@ -1,7 +1,7 @@
 ---
 title: "Accessibility testing in React Native"
-description: "Practical, automated accessibility testing for React Native. Touch target validation, contrast ratio checking, focus order verification, and screen reader announcements. All in Jest, no manual testing required."
-publishDate: 2026-06-22
+description: "Practical automated accessibility testing for React Native. Touch target validation, contrast ratio checking, focus order verification, and screen reader announcements in Jest. Plus what these tests don't catch and where manual screen-reader testing still matters."
+publishDate: 2026-08-03
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: en
 heroImage: "/images/blog/accessibility-testing-rn.webp"
@@ -33,6 +33,17 @@ This isn't a guide to making your app accessible. It's a guide to *testing* that
 | Screen reader announcements | 4.1.3 | Check `accessibilityLiveRegion` on dynamic content |
 | Error identification | 3.3.1 | Verify error messages have `role="alert"` and live region |
 | Labels and hints | 3.3.2 | Assert `accessibilityLabel` and `accessibilityHint` exist on form inputs |
+
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare or Expo)
+- TypeScript with the standard RN Babel config
+- Jest configured (see [Setting up MSW v2 in React Native](/blog/setting-up-msw-v2-in-react-native/) for the polyfills, config, and `renderWithProviders`)
+- GlueStack UI (the touch-target helper resolves GlueStack space tokens like `$11`, `$12`)
+
+If you don't use GlueStack, the helper still works. It just won't recognise `$`-prefixed tokens. Replace those with numeric values in your components and you're fine.
 
 ## Installation
 
@@ -264,16 +275,12 @@ export function expectScreenReaderAnnouncement(
 
 ### Focus order verification
 
-Screen reader users navigate sequentially. If your form inputs are in the wrong order, the experience breaks:
+Screen reader users navigate sequentially. The check below is a smoke test, not a real focus-order verifier: it confirms each element in the array is focusable, and the *order you pass them in* documents the expected sequence. The actual reading order is determined at runtime by the screen reader and the layout tree, which Jest can't fully simulate. For real reading-order checks, use the Detox + VoiceOver feature files in [the BDD post](/blog/detox-cucumber-bdd-react-native-e2e-testing/).
 
 ```typescript
 export function expectFocusOrder(elements: ReactTestInstance[]): void {
-  for (let i = 0; i < elements.length - 1; i++) {
-    const current = elements[i];
-    const next = elements[i + 1];
-
-    expect(current.props.accessible !== false).toBe(true);
-    expect(next.props.accessible !== false).toBe(true);
+  for (const element of elements) {
+    expect(element.props.accessible !== false).toBe(true);
   }
 }
 
@@ -514,6 +521,26 @@ The `*.accessibility.rntl.tsx` naming convention lets you run them as a suite:
 
 ```bash
 yarn jest --testPathPattern='accessibility'
+```
+
+```text
+PASS  src/features/Auth/__tests__/LoginScreen.accessibility.rntl.tsx
+  LoginScreen Accessibility
+    focus order
+      ✓ has correct focus order for form elements (12 ms)
+      ✓ has focusable email input (4 ms)
+    touch targets
+      ✓ login button meets minimum touch target (5 ms)
+      ✓ register link meets minimum touch target (3 ms)
+    screen reader announcements
+      ✓ announces error message on failed login (98 ms)
+    accessibility roles and labels
+      ✓ email input has correct accessibility props (3 ms)
+      ✓ login button has correct role (2 ms)
+      ✓ disabled button announces disabled state (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
 ```
 
 Or run everything together. They're regular Jest tests. No special configuration, no separate test runner.

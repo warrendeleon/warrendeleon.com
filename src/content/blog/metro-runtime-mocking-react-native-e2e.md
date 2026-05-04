@@ -1,7 +1,7 @@
 ---
 title: "Metro runtime mocking for deterministic React Native E2E tests"
 description: "Why mocking your backend in E2E tests matters, and how to do it at the Metro bundle level. No network interception, no flaky tests, no external dependencies."
-publishDate: 2026-06-15
+publishDate: 2026-07-27
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: en
 heroImage: "/images/blog/metro-runtime-mocking.webp"
@@ -60,11 +60,31 @@ Detox E2E tests are different. The app runs in a native iOS or Android process, 
 
 You need a mocking strategy that works inside the app itself. That's where Metro runtime mocking comes in.
 
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare workflow, not Expo)
+- TypeScript with the standard RN Babel config
+- `react-native-config` installed (this post uses `Config.E2E_MOCK`)
+- Detox already wired up for E2E tests
+- A custom HTTP client where you control the request layer (e.g. an Axios instance), not the Supabase or Firebase SDK directly
+
+If your API layer is the Supabase/Firebase SDK, this approach doesn't work. You'd need to mock at the SDK boundary instead, or wrap the SDK in your own client first.
+
 ## How it works
 
 The idea is simple: at build time, bake a flag into the JavaScript bundle. At runtime, every API function checks the flag. If mocking is enabled, return fixture data instead of making a real network call.
 
 ### Step 1: The environment variable
+
+Install the Babel plugin and `react-native-config`:
+
+```bash
+yarn add -D babel-plugin-transform-inline-environment-variables
+yarn add react-native-config
+cd ios && pod install && cd ..
+```
 
 Babel's `transform-inline-environment-variables` plugin inlines environment variables into the bundle at compile time:
 
@@ -121,6 +141,18 @@ src/test-utils/fixtures/api/
 │   └── ...
 └── tl/
     └── ...
+```
+
+A fixture file is just plain JSON matching the shape your API returns:
+
+```json
+// src/test-utils/fixtures/api/en/profile.json
+{
+  "name": "Warren",
+  "email": "warren@example.com",
+  "phone": "+44 7700 900000",
+  "profilePicture": "https://example.com/avatar.png"
+}
 ```
 
 These files are imported at bundle time and exported through a barrel file:
@@ -216,6 +248,8 @@ await device.launchApp({
 ```
 
 Now you can test every error state deterministically: network failures, 500s, 404s, timeouts. Each one is a launch argument, not a broken server.
+
+> 💡 **`launchArgs` vs `E2E_MOCK`.** They do different things. `E2E_MOCK` is baked into the bundle at build time and switches the API layer between real calls and fixtures. `launchArgs` is read at runtime via `react-native-launch-arguments` (or `react-native-config`'s runtime accessors) and tells the already-mocked API which scenario to simulate for *this* test. The mocked build is the same binary across every Detox scenario; the launch args change per scenario.
 
 ## Authentication mocking
 

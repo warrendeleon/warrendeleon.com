@@ -1,7 +1,7 @@
 ---
 title: "Runtime API response validation with Zod in React Native"
 description: "Your TypeScript types don't protect you at runtime. How to catch backend contract changes before they crash your app using Zod schemas that double as your type definitions."
-publishDate: 2026-06-08
+publishDate: 2026-07-20
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: en
 heroImage: "/images/blog/zod-runtime-validation.webp"
@@ -21,6 +21,15 @@ TypeScript can't catch any of this. It checks types at compile time. API respons
 The result: your app crashes on a property access, shows blank fields, or silently stores corrupted data. And the error message gives you nothing useful because the failure is three layers away from the cause.
 
 > 💡 **The gap:** TypeScript validates the shape of your code. Zod validates the shape of your data. You need both.
+
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare or Expo, both work; Zod has no native modules)
+- TypeScript with the standard RN Babel config
+- An HTTP client where responses come back as `unknown` (or where you can wrap them)
+- Jest configured for unit tests (see [Setting up MSW v2 in React Native](/blog/setting-up-msw-v2-in-react-native/) if you don't have one yet)
 
 ## What Zod does
 
@@ -396,6 +405,26 @@ export { ProfileSchema, type Profile } from './profile.schema';
 export { EducationSchema, type Education } from './education.schema';
 export { WorkExperienceSchema, type WorkExperience } from './workExperience.schema';
 ```
+
+## Running the tests
+
+```bash
+yarn jest src/schemas/__tests__/
+```
+
+```text
+PASS  src/schemas/__tests__/profile.schema.rntl.ts
+  ProfileSchema
+    ✓ validates real fixture data (8 ms)
+    ✓ rejects invalid email (3 ms)
+    ✓ rejects missing required field (2 ms)
+    ✓ rejects invalid URL in gallery (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+The `validates real fixture data` test is the canary: if it ever fails, your fixtures and schema have drifted apart, and the next API change will be a runtime crash.
 
 ## Common pitfalls
 

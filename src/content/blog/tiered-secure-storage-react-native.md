@@ -20,6 +20,18 @@ For a theme preference, that's fine. For an access token, it's a security incide
 
 > 💡 **The principle:** store data at a security level that matches its sensitivity. Tokens get the strongest protection. Preferences get the fastest access. Everything else falls somewhere in between.
 
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare workflow, not Expo)
+- TypeScript with the standard RN Babel config
+- Redux Toolkit + Redux Persist for state management
+- iOS 13+ and Android API 23+ (hardware-backed Keychain requires API 23 minimum)
+- A Supabase backend (or any REST API that returns access/refresh tokens)
+
+If you're on Expo, the Keychain wrapper needs `expo-secure-store` instead of `react-native-keychain`. The structure stays the same.
+
 ## The three tiers
 
 | Tier | Library | Security | Speed | Use for |
@@ -36,7 +48,12 @@ The highest security tier. Uses the platform's hardware-backed secure enclave: i
 
 ```bash
 yarn add react-native-keychain
+cd ios && pod install && cd ..
 ```
+
+`react-native-keychain` is a native module, so iOS needs a pod install. On Android, set `minSdkVersion = 23` (or higher) in `android/build.gradle` to enable the hardware-backed Keystore code path.
+
+> ⚠️ **"Hardware-backed" varies on Android.** Even on API 23+, whether keys are actually backed by a Trusted Execution Environment or a Strongbox depends on the device's hardware and OEM implementation. Some devices report `SECURE_HARDWARE_LEVEL_SOFTWARE` even on modern Android. If your threat model needs a guarantee, call `Keychain.getSecurityLevel()` at runtime and gate sensitive operations on the result. iOS Keychain is reliably hardware-backed on every supported device.
 
 The wrapper:
 
@@ -103,6 +120,7 @@ The middle tier. Data is encrypted with AES-256 but doesn't require hardware-bac
 
 ```bash
 yarn add react-native-encrypted-storage
+cd ios && pod install && cd ..
 ```
 
 The wrapper:
@@ -178,7 +196,8 @@ await EncryptedStore.setMultiple([
 The fastest tier. Plain text, no encryption. Only for data that has zero security sensitivity: theme preference, language selection.
 
 ```bash
-yarn add @react-native-async-storage/async-storage redux-persist
+yarn add @react-native-async-storage/async-storage redux-persist @reduxjs/toolkit react-redux
+cd ios && pod install && cd ..
 ```
 
 You don't use AsyncStorage directly for preferences. Redux Persist handles that. It automatically saves your Redux state to AsyncStorage and rehydrates it when the app launches.
@@ -188,7 +207,11 @@ The key is the persist config:
 ```typescript
 // src/store/configureStore.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+
+import { authReducer } from '@app/features/Auth';
+import { settingsReducer } from '@app/features/Settings';
 
 const rootPersistConfig = {
   key: 'root',
@@ -201,6 +224,27 @@ const authPersistConfig = {
   storage: AsyncStorage,
   whitelist: ['biometricEnabled'],
 };
+
+const rootReducer = combineReducers({
+  settings: settingsReducer,
+  auth: persistReducer(authPersistConfig, authReducer),
+});
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Redux Persist dispatches non-serialisable actions during rehydration.
+        // Ignore them so the serialisable-check middleware doesn't warn.
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
 ```
 
 | Config | What it persists | What it excludes |
@@ -227,12 +271,23 @@ const settingsSlice = createSlice({
 When the user changes theme or language, Redux Persist automatically writes to AsyncStorage. On next launch, `PersistGate` waits for rehydration before rendering:
 
 ```typescript
-<Provider store={store}>
-  <PersistGate loading={null} persistor={persistor}>
-    <App />
-  </PersistGate>
-</Provider>
+// App.tsx
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '@app/store/configureStore';
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {/* your screens */}
+      </PersistGate>
+    </Provider>
+  );
+}
 ```
+
+`PersistGate` blocks render until the persisted slice has been loaded back into the store. Without it, the app flashes the default state for one frame before the persisted theme/language kicks in.
 
 ## How the tiers work together
 

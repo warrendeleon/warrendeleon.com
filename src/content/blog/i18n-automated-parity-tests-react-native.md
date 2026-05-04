@@ -1,7 +1,7 @@
 ---
 title: "i18n with automated parity tests in React Native"
 description: "5 languages with a test that verifies every locale has identical keys. How to set up i18next with TypeScript type safety, device locale detection, and automated parity testing that catches missing translations before they ship."
-publishDate: 2026-06-29
+publishDate: 2026-08-10
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: en
 heroImage: "/images/blog/i18n-parity-tests.webp"
@@ -20,6 +20,17 @@ This happens in every multilingual app. Not because translators are careless, bu
 
 > 💡 **The fix:** a single test that compares every locale's keys against the reference locale. If `en.json` has a key that `es.json` doesn't, the test fails. Run it on every PR.
 
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare workflow)
+- TypeScript with the standard RN Babel config
+- Jest configured for unit tests (the parity test runs in Jest)
+- One reference locale (English in this post) that all others are validated against
+
+If you're on Expo, swap `react-native-localize` for `expo-localization`. The resolution logic is the same shape.
+
 ## The setup
 
 Five files make the entire i18n system work.
@@ -28,7 +39,10 @@ Five files make the entire i18n system work.
 
 ```bash
 yarn add i18next react-i18next react-native-localize
+cd ios && pod install && cd ..
 ```
+
+`react-native-localize` is a native module, so iOS needs a pod install. Without it, `getLocales()` returns `undefined` at runtime and the language resolver falls straight to English regardless of the device setting.
 
 | Library | What it does |
 |---|---|
@@ -292,6 +306,26 @@ Received: [..., "auth.forgotPassword.successTitle", ...]
 ```
 
 No guessing. No manual comparison. One test, run on every PR.
+
+## Running it
+
+```bash
+yarn jest src/i18n/__tests__/localesParity.rntl.ts
+```
+
+```text
+PASS  src/i18n/__tests__/localesParity.rntl.ts
+  i18n locales
+    ✓ en and es have the same keys (4 ms)
+    ✓ en and ca have the same keys (3 ms)
+    ✓ en and pl have the same keys (3 ms)
+    ✓ en and tl have the same keys (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+When a key is missing in a locale, the failure message points at the exact key path. No manual diff required. Add this to your CI step list and missing translations stop reaching production.
 
 ## Edge case tests
 
