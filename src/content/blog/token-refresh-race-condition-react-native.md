@@ -1,7 +1,7 @@
 ---
 title: "Token refresh race condition prevention in React Native"
 description: "What happens when five API calls get a 401 at the same time. The race condition most apps ignore, and the subscriber queue pattern that prevents it."
-publishDate: 2026-07-06
+publishDate: 2026-06-15
 tags: ["react-native", "security", "authentication", "http"]
 locale: en
 heroImage: "/images/blog/token-refresh-race.webp"
@@ -10,11 +10,11 @@ campaign: "token-refresh-race"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "tiered-secure-storage-react-native", "runtime-api-validation-zod-react-native"]
 ---
 
-## The bug that only happens in production
+## The bug that looks like a random logout
 
-Your token expires. The app makes an API call. Supabase returns a 401. The interceptor catches it, refreshes the token, retries the request. The user never notices.
+The worst auth bug is the one that looks like a random logout. No crash, no useful error message, just a user opening the app and getting thrown back to login. Nothing in the logs explains it. The user reports it as "the app keeps signing me out" and the engineer can't reproduce it because it only happens after the access token has expired *and* multiple screens load at once.
 
-That's the tutorial version. It works perfectly when one request fails at a time.
+Your token expires. The app makes an API call. Supabase returns a 401. The interceptor catches it, refreshes the token, retries the request. The user never notices. That's the tutorial version. It works perfectly when one request fails at a time.
 
 Now picture this: the user opens the app after an hour. The home screen fires **five API calls simultaneously**. Profile data, work experience, education, settings, notifications. All five hit the server with an expired token. All five get 401s. All five trigger the interceptor.
 
@@ -27,6 +27,53 @@ The second refresh attempt uses the *old* refresh token. Supabase rejects it. Th
 The user opens the app, sees a loading screen for half a second, and gets thrown back to login. *Nothing crashed. No error message. Just a silent logout.*
 
 This is a race condition. It only happens when multiple requests fire concurrently with an expired token. In development, you're usually testing one screen at a time. In production, the home screen loads everything at once.
+
+## Assumptions
+
+The setup below was written against:
+
+- React Native 0.74+ (bare or Expo)
+- TypeScript with the standard RN Babel config
+- Axios as the HTTP client (the pattern works with `fetch` too, but the interceptor API is Axios-specific)
+- A token-refresh-style auth API (Supabase, OAuth, JWT, anything that returns a refresh token)
+- [Tiered secure storage](/blog/tiered-secure-storage-react-native/) for tokens (or any storage that returns a Promise)
+
+The pattern is library-agnostic. If you're not on Axios, replace the interceptor mechanics with your client's equivalent. The state machine (gate, queue, retry) is the same.
+
+## Where this code lives
+
+The snippets below sit on a class that wraps an Axios instance. The full structure:
+
+```typescript
+// src/httpClients/SupabaseAuthClient.ts
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import { SecureStore, SecureStoreKey } from '@app/utils/storage';
+
+class SupabaseAuthClient {
+  private axiosInstance: AxiosInstance;
+  private isRefreshing = false;
+  private refreshSubscribers: Array<(token: string) => void> = [];
+
+  constructor() {
+    this.axiosInstance = axios.create({
+      baseURL: process.env.SUPABASE_URL,
+      timeout: 10_000,
+    });
+
+    this.axiosInstance.interceptors.request.use(this.attachToken);
+    this.axiosInstance.interceptors.response.use(
+      response => response,
+      this.handle401,
+    );
+  }
+
+  // ... the methods below all live on this class
+}
+
+export const authClient = new SupabaseAuthClient();
+```
+
+Two pieces of state on the class instance: `isRefreshing` is the gate, `refreshSubscribers` is the queue. Both are instance properties so they're shared across requests through the same client. If you put them at module scope or per-request, the coordination falls apart.
 
 ## The naive approach
 
@@ -217,13 +264,153 @@ When the refresh fails, `SecureStore.clear()` wipes all tokens. The user gets lo
 
 ## The details that matter
 
-A few things worth noting about the implementation:
+A few things to call out about the implementation:
 
 **Tokens live in the [secure enclave](/blog/tiered-secure-storage-react-native/), not in memory.** The interceptor reads from iOS Keychain / Android Keystore on every refresh. If the app gets backgrounded mid-refresh, the tokens survive. AsyncStorage or a JavaScript variable wouldn't give you that guarantee.
 
 **The `finally` block is load-bearing.** Without `isRefreshing = false` in the `finally`, a failed refresh leaves the gate permanently closed. Every subsequent 401 joins a queue that **never gets processed.** The app freezes on every API call. One missing line, and the recovery mechanism becomes the failure mode.
 
 **Logout on refresh failure is correct.** When `SecureStore.clear()` wipes all tokens, the user gets sent back to login. That feels aggressive, but if your refresh token is rejected, the session is dead. Trying to silently recover from that state creates worse problems than a clean logout.
+
+## Proving it works
+
+You can't trust a fix you haven't tested. The test below uses [MSW](/blog/setting-up-msw-v2-in-react-native/) to fire five concurrent requests through a real public method on the auth client (`getCurrentUser`), watch all five hit `/auth/v1/user` with an expired token, count how many times `/auth/v1/token` is called, and assert exactly one refresh happened despite five 401s.
+
+```typescript
+// src/httpClients/__tests__/SupabaseAuthClient.race.rntl.ts
+import { http, HttpResponse } from 'msw';
+import { server } from '@app/test-utils/msw/server';
+import { SupabaseAuthClient } from '../SupabaseAuthClient';
+
+jest.mock('react-native-config', () => ({
+  SUPABASE_URL: 'https://test.supabase.co',
+  SUPABASE_ANON_KEY: 'test-anon-key',
+}));
+
+jest.mock('@app/config/e2e', () => ({
+  isE2EMockEnabled: jest.fn(() => false),
+}));
+
+jest.mock('@app/utils/storage/EncryptedStore', () => ({
+  EncryptedStore: { set: jest.fn(), get: jest.fn(), clear: jest.fn() },
+  EncryptedStoreKey: { USER_EMAIL: 'userEmail' },
+}));
+
+// SecureStore.get switches the returned token after the refresh has stored
+// the new value, so the second call to /auth/v1/user uses the fresh token.
+let currentToken = 'expired-token';
+jest.mock('@app/utils/storage/SecureStore', () => ({
+  SecureStore: {
+    get: jest.fn(async (key: string) => {
+      if (key === 'accessToken') return currentToken;
+      if (key === 'refreshToken') return 'valid-refresh';
+      return null;
+    }),
+    set: jest.fn(async (key: string, value: string) => {
+      if (key === 'accessToken') currentToken = value;
+    }),
+    clear: jest.fn(),
+  },
+  SecureStoreKey: {
+    ACCESS_TOKEN: 'accessToken',
+    REFRESH_TOKEN: 'refreshToken',
+    USER_ID: 'userId',
+  },
+}));
+
+const SUPABASE_URL = 'https://test.supabase.co';
+
+const mockUser = {
+  id: '550e8400-e29b-41d4-a716-446655440000',
+  aud: 'authenticated',
+  email: 'warren@example.com',
+  email_confirmed_at: '2026-01-01T00:00:00Z',
+  phone: null,
+  confirmed_at: '2026-01-01T00:00:00Z',
+  last_sign_in_at: '2026-01-01T00:00:00Z',
+  created_at: '2026-01-01T00:00:00Z',
+};
+
+describe('Token refresh under concurrent 401s', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    server.resetHandlers();
+    currentToken = 'expired-token';
+  });
+
+  it('only refreshes once when five requests get 401 simultaneously', async () => {
+    let refreshCount = 0;
+    let userCallCount = 0;
+
+    server.use(
+      // /auth/v1/user: returns 401 if the Authorization is the old token, else returns the user
+      http.get(`${SUPABASE_URL}/auth/v1/user`, ({ request }) => {
+        userCallCount++;
+        const auth = request.headers.get('Authorization');
+        if (auth === 'Bearer expired-token') {
+          return HttpResponse.json({ msg: 'JWT expired' }, { status: 401 });
+        }
+        return HttpResponse.json(mockUser);
+      }),
+      // /auth/v1/token: counts how many refreshes hit the server
+      http.post(`${SUPABASE_URL}/auth/v1/token`, () => {
+        refreshCount++;
+        return HttpResponse.json({
+          access_token: 'fresh-token',
+          refresh_token: 'new-refresh',
+          token_type: 'bearer',
+          expires_in: 3600,
+          user: mockUser,
+        });
+      }),
+    );
+
+    // Fire five concurrent reads against the same client. All five should
+    // hit the response interceptor's 401 path, only one should trigger a
+    // refresh, and the other four should queue behind it.
+    const results = await Promise.all([
+      SupabaseAuthClient.getCurrentUser(),
+      SupabaseAuthClient.getCurrentUser(),
+      SupabaseAuthClient.getCurrentUser(),
+      SupabaseAuthClient.getCurrentUser(),
+      SupabaseAuthClient.getCurrentUser(),
+    ]);
+
+    expect(refreshCount).toBe(1);              // Only ONE refresh hit the network
+    expect(userCallCount).toBeGreaterThanOrEqual(5);  // First 5 with old token, then retries with new
+    expect(results.every(r => r?.email === 'warren@example.com')).toBe(true);
+  });
+});
+```
+
+Run it:
+
+```bash
+yarn jest SupabaseAuthClient.race
+```
+
+```text
+PASS  src/httpClients/__tests__/SupabaseAuthClient.race.rntl.ts
+  Token refresh under concurrent 401s
+    ✓ only refreshes once when five requests get 401 simultaneously (124 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+```
+
+If you remove the `isRefreshing` gate and run the same test, `refreshCount` jumps to 5 and the assertion fails. That's the regression test that protects this code from someone reverting the queue "to simplify it".
+
+## Common pitfalls
+
+**Don't put `isRefreshing` at module scope.** It needs to live on the client instance. Module-level state crosses test isolation and clients-per-environment boundaries; instance state doesn't.
+
+**Don't refresh in the request interceptor.** The interceptor runs on *every* request and would gate every call behind a token check, even ones that aren't going to fail. Refresh in the response interceptor when a 401 actually comes back.
+
+**Don't forget the `_retry` flag.** Without it, a 401 on the *retry itself* (because the new token is also bad) sends you back into the queue and you loop forever. The flag is the second guard, after the gate.
+
+**Don't drop subscribers on refresh failure.** If the refresh fails, the queued requests have to be told. The `finally` block resets `isRefreshing`, but you also need to reject every queued request before clearing the array. Without that, queued promises hang forever and the UI freezes.
+
+**Don't assume the auth provider returns 401.** Supabase sometimes returns 403 with `error_code: 'bad_jwt'`. The check at the top of the interceptor needs to cover both the status code and the body. Test against every endpoint your app calls before trusting "401 means expired".
 
 Most SDK-based implementations handle all of this for you. The Supabase SDK solves the race condition somewhere in its internals. You never see it. You also never see it break, and you never learn why it matters. I wrote about that trade-off in [Building a Supabase REST client without the SDK](/blog/building-a-supabase-rest-client-without-the-sdk/).
 
