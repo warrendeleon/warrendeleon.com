@@ -10,9 +10,9 @@ campaign: "pii-masking-rn"
 relatedPosts: ["certificate-pinning-in-react-native", "building-an-axios-based-supabase-auth-client", "tiered-secure-storage-react-native"]
 ---
 
-This is part 6 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). The previous post covered [certificate pinning](/blog/certificate-pinning-in-react-native/), which protects the bytes on the wire. This post covers the bytes that *intentionally* leave the app: console logs, error reports, Sentry breadcrumbs, analytics events. By default, everything you log carries through whatever sensitive data was in the local variable scope at the time. Without a masking layer, your Sentry project becomes a parallel database of every user's email, every Bearer token in flight, and every password the user ever typed into a form.
+This is part 6 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). The previous post covered [certificate pinning](/blog/certificate-pinning-in-react-native/), which protects the bytes on the wire. This post covers the bytes that *intentionally* leave the app: console logs, error reports, observability breadcrumbs, analytics events. By default, everything you log carries through whatever sensitive data was in the local variable scope at the time. Without a masking layer, the first remote-logging system you bolt on becomes a parallel database of every user's email, every Bearer token in flight, and every password the user ever typed into a form.
 
-This post is the logger and the masking utility that prevent the most common leak paths.
+This post is the logger and the masking utility that prevent the most common leak paths. It uses Sentry as the worked example for the breadcrumb-scrubbing path, but the masker is SDK-agnostic; the same pattern applies to Crashlytics, Datadog, or any other off-device log sink.
 
 > ⚠️ **What this post is and isn't.** This is a *risk reduction layer*, not a guarantee. Regex-based masking has false positives (it can over-redact strings that look like tokens but aren't) and false negatives (a 6-digit PIN with no surrounding context will pass through). Field-name masking depends on you adding new sensitive field names to the set as your schema grows. The right way to think about this layer: it catches the obvious mistakes that ship every week, not the subtle ones a determined attacker would dig for. Run a periodic audit of what's actually reaching Sentry.
 
@@ -22,11 +22,11 @@ Source: [`src/utils/logger.ts`](https://github.com/warrendeleon/rn-warrendeleon/
 
 Three concrete leak paths that PII masking closes:
 
-**Sentry breadcrumbs.** Sentry captures a rolling buffer of recent network calls, navigation events, and console logs. When an error fires, that buffer ships with the report. Without sanitisation, every Authorization header, every `{ email, password }` request body, and every error response containing a user's profile lands in your Sentry project unredacted.
+**Off-device breadcrumbs.** Tools like Sentry, Crashlytics, and Datadog capture a rolling buffer of recent network calls, navigation events, and console logs. When an error fires, that buffer ships with the report. Without sanitisation, every Authorization header, every `{ email, password }` request body, and every error response containing a user's profile lands in your observability tool unredacted.
 
 **Production console output.** React Native's `console.log` writes to the system log on iOS and logcat on Android. On a managed device, those logs are readable by IT. On a debug build sideloaded for review, they're readable by anyone with the IPA/APK and a bit of time.
 
-**Crash report payloads.** Both Crashlytics and Sentry attach the JS stack trace plus surrounding context. The arguments to a thrown error frequently include exactly the kind of objects your app was about to operate on, which is exactly the kind of object you didn't want logged.
+**Crash report payloads.** Crash reporters attach the JS stack trace plus surrounding context. The arguments to a thrown error frequently include exactly the kind of objects your app was about to operate on, which is exactly the kind of object you didn't want logged.
 
 The fix isn't "be careful what you log". The fix is a logger that's careful for you, and an interceptor on the way to Sentry that scrubs the payload one more time as a backstop.
 
@@ -175,6 +175,13 @@ The order of replacements matters. `BEARER` runs before `JWT` because the bearer
 
 > 💡 **Regexes that look right but aren't.** A naive email regex like `\S+@\S+` matches half of an SSH key. A JWT regex without the `eyJ` anchor matches base64 in arbitrary contexts. Anchor your patterns on something that's actually distinctive. JWTs always start with `eyJ` (the URL-safe base64 of `{"`), bearer tokens always have the `Bearer ` prefix, IBANs always start with two letters. The narrower the anchor, the fewer false positives.
 
+> ⚠️ **Two patterns above will over-redact in production.** Be honest with yourself about whether you want them.
+>
+> - **`CREDIT_CARD`** matches any 16-digit number formatted in 4-4-4-4 groups. Tracking IDs, build numbers concatenated with timestamps, and certain UUID slices all get redacted as `[MASKED_CARD]`. The `// Luhn-shape match` comment is misleading: the regex is structural, not arithmetic. Real Luhn validation in regex is impractical. **If your app doesn't take card numbers, drop this pattern entirely.** It can only misfire.
+> - **`PHONE_US`** has both leading groups optional, so it matches *any* 7-digit number with a separator in the middle. ISO timestamps with seconds, version strings like `1.20.3-beta`, Sentry event IDs sliced into groups of seven all get redacted. Either drop it (if your audience isn't US-first) or anchor the pattern to require the country code or area-code parens.
+>
+> Patterns that over-redact aren't safer; they hide signal in your logs and make Sentry less useful. The right framing for regex masking is "narrow patterns with low false-positive rate, plus field-name masking as the safety net".
+
 There's also a heuristic for "this string looks like a token even though it's not in a known field":
 
 ```typescript
@@ -240,7 +247,7 @@ export const maskSensitiveData = (data: unknown, fieldName?: string): unknown =>
 
 Three points worth flagging.
 
-**Circular references are real.** Axios error objects in particular have circular references between `error.config` and `error.request`. A naive recursive mask hits stack overflow on the first axios error you log. The `WeakSet` of seen objects catches the loop and replaces the second occurrence with `'[Circular Reference]'`.
+**Circular references are real.** Older Axios versions had circulars between `error.config` and `error.request`; v1+ scrubbed those, but other libraries still produce them. React fiber nodes are circular by design. Anything you've ever attached `parent`/`child` references to is. A naive recursive mask hits stack overflow on the first one you log. The `WeakSet` of seen objects catches the loop and replaces the second occurrence with `'[Circular Reference]'`.
 
 **The field name carries through one level.** When `maskDataRecursive` walks into an object, it passes the *parent key* as the field name for each value. That's how `{ email: 'user@example.com' }` gets the `email` field name when masking the string. Arrays don't carry a field name through (the parent key applies to the array, not its elements).
 
@@ -292,9 +299,9 @@ Two design choices that catch most people by surprise.
 
 **Replace `console.*` calls in your codebase with these helpers.** It's one of those tedious migrations that pays for itself the first time someone writes `console.log(user)` in a code review and the helper-replacement convention saves the day. An ESLint rule banning `console.*` outside the logger module is the enforcement mechanism.
 
-## Sentry integration
+## Wiring the masker into a remote log sink
 
-Sentry captures errors and breadcrumbs and ships them off-device. Two extension points let you scrub the payload before it leaves: `beforeSend` for the error itself, `beforeBreadcrumb` for everything in the rolling buffer.
+When you add an off-device error tracker (Sentry, Crashlytics, Datadog), the masker plugs into its scrub hooks. The pattern below uses Sentry as the example because it's the most common; the same shape applies to any SDK that exposes a "transform the payload before send" callback.
 
 ```typescript
 // src/config/sentry.ts
@@ -328,7 +335,9 @@ Sentry.init({
 
 `beforeSend` runs once per error, on the full event. `beforeBreadcrumb` runs every time a breadcrumb is added (which is dozens of times per session for a typical app). Both go through the same masker, which means adding a new sensitive field to `SENSITIVE_FIELDS` automatically protects both paths.
 
-> 💡 **The `enabled: !__DEV__` flag matters.** Sentry SDK calls in development can lead to duplicate errors in your team's project from developer machines, and (worse) every breadcrumb captured in development gets shipped. Disable Sentry entirely in DEV builds; rely on the logger's console output during development.
+> 💡 **The `enabled: !__DEV__` flag matters.** Sentry SDK calls in development lead to duplicate errors in your team's project from developer machines, and (worse) every breadcrumb captured in development gets shipped. Disable Sentry entirely in DEV builds; rely on the logger's console output during development. If you want to verify the config locally before a release, point it at a separate test project (a `SENTRY_DSN_DEV` with strict access controls) for that one debugging session, then disable again.
+
+> 💡 **Wire the masker on day one of adding Sentry.** Sentry without `beforeSend` is a one-line change away from a parallel PII database. The order to add things is: install the SDK, wire `beforeSend` and `beforeBreadcrumb` to the masker, *then* turn the SDK on. Not the other way round.
 
 ## Testing the masker
 
@@ -486,4 +495,4 @@ Five posts of this series have hardened the *client*: the auth client, the stora
 
 The final post in the series covers Supabase backend hardening: RLS that actually holds, the cleanup-queue pattern from the storage post (with the SQL trigger this time), and the OWASP-mobile attack surface most "Supabase tutorial" content stops short of.
 
-Source: [`src/utils/logger.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logger.ts) and [`src/utils/logging/maskSensitiveData.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logging/maskSensitiveData.ts).
+Source: [`src/utils/logger.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logger.ts) and [`src/utils/logging/maskSensitiveData.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logging/maskSensitiveData.ts). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
