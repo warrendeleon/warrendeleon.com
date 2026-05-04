@@ -349,7 +349,7 @@ SELECT cron.schedule(
 );
 ```
 
-The `service_role_key` is stored as a database setting (set via the dashboard), not in the cron job source.
+The `service_role_key` is stored as a database setting, not in the cron job source. Set it once before scheduling: in the Supabase dashboard, **Settings → Database → Custom Postgres Config**, add `app.settings.service_role_key = 'eyJ...'`. Without that setting, every cron run silently 401s with no log line that tells you why.
 
 ## Rate limiting
 
@@ -371,10 +371,11 @@ CREATE TABLE public.rate_limit_log (
 ALTER TABLE public.rate_limit_log ENABLE ROW LEVEL SECURITY;
 -- No policies. Only the SECURITY DEFINER function below can insert.
 
--- 2. A function that checks the count, returns false if over the limit,
---    inserts the row otherwise.
+-- 2. A function that serializes per (user, action), counts recent calls,
+--    and raises if over the limit. Atomicity comes from the advisory
+--    lock plus the implicit transaction the function runs in.
 CREATE OR REPLACE FUNCTION public.check_rate_limit(action_name TEXT, max_per_hour INT)
-RETURNS BOOLEAN
+RETURNS VOID
 LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = public
@@ -382,6 +383,12 @@ AS $$
 DECLARE
   recent_count INT;
 BEGIN
+  -- Serialize concurrent calls for the same (user, action). The lock is
+  -- released at the end of the transaction.
+  PERFORM pg_advisory_xact_lock(
+    hashtextextended(auth.uid()::text || ':' || action_name, 0)
+  );
+
   SELECT COUNT(*) INTO recent_count
   FROM public.rate_limit_log
   WHERE user_id = auth.uid()
@@ -389,11 +396,10 @@ BEGIN
     AND occurred_at > NOW() - INTERVAL '1 hour';
 
   IF recent_count >= max_per_hour THEN
-    RETURN FALSE;
+    RAISE EXCEPTION 'Rate limit exceeded' USING ERRCODE = 'P0001';
   END IF;
 
   INSERT INTO public.rate_limit_log (user_id, action) VALUES (auth.uid(), action_name);
-  RETURN TRUE;
 END;
 $$;
 ```
@@ -407,15 +413,17 @@ SECURITY DEFINER
 SET search_path = public
 AS $$
 BEGIN
-  IF NOT public.check_rate_limit('export', 5) THEN
-    RAISE EXCEPTION 'Rate limit exceeded' USING ERRCODE = 'P0001';
-  END IF;
+  PERFORM public.check_rate_limit('export', 5);
 
-  -- ... actual export logic
+  -- ... actual export logic. If check_rate_limit raised, this never
+  -- runs and the whole transaction (including the rate_limit_log insert)
+  -- rolls back.
   RETURN jsonb_build_object('ok', true);
 END;
 $$;
 ```
+
+> 💡 **The advisory lock is the load-bearing line.** Without `pg_advisory_xact_lock`, you have a check-then-act race: two parallel calls both read `recent_count = max - 1`, both pass the check, both insert. The user gets two requests through when the limit was one. Under burst attack the limiter doesn't actually limit. With the lock, one transaction holds the gate per (user, action) until it commits, and the next caller sees the inserted row in their COUNT.
 
 A scheduled cron prunes old rows so the table doesn't grow forever:
 
@@ -428,7 +436,7 @@ SELECT cron.schedule(
 );
 ```
 
-> 💡 **This isn't something Supabase ships, and it isn't sophisticated.** It's coarse-grained (one row per call, no token-bucket smoothing) and the table has to be pruned. But it stops basic abuse without standing up Redis or a third-party rate-limiter service. For higher-throughput needs, replace it with Cloudflare's per-route rate limits or a proper API gateway. For most app-tier RPC abuse, the SQL pattern above is enough.
+> 💡 **This isn't something Supabase ships, and it isn't sophisticated.** It's coarse-grained (one row per call, no token-bucket smoothing) and the table has to be pruned. The advisory lock fixes the obvious concurrency bug, but a determined attacker firing thousands of parallel requests will still saturate the function-call rate Postgres can handle, and the lock contention itself becomes the bottleneck. For higher-throughput needs or seriously hostile traffic, the right tool is Cloudflare's per-route rate limits or a proper API gateway in front of Supabase. The SQL pattern above is enough for app-tier RPC abuse from a stolen anon key; it's not a substitute for edge-level rate limiting.
 
 ## The OWASP-mobile attack surface, briefly
 
@@ -437,7 +445,7 @@ The OWASP Mobile Top 10 covers concerns this series has addressed in passing. Ma
 | OWASP Mobile risk | Where it's covered |
 |---|---|
 | M1 Improper Credential Usage | [Tiered storage](/blog/tiered-secure-storage-react-native/) (tokens in Keychain, not AsyncStorage) |
-| M2 Inadequate Supply Chain Security | Dependency reviews, lockfiles, certificate pinning |
+| M2 Inadequate Supply Chain Security | Not covered in this series. Dependency review, lockfile pinning, and SBOM generation are the standard mitigations and live outside the scope of these posts. |
 | M3 Insecure Authentication / Authorization | RLS policies (this post), [token refresh queue](/blog/token-refresh-race-condition-react-native/) |
 | M4 Insufficient Input/Output Validation | Zod runtime validation in [the auth client post](/blog/building-an-axios-based-supabase-auth-client/) |
 | M5 Insecure Communication | [Certificate pinning](/blog/certificate-pinning-in-react-native/) |
@@ -479,4 +487,4 @@ Seven posts. The full Supabase integration in React Native, from the why through
 
 Reading the series end-to-end builds a complete production-grade Supabase integration. Reading any one post solves a single concrete problem. Both shapes are intentional.
 
-Source for everything: [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).
+Source for everything: [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon). Each post in the series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
