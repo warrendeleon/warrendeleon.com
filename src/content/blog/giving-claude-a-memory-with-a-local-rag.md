@@ -1,6 +1,6 @@
 ---
 title: "Giving Claude a memory with a local RAG"
-description: "Claude Code starts every session cold. I gave it a memory by indexing every JSONL transcript on my machine into a local RAG, exposed over MCP. The architecture, the trade-offs, and a battery lesson I didn't see coming."
+description: "How I gave Claude Code a local memory by indexing JSONL transcripts into a local RAG exposed through MCP. Architecture, trade-offs, and a battery lesson."
 publishDate: 2026-08-17
 tags: ["claude-code", "rag", "mcp", "local-llm", "ai-tooling"]
 locale: en

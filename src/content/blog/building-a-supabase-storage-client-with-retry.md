@@ -1,6 +1,6 @@
 ---
 title: "Building a Supabase storage client with retry in React Native"
-description: "Part 4 of the Supabase-without-the-SDK series: an Axios-based storage client for profile picture uploads. File reading, base64 conversion, exponential backoff on transient failures, and the rule that decides which errors are worth retrying."
+description: "Build an Axios-based Supabase Storage client in React Native with file uploads, deletes, typed errors, idempotent retries, and exponential backoff."
 publishDate: 2026-06-22
 tags: ["react-native", "supabase", "axios", "storage", "uploads"]
 locale: en

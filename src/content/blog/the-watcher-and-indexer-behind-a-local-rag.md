@@ -1,6 +1,6 @@
 ---
 title: "The watcher and indexer behind a local RAG"
-description: "How conversation JSONLs become searchable vectors. fswatch, a SQLite job queue with retry and dedup, a streaming JSONL parser, and a ChromaDB indexer with power-aware throttling. All running as launchd agents."
+description: "How conversation JSONLs become searchable vectors: fswatch, a SQLite job queue, a streaming JSONL parser, and a ChromaDB indexer with power-aware throttle."
 publishDate: 2026-08-31
 tags: ["claude-code", "rag", "python", "chromadb", "sqlite", "launchd"]
 locale: en

@@ -1,6 +1,6 @@
 ---
 title: "Building an MCP server for Claude Code"
-description: "A walkthrough of the FastMCP server I expose to Claude Code: six tools for searching past conversations, logging actions, and watching the indexing queue. Code, registration, and the bits the docs leave out."
+description: "A walkthrough of the FastMCP server I expose to Claude Code: six tools for searching past conversations, logging actions, and watching the indexing queue."
 publishDate: 2026-08-24
 tags: ["claude-code", "mcp", "python", "fastmcp", "ai-tooling"]
 locale: en
@@ -19,6 +19,8 @@ Model Context Protocol is the contract Claude Code uses to discover external too
 The minimum viable MCP server is a few dozen lines of Python with [FastMCP](https://github.com/jlowin/fastmcp).
 
 > 💡 **What you don't have to do:** no HTTP server, no auth flow, no message-pump boilerplate. FastMCP handles the protocol. You write functions and decorate them with `@mcp.tool()`.
+
+> ⚠️ **Security boundary.** This server runs locally over stdio, not as a public HTTP service. Claude Code spawns it as a subprocess and communicates through pipes, so there's no listening port and no remote attack surface. That keeps the threat model small. The boundary that does matter: the tools below return private transcript snippets, audit-log entries, and arbitrary file paths under `~/.claude/`. Only register this server in Claude Code environments you trust with that data. Don't drop the same `mcp_servers.json` into a shared workstation or a CI runner.
 
 ## Project layout
 

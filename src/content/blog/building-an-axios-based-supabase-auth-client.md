@@ -1,6 +1,6 @@
 ---
 title: "Building an Axios-based Supabase auth client in React Native"
-description: "Part 2 of the Supabase-without-the-SDK series: a typed Axios client that handles sign-up, sign-in, sign-out, and current-user retrieval against the Supabase REST API. Request interceptor for token attachment, mapped errors with codes, and MSW tests."
+description: "Build a typed Axios Supabase auth client in React Native: sign-up/in/out, request interceptor, token attachment, mapped errors, Zod validation, MSW tests."
 publishDate: 2026-06-08
 tags: ["react-native", "supabase", "axios", "authentication", "typescript"]
 locale: en
@@ -43,7 +43,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=ey...
 ```
 
-The anon key is safe to ship in your app bundle. It's the public key Supabase issues for unauthenticated requests, and RLS policies on the backend are what actually enforce security. The final post in this series covers RLS specifically.
+The anon key is *designed* to be public, not the same as "safe to ship unconditionally". It's the identifier Supabase uses for unauthenticated client access; the actual security boundary is whatever RLS policies and function permissions you put on the backend. If RLS is missing or written wrong on a single table, the anon key is enough to read it from any script. Treat the key as identification, not as a secret, and treat your RLS policies as the thing protecting your data. The final post in this series covers RLS specifically.
 
 ## What you're building
 

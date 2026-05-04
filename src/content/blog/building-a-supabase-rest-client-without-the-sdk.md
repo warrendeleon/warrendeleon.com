@@ -1,6 +1,6 @@
 ---
 title: "Building a Supabase integration in React Native without the SDK"
-description: "The first post in a series on a production-grade Supabase integration in React Native: auth, token refresh, storage uploads, certificate pinning, PII masking, and backend hardening. This opening essay covers the why."
+description: "Series intro: why I built a production-grade Supabase integration in React Native without the SDK. Auth, token refresh, storage, pinning, masking, RLS."
 publishDate: 2026-06-01
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: en

@@ -1,6 +1,6 @@
 ---
 title: "Securing your Supabase backend with RLS, function hardening, and rate limits"
-description: "Part 7, the closer of the Supabase-without-the-SDK series: RLS policies that actually hold, storage bucket rules that constrain by user folder, function security with SECURITY DEFINER and search_path, the orphaned-file cleanup pattern, and rate limiting against credential stuffing."
+description: "Series closer: RLS policies that hold, storage bucket rules, function hardening with search_path, the orphaned-file cleanup pattern, and rate limiting."
 publishDate: 2026-07-13
 tags: ["supabase", "security", "rls", "postgres", "owasp"]
 locale: en
@@ -25,6 +25,18 @@ The anon key authenticates your app to Supabase as "an unauthenticated client". 
 If RLS is off (or written wrong) on a single table, the attacker reads every row in it. If a function is `SECURITY DEFINER` without `search_path` set, they can hijack it to run as the function owner. If a storage bucket policy doesn't constrain paths, they can list and download every user's files.
 
 Three things to get right, in this order: RLS on every table, storage policies, function hardening.
+
+## Before shipping
+
+The detail of every section follows, but here's the pre-flight check. Run through this list before any production deploy:
+
+- [ ] **RLS enabled on every app-facing table.** `SELECT * FROM pg_tables WHERE schemaname = 'public' AND rowsecurity = false` should return zero rows.
+- [ ] **Policies tested as the anon role and as authenticated users.** Not just "the query works in the SQL editor" (which runs as `postgres` and bypasses RLS).
+- [ ] **Storage paths constrained by user ID.** Either `(storage.foldername(name))[1] = auth.uid()::text` on the bucket policy, or your equivalent path-encoded ownership.
+- [ ] **`SECURITY DEFINER` functions all have an explicit `SET search_path`.** The Supabase dashboard linter flags missing ones.
+- [ ] **`UPDATE` policies have both `USING` and `WITH CHECK`.** Skipping `WITH CHECK` lets users change ownership of their own rows.
+- [ ] **The service role key never appears in client code or `.env` files committed to source control.** Audit the repo with `git log -S 'service_role'`.
+- [ ] **Auth-sensitive flows have rate limiting** (Supabase's built-in dashboard limits, or the SQL pattern below for RPC abuse).
 
 ## Assumptions
 

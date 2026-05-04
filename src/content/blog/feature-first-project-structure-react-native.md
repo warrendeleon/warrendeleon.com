@@ -1,6 +1,6 @@
 ---
 title: "Why I use feature-first project structure in React Native"
-description: "An architectural argument for organising by feature instead of by type. Why type-first folder structures fall apart at scale, what the delete test reveals about your codebase, and the rule that keeps features from tangling into each other."
+description: "An architectural case for organising React Native projects by feature, not by type. The delete test, import boundaries, and where shared code lives."
 publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure", "opinion"]
 locale: en

@@ -1,6 +1,6 @@
 ---
 title: "Pairing Claude's RAG with a curated wiki"
-description: "A vector search over old conversations is great at fuzzy recall and terrible at structured answers. Add a curated markdown wiki alongside the RAG, give Claude a strict lookup order, and the two cover each other's weaknesses. Use cases, setup, schema, sync."
+description: "RAG search recalls; a wiki answers. Pair them via a strict lookup order so Claude knows which to reach for. Use cases, schema, setup, and sync."
 publishDate: 2026-09-07
 tags: ["claude-code", "rag", "knowledge-management", "obsidian", "ai-tooling"]
 locale: en
