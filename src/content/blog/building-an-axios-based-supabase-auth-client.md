@@ -116,7 +116,7 @@ export const SupabaseAuthClient = new SupabaseAuthClientClass();
 
 Three configuration choices worth flagging:
 
-**A 10-second timeout.** Anything slower is a network problem, not a server problem. The default (none) lets requests hang forever, which means a flaky cell signal manifests as a frozen UI rather than an error message. Ten seconds is short enough to fail fast and long enough to absorb a normal network blip.
+**A 10-second timeout.** Most calls finishing past 10s are network problems; the few that aren't (cold-start serverless functions, an under-provisioned instance) are rare enough that timing them out is the right default. The Axios default of no timeout lets requests hang forever, which means a flaky cell signal manifests as a frozen UI rather than an error message.
 
 **`apikey` as a default header.** Supabase requires it on every call. Setting it once on the instance means you never forget it on a new endpoint.
 
@@ -124,7 +124,7 @@ Three configuration choices worth flagging:
 
 ## The request interceptor
 
-Every authenticated call needs a Bearer token. Reading from the Keychain on every call sounds expensive, but `react-native-keychain` caches behind the scenes after the first read in a process and the call is sub-millisecond on subsequent reads.
+Every authenticated call needs a Bearer token. Reading from the Keychain on every call has a real cost: it's a syscall, not a hashmap lookup, and on configurations with biometric access control it can trigger a user-presence check.
 
 ```typescript
 private attachToken = async (
@@ -139,6 +139,8 @@ private attachToken = async (
 ```
 
 The interceptor runs on *every* request through the instance. If the user isn't signed in, `accessToken` is null and the call goes through with just the anon key. If they are signed in, the access token attaches as a Bearer header and Supabase resolves the request as that user.
+
+> 💡 **The production refinement.** For higher-traffic apps, or for a Keychain configuration with biometric access control on the access token, layer an in-memory cache on top of this interceptor. Sign-in writes the token to both the Keychain and the cache; the interceptor reads from the cache; refresh and sign-out keep both in sync. The Keychain stays the source of truth across cold starts. The pattern shown above reads on every call, which is fine for the [tiered-storage](/blog/tiered-secure-storage-react-native/) configuration this series uses, but it's not the only choice.
 
 > 💡 **Why not pass the token explicitly to each call?** Because forgetting to attach it on a single endpoint is a bug that doesn't crash anything. The call goes through unauthenticated, the RLS policy filters everything, and the screen renders empty. Centralising token attachment in an interceptor makes "not authenticated when you should be" impossible by construction.
 
@@ -325,8 +327,8 @@ private handleError(error: unknown): AuthError {
 
 Three layers of fallback because Supabase's error response shape is inconsistent between endpoints:
 
-1. The newer `error_code` format (preferred by `/auth/v1/*` endpoints since the 2024 redesign).
-2. The OAuth-style `error_description` format (returned by some token-grant flows).
+1. The newer `error_code` format, preferred by `/auth/v1/*` endpoints.
+2. The OAuth-style `error_description` format returned by some token-grant flows.
 3. A status-code fallback for cases where neither shape is present.
 
 The `default` branch catches the rest with a generic message. That keeps `AuthError` total: every code path returns one, never throws or returns `undefined`.
