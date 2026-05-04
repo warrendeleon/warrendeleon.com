@@ -20,12 +20,12 @@ The Supabase SDK gives you working auth in three lines. A custom client takes ar
 
 The Supabase SDK handles authentication, storage, database queries, and real-time subscriptions. Install it, pass your project URL and anon key, and you're running. Three lines for login, two for file upload, one for a query.
 
-Behind those lines, the SDK makes decisions you don't see:
+The SDK exposes hooks for some of the cross-cutting concerns: you can pass a custom storage adapter via `auth: { storage }` and override `global.fetch` in `createClient`. The flexibility is real. The integration points are still awkward:
 
-- **Where tokens are stored.** The SDK uses its own storage adapter. On React Native, that's typically AsyncStorage. Plain text. No encryption. No hardware-backed security.
-- **How token refresh works.** The SDK handles expired tokens internally. You don't see the refresh logic, the retry mechanism, or what happens when five requests fire simultaneously with expired tokens.
-- **What happens on errors.** The SDK throws its own error types. You get a message string and hope it's useful.
-- **How HTTP calls are made.** The SDK uses `fetch` internally. You can't add interceptors, certificate pinning, or request logging without working around the SDK.
+- **Token storage.** The default on React Native is AsyncStorage, plain text. You can swap it for a Keychain-backed adapter by writing your own `getItem`/`setItem`/`removeItem` shim, but the SDK calls into the adapter at moments you can't see, and you're still operating inside the SDK's session model. Auditing what's actually stored, when, and on which code path means stepping through SDK source.
+- **Token refresh.** The SDK refreshes expired tokens internally. The refresh logic, the retry mechanism, and what happens when five requests fire simultaneously with the same expired token all live below your visibility line.
+- **Error shapes.** The SDK throws its own error types. You get a message string and a class name; mapping that to a UI-friendly state with a machine-readable code that survives across SDK upgrades is your problem.
+- **HTTP layer.** The SDK takes a `global.fetch` override, so you can wrap calls. But the SDK's *internal* call patterns are still opaque: which URLs fire, in what order, with what retry behaviour. Layering certificate pinning, observability, and a refresh queue on top of someone else's HTTP loop is harder than owning the loop yourself.
 
 For a prototype, none of that matters. For an app that has to operate in production, with token rotation, intermittent networks, observability requirements, and a real security posture, all of it matters.
 
@@ -33,7 +33,7 @@ For a prototype, none of that matters. For an app that has to operate in product
 
 ## Why this codebase is open to clients and employers
 
-I keep my React Native portfolio repo on GitHub as a record of how I think about the platform. When a coding exercise or tech test comes up, the resulting work goes into the same repo, alongside the rest of the codebase. Clients I've contracted for, and employers I've interviewed with (including the one I'm at now), have all read it as part of evaluating my work.
+I keep my React Native portfolio repo on GitHub as a record of how I think about the platform. When a coding exercise or tech test comes up, the resulting work goes into the same repo, alongside the rest of the codebase. Clients I've contracted for, and employers I've interviewed with, have all read it as part of evaluating my work.
 
 That makes the repo a living artefact, not a tutorial project. The Supabase integration is the part of it where production decisions are most visible. SDK calls show that someone has read the docs. A custom REST client with typed interceptors, a token-refresh subscriber queue, certificate pinning, runtime validation, and tiered secure storage shows that someone has thought about how mobile apps actually run in production.
 
@@ -66,4 +66,4 @@ What the SDK doesn't do for free is *show* you the production patterns underneat
 
 If you're building something that has to last past prototype, the rest of this series unpacks each of those pieces in turn.
 
-The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/`.
+The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/`. Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/) as it publishes.
