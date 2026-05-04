@@ -57,12 +57,13 @@ openssl s_client \
   | openssl dgst -sha256 -binary \
   | openssl enc -base64
 
-# Backup pin: intermediate certificate's public key
+# Backup pin: intermediate certificate's public key.
+# awk 'n==2' skips the leaf (n==1) and captures the second BEGIN..END block.
 openssl s_client \
   -servername your-project.supabase.co \
   -connect your-project.supabase.co:443 \
   -showcerts </dev/null 2>/dev/null \
-  | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/' \
+  | awk '/-----BEGIN CERTIFICATE-----/{n++} n==2' \
   | openssl x509 -pubkey -noout \
   | openssl pkey -pubin -outform der \
   | openssl dgst -sha256 -binary \
@@ -70,6 +71,8 @@ openssl s_client \
 ```
 
 Both commands return base64 strings that look like `PzfKSv758ttsdJwUCkGhW/oxG9Wk1Y4N+NMkB5I7RXc=`. Save them, you'll paste both into the iOS and Android config below.
+
+> ⚠️ **Sanity-check that the two pins are different.** A naive range pattern like `awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/'` (without the `n==2` block-counter) captures *all* certificate blocks concatenated, and the downstream pipe consumes only the first one. The "backup" silently equals the primary, leaving you with one pin pretending to be two. If both extractions produce the same hash, the pipeline is wrong and your backup pin isn't a backup.
 
 > 💡 **Why two pins, not one?** OWASP and TrustKit both require a backup pin for a reason. If the leaf cert gets compromised and Supabase rotates only the leaf, an app with a single leaf-only pin breaks. With the intermediate as a backup, the connection still validates because the backup pin still matches. You buy yourself a window to ship a new app build with a fresh primary pin.
 
@@ -231,19 +234,30 @@ That's why backup pins exist. Without them, certificate rotation is a coordinati
 
 Pinning interferes with end-to-end test frameworks that intercept network traffic. Detox, Cypress, and Appium all rely on inspecting WebSocket and HTTP communication that wouldn't validate under strict pinning.
 
-The fix on iOS is a runtime check that disables TrustKit when running under Detox:
+The skip has to happen at **build time**, not runtime. A runtime check that reads `ProcessInfo.processInfo.arguments` for a Detox flag is tempting because it's small, but it ships into the release binary too. Anyone with the IPA can launch the production app with that flag (via Xcode, lldb, or a jailbroken device) and disable cert pinning. The defence the rest of this post built up gets undone by an opt-in launch argument.
+
+On iOS, use a compile-time guard:
 
 ```swift
-let isRunningUnderDetox = ProcessInfo.processInfo.arguments.contains("-detoxServer")
-
-if !isRunningUnderDetox {
-  TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  func application(...) -> Bool {
+#if !DETOX_BUILD
+    TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
+#endif
+    // ... rest of app initialisation
+    return true
+  }
 }
 ```
 
-On Android the equivalent is an alternate `network_security_config_debug.xml` referenced from `debug` build variants only. The release variant uses the strict config; the debug variant is permissive.
+Define `DETOX_BUILD` in a separate Xcode scheme used only for E2E builds. The release scheme doesn't have the flag, so the `#if` evaluates to "always init pinning" and the runtime check doesn't exist in the binary.
 
-The principle: pinning is a *production* defence. Tests should never rely on it being active.
+> ⚠️ **Don't ship a runtime arg check.** A pattern like `ProcessInfo.processInfo.arguments.contains("-detoxServer")` works fine in development but compiles into the release binary. An attacker with the IPA can launch with that argument and pinning silently disables. Use `#if DEBUG` or a custom build flag instead, so the skip only exists in builds that aren't going to users.
+
+On Android, point the manifest at an alternate `network_security_config_debug.xml` referenced only from `debug` build variants. The release variant uses the strict config; the debug variant is permissive. Same principle: build-time separation, not runtime branch.
+
+The general rule: pinning is a *production* defence. Tests should never rely on it being active, and the binary that ships should never have a way to turn it off.
 
 ## Verifying pinning is on
 
@@ -259,7 +273,7 @@ The mistake that wastes the most time is shipping a build that doesn't actually 
 
 **Don't pin the certificate. Pin the public key.** The openssl commands at the top of this post extract the public key, not the cert. Pinning the cert means rotation breaks every app that hasn't updated. Pinning the public key means rotation only breaks apps when the *key pair* changes, which is much rarer.
 
-**Don't forget the intermediate.** A leaf-only pin set is a pinning configuration with one bullet in the chamber. The day Supabase rotates the leaf cert (which they do periodically, usually within 90 days), every user without the latest build is locked out. The intermediate pin is what gives you the rotation overlap.
+**Don't forget the intermediate.** A leaf-only pin set is a pinning configuration with one bullet in the chamber. The day Supabase rotates the leaf cert (which happens whenever the upstream CA reissues; on Let's Encrypt-style CAs that's often inside a 90-day window), every user without the latest build is locked out. The intermediate pin is what gives you the rotation overlap.
 
 **Don't rely on `kTSKEnforcePinning: false` permanently.** Report-only mode is useful for the first week of rollout when you want to confirm pinning isn't breaking real users. After that, switch it to `true`. A report-only pin is a security control that doesn't actually control anything.
 
@@ -273,4 +287,4 @@ Pinning protects against attackers reading your Supabase traffic on the wire. Th
 
 The next post in the series covers PII-masking interceptors: a logger and an Axios interceptor that strip sensitive fields before they reach Sentry, with regex patterns and a custom log function that protect tokens, emails, and phone numbers automatically.
 
-Source: [`ios/warrendeleon/AppDelegate.swift`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/ios/warrendeleon/AppDelegate.swift) and [`android/app/src/main/res/xml/network_security_config.xml`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/android/app/src/main/res/xml/network_security_config.xml).
+Source: [`ios/warrendeleon/AppDelegate.swift`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/ios/warrendeleon/AppDelegate.swift) and [`android/app/src/main/res/xml/network_security_config.xml`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/android/app/src/main/res/xml/network_security_config.xml). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
