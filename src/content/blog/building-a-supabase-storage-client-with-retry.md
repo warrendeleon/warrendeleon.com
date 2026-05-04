@@ -126,7 +126,7 @@ private attachToken = async (
 };
 ```
 
-The 401 handler is the same shape as the one in [the token refresh post](/blog/token-refresh-race-condition-react-native/), but delegated to the auth client rather than re-implemented. The storage client doesn't need its own subscriber queue; it asks the auth client to refresh, then retries the original request once with the new token.
+The 401 handler is the same shape as the one in [the token refresh post](/blog/token-refresh-race-condition-react-native/), but delegated to the auth client rather than re-implemented:
 
 ```typescript
 private handle401 = async (error: AxiosError) => {
@@ -167,6 +167,23 @@ private isTokenExpired(error: AxiosError): boolean {
 
 The `_retry` flag prevents infinite loops if the refresh succeeds but the second call also gets a 401 (unlikely in practice, but the flag costs nothing).
 
+> ⚠️ **`refreshSession()` must be single-flight.** This handler delegates concurrency control to the auth client. Five concurrent storage 401s become five calls to `SupabaseAuthClient.refreshSession()`. If `refreshSession()` itself is *not* single-flight, you've reproduced the exact race condition the previous post exists to prevent, just on the storage path instead of the auth path. The fix is to gate inside `refreshSession()` itself rather than inside the auth client's response interceptor:
+>
+> ```typescript
+> // On SupabaseAuthClient
+> private refreshPromise: Promise<RefreshResponse> | null = null;
+>
+> async refreshSession(): Promise<RefreshResponse> {
+>   if (this.refreshPromise) return this.refreshPromise;
+>   this.refreshPromise = this._doRefresh().finally(() => {
+>     this.refreshPromise = null;
+>   });
+>   return this.refreshPromise;
+> }
+> ```
+>
+> With that wrapper, every concurrent caller (the auth client's own interceptor, the storage client's interceptor, anything else that calls `refreshSession()` directly) shares the same in-flight promise. One network refresh per token-expiry window, regardless of how many subsystems were affected. The pattern in [the token refresh post](/blog/token-refresh-race-condition-react-native/) puts the gate inside the auth interceptor; lifting it up to the method level is the version that scales beyond a single client.
+
 ## Uploading a profile picture
 
 ```typescript
@@ -202,7 +219,7 @@ Three things to call out.
 
 **The path includes the user ID.** Storage paths in Supabase look like `${userId}/profile-${timestamp}.jpg`. The user ID prefix is what RLS policies on the bucket use to enforce that users can only write to their own folder. The timestamp prevents accidental overwrites and makes old uploads garbage-collectable from the URL alone.
 
-**The file gets read as base64, then converted to a binary buffer.** RNFS returns base64 because that's the only encoding it can hand off cross-platform without breaking. Axios needs binary for the upload body, so the base64 string gets decoded back to a `Uint8Array` (in `uploadWithRetry` below). The double conversion costs a few milliseconds and is worth it for the platform consistency.
+**The file gets read as base64, then converted to a binary buffer.** RNFS supports `'utf8'`, `'ascii'`, and `'base64'`. Base64 is the right choice for binary data because the alternatives mangle non-text bytes. Axios needs binary for the upload body, so the base64 string gets decoded back to a `Uint8Array` (in `uploadWithRetry` below). The double conversion costs a few milliseconds and is worth it for the platform consistency.
 
 **The successful URL gets cached in EncryptedStore.** That's the URL the profile screen displays. Caching it means the screen renders the new picture immediately on the next render, without waiting for a profile refetch.
 
@@ -298,7 +315,9 @@ async deleteProfilePicture(
 }
 ```
 
-Delete is a single DELETE request. There's no retry loop because the operation is short, idempotent (deleting an already-deleted file returns 404, which is fine to treat as success in most flows), and a failed delete on the user side rarely matters. The actual cleanup of orphaned files happens server-side via a database trigger, covered briefly below.
+Delete is a single DELETE request. There's no retry loop because the operation is short, idempotent (deleting an already-deleted file returns 404), and a failed delete on the user side rarely matters. The actual cleanup of orphaned files happens server-side via a database trigger, covered briefly below.
+
+A 404 on delete usually means the file was already gone, which is fine to treat as success in most flows. But log it. If every delete starts 404-ing, your filename construction is wrong, your bucket configuration changed, or someone else's user ID is in your path. A silent 404-as-success would hide all three.
 
 ## Old picture cleanup, briefly
 
@@ -509,4 +528,4 @@ Both clients now have token attachment, response handling, and typed errors. The
 
 The next post in the series covers certificate pinning: locking the HTTP layer to specific public-key pins so the app refuses to talk to anyone but the real Supabase, even on a network that thinks it can intercept TLS.
 
-Source: [`src/httpClients/SupabaseStorageClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseStorageClient.ts).
+Source: [`src/httpClients/SupabaseStorageClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseStorageClient.ts). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
