@@ -4,7 +4,14 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://warrendeleon.com',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) =>
+        !page.includes('/blog/tag/') &&
+        !page.includes('/work/') &&
+        !page.includes('/hiring/'),
+    }),
+  ],
   output: 'static',
   trailingSlash: 'always',
   markdown: {
