@@ -2,6 +2,7 @@
 title: "Securing your Supabase backend with RLS, function hardening, and rate limits"
 description: "Series closer: RLS policies that hold, storage bucket rules, function hardening with search_path, the orphaned-file cleanup pattern, and rate limiting."
 publishDate: 2026-07-13
+series: "Supabase Security"
 tags: ["supabase", "security", "rls", "postgres", "owasp"]
 locale: en
 heroImage: "/images/blog/supabase-rls-security.webp"

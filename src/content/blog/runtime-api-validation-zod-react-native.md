@@ -2,6 +2,7 @@
 title: "Runtime API response validation with Zod in React Native"
 description: "Catch backend contract changes before they crash your React Native app. How to use Zod for runtime API validation that doubles as your TypeScript types."
 publishDate: 2026-07-20
+series: "Testing and Infrastructure"
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: en
 heroImage: "/images/blog/zod-runtime-validation.webp"
