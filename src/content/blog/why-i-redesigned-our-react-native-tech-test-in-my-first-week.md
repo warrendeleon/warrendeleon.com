@@ -29,6 +29,8 @@ I needed the test to answer different questions:
 
 The existing test was designed for different questions. I needed to build something around ours.
 
+*This post covers the thinking behind the redesign. The companion posts cover [the take-home brief in detail](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/), [the scorecard system](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/), and [what candidates should focus on](/blog/how-to-pass-a-react-native-tech-test/).*
+
 ## The limits of live coding
 
 Live coding can tell you whether someone codes comfortably under observation. For some roles, that matters. For ours, I needed to see something different.
@@ -57,7 +59,7 @@ Four principles guided the design:
 
 **Remove the boilerplate tax.** I give candidates a fully configured starter project. TypeScript, ESLint, Prettier, Jest, React Native Testing Library, path aliases. *All set up.* I don't care whether someone can configure a bundler. I care whether they can write application code.
 
-**Be clear about what, not how.** The brief explains what the app should do. It never says which state management library to use, how to structure the folders, or which API client to pick. Those decisions are the most revealing part of the submission. A candidate who picks Redux Toolkit for a three-screen app tells me something different from one who picks Zustand or React Context. Neither is wrong. *Both are interesting.*
+**Be clear about what, not how.** The brief explains what the app should do. It never says which state management library to use, how to structure the folders, or which API client to pick. Those decisions are the most revealing part of the submission. A candidate who picks Redux Toolkit for a three-screen app tells me something different from one who picks Zustand or React Context. Neither is wrong. *Both are interesting.* I break down every design decision behind the brief in [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/).
 
 **Respect people's time.** Candidates get a week. The work should take 4 to 6 hours. People have jobs, families, lives. No one should have to take a day off to do a tech test for a company that might not hire them.
 
@@ -75,13 +77,15 @@ Three things I'm looking for:
 
 **Self-awareness.** *"What would you change if you had more time?"* Strong candidates light up at this question. They have a list. They know where they cut corners. They know what's fragile. They've been thinking about improvements since they submitted. Less experienced candidates tend to say *"I'm happy with it"* and move on.
 
+If you're preparing for a take-home assessment like this, I wrote a candidate-facing guide: [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).
+
 ## Structured scoring
 
 One thing I wanted from day one was a **structured scorecard**. When you're scaling a team and multiple people are involved in hiring, everyone needs to evaluate the same things in the same way. Without that, two interviewers can review the same candidate and reach different conclusions because they're weighting different things.
 
 I built a scorecard that breaks the evaluation into weighted sections: does the app work, is the data layer sound, is the code well-structured, are there tests, and can the candidate explain it all in the walkthrough. Each section has specific criteria on a consistent scale. **Every interviewer evaluates the same things in the same order.**
 
-The scorecard also maps scores to levels. A number tells you whether someone is Graduate, Associate, Software Engineer, or Senior level. This removes ambiguity from the levelling conversation. The rubric does the thinking. The humans verify it.
+The scorecard also maps scores to levels. A number tells you whether someone is Graduate, Associate, Software Engineer, or Senior level. This removes ambiguity from the levelling conversation. The rubric does the thinking. The humans verify it. I published the full framework, including the weighting system and level thresholds, in [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).
 
 ## Senior candidates get a harder round
 
@@ -104,3 +108,12 @@ And if your tech test no longer matches what you're hiring for, it's worth revis
 Design a test that mirrors the actual job. Give candidates a starter project so you're testing *engineering*, not *configuration*. Make the requirements clear but let them make their own decisions. Then sit across from them and ask ***why***.
 
 > The combination of thoughtful take-home code and a structured walkthrough gives you more signal in two hours than any live coding exercise gives you in two days.
+
+---
+
+### Continue reading in this series
+
+- [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/) — the full brief, the API choices, and why every requirement exists.
+- [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) — the weighting system, level thresholds, and how to make scoring consistent across interviewers.
+- [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/) — a candidate-facing guide to standing out in take-home assessments.
+- [I built an app the hiring panel will never open](/blog/i-built-an-app-the-hiring-panel-will-never-open/) — what happens when you build a reference implementation of your own tech test.
