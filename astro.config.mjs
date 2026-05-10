@@ -8,8 +8,10 @@ export default defineConfig({
     sitemap({
       filter: (page) =>
         !page.includes('/blog/tag/') &&
-        !page.includes('/work/') &&
-        !page.includes('/hiring/'),
+        !page.includes('/hiring/') &&
+        !page.includes('/ca/') &&
+        !page.includes('/es/') &&
+        !page.includes('/tl/'),
     }),
   ],
   output: 'static',
