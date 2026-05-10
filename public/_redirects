@@ -1,0 +1,8 @@
+# Old /work/ paths → /work-experience/
+/work/* /work-experience/:splat 301
+
+# Legacy blog URL rename
+/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/ /blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ 301
+/es/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/ /es/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ 301
+/ca/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/ /ca/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ 301
+/tl/blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/ /tl/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ 301
