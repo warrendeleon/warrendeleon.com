@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /wp-content/
 Sitemap: https://warrendeleon.com/sitemap-index.xml
