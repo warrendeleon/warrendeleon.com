@@ -90,7 +90,7 @@ const jsonLd = {
             {latestPosition.description && (
               <p class="role-desc mt-2">{latestPosition.description.split('\n\n')[0]}</p>
             )}
-            <a href={getLocalePath(locale, `/work/${slugify(currentRole.company)}/`)} class="btn btn-outline mt-3">
+            <a href={getLocalePath(locale, `/work-experience/${slugify(currentRole.company)}/`)} class="btn btn-outline mt-3">
               {i18n.home.viewFullDetails}
             </a>
           </div>
