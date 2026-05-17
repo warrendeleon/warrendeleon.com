@@ -1,6 +1,6 @@
 ---
 title: "Runtime API response validation gamit ang Zod sa React Native"
-description: "Hindi ka pinoprotektahan ng TypeScript types mo sa runtime. Paano mahuhuli ang mga pagbabago sa backend contract bago mag-crash ang iyong app gamit ang Zod schemas na nagsisilbi ring type definitions."
+description: "Hulihin ang backend contract changes bago mag-crash ang React Native app mo. Paano gamitin ang Zod para sa runtime API validation na doble bilang TypeScript types."
 publishDate: 2026-06-08
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: tl
@@ -18,9 +18,9 @@ Tapos pinalitan ng backend team ang `profilePicture` ng `avatar`. O ginawang obj
 
 Wala sa mga ito ang mahuhuli ng TypeScript. Tini-check nito ang types sa compile time. Dumarating ang API responses sa runtime. Pagdating ng data sa component mo, tapos na ang trabaho ng TypeScript.
 
-Ang resulta: nag-crash ang app mo sa property access, nagpapakita ng blangkong fields, o tahimik na nagse-save ng sirang data. At walang kwenta ang error message dahil tatlong layer ang pagitan ng failure at ng dahilan nito.
+Ang resulta: nag-crash ang app mo sa property access, nagpapakita ng blangkong fields, o tahimik na nagse-save ng sirang data. Walang kwenta ang error message dahil tatlong layer ang pagitan ng failure at ng dahilan nito.
 
-> 💡 **Ang puwang:** Vina-validate ng TypeScript ang hugis ng code mo. Vina-validate ng Zod ang hugis ng data mo. Kailangan mo pareho.
+Vina-validate ng TypeScript ang hugis ng code mo. Vina-validate ng Zod ang hugis ng data mo. Kailangan mo pareho, at maliit lang ang gastos ng pagdaragdag ng Zod: library na mga 50KB minified, parsing na isang beses lang kada API call, at isang schema file kada response.
 
 ## Ano ang ginagawa ng Zod
 
@@ -104,7 +104,7 @@ export type Location = z.infer<typeof LocationSchema>;
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 ```
 
-Bawat field ay may validation rule. Tini-check ng `z.string().url()` kung valid URL ito. Tini-check ng `z.string().email()` ang email format. Nire-reject ng `z.string().min(1)` ang mga empty string. Hindi lang type assertions ang mga ito. Runtime checks ang mga ito na tumatakbo tuwing dumadaan ang data.
+Bawat field ay may validation rule. Tini-check ng `z.string().url()` kung valid URL ito. Tini-check ng `z.string().email()` ang email format. Nire-reject ng `z.string().min(1)` ang mga empty string. Tumatakbo ang mga ito sa runtime, tuwing dumadaan ang data sa schema, hindi sa compile time.
 
 ### Mga custom validator
 
@@ -407,7 +407,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **Huwag laktawan ang schema tests.** Ang schema na walang tests ay schema na hindi mo mapagkakatiwalaan. Ang fixture validation test (`safeParse(mockData)`) ang iyong canary. Kung mafe-fail ito, mali ang fixture o ang schema. Parehong kailangan mong malaman bago mai-ship ang app.
 
-**Huwag kalimutan ang `.passthrough()` para sa third-party APIs.** Kung wala ito, inaalis ng Zod ang mga hindi kilalang field. Kung nagdagdag ng bagong field ang backend, mawawala ito sa validated object mo. Para sa APIs na kontrolado mo, ayos lang ang pag-strip (pinipigilan ang data pollution). Para sa third-party APIs, gamitin ang `.passthrough()` para maging future-proof.
+**Huwag kalimutan ang `.passthrough()` para sa third-party APIs.** Kung wala ito, inaalis ng Zod ang mga hindi kilalang field. Kung nagdagdag ng bagong field ang backend, mawawala ito sa validated object mo. Para sa APIs na kontrolado mo, ayos lang ang pag-strip (pinipigilan ang data pollution). Para sa third-party APIs, pinapayagan ng `.passthrough()` na dumaan ang mga bagong field nang hindi sinisira ang schema na sinulat mo noong nakaraang quarter.
 
 ## Ang gastos at ang nahuhuli
 
