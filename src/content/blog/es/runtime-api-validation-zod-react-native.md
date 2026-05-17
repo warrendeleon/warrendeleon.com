@@ -18,9 +18,9 @@ Después, el equipo de backend renombra `profilePicture` a `avatar`. O cambia `p
 
 TypeScript no puede atrapar nada de esto. Verifica tipos en tiempo de compilación. Las respuestas de la API llegan en runtime. Para cuando los datos llegan a tu componente, TypeScript ya hizo su trabajo y se fue.
 
-El resultado: tu app crashea por un acceso a propiedad, muestra campos vacíos o guarda datos corruptos silenciosamente. Y el mensaje de error no te dice nada útil porque la falla está a tres capas de distancia de la causa.
+El resultado: tu app crashea por un acceso a propiedad, muestra campos vacíos o guarda datos corruptos silenciosamente. El mensaje de error no te dice nada útil porque la falla está a tres capas de distancia de la causa.
 
-> 💡 **La brecha:** TypeScript valida la forma de tu código. Zod valida la forma de tus datos. Necesitas ambos.
+TypeScript valida la forma de tu código. Zod valida la forma de tus datos. Quieres los dos, y el coste de añadir Zod es bajo: una librería que pesa unos 50KB minificada, el parseo se hace una vez por llamada a la API, y un archivo de schema por respuesta.
 
 ## Qué hace Zod
 
@@ -104,7 +104,7 @@ export type Location = z.infer<typeof LocationSchema>;
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 ```
 
-Cada campo tiene una regla de validación. `z.string().url()` verifica que sea una URL válida. `z.string().email()` verifica el formato de email. `z.string().min(1)` rechaza strings vacíos. No son solo aserciones de tipos. Son verificaciones en runtime que corren cada vez que los datos pasan por ahí.
+Cada campo tiene una regla de validación. `z.string().url()` verifica que sea una URL válida. `z.string().email()` verifica el formato de email. `z.string().min(1)` rechaza strings vacíos. Corren en runtime, cada vez que los datos pasan por el schema, no en tiempo de compilación.
 
 ### Validadores personalizados
 
@@ -407,7 +407,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **No te saltes los tests de schemas.** Un schema sin tests es un schema en el que no puedes confiar. El test de validación contra fixtures (`safeParse(mockData)`) es tu canario en la mina. Si falla, o la fixture o el schema están mal. De cualquier manera, necesitas saberlo antes de que la app se publique.
 
-**No te olvides de `.passthrough()` para APIs de terceros.** Sin él, Zod elimina los campos desconocidos. Si un backend agrega un campo nuevo, tu objeto validado lo pierde. Para APIs que controlas, eliminar campos está bien (previene contaminación de datos). Para APIs de terceros, usa `.passthrough()` para estar preparado a futuro.
+**No te olvides de `.passthrough()` para APIs de terceros.** Sin él, Zod elimina los campos desconocidos. Si un backend agrega un campo nuevo, tu objeto validado lo pierde. Para APIs que controlas, eliminar campos está bien (previene contaminación de datos). Para APIs de terceros, `.passthrough()` permite que los campos nuevos pasen sin romper el schema que escribiste el trimestre pasado.
 
 ## Lo que cuesta, lo que atrapa
 
