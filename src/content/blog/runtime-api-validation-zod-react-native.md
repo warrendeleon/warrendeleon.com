@@ -19,9 +19,9 @@ Then the backend team renames `profilePicture` to `avatar`. Or changes `phone` f
 
 TypeScript can't catch any of this. It checks types at compile time. API responses arrive at runtime. By the time the data reaches your component, TypeScript has already done its job and gone home.
 
-The result: your app crashes on a property access, shows blank fields, or silently stores corrupted data. And the error message gives you nothing useful because the failure is three layers away from the cause.
+The result: your app crashes on a property access, shows blank fields, or silently stores corrupted data. The error message gives you nothing useful because the failure is three layers away from the cause.
 
-> 💡 **The gap:** TypeScript validates the shape of your code. Zod validates the shape of your data. You need both.
+TypeScript validates the shape of your code. Zod validates the shape of your data. You want both, and the cost of bolting Zod on is small: a library that ships at roughly 50KB minified, parsing work done once per API call, and a schema file per response.
 
 ## Assumptions
 
@@ -114,7 +114,7 @@ export type Location = z.infer<typeof LocationSchema>;
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 ```
 
-Every field has a validation rule. `z.string().url()` checks it's a valid URL. `z.string().email()` checks email format. `z.string().min(1)` rejects empty strings. These aren't just type assertions. They're runtime checks that run every time data passes through.
+Every field has a validation rule. `z.string().url()` checks it's a valid URL. `z.string().email()` checks email format. `z.string().min(1)` rejects empty strings. They run at runtime, every time data passes through the schema, not at compile time.
 
 ### Custom validators
 
@@ -437,7 +437,7 @@ The `validates real fixture data` test is the canary: if it ever fails, your fix
 
 **Don't skip schema tests.** A schema without tests is a schema you can't trust. The fixture validation test (`safeParse(mockData)`) is your canary. If it fails, either the fixture or the schema is wrong. Either way, you need to know before the app ships.
 
-**Don't forget `.passthrough()` for third-party APIs.** Without it, Zod strips unknown fields. If a backend adds a new field, your validated object loses it. For APIs you control, stripping is fine (it prevents data pollution). For third-party APIs, use `.passthrough()` to stay future-proof.
+**Don't forget `.passthrough()` for third-party APIs.** Without it, Zod strips unknown fields. If a backend adds a new field, your validated object loses it. For APIs you control, stripping is fine (it prevents data pollution). For third-party APIs, `.passthrough()` lets new fields flow through without breaking the schema you wrote last quarter.
 
 ## What it costs, what it catches
 
