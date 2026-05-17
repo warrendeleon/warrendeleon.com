@@ -1,6 +1,6 @@
 ---
 title: "Tiered secure storage sa React Native"
-description: "Tatlong storage tiers para sa React Native: Keychain para sa tokens, encrypted storage para sa PII, AsyncStorage para sa preferences. Bakit may kanya-kanyang tier, kailan gagamitin, at paano pumapasok ang Redux Persist."
+description: "Tatlong storage tier sa React Native: Keychain para sa tokens, encrypted store para sa PII, AsyncStorage para sa preferences. Saan papasok ang Redux Persist."
 publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: tl
@@ -10,15 +10,15 @@ campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
-## Ang problema sa iisang storage solution
+## Kung saan nauubusan ng daan ang iisang storage layer
 
 Karamihan ng React Native apps ay nagsi-store ng lahat sa AsyncStorage. Tokens, user data, preferences, session state. Lahat sa iisang lugar, lahat sa plain text.
 
 Ang AsyncStorage ay isang key-value store na naka-back sa SQLite (iOS) o SharedPreferences (Android). Mabilis at maginhawa. Pero walang encryption. Kahit sino na may physical access sa device, o may rooted/jailbroken na device, ay mababasa ang bawat value.
 
-Para sa isang theme preference, okay lang iyan. Para sa isang access token, security incident na iyan.
+Para sa theme preference, okay lang iyan. Para sa access token, isang incident na iyan.
 
-> 💡 **Ang prinsipyo:** i-store ang data sa security level na katumbas ng sensitivity nito. Ang tokens ang pinakamatinding proteksyon. Ang preferences ang pinakamabilis na access. Lahat ng iba ay nasa pagitan.
+Tatalakayin ng post na ito ang tatlong tier na ginagamit ko sa production: hardware-backed Keychain para sa tokens, encrypted store para sa PII, at AsyncStorage (sa pamamagitan ng Redux Persist) para sa preferences. Maikli lang ang wrapper ng bawat tier. Ang trabaho ay nasa pagdedesisyon kung saan napupunta ang bawat data, at sa pagpapanatili ng hangganang iyon sa iyong auth flow.
 
 ## Ang tatlong tier
 
@@ -32,7 +32,7 @@ Bawat tier ay isang manipis na wrapper sa isang library. Ang wrapper ay nag-e-en
 
 ## Tier 1: SecureStore (Keychain / Keystore)
 
-Ang pinakamataas na security tier. Gumagamit ng hardware-backed secure enclave ng platform: iOS Keychain o Android Keystore. Ini-encrypt ng OS mismo ang data at puwedeng mangailangan ng biometric authentication para ma-access.
+Ang pinakamataas na tier. Gumagamit ng hardware-backed secure enclave ng platform: iOS Keychain o Android Keystore. Ini-encrypt ng OS mismo ang data at puwedeng mangailangan ng biometric authentication para mabasa.
 
 ```bash
 yarn add react-native-keychain
@@ -87,16 +87,16 @@ export const SecureStore = {
 };
 ```
 
-Mga pangunahing design decisions:
+Apat na desisyon sa wrapper na iyan ang dapat banggitin:
 
-- ✅ **Isang service bawat key.** Isang credential lang ang nasi-store ng Keychain bawat service identifier. Ang paggamit ng `com.warrendeleon.portfolio.accessToken` at `com.warrendeleon.portfolio.refreshToken` bilang magkahiwalay na services ang pumipigil sa pag-overwrite sa isa't isa
-- ✅ **Biometric o device passcode.** Ang `BIOMETRY_ANY_OR_DEVICE_PASSCODE` ay nangangahulugang kailangan ng user ang Face ID, Touch ID, o device PIN para ma-access ang data. Kung walang security na naka-setup sa device, protektado pa rin ng OS ang data
-- ✅ **Sa device na ito lamang.** Ang `WHEN_UNLOCKED_THIS_DEVICE_ONLY` ay nangangahulugang hindi na-transfer ang data sa bagong device sa pamamagitan ng backup. Hindi dapat gumagala ang tokens
-- ✅ **Typed enum keys.** Hindi ka puwedeng mag-pass ng raw string nang hindi sinasadya. Ine-enforce ng compiler na token-level data lang ang pumapasok sa SecureStore
+- Isang service bawat key. Iisang credential lang ang nasi-store ng Keychain bawat service identifier. Ang paggamit ng `com.warrendeleon.portfolio.accessToken` at `com.warrendeleon.portfolio.refreshToken` bilang magkahiwalay na services ang pumipigil sa pag-overwrite sa isa't isa.
+- Biometric o device passcode. Ang `BIOMETRY_ANY_OR_DEVICE_PASSCODE` ay nangangahulugang kailangan ng user ang Face ID, Touch ID, o device PIN para mabasa ang value. Kung walang security na naka-setup sa device, protektado pa rin ng OS ang data.
+- Sa device na ito lamang. Pinapanatili ng `WHEN_UNLOCKED_THIS_DEVICE_ONLY` na hindi pumapasok ang data sa iCloud Keychain backups. Hindi dapat gumagala ang tokens.
+- Typed enum keys. Hindi ka puwedeng mag-pass ng raw string nang hindi sinasadya. Ine-enforce ng compiler na token-level data lang ang pumapasok sa SecureStore.
 
 ## Tier 2: EncryptedStore (AES-256)
 
-Ang gitnang tier. Naka-encrypt ang data gamit ang AES-256 pero hindi nangangailangan ng hardware-backed security o biometric access. Mas mabilis kaysa Keychain, mas secure kaysa plain text.
+Ang gitnang tier. Naka-encrypt ang data gamit ang AES-256, walang hardware-backed gate, walang biometric prompt. Mas mabilis kaysa Keychain, mas ligtas kaysa plain text.
 
 ```bash
 yarn add react-native-encrypted-storage
@@ -183,16 +183,19 @@ Ang susi ay ang persist config:
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
-const rootPersistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['settings'],
-};
-
+// May sariling persist config ang auth slice para makapag-whitelist ng iisang field.
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
   whitelist: ['biometricEnabled'],
+  blacklist: ['user', 'error', 'isLoading'],
+};
+
+// Ang root persist config ang nag-pe-persist lang sa settings slice (theme, language).
+const rootPersistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['settings'],
 };
 ```
 
@@ -227,9 +230,9 @@ Kapag nagpalit ang user ng theme o language, awtomatikong nagsusulat ang Redux P
 </Provider>
 ```
 
-## Paano nagtutulungan ang mga tier
+## Paano nag-cocompose ang mga tier sa auth flow
 
-Ang tunay na halaga ay sa kung paano nag-cocompose ang mga tier sa mga auth flow.
+Pinapagana ng mga wrapper ang sarili nila kapag pinanood mo silang magtulungan sa login, session restore, logout, at token refresh.
 
 ### Login
 
@@ -348,15 +351,15 @@ Simple lang ang patakaran: kung nagbibigay ito ng access, Tier 1. Kung nagpapaki
 
 **Huwag kalimutang i-clear kapag nag-logout.** Kung kini-clear mo ang SecureStore pero nakalimutan ang EncryptedStore, nananatili ang PII ng user pagkatapos nilang mag-logout. Ang `clear()` method sa bawat tier ay umiiral para sa dahilang ito. Tawagin pareho kapag nag-logout.
 
-**Huwag ipagpalagay na mabilis ang Keychain.** Ang SecureStore ay may round trip sa secure enclave. Sa mas lumang devices, puwede itong tumagal ng 100-200ms bawat read. Huwag itong tawagin sa render loop. Basahin ang tokens nang isang beses sa app startup at ipasa sa pamamagitan ng iyong HTTP interceptor.
+**Huwag ipagpalagay na mabilis ang Keychain.** Ang SecureStore ay may round trip sa secure enclave. Sa mas lumang devices, puwede itong tumagal ng 100 hanggang 200ms bawat read. Huwag itong tawagin sa render loop. Basahin ang tokens nang isang beses sa app startup at ipasa sa pamamagitan ng iyong HTTP interceptor.
 
 **Redux Persist whitelist, hindi blacklist.** Gumamit ng `whitelist` para pangalanan kung ano ang dapat i-persist. Delikado ang `blacklist` approach dahil nape-persist ang mga bagong slices bilang default. Isang bagong slice na may sensitive data at may leak ka na. Ang `whitelist` ay opt-in. Mas ligtas.
 
-## Bakit tatlong libraries
+## Kaya bakit tatlong libraries
 
-Oo. Ang alternatibo ay isang library (AsyncStorage) na walang encryption, o isang library (react-native-keychain) na masyadong mabagal para sa mga hindi sensitive na reads. Tatlong libraries, tatlong wrappers, tatlong enums. Bawat wrapper ay wala pang 50 linya. Isang hapon lang ang setup.
+Iniiwan ng isang library (AsyncStorage) ang tokens sa plain text. Masyadong mabagal ang isang library (react-native-keychain) para sa hindi sensitive na reads. Tatlong libraries, tatlong wrappers, tatlong enums. Wala pang 50 linya bawat wrapper. Isang hapon lang ang setup.
 
-Ang makukuha mo: tokens na hindi mababasa nang walang biometric authentication, PII na naka-encrypt at rest, at preferences na nag-loload nang instant. Bawat piraso ng data ay protektado sa eksaktong level na kinakailangan nito. Wala nang dagdag, wala nang kulang.
+Ang makukuha mo: tokens na hindi mababasa nang walang biometric authentication, PII na naka-encrypt at rest, at preferences na lumalabas sa unang frame. Bawat piraso ng data ay protektado sa level na talagang kailangan nito.
 
 > I-store ang lahat sa iisang lugar at wala kang mapoprotektahan. Paghiwalayin ayon sa sensitivity at mapro-protektahan mo ang mahalaga.
 
