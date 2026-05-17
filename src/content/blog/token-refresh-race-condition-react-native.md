@@ -17,7 +17,7 @@ The worst auth bug is the one that looks like a random logout. No crash, no usef
 
 Your token expires. The app makes an API call. Supabase returns a 401. The interceptor catches it, refreshes the token, retries the request. The user never notices. That's the tutorial version. It works perfectly when one request fails at a time.
 
-Now picture this: the user opens the app after an hour. The home screen fires **five API calls simultaneously**. Profile data, work experience, education, settings, notifications. All five hit the server with an expired token. All five get 401s. All five trigger the interceptor.
+Now take the same scenario at scale. The user opens the app after an hour. The home screen fires **five API calls simultaneously**. Profile data, work experience, education, settings, notifications. All five hit the server with an expired token. All five get 401s. All five trigger the interceptor.
 
 **Five refresh attempts. At the same time. Against the same refresh token.**
 
@@ -40,6 +40,10 @@ The setup below was written against:
 - [Tiered secure storage](/blog/tiered-secure-storage-react-native/) for tokens (or any storage that returns a Promise)
 
 The pattern is library-agnostic. If you're not on Axios, replace the interceptor mechanics with your client's equivalent. The state machine (gate, queue, retry) is the same.
+
+## "Doesn't the SDK already do this?"
+
+Mostly, yes. The Supabase JS SDK ships `autoRefreshToken: true` by default and coordinates concurrent refreshes internally. If you're using the SDK, you can stop reading. This post is for the case where you've chosen to talk to Supabase REST directly: bundle size, a wider set of clients sharing the same auth scheme, a need to plug refresh into a custom storage tier, or one of the other reasons covered in [Building a Supabase REST client without the SDK](/blog/building-a-supabase-rest-client-without-the-sdk/). Once you've stepped outside `supabase-js`, the race becomes yours to handle.
 
 ## Where this code lives
 
@@ -104,7 +108,7 @@ this.axiosInstance.interceptors.response.use(
 
 One request, one 401, one refresh. Works fine. The `_retry` flag prevents infinite loops. **But there's no coordination between requests.**
 
-Here's what happens with five concurrent 401s:
+The five-concurrent-401 timeline:
 
 ```
 Timeline (milliseconds):
@@ -151,6 +155,10 @@ private refreshSubscribers: SubscriberCallback[] = [];
 
 ```typescript
 if (isTokenExpired && !originalRequest._retry) {
+  // Mark this request as already-retried before either branch runs, so a
+  // 401 on the retry itself can't drop us back into the queue.
+  originalRequest._retry = true;
+
   // Gate check: is someone already refreshing?
   if (this.isRefreshing) {
     // Yes. Don't refresh. Just wait.
@@ -167,7 +175,6 @@ if (isTokenExpired && !originalRequest._retry) {
   }
 
   // I'm the first. I'll do the refresh.
-  originalRequest._retry = true;
   this.isRefreshing = true;
 ```
 
@@ -250,9 +257,7 @@ const isTokenExpired =
       errorMessage.includes('exp')));
 ```
 
-Three checks: the status code, the error code field, and the error message. Paranoid, but necessary. I've seen Supabase return all three variants depending on which endpoint was called and how the token expired.
-
-> 💡 **Don't assume your auth provider returns consistent error formats.** Test token expiry against every endpoint your app calls. You might be surprised.
+Three checks: the status code, the error code field, and the error message. Paranoid, but necessary. I've seen Supabase return all three variants depending on which endpoint was called and how the token expired. Test token expiry against every endpoint your app calls before trusting any single error shape.
 
 ## What if the refresh itself fails?
 
@@ -268,15 +273,9 @@ Without this, a failed refresh would leave the gate permanently closed. Every su
 
 When the refresh fails, `SecureStore.clear()` wipes all tokens. The user gets logged out. That's the correct behaviour. If your refresh token is rejected, the session is dead. Trying to recover from that state would create worse problems than a clean logout.
 
-## The details that matter
+## Where the tokens themselves live
 
-A few things to call out about the implementation:
-
-**Tokens live in the [Keychain / Keystore](/blog/tiered-secure-storage-react-native/), not in memory.** The interceptor reads from iOS Keychain / Android Keystore on every refresh. If the app gets backgrounded mid-refresh, the tokens survive. (The Keychain database itself isn't *in* the Secure Enclave on iOS, but the encryption key that protects it is, which is the bit that matters here.) AsyncStorage or a JavaScript variable wouldn't give you that guarantee.
-
-**The `finally` block is load-bearing.** Without `isRefreshing = false` in the `finally`, a failed refresh leaves the gate permanently closed. Every subsequent 401 joins a queue that **never gets processed.** The app freezes on every API call. One missing line, and the recovery mechanism becomes the failure mode.
-
-**Logout on refresh failure is correct.** When `SecureStore.clear()` wipes all tokens, the user gets sent back to login. That feels aggressive, but if your refresh token is rejected, the session is dead. Trying to silently recover from that state creates worse problems than a clean logout.
+The interceptor reads from iOS Keychain / Android Keystore on every refresh, so backgrounding the app mid-refresh doesn't lose them. The Keychain database itself isn't *in* the Secure Enclave on iOS, but the encryption key that protects it is, which is the bit that matters here. AsyncStorage or a plain JavaScript variable wouldn't give you that guarantee. I covered the storage tiers in detail in [Tiered secure storage in React Native](/blog/tiered-secure-storage-react-native/).
 
 ## Proving it works
 
@@ -418,6 +417,6 @@ If you remove the `isRefreshing` gate and run the same test, `refreshCount` jump
 
 **Don't assume the auth provider returns 401.** Supabase sometimes returns 403 with `error_code: 'bad_jwt'`. The check at the top of the interceptor needs to cover both the status code and the body. Test against every endpoint your app calls before trusting "401 means expired".
 
-Most SDK-based implementations handle all of this for you. The Supabase SDK solves the race condition somewhere in its internals. You never see it. You also never see it break, and you never learn why it matters. I wrote about that trade-off in [Building a Supabase REST client without the SDK](/blog/building-a-supabase-rest-client-without-the-sdk/).
+The SDK solves all of this internally and you never see it. The trade-off of going REST is that this layer becomes yours. The trade-off of having it explicit is that you can read it, test it, and reason about it.
 
-The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/SupabaseAuthClient.ts`. Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
+The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/SupabaseAuthClient.ts`. The live version uses a single in-flight `Promise` that every caller awaits. Same guarantee (one network round-trip, all waiters resolved together on success, all waiters rejected together on failure), with the gate-and-queue mechanics folded into Promise resolution. The subscriber queue is the version that keeps the state machine visible. Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
