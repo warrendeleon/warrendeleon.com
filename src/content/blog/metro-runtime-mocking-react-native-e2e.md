@@ -1,6 +1,6 @@
 ---
 title: "Metro runtime mocking for deterministic React Native E2E tests"
-description: "Why mocking your backend in E2E tests matters, and how to do it at the Metro bundle level. No network interception, no flaky tests, no external dependencies."
+description: "Mocking the backend at the Metro bundle level for Detox. No network interception, no flaky tests, no external services. Why this beats MSW for E2E."
 publishDate: 2026-07-27
 series: "Testing and Infrastructure"
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
@@ -13,9 +13,9 @@ relatedPosts: ["setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-na
 
 ## The problem with real backends in E2E tests
 
-Your Detox tests run on a real device (or simulator). They tap buttons, type text, navigate screens. At some point, the app makes an API call. And that's where things get fragile.
+Your Detox tests run on a real device or simulator. They tap buttons, type text, navigate screens. At some point, the app makes an API call. That's where things get fragile.
 
-**Real backends make E2E tests non-deterministic.** The same test can pass or fail depending on:
+The same test can pass or fail depending on:
 
 | Factor | What goes wrong |
 |---|---|
@@ -26,23 +26,25 @@ Your Detox tests run on a real device (or simulator). They tap buttons, type tex
 | Third-party outages | Auth provider is down, all login tests fail |
 | Database state | Test expects 3 items, someone added a 4th |
 
-Every one of these has caused a test failure in a project I've worked on. None of them were actual bugs in the app.
+Every one of these has caused a test failure in a project I've worked on. None were actual bugs in the app.
 
-> 💡 **A flaky test is worse than no test.** It trains the team to ignore failures. Once people start re-running the suite "just in case", you've lost trust in your test infrastructure.
+A flaky test is worse than no test. It trains the team to ignore failures. Once people start re-running the suite "just in case", you've lost trust in your test infrastructure.
 
-## Why mock the backend?
+## Why not MSW, Mirage, or a mock server?
 
-Why bother?
+These are the obvious choices, and each fits a real shape. Worth saying what they do well before explaining why I reach past them for Detox.
 
-**1. Determinism.** The same test produces the same result every time. No network variability, no shared state, no external dependencies. If a test fails, it's because the app is broken, not because the API had a bad day.
+**MSW** intercepts requests at the network layer inside Node. It's excellent for Jest unit and integration tests, and that's where I [use it on this same project](/blog/setting-up-msw-v2-in-react-native/). Service Worker mode covers the browser. In a Detox run, though, the app runs in a native iOS or Android process, and the request leaves the JS runtime through NSURLSession or OkHttp. MSW can't see those.
 
-**2. Speed.** No network round trips. No waiting for database queries. Mock responses return instantly. A suite that takes 8 minutes against a real backend can drop to 3 minutes with mocks.
+**Mirage JS** runs an in-memory mock server inside the app. It patches `fetch` and `XMLHttpRequest` in the JS runtime, which works for libraries that go through those (Axios on the JS side does, until you start using native networking layers). The interception model is sound for development and Jest; it's less aligned with Detox builds where you want the swap baked in.
 
-**3. Testable error states.** With a real backend, testing a 500 error means either breaking the server or building a special endpoint. With mocks, you pass a launch argument and the app returns whatever error you need.
+**Standalone mock servers** (Prism, json-server, a small Express app on localhost) are the most realistic option. They exercise the full network stack. The trade-off is operational: now you've got a process to start, a port to manage, CI plumbing for spinning it up alongside the simulator, and a build that depends on a sidecar to be up. For a small project run by one or two people, that's usually more weight than it's worth.
 
-## The trade-offs
+The approach I want to write up here keeps the swap inside the bundle. No sidecar, no Service Worker, no `fetch` patching. A build flag picks the API implementation at compile time; the rest of the app doesn't change. It suits apps where you control the HTTP client (Axios, a hand-rolled REST client) and want one binary per test mode.
 
-Mocking isn't free. You're choosing what to give up.
+## What you give up
+
+Mocking isn't free. You're picking what to trade.
 
 | What you gain | What you lose |
 |---|---|
@@ -51,15 +53,17 @@ Mocking isn't free. You're choosing what to give up.
 | No infrastructure needed | Fixture data can drift from real API responses |
 | Testable error states | Need to maintain fixtures as the API evolves |
 
-The honest answer: **you need both.** Mock the backend for your daily E2E suite (the one that runs on every PR). Run a smaller set of smoke tests against the real backend on a schedule (nightly, pre-release). The mocked suite catches regressions fast. The real suite catches integration drift.
+The honest split: mock for the daily E2E suite that runs on every PR, then run a smaller smoke set against the real backend on a schedule (nightly, pre-release). The mocked suite catches regressions fast. The real suite catches integration drift. Neither alone is enough.
 
-## Why not MSW?
+## Why the bundle, not the network
 
-[MSW works well for unit and integration tests](/blog/setting-up-msw-v2-in-react-native/) because those run in Node.js (via Jest). MSW intercepts requests at the network level inside the Node process.
+Three reasons.
 
-Detox E2E tests are different. The app runs in a native iOS or Android process, not in Node.js. MSW can't intercept requests inside a native process. The network calls leave the JavaScript runtime and go through the platform's native networking stack (NSURLSession on iOS, OkHttp on Android).
+Determinism. Same input, same output, every time. No flaky retries from a slow CI runner, no shared state between runs, no auth provider outage failing twenty tests at once. If a Detox test fails, the app is wrong.
 
-You need a mocking strategy that works inside the app itself. That's where Metro runtime mocking comes in.
+Speed. No round trips. No database. Mock responses resolve synchronously in `Promise.resolve`. A suite that took eight minutes against a real backend drops to three with this in place on the same project.
+
+Error states without infrastructure. Testing a 500 against a real server means either breaking it or wiring a special endpoint. With a flag and a launch argument, you get every error class on demand: network, 500, 404, timeout.
 
 ## Assumptions
 
@@ -67,43 +71,43 @@ The setup below was written against:
 
 - React Native 0.74+ (bare workflow, not Expo)
 - TypeScript with the standard RN Babel config
-- `react-native-config` installed (this post uses `Config.E2E_MOCK`)
+- `react-native-config` installed for the build-time flag (`Config.E2E_MOCK`)
+- `react-native-launch-arguments` for runtime per-test arguments
 - Detox already wired up for E2E tests
-- A custom HTTP client where you control the request layer (e.g. an Axios instance), not the Supabase or Firebase SDK directly
+- A custom HTTP client where you control the request layer (an Axios instance, a hand-rolled REST client), not the Supabase or Firebase SDK directly
 
-If your API layer is the Supabase/Firebase SDK, this approach doesn't work. You'd need to mock at the SDK boundary instead, or wrap the SDK in your own client first.
+If your only path to the backend is a vendor SDK, this approach can't reach in. You'd need to wrap the SDK behind your own client first, then mock at that boundary.
 
 ## How it works
 
-The idea is simple: at build time, bake a flag into the JavaScript bundle. At runtime, every API function checks the flag. If mocking is enabled, return fixture data instead of making a real network call.
+At build time, bake a flag into the native build. At runtime, every API function checks the flag. If mocking is on, return fixture data wrapped in the same response shape; if not, hit the real network. The choice happens inside the function, so callers (Redux, screens, hooks) stay identical.
 
-### Step 1: The environment variable
+### Step 1: pick how the flag gets in
 
-Install the Babel plugin and `react-native-config`:
+Two practical options. They're not mutually exclusive, but you usually want one of them.
+
+`react-native-config` reads from a `.env` file at native build time and exposes values through `Config.E2E_MOCK`. The value is set when Xcode or Gradle builds the binary, so you'd run `E2E_MOCK=true yarn detox:ios:build` to produce a mocked build.
 
 ```bash
-yarn add -D babel-plugin-transform-inline-environment-variables
 yarn add react-native-config
 cd ios && pod install && cd ..
 ```
 
-Babel's `transform-inline-environment-variables` plugin inlines environment variables into the bundle at compile time:
+The Babel plugin `babel-plugin-transform-inline-environment-variables` is the JS-side alternative. It rewrites `process.env.E2E_MOCK` in your source to the literal string at bundle time. If you go that route, you read the flag directly:
 
 ```javascript
 // babel.config.js
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
-  plugins: [
-    'transform-inline-environment-variables',
-  ],
+  plugins: ['transform-inline-environment-variables'],
 };
 ```
 
-When you build with `E2E_MOCK=true`, every reference to `process.env.E2E_MOCK` becomes the string `"true"` in the compiled JavaScript. It's not a runtime lookup. It's a static value baked into the bundle.
+Either approach gives you the same property: the flag is a constant in the shipped binary, not a runtime lookup. The rest of this post uses `react-native-config`, which is what the [rn-warrendeleon repo](https://github.com/warrendeleon/rn-warrendeleon) uses in production.
 
-### Step 2: The configuration module
+### Step 2: the configuration module
 
-A single module reads the flag and exposes it to the rest of the app:
+A single module reads the flag and exposes it. The reference implementation also supports a runtime override (useful for flipping mocks during manual dev sessions without a rebuild), but the bundle-time flag is what your Detox runs rely on.
 
 ```typescript
 // src/config/e2e.ts
@@ -112,19 +116,18 @@ import Config from 'react-native-config';
 const envE2EMockEnabled = Config.E2E_MOCK === 'true';
 let runtimeOverride: boolean | null = null;
 
-export function isE2EMockEnabled(): boolean {
-  if (runtimeOverride !== null) return runtimeOverride;
-  return envE2EMockEnabled;
-}
+export const isE2EMockEnabled = (): boolean => {
+  return runtimeOverride ?? envE2EMockEnabled;
+};
 
-export function setE2EMockOverride(value: boolean | null): void {
+export const setE2EMockOverride = (value: boolean | null): void => {
   runtimeOverride = value;
-}
+};
 ```
 
-The runtime override is useful for developer testing. A dev can toggle mocking without rebuilding the app. For E2E tests, the bundle-time flag is all you need.
+In the real codebase the override persists to `AsyncStorage` so it survives a reload; that's an extension, not the core idea.
 
-### Step 3: The fixture files
+### Step 3: the fixture files
 
 Fixture data lives in JSON files, organised by locale:
 
@@ -135,16 +138,12 @@ src/test-utils/fixtures/api/
 │   ├── education.json
 │   └── workxp.json
 ├── es/
-│   ├── profile.json
-│   ├── education.json
-│   └── workxp.json
 ├── ca/
-│   └── ...
+├── pl/
 └── tl/
-    └── ...
 ```
 
-A fixture file is just plain JSON matching the shape your API returns:
+A fixture file is plain JSON matching the API response shape:
 
 ```json
 // src/test-utils/fixtures/api/en/profile.json
@@ -156,7 +155,7 @@ A fixture file is just plain JSON matching the shape your API returns:
 }
 ```
 
-These files are imported at bundle time and exported through a barrel file:
+A barrel file exports them with types attached, so a mismatched fixture is a compile error:
 
 ```typescript
 // src/test-utils/fixtures/index.ts
@@ -169,13 +168,25 @@ export const mockEducationEN = educationENData as Education[];
 export const mockWorkXPEN = workxpENData as WorkExperience[];
 ```
 
-The fixtures are typed. If the API response shape changes and the fixture doesn't match, TypeScript catches it at compile time.
+### Step 4: the API switch
 
-### Step 4: The API switch
-
-Every API function checks the flag at the top. If mocking is enabled, it returns fixture data wrapped in an Axios-compatible response. This pattern only works because I [built my own REST client](/blog/building-a-supabase-rest-client-without-the-sdk/) instead of using the Supabase SDK. I control the HTTP layer, so I can swap it at build time:
+Every API function checks the flag at the top. If mocking is on, return fixture data wrapped in an Axios-compatible response. This pattern depends on owning the HTTP boundary, which is one of the reasons I [built my own REST client](/blog/building-a-supabase-rest-client-without-the-sdk/) instead of taking the Supabase SDK.
 
 ```typescript
+import profileEN from '@app/test-utils/fixtures/api/en/profile.json';
+import profileES from '@app/test-utils/fixtures/api/es/profile.json';
+import profileCA from '@app/test-utils/fixtures/api/ca/profile.json';
+import profilePL from '@app/test-utils/fixtures/api/pl/profile.json';
+import profileTL from '@app/test-utils/fixtures/api/tl/profile.json';
+
+const profileFixtures: Record<string, Profile> = {
+  en: profileEN as Profile,
+  es: profileES as Profile,
+  ca: profileCA as Profile,
+  pl: profilePL as Profile,
+  tl: profileTL as Profile,
+};
+
 export const fetchProfileData = async (
   language: string
 ): Promise<AxiosResponse<Profile>> => {
@@ -190,7 +201,6 @@ export const fetchProfileData = async (
     });
   }
 
-  // Real API call
   const response = await GithubApiClient.get<unknown>(
     `/${language}/profile.json`
   );
@@ -199,16 +209,16 @@ export const fetchProfileData = async (
 };
 ```
 
-Key details:
+Worth noting:
 
-- ✅ The mock path returns a full Axios response object. Redux, selectors, and components can't tell the difference
-- ✅ Language-specific fixtures with a fallback to English
-- ✅ The real path still [validates with Zod](/blog/runtime-api-validation-zod-react-native/). The mock path skips validation because the fixtures are already typed
-- ✅ No conditional imports. Both paths exist in the same function
+- The mock path returns a full Axios response object. Redux, selectors, and components can't tell the difference.
+- Language-specific fixtures with a fallback to English.
+- The real path still [validates with Zod](/blog/runtime-api-validation-zod-react-native/). The mock path skips validation because the fixtures are typed at import.
+- No conditional imports. Both paths sit in the same function.
 
-### Step 5: Error simulation
+### Step 5: error simulation
 
-The real power of this approach: deterministic error testing. Launch arguments control which endpoints fail and how:
+The flag gives you mocked happy paths. Launch arguments give you error states on demand.
 
 ```typescript
 // src/config/e2e-error.ts
@@ -225,13 +235,13 @@ interface E2EErrorConfig {
 }
 ```
 
-In your API function, check for error simulation before returning fixture data:
+Check for error simulation before returning fixture data:
 
 ```typescript
 if (isE2EMockEnabled()) {
   if (shouldEndpointFail('profile')) {
     const error = createE2EError();
-    return Promise.reject(error);
+    if (error) return Promise.reject(error);
   }
   // Return normal fixture data
 }
@@ -248,13 +258,13 @@ await device.launchApp({
 });
 ```
 
-Now you can test every error state deterministically: network failures, 500s, 404s, timeouts. Each one is a launch argument, not a broken server.
+Every error state becomes a launch argument: network failures, 500s, 404s, timeouts. None of them need a broken server.
 
-> 💡 **`launchArgs` vs `E2E_MOCK`.** They do different things. `E2E_MOCK` is baked into the bundle at build time and switches the API layer between real calls and fixtures. `launchArgs` is read at runtime via `react-native-launch-arguments` (or `react-native-config`'s runtime accessors) and tells the already-mocked API which scenario to simulate for *this* test. The mocked build is the same binary across every Detox scenario; the launch args change per scenario.
+`launchArgs` and `E2E_MOCK` do different jobs. `E2E_MOCK` is baked into the binary at native build time and switches the API layer between real calls and fixtures. `launchArgs` is read at runtime via `react-native-launch-arguments` and tells the already-mocked API which scenario to play for this specific test. One binary, many scenarios.
 
 ## Authentication mocking
 
-Auth is the trickiest part. Real auth flows involve tokens, sessions, email verification, password resets. Mocking these requires maintaining state within the mock:
+Auth is the awkward part. Real flows touch tokens, sessions, email verification, password resets. Mocking these means maintaining a little state inside the mock:
 
 ```typescript
 async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
@@ -273,9 +283,9 @@ async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
 }
 ```
 
-The mock stores the user email in [encrypted storage](/blog/tiered-secure-storage-react-native/), just like the real flow would. Subsequent API calls (login, profile fetch) can read this stored state to maintain consistency across the session.
+The mock writes the user email to [encrypted storage](/blog/tiered-secure-storage-react-native/) the same way a real signup would. Subsequent calls (login, profile fetch) read that stored state to keep the session coherent across the test.
 
-For error testing, a simple convention works well: passwords starting with "Wrong" trigger an auth error. No special configuration needed.
+For error testing, a small convention saves a lot of wiring: passwords starting with "Wrong" trigger an auth error. No launch argument needed for the common bad-password case.
 
 ## The build and test flow
 
@@ -283,34 +293,32 @@ For error testing, a simple convention works well: passwords starting with "Wron
 # Build the app with mocking enabled
 E2E_MOCK=true yarn detox:ios:build
 
-# Run E2E tests (app uses fixture data)
+# Run E2E tests against the mocked binary
 yarn detox:ios:test
 
-# Run smoke tests against real backend (separate build)
+# Build and run smoke tests against the real backend (separate binary)
 yarn detox:ios:build
 yarn detox:ios:test --tags @smoke
 ```
 
-The mocked build and the real build are separate app binaries. The mocked one is used for the full E2E suite. The real one is used for a smaller smoke suite.
+Two binaries, two suites. Mocked for the full PR run, real for the smoke set.
 
 ## Common pitfalls
 
-**Fixtures drift from the real API.** The biggest risk. If the backend adds a field and your fixtures don't have it, the mock tests pass but the real app breaks. Fix this by running your Zod schema validation against your fixtures in a unit test. If the fixture doesn't match the schema, the test fails.
+**Fixtures drift from the real API.** The biggest risk. If the backend adds a field and your fixtures don't, the mock tests stay green while the real app breaks. Run your Zod schemas against your fixtures in a unit test; a fixture that doesn't satisfy the schema fails CI.
 
-**Mocking too much.** If every API call is mocked, you're testing your fixtures, not your app. Keep the mocking at the HTTP boundary. Redux, state management, navigation, and UI rendering should all be real.
+**Mocking too much.** Mock the HTTP boundary and stop. Redux, state management, navigation, rendering should all run for real. If every layer is faked, you're testing your fixtures.
 
-**Forgetting to test the real integration.** Mocked E2E tests catch UI regressions. They don't catch API contract changes. Run a real backend smoke suite on a schedule, even if it's just 5 critical paths.
+**Forgetting the real integration.** Mocked E2E tests catch UI regressions. They don't catch contract changes. Keep a small real-backend smoke suite on a schedule, even if it's five critical paths.
 
-**Leaking mock state between scenarios.** Each Detox scenario should start with a fresh app state. Use `device.reloadReactNative()` in the `Before` hook to reset everything. Don't rely on mock state from a previous scenario.
+**Leaking state between scenarios.** Each Detox scenario should start clean. Call `device.reloadReactNative()` (or relaunch the app) in the `Before` hook so a mock written by one test doesn't bleed into the next.
 
-## The result
+## Where this leaves you
 
-The setup is a day of work. After that, your E2E suite runs without a backend, without network dependencies, and without flaky failures from external services.
+A day's work for the scaffolding. After that, the E2E suite runs without a backend, without network, without external services.
 
-In my project, the mocked suite runs in 3 minutes. The same tests against a real backend took 8 minutes and failed intermittently. The mocked suite has been green for weeks. The real suite needed babysitting.
+On the project this pattern came from, the mocked suite settled at three minutes. The same tests against the real backend ran in eight and failed intermittently. The mocked suite has been green for weeks. The real suite needed babysitting.
 
-The two approaches work together. Mock for speed and determinism on every PR. Real backend for integration confidence on a schedule. Neither one alone is enough.
+Mock for speed and determinism on every PR. Real backend for integration confidence on a schedule. The point of an E2E suite is to catch app regressions, not to test your network.
 
-> The purpose of E2E tests is to catch app regressions, not to test your network connection.
-
-*This post is part of a series on testing React Native apps. The previous posts cover [MSW v2 for unit and integration tests](/blog/setting-up-msw-v2-in-react-native/) and [Detox + Cucumber BDD for E2E testing](/blog/detox-cucumber-bdd-react-native-e2e-testing/). The code examples are from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).*
+*This post is part of a series on testing React Native apps. Earlier entries cover [MSW v2 for unit and integration tests](/blog/setting-up-msw-v2-in-react-native/) and [Detox with Cucumber BDD for E2E](/blog/detox-cucumber-bdd-react-native-e2e-testing/). The code is from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).*
