@@ -1,6 +1,6 @@
 ---
 title: "i18n na may automated parity tests sa React Native"
-description: "5 wika na may test na nagve-verify na magkapareho ang keys ng bawat locale. Paano mag-set up ng i18next na may TypeScript type safety, device locale detection, at automated parity testing na humuhuling mga nawawalang translations bago mag-ship."
+description: "I-set up ang type-safe i18n sa React Native na may device locale detection at Jest parity tests na humuhuli ng nawawalang translation keys bago mag-ship."
 publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: tl
@@ -14,15 +14,15 @@ relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react
 
 Nagdagdag ka ng bagong feature. Sinulat mo ang English strings. In-translate mo sa Spanish, Catalan, Polish, at Tagalog. Ini-ship mo.
 
-Pagkaraan ng tatlong linggo, may nag-report na ang error message sa password reset screen ay nasa English para sa Spanish users. Tiningnan mo ang Spanish JSON file. Nandoon ang key sa lahat ng ibang screen. Pero hindi dito. Idinagdag ito sa `en.json` at hindi na-copy sa `es.json`.
+Pagkaraan ng tatlong linggo, may nag-report na ang error message sa password reset screen ay nasa English para sa Spanish users. Tiningnan mo ang Spanish JSON file. Nandoon ang key sa lahat ng ibang screen. Hindi dito. Idinagdag ito sa `en.json` at hindi na-copy sa `es.json`.
 
-Nangyayari ito sa bawat multilingual app. Hindi dahil pabaya ang mga translators, kundi dahil walang system na humuhuling nito. Hindi nagca-crash ang app. Tahimik na bumabalik sa English ang i18next. Nakikita ng user ang isang English string sa isang otherwise Spanish na interface at nagtataka kung sira ang app.
+Nangyayari ito sa bawat multilingual app. Hindi pabaya ang mga translators. Walang system na humuhuli nito. Hindi nagca-crash ang app. Tahimik na bumabalik sa English ang i18next. Nakikita ng user ang isang English string sa isang otherwise Spanish na interface at nagtataka kung sira ang app.
 
-> 💡 **Ang solusyon:** isang test na nagko-compare ng keys ng bawat locale laban sa reference locale. Kung may key ang `en.json` na wala sa `es.json`, babagsak ang test. Patakbuhin ito sa bawat PR.
+Karamihan sa mga teams ay nilalaktawan ang i18n parity testing, at sa isa o dalawang locales ay makatuwiran iyon. Puwede mong tingnan ang JSON sa PR review. Sa limang locales, hindi na ito gumagana. Ang manual na diff mismo ang nagiging pinagmumulan ng bug. Isang test na nagko-compare ng keys ng bawat locale laban sa reference locale ang humuhuli sa drift bago mag-ship. Kung may key ang `en.json` na wala sa `es.json`, babagsak ang test. Patakbuhin ito sa bawat PR.
 
 ## Ang setup
 
-Limang files ang bumubuo ng buong i18n system.
+Limang piraso. Ang locale JSONs, ang i18next config, isang resources file, isang TypeScript declaration, at ang parity test.
 
 ### Dependencies
 
@@ -82,10 +82,10 @@ Bawat wika ay may JSON file na may magkaparehong key structure:
 
 Mga pattern na dapat pansinin:
 
-- ✅ **Nested structure.** `auth.login.title` ay nababasa bilang path. Pinagsasama ang magkakaugnay na strings. Ang errors ay mas malalim pa: `auth.login.errors.emailRequired`
-- ✅ **Interpolation.** `{{email}}` ay pinapalitan sa runtime. Parehong placeholder name sa lahat ng locales.
-- ✅ **Pluralisation.** `_one` at `_other` suffixes ang nagpapahintulot sa i18next na piliin ang tamang form batay sa `count`.
-- ✅ **Accessibility hints.** Hiwalay na keys para sa screen reader text (`loginButtonHint`) para alam ng mga translators ang context.
+- Nested structure: `auth.login.title` ay nababasa bilang path. Pinagsasama ang magkakaugnay na strings. Ang errors ay mas malalim pa: `auth.login.errors.emailRequired`.
+- Interpolation: `{{email}}` ay pinapalitan sa runtime. Parehong placeholder name sa lahat ng locales.
+- Pluralisation: `_one` at `_other` suffixes ang nagpapahintulot sa i18next na piliin ang tamang form batay sa `count`.
+- Accessibility hints: hiwalay na keys para sa screen reader text (`loginButtonHint`) para alam ng mga translators ang context.
 
 Ang Spanish file ay may parehong keys, magkaibang values:
 
@@ -182,9 +182,9 @@ export default i18next;
 
 Ang language resolution ay chine-check ang primary locale ng device gamit ang three-step fallback:
 
-1. **Exact match.** Ang primary locale ng device ay `es`, sinusuportahan natin ang `es`. Gamitin ito.
-2. **Base language.** Ang device ay nagsasabing `es-MX`, hindi natin sinusuportahan ang exact tag na iyon, pero ang base code na `es` ay tumutugma. Gamitin ito.
-3. **Fallback.** Ang device ay nagsasabing `de`, hindi natin sinusuportahan ang German. Bumalik sa English.
+1. Exact match: ang primary locale ng device ay `es`, sinusuportahan natin ang `es`. Gamitin ito.
+2. Base language: ang device ay nagsasabing `es-MX`, walang exact tag, pero tumutugma ang base code na `es`. Gamitin ito.
+3. Kung wala, bumalik sa English. Ang device ay nagsasabing `de`, hindi natin sinusuportahan ang German, kaya English ang makukuha ng user.
 
 Ang function ay tumatanggap ng `LocalizeModule` parameter sa halip na direktang tawagan ang `getLocales`. Ginagawa nitong testable: sa tests, nagpapasa ka ng mock. Sa production, pinapasa mo ang tunay na `{ getLocales }` mula sa react-native-localize.
 
@@ -405,15 +405,15 @@ useEffect(() => {
 
 ## Mga karaniwang pagkakamali
 
-**Huwag gumamit ng string concatenation para sa translated text.** Ang `t('hello') + ' ' + name` ay nasisira sa mga wikang iba ang word order. Gumamit ng interpolation: `t('greeting', { name })` na may `"greeting": "Hello, {{name}}"` sa English at `"greeting": "{{name}}, merhaba"` sa Turkish.
+Huwag gumamit ng string concatenation para sa translated text. Ang `t('hello') + ' ' + name` ay nasisira sa mga wikang iba ang word order. Gumamit ng interpolation: `t('greeting', { name })` na may `"greeting": "Hello, {{name}}"` sa English at `"greeting": "{{name}}, merhaba"` sa Turkish.
 
-**Huwag mag-assume na ang pluralisation ay "magdagdag lang ng s".** Dalawang form ang English (one/other). Apat ang Polish. Anim ang Arabic. Hina-handle ito ng `_one`/`_other`/`_few`/`_many` suffixes ng i18next, pero kung gumagamit ka lang ng `compatibilityJSON: 'v4'`.
+Huwag mag-assume na ang pluralisation ay "magdagdag lang ng s". Dalawang form ang English (one/other). Apat ang Polish. Anim ang Arabic. Hina-handle ito ng `_one`/`_other`/`_few`/`_many` suffixes ng i18next, pero kung may `compatibilityJSON: 'v4'` lang.
 
-**Huwag mag-ship nang walang parity test.** Limang minuto lang ang pagsulat nito. Hinuhuli nito ang bawat nawawalang key. Ang alternatibo ay malalaman mo na lang mula sa mga users sa production.
+Huwag mag-ship nang walang parity test. Limang minuto lang ang pagsulat nito. Hinuhuli nito ang bawat nawawalang key. Ang alternatibo ay malalaman mo na lang mula sa mga users sa production.
 
-**Huwag mag-hardcode ng locale-specific formatting.** Iba ang format ng dates, numbers, at currencies sa bawat locale. Gumamit ng `Intl.NumberFormat` at `Intl.DateTimeFormat` gamit ang kasalukuyang i18next language, hindi string manipulation.
+Huwag mag-hardcode ng locale-specific formatting. Iba ang format ng dates, numbers, at currencies sa bawat locale. Gumamit ng `Intl.NumberFormat` at `Intl.DateTimeFormat` gamit ang kasalukuyang i18next language, hindi string manipulation.
 
-**Huwag kalimutan ang accessibility hints.** Iba ang pag-announce ng screen readers sa buttons at inputs. Ang hint na may katuturan sa English ay puwedeng nakakalito sa Spanish. Hiwalay na accessibility keys ang nagpapahintulot sa mga translators na magbigay ng context-appropriate hints.
+Huwag kalimutan ang accessibility hints. Iba ang pag-announce ng screen readers sa buttons at inputs. Ang hint na may katuturan sa English ay puwedeng nakakalito sa Spanish. Hiwalay na accessibility keys ang nagpapahintulot sa mga translators na magbigay ng context-appropriate hints.
 
 ## Ang file structure
 
