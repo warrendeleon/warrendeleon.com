@@ -1,6 +1,6 @@
 ---
 title: "Pag-setup ng MSW v2 sa React Native"
-description: "Isang praktikal na gabay sa pag-setup ng Mock Service Worker v2 sa isang React Native project. Mula sa installation hanggang sa production-grade na handler sets na sumasaklaw sa success, errors, timeouts, at offline scenarios."
+description: "Praktikal na gabay sa pag-setup ng Mock Service Worker v2 sa React Native. Mula installation hanggang sa handler sets para sa success, errors, timeouts, at offline."
 publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: tl
@@ -20,7 +20,7 @@ Ang problema: tine-test mo ang interaction ng iyong code sa isang mock, hindi sa
 
 **Mock Service Worker (MSW)** nag-iintercept ng requests sa network level. Ang iyong code ay gumagawa ng tunay na HTTP calls. Hinuhuli ng MSW ang mga ito bago umalis sa process at ibinabalik ang iyong mock responses. Lahat ng nasa pagitan ng iyong component at ng network ay nae-exercise: ang Redux thunk, ang Axios interceptors, ang error handling, ang response parsing.
 
-> 💡 **Ang pangunahing pagkakaiba:** pinapalitan ng manual mocks ang iyong code. Pinapalitan ng MSW ang network. Tumatakbo ang iyong code nang eksakto kung paano ito tatakbo sa production, hanggang sa punto kung saan aalis ang request sa device.
+Pinapalitan ng manual mocks ang iyong code. Pinapalitan ng MSW ang network. Tumatakbo ang code nang eksakto kung paano ito tatakbo sa device, hanggang sa punto kung saan aalis na sana ang request.
 
 ## Installation
 
@@ -96,12 +96,7 @@ export const handlers = [
 ];
 ```
 
-Mga pangunahing bagay na dapat pansinin:
-
-- ✅ `http.get`, `http.post`, etc. tumutugma sa HTTP method
-- ✅ Awtomatikong na-extract ang URL params (`:id`)
-- ✅ Available ang request body sa pamamagitan ng `request.json()`
-- ✅ `HttpResponse.json()` nagbabalik ng typed JSON responses na may status codes
+Ilang bagay na dapat malaman: ang method-specific helpers (`http.get`, `http.post`, at iba pa) ay tumutugma base sa HTTP verb, ang URL params tulad ng `:id` ay awtomatikong na-extract papunta sa `params`, ang request body ay nakukuha sa `await request.json()`, at ang `HttpResponse.json()` ay nagbabalik ng typed JSON kasama ang anumang status code na ipasa mo.
 
 ## Handler sets para sa bawat scenario
 
@@ -299,13 +294,13 @@ Kapaki-pakinabang ito para sa edge cases tulad ng malformed JSON, nawawalang fie
 
 ## Mga karaniwang pagkakamali
 
-**Ino-order match ang handlers.** Kung dalawang handlers ang tumutugma sa parehong request, ang una ang nanalo. Kapag gumagamit ng `server.use(...overrides)`, nasa harap ang mga overrides, kaya mas may priority sila kaysa sa defaults.
+Ino-order match ang mga handler. Kung dalawang handler ang tumutugma sa parehong request, ang una ang mananalo. Kapag tumawag ka ng `server.use(...overrides)`, naunang inilalagay ang mga overrides, kaya mas may priority sila kaysa sa defaults.
 
-**Nag-si-simulate ng network failure ang `HttpResponse.error()`**, hindi HTTP error. Hindi kailanman nakakatanggap ng response ang request. Gamitin ito para sa offline/walang network scenarios. Para sa HTTP errors (500, 401, etc.), gamitin ang `HttpResponse.json()` na may status code.
+Nag-si-simulate ng network failure ang `HttpResponse.error()`, hindi HTTP error. Hindi nakakatanggap ng response ang request. Gamitin ito para sa offline scenarios. Para sa HTTP errors (500, 401, at iba pa), gamitin ang `HttpResponse.json()` na may status code.
 
-**Kailangan ng `await` ng async handlers.** Kung ang iyong handler ay nagbabasa ng request body (`request.json()`), kailangang `async` ang handler function. Kapag nakalimutan ito, nagbabalik ang handler ng `undefined` sa halip na response.
+Kung ang iyong handler ay nagbabasa ng request body sa pamamagitan ng `request.json()`, kailangang `async` ang handler function. Kapag nakalimutan ito, isa sa mga karaniwang dahilan kung bakit tahimik na nagbabalik ng `undefined` ang handler.
 
-**Tahimik ang mga unhandled requests bilang default.** Palaging gumamit ng `onUnhandledRequest: 'warn'` (o `'error'` sa CI) para mahuli ang mga nawawalang handlers. Ang isang tahimik na unhandled request ay nangangahulugang pumapasa ang iyong test sa maling dahilan.
+**Tahimik ang mga unhandled requests bilang default.** Palaging gumamit ng `onUnhandledRequest: 'warn'` (o `'error'` sa CI) para lumitaw ang mga nawawalang handlers. Ang isang tahimik na unhandled request ay nangangahulugang pumapasa ang test sa maling dahilan.
 
 ## Ang kumpletong file structure
 
