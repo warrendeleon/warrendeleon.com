@@ -1,6 +1,6 @@
 ---
 title: "Almacenamiento seguro por niveles en React Native"
-description: "Tres niveles de almacenamiento para React Native: Keychain para tokens, almacenamiento cifrado para datos personales, AsyncStorage para preferencias. Por qué existe cada nivel, cuándo usarlo y cómo encaja Redux Persist."
+description: "Tres niveles en React Native: Keychain para tokens, cifrado para datos personales, AsyncStorage para preferencias. Cuándo usar cada uno y cómo encaja Redux Persist."
 publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: es
@@ -10,15 +10,15 @@ campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
-## El problema de una sola solución de almacenamiento
+## Donde un solo almacenamiento se queda corto
 
-La mayoría de las apps React Native guardan todo en AsyncStorage. Tokens, datos del usuario, preferencias, estado de sesión. Todo en un solo lugar, todo en texto plano.
+La mayoría de las apps React Native guardan todo en AsyncStorage. Tokens, datos del usuario, preferencias, estado de sesión. Todo en un mismo sitio, todo en texto plano.
 
-AsyncStorage es un key-value store respaldado por SQLite (iOS) o SharedPreferences (Android). Es rápido y conveniente. También está completamente sin cifrar. Cualquier persona con acceso físico al dispositivo, o un dispositivo rooteado/jailbreakeado, puede leer cada valor.
+AsyncStorage es un key-value store respaldado por SQLite en iOS y SharedPreferences en Android. Es rápido y cómodo. También está sin cifrar. Cualquier persona con acceso físico, o un dispositivo rooteado o con jailbreak, puede leer cada valor.
 
-Para una preferencia de tema, no pasa nada. Para un access token, es un incidente de seguridad.
+Para una preferencia de tema, no pasa nada. Para un access token, es un incidente.
 
-> 💡 **El principio:** almacena los datos en un nivel de seguridad acorde a su sensibilidad. Los tokens reciben la protección más fuerte. Las preferencias obtienen el acceso más rápido. Todo lo demás cae en algún punto intermedio.
+Este post recorre los tres niveles que uso en producción: Keychain respaldado por hardware para tokens, un almacenamiento cifrado para datos personales y AsyncStorage (vía Redux Persist) para preferencias. Cada nivel es un wrapper corto. El trabajo está en decidir qué vive dónde, y luego mantener esa frontera honesta dentro de tu flujo de auth.
 
 ## Los tres niveles
 
@@ -32,7 +32,7 @@ Cada nivel es un wrapper delgado sobre una librería. El wrapper obliga a usar c
 
 ## Nivel 1: SecureStore (Keychain / Keystore)
 
-El nivel de seguridad más alto. Usa el enclave seguro respaldado por hardware de la plataforma: iOS Keychain o Android Keystore. Los datos los cifra el sistema operativo y puede requerir autenticación biométrica para acceder a ellos.
+El nivel más alto. Usa el enclave seguro respaldado por hardware de la plataforma: iOS Keychain o Android Keystore. Los datos los cifra el propio sistema operativo y se puede exigir autenticación biométrica para leerlos.
 
 ```bash
 yarn add react-native-keychain
@@ -87,16 +87,16 @@ export const SecureStore = {
 };
 ```
 
-Decisiones de diseño clave:
+En ese wrapper hay cuatro decisiones que conviene señalar:
 
-- ✅ **Un service por clave.** Keychain almacena una credencial por identificador de servicio. Usar `com.warrendeleon.portfolio.accessToken` y `com.warrendeleon.portfolio.refreshToken` como servicios separados evita que se sobreescriban entre sí
-- ✅ **Biometría o passcode del dispositivo.** `BIOMETRY_ANY_OR_DEVICE_PASSCODE` significa que el usuario necesita Face ID, Touch ID o el PIN de su dispositivo para acceder a los datos. Si el dispositivo no tiene seguridad configurada, los datos siguen protegidos por el sistema operativo
-- ✅ **Solo este dispositivo.** `WHEN_UNLOCKED_THIS_DEVICE_ONLY` significa que los datos no se transfieren a un nuevo dispositivo vía backup. Los tokens no deberían viajar
-- ✅ **Claves tipadas con enum.** No puedes pasar un string por accidente. El compilador obliga a que solo datos de nivel token vayan al SecureStore
+- Un service por clave. Keychain almacena una sola credencial por identificador de servicio. Usar `com.warrendeleon.portfolio.accessToken` y `com.warrendeleon.portfolio.refreshToken` como servicios separados evita que se sobreescriban entre sí.
+- Biometría o passcode del dispositivo. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` significa que el usuario necesita Face ID, Touch ID o el PIN del dispositivo para leer el valor. Si el dispositivo no tiene seguridad configurada, los datos siguen protegidos por el sistema operativo.
+- Solo este dispositivo. `WHEN_UNLOCKED_THIS_DEVICE_ONLY` mantiene los datos fuera de los backups de iCloud Keychain. Los tokens no deberían viajar.
+- Claves tipadas con enum. No puedes pasar un string por accidente. El compilador obliga a que solo datos de nivel token vayan al SecureStore.
 
 ## Nivel 2: EncryptedStore (AES-256)
 
-El nivel intermedio. Los datos se cifran con AES-256 pero no requieren seguridad respaldada por hardware ni acceso biométrico. Más rápido que Keychain, más seguro que texto plano.
+El nivel intermedio. Los datos se cifran con AES-256, sin barrera de hardware ni prompt biométrico. Más rápido que Keychain, mucho más seguro que texto plano.
 
 ```bash
 yarn add react-native-encrypted-storage
@@ -154,9 +154,9 @@ export const EncryptedStore = {
 };
 ```
 
-¿Por qué no poner los datos personales en SecureStore? Rendimiento. El acceso a Keychain requiere una verificación de seguridad a nivel de sistema (y potencialmente un prompt biométrico). Para mostrar el nombre de un usuario en una pantalla de perfil, esa sobrecarga no se justifica. EncryptedStore te da cifrado AES-256 sin la barrera de hardware.
+¿Por qué no poner los datos personales en SecureStore? Rendimiento. El acceso a Keychain hace una verificación de seguridad a nivel de sistema y, a veces, un prompt biométrico. Para mostrar el nombre de un usuario en una pantalla de perfil, esa sobrecarga no compensa. EncryptedStore te da cifrado AES-256 en reposo sin la barrera de hardware.
 
-Las operaciones batch (`setMultiple`, `getMultiple`) importan para los flujos de autenticación donde necesitas guardar varios campos a la vez:
+Las operaciones batch (`setMultiple`, `getMultiple`) importan para los flujos de auth que necesitan escribir varios campos a la vez:
 
 ```typescript
 await EncryptedStore.setMultiple([
@@ -168,31 +168,45 @@ await EncryptedStore.setMultiple([
 
 ## Nivel 3: AsyncStorage + Redux Persist
 
-El nivel más rápido. Texto plano, sin cifrado. Solo para datos sin sensibilidad de seguridad: preferencia de tema, selección de idioma.
+El nivel más rápido. Texto plano, sin cifrado. Reservado para datos sin peso de seguridad: preferencia de tema, selección de idioma.
 
 ```bash
 yarn add @react-native-async-storage/async-storage redux-persist
 ```
 
-No usas AsyncStorage directamente para preferencias. Redux Persist se encarga de eso. Guarda automáticamente tu estado de Redux en AsyncStorage y lo rehidrata cuando la app arranca.
+No hablas con AsyncStorage directamente para las preferencias. Lo hace Redux Persist por ti. Guarda tu estado de Redux en AsyncStorage y lo rehidrata al arrancar la app.
 
-La clave es la configuración de persist:
+La configuración de persist es donde vive la frontera de seguridad:
 
 ```typescript
 // src/store/configureStore.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
-const rootPersistConfig = {
-  key: 'root',
-  storage: AsyncStorage,
-  whitelist: ['settings'],
-};
+import { authReducer } from '@app/features/Auth';
+import { settingsReducer } from '@app/features/Settings';
 
+// El slice de auth tiene su propio persist config para whitelistear un solo campo.
 const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
   whitelist: ['biometricEnabled'],
+  blacklist: ['user', 'error', 'isLoading'],
+};
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+const rootReducer = combineReducers({
+  settings: settingsReducer,
+  auth: persistedAuthReducer,
+});
+
+// El persist config raíz solo persiste el slice de settings (tema, idioma).
+const rootPersistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+  whitelist: ['settings'],
 };
 ```
 
@@ -201,7 +215,7 @@ const authPersistConfig = {
 | `rootPersistConfig` | Solo el slice de settings (tema, idioma) | Todo lo demás |
 | `authPersistConfig` | Solo el flag `biometricEnabled` | user, error, isLoading, tokens |
 
-La `whitelist` es crítica. Es una lista positiva: solo los slices que nombras se persisten. Todo lo demás es efímero. Así es como evitas que los tokens terminen accidentalmente en AsyncStorage a través de Redux.
+La `whitelist` es la pieza que sostiene todo. Es una lista positiva: solo los slices que nombras se persisten, el resto es efímero. Así evitas que los tokens acaben en AsyncStorage a través de Redux.
 
 ```typescript
 const settingsSlice = createSlice({
@@ -217,7 +231,7 @@ const settingsSlice = createSlice({
 });
 ```
 
-Cuando el usuario cambia el tema o el idioma, Redux Persist escribe automáticamente en AsyncStorage. En el próximo arranque, `PersistGate` espera la rehidratación antes de renderizar:
+Cuando el usuario cambia el tema o el idioma, Redux Persist se encarga de escribir en AsyncStorage. En el próximo arranque, `PersistGate` espera la rehidratación antes de renderizar:
 
 ```typescript
 <Provider store={store}>
@@ -227,9 +241,9 @@ Cuando el usuario cambia el tema o el idioma, Redux Persist escribe automáticam
 </Provider>
 ```
 
-## Cómo funcionan los niveles juntos
+## Cómo se componen los niveles en un flujo de auth
 
-El verdadero valor está en cómo los niveles se componen durante los flujos de autenticación.
+Los wrappers se ganan el sueldo cuando los miras trabajar juntos a lo largo de login, restauración de sesión, logout y renovación de token.
 
 ### Login
 
@@ -290,11 +304,11 @@ dispatch(resetAuth());
 // Los settings (Nivel 3) persisten después del logout. El usuario conserva su tema e idioma.
 ```
 
-La secuencia de logout es deliberada. Los Niveles 1 y 2 se limpian porque los tokens y los datos personales pertenecen a la sesión. El Nivel 3 persiste porque el tema y el idioma pertenecen al dispositivo.
+La secuencia de logout es deliberada. Los Niveles 1 y 2 se limpian porque los tokens y los datos personales pertenecen a la sesión. El Nivel 3 se queda porque el tema y el idioma pertenecen al dispositivo.
 
 ### Renovación de token
 
-El interceptor de Axios maneja la [renovación automática de tokens](/blog/token-refresh-race-condition-react-native/) de forma transparente. Lee y escribe en SecureStore sin tocar los otros niveles:
+El interceptor de Axios se encarga de la [renovación de tokens](/blog/token-refresh-race-condition-react-native/) en segundo plano. Lee y escribe en SecureStore sin tocar los otros niveles:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -338,25 +352,25 @@ Cada dato almacenado tiene un lugar claro:
 | Tema | 3 (AsyncStorage) | Preferencia no sensible. Sobrevive al logout. |
 | Idioma | 3 (AsyncStorage) | Preferencia no sensible. Sobrevive al logout. |
 
-La regla es simple: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2. Si es solo una preferencia, Nivel 3. Esta clasificación encaja bien con una [estructura de proyecto feature-first](/blog/feature-first-project-structure-react-native/) donde cada feature gestiona su propio almacenamiento.
+La regla es corta: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2. Si es una preferencia, Nivel 3. La clasificación también moldea cómo organizas el proyecto. Los wrappers de almacenamiento van en una carpeta compartida `utils/storage/`, y el flujo de auth que los orquesta vive dentro de la feature Auth.
 
 ## Errores comunes
 
-**No guardes tokens en Redux.** El estado de Redux se puede serializar, registrar en logs, persistir en AsyncStorage vía Redux Persist, e inspeccionar con DevTools. Aunque pongas el slice de auth en blacklist para la persistencia, una sola mala configuración expone los tokens. Guarda los tokens en SecureStore, punto.
+**No guardes tokens en Redux.** El estado de Redux se puede serializar, registrar en logs, persistir en AsyncStorage vía Redux Persist e inspeccionar con DevTools. Aunque pongas el slice de auth en blacklist, una sola mala configuración expone los tokens. Guarda los tokens en SecureStore, punto.
 
-**No te saltes los enums tipados.** Sin los enums `SecureStoreKey` y `EncryptedStoreKey`, estás pasando strings sueltos. Un typo y estás leyendo de la clave equivocada. Un nivel equivocado y estás guardando un token en texto plano. El sistema de tipos es tu auditoría de seguridad más barata.
+**No te saltes los enums tipados.** Sin `SecureStoreKey` y `EncryptedStoreKey` estás pasando strings sueltos. Un typo y lees de la clave equivocada. Un nivel equivocado y guardas un token en texto plano. El sistema de tipos es la auditoría de seguridad más barata que vas a tener.
 
-**No te olvides de limpiar en el logout.** Si limpias SecureStore pero te olvidas de EncryptedStore, los datos personales del usuario persisten después del logout. El método `clear()` de cada nivel existe por esta razón. Llama a ambos durante el logout.
+**No te olvides de limpiar en el logout.** Limpias SecureStore pero te saltas EncryptedStore y los datos personales del usuario se quedan después del logout. El método `clear()` de cada nivel es el contrato: llama a los dos durante el logout.
 
-**No asumas que Keychain es rápido.** SecureStore implica un round trip al enclave seguro. En dispositivos antiguos, puede tardar entre 100 y 200ms por lectura. No lo llames en un render loop. Lee los tokens una vez al arranque de la app y pásalos a través de tu interceptor HTTP.
+**No asumas que Keychain es rápido.** SecureStore hace un round trip al enclave seguro. En dispositivos antiguos puede tardar entre 100 y 200ms por lectura. No lo llames en un render loop. Lee los tokens una vez al arrancar y pásalos a través de tu interceptor HTTP.
 
-**Whitelist de Redux Persist, no blacklist.** Usa `whitelist` para nombrar lo que debe persistir. Un enfoque con `blacklist` es peligroso porque los slices nuevos se persisten por defecto. Un slice nuevo con datos sensibles y ya tienes un leak. `whitelist` es opt-in. Más seguro.
+**Usa `whitelist` en Redux Persist, no `blacklist`.** Nombra lo que debe persistir. `blacklist` es peligroso porque los slices nuevos se persisten por defecto. Un slice nuevo con datos sensibles y tienes un leak. `whitelist` es opt-in, y más seguro.
 
-## Por qué tres librerías
+## Entonces, ¿por qué tres librerías?
 
-Sí. La alternativa es una librería (AsyncStorage) sin cifrado, o una librería (react-native-keychain) que es demasiado lenta para lecturas no sensibles. Tres librerías, tres wrappers, tres enums. Cada wrapper tiene menos de 50 líneas. El setup lleva una tarde.
+Una librería (AsyncStorage) deja los tokens en texto plano. Una librería (react-native-keychain) es demasiado lenta para lecturas no sensibles. Tres librerías, tres wrappers, tres enums. Cada wrapper se queda por debajo de las 50 líneas. El setup lleva una tarde.
 
-Lo que obtienes: tokens que no se pueden leer sin autenticación biométrica, datos personales cifrados en reposo, y preferencias que cargan al instante. Cada dato está protegido exactamente en el nivel que requiere. Ni más, ni menos.
+Lo que te llevas: tokens que no se pueden leer sin autenticación biométrica, datos personales cifrados en reposo y preferencias que cargan en el primer frame. Cada dato está protegido en el nivel que realmente necesita.
 
 > Guarda todo en un solo lugar y no proteges nada. Separa por sensibilidad y proteges lo que importa.
 
