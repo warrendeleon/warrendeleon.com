@@ -17,9 +17,9 @@ The local RAG is great at one thing: pulling up the exact conversation where you
 
 It's bad at a different thing: telling you *what's true now*.
 
-Conversations contain abandoned ideas, bad fixes that got rolled back the next day, and decisions that later got reversed. A semantic search returns whichever turn matches the query, including the wrong ones. Ask "how do we handle auth refresh?" and the RAG cheerfully returns the old approach and the new approach with no signal that one replaced the other.
+Conversations contain abandoned ideas, bad fixes that got rolled back the next day, and decisions that later got reversed. A semantic search returns whichever turn matches the query, including the wrong ones. Call it drift: the chunk that matches the query semantically may be three months out of date, and the model has no way to tell. Ask "how do we handle auth refresh?" and the RAG cheerfully returns the old approach and the new approach with no signal that one replaced the other.
 
-The thing missing was a place where the *current* answer lives. Curated, structured, dated. Not a transcript of how you got there. A statement of where you are.
+What's missing is a place where the *current* answer lives. Curated, structured, dated. Not a transcript of how you got there. A statement of where you are.
 
 The fix is a wiki.
 
@@ -182,9 +182,7 @@ When asked a question:
 4. Never fabricate information.
 ```
 
-That file is the *whole* configuration. No tooling, no plugins. The constraints are explicit and the model re-reads them on every action, so pages stay homogeneous over time.
-
-> 💡 **The point:** by writing rules in the repo Claude reads, you don't have to police the format yourself. The schema is enforced by re-reading it on every action, not by manual review.
+That file is the *whole* configuration. No tooling, no plugins. By writing the rules in the repo Claude reads, you don't have to police the format yourself. The schema is enforced by re-reading it on every action, not by manual review.
 
 ### 4. Create the index page
 
@@ -239,7 +237,7 @@ In practice it plays out like this:
 
 Claude reads `wiki/rag-sync-plan.md` first. The page has a config block, a date, and a link to the section explaining why MPS was the answer. Done in one read. Without the wiki, the same question hits the RAG and returns four conversation turns from different days, with no indication that three of them are obsolete.
 
-> 💡 **The split:** wiki for "what's true", RAG for "how we got here", codebase for "what the code does". Each handles the question the other two are bad at.
+The split is simple. Wiki for what's true. RAG for how we got here. Codebase for what the code does. Each handles the question the other two are bad at.
 
 ## Filling the wiki
 
@@ -343,9 +341,11 @@ launchctl load ~/Library/LaunchAgents/com.dotfiles.wiki-sync.plist
 
 That's the entire sync system. Markdown in git, pulled on a timer.
 
-## Why this works better than either alone
+## Where the pair beats either alone
 
-A pure RAG gives you search but no structure. Every "what's the current state of X?" query returns a wall of half-relevant turns. The model has no way to know which one is canonical.
+Pure RAG is enough for plenty of workflows. Search the past, find the turn, done. If you mostly ask "where did we discuss X?" rather than "what did we decide about X?", a wiki is overhead you don't need.
+
+The shape changes once "what's the current state of X?" becomes a frequent question. Pure RAG returns a wall of half-relevant turns and the model has no way to know which one is canonical. Stale chunks score the same as fresh ones.
 
 A pure wiki gives you structure but no recall. Anything you forgot to write down is lost. And you forget to write things down constantly, because writing things down is friction and the RAG promises to remember them for you.
 
