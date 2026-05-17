@@ -26,13 +26,13 @@ Which is exactly what retrieval-augmented generation is for.
 A few constraints up front, because they shaped everything:
 
 - **Local-first.** No third-party embedding API, no transcripts leaving the machine. My JSONLs contain code, project context, half-finished ideas. They stay on the laptop.
-- **Always works offline.** A flight, a hotel, a flaky cafe wifi. The retrieval has to work whether the network does or not.
+- **Always works offline.** A flight, a hotel, a flaky café Wi-Fi. The retrieval has to work whether the network does or not.
 - **Disposable index.** If the database corrupts or I want to switch embedding model, I rebuild from JSONLs in a few hours. The index is never the source of truth.
 - **Available to Claude automatically.** I don't want to copy-paste search results. The model should just *call* the search when it makes sense.
 
-That last one is the part MCP solves.
+That last one is the part MCP solves. The Model Context Protocol lets you expose tools to Claude Code as if they were built in. Claude calls `mcp__rag__search(query)` the same way it calls `Read` or `Bash`. No copy-paste, no separate UI, no extra step.
 
-> 💡 **MCP, in one sentence:** the Model Context Protocol lets you expose tools to Claude Code as if they were built in. Claude calls `mcp__rag__search(query)` the same way it calls `Read` or `Bash`.
+There are obvious alternatives worth naming before defending this one. Claude Code already has a CLAUDE.md memory file. You can paste relevant transcripts into the prompt. Dedicated products (Mem, Rewind, hosted vector DBs) solve adjacent problems. CLAUDE.md is great for instructions and conventions but doesn't scale to the contents of every past conversation. Pasting context works for the session in front of you and falls apart at the second one. Hosted products handle scale but ship your transcripts off the machine, which is exactly what I wanted to avoid. A local RAG sits in the gap: searchable history, no upload, no per-session prep.
 
 ## The shape of the system
 
@@ -70,22 +70,29 @@ The wider point: when a model is doing the right job, adding other models around
 
 ## The MCP server
 
-A small Python server using FastMCP. Six tools the model can call:
+A small Python server using FastMCP. Seven tools the model can call:
 
 - `search(query, n_results)`: vector similarity over conversation turns
 - `get_context(topic)`: same as search, lighter wrapper
 - `log_action(description, files_affected?)`: write to a separate audit log
+- `get_audit_log(since?, limit)`: read recent audit entries back
 - `index_file(path)`: manually queue a JSONL
 - `get_indexing_status()`: check if the queue is idle, processing, or backed up
 - `get_failed_jobs()`: pull errors and retry counts when something breaks
 
-Registration is one line in `~/.claude/mcp_servers.json`:
+Registration goes in the user-level `~/.claude.json` under `mcpServers`:
 
 ```json
 {
   "mcpServers": {
     "rag": {
-      "command": "/Users/me/.rag/start-server.sh"
+      "type": "stdio",
+      "command": "/Users/me/.rag/start-server.sh",
+      "args": [],
+      "env": {
+        "ANONYMIZED_TELEMETRY": "false",
+        "CHROMA_TELEMETRY": "false"
+      }
     }
   }
 }
@@ -108,9 +115,7 @@ After completing significant work (commits, refactors, decisions), call
 `log_action` to keep an audit trail.
 ```
 
-Without that, Claude defaults to "I don't have access to previous sessions". That's the trained-in behaviour, true for the API but no longer true on this laptop. With the instruction in place, the search becomes the first move on any "remember when" question, and the audit log fills up on its own.
-
-> 💡 **The general pattern:** MCP gives the model new capabilities. CLAUDE.md tells it when to use them. You need both.
+Without that, Claude defaults to "I don't have access to previous sessions". That's the trained-in behaviour, true for the API but no longer true on this laptop. With the instruction in place, the search becomes the first move on any "remember when" question, and the audit log fills up on its own. MCP gives the model new capabilities; CLAUDE.md tells it when to use them. You need both.
 
 ## The architecture matters here
 
@@ -120,9 +125,9 @@ The host is an Apple M5 Max: 18 CPU cores (6 Super and 12 Performance), 40 GPU c
 
 On Apple Silicon there's a single physical pool of memory, accessible to every compute unit. The CPU and GPU read from the same 128GB. There's no copy step and no separate VRAM ceiling. A 16GB model is a 16GB model whether the CPU or the GPU is the one running it.
 
-**More GPU cores than CPU, doing different work.** 40 GPU cores aren't comparable to 18 CPU cores like-for-like, even before you count which is bigger. CPU cores are general-purpose execution units, optimised for branchy serial code with deep pipelines and large caches. GPU cores are much simpler units, designed to run the same arithmetic operation across thousands of data points in parallel. Transformer inference is dominated by matrix multiplications, which is exactly what GPU cores were built for.
+More GPU cores than CPU, doing different work. 40 GPU cores aren't comparable to 18 CPU cores like-for-like, even before you count which is bigger. CPU cores are general-purpose execution units, optimised for branchy serial code with deep pipelines and large caches. GPU cores are simpler units, designed to run the same arithmetic across thousands of data points in parallel. Transformer inference is dominated by matrix multiplications, which is exactly what GPU cores were built for.
 
-**The performance gap that follows.** Embedding the same JSONL file: ~10 seconds on the GPU via MPS, more than 25 minutes on the CPU with no completion in sight. At least 150× slower on the CPU, on the same model and the same memory. CPU embedding for an 8B model isn't slow, it's effectively unusable.
+The performance gap that falls out: embedding the same JSONL file takes about 10 seconds on the GPU via MPS, and more than 25 minutes on the CPU with no completion in sight. At least 150x slower on the CPU, on the same model and the same memory. CPU embedding for an 8B model is effectively unusable.
 
 Put it together and the model-selection question collapses. "Will it fit in RAM?" gets answered by checking the model size against 128GB; on a sane choice the answer is yes. "Will it fit in VRAM?" doesn't apply, because there isn't separate VRAM. "Should I run it on CPU or GPU?" has only one answer at the scale you care about: GPU.
 
