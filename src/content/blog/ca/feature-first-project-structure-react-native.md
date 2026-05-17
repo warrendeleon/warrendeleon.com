@@ -1,6 +1,6 @@
 ---
 title: "Estructura de projecte per funcionalitat a React Native"
-description: "Per què les estructures de carpetes per tipus deixen de funcionar a escala, i com organitzar per funcionalitat amb stores, tests i pantalles co-localitzats manté un codebase React Native mantenible a mesura que creix."
+description: "Un argument per organitzar projectes React Native per funcionalitat, no per tipus. La prova d'eliminació, les fronteres d'import i on viu el codi compartit."
 publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: ca
@@ -10,17 +10,19 @@ campaign: "feature-first-structure"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]
 ---
 
+La versió curta: per sota d'unes cinc funcionalitats amb el seu propi estat, les carpetes per tipus (`screens/`, `hooks/`, `services/`) van bé. Per sobre, la mateixa estructura comença a costar més del que estalvia. Aquest post va de per què, i d'on cau la línia.
+
 ## 85 fitxers per una sola funcionalitat
 
 Aquests són els fitxers TypeScript que té la meva funcionalitat d'Auth. Sis pantalles, un store de Redux, un context de React, un hook personalitzat, components de PIN amb stories de Storybook, esquemes de validació de formularis contra una **llista negra de contrasenyes comunes**, limitació de peticions, un servei de bloqueig, i tests a tots els nivells.
 
-A la majoria de projectes React Native, aquests 85 fitxers estarien repartits per **7 carpetes diferents**. Les pantalles en un lloc, els hooks en un altre, el slice del store en un altre, la validació en un altre. Per entendre com funciona l'autenticació, hauries d'obrir 7 carpetes i reconstruir mentalment les relacions entre fitxers que no estan a prop els uns dels altres.
+A la majoria de projectes React Native, aquests 85 fitxers estarien repartits per **set carpetes diferents**. Les pantalles en un lloc, els hooks en un altre, el slice del store en un altre, la validació en un altre. Per entendre com funciona l'autenticació, obriries set carpetes i reconstruiries mentalment les relacions entre fitxers que no estan a prop els uns dels altres.
 
-Vaig provar aquesta estructura una vegada. Va aguantar unes quatre funcionalitats abans de perdre el fil de què pertanyia a què.
+L'esquema queda polit amb tres o quatre pantalles. Passat això, les relacions es tornen invisibles. El hook d'una funcionalitat viu lluny de la pantalla que el fa servir. Les regles de validació són en una carpeta separada del formulari que validen. Revisar una funcionalitat vol dir escanejar diverses llistes alfabètiques buscant les peces.
 
-## L'estructura que no escala
+## L'estructura per tipus, i per què és la per defecte
 
-Coneixes aquest esquema:
+Coneixes aquest:
 
 ```
 src/
@@ -43,13 +45,13 @@ src/
     └── dateFormatter.ts
 ```
 
-Fitxers agrupats pel que *són*, no pel que *fan*. **Per tipus.** Queda net quan l'app té tres pantalles. Si alguna vegada has fet una prova tècnica, [l'estructura de carpetes és una de les primeres coses que mira un revisor](/blog/how-to-pass-a-react-native-tech-test/).
+Fitxers agrupats per mena. **Per tipus.** La majoria de tutorials de React Native ho munten així, i hi ha bones raons. Els col·laboradors nous reconeixen la forma al moment. Un revisor que mira per sobre una prova tècnica veu `screens/`, `hooks/`, `components/` sense pensar-hi. Els noms de carpeta encaixen amb el vocabulari del framework, i el model mental viatja d'un projecte a un altre. Per a tres o quatre pantalles, n'hi ha prou per mantenir-ho ordenat. Si alguna vegada has fet una prova tècnica, [l'estructura de carpetes és una de les primeres coses que mira un revisor](/blog/how-to-pass-a-react-native-tech-test/), i per tipus és l'opció segura.
 
-Llavors afegeixes autenticació amb configuració de PIN, verificació per correu, recuperació de contrasenya. Afegeixes gestió del perfil amb pujada de fotos, edició del compte, canvi de contrasenya. De cop `screens/` té 25 fitxers i trobar el hook de la pujada de foto de perfil vol dir escanejar una llista alfabètica de *tots els hooks de l'app*.
+L'esquema aguanta mentre l'app és petita. Llavors afegeixes autenticació amb configuració de PIN, verificació per correu, recuperació de contrasenya. Afegeixes gestió del perfil amb pujada de fotos, edició del compte, canvi de contrasenya. De cop `screens/` té 25 fitxers, i trobar el hook de la pujada de foto de perfil vol dir escanejar una llista alfabètica de *tots els hooks de l'app*.
 
-Ara prova d'**eliminar una funcionalitat**. Treu la pantalla de `screens/`. Troba el seu hook a `hooks/`. El seu servei a `services/`. El seu slice del store. Els seus components. El seu esquema de validació. Els seus tests, en un arbre `__tests__/` completament diferent. Si et deixes un fitxer, tens codi mort que s'hi quedarà durant mesos.
+Ara prova d'**eliminar una funcionalitat**. Treu la pantalla de `screens/`. Troba el seu hook a `hooks/`. El seu servei a `services/`. El seu slice del store. Els seus components. El seu esquema de validació. Els seus tests, en un arbre `__tests__/` apart. Si et deixes un fitxer, tens codi mort que s'hi quedarà durant mesos.
 
-Aquesta és la prova. Si eliminar una funcionalitat triga més que construir-la, la teva estructura t'està jugant en contra.
+Aquesta és la prova. Si eliminar una funcionalitat triga més que construir-la, l'estructura et juga en contra.
 
 ## Una carpeta per funcionalitat
 
@@ -57,17 +59,22 @@ La meva app té 13 funcionalitats. Cadascuna viu en un sol directori:
 
 ```
 src/features/
-├── Auth/          # 85 fitxers. Login, registre, PIN, bloqueig
-├── Profile/       # API, store, pujada de foto, 5 pantalles
-├── Settings/      # Tema, idioma, 3 pantalles
-├── Education/     # Store, API, 1 pantalla
-├── WorkExperience/# Store, API, 4 pantalles
-├── Home/          # 1 pantalla, 1 export
-├── Legal/         # Política de privacitat, T&Cs
-└── Splash/        # Pantalla de splash
+├── Auth/           # 85 fitxers. Login, registre, PIN, bloqueig
+├── Profile/        # API, store, pujada de foto, 5 pantalles
+├── Settings/       # Tema, idioma, 3 pantalles
+├── Education/      # Store, API, 1 pantalla
+├── WorkExperience/ # Store, API, 4 pantalles
+├── Home/           # 1 pantalla, 1 export
+├── Legal/          # Política de privacitat, T&Cs
+├── Permissions/    # Càmera, galeria, pantalles de denegació
+├── MockStatus/     # Pantalla d'estat MSW només per a dev
+├── PDF/            # Visor de PDF
+├── Placeholder/    # Placeholders de xat i de reserves
+├── WebView/        # Pantalla webview genèrica
+└── Splash/         # Pantalla de splash
 ```
 
-La resta queda fora de les funcionalitats: `shared/` per a components reutilitzables, `store/` per a la configuració de Redux, `navigation/`, `httpClients/`, `utils/`, `i18n/`.
+La resta queda fora de les funcionalitats: `shared/` per a components i hooks reutilitzables, `store/` per a la configuració de Redux, `navigation/`, `httpClients/`, `utils/`, `i18n/`.
 
 La funcionalitat més senzilla són dos fitxers. La més complexa, 85. **Cadascuna només té les carpetes que realment necessita.** Cap directori `services/` buit perquè una plantilla deia que hi havia de ser.
 
@@ -79,10 +86,13 @@ src/features/Auth/
 ├── api/
 │   └── __tests__/
 ├── components/
+│   ├── __tests__/
 │   ├── PINDot.tsx
 │   ├── PINDot.stories.tsx
 │   ├── PINInput.tsx
-│   └── PINKeypad.tsx
+│   ├── PINInput.stories.tsx
+│   ├── PINKeypad.tsx
+│   └── PINKeypad.stories.tsx
 ├── context/
 │   └── AuthContext.tsx
 ├── hooks/
@@ -95,33 +105,39 @@ src/features/Auth/
 │   ├── reducer.ts
 │   └── selectors.ts
 ├── utils/
+│   ├── __tests__/
+│   ├── emailResendRateLimiter.ts
 │   ├── pinHashing.ts
 │   ├── pinValidation.ts
 │   └── rateLimiter.ts
 ├── validation/
+│   ├── __tests__/
 │   ├── customRules.ts
 │   ├── loginSchema.ts
+│   ├── passwordRecoverySchema.ts
 │   └── registrationSchema.ts
-├── LoginScreen.tsx
-├── RegistrationScreen.tsx
+├── EmailVerificationScreen.tsx
 ├── ForgotPasswordScreen.tsx
+├── LoginScreen.tsx
 ├── PINSetupScreen.tsx
+├── RegistrationScreen.tsx
+├── ResetPasswordScreen.tsx
 └── index.ts
 ```
 
-El hashing del PIN és al costat de la validació del PIN, que és al costat dels components de PIN, que és al costat de la pantalla de configuració del PIN. **La relació entre fitxers es veu a l'estructura de carpetes mateixa.** Obro `Auth/` i puc veure cada peça del sistema d'autenticació sense mirar enlloc més.
+El hashing del PIN seu al costat de la validació del PIN, al costat dels components de PIN, al costat de la pantalla de configuració del PIN. **La relació entre fitxers es veu a la mateixa disposició de carpetes.** Obro `Auth/` i puc veure cada peça del sistema d'autenticació sense anar enlloc més.
 
 En una estructura per tipus, aquests mateixos fitxers de PIN estarien a `components/`, `utils/`, `services/` i `screens/`. *Quatre carpetes per un sol concepte.*
 
-## La prova d'eliminació
+## La prova d'eliminació en la pràctica
 
-Recordes aquella prova de foc? Així és com queda eliminar una funcionalitat ara.
+La prova de foc d'abans. Com queda de debò per a cada disposició?
 
-**Per tipus:** esborra fitxers de `screens/`, `components/`, `hooks/`, `services/`, `store/`, `utils/`, `validation/` i `__tests__/`. Si et deixes un fitxer, tens un orfe. Si et deixes un import, l'app peta.
+**Per tipus:** esborra fitxers de `screens/`, `components/`, `hooks/`, `services/`, `store/`, `utils/`, `validation/` i `__tests__/`. Si et deixes un fitxer, tens un orfe. Si et deixes un import, l'app peta a l'arrencada.
 
 **Per funcionalitat:** esborra `src/features/Auth/`, treu `authReducer` de la configuració del store, treu les rutes de navegació. **Tres passos.** El compilador m'avisa si m'he deixat alguna referència.
 
-Ho he fet. Eliminar una funcionalitat que tocava més de 40 fitxers va trigar menys d'un minut. La major part d'aquell minut va ser actualitzar la configuració de navegació.
+Ho he fet. Eliminar una funcionalitat que tocava més de 40 fitxers va trigar menys d'un minut. La major part d'aquell minut va ser la configuració de navegació.
 
 ## El contracte que fa segur el refactoring
 
@@ -132,10 +148,11 @@ Cada funcionalitat només exporta el que la resta de l'app necessita. El `index.
 export { authReducer, login, logout, selectIsAuthenticated } from './store';
 export { AuthProvider } from './context';
 export { useAuth } from './hooks';
-export { LoginScreen, RegistrationScreen } from './screens';
+export { LoginScreen } from './LoginScreen';
+export { RegistrationScreen } from './RegistrationScreen';
 ```
 
-El hashing del PIN, la limitació de peticions, la lògica de bloqueig: **res d'això s'exporta.** És intern d'Auth. Puc reescriure *tota* la implementació del PIN, i mentre els exports no canviïn, res fora d'Auth se n'assabenta.
+El hashing del PIN, la limitació de peticions, la lògica de bloqueig. **Res d'això s'exporta.** És privat d'Auth. Puc reescriure *tota* la implementació del PIN, i mentre els exports no canviïn, res fora d'Auth se n'assabenta.
 
 La configuració del store importa `authReducer`. La navegació importa les pantalles. Prou. Els més de 80 fitxers interns són invisibles per a la resta del codebase.
 
@@ -150,9 +167,9 @@ Cada funcionalitat és propietària del seu slice de Redux. El store arrel els c
 ```typescript
 import { authReducer } from '@app/features/Auth';
 import { profileReducer } from '@app/features/Profile';
-import { settingsReducer } from '@app/features/Settings/store';
+import { settingsReducer } from '@app/features/Settings';
 import { educationReducer } from '@app/features/Education';
-import { workExperienceReducer } from '@app/features/WorkExperience/store';
+import { workExperienceReducer } from '@app/features/WorkExperience';
 
 const rootReducer = combineReducers({
   settings: settingsReducer,
@@ -167,33 +184,112 @@ Trenca la regla de no importar entre funcionalitats un cop i acabaràs amb depen
 
 ## El codi compartit es guanya el seu lloc
 
-Si un component el fa servir **una sola funcionalitat**, es queda dins d'aquella funcionalitat. Si dues o més el necessiten, es mou a `src/shared/`. Però el llistó és alt.
+Si un component el fa servir **una sola funcionalitat**, es queda dins d'aquella funcionalitat. Si dues o més el necessiten, es mou a `src/shared/`. El llistó és alt.
 
-Cada abstracció compartida és un **punt d'acoblament**. En el moment que `AlertBox` viu a `shared/`, cinc funcionalitats depenen de la seva interfície. Canviar-lo vol dir revisar cinc funcionalitats. Prefereixo duplicar tres línies en dues funcionalitats que crear una utilitat compartida que faci les dues més difícils de canviar per separat.
+Cada abstracció compartida és un **punt d'acoblament**. En el moment que `AlertBox` viu a `shared/`, cinc funcionalitats depenen de la seva interfície. Canviar-lo vol dir revisar les cinc. Prefereixo duplicar tres línies en dues funcionalitats que crear una utilitat compartida que faci les dues més difícils de canviar pel seu compte.
 
-Els hooks que acaben a `shared/` són els genuïnament transversals: `useAppColorScheme`, `useHapticFeedback`, `useReducedMotion`. Coses que qualsevol pantalla pot necessitar. No coses que *dues pantalles* resulta que necessiten ara mateix.
+Els hooks que acaben a `shared/` són els genuïnament transversals: `useAppColorScheme`, `useHapticFeedback`, `useReducedMotion`, `useCameraPermission`, `usePhotoLibraryPermission`. Coses que qualsevol pantalla pot necessitar. No coses que *dues pantalles* resulta que necessiten ara mateix.
 
-## Els tests segueixen el mateix principi
+## Els tests segueixen la mateixa regla
 
 Els tests viuen al costat del codi que proven. Els tests del store d'Auth són a `Auth/store/__tests__/`. Els tests de validació d'Auth són a `Auth/validation/__tests__/`. Cap arbre de tests separat a l'arrel del projecte.
 
-L'única excepció: **tests d'integració entre funcionalitats**. El login que flueix cap a la càrrega del perfil. Canvis de configuració que es propaguen a la UI. Aquests abasten múltiples funcionalitats, així que viuen a `src/features/__tests__/`, fora de cap funcionalitat individual.
+L'única excepció: **tests d'integració entre funcionalitats**. El login que flueix cap a la càrrega del perfil. Canvis de configuració que es propaguen a la UI. Tasques en segon pla que es passen entre funcionalitats. Aquests abasten múltiples funcionalitats, així que viuen a `src/features/__tests__/`, fora de cap funcionalitat individual.
 
 ```
 src/features/__tests__/
+├── BackgroundTasks.integration.rntl.tsx
 ├── CrossFeatureIntegration.rntl.tsx
 ├── OnboardingJourney.integration.rntl.tsx
-└── ProfileCompletionJourney.integration.rntl.tsx
+├── ProfileCompletionJourney.integration.rntl.tsx
+└── RealtimeSubscription.integration.rntl.tsx
 ```
 
-Quan un test falla, sé exactament on mirar. Si és a `Auth/store/__tests__/`, el problema és al store d'auth. Si és a `features/__tests__/`, el problema és en com interactuen les funcionalitats. La ubicació *és* el diagnòstic.
+Quan un test falla, la ubicació em diu on mirar. Si és a `Auth/store/__tests__/`, el problema és al store d'auth. Si és a `features/__tests__/`, el problema és en com interactuen les funcionalitats. La ubicació *és* el diagnòstic.
 
 ## Quan canviar
 
 Si la teva app té tres pantalles i cap gestió d'estat, *no facis això*. Una llista plana de pantalles i un parell de hooks compartits ja va bé. L'estructura per funcionalitat afegeix sobrecàrrega que els projectes petits no necessiten.
 
-El punt d'inflexió és al voltant de **5 funcionalitats amb el seu propi estat**. Per sota, l'estructura costa més del que estalvia. Per sobre, l'estructura per tipus es converteix en allò que et frena.
+El punt d'inflexió cau al voltant de **cinc funcionalitats amb el seu propi estat**. Per sota, l'estructura costa més del que estalvia. Per sobre, l'estructura per tipus es converteix en allò que et frena.
 
-Obre la teva carpeta `screens/` ara mateix. Compta els fitxers. Si no pots dir quins van junts només mirant la llista, la teva estructura ja ha deixat d'ajudar-te.
+Obre la teva carpeta `screens/` ara mateix. Compta els fitxers. Si no pots dir quins van junts només mirant la llista, l'estructura ja ha deixat d'ajudar-te.
+
+## Posar-ho en marxa
+
+L'estructura d'aquí dalt és una convenció, no una eina. Dues peces de configuració l'aguanten.
+
+**Path aliases.** Sense ells, acabes amb `import { authReducer } from '../../../features/Auth'` a tot arreu. Afegeix els aliases a `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app": ["src"],
+      "@app/*": ["src/*"]
+    }
+  }
+}
+```
+
+I a `babel.config.js` perquè el runtime els resolgui:
+
+```js
+module.exports = {
+  presets: ['@react-native/babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        alias: {
+          '@app': './src',
+        },
+      },
+    ],
+  ],
+};
+```
+
+```bash
+yarn add -D babel-plugin-module-resolver
+```
+
+Ara `import { authReducer } from '@app/features/Auth'` es resol a temps de compilació i en runtime, sigui on sigui el fitxer que l'importa.
+
+**Una regla d'ESLint per mantenir la frontera honesta.** Els path aliases sols no impedeixen que algú escrigui `import { profileSelector } from '@app/features/Profile'` dins d'Auth. En el moment que això es publica, l'estructura comença a esfondrar-se. Una regla `no-restricted-imports` fixa la frontera:
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          {
+            group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+            message: 'Importa funcionalitats només via el seu index públic. Els interns són privats.',
+          },
+        ],
+      }],
+    },
+  },
+  {
+    // Permet que les funcionalitats importin dels seus propis interns
+    files: ['src/features/*/**'],
+    rules: { 'no-restricted-imports': 'off' },
+  },
+  {
+    // Els tests d'integració entre funcionalitats són l'únic lloc on s'admeten cross-imports
+    files: ['src/features/__tests__/**'],
+    rules: { 'no-restricted-imports': 'off' },
+  },
+];
+```
+
+El patró bloqueja qualsevol import des de dins d'una altra funcionalitat. El primer override deixa que una funcionalitat importi dels seus propis interns. Els tests entre funcionalitats viuen fora de qualsevol funcionalitat individual, així que reben una exempció explícita.
+
+Prou. Path aliases, una regla d'ESLint, i la disciplina de mantenir privats els interns de cada funcionalitat. L'arquitectura aguanta perquè el tooling fa complir el que la convenció demana.
 
 El codi font complet del projecte és a [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).
