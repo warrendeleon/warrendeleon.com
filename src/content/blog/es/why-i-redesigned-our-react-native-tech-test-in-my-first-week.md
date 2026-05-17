@@ -1,6 +1,6 @@
 ---
 title: "Por qué rediseñé nuestra prueba técnica de React Native en mi primera semana"
-description: "Entré como Engineering Manager y uno de mis primeros proyectos fue repensar el proceso de contratación para roles de plataforma. Esto es lo que aprendí y lo que construí."
+description: "Entré como Engineering Manager y uno de mis primeros proyectos fue repensar la contratación para roles de plataforma. El razonamiento del rediseño y lo que construí."
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
@@ -18,26 +18,28 @@ Soy el nuevo Engineering Manager del squad de mobile platform. Estamos reconstru
 
 No tuve que pedir ver la prueba técnica. La había hecho yo mismo semanas antes. Así fue como me contrataron *a mí*: un ejercicio de live coding donde montas una app pequeña en una hora con el entrevistador mirando, seguido de preguntas técnicas de un cuestionario. La entrevista completa duraba unos 90 minutos.
 
-La prueba tenía sentido en su contexto original. Cuando el equipo era más pequeño y se contrataba para otros roles, era una forma razonable de filtrar candidatos rápido. Pero nuestras necesidades habían cambiado. Ya no estábamos buscando a alguien para montar pantallas simples. Estábamos contratando **ingenieros de plataforma** que serían dueños de la arquitectura sobre la que todos los demás equipos móviles iban a construir.
+La prueba tenía sentido en su contexto original. Cuando el equipo era más pequeño y se contrataba para otros roles, era una forma razonable de filtrar candidatos rápido. Nuestras necesidades cambiaron. Ya no estábamos buscando a alguien para montar pantallas simples. Estábamos contratando ingenieros de plataforma que serían dueños de la arquitectura sobre la que todos los demás equipos móviles iban a construir.
 
 Necesitaba que la prueba respondiera preguntas distintas:
 
-- ¿Pueden estructurar una **app con múltiples pantallas** y navegación que no se caiga a pedazos?
-- ¿Pueden llamar a una **API real** y manejar lo que pasa cuando la red falla?
-- ¿Escriben **tests** porque les importa que el software funcione, o porque alguien se los pidió?
+- ¿Pueden estructurar una app con múltiples pantallas y navegación que no se caiga a pedazos?
+- ¿Pueden llamar a una API real y manejar lo que pasa cuando la red falla?
+- ¿Escriben tests porque les importa que el software funcione, o porque alguien se los pidió?
 - ¿Pueden sentarse frente a mí y explicar *por qué* lo construyeron así?
 
 La prueba existente estaba diseñada para preguntas distintas. Necesitaba construir algo alrededor de las nuestras.
 
-## Los límites del live coding
+*Este post cubre el razonamiento detrás del rediseño. Los posts hermanos cubren [el brief del take-home en detalle](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/), [el sistema de scorecard](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) y [en qué deben enfocarse los candidatos](/blog/how-to-pass-a-react-native-tech-test/).*
+
+## Dónde encaja el live coding en otro tipo de rol
 
 El live coding te dice si alguien programa cómodo mientras lo observan. Para algunos roles, eso importa. Para el nuestro, necesitaba ver otra cosa.
 
-Estuve de ambos lados. Tan recientemente como enero de este año, me fue fatal en un ejercicio de live coding para un puesto para el que estaba perfectamente cualificado. El problema era simple. Sabía cómo resolverlo. Pero con alguien observando cada tecla que presionaba, mi mente se quedó en blanco. *No pasé.*
+Estuve de ambos lados. A principios de este año hice un ejercicio de live coding para un puesto para el que estaba cualificado y me quedé en blanco. El problema era simple, sabía cómo resolverlo, y con alguien observando cada tecla perdí el hilo. Como entrevistador, he visto lo mismo pasarle a candidatos: ingenieros capaces que se bloquean en problemas que resolverían en cinco minutos sentados en su escritorio.
 
-Como entrevistador, vi lo mismo pasarle a candidatos. Ingenieros capaces que se bloquean en problemas que resolverían en cinco minutos sentados en su escritorio. El live coding mide la compostura bajo observación. Es una señal válida para algunos roles, pero no era la señal que yo necesitaba.
+El live coding mide la compostura bajo observación. Es una señal útil para algunos roles. No era la que yo necesitaba.
 
-Para un rol de ingeniería de plataforma, donde el trabajo son decisiones de arquitectura, componentes de design system y pipelines de CI/CD, quería ver cómo los candidatos abordan los problemas con tiempo y contexto. **El tipo de pensamiento que el puesto realmente requiere.**
+Para un rol de ingeniería de plataforma, donde el trabajo son decisiones de arquitectura, componentes de design system y pipelines de CI/CD, quería ver cómo los candidatos abordan los problemas con tiempo y contexto. El tipo de pensamiento que el puesto realmente requiere.
 
 ## Mostrar vs. contar
 
@@ -49,58 +51,69 @@ El nuevo proceso evalúa los mismos temas a través del código del candidato. E
 
 ## Lo que construí en su lugar
 
-Diseñé un take-home assessment. Una app pequeña pero real: múltiples pantallas, una API pública, navegación, state management con reglas de negocio reales, TypeScript en todo. No un juguete. Tampoco un proyecto de fin de semana. Algo que requiere **pensamiento arquitectónico genuino**.
+Diseñé un take-home assessment. Una app pequeña pero real: múltiples pantallas, una API pública, navegación, state management con reglas de negocio reales, TypeScript en todo. No un juguete. Tampoco un proyecto de fin de semana. Algo que pide pensamiento arquitectónico real.
 
-Cuatro principios guiaron el diseño:
+Cuatro principios guiaron el diseño.
 
 **Reflejar el trabajo real.** La prueba debe sentirse como el trabajo. Si un candidato puede construir esta app, puede contribuir a nuestro codebase desde el primer día. Si no puede, eso también es información útil.
 
-**Eliminar el impuesto del boilerplate.** Les doy a los candidatos un starter project completamente configurado. TypeScript, ESLint, Prettier, Jest, React Native Testing Library, path aliases. *Todo listo.* No me importa si alguien sabe configurar un bundler. Me importa si sabe escribir código de aplicación.
+**Eliminar el boilerplate.** Les doy a los candidatos un starter project completamente configurado. TypeScript, ESLint, Prettier, Jest, React Native Testing Library, path aliases. Todo listo. No me importa si alguien sabe configurar un bundler. Me importa si sabe escribir código de aplicación.
 
-**Ser claro en el qué, no en el cómo.** El brief explica qué debe hacer la app. Nunca dice qué librería de state management usar, cómo estructurar las carpetas ni qué cliente de API elegir. Esas decisiones son la parte más reveladora de la entrega. Un candidato que elige Redux Toolkit para una app de tres pantallas me dice algo distinto de uno que elige Zustand o React Context. Ninguno está mal. *Ambos son interesantes.*
+**Ser claro en el qué, no en el cómo.** El brief explica qué debe hacer la app. Nunca dice qué librería de state management usar, cómo estructurar las carpetas ni qué cliente de API elegir. Esas decisiones son la parte más reveladora de la entrega. Un candidato que elige Redux Toolkit para una app de tres pantallas me dice algo distinto de uno que elige Zustand o React Context. Ninguno está mal. Ambos son interesantes. Desgloso cada decisión de diseño detrás del brief en [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/).
 
 **Respetar el tiempo de la gente.** Los candidatos tienen una semana. El trabajo debería tomar de 4 a 6 horas. La gente tiene trabajos, familias, vidas. Nadie debería tener que tomarse un día libre para hacer una prueba técnica de una empresa que quizás no los contrate.
 
-## El walkthrough es donde pasa la magia
+## Por qué el walkthrough hace la mayor parte del trabajo
 
-El código del take-home es la mitad de la evaluación. La otra mitad es una llamada de walkthrough: el candidato **hace demo de la app**, corre sus tests en vivo y recorre el código.
+El código del take-home es la mitad de la evaluación. La otra mitad es una llamada de walkthrough: el candidato hace demo de la app, corre sus tests en vivo y recorre el código.
 
-Aquí es donde descubres qué tan profundamente alguien entiende lo que construyó. En la era del desarrollo asistido por IA, esa comprensión importa más que nunca.
+Aquí es donde descubres qué tan profundamente alguien entiende lo que construyó. Esa comprensión es lo que separa a un ingeniero que puede extender su propio código de uno que solo puede entregar una versión que funciona.
 
-Tres cosas que busco:
+Tres cosas que busco.
 
 **Ownership.** *"Navega al archivo donde manejas la respuesta de la API."* Si lo escribieron, van directo. Si no se sienten del todo cómodos con el código, eso se nota rápido.
 
-**Pensamiento en trade-offs.** Pregunto por cada decisión significativa. *"¿Por qué este enfoque de state management?"* La respuesta que quiero no es "porque es el mejor." La respuesta que quiero es *"porque se ajusta a este alcance, pero aquí es donde se quebraría, y aquí es a lo que migraría."* Los ingenieros que piensan en trade-offs construyen mejores sistemas que los que piensan en absolutos.
+**Pensamiento en trade-offs.** Pregunto por cada decisión significativa. *"¿Por qué este enfoque de state management?"* La respuesta que quiero no es "porque es el mejor." La respuesta que quiero es *"porque se ajusta a este alcance, aquí es donde se quebraría, y aquí es a lo que migraría."* Los ingenieros que piensan en trade-offs construyen mejores sistemas que los que piensan en absolutos.
 
 **Autoconocimiento.** *"¿Qué cambiarías si tuvieras más tiempo?"* Los candidatos fuertes se iluminan con esta pregunta. Tienen una lista. Saben dónde cortaron esquinas. Saben qué es frágil. Vienen pensando en mejoras desde que entregaron. Los candidatos con menos experiencia suelen decir *"estoy conforme"* y siguen adelante.
 
+Si te estás preparando para un take-home assessment como este, escribí una guía para candidatos: [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).
+
 ## Evaluación estructurada
 
-Algo que quise desde el primer día fue un **scorecard estructurado**. Cuando estás escalando un equipo y varias personas participan en las contrataciones, todos necesitan evaluar las mismas cosas de la misma manera. Sin eso, dos entrevistadores pueden revisar al mismo candidato y llegar a conclusiones distintas porque están ponderando cosas diferentes.
+Algo que quise desde el primer día fue un scorecard estructurado. Cuando estás haciendo crecer un equipo y varias personas participan en las contrataciones, todos necesitan evaluar las mismas cosas de la misma manera. Sin eso, dos entrevistadores pueden revisar al mismo candidato y llegar a conclusiones distintas porque están ponderando cosas diferentes.
 
-Construí un scorecard que divide la evaluación en secciones ponderadas: la app funciona, la capa de datos es sólida, el código está bien estructurado, hay tests y el candidato puede explicar todo en el walkthrough. Cada sección tiene criterios específicos en una escala consistente. **Cada entrevistador evalúa las mismas cosas en el mismo orden.**
+Construí un scorecard que divide la evaluación en secciones ponderadas: la app funciona, la capa de datos es sólida, el código está bien estructurado, hay tests y el candidato puede explicar todo en el walkthrough. Cada sección tiene criterios específicos en una escala consistente. Cada entrevistador evalúa las mismas cosas en el mismo orden.
 
-El scorecard también mapea puntuaciones a niveles. Un número te dice si alguien está a nivel Graduate, Associate, Software Engineer o Senior. Esto elimina la ambigüedad de la conversación de nivelación. La rúbrica hace el trabajo de pensar. Los humanos la verifican.
+El scorecard también mapea puntuaciones a rangos. Un número te dice si alguien está a nivel Graduate, Associate, Software Engineer o Senior. Esto quita ambigüedad de la conversación de nivelación. La rúbrica hace el trabajo de pensar. Los humanos la verifican. Publiqué la rúbrica completa, incluido el sistema de ponderación y los umbrales de nivel, en [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).
 
 ## Los candidatos senior tienen una ronda más difícil
 
-Para contrataciones senior, hay una conversación adicional de **system design**. Sin pizarra. Sin *"diseña Twitter en 45 minutos."* Hablamos sobre escenarios reales relevantes a la plataforma que estamos construyendo. ¿Qué cambia cuando 20 equipos construyen sobre la misma plataforma móvil? ¿Cómo manejas dependencias compartidas? ¿Cuál es tu enfoque para backwards compatibility?
+Para contrataciones senior, hay una conversación adicional de system design. Sin pizarra. Sin *"diseña Twitter en 45 minutos."* Hablamos sobre escenarios reales relevantes a la plataforma que estamos construyendo. ¿Qué cambia cuando 20 equipos construyen sobre la misma plataforma móvil? ¿Cómo manejas dependencias compartidas? ¿Cuál es tu enfoque para backwards compatibility?
 
-Es una conversación entre dos ingenieros, no una actuación para un público. Los mejores candidatos **cuestionan** mis supuestos y hacen preguntas de clarificación. Ese es exactamente el comportamiento que quiero de un senior en el equipo.
+Es una conversación entre dos ingenieros, no una actuación para un público. Los mejores candidatos cuestionan mis supuestos y hacen preguntas de clarificación. Ese es el comportamiento que quiero de un senior en el equipo.
 
 ## Primeros días
 
-En mi primera semana, contraté a un Senior Engineer a través del proceso existente (eso pasó el segundo día, antes de que la nueva prueba estuviera lista). De ahora en adelante, el nuevo proceso es el estándar para toda contratación de React Native en la organización. Mi par EM, que lidera otro squad, revisó la prueba y el scorecard y aceptó adoptarlo para las contrataciones de su equipo también. Esa es la ventaja de un sistema bien documentado: **escala más allá del squad de un solo manager.**
+En mi primera semana, contraté a un Senior Engineer a través del proceso existente (eso pasó el segundo día, antes de que la nueva prueba estuviera lista). A partir de aquí, el nuevo proceso es el estándar para toda contratación de React Native en la organización. Mi par EM, que lidera otro squad, revisó la prueba y el scorecard y aceptó adoptarlo para las contrataciones de su equipo también. Esa es la ventaja de un sistema bien documentado: funciona más allá del squad de un solo manager.
 
 Estoy por contratar dos Software Engineers con el nuevo proceso. Cada candidato recibirá la misma prueba, el mismo starter project, los mismos criterios de evaluación y la misma rúbrica de puntuación. La superficie de sesgo se reduce cuando estandarizas.
 
 ## La lección
 
-Si te estás sumando a un equipo nuevo como engineering manager, **mira el proceso de contratación temprano**. No esperes hasta haber "aprendido el codebase" o "entendido la cultura." La contratación es una de las actividades de mayor apalancamiento que tienes. Cada persona que traes moldea al equipo por años.
+Si te estás sumando a un equipo nuevo como engineering manager, mira el proceso de contratación temprano. No esperes hasta haber "aprendido el codebase" o "entendido la cultura." La contratación es una de las actividades de mayor impacto que tienes. Cada persona que traes moldea al equipo por años.
 
-Y si tu prueba técnica ya no refleja lo que estás buscando, vale la pena revisarla. Los mejores procesos de contratación evolucionan junto con las necesidades del equipo.
+Y si tu prueba técnica ya no refleja lo que estás buscando, vale la pena revisarla. Los mejores procesos de contratación se mueven con las necesidades del equipo.
 
-Diseña una prueba que refleje el trabajo real. Da a los candidatos un starter project para que estés evaluando *ingeniería*, no *configuración*. Haz los requisitos claros pero déjalos tomar sus propias decisiones. Después siéntate frente a ellos y pregunta ***por qué***.
+Diseña una prueba que refleje el trabajo real. Da a los candidatos un starter project para que estés evaluando *ingeniería*, no *configuración*. Deja los requisitos claros, y después deja que los candidatos tomen sus propias decisiones. Después siéntate frente a ellos y pregunta ***por qué***.
 
-> La combinación de código take-home bien pensado y un walkthrough estructurado te da más señal en dos horas que cualquier ejercicio de live coding en dos días.
+> Un take-home bien pensado junto a un walkthrough estructurado te da más señal en dos horas que cualquier ejercicio de live coding en dos días.
+
+---
+
+### Sigue leyendo en esta serie
+
+- [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/): el brief completo, las decisiones de API y por qué existe cada requisito.
+- [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/): el sistema de ponderación, los umbrales de nivel y cómo hacer que la puntuación sea consistente entre entrevistadores.
+- [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/): una guía para candidatos sobre cómo destacar en take-home assessments.
+- [I built an app the hiring panel will never open](/blog/i-built-an-app-the-hiring-panel-will-never-open/): lo que pasa cuando construyes una implementación de referencia de tu propia prueba técnica.
