@@ -1,6 +1,6 @@
 ---
 title: "Setting up MSW v2 in React Native"
-description: "A practical guide to setting up Mock Service Worker v2 in a React Native project. From installation to production-grade handler sets covering success, errors, timeouts, and offline scenarios."
+description: "A practical guide to setting up Mock Service Worker v2 in a React Native project. From installation to a full set of handler scenarios covering success, errors, timeouts, and offline."
 publishDate: 2026-05-04
 series: "React Native Foundations"
 tags: ["react-native", "testing", "mocking", "jest"]
@@ -21,7 +21,7 @@ The problem: you're testing your code's interaction with a mock, not with an HTT
 
 **Mock Service Worker (MSW)** intercepts requests at the network level. Your code makes real HTTP calls. MSW catches them before they leave the process and returns your mock responses. Everything between your component and the network is exercised: the Redux thunk, the Axios interceptors, the error handling, the response parsing.
 
-> 💡 **The key difference:** manual mocks replace your code. MSW replaces the network. Your code runs exactly as it would in production, up to the point where the request would leave the device.
+Manual mocks replace your code. MSW replaces the network. The code runs exactly as it would on a device, right up to the point where the request would have left it.
 
 ## Assumptions
 
@@ -188,12 +188,7 @@ export const handlers = [
 ];
 ```
 
-Key things to notice:
-
-- ✅ `http.get`, `http.post`, etc. match the HTTP method
-- ✅ URL params (`:id`) are extracted automatically
-- ✅ Request body is available via `request.json()`
-- ✅ `HttpResponse.json()` returns typed JSON responses with status codes
+A few things worth knowing: method-specific helpers (`http.get`, `http.post`, and the rest) match on HTTP verb, URL params like `:id` are extracted into `params` for you, the request body comes through `await request.json()`, and `HttpResponse.json()` returns typed JSON with whatever status code you pass.
 
 ## Separating fixtures from handlers
 
@@ -479,21 +474,21 @@ If the suite hangs and never finishes, MSW is usually waiting on a request that 
 
 ## Common pitfalls
 
-**Handlers are matched in order.** If two handlers match the same request, the first one wins. When you `server.use(...overrides)`, the overrides are prepended, so they take priority over defaults.
+Handlers are matched in order. If two handlers match the same request, the first one wins. When you call `server.use(...overrides)` the overrides are prepended, so they take priority over the defaults.
 
-**`HttpResponse.error()` simulates a network failure**, not an HTTP error. The request never gets a response. Use this for offline/no-network scenarios. For HTTP errors (500, 401, etc.), use `HttpResponse.json()` with a status code.
+`HttpResponse.error()` simulates a network failure, not an HTTP error. The request never gets a response. Use that for offline scenarios. For HTTP errors (500, 401, and so on), reach for `HttpResponse.json()` with a status code.
 
-**Async handlers need `await`.** If your handler reads the request body (`request.json()`), the handler function must be `async`. Forgetting this causes the handler to return `undefined` instead of a response.
+If your handler reads the request body via `request.json()`, the handler function must be `async`. Forgetting this is one of the more common ways to end up with a handler that silently returns `undefined`.
 
-**Unhandled requests are silent by default.** Always use `onUnhandledRequest: 'warn'` (or `'error'` in CI) to catch missing handlers. A silent unhandled request means your test passes for the wrong reason.
+**Unhandled requests are silent by default.** Always use `onUnhandledRequest: 'warn'` (or `'error'` in CI) so missing handlers surface. A silent unhandled request means the test passes for the wrong reason.
 
-**`Response is not defined` / `TextEncoder is not defined`** means the polyfills file isn't loading. Check that `setupFiles: ['<rootDir>/jest.polyfills.cjs']` is in your Jest config, that the file extension is `.cjs` (not `.ts`), and that the file path is correct relative to `rootDir`.
+A `Response is not defined` or `TextEncoder is not defined` error means the polyfills file isn't loading. Check that `setupFiles: ['<rootDir>/jest.polyfills.cjs']` is in the Jest config, that the file extension is `.cjs` rather than `.ts`, and that the path is correct relative to `rootDir`.
 
-**`SyntaxError: Cannot use import statement outside a module` from `node_modules/msw/`** means MSW isn't being transformed. Add `msw|until-async` to the allow-list inside `transformIgnorePatterns`.
+A `SyntaxError: Cannot use import statement outside a module` thrown from `node_modules/msw/` means MSW isn't being transformed. Add `msw|until-async` to the allow-list inside `transformIgnorePatterns`.
 
-**Trailing slashes matter.** `http.get('/api/items')` does not match a request to `/api/items/`. Match exactly what your code sends, or use a path pattern (`http.get('/api/items*', ...)`).
+Trailing slashes matter: `http.get('/api/items')` won't match a request to `/api/items/`. Match exactly what your code sends, or use a path pattern like `http.get('/api/items*', ...)`.
 
-**Tests pass locally and fail in CI.** Usually `onUnhandledRequest: 'error'` catching a request you didn't realise your code was making in the CI environment (often analytics or crash reporting). Either add a handler for it or strip those calls in test mode.
+**Tests pass locally and fail in CI** is usually `onUnhandledRequest: 'error'` catching a request you didn't realise your code was making in the CI environment, often analytics or crash reporting. Either add a handler for it, or strip those calls in test mode.
 
 ## The full file structure
 
@@ -521,7 +516,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 ## The bottom line
 
-Yes. The setup is about 30 minutes. After that, every new test is simpler than the manual mock equivalent. You write `server.use(...errorHandlers)` instead of `jest.fn().mockRejectedValue(new Error('Network error'))`. The handlers are reusable across every test file. And you're testing real integration behaviour, not mock behaviour.
+The setup costs about thirty minutes. After that, every new test is simpler than the manual-mock equivalent. You write `server.use(...errorHandlers)` instead of `jest.fn().mockRejectedValue(new Error('Network error'))`. The handlers are reusable across every test file. And the test is exercising integration behaviour, not mock behaviour.
 
 The 11 handler sets in my project cover every error path the app handles. When I add a new API endpoint, I add handlers for it once, and every test that touches that endpoint gets correct mocking for free. The same handler-set approach also pairs well with E2E tests, where Detox + Cucumber drives the user flows and a separate runtime-mocking layer controls the API responses, but those are topics for later posts.
 
