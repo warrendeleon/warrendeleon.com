@@ -23,13 +23,15 @@ The anon key shipped in your app bundle is, by design, public. Anyone with a cop
 
 The anon key authenticates your app to Supabase as "an unauthenticated client". Whatever queries that role can run, an attacker with the anon key can also run, in their own scripts, against your project. The only thing standing between them and your entire database is RLS.
 
+Some teams push authorisation into application code and rely on the service role for database access: simpler queries, fewer policies to audit, fewer surprises when an index is missing. That's a reasonable shape if the only client is a backend you trust. With a mobile app on the other end of the wire, the client isn't trusted, the API surface is `*.supabase.co`, and RLS is the layer that holds when the app-side check is bypassed. So RLS-first, even with the policy planner cost.
+
 If RLS is off (or written wrong) on a single table, the attacker reads every row in it. If a function is `SECURITY DEFINER` without `search_path` set, they can hijack it to run as the function owner. If a storage bucket policy doesn't constrain paths, they can list and download every user's files.
 
 Three things to get right, in this order: RLS on every table, storage policies, function hardening.
 
 ## Before shipping
 
-The detail of every section follows, but here's the pre-flight check. Run through this list before any production deploy:
+Detail follows in every section below. The short pre-flight check, to run before any production deploy:
 
 - [ ] **RLS enabled on every app-facing table.** `SELECT * FROM pg_tables WHERE schemaname = 'public' AND rowsecurity = false` should return zero rows.
 - [ ] **Policies tested as the anon role and as authenticated users.** Not just "the query works in the SQL editor" (which runs as `postgres` and bypasses RLS).
@@ -65,7 +67,7 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
 `ENABLE ROW LEVEL SECURITY` flips the default to "deny everything". With no policies attached, every query returns zero rows and every write is rejected. That's the safe state. From there, you add policies that explicitly grant access.
 
-> 💡 **The Supabase dashboard's RLS warning is load-bearing.** When you create a table through the dashboard with RLS disabled, it shows a yellow banner. That banner is the only thing standing between "I forgot to enable RLS" and a public database. Don't dismiss it without enabling RLS.
+The dashboard shows a yellow banner when you create a table with RLS disabled. That banner is the only thing standing between "I forgot to enable RLS" and a public database. Don't dismiss it without enabling RLS.
 
 ## Writing policies that hold
 
@@ -109,8 +111,6 @@ The distinction between `USING` and `WITH CHECK` is the part most policies get w
 A common bug: an `UPDATE` policy with only `USING (auth.uid() = id)`. That lets a user update their *own* row, including changing the `id` column to someone else's UUID. The post-update row is now claimed by a different user, and the original user has elevated their access.
 
 The fix is `WITH CHECK (auth.uid() = id)` in addition. Now the user can update their row, but the post-update row also has to belong to them, so `id` can't change.
-
-> 💡 **Always set both `USING` and `WITH CHECK` on `UPDATE` policies.** They check different things. `USING` says "this row was yours before the update". `WITH CHECK` says "this row is yours after the update". Skipping the second one lets users change ownership of their data.
 
 ## Reading other users' rows safely
 
@@ -180,9 +180,7 @@ CREATE POLICY "Public read profile pictures"
 
 `storage.foldername(name)` splits the storage object's path on `/`. `(...)[1]` gets the first segment. The convention from [the storage client post](/blog/building-a-supabase-storage-client-with-retry/) was to upload paths like `${userId}/profile-${timestamp}.jpg`, which puts the user ID at index 1 (PostgreSQL arrays are 1-indexed). The policy enforces that the first segment of any uploaded path matches the current user.
 
-Without this constraint, an authenticated user could upload to *any* path, including overwriting another user's profile picture.
-
-> 💡 **The user-id-as-first-folder convention is what makes the policy possible.** If your storage paths don't include the owner's identity in a predictable position, you can't write a policy that restricts by ownership without joining against another table for every storage operation. Use the path layout to encode ownership.
+Without this constraint, an authenticated user could upload to *any* path, including overwriting another user's profile picture. The path layout is what makes the policy cheap. Without the owner's identity in a predictable position, you'd be joining against another table for every storage operation just to find out who owns the file.
 
 ## Function security: SECURITY DEFINER and search_path
 
@@ -216,7 +214,7 @@ The Supabase linter in the dashboard flags missing `search_path` on `SECURITY DE
 
 ## The orphaned-file cleanup pattern
 
-The storage post referenced this without showing it. Here's the full implementation: a trigger that captures old picture URLs into a queue, and an Edge Function that processes the queue.
+The storage post referenced this without showing it. The full implementation has two parts: a trigger that captures old picture URLs into a queue, and an Edge Function that processes the queue.
 
 ### The queue table
 
@@ -384,7 +382,7 @@ CREATE TABLE public.rate_limit_log (
 ALTER TABLE public.rate_limit_log ENABLE ROW LEVEL SECURITY;
 -- No policies. Only the SECURITY DEFINER function below can insert.
 
--- 2. A function that serializes per (user, action), counts recent calls,
+-- 2. A function that serialises per (user, action), counts recent calls,
 --    and raises if over the limit. Atomicity comes from the advisory
 --    lock plus the implicit transaction the function runs in.
 CREATE OR REPLACE FUNCTION public.check_rate_limit(action_name TEXT, max_per_hour INT)
@@ -396,7 +394,7 @@ AS $$
 DECLARE
   recent_count INT;
 BEGIN
-  -- Serialize concurrent calls for the same (user, action). The lock is
+  -- Serialise concurrent calls for the same (user, action). The lock is
   -- released at the end of the transaction.
   PERFORM pg_advisory_xact_lock(
     hashtextextended(auth.uid()::text || ':' || action_name, 0)
@@ -436,7 +434,7 @@ END;
 $$;
 ```
 
-> 💡 **The advisory lock is the load-bearing line.** Without `pg_advisory_xact_lock`, you have a check-then-act race: two parallel calls both read `recent_count = max - 1`, both pass the check, both insert. The user gets two requests through when the limit was one. Under burst attack the limiter doesn't actually limit. With the lock, one transaction holds the gate per (user, action) until it commits, and the next caller sees the inserted row in their COUNT.
+**The advisory lock is the load-bearing line.** Without `pg_advisory_xact_lock`, you have a check-then-act race: two parallel calls both read `recent_count = max - 1`, both pass the check, both insert. The user gets two requests through when the limit was one. Under burst attack the limiter doesn't actually limit. With the lock, one transaction holds the gate per (user, action) until it commits, and the next caller sees the inserted row in their COUNT.
 
 A scheduled cron prunes old rows so the table doesn't grow forever:
 
@@ -449,7 +447,7 @@ SELECT cron.schedule(
 );
 ```
 
-> 💡 **This isn't something Supabase ships, and it isn't sophisticated.** It's coarse-grained (one row per call, no token-bucket smoothing) and the table has to be pruned. The advisory lock fixes the obvious concurrency bug, but a determined attacker firing thousands of parallel requests will still saturate the function-call rate Postgres can handle, and the lock contention itself becomes the bottleneck. For higher-throughput needs or seriously hostile traffic, the right tool is Cloudflare's per-route rate limits or a proper API gateway in front of Supabase. The SQL pattern above is enough for app-tier RPC abuse from a stolen anon key; it's not a substitute for edge-level rate limiting.
+Supabase doesn't ship this, and the pattern isn't sophisticated. It's coarse-grained (one row per call, no token-bucket smoothing) and the table has to be pruned. The advisory lock fixes the obvious concurrency bug, but a determined attacker firing thousands of parallel requests will still saturate the function-call rate Postgres can handle, and the lock contention itself becomes the bottleneck. For higher-throughput needs or seriously hostile traffic, Cloudflare's per-route rate limits or a proper API gateway in front of Supabase is the right answer. The SQL pattern above holds for app-tier RPC abuse from a stolen anon key. It's not a substitute for edge-level rate limiting.
 
 ## The OWASP-mobile attack surface, briefly
 
@@ -474,7 +472,7 @@ Five of the ten are addressed by RLS plus the cert pinning and PII masking posts
 
 **Don't disable RLS to "make it work" in development.** Test the policies locally with a real authenticated session. If the query returns empty, the bug is your policy, not the table. Disabling RLS to ship faster gets shipped to production.
 
-**Don't use the service role key on the client. Ever.** It's not just an anon key with extra permissions; it bypasses every RLS policy on every table. If it leaks (and it will, the moment one developer copies it into a `.env` file), every row in your database is readable and writable. The service role exists for Edge Functions and trusted backend code only.
+**Don't use the service role key on the client. Ever.** It bypasses every RLS policy on every table. If it leaks (and it will, the moment one developer copies it into a `.env` file), every row in your database is readable and writable. The service role exists for Edge Functions and trusted backend code only.
 
 **Don't write `SELECT` policies that leak through aggregates.** A policy like `USING (is_public = true)` looks safe, but `SELECT count(*) FROM private_data` returns the count of private rows the policy hides without needing the rows themselves. Aggregate functions can leak information in this way if the policy isn't applied at the row level.
 
@@ -498,6 +496,6 @@ Seven posts. The full Supabase integration in React Native, from the why through
 6. **[PII-masking interceptors](/blog/pii-masking-interceptors-react-native/)**: field-name and regex masking, Sentry beforeSend integration.
 7. **Securing your Supabase backend with RLS**: this post.
 
-Reading the series end-to-end builds a complete production-grade Supabase integration. Reading any one post solves a single concrete problem. Both shapes are intentional.
+Reading the series end-to-end builds a complete Supabase integration ready for production. Reading any one post solves a single concrete problem. Both shapes are intentional.
 
 Source for everything: [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon). Each post in the series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
