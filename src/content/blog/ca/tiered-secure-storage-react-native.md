@@ -1,6 +1,6 @@
 ---
 title: "Emmagatzematge segur per nivells a React Native"
-description: "Tres nivells d'emmagatzematge per a React Native: Keychain per a tokens, emmagatzematge xifrat per a dades personals, AsyncStorage per a preferències. Per què existeix cada nivell, quan usar-lo i com encaixa Redux Persist."
+description: "Tres nivells a React Native: Keychain per a tokens, magatzem xifrat per a dades personals, AsyncStorage per preferències. Quan usar cada un, i com hi cap Redux Persist."
 publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: ca
@@ -10,15 +10,27 @@ campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
-## El problema d'una sola solució d'emmagatzematge
+## Quan una sola capa d'emmagatzematge es queda curta
 
-La majoria d'apps React Native emmagatzemen tot a AsyncStorage. Tokens, dades d'usuari, preferències, estat de sessió. Tot al mateix lloc, tot en text pla.
+La majoria d'apps React Native ho posen tot a AsyncStorage. Tokens, dades d'usuari, preferències, estat de sessió. Tot al mateix lloc, tot en text pla.
 
-AsyncStorage és un magatzem clau-valor recolzat per SQLite (iOS) o SharedPreferences (Android). És ràpid i convenient. També és completament sense xifrar. Qualsevol persona amb accés físic al dispositiu, o un dispositiu rootejat/jailbroken, pot llegir tots els valors.
+AsyncStorage és un magatzem clau-valor recolzat per SQLite a iOS i SharedPreferences a Android. És ràpid i pràctic. Tampoc està xifrat. Qualsevol persona amb accés físic, o amb un dispositiu rootejat/jailbroken, pot llegir tots els valors.
 
-Per a una preferència de tema, no passa res. Per a un access token, és un incident de seguretat.
+Per a una preferència de tema, no passa res. Per a un access token, és un incident.
 
-> 💡 **El principi:** emmagatzema les dades a un nivell de seguretat que correspongui a la seva sensibilitat. Els tokens reben la protecció més forta. Les preferències reben l'accés més ràpid. Tot el reste cau entremig.
+En aquest post recorro els tres nivells que faig servir en producció: Keychain amb suport de hardware per a tokens, un magatzem xifrat per a dades personals, i AsyncStorage (via Redux Persist) per a preferències. Cada nivell és un wrapper curt. La feina està a decidir què va on, i mantenir aquesta frontera honesta al flux d'autenticació.
+
+## Suposicions
+
+El setup d'aquí sota es va escriure contra:
+
+- React Native 0.74+ (workflow nu, no Expo)
+- TypeScript amb la configuració estàndard de Babel de RN
+- Redux Toolkit + Redux Persist per a la gestió d'estat
+- iOS 13+ i Android API 23+ (el Keystore amb suport de hardware necessita API 23 com a mínim)
+- Un backend Supabase (o qualsevol API REST que retorni tokens d'accés/refresc)
+
+A Expo, canvia `react-native-keychain` per `expo-secure-store` al wrapper del Nivell 1. L'estructura és la mateixa.
 
 ## Els tres nivells
 
@@ -32,11 +44,16 @@ Cada nivell és un wrapper prim al voltant d'una biblioteca. El wrapper imposa c
 
 ## Nivell 1: SecureStore (Keychain / Keystore)
 
-El nivell de seguretat més alt. Usa l'enclavament segur recolzat per hardware de la plataforma: iOS Keychain o Android Keystore. Les dades les xifra el propi sistema operatiu i poden requerir autenticació biomètrica per accedir-hi.
+El nivell més alt. Usa l'enclavament segur amb suport de hardware de la plataforma: iOS Keychain o Android Keystore. El sistema operatiu xifra les dades i pot requerir autenticació biomètrica per llegir-les.
 
 ```bash
 yarn add react-native-keychain
+cd ios && pod install && cd ..
 ```
+
+`react-native-keychain` és un mòdul natiu, així que iOS necessita un pod install. A Android, posa `minSdkVersion = 23` (o més alt) a `android/build.gradle` per arribar al codi del Keystore amb suport de hardware.
+
+Una nota a Android: fins i tot a API 23+, que les claus realment vagin a un Trusted Execution Environment o a un StrongBox depèn del dispositiu i de l'OEM. Alguns mòbils moderns segueixen reportant emmagatzematge només per software. Si el teu model d'amenaces necessita una garantia, crida `Keychain.getSecurityLevel()` en temps d'execució i condiciona les operacions sensibles al resultat. iOS Keychain té suport de hardware a tots els dispositius compatibles.
 
 El wrapper:
 
@@ -87,19 +104,20 @@ export const SecureStore = {
 };
 ```
 
-Decisions de disseny clau:
+Quatre decisions del wrapper val la pena destacar:
 
-- ✅ **Un servei per clau.** Keychain emmagatzema una credencial per identificador de servei. Usar `com.warrendeleon.portfolio.accessToken` i `com.warrendeleon.portfolio.refreshToken` com a serveis separats evita que se sobreescriguin mútuament
-- ✅ **Biomètric o codi del dispositiu.** `BIOMETRY_ANY_OR_DEVICE_PASSCODE` vol dir que l'usuari necessita Face ID, Touch ID o el PIN del dispositiu per accedir a les dades. Si el dispositiu no té seguretat configurada, les dades segueixen protegides pel sistema operatiu
-- ✅ **Només aquest dispositiu.** `WHEN_UNLOCKED_THIS_DEVICE_ONLY` vol dir que les dades no es transfereixen a un dispositiu nou via còpia de seguretat. Els tokens no han de viatjar
-- ✅ **Claus amb enum tipat.** No pots passar una string per accident. El compilador assegura que només dades de nivell token van a SecureStore
+- Un servei per clau. Keychain emmagatzema una sola credencial per identificador de servei. Usar `com.warrendeleon.portfolio.accessToken` i `com.warrendeleon.portfolio.refreshToken` com a serveis separats evita que se sobreescriguin mútuament.
+- Biomètric o codi del dispositiu. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` vol dir que l'usuari necessita Face ID, Touch ID o el PIN del dispositiu per llegir el valor. Si el dispositiu no té seguretat configurada, el sistema operatiu segueix protegint les dades.
+- Només aquest dispositiu. `WHEN_UNLOCKED_THIS_DEVICE_ONLY` manté les dades fora de les còpies de seguretat d'iCloud Keychain. Els tokens no han de viatjar.
+- Claus amb enum tipat. No pots passar una string per accident. El compilador assegura que només dades de nivell token van a SecureStore.
 
 ## Nivell 2: EncryptedStore (AES-256)
 
-El nivell intermedi. Les dades es xifren amb AES-256 però no requereixen seguretat recolzada per hardware ni accés biomètric. Més ràpid que Keychain, més segur que text pla.
+El nivell intermedi. Les dades es xifren amb AES-256, sense passarel·la de hardware, sense prompt biomètric. Més ràpid que Keychain, molt més segur que el text pla.
 
 ```bash
 yarn add react-native-encrypted-storage
+cd ios && pod install && cd ..
 ```
 
 El wrapper:
@@ -154,9 +172,9 @@ export const EncryptedStore = {
 };
 ```
 
-Per què no posar les dades personals a SecureStore? Rendiment. L'accés a Keychain requereix una comprovació de seguretat a nivell de sistema (i potencialment un prompt biomètric). Per mostrar el nom d'un usuari en una pantalla de perfil, aquesta sobrecàrrega no està justificada. EncryptedStore et dóna xifrat AES-256 sense la barrera del hardware.
+Per què no posar les dades personals a SecureStore? Rendiment. L'accés a Keychain executa una comprovació de seguretat a nivell de sistema, i a vegades un prompt biomètric. Per renderitzar el nom d'un usuari en una pantalla de perfil, aquesta sobrecàrrega no surt a compte. EncryptedStore et dóna AES-256 en repòs sense la passarel·la de hardware.
 
-Les operacions per lots (`setMultiple`, `getMultiple`) importen en fluxos d'autenticació on necessites emmagatzemar múltiples camps alhora:
+Les operacions per lots (`setMultiple`, `getMultiple`) importen en fluxos d'autenticació que necessiten escriure uns quants camps alhora:
 
 ```typescript
 await EncryptedStore.setMultiple([
@@ -168,32 +186,63 @@ await EncryptedStore.setMultiple([
 
 ## Nivell 3: AsyncStorage + Redux Persist
 
-El nivell més ràpid. Text pla, sense xifrat. Només per a dades amb zero sensibilitat de seguretat: preferència de tema, selecció d'idioma.
+El nivell més ràpid. Text pla, sense xifrat. Reservat per a dades sense pes de seguretat: preferència de tema, selecció d'idioma.
 
 ```bash
-yarn add @react-native-async-storage/async-storage redux-persist
+yarn add @react-native-async-storage/async-storage redux-persist @reduxjs/toolkit react-redux
+cd ios && pod install && cd ..
 ```
 
-No uses AsyncStorage directament per a preferències. Redux Persist s'encarrega d'això. Guarda automàticament l'estat de Redux a AsyncStorage i el rehidrata quan l'app s'inicia.
+No parles amb AsyncStorage directament per a preferències. Redux Persist ho fa per tu. Guarda l'estat de Redux a AsyncStorage i el rehidrata a l'inici de l'app.
 
-La clau és la configuració de persistència:
+La configuració de persistència és on viu la frontera de seguretat:
 
 ```typescript
 // src/store/configureStore.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 
+import { authReducer } from '@app/features/Auth';
+import { settingsReducer } from '@app/features/Settings';
+
+// El slice d'auth té el seu propi persist config per poder posar un sol camp a la whitelist.
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage,
+  whitelist: ['biometricEnabled'],
+  blacklist: ['user', 'error', 'isLoading'],
+};
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+const rootReducer = combineReducers({
+  settings: settingsReducer,
+  auth: persistedAuthReducer,
+});
+
+// El persist config arrel només persisteix el slice de settings (tema, idioma).
 const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['settings'],
 };
 
-const authPersistConfig = {
-  key: 'auth',
-  storage: AsyncStorage,
-  whitelist: ['biometricEnabled'],
-};
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Redux Persist despatxa accions no serialitzables durant la rehidratació.
+        // Ignora-les perquè el middleware de serializable-check no avisi.
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
 ```
 
 | Config | Què persisteix | Què exclou |
@@ -201,7 +250,7 @@ const authPersistConfig = {
 | `rootPersistConfig` | Només el slice de settings (tema, idioma) | Tot el reste |
 | `authPersistConfig` | Només el flag `biometricEnabled` | user, error, isLoading, tokens |
 
-La `whitelist` és crítica. És una llista positiva: només els slices que anomenes es persisteixen. Tot el reste és efímer. Així és com prevens que els tokens acabin accidentalment a AsyncStorage a través de Redux.
+La `whitelist` és la peça que aguanta el pes. És una llista positiva: només els slices que anomenes es persisteixen, tot el reste és efímer. Així és com evites que els tokens acabin a AsyncStorage a través de Redux.
 
 ```typescript
 const settingsSlice = createSlice({
@@ -217,19 +266,30 @@ const settingsSlice = createSlice({
 });
 ```
 
-Quan l'usuari canvia el tema o l'idioma, Redux Persist escriu automàticament a AsyncStorage. Al proper inici, `PersistGate` espera la rehidratació abans de renderitzar:
+Quan l'usuari canvia el tema o l'idioma, Redux Persist escriu a AsyncStorage per tu. Al proper inici, `PersistGate` espera la rehidratació abans de renderitzar:
 
 ```typescript
-<Provider store={store}>
-  <PersistGate loading={null} persistor={persistor}>
-    <App />
-  </PersistGate>
-</Provider>
+// App.tsx
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '@app/store/configureStore';
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {/* les teves pantalles */}
+      </PersistGate>
+    </Provider>
+  );
+}
 ```
 
-## Com treballen junts els nivells
+`PersistGate` bloqueja el render fins que el slice persistit s'ha tornat a carregar al store. Sense ell, l'app mostra l'estat per defecte un frame abans que el tema/idioma persistit prengui el relleu.
 
-El valor real és en com els nivells es componen durant els fluxos d'autenticació.
+## Com es componen els nivells en un flux d'autenticació
+
+Els wrappers es guanyen el seu pes quan els veus treballant junts al login, la restauració de sessió, el logout i el refresc de tokens.
 
 ### Inici de sessió
 
@@ -290,11 +350,11 @@ dispatch(resetAuth());
 // Els settings (Nivell 3) persisteixen a través del logout. L'usuari conserva el tema i l'idioma.
 ```
 
-La seqüència de tancament de sessió és deliberada. El Nivell 1 i el Nivell 2 es netegen perquè els tokens i les dades personals pertanyen a la sessió. El Nivell 3 persisteix perquè el tema i l'idioma pertanyen al dispositiu.
+La seqüència de tancament de sessió és deliberada. El Nivell 1 i el Nivell 2 es netegen perquè els tokens i les dades personals pertanyen a la sessió. El Nivell 3 es queda perquè el tema i l'idioma pertanyen al dispositiu.
 
 ### Renovació de token
 
-L'interceptor d'Axios gestiona la [renovació automàtica de tokens](/blog/token-refresh-race-condition-react-native/) de forma transparent. Llegeix i escriu a SecureStore sense tocar els altres nivells:
+L'interceptor d'Axios gestiona la [renovació de tokens](/blog/token-refresh-race-condition-react-native/) en segon pla. Llegeix i escriu a SecureStore sense tocar els altres nivells:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -338,25 +398,25 @@ Cada peça de dades emmagatzemades té un lloc clar:
 | Tema | 3 (AsyncStorage) | Preferència no sensible. Sobreviu al tancament de sessió. |
 | Idioma | 3 (AsyncStorage) | Preferència no sensible. Sobreviu al tancament de sessió. |
 
-La regla és senzilla: si dona accés, Nivell 1. Si identifica una persona, Nivell 2. Si és una preferència, Nivell 3. Aquesta classificació encaixa bé amb una [estructura de projecte feature-first](/blog/feature-first-project-structure-react-native/) on cada feature gestiona el seu propi emmagatzematge.
+La regla és curta: si dona accés, Nivell 1. Si identifica una persona, Nivell 2. Si és una preferència, Nivell 3. Aquesta classificació també dóna forma a l'estructura del projecte. Els wrappers d'emmagatzematge viuen a una carpeta compartida `utils/storage/`, i el flux d'autenticació que els orquestra viu dins de la feature Auth. Tot lligat amb una [estructura de projecte feature-first](/blog/feature-first-project-structure-react-native/).
 
 ## Errors freqüents
 
-**No emmagatzemis tokens a Redux.** L'estat de Redux pot ser serialitzat, registrat, persistit a AsyncStorage per Redux Persist, i inspeccionat amb DevTools. Encara que excloguis el slice d'auth de la persistència, una sola mala configuració exposa els tokens. Guarda els tokens a SecureStore, punt.
+**No emmagatzemis tokens a Redux.** L'estat de Redux pot ser serialitzat, registrat, persistit a AsyncStorage via Redux Persist, i inspeccionat amb DevTools. Fins i tot amb el slice d'auth a la blacklist, una sola mala configuració exposa els tokens. Guarda els tokens a SecureStore, i punt.
 
-**No saltis els enums tipats.** Sense els enums `SecureStoreKey` i `EncryptedStoreKey`, estàs passant strings a pèl. Una errada de tecleig i estàs llegint de la clau equivocada. Un nivell equivocat i estàs emmagatzemant un token en text pla. El sistema de tipus és la teva auditoria de seguretat més barata.
+**No saltis els enums tipats.** Sense `SecureStoreKey` i `EncryptedStoreKey`, estàs passant strings a pèl. Una errada de tecleig i llegeixes de la clau equivocada. Un nivell equivocat i emmagatzemes un token en text pla. El sistema de tipus és l'auditoria de seguretat més barata que faràs mai.
 
-**No oblidis netejar en tancar sessió.** Si neteges SecureStore però oblides EncryptedStore, les dades personals de l'usuari persisteixen després del logout. El mètode `clear()` de cada nivell existeix per això. Crida tots dos durant el tancament de sessió.
+**No oblidis netejar en tancar sessió.** Si neteges SecureStore però et saltes EncryptedStore, les dades personals de l'usuari segueixen allà després del logout. El mètode `clear()` de cada nivell és el contracte: crida tots dos durant el tancament de sessió.
 
-**No assumeixis que Keychain és ràpid.** SecureStore implica un anada i tornada a l'enclavament segur. En dispositius antics, pot trigar 100-200ms per lectura. No el cridis dins un bucle de renderització. Llegeix els tokens un cop a l'inici de l'app i passa'ls a través del teu interceptor HTTP.
+**No assumeixis que Keychain és ràpid.** SecureStore fa una anada i tornada a l'enclavament segur. En dispositius antics pot trigar 100-200ms per lectura. No el cridis dins un bucle de renderització. Llegeix els tokens un cop a l'inici de l'app i passa'ls a través del teu interceptor HTTP.
 
-**Whitelist a Redux Persist, no blacklist.** Usa `whitelist` per especificar què ha de persistir. Un enfocament amb `blacklist` és perillós perquè els slices nous es persisteixen per defecte. Un sol slice nou amb dades sensibles i tens una filtració. `whitelist` és opt-in. Més segur.
+**Usa la `whitelist` de Redux Persist, no la `blacklist`.** Anomena què ha de persistir. La `blacklist` és arriscada perquè els slices nous persisteixen per defecte. Un sol slice nou amb dades sensibles i tens una filtració. `whitelist` és opt-in, i més segura.
 
-## Per què tres biblioteques
+## Llavors, per què tres biblioteques
 
-Sí. L'alternativa és una biblioteca (AsyncStorage) sense xifrat, o una biblioteca (react-native-keychain) que és massa lenta per a lectures no sensibles. Tres biblioteques, tres wrappers, tres enums. Cada wrapper fa menys de 50 línies. El setup porta una tarda.
+Una biblioteca (AsyncStorage) deixa els tokens en text pla. Una biblioteca (react-native-keychain) és massa lenta per a lectures no sensibles. Tres biblioteques, tres wrappers, tres enums. Cada wrapper fa menys de 50 línies. El setup porta una tarda.
 
-El que obtens: tokens que no es poden llegir sense autenticació biomètrica, dades personals xifrades en repòs, i preferències que es carreguen instantàniament. Cada peça de dades està protegida exactament al nivell que requereix. Ni més, ni menys.
+El que t'emportes: tokens que no es poden llegir sense autenticació biomètrica, dades personals xifrades en repòs, i preferències que es carreguen al primer frame. Cada peça de dades està protegida exactament al nivell que realment necessita.
 
 > Emmagatzema-ho tot al mateix lloc i no protegeixes res. Separa per sensibilitat i protegeixes el que importa.
 
