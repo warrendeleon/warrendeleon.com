@@ -1,6 +1,6 @@
 ---
 title: "Detox + Cucumber BDD per a tests E2E a React Native"
-description: "La majoria d'equips no saben que els fitxers feature de Gherkin funcionen amb Detox. Una guia pas a pas per configurar tests E2E amb estil BDD a React Native amb formatters personalitzats, execució paral·lela i tests d'accessibilitat."
+description: "Detox + Cucumber per a E2E a React Native. Definicions de passos, formatter personalitzat, execució paral·lela i tests de regressió d'accessibilitat en Gherkin pla."
 publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: ca
@@ -10,9 +10,21 @@ campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]
 ---
 
+Al final d'aquest post tindràs Detox conduint un simulador iOS i un emulador Android, amb fitxers feature de Cucumber escrits en anglès pla per sobre. Cinc passos: instal·la Detox, connecta Cucumber, escriu la capa de suport, escriu una feature, executa-la.
+
+## Una nota sobre la combinació
+
+Detox + Cucumber no és el stack E2E per defecte a React Native. La majoria d'equips es queden amb Jest com a runner i un estil imperatiu, o opten per WebdriverIO o Maestro quan volen tests amb estil de flux. Són opcions raonables. Maestro és especialment agradable si l'únic que vols és gravar un flux.
+
+Per què afegir, doncs, una capa BDD sobre Detox?
+
+Perquè un cop existeixen els fitxers feature, QA i product managers els poden llegir. Poden demanar escenaris que mai se't haurien acudit. El Detox imperatiu manté el disseny dels tests dins d'enginyeria. Cucumber el treu fora.
+
+El cost són dues dependències més i una capa de suport. En la meva experiència, és un cost petit un cop les definicions de passos s'estabilitzen. Els nous escenaris es resolen en cinc minuts.
+
 ## Per què BDD per a tests E2E
 
-La majoria de tutorials de Detox t'ensenyen a escriure codi de test imperatiu:
+La majoria d'exemples de Detox mostren codi de test imperatiu:
 
 ```typescript
 await element(by.id('email-input')).typeText('user@example.com');
@@ -21,9 +33,9 @@ await element(by.id('login-button')).tap();
 await expect(element(by.id('home-screen'))).toBeVisible();
 ```
 
-Funciona. Però es llegeix com a codi, no com una especificació de test. Quan un product manager pregunta "què cobreix el test de login?", li passes un fitxer TypeScript i esperes el millor.
+Funciona. Es llegeix com a codi, no com una especificació de test. Quan un PM pregunta "què cobreix realment el test de login?", li assenyales un fitxer TypeScript.
 
-**Cucumber BDD** et permet escriure tests en anglès pla amb sintaxi Gherkin:
+Cucumber et permet escriure el mateix test en Gherkin:
 
 ```
 Feature: User Authentication
@@ -37,28 +49,31 @@ Feature: User Authentication
     Then I should see the "Home" screen
 ```
 
-El mateix test. Les mateixes comandes de Detox per sota. Però ara qualsevol persona de l'equip pot llegir-lo, revisar-lo i suggerir escenaris que falten.
+Les mateixes comandes de Detox per sota. Ara qualsevol persona de l'equip pot llegir el test, revisar-lo i suggerir els escenaris que t'has deixat. Quan un falla, la línia que s'ha trencat surt en llenguatge pla, no en TypeScript.
 
-> 💡 **L'avantatge clau:** els fitxers feature es converteixen en documentació viva. Quan un escenari passa, saps que l'app suporta aquell comportament. Quan falla, saps exactament quin flux d'usuari s'ha trencat, en llenguatge pla.
+## Pas 1. Instal·lar Detox i Cucumber
 
-## Instal·lació
-
-Necessites Detox (per a l'automatització del dispositiu) i Cucumber (per a la capa BDD):
+Detox, Cucumber i el carregador de TypeScript com a dependències de desenvolupament:
 
 ```bash
-yarn add -D detox @cucumber/cucumber ts-node
+yarn add -D detox @cucumber/cucumber ts-node tsconfig-paths
+cd ios && pod install && cd ..
 ```
 
-Detox també necessita el seu CLI:
+El `pod install` d'iOS cal perquè Detox porta codi natiu que s'ha d'enllaçar a la build de test.
+
+També necessites dues eines a nivell de host que no són paquets npm:
 
 ```bash
 brew tap wix/brew
 brew install applesimutils
 ```
 
-## Els fitxers de configuració
+`applesimutils` és el que fa servir Detox per controlar el simulador iOS. Per a Android necessites un emulador funcional amb la depuració per USB activada. El CLI de Detox s'invoca via `npx detox`, així que no cal cap instal·lació global.
 
-Tres fitxers de configuració connecten tot el conjunt.
+## Pas 2. Els tres fitxers de configuració
+
+Tres fitxers connecten tot el conjunt: `.detoxrc.js` (o `detox.config.js`. Detox accepta tots dos), `.cucumber.js` i un `tsconfig.cucumber.json` reduït.
 
 ### .detoxrc.js
 
@@ -109,18 +124,23 @@ module.exports = {
 
 ### .cucumber.js
 
-La configuració de Cucumber indica on trobar els fitxers feature, les definicions de passos i com formatar la sortida:
+La configuració de Cucumber diu on viuen els fitxers feature, on viuen les definicions de passos i com formatar la sortida:
 
-```typescript
+```javascript
+require('ts-node').register({
+  transpileOnly: true,
+  compilerOptions: { module: 'commonjs', jsx: 'react' },
+});
+
 module.exports = {
   default: {
     paths: ['src/features/**/__tests__/*.feature'],
     require: [
-      'src/test-utils/cucumber/support/**/*.{ts,tsx}',
-      'src/test-utils/cucumber/step-definitions/**/*.cucumber.{ts,tsx}',
+      'src/test-utils/cucumber/support/**/*.ts',
+      'src/test-utils/cucumber/step-definitions/**/*.{ts,tsx}',
+      'src/**/__tests__/**/*.cucumber.{ts,tsx}',
     ],
-    requireModule: ['ts-node/register'],
-    format: ['src/test-utils/cucumber/formatters/CheckmarkFormatter.js'],
+    format: ['./src/test-utils/cucumber/formatters/CheckmarkFormatter.js'],
     formatOptions: { colorsEnabled: true },
     strict: true,
     parallel: 2,
@@ -129,11 +149,12 @@ module.exports = {
 };
 ```
 
+Registrar `ts-node` a dalt del fitxer de configuració (en lloc de fer-ho via `requireModule`) és el camí menys friccionat amb les versions actuals de Cucumber. També et permet mantenir les opcions del compilador locals.
+
 | Opció | Què fa |
 |---|---|
 | `paths` | On viuen els fitxers feature de Gherkin |
 | `require` | On viuen les definicions de passos i fitxers de suport |
-| `requireModule` | Activa el suport per a TypeScript |
 | `format` | Formatter personalitzat per a sortida llegible |
 | `strict` | Falla si hi ha passos indefinits o pendents |
 | `parallel` | Nombre de workers paral·lels |
@@ -141,50 +162,72 @@ module.exports = {
 
 ### tsconfig.cucumber.json
 
-Una configuració mínima de TypeScript per al runtime de Cucumber:
+Una configuració reduïda de TypeScript per al runtime de Cucumber, separada del `tsconfig` principal de l'app:
 
 ```json
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2020",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "moduleResolution": "node",
     "jsx": "react",
-    "strict": true,
     "esModuleInterop": true,
-    "paths": { "@app/*": ["./src/*"] }
-  }
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "strict": false,
+    "baseUrl": ".",
+    "paths": { "@app/*": ["src/*"] },
+    "types": ["node", "detox"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
 ```
 
-## La capa de suport
+Dues coses per remarcar. `"types": ["node", "detox"]` és el que ensenya a TypeScript que `device`, `element`, `by` i `waitFor` són globals. Sense això, cada definició de pas s'encén en vermell sobre `device.launchApp`. `"strict": false` és una elecció pragmàtica per a fitxers de test (ho agrairàs quan lluitis amb optional chains dins dels resultats d'escenari).
 
-Tres fitxers configuren el cicle de vida de Detox dins de Cucumber.
+Apunta `cucumber-js` a aquesta configuració via `TS_NODE_PROJECT=tsconfig.cucumber.json` dins de l'script npm.
+
+## Pas 3. La capa de suport
+
+Tres fitxers configuren el cicle de vida de Detox dins de Cucumber: `detox-setup.ts`, `hooks.ts` i `world.ts`.
 
 ### detox-setup.ts
 
+Detox 20 exposa el seu cicle de vida programàtic via l'entrada `detox/internals`. L'import públic de `'detox'` et dona `device`, `element`, `by`, `waitFor`. Els hooks del cicle de vida (`init`, `cleanup`, `onTestStart`, `onTestDone`) viuen sota `'detox/internals'`:
+
 ```typescript
-import * as detox from 'detox';
+import detox from 'detox/internals';
 
-export async function setupDetox(workerId: string) {
-  await detox.init(undefined, { workerId });
-}
+export const setupDetox = async (workerId: string = '0') => {
+  const config = process.env.DETOX_CONFIGURATION;
+  if (!config) {
+    throw new Error('DETOX_CONFIGURATION is not set (e.g. ios.sim.debug)');
+  }
+  await detox.init({ workerId: `cucumber-worker-${workerId}` });
+};
 
-export async function cleanupDetox() {
+export const cleanupDetox = async () => {
   await detox.cleanup();
-}
+};
+
+export { detox };
 ```
 
 ### hooks.ts
 
-Aquest és el nexe entre el cicle de vida de Cucumber i la gestió de dispositius de Detox:
+El nexe entre el cicle de vida de Cucumber i la gestió de dispositius de Detox:
 
 ```typescript
-import { BeforeAll, Before, After, AfterAll } from '@cucumber/cucumber';
-import { setupDetox, cleanupDetox } from './detox-setup';
+import { After, AfterAll, Before, BeforeAll, Status } from '@cucumber/cucumber';
+import { device } from 'detox';
 
-BeforeAll({ timeout: 180000 }, async function () {
-  const workerId = process.env.CUCUMBER_WORKER_ID || '0';
-  await setupDetox(`cucumber-worker-${workerId}`);
+import { cleanupDetox, detox, setupDetox } from './detox-setup';
+import { DetoxWorld } from './world';
+
+BeforeAll({ timeout: 180 * 1000 }, async function () {
+  const workerId = process.env.CUCUMBER_WORKER_ID ?? '0';
+  await setupDetox(workerId);
   await device.launchApp({
     newInstance: true,
     launchArgs: { detoxEnableSynchronization: 0 },
@@ -192,17 +235,29 @@ BeforeAll({ timeout: 180000 }, async function () {
   await device.enableSynchronization();
 });
 
-Before({ timeout: 30000 }, async function () {
-  await detox.onTestStart(this);
+Before({ timeout: 30000 }, async function (this: DetoxWorld, { pickle }) {
+  await detox.onTestStart({
+    title: pickle.name,
+    fullName: pickle.name,
+    status: 'running',
+  });
   await device.reloadReactNative();
 });
 
-After(async function (scenario) {
-  if (scenario.result?.status === 'FAILED') {
-    const name = scenario.pickle.name.replace(/\s+/g, '-');
-    await device.takeScreenshot(name);
+After(async function (this: DetoxWorld, { pickle, result }) {
+  const testStatus = result?.status === Status.PASSED ? 'passed' : 'failed';
+  if (result?.status === Status.FAILED) {
+    try {
+      await device.takeScreenshot(pickle.name);
+    } catch (error) {
+      console.error('Failed to take screenshot:', error);
+    }
   }
-  await detox.onTestDone(this);
+  await detox.onTestDone({
+    title: pickle.name,
+    fullName: pickle.name,
+    status: testStatus,
+  });
 });
 
 AfterAll(async function () {
@@ -217,18 +272,25 @@ AfterAll(async function () {
 | `After` | per defecte | Fa una captura de pantalla si falla, notifica Detox |
 | `AfterAll` | per defecte | Desmunta Detox |
 
-El truc de sincronització val la pena remarcar: llança l'app amb la sincronització desactivada (`detoxEnableSynchronization: 0`), i després activa-la un cop l'app ja està en marxa. Això evita que Detox faci timeout durant la càrrega inicial del bundle.
+La dansa de la sincronització importa. Llança l'app amb la sincronització desactivada (`detoxEnableSynchronization: 0`), i després reactiva-la un cop l'app ja està en marxa. Això evita el timeout de Detox que sorgeix quan la càrrega inicial del bundle és lenta.
 
 ### world.ts
 
 Un World personalitzat de Cucumber que transporta el context de Detox entre passos:
 
 ```typescript
-import { World } from '@cucumber/cucumber';
+import { IWorldOptions, setWorldConstructor, World } from '@cucumber/cucumber';
+import { device } from 'detox';
 
 export class DetoxWorld extends World {
-  device = device;
-  testID: string | null = null;
+  device: typeof device;
+  testID: string | null;
+
+  constructor(options: IWorldOptions) {
+    super(options);
+    this.device = device;
+    this.testID = null;
+  }
 
   setTestID(id: string) { this.testID = id; }
   getTestID(): string {
@@ -236,11 +298,15 @@ export class DetoxWorld extends World {
     return this.testID;
   }
 }
+
+setWorldConstructor(DetoxWorld);
 ```
 
-## Escrivint fitxers feature
+Cridar `setWorldConstructor` és el que connecta aquesta classe a cada `this` dins d'un pas. Si oblides la crida, `this.device` és `undefined`.
 
-Els fitxers feature són text pla amb sintaxi Gherkin. Cada escenari descriu un flux d'usuari:
+## Pas 4. Escrivint el teu primer fitxer feature
+
+Els fitxers feature són text pla amb sintaxi Gherkin. Cada escenari descriu un flux d'usuari. Deixa un fitxer a `src/features/Auth/__tests__/Login.feature`:
 
 ```
 Feature: User Authentication
@@ -283,9 +349,9 @@ Després, a la comanda de test:
 yarn detox test --tags "@accessibility and @ios"
 ```
 
-## Escrivint definicions de passos
+## Pas 5. Escrivint definicions de passos
 
-Cada pas de Gherkin es mapeja a una funció. Aquestes són les peces reutilitzables que fan que BDD sigui potent.
+Cada pas de Gherkin es mapeja a una funció. Les definicions de passos són les peces que reutilitzaràs entre tots els fitxers feature un cop existeixen.
 
 ### Passos comuns
 
@@ -335,15 +401,13 @@ Then('I should see text {string}', async function (text: string) {
 });
 ```
 
-Patrons clau:
+Tres patrons per fixar aquí. Primer, una convenció consistent de testID: els noms de pantalla esdevenen kebab-case amb un sufix `-screen` o `-button`. "Login" es mapeja a `login-screen`, "Home" a `home-screen`, "Submit" a `submit-button`. Segon, cada asserció passa per `waitFor` amb timeout, no per un `expect` directe. Les animacions i les crides de xarxa necessiten temps per estabilitzar-se i `expect` no els el dona. Tercer, `replaceText` en lloc de `typeText`. `typeText` afegeix al que ja hi ha. `replaceText` ho esborra primer. Per a camps de formulari vols el segon.
 
-- ✅ **Convenció consistent de testID:** els noms de pantalla es converteixen a kebab-case amb un sufix. "Login" es converteix en `login-screen`, "Home" en `home-screen`
-- ✅ **Esperes explícites:** Cada asserció usa `waitFor` amb timeout, no un `expect` directe. Les animacions i les crides de xarxa necessiten temps per estabilitzar-se
-- ✅ **`replaceText` en comptes de `typeText`:** `typeText` afegeix al text existent. `replaceText` l'esborra primer. Més segur per a camps de formulari
+Desa el fitxer com a `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` i Cucumber el recull via el glob del teu `.cucumber.js`.
 
 ### Estratègies de cerca d'elements
 
-De vegades `by.id()` no és suficient. Una definició de passos resilient prova múltiples estratègies:
+De vegades `by.id()` no és suficient. Una definició de passos que no es trenca entre iOS i Android prova múltiples estratègies:
 
 ```typescript
 When('I tap the text {string}', async function (text: string) {
@@ -362,9 +426,9 @@ When('I tap the text {string}', async function (text: string) {
 
 Prova `by.text()` primer (text visible), recorre a `by.label()` (etiqueta d'accessibilitat), i després a `by.id()` (testID). Això gestiona botons que renderitzen text diferent entre plataformes.
 
-## El formatter personalitzat
+## Un formatter personalitzat
 
-La sortida per defecte de Cucumber és verbosa. Un formatter personalitzat et dona resultats nets i fàcils d'escanejar:
+La sortida per defecte de Cucumber és sorollosa. Un formatter personalitzat et dona resultats nets, més fàcils de llegir als logs de CI:
 
 ```
 ✓ Feature: User Authentication
@@ -419,18 +483,18 @@ class CheckmarkFormatter extends Formatter {
 module.exports = CheckmarkFormatter;
 ```
 
-La implementació completa al meu projecte fa seguiment dels pickles, mapeja els passos de test al seu text Gherkin, calcula els temps i genera un resum amb recompte de passes/fallades.
+La versió completa del meu repo fa seguiment dels pickles, mapeja els passos de test al seu text Gherkin, mesura el temps de cada pas i imprimeix un resum amb recompte de passes i fallades. El que tens a sobre és la forma; el fitxer complet és `src/test-utils/cucumber/formatters/CheckmarkFormatter.js` al repo enllaçat al final.
 
 ## Execució paral·lela
 
-Detox suporta l'execució d'escenaris en múltiples simuladors. La configuració de `.cucumber.js` defineix el nombre de workers, i cada worker obté la seva pròpia instància de simulador.
+Detox pot executar escenaris en múltiples simuladors. L'opció `parallel` de Cucumber controla el nombre de workers i cada worker obté la seva pròpia instància de Detox.
 
 ```bash
 # Executar amb 3 simuladors en paral·lel
 DETOX_WORKERS=3 yarn detox:ios:test:parallel
 ```
 
-El hook `BeforeAll` llegeix `CUCUMBER_WORKER_ID` per inicialitzar cada worker amb la seva pròpia instància de Detox. Els escenaris es distribueixen entre workers automàticament.
+El hook `BeforeAll` llegeix `CUCUMBER_WORKER_ID` i el passa a `setupDetox` perquè cada worker s'inicialitzi contra el seu propi simulador. Cucumber distribueix els escenaris entre workers automàticament.
 
 | Configuració | Local | CI |
 |---|---|---|
@@ -439,13 +503,13 @@ El hook `BeforeAll` llegeix `CUCUMBER_WORKER_ID` per inicialitzar cada worker am
 | Reintents per fallada | 1 | 1 |
 | Aturada ràpida | No | No |
 
-> 💡 **Consell:** Desactiva l'aturada ràpida en mode paral·lel. Un escenari inestable no hauria d'aturar els altres workers. Amb els reintents activats, el test inestable té una segona oportunitat mentre la resta continua executant-se.
+Un consell sobre execucions paral·leles. Mantén l'aturada ràpida desactivada quan executes en paral·lel. Un escenari inestable no hauria de tombar els altres workers, i amb els reintents activats l'inestable té una segona oportunitat mentre la resta continua avançant. En una execució d'un sol worker, l'aturada ràpida activada està bé.
 
 ## Tests d'accessibilitat amb BDD
 
-Detox no pot controlar VoiceOver o TalkBack directament. El testing manual amb lector de pantalla segueix sent essencial. Però el que Detox *sí pot* fer és verificar que els labels, rols i traits d'accessibilitat estiguin correctes a cada element. Escrits en Gherkin, aquests tests detecten regressions d'accessibilitat abans que un tester humà obri VoiceOver.
+Detox no controla VoiceOver o TalkBack directament. El testing manual amb lector de pantalla segueix tenint la seva feina. El que Detox *sí pot* comprovar és que els labels, rols i traits d'accessibilitat estiguin correctes a cada element. Escrits com a escenaris Gherkin, aquests controls detecten una mena de regressió que ningú no notarà manualment fins que un usuari amb VoiceOver obri l'app.
 
-El meu projecte té dos fitxers feature que verifiquen propietats d'accessibilitat: un per a patrons d'iOS i un per a Android.
+El meu repo té dos fitxers feature per a això, un per a patrons d'iOS i un per a Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -486,32 +550,34 @@ interface AccessibilityState {
 }
 ```
 
-Això fa seguiment de l'ordre de focus esperat, el text dels anuncis i la granularitat de lectura. 50 escenaris entre els dos fitxers feature verifiquen labels d'accessibilitat, comportament de focus, anuncis de live regions i accions personalitzades. No reemplacen el testing manual amb un lector de pantalla real, però eviten que les regressions arribin a producció.
+Això fa seguiment de l'ordre de focus esperat, el text dels anuncis i la granularitat de lectura. Uns 50 escenaris entre els dos fitxers feature cobreixen labels, comportament de focus, anuncis de live regions i accions personalitzades. No reemplacen una passada manual amb un lector de pantalla real. Sí aturen les regressions òbvies abans que arribin a producció.
 
-## Els scripts
+## Executar-ho
 
-Els scripts de package.json fan que el flux de treball sigui net:
+Els scripts que uso viuen a `package.json` així:
 
 ```json
 {
   "scripts": {
     "detox:ios:build": "detox build -c ios.sim.debug",
-    "detox:ios:test": "detox test -c ios.sim.debug",
-    "detox:ios:test:parallel": "DETOX_WORKERS=2 detox test -c ios.sim.debug",
+    "detox:ios:test": "DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js",
+    "detox:ios:test:parallel": "DETOX_WORKERS=2 yarn detox:ios:test --parallel 2 --retry 1",
     "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test"
   }
 }
 ```
 
+Fixa't que l'script de test executa `cucumber-js` directament, no `detox test`. Amb Cucumber com a runner, no passes pel wrapper de runner de Detox. Detox s'inicialitza des del teu fitxer de suport.
+
 ## Errors comuns
 
-**La sincronització és la part més difícil.** Detox intenta esperar automàticament que l'app estigui ociosa, però les animacions, els temporitzadors i les crides de xarxa el poden confondre. El patró de llançar amb sincronització desactivada (`detoxEnableSynchronization: 0` i després `enableSynchronization()`) evita el timeout més habitual.
+**La sincronització és la part més difícil.** Detox intenta esperar automàticament que l'app estigui ociosa, però les animacions, els temporitzadors i les crides de xarxa el poden confondre. El patró de llançar amb sincronització desactivada (`detoxEnableSynchronization: 0` i després `enableSynchronization()`) esquiva el timeout més habitual.
 
 **`typeText` afegeix, `replaceText` reemplaça.** Si un camp té text de placeholder o entrada anterior, `typeText` hi afegeix. Usa `replaceText` per a camps de formulari on vols un valor net.
 
-**Les captures de pantalla quan falla són essencials.** El hook `After` captura una captura de pantalla quan un escenari falla. Sense això, depurar fallades al CI és pura endevinalla. Anomena la captura de pantalla com l'escenari perquè puguis emparellar fallades amb imatges.
+**Captures de pantalla quan falla.** El hook `After` captura una captura de pantalla quan un escenari falla. Sense això, depurar fallades al CI és aclucar els ulls davant dels logs. Anomena la captura de pantalla com l'escenari perquè puguis emparellar una fallada amb la seva imatge.
 
-**Els fitxers feature han de descriure comportament, no implementació.** Escriu "When I log in" en comptes de "When I type into email-input and tap login-button". Els detalls d'implementació pertanyen a les definicions de passos, no al Gherkin.
+**Descriu comportament, no implementació.** Escriu "When I log in", no "When I type into email-input and tap login-button". Els detalls d'implementació pertanyen a les definicions de passos, no al Gherkin. Si un no-enginyer no pot llegir el fitxer feature en veu alta i entendre'l, has filtrat detalls a la capa equivocada.
 
 ## L'estructura completa de fitxers
 
@@ -537,16 +603,16 @@ e2e/
 
 ## Què guanyes
 
-El setup porta un matí. Escriure el primer fitxer feature porta una tarda. Després, afegir nous escenaris és ràpid perquè les definicions de passos són reutilitzables.
+El setup és feina d'un matí. El primer fitxer feature, una tarda. Després, afegir escenaris és ràpid perquè les definicions de passos són reutilitzables entre features.
 
-El retorn:
+El que has construït al final:
 
-1. **Tests que qualsevol pot llegir.** Product managers, QA, dissenyadors. Els fitxers Gherkin són l'especificació i el test alhora.
-2. **Execució paral·lela de sèrie.** El paral·lelisme integrat de Cucumber funciona amb Detox. Tres simuladors, tres workers, tres vegades més ràpid.
-3. **Detecció de regressions d'accessibilitat.** 50 escenaris verifiquen que labels, rols i traits siguin correctes. No reemplacen el testing manual amb lector de pantalla, però són una xarxa de seguretat que evita que les regressions arribin a QA.
+1. Tests que qualsevol persona de l'equip pot llegir. Product, QA, dissenyadors. El fitxer Gherkin és l'especificació i el test alhora.
+2. Execució paral·lela que funciona amb Detox. Tres simuladors, tres workers, tres vegades més ràpid al CI.
+3. Cobertura de regressions d'accessibilitat. Uns 50 escenaris verificant labels, rols i traits. No és un substitut del testing manual amb lector de pantalla, però sí una xarxa que atura les regressions òbvies abans que arribin a QA.
 
 > Quan un test E2E falla, hauries de saber què s'ha trencat sense llegir el codi del test.
 
-*Aquest post cobreix testing E2E. Per a tests unitaris i d'integració, uso [MSW v2 per simular la capa de xarxa](/ca/blog/setting-up-msw-v2-in-react-native/) en comptes de `jest.fn()`. Els dos enfocaments es complementen: MSW per a tests ràpids i enfocats contra crides HTTP reals; Detox + Cucumber per a fluxos complets d'usuari en un dispositiu real.*
+*Aquest post cobreix testing E2E. Per a tests unitaris i d'integració uso [MSW v2 per simular la capa de xarxa](/ca/blog/setting-up-msw-v2-in-react-native/) en comptes de `jest.fn()`. Els dos s'emparellen bé: MSW per a tests ràpids i enfocats contra crides HTTP reals; Detox + Cucumber per a fluxos complets d'usuari en un dispositiu real.*
 
-*Els exemples de codi d'aquest post són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. El setup complet de Detox + Cucumber, les definicions de passos, el formatter personalitzat i els fitxers feature d'accessibilitat són al repo.*
+*El codi d'aquest post és de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. El setup complet de Detox + Cucumber, les definicions de passos, el formatter personalitzat i els fitxers feature d'accessibilitat viuen tots allà.*
