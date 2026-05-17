@@ -11,7 +11,7 @@ campaign: "supabase-storage-client"
 relatedPosts: ["building-an-axios-based-supabase-auth-client", "token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]
 ---
 
-This is part 4 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). Parts 2 and 3 covered [the auth client](/blog/building-an-axios-based-supabase-auth-client/) and [the token refresh response interceptor](/blog/token-refresh-race-condition-react-native/). This post is the storage client: profile picture upload and delete, against Supabase Storage's REST API, with exponential-backoff retry on transient failures.
+Part 4 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). Parts 2 and 3 covered [the auth client](/blog/building-an-axios-based-supabase-auth-client/) and [the token refresh response interceptor](/blog/token-refresh-race-condition-react-native/). This post builds the storage client: profile picture upload and delete against Supabase Storage's REST API, with exponential-backoff retry on transient failures.
 
 The retry rule, up front:
 
@@ -22,7 +22,11 @@ The retry rule, up front:
 | 408, 429 | Retry, respecting `Retry-After` if present |
 | 4xx (400, 401, 403, 413, 422, 404) | Don't retry. Return the error to the caller. |
 
-The rest of this post is what makes that policy work for real uploads: file reading, idempotency on retries, the timeouts, and the typed error mapping.
+The rest of the post is what makes that policy work for real uploads: file reading, idempotency on retries, the timeouts, and the typed error mapping.
+
+### Why not `axios-retry` or `p-retry`?
+
+Fair question. Both are well-trodden, both work, and for a generic HTTP client they're the right call. The reason the storage client rolls its own is narrow: the retry decision is tightly coupled to Supabase-specific 4xx semantics (a 413 from Supabase Storage genuinely won't get better with another attempt, a 422 means a schema problem, a 401 has already been handled by the response interceptor before the retry loop sees it), and the idempotency story depends on the `x-upsert: true` header that only this endpoint understands. A reusable retry library would have you configure all of that anyway. The hand-rolled version is forty lines, easy to read in a code review, and lives next to the code it serves. If you want a generic policy across many clients, reach for the library. For one tightly-scoped flow, the loop below earns its keep.
 
 Source: [`src/httpClients/SupabaseStorageClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseStorageClient.ts).
 
@@ -43,13 +47,14 @@ The bucket configuration on the Supabase dashboard:
 ## Installation
 
 ```bash
-yarn add axios react-native-fs
+yarn add axios react-native-fs base-64
+yarn add -D @types/base-64
 cd ios && pod install && cd ..
 ```
 
-`react-native-fs` reads the file from the local filesystem and returns its bytes. It's a native module; pod install on iOS, autolinked on Android.
+`react-native-fs` reads the file from the local filesystem and returns its bytes. It's a native module: pod install on iOS, autolinked on Android. `base-64` gives you a portable `atob` for the binary decode; Hermes exposes `atob` as a global on recent React Native, but the package is the safe fallback when older runtimes are in the matrix.
 
-If you're already installing Axios and `react-native-config` from [part 2](/blog/building-an-axios-based-supabase-auth-client/), they're shared between the two clients.
+Axios and `react-native-config` carry over from [part 2](/blog/building-an-axios-based-supabase-auth-client/); both clients share them.
 
 ## Why a separate client
 
@@ -72,6 +77,7 @@ Two instances, two configurations. Each one stays simple because it only carries
 import Config from 'react-native-config';
 import RNFS from 'react-native-fs';
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import { decode as atob } from 'base-64';
 
 import { SecureStore, SecureStoreKey } from '@app/utils/storage';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage';
@@ -113,7 +119,7 @@ The 30-second timeout is the only configuration that materially differs from the
 
 ## Token attachment and refresh
 
-The token-attachment interceptor is identical to the one in [the auth client](/blog/building-an-axios-based-supabase-auth-client/): read the access token from the Keychain on every call, attach it as a Bearer header.
+The token-attachment interceptor mirrors the one in [the auth client](/blog/building-an-axios-based-supabase-auth-client/): read the current access token, attach it as a Bearer header. In production code you'll want to share an in-memory token cache between the two clients (`SupabaseAuthClient.getAccessToken()` in the live repo) so the Keychain biometric prompt only fires once. The simplified version below reads from SecureStore directly to keep the snippet self-contained.
 
 ```typescript
 private attachToken = async (
@@ -216,15 +222,15 @@ async uploadProfilePicture(
 }
 ```
 
-Three things to call out.
+Four things to call out.
 
-**The path includes the user ID.** Storage paths in Supabase look like `${userId}/profile-${timestamp}.jpg`. The user ID prefix is what RLS policies on the bucket use to enforce that users can only write to their own folder. The timestamp prevents accidental overwrites and makes old uploads garbage-collectable from the URL alone.
+**The path includes the user ID.** Storage paths in Supabase look like `${userId}/profile-${timestamp}.jpg`. The user ID prefix is what RLS policies on the bucket use to keep users writing only to their own folder. The timestamp prevents accidental overwrites and makes old uploads garbage-collectable from the URL alone.
 
-**The file gets read as base64, then converted to a binary buffer.** RNFS supports `'utf8'`, `'ascii'`, and `'base64'`. Base64 is the right choice for binary data because the alternatives mangle non-text bytes. Axios needs binary for the upload body, so the base64 string gets decoded back to a `Uint8Array` (in `uploadWithRetry` below). The double conversion costs a few milliseconds and is worth it for the platform consistency.
+**The file is read as base64, then converted to a binary buffer.** RNFS supports `'utf8'`, `'ascii'`, and `'base64'`. Base64 is the right choice for binary data because the alternatives mangle non-text bytes. Axios needs binary for the upload body, so the base64 string is decoded back to a `Uint8Array` inside `uploadWithRetry` below. The double conversion costs a few milliseconds and is worth it for the platform consistency.
 
 **The successful URL gets cached in EncryptedStore.** That's the URL the profile screen displays. Caching it means the screen renders the new picture immediately on the next render, without waiting for a profile refetch.
 
-**The function returns a result object instead of throwing on failure.** Upload is a user action, not a system operation. The UI needs to show a "try again" message; it doesn't need to crash. Returning `{ success: false, error }` lets the caller render an error toast and keep going, while throwing forces every caller into a try/catch.
+**The function returns a result object instead of throwing on failure.** Upload is a user action. The UI needs to show a "try again" message, not crash. Returning `{ success: false, error }` lets the caller render an error toast and carry on; throwing would force every caller into a try/catch.
 
 ## The retry loop
 
@@ -289,15 +295,15 @@ The retry policy is the part worth understanding.
 
 **Three attempts.** With base delay 1 second and exponential backoff (`1s, 2s, 4s`), the worst case adds 7 seconds of wall-clock time before failing. That's tolerable for a user action.
 
-**The 4xx-vs-5xx distinction matters.** A 401 is a stale token (the response interceptor handles it before the retry loop sees it). A 403 is "you don't have permission", retrying changes nothing. A 413 is "file too large", retrying changes nothing. A 422 is a validation error, same. None of these get better with a second attempt; the loop throws immediately so the user sees a clear error instead of waiting through three pointless retries.
+**The 4xx-vs-5xx split matters.** A 401 is a stale token, handled by the response interceptor before the retry loop sees it. A 403 is "you don't have permission", retrying changes nothing. A 413 is "file too large", same story. A 422 is a validation error, same again. None of these get better with a second attempt; the loop throws immediately so the user sees a clear error instead of waiting through three pointless retries.
 
 5xx errors and network errors are different. A 503 from a Supabase region having a bad five seconds, or a TCP reset on a flaky cell signal, often resolves on the next attempt. Those go through the backoff.
 
-> 💡 **The general rule for retries:** retry idempotent operations on transient failures. "Idempotent" means the same call twice has the same effect as once (the `x-upsert: true` header makes this true for the upload). "Transient" means a temporary condition that's likely to resolve. 5xx and network errors qualify; 4xx don't.
+The general rule under both branches: retry idempotent operations on transient failures. Idempotent means the same call twice has the same effect as once; `x-upsert: true` makes that true for this upload. Transient means a temporary condition likely to resolve on its own. 5xx and network errors qualify, 4xx don't.
 
 **`x-upsert: true` makes the upload idempotent.** Without it, the second attempt would 409 because the path already exists. With it, the upload either succeeds or fails the same way every time, so retrying is safe.
 
-**The base64-to-binary conversion happens inside the loop.** That looks wasteful, but the conversion is fast (a few milliseconds for a profile picture) and putting it inside the loop avoids holding a giant `Uint8Array` in memory for the entire backoff window if the upload fails on attempt 1.
+**The base64-to-binary conversion happens inside the loop.** It looks wasteful, but the conversion is fast (a few milliseconds for a profile picture) and keeping it inside the loop avoids holding a giant `Uint8Array` in memory for the entire backoff window if attempt 1 fails.
 
 ## Deleting a picture
 
@@ -513,7 +519,7 @@ The 5xx retry test takes ~1 second of wall-clock because the first backoff sleep
 
 ## Common pitfalls
 
-**Don't put the user ID in the URL but check the bucket policy with the auth.uid() function.** The path `${userId}/${filename}` is what makes RLS policies `(storage.foldername(name))[1] = auth.uid()::text` work. Without that prefix, the policy can't tell which user owns the file.
+**Don't drop the user ID from the path.** The path `${userId}/${filename}` is what makes the RLS policy `(storage.foldername(name))[1] = auth.uid()::text` work. Without that prefix, the policy can't tell which user owns the file, and the bucket either rejects every write or accepts writes you didn't intend.
 
 **Don't forget `x-upsert: true` if you want retries to be safe.** Without it, the second attempt of an upload that already partially completed returns 409 Conflict. The retry loop sees that as a "won't retry on 4xx" error and gives up. With it, the upload either succeeds cleanly or fails cleanly, regardless of how many attempts ran.
 
