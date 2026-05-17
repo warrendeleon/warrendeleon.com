@@ -11,9 +11,11 @@ campaign: "pii-masking-rn"
 relatedPosts: ["certificate-pinning-in-react-native", "building-an-axios-based-supabase-auth-client", "tiered-secure-storage-react-native"]
 ---
 
+A login fails, your error reporter fires, and the crash report ships with the request body still attached. The body had `{ email, password, accessToken: 'eyJhbGc...' }` in it. The full Bearer token is now sitting in Sentry breadcrumbs. So is the password. So is every other call that ran in the last sixty seconds and got pulled into the rolling buffer. Anyone with read access to your error project just got a tap-able list of every credential in flight.
+
 This is part 6 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). The previous post covered [certificate pinning](/blog/certificate-pinning-in-react-native/), which protects the bytes on the wire. This post covers the bytes that *intentionally* leave the app: console logs, error reports, observability breadcrumbs, analytics events. By default, everything you log carries through whatever sensitive data was in the local variable scope at the time. Without a masking layer, the first remote-logging system you bolt on becomes a parallel database of every user's email, every Bearer token in flight, and every password the user ever typed into a form.
 
-This post is the logger and the masking utility that prevent the most common leak paths. It uses Sentry as the worked example for the breadcrumb-scrubbing path, but the masker is SDK-agnostic; the same pattern applies to Crashlytics, Datadog, or any other off-device log sink.
+This post is the logger and the masking utility that close the most common leak paths. It uses Sentry as the worked example for the breadcrumb-scrubbing path, but the masker is SDK-agnostic; the same pattern applies to Crashlytics, Datadog, or any other off-device log sink.
 
 > ⚠️ **What this post is and isn't.** This is a *risk reduction layer*, not a guarantee. Regex-based masking has false positives (it can over-redact strings that look like tokens but aren't) and false negatives (a 6-digit PIN with no surrounding context will pass through). Field-name masking depends on you adding new sensitive field names to the set as your schema grows. The right way to think about this layer: it catches the obvious mistakes that ship every week, not the subtle ones a determined attacker would dig for. Run a periodic audit of what's actually reaching Sentry.
 
@@ -29,7 +31,7 @@ Three concrete leak paths that PII masking closes:
 
 **Crash report payloads.** Crash reporters attach the JS stack trace plus surrounding context. The arguments to a thrown error frequently include exactly the kind of objects your app was about to operate on, which is exactly the kind of object you didn't want logged.
 
-The fix isn't "be careful what you log". The fix is a logger that's careful for you, and an interceptor on the way to Sentry that scrubs the payload one more time as a backstop.
+"Be careful what you log" doesn't survive contact with a team of five and a deadline. The fix is a logger that's careful for you, and an interceptor on the way to Sentry that scrubs the payload one more time as a backstop.
 
 ## Assumptions
 
@@ -48,7 +50,7 @@ PII shows up in two shapes, and you need a strategy for each.
 
 **Structured fields.** When you log `{ email: 'user@example.com', accessToken: 'eyJ...' }`, the field name tells you the value is sensitive. A field-name-based masker reads `email` and replaces the value, regardless of what the value happens to be.
 
-**Embedded patterns.** When you log `Bearer eyJhbGciOiJIUzI1NiIs...` as a string, no field name carries the signal. A regex-based masker scans the string for known patterns (JWT tokens, email addresses, phone numbers, credit cards) and replaces the matches.
+**Embedded patterns.** When you log `Bearer eyJhbGciOiJIUzI1NiIs...` as a string, no field name carries the signal. A regex-based masker scans the string for known patterns (JWT tokens, email addresses, phone numbers, government IDs) and replaces the matches.
 
 Either layer alone leaks something. Field-name masking alone misses tokens embedded in URLs (`?access_token=eyJ...`). Regex-only masking misses values that don't match any pattern (a 6-digit PIN doesn't look like anything in particular). Both layers together catch most things.
 
@@ -63,7 +65,6 @@ const MASKED = {
   PASSWORD: '[MASKED]',
   PHONE: '[MASKED_PHONE]',
   ADDRESS: '[MASKED_ADDRESS]',
-  CREDIT_CARD: '[MASKED_CARD]',
   SSN: '[MASKED_SSN]',
 } as const;
 
@@ -136,14 +137,14 @@ const PATTERNS = {
   // UK phone numbers (+44 or 0 prefix)
   PHONE_UK: /(\+44\s?|0)(\d\s?){10,11}/g,
 
-  // US phone numbers
-  PHONE_US: /(\+1[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g,
+  // US phones in unambiguous form only: (xxx) xxx-xxxx, +1-xxx-xxx-xxxx,
+  // +1 xxx xxx xxxx. Bare 7- and 10-digit number-with-separator strings
+  // are intentionally not matched. Field-name detection still catches
+  // phones inside structured data (phone, cell, mobile, etc.).
+  PHONE_US: /(?:\+1[-.\s]?\d{3}|\(\d{3}\))[-.\s]?\d{3}[-.\s]?\d{4}/g,
 
   // International phone (catch-all, runs last)
   PHONE_INTL: /\+\d{1,3}[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g,
-
-  // Credit card numbers (basic Luhn-shape match)
-  CREDIT_CARD: /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/g,
 
   // US Social Security Number
   SSN: /\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g,
@@ -162,7 +163,6 @@ const maskString = (str: string): string => {
     return `"${field}": "${MASKED.PASSWORD}"`;
   });
   result = result.replace(PATTERNS.EMAIL, MASKED.EMAIL);
-  result = result.replace(PATTERNS.CREDIT_CARD, MASKED.CREDIT_CARD);
   result = result.replace(PATTERNS.SSN, MASKED.SSN);
   result = result.replace(PATTERNS.NI_NUMBER, MASKED.SSN);
   result = result.replace(PATTERNS.PHONE_INTL, MASKED.PHONE);
@@ -176,14 +176,14 @@ The order of replacements matters. `BEARER` runs before `JWT` because the bearer
 
 > 💡 **Regexes that look right but aren't.** A naive email regex like `\S+@\S+` matches half of an SSH key. A JWT regex without the `eyJ` anchor matches base64 in arbitrary contexts. Anchor your patterns on something that's actually distinctive. JWTs always start with `eyJ` (the URL-safe base64 of `{"`), bearer tokens always have the `Bearer ` prefix, IBANs always start with two letters. The narrower the anchor, the fewer false positives.
 
-> ⚠️ **Two patterns above will over-redact in production.** Be honest with yourself about whether you want them.
+> ⚠️ **A note on what was here before, and why it's not.** Two of the original patterns in this file have since been narrowed or dropped. Worth understanding why, because the same mistakes are easy to make on a different schema.
 >
-> - **`CREDIT_CARD`** matches any 16-digit number formatted in 4-4-4-4 groups. Tracking IDs, build numbers concatenated with timestamps, and certain UUID slices all get redacted as `[MASKED_CARD]`. The `// Luhn-shape match` comment is misleading: the regex is structural, not arithmetic. Real Luhn validation in regex is impractical. **If your app doesn't take card numbers, drop this pattern entirely.** It can only misfire.
-> - **`PHONE_US`** has both leading groups optional, so it matches *any* 7-digit number with a separator in the middle. ISO timestamps with seconds, version strings like `1.20.3-beta`, Sentry event IDs sliced into groups of seven all get redacted. Either drop it (if your audience isn't US-first) or anchor the pattern to require the country code or area-code parens.
+> - **`CREDIT_CARD`** used to be `/\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/g`, with a comment claiming "Luhn-shape match". It wasn't: the regex was structural, not arithmetic, and real Luhn validation in regex is impractical. Any 16-digit number formatted in 4-4-4-4 groups got redacted: tracking IDs, build numbers concatenated with timestamps, certain UUID slices. The app doesn't take card numbers anywhere, so the pattern could only misfire. It was dropped. Card-shaped strings inside known fields (`creditCard`, `cardNumber`, `accountNumber`) are still masked by the field-name layer, which is the right place for that kind of decision.
+> - **`PHONE_US`** used to be `/(\+1[-.\s]?)?(\(?\d{3}\)?[-.\s]?)?\d{3}[-.\s]?\d{4}/g`, with both leading groups optional. That meant *any* 7-digit number with a separator in the middle matched. ISO timestamps with seconds, version strings like `1.20.3-beta`, event IDs sliced into groups of seven all got redacted. The current pattern requires the `+1` country code or area-code parens to anchor. Bare `555-123-4567` no longer matches, which is a real trade-off: US phones written without an anchor pass through unredacted. Field-name detection still catches them inside structured data.
 >
-> Patterns that over-redact aren't safer; they hide signal in your logs and make Sentry less useful. The right framing for regex masking is "narrow patterns with low false-positive rate, plus field-name masking as the safety net".
+> Patterns that over-redact aren't safer. They hide signal in your logs and make the error tracker less useful. The shape you want is "narrow patterns with low false-positive rate, plus field-name masking as the safety net".
 
-There's also a heuristic for "this string looks like a token even though it's not in a known field":
+There's also a heuristic for catching strings that look like tokens when no field name gives them away:
 
 ```typescript
 const looksLikeToken = (value: string): boolean => {
@@ -388,9 +388,17 @@ describe('maskSensitiveData', () => {
       expect(result).toBe('Contact: [MASKED_PHONE]');
     });
 
-    it('masks credit card numbers', () => {
+    it('masks card numbers via the cardNumber field', () => {
+      const result = maskSensitiveData({ cardNumber: '4111111111111111' });
+      expect(result).toEqual({ cardNumber: '[MASKED]' });
+    });
+
+    it('does not mask card-shaped strings without a field name', () => {
+      // Trade-off: the regex was dropped because it misfired on build
+      // numbers and UUID slices. Card data is still caught by the
+      // field-name layer when it appears in a known field.
       const result = maskSensitiveData('Card: 4111-1111-1111-1111');
-      expect(result).toBe('Card: [MASKED_CARD]');
+      expect(result).toBe('Card: 4111-1111-1111-1111');
     });
   });
 
@@ -461,7 +469,8 @@ PASS  src/utils/logging/__tests__/maskSensitiveData.rntl.ts
       ✓ masks Bearer tokens in strings (2 ms)
       ✓ masks emails in free-text strings (1 ms)
       ✓ masks UK phone numbers (1 ms)
-      ✓ masks credit card numbers (1 ms)
+      ✓ masks card numbers via the cardNumber field (1 ms)
+      ✓ does not mask card-shaped strings without a field name (1 ms)
     nested structures
       ✓ walks into nested objects (1 ms)
       ✓ handles arrays of objects (1 ms)
@@ -471,7 +480,7 @@ PASS  src/utils/logging/__tests__/maskSensitiveData.rntl.ts
       ✓ does not mask short non-token strings (1 ms)
 
 Test Suites: 1 passed, 1 total
-Tests:       12 passed, 12 total
+Tests:       13 passed, 13 total
 ```
 
 The circular-reference test is the highest-value one. Without the `WeakSet` guard, this test crashes with a stack overflow and fails the whole suite. It's the one assertion that would catch a regression where someone refactored the recursive walker and removed the guard.
@@ -480,15 +489,15 @@ The circular-reference test is the highest-value one. Without the `WeakSet` guar
 
 **Don't trust regex alone.** Field-name masking catches the common case of `{ email, password, token }` cleanly. Regex catches the messy case of free-text strings that contain embedded sensitive data. You need both layers because either alone leaves obvious gaps.
 
-**Don't put the masker on the hot path of normal code.** It's fine for logging and Sentry breadcrumbs, both of which are inherently slow. Don't run `maskSensitiveData(user)` on every render; the WeakSet allocation alone makes it slower than `console.log` would be unmasked.
+**Don't put the masker on the hot path of normal code.** It's fine for logging and breadcrumbs, both of which are slow anyway. Running `maskSensitiveData(user)` on every render is a real cost. The WeakSet allocation alone makes it slower than `console.log` would be unmasked.
 
-**Don't reuse `MASKED.PASSWORD` for tokens.** The constants distinguish kinds of sensitive data. Uniformly masking everything as `[REDACTED]` makes debugging harder ("was that an email or a token?"). Keep the categories distinct so a Sentry trace tells you what kind of value was there before redaction.
+**Don't reuse `MASKED.PASSWORD` for tokens.** The constants distinguish kinds of sensitive data. Masking everything as `[REDACTED]` makes debugging harder ("was that an email or a token?"). Keep the categories distinct so a stack trace tells you what kind of value was there before redaction.
 
-**Don't mask in development.** The `__DEV__` check skips the logger's masking pass at the console level so developers can actually read what's being logged. Sentry's `beforeSend`/`beforeBreadcrumb` *do* still run in development if Sentry is enabled there, which is one more reason to disable Sentry in DEV builds.
+**Don't mask in development.** The `__DEV__` check skips the logger's masking pass at the console level so developers can read what's being logged. The remote-sink hooks (`beforeSend` / `beforeBreadcrumb` in Sentry's case) still run in development if the SDK is enabled there, which is one more reason to disable it in DEV builds.
 
-**Don't forget to add new fields when they appear.** A new feature ships, the schema gets a `nationalInsurance` field, six weeks later you discover it's been logging unmasked into Sentry. The pattern that protects against this is treating `SENSITIVE_FIELDS` (and friends) as part of the same code review as the schema change. When a new sensitive field gets added to a Zod schema, the same PR adds it to the masker's set.
+**Don't forget to add new fields when they appear.** A new feature ships, the schema gets a `nationalInsurance` field, six weeks later you find it's been shipping unmasked. The pattern that protects against that is treating `SENSITIVE_FIELDS` (and friends) as part of the same code review as the schema change. When a new sensitive field lands in a Zod schema, the same PR adds it to the masker's set.
 
-**Don't ship the masker to web.** This implementation assumes React Native (no DOM, no `document.cookie`). Web masking has additional concerns (URL hash fragments, `localStorage` snapshots, `formData` with file uploads) that this utility doesn't cover. If you need web masking, fork it; don't share the same module.
+**Don't ship the masker to web.** This implementation assumes React Native (no DOM, no `document.cookie`). Web masking has its own concerns: URL hash fragments, `localStorage` snapshots, `formData` with file uploads. If you need web masking, fork the module rather than share it.
 
 ## What's next in the series
 
