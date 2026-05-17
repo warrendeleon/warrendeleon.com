@@ -1,6 +1,6 @@
 ---
 title: "Detox + Cucumber BDD for React Native E2E testing"
-description: "Set up Detox + Cucumber BDD for React Native E2E testing. Step definitions, custom formatter, parallel execution, and accessibility regression tests."
+description: "Detox + Cucumber for React Native E2E. Step definitions, a custom formatter, parallel execution, and accessibility regression tests in plain Gherkin."
 publishDate: 2026-05-18
 series: "React Native Foundations"
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
@@ -11,9 +11,21 @@ campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]
 ---
 
+By the end of this post you'll have Detox driving an iOS simulator and an Android emulator, with Cucumber feature files written in plain English sitting on top. Five steps: install Detox, wire up Cucumber, write the support layer, write a feature, run it.
+
+## A quick word on the pairing
+
+Detox + Cucumber isn't the default React Native E2E stack. Most teams stay imperative with Jest as the runner, or reach for WebdriverIO / Maestro when they want flow-style tests. Those are reasonable choices. Maestro especially is lovely if all you want is to record a flow.
+
+So why add a BDD layer on top of Detox?
+
+Because once feature files exist, the QA folks and the PMs can read them. They can ask for scenarios you'd never think to write. Imperative Detox keeps test design inside engineering. Cucumber moves it outside.
+
+The cost is two more dependencies and a support layer. The cost is small, in my experience, once the step definitions stabilise. New scenarios become a five-minute job.
+
 ## Why BDD for E2E tests
 
-Most Detox tutorials show you how to write imperative test code:
+Most Detox examples show imperative test code:
 
 ```typescript
 await element(by.id('email-input')).typeText('user@example.com');
@@ -22,9 +34,9 @@ await element(by.id('login-button')).tap();
 await expect(element(by.id('home-screen'))).toBeVisible();
 ```
 
-This works. But it reads like code, not like a test specification. When a product manager asks "what does the login test cover?", you hand them a TypeScript file and hope for the best.
+This works. It reads like code, not like a test specification. When a PM asks "what does the login test actually cover?", you point them at a TypeScript file.
 
-**Cucumber BDD** lets you write tests in plain English using Gherkin syntax:
+Cucumber lets you write the same test in Gherkin:
 
 ```
 Feature: User Authentication
@@ -38,33 +50,33 @@ Feature: User Authentication
     Then I should see the "Home" screen
 ```
 
-Same test. Same Detox commands underneath. But now anyone on the team can read it, review it, and suggest missing scenarios.
-
-> 💡 **The key advantage:** feature files become living documentation. When a scenario passes, you know the app supports that behaviour. When it fails, you know exactly which user flow broke, in plain language.
+Same Detox commands underneath. Anyone on the team can now read the test, review it, and suggest the scenarios you've missed. When one fails, the line that broke is in plain language, not in TypeScript.
 
 ## Assumptions
 
-The setup below was written against:
+This walkthrough is written against:
 
 - React Native 0.74+ (bare workflow, not Expo)
 - TypeScript with the standard RN Babel config
-- macOS host (iOS simulator + Android emulator setup)
-- Xcode 15+ with Command Line Tools, an iOS simulator created (e.g. iPhone 17 Pro)
+- macOS host (iOS simulator and Android emulator)
+- Xcode 15+ with Command Line Tools, plus an iOS simulator created (e.g. iPhone 17 Pro)
 - Android Studio with at least one AVD created (e.g. Pixel 7 API 35)
 - Node 18 or later
 
+The versions in my own project are Detox `^20.45`, `@cucumber/cucumber ^12.2`, React Native `0.82.1`, `ts-node ^10.9`. The pieces of this post that are most likely to drift over time are the Detox init signature and the Cucumber config keys. Both are noted inline.
+
 If you're on Expo, Detox needs a custom dev client. The Cucumber layer is the same regardless.
 
-## Installation
+## Step 1. Install Detox and Cucumber
 
-Install Detox, Cucumber, and the TypeScript loader as dev dependencies:
+Detox, Cucumber, and the TypeScript loader as dev dependencies:
 
 ```bash
-yarn add -D detox @cucumber/cucumber ts-node
+yarn add -D detox @cucumber/cucumber ts-node tsconfig-paths
 cd ios && pod install && cd ..
 ```
 
-The iOS pod install is required because Detox ships an Xcode test target.
+The iOS pod install is needed because Detox ships native code that has to be linked into the test build.
 
 You also need two host-level tools that aren't npm packages:
 
@@ -73,11 +85,11 @@ brew tap wix/brew
 brew install applesimutils
 ```
 
-`applesimutils` is what Detox uses to drive the iOS simulator. For Android you need a working emulator with USB debugging enabled. Detox's CLI is invoked via `npx detox`, so no global install is needed.
+`applesimutils` is what Detox uses to drive the iOS simulator. For Android, you need a working emulator with USB debugging on. Detox's CLI is invoked via `npx detox`, so no global install is needed.
 
-## The configuration files
+## Step 2. The three config files
 
-Three config files wire everything together.
+Three files wire everything together: `.detoxrc.js` (or `detox.config.js`. Detox accepts both), `.cucumber.js`, and a slim `tsconfig.cucumber.json`.
 
 ### .detoxrc.js
 
@@ -128,18 +140,23 @@ module.exports = {
 
 ### .cucumber.js
 
-The Cucumber configuration tells it where to find feature files, step definitions, and how to format output:
+The Cucumber configuration says where feature files live, where step definitions live, and how to format output:
 
-```typescript
+```javascript
+require('ts-node').register({
+  transpileOnly: true,
+  compilerOptions: { module: 'commonjs', jsx: 'react' },
+});
+
 module.exports = {
   default: {
     paths: ['src/features/**/__tests__/*.feature'],
     require: [
-      'src/test-utils/cucumber/support/**/*.{ts,tsx}',
-      'src/test-utils/cucumber/step-definitions/**/*.cucumber.{ts,tsx}',
+      'src/test-utils/cucumber/support/**/*.ts',
+      'src/test-utils/cucumber/step-definitions/**/*.{ts,tsx}',
+      'src/**/__tests__/**/*.cucumber.{ts,tsx}',
     ],
-    requireModule: ['ts-node/register'],
-    format: ['src/test-utils/cucumber/formatters/CheckmarkFormatter.js'],
+    format: ['./src/test-utils/cucumber/formatters/CheckmarkFormatter.js'],
     formatOptions: { colorsEnabled: true },
     strict: true,
     parallel: 2,
@@ -148,11 +165,12 @@ module.exports = {
 };
 ```
 
+Registering `ts-node` at the top of the config file (rather than via `requireModule`) is the path of least resistance with current Cucumber. It also lets you keep the compiler options local.
+
 | Option | What it does |
 |---|---|
 | `paths` | Where Gherkin feature files live |
 | `require` | Where step definitions and support files live |
-| `requireModule` | Enables TypeScript support |
 | `format` | Custom formatter for readable output |
 | `strict` | Fails on undefined or pending steps |
 | `parallel` | Number of parallel workers |
@@ -160,50 +178,72 @@ module.exports = {
 
 ### tsconfig.cucumber.json
 
-A minimal TypeScript config for the Cucumber runtime:
+A slim TypeScript config for the Cucumber runtime, separate from the main app `tsconfig`:
 
 ```json
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2020",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "moduleResolution": "node",
     "jsx": "react",
-    "strict": true,
     "esModuleInterop": true,
-    "paths": { "@app/*": ["./src/*"] }
-  }
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "strict": false,
+    "baseUrl": ".",
+    "paths": { "@app/*": ["src/*"] },
+    "types": ["node", "detox"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
 ```
 
-## The support layer
+Two things to flag. `"types": ["node", "detox"]` is what teaches TypeScript that `device`, `element`, `by`, and `waitFor` are global. Without it, every step definition lights up red on `device.launchApp`. `"strict": false` is a pragmatic choice for test files (you'll thank yourself when wrestling with optional chains in scenario results).
 
-Three files set up the Detox lifecycle inside Cucumber.
+Point `cucumber-js` at this config via `TS_NODE_PROJECT=tsconfig.cucumber.json` in the npm script.
+
+## Step 3. The support layer
+
+Three files set up the Detox lifecycle inside Cucumber: `detox-setup.ts`, `hooks.ts`, and `world.ts`.
 
 ### detox-setup.ts
 
+Detox 20 exposes its programmatic lifecycle through the `detox/internals` entry point. The public `'detox'` import gives you `device`, `element`, `by`, `waitFor`. The lifecycle hooks (`init`, `cleanup`, `onTestStart`, `onTestDone`) sit under `'detox/internals'`:
+
 ```typescript
-import * as detox from 'detox';
+import detox from 'detox/internals';
 
-export async function setupDetox(workerId: string) {
-  await detox.init(undefined, { workerId });
-}
+export const setupDetox = async (workerId: string = '0') => {
+  const config = process.env.DETOX_CONFIGURATION;
+  if (!config) {
+    throw new Error('DETOX_CONFIGURATION is not set (e.g. ios.sim.debug)');
+  }
+  await detox.init({ workerId: `cucumber-worker-${workerId}` });
+};
 
-export async function cleanupDetox() {
+export const cleanupDetox = async () => {
   await detox.cleanup();
-}
+};
+
+export { detox };
 ```
 
 ### hooks.ts
 
-This is the glue between Cucumber's lifecycle and Detox's device management:
+The glue between Cucumber's lifecycle and Detox's device management:
 
 ```typescript
-import { BeforeAll, Before, After, AfterAll } from '@cucumber/cucumber';
-import { setupDetox, cleanupDetox } from './detox-setup';
+import { After, AfterAll, Before, BeforeAll, Status } from '@cucumber/cucumber';
+import { device } from 'detox';
 
-BeforeAll({ timeout: 180000 }, async function () {
-  const workerId = process.env.CUCUMBER_WORKER_ID || '0';
-  await setupDetox(`cucumber-worker-${workerId}`);
+import { cleanupDetox, detox, setupDetox } from './detox-setup';
+import { DetoxWorld } from './world';
+
+BeforeAll({ timeout: 180 * 1000 }, async function () {
+  const workerId = process.env.CUCUMBER_WORKER_ID ?? '0';
+  await setupDetox(workerId);
   await device.launchApp({
     newInstance: true,
     launchArgs: { detoxEnableSynchronization: 0 },
@@ -211,17 +251,29 @@ BeforeAll({ timeout: 180000 }, async function () {
   await device.enableSynchronization();
 });
 
-Before({ timeout: 30000 }, async function () {
-  await detox.onTestStart(this);
+Before({ timeout: 30000 }, async function (this: DetoxWorld, { pickle }) {
+  await detox.onTestStart({
+    title: pickle.name,
+    fullName: pickle.name,
+    status: 'running',
+  });
   await device.reloadReactNative();
 });
 
-After(async function (scenario) {
-  if (scenario.result?.status === 'FAILED') {
-    const name = scenario.pickle.name.replace(/\s+/g, '-');
-    await device.takeScreenshot(name);
+After(async function (this: DetoxWorld, { pickle, result }) {
+  const testStatus = result?.status === Status.PASSED ? 'passed' : 'failed';
+  if (result?.status === Status.FAILED) {
+    try {
+      await device.takeScreenshot(pickle.name);
+    } catch (error) {
+      console.error('Failed to take screenshot:', error);
+    }
   }
-  await detox.onTestDone(this);
+  await detox.onTestDone({
+    title: pickle.name,
+    fullName: pickle.name,
+    status: testStatus,
+  });
 });
 
 AfterAll(async function () {
@@ -236,18 +288,25 @@ AfterAll(async function () {
 | `After` | default | Takes a screenshot on failure, notifies Detox |
 | `AfterAll` | default | Tears down Detox |
 
-The synchronisation trick matters: launch with synchronisation disabled (`detoxEnableSynchronization: 0`), then enable it after the app is running. This avoids Detox timing out during the initial bundle load.
+The synchronisation dance matters. Launch with synchronisation disabled (`detoxEnableSynchronization: 0`), then re-enable it after the app is running. This sidesteps the Detox timeout you hit when the initial bundle load is slow.
 
 ### world.ts
 
 A custom Cucumber World that carries Detox context between steps:
 
 ```typescript
-import { World } from '@cucumber/cucumber';
+import { IWorldOptions, setWorldConstructor, World } from '@cucumber/cucumber';
+import { device } from 'detox';
 
 export class DetoxWorld extends World {
-  device = device;
-  testID: string | null = null;
+  device: typeof device;
+  testID: string | null;
+
+  constructor(options: IWorldOptions) {
+    super(options);
+    this.device = device;
+    this.testID = null;
+  }
 
   setTestID(id: string) { this.testID = id; }
   getTestID(): string {
@@ -255,11 +314,15 @@ export class DetoxWorld extends World {
     return this.testID;
   }
 }
+
+setWorldConstructor(DetoxWorld);
 ```
 
-## Writing feature files
+Calling `setWorldConstructor` is what wires this class into every `this` inside a step. Forget that call and `this.device` is `undefined`.
 
-Feature files are plain text with Gherkin syntax. Each scenario describes a user flow:
+## Step 4. Writing your first feature file
+
+Feature files are plain text with Gherkin syntax. Each scenario describes a user flow. Drop a file at `src/features/Auth/__tests__/Login.feature`:
 
 ```
 Feature: User Authentication
@@ -302,11 +365,11 @@ Then in your test command:
 yarn detox test --tags "@accessibility and @ios"
 ```
 
-## Writing step definitions
+## Step 5. Writing step definitions
 
-Each Gherkin step maps to a function. These are the reusable building blocks that make BDD powerful.
+Each Gherkin step maps to a function. The step definitions are the bits you'll reuse across every feature file once they exist.
 
-> 💡 **Detox globals.** `device`, `element`, `by`, and `waitFor` are exposed as globals by Detox at runtime. TypeScript needs to know about them, so add `"types": ["detox", "node"]` to your `tsconfig.cucumber.json` (or import them explicitly via `import { device, element, by, waitFor } from 'detox'`). Without one of these, every step definition will show red squigglies on `device.launchApp`.
+A note on Detox globals before we go further. `device`, `element`, `by`, and `waitFor` are exposed as globals at runtime, but TypeScript needs to be told they exist. Add `"types": ["detox", "node"]` to your `tsconfig.cucumber.json` (we did this in step 2), or import them explicitly with `import { device, element, by, waitFor } from 'detox'`. Skip both and every step definition shows red squigglies on `device.launchApp`.
 
 ### Common steps
 
@@ -356,15 +419,13 @@ Then('I should see text {string}', async function (text: string) {
 });
 ```
 
-Key patterns:
+Three patterns to lock in here. First, a consistent testID convention: screen names become kebab-case with a `-screen` or `-button` suffix. "Login" maps to `login-screen`, "Home" to `home-screen`, "Submit" to `submit-button`. Second, every assertion goes through `waitFor` with a timeout, not raw `expect`. Animations and network calls need settling time and `expect` doesn't give it to them. Third, `replaceText` over `typeText`. `typeText` appends to whatever's already there. `replaceText` clears first. For form inputs you want the second.
 
-- ✅ **Consistent testID convention:** screen names become kebab-case with a suffix. "Login" becomes `login-screen`, "Home" becomes `home-screen`
-- ✅ **Explicit waits:** Every assertion uses `waitFor` with a timeout, not raw `expect`. Animations and network calls need settling time
-- ✅ **`replaceText` over `typeText`:** `typeText` appends to existing text. `replaceText` clears first. Safer for form inputs
+Save the file as `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` and Cucumber picks it up via the glob in your `.cucumber.js`.
 
 ### Element finding strategies
 
-Sometimes `by.id()` isn't enough. A resilient step definition tries multiple strategies:
+Sometimes `by.id()` isn't enough. A step definition that doesn't break across iOS and Android tries multiple strategies:
 
 ```typescript
 When('I tap the text {string}', async function (text: string) {
@@ -383,9 +444,9 @@ When('I tap the text {string}', async function (text: string) {
 
 Try `by.text()` first (visible text), fall back to `by.label()` (accessibility label), then `by.id()` (testID). This handles buttons that render text differently across platforms.
 
-## The custom formatter
+## A custom formatter
 
-Cucumber's default output is verbose. A custom formatter gives you clean, scannable results:
+Cucumber's default output is noisy. A custom formatter gives you clean results that are easier to read in CI logs:
 
 ```
 ✓ Feature: User Authentication
@@ -440,18 +501,18 @@ class CheckmarkFormatter extends Formatter {
 module.exports = CheckmarkFormatter;
 ```
 
-The full implementation in my project tracks pickles, maps test steps to their Gherkin text, calculates timing, and outputs a summary with pass/fail counts.
+The full version in my repo tracks pickles, maps test steps back to their Gherkin text, times each step, and prints a summary with pass and fail counts. The sketch above is the shape; the full file is `src/test-utils/cucumber/formatters/CheckmarkFormatter.js` in the repo linked at the end.
 
 ## Parallel execution
 
-Detox supports running scenarios across multiple simulators. The `.cucumber.js` config sets the worker count, and each worker gets its own simulator instance.
+Detox can run scenarios across multiple simulators. Cucumber's `parallel` setting drives the worker count, and each worker gets its own Detox instance.
 
 ```bash
 # Run with 3 parallel simulators
 DETOX_WORKERS=3 yarn detox:ios:test:parallel
 ```
 
-The `BeforeAll` hook reads `CUCUMBER_WORKER_ID` to initialise each worker with its own Detox instance. Scenarios are distributed across workers automatically.
+The `BeforeAll` hook reads `CUCUMBER_WORKER_ID` and passes it to `setupDetox` so each worker initialises against its own simulator. Cucumber distributes scenarios across workers for you.
 
 | Setting | Local | CI |
 |---|---|---|
@@ -460,13 +521,13 @@ The `BeforeAll` hook reads `CUCUMBER_WORKER_ID` to initialise each worker with i
 | Retry on failure | 1 | 1 |
 | Fail fast | No | No |
 
-> 💡 **Tip:** Disable fail-fast in parallel mode. One flaky scenario shouldn't stop the other workers. With retry enabled, the flaky test gets a second chance while the rest continue running.
+One tip on parallel runs. Keep fail-fast off when running in parallel. One flaky scenario shouldn't kill the other workers, and with retry enabled the flake gets a second chance while the rest keep going. On a single-worker run, fail-fast on is fine.
 
 ## Accessibility testing with BDD
 
-Detox can't drive VoiceOver or TalkBack directly. Manual screen reader testing is still essential. But what Detox *can* do is verify that the right accessibility labels, roles, and traits are set on every element. Written in Gherkin, these tests catch accessibility regressions before a human tester ever opens VoiceOver.
+Detox doesn't drive VoiceOver or TalkBack directly. Manual screen reader testing still has a job to do. What Detox *can* check is whether the right accessibility labels, roles, and traits are set on every element. Written as Gherkin scenarios, those checks catch a class of regression that nobody is going to notice manually until a user with VoiceOver opens the app.
 
-My project has two feature files that test accessibility properties: one for iOS patterns and one for Android.
+My repo has two feature files for this, one for iOS patterns and one for Android.
 
 ```
 @accessibility @voiceover @ios @eaa
@@ -507,24 +568,26 @@ interface AccessibilityState {
 }
 ```
 
-This tracks expected focus order, announcement text, and reading granularity. 50 scenarios across both feature files verify accessibility labels, focus behaviour, live region announcements, and custom actions. They don't replace manual testing with a real screen reader, but they stop regressions from shipping.
+This tracks expected focus order, announcement text, and reading granularity. Around 50 scenarios across the two feature files cover labels, focus behaviour, live region announcements, and custom actions. They don't replace a manual pass with a real screen reader. They do stop the obvious regressions from shipping.
 
-## The scripts
+## Run it
 
-Package.json scripts make the workflow clean:
+The scripts I use sit in `package.json` like this:
 
 ```json
 {
   "scripts": {
     "detox:ios:build": "detox build -c ios.sim.debug",
-    "detox:ios:test": "detox test -c ios.sim.debug",
-    "detox:ios:test:parallel": "DETOX_WORKERS=2 detox test -c ios.sim.debug",
+    "detox:ios:test": "DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js",
+    "detox:ios:test:parallel": "DETOX_WORKERS=2 yarn detox:ios:test --parallel 2 --retry 1",
     "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test"
   }
 }
 ```
 
-First run looks like this:
+Note the test script runs `cucumber-js` directly rather than `detox test`. With Cucumber as the runner, you don't go through Detox's runner wrapper. Detox is initialised from your support file.
+
+First run:
 
 ```bash
 yarn e2e:ios
@@ -535,7 +598,7 @@ $ detox build -c ios.sim.debug
 Building app for ios.sim.debug...
 xcodebuild ... ** BUILD SUCCEEDED **
 
-$ detox test -c ios.sim.debug
+$ cucumber-js
 ✓ Feature: User Authentication
   ✓ Scenario: Successful login (2340ms)
   ✓ Scenario: Login with invalid credentials (1820ms)
@@ -544,17 +607,17 @@ $ detox test -c ios.sim.debug
 12 steps (12 passed)
 ```
 
-If `xcodebuild` fails on the first run, double-check that the iOS simulator named in `.detoxrc.js` actually exists (`xcrun simctl list devices`). The most common first-run failure is a hardcoded `iPhone 17 Pro` that hasn't been created in Xcode yet.
+If `xcodebuild` fails on the first run, check that the simulator named in `.detoxrc.js` actually exists (`xcrun simctl list devices`). The most common first-run trip is a hard-coded `iPhone 17 Pro` that you never created in Xcode.
 
 ## Common pitfalls
 
-**Synchronisation is the hardest part.** Detox tries to automatically wait for the app to be idle, but animations, timers, and network calls can confuse it. The launch-with-sync-disabled pattern (`detoxEnableSynchronization: 0` then `enableSynchronization()` after) avoids the most common timeout.
+**Synchronisation is the hardest part.** Detox tries to wait for the app to be idle automatically, but animations, timers, and network calls can confuse it. The launch-with-sync-disabled pattern (`detoxEnableSynchronization: 0` then `enableSynchronization()` after) sidesteps the most common timeout.
 
 **`typeText` appends, `replaceText` replaces.** If a field has placeholder text or previous input, `typeText` adds to it. Use `replaceText` for form inputs where you want a clean value.
 
-**Screenshots on failure are essential.** The `After` hook captures a screenshot when a scenario fails. Without this, debugging CI failures is guesswork. Name the screenshot after the scenario so you can match failures to images.
+**Screenshots on failure.** The `After` hook captures a screenshot when a scenario fails. Without this, debugging CI failures is squinting at logs. Name the screenshot after the scenario so you can match a failure to its image.
 
-**Feature files should describe behaviour, not implementation.** Write "When I log in" not "When I type into email-input and tap login-button". The implementation details belong in step definitions, not in the Gherkin.
+**Describe behaviour, not implementation.** Write "When I log in", not "When I type into email-input and tap login-button". The implementation details belong in step definitions, not in the Gherkin. If a non-engineer can't read the feature file aloud and understand it, you've leaked detail into the wrong layer.
 
 ## The full file structure
 
@@ -580,16 +643,16 @@ e2e/
 
 ## What you get
 
-The setup takes a morning. Writing the first feature file takes an afternoon. After that, adding new scenarios is fast because the step definitions are reusable.
+The setup is a morning's work. The first feature file is an afternoon. After that, adding scenarios is fast because the step definitions are reusable across features.
 
-The payoff:
+What you've built by the end:
 
-1. **Tests that anyone can read.** Product managers, QA, designers. The Gherkin files are the spec and the test rolled into one.
-2. **Parallel execution out of the box.** Cucumber's built-in parallelism works with Detox. Three simulators, three workers, three times faster.
-3. **Accessibility regression catching.** 50 scenarios verify that labels, roles, and traits are correct. Not a replacement for manual screen reader testing, but a safety net that stops regressions from reaching QA.
+1. Tests that anyone on the team can read. Product, QA, designers. The Gherkin file is the spec and the test in one place.
+2. Parallel execution that works with Detox. Three simulators, three workers, three times faster on CI.
+3. Accessibility regression coverage. Around 50 scenarios verifying labels, roles, and traits. Not a swap for manual screen reader testing, but a net that stops the obvious regressions from reaching QA.
 
 > When an E2E test fails, you should know what broke without reading the test code.
 
-*This post covers E2E testing. For unit and integration tests, I use [MSW v2 to mock the network layer](/blog/setting-up-msw-v2-in-react-native/) instead of `jest.fn()`. The two approaches complement each other: MSW for fast, focused tests against real HTTP calls; Detox + Cucumber for full user flows on a real device.*
+*This post covers E2E testing. For unit and integration tests I use [MSW v2 to mock the network layer](/blog/setting-up-msw-v2-in-react-native/) instead of `jest.fn()`. The two pair well: MSW for fast, focused tests against real HTTP calls; Detox + Cucumber for full user flows on a real device.*
 
-*The code examples in this post are from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), my personal React Native project. The full Detox + Cucumber setup, step definitions, custom formatter, and accessibility feature files are all in the repo.*
+*The code in this post is from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), my personal React Native project. The full Detox + Cucumber setup, step definitions, custom formatter, and accessibility feature files all live there.*
