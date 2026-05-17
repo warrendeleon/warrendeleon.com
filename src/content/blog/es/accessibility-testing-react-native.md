@@ -1,6 +1,6 @@
 ---
 title: "Testing de accesibilidad en React Native"
-description: "Testing de accesibilidad automatizado y práctico para React Native. Validación de touch targets, verificación de contraste de colores, orden de foco y anuncios de screen reader. Todo en Jest, sin testing manual."
+description: "Tests automatizados de accesibilidad en React Native: touch targets, contraste, orden de foco, anuncios de screen reader. Y dónde gana el testing manual."
 publishDate: 2026-06-22
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: es
@@ -10,25 +10,21 @@ campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
 
-## La mayoría de las apps se saltan el testing de accesibilidad por completo
+## Dónde encajan los tests automatizados junto al trabajo manual de a11y
 
-Accesibilidad en React Native generalmente significa "agregar algunos props `accessibilityLabel` y cruzar los dedos." Igual alguien corre VoiceOver manualmente antes de un release. Igual no.
+Muchos equipos de React Native ya hacen bien la accesibilidad. El diseño revisa contraste y tamaño de targets antes de que una pantalla salga. QA corre VoiceOver y TalkBack antes de cada release. Esa capa manual atrapa lo que la automatización no puede: el orden de lectura en layouts complejos, los conflictos de gestos, la pregunta subjetiva de si un label es realmente útil.
 
-El resultado: botones demasiado pequeños para pulsar de forma fiable, texto con contraste insuficiente, formularios sin orden de foco, mensajes de error que los screen readers nunca anuncian. No son edge cases. Afectan a usuarios reales, y en Europa, el European Accessibility Act (EAA) los convierte en requisitos legales. La aplicación del EAA empezó en junio de 2025. Si tu app tiene usuarios en la UE, esto no es opcional.
+Lo que no atrapa es la regresión. Un refactor de stylesheets baja un botón de 44pt a 40pt. Un cambio de tema deja el texto secundario por debajo de 4.5:1 de contraste. El toast de error pierde su `accessibilityLiveRegion` cuando alguien intercambia el componente. Nada de eso aparece en la siguiente pasada manual hasta semanas después, cuando ya hay tres PRs más encima.
 
-El problema no es que a los equipos no les importe. Es que el testing de accesibilidad se siente manual, lento y desconectado del test suite regular. Corres tus tests de Jest, pasan, y nadie verifica si el botón de submit tiene 44 puntos de ancho.
+El tamaño del touch target es un número. El ratio de contraste es un cálculo. Las live regions y los roles son props. Las partes mecánicas de WCAG pueden correr en Jest junto a tus tests unitarios, en cada PR, con el resto de tu test suite. Esa es la parte que cubre este post. La implementación está en tus componentes. Los tests mantienen los componentes honestos después del próximo refactor.
 
-> 💡 **La solución:** tratar los requisitos de accesibilidad como aserciones testeables. El tamaño del touch target es un número. El ratio de contraste es un cálculo. El orden de foco es una secuencia. Todo esto puede correr en Jest junto con tus tests unitarios.
-
-## Qué voy a testear
-
-Esta no es una guía para hacer tu app accesible. Es una guía para *testear* que siga siendo accesible. La distinción importa: la implementación está en tus componentes. Los tests detectan regresiones cuando alguien cambia un estilo, refactoriza un layout o agrega una pantalla nueva.
+## Qué cubre
 
 | Qué | Criterio WCAG | Cómo lo testeo |
 |---|---|---|
 | Tamaño del touch target | 2.5.5 | Verificar `minWidth`/`minHeight` >= 44pt (iOS) o 48dp (Android) |
 | Contraste de color | 1.4.3 | Calcular ratio de luminancia >= 4.5:1 para texto, 3:1 para texto grande |
-| Orden de foco | 2.4.3 | Verificar que `accessibilityOrder` o el orden del DOM coincida con la secuencia esperada |
+| Orden de foco | 2.4.3 | Smoke-check de que cada elemento sea focuseable; el orden de lectura real necesita Detox |
 | Roles de accesibilidad | 4.1.2 | Asegurar que `accessibilityRole` esté configurado en elementos interactivos |
 | Anuncios de screen reader | 4.1.3 | Verificar `accessibilityLiveRegion` en contenido dinámico |
 | Identificación de errores | 3.3.1 | Verificar que los mensajes de error tengan `role="alert"` y live region |
@@ -36,19 +32,44 @@ Esta no es una guía para hacer tu app accesible. Es una guía para *testear* qu
 
 ## Instalación
 
-Sin dependencias extra. Las utilidades de testing usan React Native Testing Library (que ya tienes para tus tests de componentes) y aserciones de Jest puras:
+Sin dependencias extra. Las utilidades usan React Native Testing Library, que ya tienes para tus tests de componentes, más aserciones de Jest puras:
 
 ```bash
 yarn add -D @testing-library/react-native
 ```
 
+## Un test que falla, después el fix
+
+Antes de las utilidades, mira cómo se siente el loop del test. Supón que el botón de login está dimensionado a 40pt de alto porque alguien apretó el espaciado en un PR reciente:
+
+```typescript
+import { expectMinTouchTarget, renderWithProviders } from '@app/test-utils';
+import { LoginScreen } from '../LoginScreen';
+
+it('login button meets minimum touch target', () => {
+  const { getByTestId } = renderWithProviders(<LoginScreen />);
+  expectMinTouchTarget(getByTestId('login-button'));
+});
+```
+
+El test falla:
+
+```text
+Expected: >= 44
+Received: 40
+
+  at expectMinTouchTarget (test-utils/accessibility.ts)
+```
+
+Subes el `minHeight` del botón a 44 en el componente, vuelves a correr, verde. El loop tiene la misma forma que cualquier otro fix de test unitario. Ese es el punto de mover estos checks a Jest. La señal de CI llega cuando la regresión aterriza, no semanas después cuando QA hace la siguiente pasada manual.
+
 ## Las utilidades de testing de accesibilidad
 
-Un solo archivo exporta todos los helpers de accesibilidad. Cada función mapea a un criterio WCAG y recibe un `ReactTestInstance` (el elemento que obtienes de `getByTestId`).
+Un solo archivo exporta los helpers. Cada función mapea a un criterio WCAG y recibe un `ReactTestInstance` (el elemento que obtienes de `getByTestId`).
 
 ### Validación de touch targets
 
-La falla de accesibilidad más común en apps mobile: botones e inputs demasiado pequeños para pulsar de forma fiable.
+La falla de accesibilidad más común en apps mobile son los botones e inputs demasiado pequeños para pulsar de forma fiable. iOS pide un mínimo de 44pt, Android 48dp. El helper lee el style aplanado del elemento, cae a width/height si no hay `minWidth`/`minHeight`, y suma la contribución del padding antes de comparar contra el umbral:
 
 ```typescript
 // src/test-utils/accessibility.ts
@@ -61,37 +82,21 @@ export const TOUCH_TARGET_SIZES = {
   default: { minWidth: 44, minHeight: 44 },
 } as const;
 
-/**
- * Mapeo de tokens de espacio de GlueStack UI a valores en píxeles.
- * Basado en el sistema de unidad base de 4px de @gluestack-ui/config.
- */
-const GLUESTACK_SPACE_TOKENS: Record<string, number> = {
-  '$0': 0, '$0.5': 2, '$1': 4, '$1.5': 6, '$2': 8, '$2.5': 10,
-  '$3': 12, '$3.5': 14, '$4': 16, '$4.5': 18, '$5': 20, '$6': 24,
-  '$7': 28, '$8': 32, '$9': 36, '$10': 40, '$11': 44, '$12': 48,
-  '$16': 64, '$20': 80, '$24': 96, '$32': 128,
-};
-
-/** Valores que llenan su contenedor (siempre satisfacen el touch target). */
-const FULL_SIZE_VALUES = new Set([
-  '$full', '100%', '$1/2', '$2/3', '$3/4', '$4/5', '$5/6',
-]);
+function flattenStyle(style: unknown): Record<string, unknown> {
+  if (!style) return {};
+  const flattened = StyleSheet.flatten(
+    style as Parameters<typeof StyleSheet.flatten>[0]
+  );
+  return (flattened as Record<string, unknown>) || {};
+}
 
 function getNumericValue(value: unknown): number | undefined {
   if (typeof value === 'number') return value;
   if (typeof value === 'string') {
-    // Primero intentar token de GlueStack, después parsear como número
-    if (GLUESTACK_SPACE_TOKENS[value] !== undefined) {
-      return GLUESTACK_SPACE_TOKENS[value];
-    }
     const parsed = parseFloat(value);
     return isNaN(parsed) ? undefined : parsed;
   }
   return undefined;
-}
-
-function isFullSize(value: unknown): boolean {
-  return typeof value === 'string' && FULL_SIZE_VALUES.has(value);
 }
 
 export function expectMinTouchTarget(
@@ -99,69 +104,57 @@ export function expectMinTouchTarget(
   minWidth: number = TOUCH_TARGET_SIZES.default.minWidth,
   minHeight: number = TOUCH_TARGET_SIZES.default.minHeight
 ): void {
-  const flatStyle = StyleSheet.flatten(element.props.style) ?? {};
+  const flatStyle = flattenStyle(element.props.style);
 
-  // Verificar style prop (estilos inline, StyleSheet.create)
-  const styleWidth = getNumericValue(flatStyle.minWidth)
-    ?? getNumericValue(flatStyle.width);
-  const styleHeight = getNumericValue(flatStyle.minHeight)
-    ?? getNumericValue(flatStyle.height);
+  // minWidth/minHeight explícitos ganan.
+  const styleMinWidth = getNumericValue(flatStyle.minWidth);
+  const styleMinHeight = getNumericValue(flatStyle.minHeight);
 
-  // Verificar props directos (GlueStack/NativeWind pasan dimensiones como props)
-  const propWidth = getNumericValue(element.props.minWidth)
-    ?? getNumericValue(element.props.width)
-    ?? getNumericValue(element.props.w);
-  const propHeight = getNumericValue(element.props.minHeight)
-    ?? getNumericValue(element.props.height)
-    ?? getNumericValue(element.props.h);
+  // Si no, caer a width/height.
+  const styleWidth = getNumericValue(flatStyle.width);
+  const styleHeight = getNumericValue(flatStyle.height);
 
-  // Verificar valores de tamaño completo ("$full", "100%") que llenan su contenedor
-  const isFullWidth = isFullSize(flatStyle.width) || isFullSize(flatStyle.minWidth)
-    || isFullSize(element.props.width) || isFullSize(element.props.w);
-  const isFullHeight = isFullSize(flatStyle.height) || isFullSize(flatStyle.minHeight)
-    || isFullSize(element.props.height) || isFullSize(element.props.h);
+  // El padding suma al touch target efectivo.
+  const paddingHorizontal =
+    getNumericValue(flatStyle.paddingHorizontal) ||
+    (getNumericValue(flatStyle.paddingLeft) ?? 0) +
+      (getNumericValue(flatStyle.paddingRight) ?? 0);
+  const paddingVertical =
+    getNumericValue(flatStyle.paddingVertical) ||
+    (getNumericValue(flatStyle.paddingTop) ?? 0) +
+      (getNumericValue(flatStyle.paddingBottom) ?? 0);
+  const padding = getNumericValue(flatStyle.padding) ?? 0;
 
-  // Resolver: style tiene prioridad, después props directos
-  const resolvedWidth = styleWidth ?? propWidth;
-  const resolvedHeight = styleHeight ?? propHeight;
+  const effectiveWidth = styleMinWidth ?? styleWidth;
+  const effectiveHeight = styleMinHeight ?? styleHeight;
 
-  const hasHitSlop = element.props.hitSlop != null;
+  const totalWidth =
+    effectiveWidth !== undefined
+      ? effectiveWidth + (paddingHorizontal || padding * 2)
+      : undefined;
+  const totalHeight =
+    effectiveHeight !== undefined
+      ? effectiveHeight + (paddingVertical || padding * 2)
+      : undefined;
 
-  // Verificar ancho
-  if (isFullWidth) {
-    // Ancho completo llena el contenedor, siempre pasa
-  } else if (resolvedWidth !== undefined) {
-    expect(resolvedWidth).toBeGreaterThanOrEqual(minWidth);
-  } else if (!hasHitSlop) {
-    throw new Error(
-      `Element with testID "${element.props.testID}" has no measurable width. ` +
-        'Set minWidth, width, or hitSlop to meet EAA touch target requirements.'
-    );
+  if (styleMinWidth !== undefined) {
+    expect(styleMinWidth).toBeGreaterThanOrEqual(minWidth);
+  } else if (totalWidth !== undefined) {
+    expect(totalWidth).toBeGreaterThanOrEqual(minWidth);
   }
+  // Si nada es explícito, lo controla el layout padre o el hitSlop. Pasa silenciosamente.
 
-  // Verificar alto
-  if (isFullHeight) {
-    // Alto completo llena el contenedor, siempre pasa
-  } else if (resolvedHeight !== undefined) {
-    expect(resolvedHeight).toBeGreaterThanOrEqual(minHeight);
-  } else if (!hasHitSlop) {
-    throw new Error(
-      `Element with testID "${element.props.testID}" has no measurable height. ` +
-        'Set minHeight, height, or hitSlop to meet EAA touch target requirements.'
-    );
+  if (styleMinHeight !== undefined) {
+    expect(styleMinHeight).toBeGreaterThanOrEqual(minHeight);
+  } else if (totalHeight !== undefined) {
+    expect(totalHeight).toBeGreaterThanOrEqual(minHeight);
   }
 }
 ```
 
-La función verifica tres capas:
+La función es deliberadamente permisiva con elementos que no tienen dimensiones inline. Muchos touchables están dimensionados por su contenedor padre (`flex: 1`, `alignSelf: 'stretch'`) o por `hitSlop`, y fallar en todos esos sería un muro de falsos positivos. El trade-off: un elemento que de verdad renderiza demasiado pequeño pero no tiene tamaño explícito va a pasar este check. Para eso está la pasada manual con VoiceOver o un test de screenshot con Detox.
 
-1. **`style` prop** vía `StyleSheet.flatten` (estilos inline, `StyleSheet.create`)
-2. **Props directos** para componentes de GlueStack/NativeWind (`minHeight={50}`, `h="$12"`)
-3. **Valores de tamaño completo** como `w="$full"` o `"100%"` que llenan su contenedor
-
-Los tokens de GlueStack (`$11` = 44px, `$12` = 48px) se resuelven a valores en píxeles automáticamente. Si no existe un tamaño medible y no hay `hitSlop` configurado, la función lanza un error en vez de pasar silenciosamente.
-
-> ⚠️ **Usuarios de GlueStack/NativeWind:** En el entorno de test de Jest, NativeWind normalmente está mockeado, así que los estilos basados en `className` no van a ser visibles. Esta función lee los props de GlueStack directamente de `element.props`, lo cual funciona para valores numéricos (`minHeight={50}`) y tokens de GlueStack (`h="$12"`). Asegúrate de que tus componentes interactivos usen props de tamaño explícitos, no solo layout del padre, para cumplir con los touch targets.
+Si un touchable sí declara su propio tamaño, el helper es estricto. `minWidth: 40` en un botón falla. `width: 44` con `padding: 4` pasa (efectivo 52). Para targets visualmente pequeños que dependen de `hitSlop`, hay un helper dedicado.
 
 ### Validación de hitSlop
 
