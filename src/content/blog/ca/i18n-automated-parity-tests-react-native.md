@@ -1,6 +1,6 @@
 ---
 title: "i18n amb tests automatitzats de paritat a React Native"
-description: "5 idiomes amb un test que verifica que cada locale té claus idèntiques. Com configurar i18next amb seguretat de tipus TypeScript, detecció de l'idioma del dispositiu i tests automatitzats de paritat que detecten traduccions que falten abans de publicar."
+description: "Configura i18n amb tipus a React Native, amb detecció del locale del dispositiu i tests de paritat de Jest que detecten claus que falten abans de publicar."
 publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: ca
@@ -14,15 +14,15 @@ relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react
 
 Afegeixes una funcionalitat nova. Escrius les cadenes en anglès. Les tradueixes al castellà, català, polonès i tagal. Publiques.
 
-Tres setmanes més tard, algú reporta que el missatge d'error a la pantalla de restabliment de contrasenya surt en anglès per als usuaris de castellà. Compoves el fitxer JSON de castellà. La clau existeix per a totes les altres pantalles. Excepte aquesta. Es va afegir a `en.json` i no es va copiar mai a `es.json`.
+Tres setmanes més tard, algú reporta que el missatge d'error a la pantalla de restabliment de contrasenya surt en anglès per als usuaris de castellà. Comproves el fitxer JSON de castellà. La clau existeix per a totes les altres pantalles. Aquesta no. Es va afegir a `en.json` i no es va copiar mai a `es.json`.
 
-Això passa a totes les aplicacions multilingües. No perquè els traductors siguin descurats, sinó perquè no hi ha cap sistema que ho detecti. L'aplicació no peta. i18next fa fallback silenciosament a l'anglès. L'usuari veu una cadena en anglès en una interfície que hauria de ser en castellà i es pregunta si l'aplicació està trencada.
+Això passa a totes les aplicacions multilingües. Els traductors no són descurats. Simplement no hi ha cap sistema que ho detecti. L'aplicació no peta. i18next fa fallback a l'anglès sense dir res. L'usuari veu una cadena en anglès en una interfície que hauria de ser en castellà i es pregunta si l'aplicació està trencada.
 
-> 💡 **La solució:** un únic test que compara les claus de cada locale amb el locale de referència. Si `en.json` té una clau que `es.json` no té, el test falla. Executa'l a cada PR.
+La majoria d'equips no fan tests de paritat d'i18n, i amb un o dos locales és una decisió raonable. Pots revisar el JSON a l'ull en una revisió de PR. Amb cinc locales deixa de funcionar. La comparació manual es converteix en la font del bug. Un únic test que compara les claus de cada locale amb el locale de referència detecta la deriva abans no arribi a producció. Si `en.json` té una clau que `es.json` no té, el test falla. Executa'l a cada PR.
 
 ## La configuració
 
-Cinc fitxers fan funcionar tot el sistema d'i18n.
+Cinc peces. Els JSONs de locale, la configuració d'i18next, un fitxer de recursos, una declaració de TypeScript i el test de paritat.
 
 ### Dependències
 
@@ -82,10 +82,10 @@ Cada idioma té un fitxer JSON amb estructura de claus idèntica:
 
 Patrons clau a notar:
 
-- ✅ **Estructura imbricada.** `auth.login.title` es llegeix com un camí. Manté les cadenes relacionades juntes. Els errors s'imbriquen més: `auth.login.errors.emailRequired`
-- ✅ **Interpolació.** `{{email}}` es reemplaça en temps d'execució. El mateix nom de placeholder a tots els locales.
-- ✅ **Pluralització.** Els sufixos `_one` i `_other` permeten que i18next triï la forma correcta segons `count`.
-- ✅ **Indicacions d'accessibilitat.** Claus separades per al text del lector de pantalla (`loginButtonHint`) perquè els traductors sàpiguen el context.
+- Estructura imbricada: `auth.login.title` es llegeix com un camí. Manté juntes les cadenes relacionades. Els errors s'imbriquen més: `auth.login.errors.emailRequired`.
+- Interpolació: `{{email}}` es reemplaça en temps d'execució. El mateix nom de placeholder a tots els locales.
+- Pluralització: els sufixos `_one` i `_other` permeten que i18next triï la forma correcta segons `count`.
+- Indicacions d'accessibilitat: claus separades per al text del lector de pantalla (`loginButtonHint`) perquè els traductors coneguin el context.
 
 El fitxer en castellà té les mateixes claus, valors diferents:
 
@@ -182,9 +182,9 @@ export default i18next;
 
 La resolució d'idioma comprova el locale principal del dispositiu amb un fallback de tres passos:
 
-1. **Coincidència exacta.** El locale principal del dispositiu és `es`, el suportem. S'utilitza.
-2. **Idioma base.** El dispositiu diu `es-MX`, no suportem aquest tag exacte, però el codi base `es` coincideix. S'utilitza.
-3. **Fallback.** El dispositiu diu `de`, no suportem l'alemany. Fa fallback a l'anglès.
+1. Coincidència exacta: el locale principal del dispositiu és `es`, el suportem. S'utilitza.
+2. Idioma base: el dispositiu diu `es-MX`, no tenim aquest tag exacte, però el codi base `es` coincideix. S'utilitza.
+3. Si no, fallback a l'anglès. El dispositiu diu `de`, no suportem l'alemany, l'usuari rep anglès.
 
 La funció rep un paràmetre `LocalizeModule` en comptes de cridar `getLocales` directament. Això la fa verificable: als tests, passes un objecte simulat. En producció, passes el `{ getLocales }` real de react-native-localize.
 
@@ -405,15 +405,15 @@ useEffect(() => {
 
 ## Errors habituals
 
-**No utilitzis concatenació de cadenes per a text traduït.** `t('hello') + ' ' + name` falla en idiomes on l'ordre de les paraules és diferent. Utilitza interpolació: `t('greeting', { name })` amb `"greeting": "Hello, {{name}}"` en anglès i `"greeting": "{{name}}, merhaba"` en turc.
+No concatenis text traduït. `t('hello') + ' ' + name` falla en idiomes on l'ordre de les paraules és diferent. Fes servir interpolació: `t('greeting', { name })` amb `"greeting": "Hello, {{name}}"` en anglès i `"greeting": "{{name}}, merhaba"` en turc.
 
-**No assumeixis que la pluralització és només "afegir una s".** L'anglès té dues formes (one/other). El polonès en té quatre. L'àrab en té sis. Els sufixos `_one`/`_other`/`_few`/`_many` d'i18next ho gestionen, però només si utilitzes `compatibilityJSON: 'v4'`.
+No assumeixis que la pluralització és només "afegir una s". L'anglès té dues formes (one/other). El polonès en té quatre. L'àrab en té sis. Els sufixos `_one`/`_other`/`_few`/`_many` d'i18next ho gestionen, però només amb `compatibilityJSON: 'v4'`.
 
-**No publiquis sense el test de paritat.** Es triga 5 minuts a escriure. Detecta cada clau que falta. L'alternativa és descobrir-ho pels usuaris en producció.
+No publiquis sense el test de paritat. Es triga cinc minuts a escriure. Detecta cada clau que falta. L'alternativa és descobrir-ho pels usuaris en producció.
 
-**No codifiquis el format específic de locale directament al codi.** Dates, nombres i monedes es formaten diferent per locale. Utilitza `Intl.NumberFormat` i `Intl.DateTimeFormat` amb l'idioma actual d'i18next, no manipulació de cadenes.
+No codifiquis el format específic de locale directament al codi. Dates, nombres i monedes es formaten diferent per locale. Fes servir `Intl.NumberFormat` i `Intl.DateTimeFormat` amb l'idioma actual d'i18next, no manipulació de cadenes.
 
-**No oblidis les indicacions d'accessibilitat.** Els lectors de pantalla anuncien botons i camps d'entrada de manera diferent. Una indicació que té sentit en anglès pot ser confusa en castellà. Claus d'accessibilitat separades permeten als traductors proporcionar indicacions adequades al context.
+No oblidis les indicacions d'accessibilitat. Els lectors de pantalla anuncien botons i camps d'entrada de manera diferent. Una indicació que té sentit en anglès pot ser confusa en castellà. Claus d'accessibilitat separades permeten als traductors donar indicacions adequades al context.
 
 ## L'estructura de fitxers
 
