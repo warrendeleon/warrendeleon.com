@@ -15,11 +15,11 @@ relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react
 
 You add a new feature. You write the English strings. You translate them to Spanish, Catalan, Polish, and Tagalog. You ship.
 
-Three weeks later, someone reports that the error message on the password reset screen is in English for Spanish users. You check the Spanish JSON file. The key exists for every other screen. But not this one. It was added to `en.json` and never copied to `es.json`.
+Three weeks later, someone reports that the error message on the password reset screen is in English for Spanish users. You check the Spanish JSON file. The key exists for every other screen. Not this one. It was added to `en.json` and never copied to `es.json`.
 
-This happens in every multilingual app. Not because translators are careless, but because there's no system that catches it. The app doesn't crash. i18next silently falls back to English. The user sees one English string in an otherwise Spanish interface and wonders if the app is broken.
+This happens in every multilingual app. Translators aren't careless. There's no system catching it. The app doesn't crash. i18next falls back to English quietly. The user sees one English string in an otherwise Spanish interface and wonders if the app is broken.
 
-> 💡 **The fix:** a single test that compares every locale's keys against the reference locale. If `en.json` has a key that `es.json` doesn't, the test fails. Run it on every PR.
+Most teams skip i18n parity testing, and at one or two locales that's a reasonable call. You can eyeball the JSON in a PR review. At five locales it stops working. The manual diff becomes the bug source. A single test that compares every locale's keys against the reference locale catches the drift before it ships. If `en.json` has a key that `es.json` doesn't, the test fails. Run it on every PR.
 
 ## Assumptions
 
@@ -34,7 +34,7 @@ If you're on Expo, swap `react-native-localize` for `expo-localization`. The res
 
 ## The setup
 
-Five files make the entire i18n system work.
+Five pieces. The locale JSONs, the i18next config, a resources file, a TypeScript declaration, and the parity test.
 
 ### Dependencies
 
@@ -97,10 +97,10 @@ Each language gets a JSON file with identical key structure:
 
 Key patterns to notice:
 
-- ✅ **Nested structure.** `auth.login.title` reads as a path. Keeps related strings together. Errors nest further: `auth.login.errors.emailRequired`
-- ✅ **Interpolation.** `{{email}}` is replaced at runtime. Same placeholder name across all locales.
-- ✅ **Pluralisation.** `_one` and `_other` suffixes let i18next pick the right form based on `count`.
-- ✅ **Accessibility hints.** Separate keys for screen reader text (`loginButtonHint`) so translators know the context.
+- Nested structure: `auth.login.title` reads as a path. Keeps related strings together. Errors nest further: `auth.login.errors.emailRequired`.
+- Interpolation: `{{email}}` is replaced at runtime. Same placeholder name across all locales.
+- Pluralisation: `_one` and `_other` suffixes let i18next pick the right form based on `count`.
+- Accessibility hints: separate keys for screen reader text (`loginButtonHint`) so translators know the context.
 
 The Spanish file has the same keys, different values:
 
@@ -197,9 +197,9 @@ export default i18next;
 
 The language resolution checks the device's primary locale with a three-step fallback:
 
-1. **Exact match.** Device's primary locale is `es`, we support `es`. Use it.
-2. **Base language.** Device says `es-MX`, we don't support that exact tag, but the base code `es` matches. Use it.
-3. **Fallback.** Device says `de`, we don't support German. Fall back to English.
+1. Exact match: device primary locale is `es`, we support `es`. Use it.
+2. Base language: device says `es-MX`, no exact tag, but base code `es` matches. Use it.
+3. Otherwise fall back to English. Device says `de`, we don't support German, so the user gets English.
 
 The function takes a `LocalizeModule` parameter instead of calling `getLocales` directly. This makes it testable: in tests, you pass a mock. In production, you pass the real `{ getLocales }` from react-native-localize.
 
@@ -440,15 +440,15 @@ useEffect(() => {
 
 ## Common pitfalls
 
-**Don't use string concatenation for translated text.** `t('hello') + ' ' + name` breaks in languages where word order differs. Use interpolation: `t('greeting', { name })` with `"greeting": "Hello, {{name}}"` in English and `"greeting": "{{name}}, merhaba"` in Turkish.
+Don't concatenate translated text. `t('hello') + ' ' + name` breaks in languages where word order differs. Use interpolation: `t('greeting', { name })` with `"greeting": "Hello, {{name}}"` in English and `"greeting": "{{name}}, merhaba"` in Turkish.
 
-**Don't assume pluralisation is just "add an s".** English has two forms (one/other). Polish has four. Arabic has six. i18next's `_one`/`_other`/`_few`/`_many` suffixes handle this, but only if you use `compatibilityJSON: 'v4'`.
+Don't assume pluralisation is just "add an s". English has two forms (one/other). Polish has four. Arabic has six. i18next's `_one`/`_other`/`_few`/`_many` suffixes handle this, but only with `compatibilityJSON: 'v4'`.
 
-**Don't ship without the parity test.** It takes 5 minutes to write. It catches every missing key. The alternative is finding out from users in production.
+Don't ship without the parity test. It takes five minutes to write. It catches every missing key. The alternative is finding out from users in production.
 
-**Don't hardcode locale-specific formatting.** Dates, numbers, and currencies format differently per locale. Use `Intl.NumberFormat` and `Intl.DateTimeFormat` with the current i18next language, not string manipulation.
+Don't hardcode locale-specific formatting. Dates, numbers, and currencies format differently per locale. Use `Intl.NumberFormat` and `Intl.DateTimeFormat` with the current i18next language, not string manipulation.
 
-**Don't forget accessibility hints.** Screen readers announce buttons and inputs differently. A hint that makes sense in English might be confusing in Spanish. Separate accessibility keys let translators provide context-appropriate hints.
+Don't forget accessibility hints. Screen readers announce buttons and inputs differently. A hint that makes sense in English might be confusing in Spanish. Separate accessibility keys let translators give context-appropriate hints.
 
 ## The file structure
 
