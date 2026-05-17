@@ -1,6 +1,6 @@
 ---
 title: "Configurando MSW v2 en React Native"
-description: "Una guía práctica para configurar Mock Service Worker v2 en un proyecto React Native. Desde la instalación hasta handler sets de nivel producción que cubren éxito, errores, timeouts y escenarios offline."
+description: "Una guía práctica para configurar Mock Service Worker v2 en un proyecto React Native. De la instalación a un conjunto de handlers para éxito, errores, timeouts y offline."
 publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: es
@@ -20,7 +20,7 @@ El problema: estás testeando la interacción de tu código con un mock, no con 
 
 **Mock Service Worker (MSW)** intercepta las peticiones a nivel de red. Tu código hace llamadas HTTP reales. MSW las captura antes de que salgan del proceso y devuelve tus respuestas mockeadas. Todo lo que hay entre tu componente y la red se ejercita: el thunk de Redux, los interceptores de Axios, el manejo de errores, el parseo de la respuesta.
 
-> 💡 **La diferencia clave:** los mocks manuales reemplazan tu código. MSW reemplaza la red. Tu código corre exactamente como lo haría en producción, hasta el punto donde la petición saldría del dispositivo.
+Los mocks manuales reemplazan tu código. MSW reemplaza la red. El código corre exactamente como lo haría en un dispositivo, hasta el punto donde la petición habría salido.
 
 ## Instalación
 
@@ -96,12 +96,7 @@ export const handlers = [
 ];
 ```
 
-Cosas clave a notar:
-
-- ✅ `http.get`, `http.post`, etc. matchean el método HTTP
-- ✅ Los parámetros de URL (`:id`) se extraen automáticamente
-- ✅ El body del request está disponible vía `request.json()`
-- ✅ `HttpResponse.json()` devuelve respuestas JSON tipadas con códigos de estado
+Algunas cosas que conviene saber: los helpers por método (`http.get`, `http.post` y los demás) matchean el verbo HTTP, los parámetros de URL como `:id` se extraen en `params` automáticamente, el body del request llega vía `await request.json()`, y `HttpResponse.json()` devuelve JSON tipado con el código de estado que le pases.
 
 ## Handler sets para cada escenario
 
@@ -299,13 +294,13 @@ Esto es útil para edge cases como JSON malformado, campos faltantes o códigos 
 
 ## Errores comunes
 
-**Los handlers se matchean en orden.** Si dos handlers matchean la misma petición, el primero gana. Cuando usas `server.use(...overrides)`, los overrides se agregan al principio, así que tienen prioridad sobre los defaults.
+Los handlers se matchean en orden. Si dos handlers matchean la misma petición, el primero gana. Cuando llamas a `server.use(...overrides)`, los overrides se agregan al principio, así que tienen prioridad sobre los defaults.
 
-**`HttpResponse.error()` simula un fallo de red**, no un error HTTP. La petición nunca recibe respuesta. Usa esto para escenarios offline/sin red. Para errores HTTP (500, 401, etc.), usa `HttpResponse.json()` con un código de estado.
+`HttpResponse.error()` simula un fallo de red, no un error HTTP. La petición nunca recibe respuesta. Úsalo para escenarios offline. Para errores HTTP (500, 401 y demás), recurre a `HttpResponse.json()` con un código de estado.
 
-**Los handlers async necesitan `await`.** Si tu handler lee el body del request (`request.json()`), la función del handler tiene que ser `async`. Olvidar esto hace que el handler devuelva `undefined` en vez de una respuesta.
+Si tu handler lee el body del request vía `request.json()`, la función tiene que ser `async`. Olvidarlo es una de las formas más comunes de terminar con un handler que devuelve `undefined` en silencio.
 
-**Las peticiones sin handler son silenciosas por defecto.** Siempre usa `onUnhandledRequest: 'warn'` (o `'error'` en CI) para atrapar handlers faltantes. Una petición sin handler silenciosa significa que tu test pasa por la razón equivocada.
+**Las peticiones sin handler son silenciosas por defecto.** Siempre usa `onUnhandledRequest: 'warn'` (o `'error'` en CI) para que los handlers faltantes salgan a la luz. Una petición sin handler silenciosa significa que el test pasa por la razón equivocada.
 
 ## La estructura de archivos completa
 
@@ -329,7 +324,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 ## En resumen
 
-Sí. El setup lleva unos 30 minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribes `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y estás testeando comportamiento de integración real, no comportamiento de mocks.
+El setup lleva unos treinta minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribes `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y el test ejercita comportamiento de integración real, no comportamiento de mocks.
 
 Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Combinados con [tests E2E escritos en Gherkin con Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) y [mocking en runtime a nivel de Metro](/blog/metro-runtime-mocking-react-native-e2e/), los handler sets cubren desde tests unitarios hasta flujos completos de usuario. Cuando añado un nuevo endpoint de API, añado handlers una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis.
 
