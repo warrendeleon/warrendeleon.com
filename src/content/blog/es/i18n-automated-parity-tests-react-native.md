@@ -1,6 +1,6 @@
 ---
 title: "i18n con tests automáticos de paridad en React Native"
-description: "5 idiomas con un test que verifica que cada locale tiene las mismas claves. Cómo configurar i18next con seguridad de tipos en TypeScript, detección del idioma del dispositivo y tests automáticos de paridad que detectan traducciones faltantes antes de publicar."
+description: "Cinco idiomas, un test que verifica que cada locale tiene las mismas claves. Configurar i18next con tipos en TypeScript y paridad automática en cada PR."
 publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: es
@@ -14,15 +14,15 @@ relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react
 
 Añades una funcionalidad nueva. Escribes las cadenas en inglés. Las traduces al español, catalán, polaco y tagalo. Publicas.
 
-Tres semanas después, alguien reporta que el mensaje de error en la pantalla de restablecimiento de contraseña está en inglés para los usuarios en español. Compruebas el fichero JSON en español. La clave existe para todas las demás pantallas. Pero no para esta. Se añadió a `en.json` y nunca se copió a `es.json`.
+Tres semanas después, alguien reporta que el mensaje de error en la pantalla de restablecimiento de contraseña está en inglés para los usuarios en español. Compruebas el fichero JSON en español. La clave existe para todas las demás pantallas. Para esta no. Se añadió a `en.json` y nunca se copió a `es.json`.
 
-Esto ocurre en todas las apps multilingües. No porque los traductores sean descuidados, sino porque no hay un sistema que lo detecte. La app no falla. i18next vuelve silenciosamente al inglés. El usuario ve una cadena en inglés en una interfaz que por lo demás está en español y se pregunta si la app está rota.
+Esto ocurre en todas las apps multilingües. Los traductores no son descuidados. No hay un sistema que lo detecte. La app no falla. i18next vuelve al inglés sin avisar. El usuario ve una cadena en inglés en una interfaz que por lo demás está en español y se pregunta si la app está rota.
 
-> 💡 **La solución:** un único test que compara las claves de cada locale con el locale de referencia. Si `en.json` tiene una clave que `es.json` no tiene, el test falla. Ejecútalo en cada PR.
+La mayoría de equipos se saltan los tests de paridad de i18n, y con uno o dos locales es una decisión razonable. Puedes revisar el JSON a ojo en una PR. Con cinco locales deja de funcionar. La revisión manual se convierte en la fuente de bugs. Un único test que compara las claves de cada locale con el locale de referencia detecta la divergencia antes de publicar. Si `en.json` tiene una clave que `es.json` no tiene, el test falla. Ejecútalo en cada PR.
 
 ## La configuración
 
-Cinco ficheros hacen que todo el sistema de i18n funcione.
+Cinco piezas. Los JSON de locale, la configuración de i18next, un fichero de recursos, una declaración de TypeScript y el test de paridad.
 
 ### Dependencias
 
@@ -82,10 +82,10 @@ Cada idioma tiene un fichero JSON con estructura de claves idéntica:
 
 Patrones clave a tener en cuenta:
 
-- ✅ **Estructura anidada.** `auth.login.title` se lee como una ruta. Mantiene las cadenas relacionadas juntas. Los errores se anidan más: `auth.login.errors.emailRequired`
-- ✅ **Interpolación.** `{{email}}` se reemplaza en tiempo de ejecución. El mismo nombre de placeholder en todos los locales.
-- ✅ **Pluralización.** Los sufijos `_one` y `_other` permiten que i18next escoja la forma correcta según `count`.
-- ✅ **Hints de accesibilidad.** Claves separadas para el texto del lector de pantalla (`loginButtonHint`) para que los traductores conozcan el contexto.
+- Estructura anidada: `auth.login.title` se lee como una ruta. Mantiene las cadenas relacionadas juntas. Los errores se anidan más: `auth.login.errors.emailRequired`.
+- Interpolación: `{{email}}` se reemplaza en tiempo de ejecución. El mismo nombre de placeholder en todos los locales.
+- Pluralización: los sufijos `_one` y `_other` permiten que i18next escoja la forma correcta según `count`.
+- Hints de accesibilidad: claves separadas para el texto del lector de pantalla (`loginButtonHint`) para que los traductores conozcan el contexto.
 
 El fichero en español tiene las mismas claves, valores diferentes:
 
@@ -182,9 +182,9 @@ export default i18next;
 
 La resolución del idioma comprueba el locale principal del dispositivo con un fallback de tres pasos:
 
-1. **Coincidencia exacta.** El locale principal del dispositivo es `es`, soportamos `es`. Se usa.
-2. **Idioma base.** El dispositivo dice `es-MX`, no soportamos esa etiqueta exacta, pero el código base `es` coincide. Se usa.
-3. **Fallback.** El dispositivo dice `de`, no soportamos alemán. Se vuelve al inglés.
+1. Coincidencia exacta: el locale principal del dispositivo es `es`, soportamos `es`. Se usa.
+2. Idioma base: el dispositivo dice `es-MX`, no hay etiqueta exacta, pero el código base `es` coincide. Se usa.
+3. Si no, fallback al inglés. El dispositivo dice `de`, no soportamos alemán, así que el usuario ve inglés.
 
 La función recibe un parámetro `LocalizeModule` en lugar de llamar a `getLocales` directamente. Esto la hace testeable: en los tests, pasas un mock. En producción, pasas el `{ getLocales }` real de react-native-localize.
 
@@ -405,15 +405,15 @@ useEffect(() => {
 
 ## Errores comunes
 
-**No uses concatenación de cadenas para texto traducido.** `t('hello') + ' ' + name` se rompe en idiomas donde el orden de las palabras es diferente. Usa interpolación: `t('greeting', { name })` con `"greeting": "Hello, {{name}}"` en inglés y `"greeting": "{{name}}, merhaba"` en turco.
+No concatenes texto traducido. `t('hello') + ' ' + name` se rompe en idiomas donde el orden de las palabras es diferente. Usa interpolación: `t('greeting', { name })` con `"greeting": "Hello, {{name}}"` en inglés y `"greeting": "{{name}}, merhaba"` en turco.
 
-**No asumas que la pluralización es solo "añadir una s".** El inglés tiene dos formas (one/other). El polaco tiene cuatro. El árabe tiene seis. Los sufijos `_one`/`_other`/`_few`/`_many` de i18next manejan esto, pero solo si usas `compatibilityJSON: 'v4'`.
+No asumas que la pluralización es solo "añadir una s". El inglés tiene dos formas (one/other). El polaco tiene cuatro. El árabe tiene seis. Los sufijos `_one`/`_other`/`_few`/`_many` de i18next manejan esto, pero solo con `compatibilityJSON: 'v4'`.
 
-**No publiques sin el test de paridad.** Lleva 5 minutos escribirlo. Detecta cada clave faltante. La alternativa es enterarte por los usuarios en producción.
+No publiques sin el test de paridad. Lleva cinco minutos escribirlo. Detecta cada clave faltante. La alternativa es enterarte por los usuarios en producción.
 
-**No hardcodees formato específico del locale.** Fechas, números y monedas se formatean de manera diferente según el locale. Usa `Intl.NumberFormat` e `Intl.DateTimeFormat` con el idioma actual de i18next, no manipulación de cadenas.
+No hardcodees formato específico del locale. Fechas, números y monedas se formatean de manera diferente según el locale. Usa `Intl.NumberFormat` e `Intl.DateTimeFormat` con el idioma actual de i18next, no manipulación de cadenas.
 
-**No olvides los hints de accesibilidad.** Los lectores de pantalla anuncian botones e inputs de manera diferente. Un hint que tiene sentido en inglés puede ser confuso en español. Claves de accesibilidad separadas permiten a los traductores proporcionar hints adecuados al contexto.
+No olvides los hints de accesibilidad. Los lectores de pantalla anuncian botones e inputs de manera diferente. Un hint que tiene sentido en inglés puede ser confuso en español. Claves de accesibilidad separadas permiten a los traductores dar hints adecuados al contexto.
 
 ## La estructura de ficheros
 
