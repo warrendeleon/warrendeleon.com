@@ -11,9 +11,13 @@ campaign: "supabase-auth-client"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "token-refresh-race-condition-react-native", "tiered-secure-storage-react-native"]
 ---
 
-This is part 2 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). Part 1 covered the *why*. This post covers the auth client: a typed Axios wrapper around Supabase's REST API with sign-up, sign-in, sign-out, current-user retrieval, request interceptor for token attachment, and a mapped error type.
+Part 2 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). Part 1 covered the *why*. This post covers the auth client: a typed Axios wrapper around Supabase's REST API with sign-up, sign-in, logout, current-user retrieval, a request interceptor for token attachment, and a mapped error type.
 
-The token-refresh response interceptor is its own post in the series. This one stops at the request interceptor and the auth methods.
+`supabase-js` already does this well for most projects. The reasons to write your own are narrow and were covered in part 1: tighter control over storage, validation at the API boundary, and a smaller dependency footprint when you only need REST. If `supabase-js` fits your shape, use it. The walkthrough below is for the cases where it doesn't.
+
+The token-refresh response interceptor gets its own post. This one stops at the request interceptor and the auth methods.
+
+**The journey:** project layout, base client, request interceptor, the four auth methods (sign-up, sign-in, logout, getCurrentUser), typed errors, tests, common pitfalls.
 
 Source: [`src/httpClients/SupabaseAuthClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseAuthClient.ts).
 
@@ -44,7 +48,7 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_ANON_KEY=ey...
 ```
 
-The anon key is *designed* to be public, not the same as "safe to ship unconditionally". It's the identifier Supabase uses for unauthenticated client access; the actual security boundary is whatever RLS policies and function permissions you put on the backend. If RLS is missing or written wrong on a single table, the anon key is enough to read it from any script. Treat the key as identification, not as a secret, and treat your RLS policies as the thing protecting your data. The final post in this series covers RLS specifically.
+The anon key is *designed* to be public. That's a different claim from "safe to ship unconditionally". It's the identifier Supabase uses for unauthenticated client access; the actual security boundary is whatever RLS policies and function permissions you put on the backend. If RLS is missing or written wrong on a single table, the anon key is enough to read it from any script. Treat the key as identification, and treat your RLS policies as the thing protecting your data. The final post in this series covers RLS specifically.
 
 ## What you're building
 
@@ -54,7 +58,7 @@ A single class with an Axios instance and four public methods:
 class SupabaseAuthClient {
   signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse>;
   signIn(request: SupabaseSignInRequest): Promise<SupabaseSignInResponse>;
-  signOut(): Promise<void>;
+  logout(): Promise<void>;
   getCurrentUser(): Promise<SupabaseUser | null>;
 }
 ```
@@ -115,13 +119,13 @@ class SupabaseAuthClientClass {
 export const SupabaseAuthClient = new SupabaseAuthClientClass();
 ```
 
-Three configuration choices worth flagging:
+Three configuration choices worth flagging.
 
-**A 10-second timeout.** Most calls finishing past 10s are network problems; the few that aren't (cold-start serverless functions, an under-provisioned instance) are rare enough that timing them out is the right default. The Axios default of no timeout lets requests hang forever, which means a flaky cell signal manifests as a frozen UI rather than an error message.
+The 10-second timeout. Most calls finishing past 10s are network problems; the few that aren't (cold-start serverless functions, an under-provisioned instance) are rare enough that timing them out is the right default. The Axios default of no timeout lets requests hang forever, which means a flaky cell signal manifests as a frozen UI rather than an error message.
 
-**`apikey` as a default header.** Supabase requires it on every call. Setting it once on the instance means you never forget it on a new endpoint.
+The `apikey` default header. Supabase requires it on every call. Setting it once on the instance means you never forget it on a new endpoint.
 
-**`Content-Type: application/json` as a default.** Supabase's auth endpoints expect JSON bodies. The header is harmless on GET requests and required on POST/PATCH.
+`Content-Type: application/json` as a default. Supabase's auth endpoints expect JSON bodies. The header is harmless on GET requests and required on POST/PATCH.
 
 ## The request interceptor
 
@@ -169,13 +173,13 @@ async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
 }
 ```
 
-A few things to call out.
+A few things worth calling out.
 
-**Email confirmation is the default Supabase behaviour and the response shape changes accordingly.** When confirmation is required, `/auth/v1/signup` returns just the user object. When it's disabled, it returns `{ user, session }`. The Zod schema accepts either via `z.union`, so the validation passes in both cases.
+Email confirmation is the default Supabase behaviour, and the response shape changes accordingly. When confirmation is required, `/auth/v1/signup` returns just the user object. When it's disabled, it returns `{ user, session }`. The Zod schema accepts either via `z.union`, so the validation passes in both cases.
 
-**The user's email and ID get stored immediately.** Email goes into the AES-256 EncryptedStore (it's PII, but you need it for the profile screen). The ID goes into the Keychain (it's used to identify the user in subsequent requests).
+Email and ID are stored immediately. Email goes into the AES-256 EncryptedStore (it's PII, but you need it for the profile screen). The ID goes into the Keychain (it's used to identify the user in subsequent requests).
 
-**No tokens are stored on signup.** A user who needs to confirm their email doesn't have a session yet. `signIn` is what produces a session.
+No tokens are stored on signup. A user who needs to confirm their email doesn't have a session yet. `signIn` is what produces a session.
 
 ## Sign-in
 
@@ -213,10 +217,10 @@ The endpoint is `/auth/v1/token?grant_type=password`, the OAuth2 password grant 
 
 `storeSession` is private and tiny on purpose. It's the only place tokens get written. If you ever need to add observability around token storage, change the storage tier, or add encryption-at-rest verification, you change one method and every call site stays the same.
 
-## Sign-out
+## Logout
 
 ```typescript
-async signOut(): Promise<void> {
+async logout(): Promise<void> {
   try {
     await this.axiosInstance.post('/auth/v1/logout');
   } catch (error) {
@@ -502,8 +506,8 @@ The third test is the one that matters most. It's easy to write a sign-in that *
 
 ## What's next in the series
 
-The auth client above handles successful requests and clean errors. The interesting case is when a request fails with a 401 because the access token expired, and especially when *five* requests fail with 401 at the same time because the home screen fired them all in parallel. Naively refreshing the token on each 401 invalidates the refresh token after the first success, and the user gets logged out for no reason.
+The auth client above handles successful requests and clean errors. The interesting case is when a request fails with a 401 because the access token expired, and especially when *five* requests fail with 401 at the same time because the home screen fired them all in parallel. Refreshing the token naively on each 401 invalidates the refresh token after the first success, and the user gets logged out for no reason.
 
-The next post in the series covers the response interceptor that prevents this: a subscriber queue, a single in-flight refresh, and a test that proves the queue holds up under concurrent load.
+The next post covers the response interceptor that prevents this: a subscriber queue, a single in-flight refresh, and a test that proves the queue holds up under concurrent load.
 
 Source: [`src/httpClients/SupabaseAuthClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseAuthClient.ts).
