@@ -11,15 +11,15 @@ campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
 
-## The problem with one storage solution
+## Where one storage layer runs out of road
 
-Most React Native apps store everything in AsyncStorage. Tokens, user data, preferences, session state. All in one place, all in plain text.
+Most React Native apps put everything in AsyncStorage. Tokens, user data, preferences, session state. All in one place, all in plain text.
 
-AsyncStorage is a key-value store backed by SQLite (iOS) or SharedPreferences (Android). It's fast and convenient. It's also completely unencrypted. Anyone with physical access to the device, or a rooted/jailbroken device, can read every value.
+AsyncStorage is a key-value store backed by SQLite on iOS and SharedPreferences on Android. It's fast and convenient. It's also unencrypted. Anyone with physical access, or a rooted/jailbroken device, can read every value.
 
-For a theme preference, that's fine. For an access token, it's a security incident.
+For a theme preference, that's fine. For an access token, it's an incident.
 
-> 💡 **The principle:** store data at a security level that matches its sensitivity. Tokens get the strongest protection. Preferences get the fastest access. Everything else falls somewhere in between.
+This post walks through the three tiers I use in production: hardware-backed Keychain for tokens, an encrypted store for PII, and AsyncStorage (via Redux Persist) for preferences. Each tier is one short wrapper. The work is in deciding what lives where, then keeping that boundary honest in your auth flow.
 
 ## Assumptions
 
@@ -28,10 +28,10 @@ The setup below was written against:
 - React Native 0.74+ (bare workflow, not Expo)
 - TypeScript with the standard RN Babel config
 - Redux Toolkit + Redux Persist for state management
-- iOS 13+ and Android API 23+ (hardware-backed Keychain requires API 23 minimum)
+- iOS 13+ and Android API 23+ (hardware-backed Keystore needs API 23 as a floor)
 - A Supabase backend (or any REST API that returns access/refresh tokens)
 
-If you're on Expo, the Keychain wrapper needs `expo-secure-store` instead of `react-native-keychain`. The structure stays the same.
+On Expo, swap `react-native-keychain` for `expo-secure-store` in the Tier 1 wrapper. The structure stays the same.
 
 ## The three tiers
 
@@ -45,16 +45,16 @@ Each tier is a thin wrapper around a library. The wrapper enforces typed keys (s
 
 ## Tier 1: SecureStore (Keychain / Keystore)
 
-The highest security tier. Uses the platform's hardware-backed secure enclave: iOS Keychain or Android Keystore. Data is encrypted by the OS itself and can require biometric authentication to access.
+The top tier. Uses the platform's hardware-backed secure enclave: iOS Keychain or Android Keystore. Data is encrypted by the OS itself and can require biometric authentication to read.
 
 ```bash
 yarn add react-native-keychain
 cd ios && pod install && cd ..
 ```
 
-`react-native-keychain` is a native module, so iOS needs a pod install. On Android, set `minSdkVersion = 23` (or higher) in `android/build.gradle` to enable the hardware-backed Keystore code path.
+`react-native-keychain` is a native module, so iOS needs a pod install. On Android, set `minSdkVersion = 23` (or higher) in `android/build.gradle` to reach the hardware-backed Keystore code path.
 
-> ⚠️ **"Hardware-backed" varies on Android.** Even on API 23+, whether keys are actually backed by a Trusted Execution Environment or a Strongbox depends on the device's hardware and OEM implementation. Some devices report `SECURE_HARDWARE_LEVEL_SOFTWARE` even on modern Android. If your threat model needs a guarantee, call `Keychain.getSecurityLevel()` at runtime and gate sensitive operations on the result. iOS Keychain is reliably hardware-backed on every supported device.
+A caveat on Android: even on API 23+, whether keys actually sit on a Trusted Execution Environment or a StrongBox depends on the device and OEM. Some modern handsets still report software-only storage. If your threat model needs a guarantee, call `Keychain.getSecurityLevel()` at runtime and gate the sensitive operations on the result. iOS Keychain is hardware-backed on every supported device.
 
 The wrapper:
 
@@ -108,16 +108,16 @@ export const SecureStore = {
 };
 ```
 
-Key design decisions:
+Four decisions in that wrapper are worth flagging:
 
-- ✅ **One service per key.** Keychain stores one credential per service identifier. Using `com.warrendeleon.portfolio.accessToken` and `com.warrendeleon.portfolio.refreshToken` as separate services prevents them from overwriting each other
-- ✅ **Biometric or device passcode.** `BIOMETRY_ANY_OR_DEVICE_PASSCODE` means the user needs Face ID, Touch ID, or their device PIN to access the data. If the device has no security set up, the data is still protected by the OS
-- ✅ **This device only.** `WHEN_UNLOCKED_THIS_DEVICE_ONLY` means the data doesn't transfer to a new device via backup. Tokens shouldn't roam
-- ✅ **Typed enum keys.** You can't accidentally pass a string. The compiler enforces that only token-level data goes into SecureStore
+- One service per key. Keychain stores a single credential per service identifier. Using `com.warrendeleon.portfolio.accessToken` and `com.warrendeleon.portfolio.refreshToken` as separate services keeps them from overwriting each other.
+- Biometric or device passcode. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` means the user needs Face ID, Touch ID, or their device PIN to read the value. If the device has no security set up, the OS still protects the data.
+- This device only. `WHEN_UNLOCKED_THIS_DEVICE_ONLY` keeps the data off iCloud Keychain backups. Tokens shouldn't roam.
+- Typed enum keys. You can't accidentally pass a string. The compiler enforces that only token-level data goes into SecureStore.
 
 ## Tier 2: EncryptedStore (AES-256)
 
-The middle tier. Data is encrypted with AES-256 but doesn't require hardware-backed security or biometric access. Faster than Keychain, more secure than plain text.
+The middle tier. Data is encrypted with AES-256, no hardware-backed gate, no biometric prompt. Faster than Keychain, much safer than plain text.
 
 ```bash
 yarn add react-native-encrypted-storage
@@ -180,9 +180,9 @@ export const EncryptedStore = {
 };
 ```
 
-Why not put PII in SecureStore? Performance. Keychain access requires a system-level security check (and potentially biometric prompt). For displaying a user's name on a profile screen, that overhead isn't justified. EncryptedStore gives you AES-256 encryption without the hardware gate.
+Why not put PII in SecureStore? Performance. Keychain access runs a system-level security check, and sometimes a biometric prompt. For rendering a user's name on a profile screen, that overhead isn't worth paying. EncryptedStore gives you AES-256 at rest without the hardware gate.
 
-The batch operations (`setMultiple`, `getMultiple`) matter for auth flows where you need to store multiple fields at once:
+The batch operations (`setMultiple`, `getMultiple`) matter for auth flows that need to write a handful of fields together:
 
 ```typescript
 await EncryptedStore.setMultiple([
@@ -194,16 +194,16 @@ await EncryptedStore.setMultiple([
 
 ## Tier 3: AsyncStorage + Redux Persist
 
-The fastest tier. Plain text, no encryption. Only for data that has zero security sensitivity: theme preference, language selection.
+The fastest tier. Plain text, no encryption. Reserved for data with no security weight: theme preference, language selection.
 
 ```bash
 yarn add @react-native-async-storage/async-storage redux-persist @reduxjs/toolkit react-redux
 cd ios && pod install && cd ..
 ```
 
-You don't use AsyncStorage directly for preferences. Redux Persist handles that. It automatically saves your Redux state to AsyncStorage and rehydrates it when the app launches.
+You don't talk to AsyncStorage directly for preferences. Redux Persist does it for you. It saves your Redux state to AsyncStorage and rehydrates it on app launch.
 
-The key is the persist config:
+The persist config is where the security boundary lives:
 
 ```typescript
 // src/store/configureStore.ts
@@ -214,22 +214,27 @@ import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import { authReducer } from '@app/features/Auth';
 import { settingsReducer } from '@app/features/Settings';
 
+// Auth slice gets its own persist config so we can whitelist a single field.
+const authPersistConfig = {
+  key: 'auth',
+  storage: AsyncStorage,
+  whitelist: ['biometricEnabled'],
+  blacklist: ['user', 'error', 'isLoading'],
+};
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+const rootReducer = combineReducers({
+  settings: settingsReducer,
+  auth: persistedAuthReducer,
+});
+
+// Root persist config only persists the settings slice (theme, language).
 const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['settings'],
 };
-
-const authPersistConfig = {
-  key: 'auth',
-  storage: AsyncStorage,
-  whitelist: ['biometricEnabled'],
-};
-
-const rootReducer = combineReducers({
-  settings: settingsReducer,
-  auth: persistReducer(authPersistConfig, authReducer),
-});
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
 
@@ -253,7 +258,7 @@ export const persistor = persistStore(store);
 | `rootPersistConfig` | Settings slice only (theme, language) | Everything else |
 | `authPersistConfig` | `biometricEnabled` flag only | user, error, isLoading, tokens |
 
-The `whitelist` is critical. It's a positive list: only the slices you name get persisted. Everything else is ephemeral. This is how you prevent tokens from accidentally ending up in AsyncStorage through Redux.
+The `whitelist` is the load-bearing part. It's a positive list: only the slices you name get persisted, everything else is ephemeral. That's how you stop tokens from finding their way into AsyncStorage through Redux.
 
 ```typescript
 const settingsSlice = createSlice({
@@ -269,7 +274,7 @@ const settingsSlice = createSlice({
 });
 ```
 
-When the user changes theme or language, Redux Persist automatically writes to AsyncStorage. On next launch, `PersistGate` waits for rehydration before rendering:
+When the user changes theme or language, Redux Persist writes to AsyncStorage for you. On next launch, `PersistGate` waits for rehydration before rendering:
 
 ```typescript
 // App.tsx
@@ -288,11 +293,11 @@ export default function App() {
 }
 ```
 
-`PersistGate` blocks render until the persisted slice has been loaded back into the store. Without it, the app flashes the default state for one frame before the persisted theme/language kicks in.
+`PersistGate` blocks render until the persisted slice has been loaded back into the store. Without it, the app flashes the default state for one frame before the persisted theme/language takes over.
 
-## How the tiers work together
+## How the tiers compose in an auth flow
 
-The real value is in how the tiers compose during auth flows.
+The wrappers carry their weight when you watch them work together across login, session restore, logout, and token refresh.
 
 ### Login
 
@@ -353,11 +358,11 @@ dispatch(resetAuth());
 // Settings (Tier 3) persist through logout. User keeps their theme and language.
 ```
 
-The logout sequence is deliberate. Tier 1 and Tier 2 are cleared because tokens and PII belong to the session. Tier 3 persists because theme and language belong to the device.
+The logout sequence is deliberate. Tier 1 and Tier 2 clear because tokens and PII belong to the session. Tier 3 stays because theme and language belong to the device.
 
 ### Token refresh
 
-The Axios interceptor handles automatic token refresh transparently. It reads from and writes to SecureStore without touching the other tiers:
+The Axios interceptor handles token refresh in the background. It reads from and writes to SecureStore without touching the other tiers:
 
 ```typescript
 axiosInstance.interceptors.response.use(
@@ -401,25 +406,25 @@ Every piece of stored data has a clear home:
 | Theme | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 | Language | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 
-The rule is simple: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's just a preference, Tier 3. This classification also shapes your project structure: the storage wrappers live in a shared `utils/storage/` directory, while the auth flow that orchestrates them belongs to the Auth feature.
+The rule is short: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's a preference, Tier 3. The classification shapes the project layout too. Storage wrappers sit in a shared `utils/storage/` folder, and the auth flow that orchestrates them lives inside the Auth feature.
 
 ## Common pitfalls
 
-**Don't store tokens in Redux.** Redux state can be serialised, logged, persisted to AsyncStorage by Redux Persist, and inspected with DevTools. Even if you blacklist the auth slice from persistence, a single misconfiguration exposes tokens. Keep tokens in SecureStore, period.
+**Don't store tokens in Redux.** Redux state can be serialised, logged, persisted to AsyncStorage via Redux Persist, and inspected with DevTools. Even with a blacklisted auth slice, one misconfiguration exposes tokens. Keep tokens in SecureStore, full stop.
 
-**Don't skip the typed enums.** Without `SecureStoreKey` and `EncryptedStoreKey` enums, you're passing raw strings. One typo and you're reading from the wrong key. One wrong tier and you're storing a token in plain text. The type system is your cheapest security audit.
+**Don't skip the typed enums.** Without `SecureStoreKey` and `EncryptedStoreKey`, you're passing raw strings. One typo and you read from the wrong key. One wrong tier and you store a token in plain text. The type system is the cheapest security audit you'll ever run.
 
-**Don't forget to clear on logout.** If you clear SecureStore but forget EncryptedStore, the user's PII persists after they log out. The `clear()` method on each tier exists for this reason. Call both during logout.
+**Don't forget to clear on logout.** Clear SecureStore but skip EncryptedStore and the user's PII sticks around after they log out. The `clear()` method on each tier is the contract: call both during logout.
 
-**Don't assume Keychain is fast.** SecureStore involves a round trip to the secure enclave. On older devices, this can take 100-200ms per read. Don't call it in a render loop. Read tokens once at app startup and pass them through your HTTP interceptor.
+**Don't assume Keychain is fast.** SecureStore runs a round trip to the secure enclave. On older devices it can take 100-200ms per read. Don't call it in a render loop. Read tokens once at startup and pass them through your HTTP interceptor.
 
-**Redux Persist whitelist, not blacklist.** Use `whitelist` to name what should persist. A `blacklist` approach is dangerous because new slices are persisted by default. One new slice with sensitive data and you've got a leak. `whitelist` is opt-in. Safer.
+**Use Redux Persist `whitelist`, not `blacklist`.** Name what should persist. `blacklist` is risky because new slices persist by default. One new slice with sensitive data and you have a leak. `whitelist` is opt-in, and safer.
 
-## Why three libraries
+## So why three libraries
 
-Yes. The alternative is one library (AsyncStorage) with no encryption, or one library (react-native-keychain) that's too slow for non-sensitive reads. Three libraries, three wrappers, three enums. Each wrapper is under 50 lines. The setup takes an afternoon.
+One library (AsyncStorage) leaves tokens in plain text. One library (react-native-keychain) is too slow for non-sensitive reads. Three libraries, three wrappers, three enums. Each wrapper sits under 50 lines. Setup takes an afternoon.
 
-What you get: tokens that can't be read without biometric authentication, PII that's encrypted at rest, and preferences that load instantly. Each piece of data is protected at exactly the level it requires. No more, no less.
+What you walk away with: tokens that can't be read without biometric authentication, PII that's encrypted at rest, and preferences that load on the first frame. Each piece of data is protected at the level it actually needs.
 
 > Store everything in one place and you protect nothing. Separate by sensitivity and you protect what matters.
 
