@@ -10,27 +10,25 @@ campaign: "pass-rn-tech-test"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---
 
-## This is from the other side of the table
+## What panels actually score on
 
-I review React Native tech test submissions. I've seen what gets people hired and what gets them rejected. Most of the rejections aren't because the candidate can't code. They're because the candidate didn't show the right things.
+I review React Native tech test submissions. Most rejections aren't a coding problem. The candidate could code. They didn't show the right things.
 
-This post is the advice I'd give a friend before they submitted a take-home tech test. Not theory. Specific, practical things that move you from "maybe" to "yes."
+This post is the advice I'd give a friend before they submitted a take-home. Specific, practical, panel-side. The shifts that move a submission from "maybe" to "yes."
 
 *I wrote about why I redesigned a tech test from the hiring manager's perspective in [a separate post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). This one is the other side: how to pass one.*
 
-## Read the brief twice. Then read it again.
+## Read the brief twice. Then read it again
 
-Sounds obvious. It's the most common mistake.
+Sounds obvious. It's the most common miss.
 
 If the brief says "build three screens with navigation," don't build two. If it says "use TypeScript," don't use JavaScript. If it says "manage a list of up to 6 items," make sure adding a 7th is handled gracefully.
 
-**Reviewers check requirements like a checklist.** Every missing requirement is points dropped. Not because we're pedantic, but because following a spec is part of the job. If you miss requirements in a tech test with a clear brief, what happens with a vague Jira ticket?
+Reviewers check requirements like a checklist. Every missing requirement is points dropped. Following a spec is part of the job. If you miss requirements in a tech test with a clear brief, what happens with a vague Jira ticket? Read the brief before you start, read it again halfway through, and read it one final time before you submit.
 
-> 💡 **Tip:** Read the brief before you start. Read it again halfway through. Read it one final time before you submit.
+## Project structure tells the panel how you think
 
-## Project structure matters more than you think
-
-The first thing I do when I open a submission is look at the folder structure. Before I read a single line of code, the structure tells me how you think.
+The first thing I do when I open a submission is look at the folder structure. Before I read a line of code, the layout already says something about how you organise work.
 
 **Type-first structure** (screens/, components/, hooks/, services/):
 ```
@@ -54,25 +52,25 @@ src/
     hooks/
 ```
 
-Neither is wrong. But feature-first shows you've thought about how the app scales. If I ask "what happens when 5 teams work on this codebase?" and your structure already answers that question, you're ahead.
+Neither is wrong. Feature-first shows you've thought about how the app scales. If I ask "what happens when 5 teams work on this codebase?" and your structure already answers that question, you're ahead.
 
-> 🚩 **Red flag:** Everything in a flat `src/` folder with no organisation. It suggests the coding started before the architecture was planned.
+Red flag: everything in a flat `src/` folder with no organisation. It suggests the coding started before the architecture was planned.
 
 ## TypeScript is not optional
 
-Even if the brief says "TypeScript preferred," treat it as required. Submitting plain JavaScript in 2026 is an automatic downgrade.
+If the brief says "TypeScript preferred," treat it as required. Submitting plain JavaScript in 2026 is an automatic downgrade.
 
-But it's not enough to just use TypeScript. Use it *well*:
+Using TypeScript isn't the bar. Using it well is:
 
 | Do this | Why it matters |
 |---|---|
 | Type your props | Every component should have a typed props interface |
 | Type your API responses | Don't use `any` for data from the server |
-| Type your navigation params | React Navigation has excellent TypeScript support |
+| Type your navigation params | React Navigation has good TypeScript support |
 
-The one `any` I'll forgive: complex third-party library types that would take an hour to figure out. Acknowledge it in a comment. *"// TODO: type this properly — ran out of time"* is better than pretending it doesn't exist.
+The one `any` I'll forgive: a third-party library type that would take an hour to model properly. Acknowledge it in a comment. `// TODO: type this properly, ran out of time` reads better than pretending it isn't there.
 
-> 🚩 **Red flag:** `any` scattered throughout the codebase with no acknowledgment.
+Red flag: `any` scattered throughout the codebase with no acknowledgment.
 
 ## State management: pick something and own it
 
@@ -80,13 +78,13 @@ I don't care whether you use Redux Toolkit, Zustand, React Context, or Jotai. I 
 
 | Choice | What it signals |
 |---|---|
-| **Context** for a three-screen app | Perfectly reasonable. Lightweight, no dependencies. |
+| **Context** for a three-screen app | Reasonable. Lightweight, no dependencies. |
 | **Redux Toolkit** for a three-screen app | Fine, but I'll ask why. "It's what I know best" is an honest answer. |
-| **Zustand** with a clean store | Shows you're current with the ecosystem. |
+| **Zustand** with a clean store | Shows you're current with what's in active use across recent RN codebases. |
 
-If you go with Redux, **use Redux Toolkit**. Not the old `switch/case` reducer pattern. If I see `createStore` instead of `configureStore`, or manual action type constants instead of `createSlice`, it suggests the Redux knowledge might need refreshing.
+If you go with Redux, use Redux Toolkit. Not the old `switch/case` reducer pattern. If I see `createStore` instead of `configureStore`, or manual action type constants instead of `createSlice`, the Redux knowledge probably needs refreshing.
 
-**What actually matters:**
+What actually matters:
 
 - ✅ State logic separated from the UI
 - ✅ Actions, reducers, and selectors in their own files
@@ -95,13 +93,13 @@ If you go with Redux, **use Redux Toolkit**. Not the old `switch/case` reducer p
 - ❌ Business logic living inside components
 - ❌ State scattered across `useState` calls with no pattern
 
-**Don't dispatch a fetch every time a screen mounts.** If I navigate to a detail screen, go back, and navigate to the same detail screen, I shouldn't see a loading spinner again. A simple `if (!data[id])` check before your `dispatch(fetchDetails(id))` is enough.
+Don't dispatch a fetch every time a screen mounts. If I navigate to a detail screen, go back, and return to the same detail screen, I shouldn't see a loading spinner again. A simple `if (!data[id])` check before your `dispatch(fetchDetails(id))` is enough.
 
 ## Tests: quality over coverage
 
-You don't need 90% coverage. You need *meaningful* tests. Three good tests beat twenty snapshot tests.
+You don't need 90% coverage. You need meaningful tests. Three good tests beat twenty snapshot tests.
 
-**What I want to see:**
+What I want to see:
 
 | Test type | Example |
 |---|---|
@@ -110,13 +108,13 @@ You don't need 90% coverage. You need *meaningful* tests. Three good tests beat 
 | Edge cases | What happens when you add a duplicate? When the list is empty? At the pagination boundary? |
 | Passing tests | Run them before you submit. Failing tests signal unfinished work. |
 
-**What I don't want to see:**
+What I don't want to see:
 
-- ❌ **Snapshot tests everywhere.** They break on every UI change and prove nothing about behaviour.
-- ❌ **Tests that mock everything.** If your test mocks the function it's testing, it's testing the mock.
-- ❌ **No tests at all.** This is a hard one to recover from in the walkthrough.
+- ❌ Snapshot tests everywhere. They break on every UI change and prove nothing about behaviour.
+- ❌ Tests that mock everything. If your test mocks the function it's testing, it's testing the mock.
+- ❌ No tests at all. Hard to recover from in the walkthrough.
 
-> 💡 **Tip:** 5-10 focused tests covering the critical paths. Reducers, selectors, key interactions. That's enough.
+Aim for 5 to 10 focused tests covering the critical paths. Reducers, selectors, key interactions. That's enough.
 
 ## Handle loading, errors, and empty states
 
@@ -125,18 +123,18 @@ This is where candidates stand out. Anyone can build the happy path. The questio
 | State | What to do |
 |---|---|
 | **Loading** | Show a spinner or skeleton on first load. Show a subtle indicator during pagination. Don't flash a full-screen spinner for 100ms. |
-| **Error** | If the API fails, tell the user. A retry button is better than nothing. An informative message is better than "Something went wrong." |
+| **Error** | If the API fails, tell the user. A retry button is better than nothing. An informative message beats "Something went wrong." |
 | **Empty** | If the list is empty or there are no saved items, show something useful. Not a blank screen. |
 
-> 🚩 **Red flag:** The app crashes on a slow network. No loading state, no error handling. The reviewer opens DevTools, throttles the network, and the app falls apart.
+Red flag: the app crashes on a slow network. No loading state, no error handling. The reviewer opens DevTools, throttles the network, and the app falls apart.
 
 ## The API call matters
 
-**GraphQL vs REST:** if the brief offers both, GraphQL is the stronger choice. It shows you can work with modern API patterns. But a well-implemented REST client beats a messy GraphQL setup.
+**GraphQL vs REST.** If the brief offers both, GraphQL is the stronger choice. It shows you can work with current API patterns. A well-implemented REST client beats a messy GraphQL setup.
 
-**Use FlatList or FlashList. Never ScrollView for lists.** `ScrollView` renders every item at once. With 100+ items, you'll see frame drops, memory spikes, and eventual crashes. `FlatList` virtualises the list, only rendering what's on screen. If I see a `ScrollView` wrapping a `.map()` for a data list, it suggests a gap in understanding React Native's rendering model.
+**Use FlatList or FlashList. Never ScrollView for lists.** `ScrollView` renders every item at once. With 100+ items, you'll see frame drops, memory spikes, and eventual crashes. `FlatList` virtualises the list, only rendering what's on screen. A `ScrollView` wrapping a `.map()` over a data list suggests a gap in understanding RN's rendering model.
 
-**Other things that get noticed:**
+Other things that get noticed:
 
 - ✅ Caching: don't refetch data you already have
 - ✅ Pagination: don't fetch 1000 items on first load
@@ -152,7 +150,7 @@ The happy path is the minimum. What separates a Software Engineer submission fro
 - **Back navigation?** When I go from detail back to the list, is my scroll position preserved?
 - **End of list?** Does pagination stop cleanly when there's no more data?
 
-You don't need to handle all of these. But handling *some* of them shows you think about real users, not just passing requirements.
+You don't need to handle all of these. Handling some of them shows you think about real users, not just passing requirements.
 
 ## The README is part of the test
 
@@ -163,27 +161,27 @@ Write a README. Not a novel. A short document that covers:
 | **How to run it** | `yarn install`, `yarn ios`, done. Extra steps documented. |
 | **What you built** | One paragraph summary. |
 | **Decisions you made** | Why this state management? Why this folder structure? Two sentences each. |
-| **What you'd improve** | This is the most important section. It shows self-awareness. |
+| **What you'd improve** | The most important section. It shows self-awareness. |
 
-> 💡 **The "what I'd improve" section is a cheat code.** It lets you acknowledge shortcuts without the reviewer discovering them as flaws. *"With more time, I'd add E2E tests with Detox and implement proper caching"* turns a missing feature into a demonstration of judgement.
+The "what I'd improve" section is a cheat code. It lets you acknowledge shortcuts without the reviewer discovering them as flaws. *"With more time, I'd add E2E tests with Detox and implement proper caching"* turns a missing feature into a demonstration of judgement.
 
 ## The walkthrough: this is where jobs are won
 
-If the test has a walkthrough call, prepare for it. The code got you into the room. The walkthrough gets you the offer.
+If the test has a walkthrough call, prepare for it. The code gets you into the room. The walkthrough gets you the offer.
 
-**Know your code.** If I say "show me where you handle the API response," you should navigate there in under 5 seconds. If you hesitate, it can raise questions about how well you know the codebase.
+Know your code. If I say "show me where you handle the API response," you should navigate there in under 5 seconds. Hesitation raises questions about how well you actually know the codebase.
 
-**Explain your trade-offs.** Don't wait for me to ask. When you show a section of code, say *"I chose this approach because X, but I know the trade-off is Y."* That's the answer I'm looking for before I even ask the question.
+Explain your trade-offs without waiting to be asked. When you show a section of code, say *"I chose this approach because X, but I know the trade-off is Y."* That's the answer I'm looking for before I even ask the question.
 
-**Be honest about shortcuts.** *"I used Context here because it was faster, but in a production app I'd move to Zustand once the state got more complex."* That's a strong answer. *"I think Context is the best approach"* is a weaker one.
+Be honest about shortcuts. *"I used Context here because it was faster, but in a production app I'd move to Zustand once the state got more complex."* Strong answer. *"I think Context is the best approach"* is weaker, because the panel knows the trade-offs and you've just suggested you don't.
 
-**Have a list of improvements.** When I ask "what would you change with more time?" the worst answer is "nothing, I'm happy with it." The best answer is a prioritised list: *"First I'd add caching, then E2E tests, then refactor to feature-first folders."*
+Have a list of improvements. When I ask "what would you change with more time?" the worst answer is "nothing, I'm happy with it." The best answer is a prioritised list: *"First I'd add caching, then E2E tests, then refactor to feature-first folders."*
 
-**Ask questions back.** The best walkthroughs are conversations, not presentations. Ask about the team's architecture, their testing approach, their deployment process. It shows you're evaluating the role too, not just hoping to pass.
+Ask questions back. The best walkthroughs are conversations, not presentations. Ask about the team's architecture, their testing approach, their deployment process. It shows you're evaluating the role, not just hoping to pass.
 
 ## Stretch goals: do them, but do them well
 
-If the brief mentions optional extras, pick one or two that you can do *well*. Don't try to do all of them poorly.
+If the brief mentions optional extras, pick one or two you can do well. Don't try to do all of them poorly. One well-executed stretch goal is worth more than three half-finished ones.
 
 | Worth picking | Why |
 |---|---|
@@ -193,29 +191,27 @@ If the brief mentions optional extras, pick one or two that you can do *well*. D
 
 | Avoid unless you can do them properly | Why |
 |---|---|
-| **Animations** | Half-finished animations look worse than no animations. |
-| **Dark mode** | If it's not consistent across every screen, it's a liability. |
-
-> 💡 **One well-executed stretch goal is worth more than three half-finished ones.**
+| **Animations** | Half-finished animations look worse than none. |
+| **Dark mode** | Inconsistent across screens is a liability. |
 
 ## The mistakes that actually cost people the job
 
-These aren't about code quality. They're about signals.
+These are about signals, not code quality.
 
 | Mistake | Why it hurts |
 |---|---|
 | **Not reading the brief properly** | Missing a core requirement. Building two screens when the brief says three. |
 | **No tests at all** | Even two or three tests show you care about quality. Zero is a strong negative signal. |
-| **AI-generated code you can't explain** | Using AI to help is fine. Submitting code you don't understand is not. This becomes apparent during the walkthrough. |
+| **AI-generated code you can't explain** | Using assistance is fine. Submitting code you don't understand is not. The walkthrough surfaces it quickly. |
 | **Overengineering** | A tech test doesn't need a design system and a micro-frontend architecture. Build what the brief asks for, well. |
 | **Submitting late without communicating** | If you need more time, ask. Going silent and submitting three days late is a red flag. |
 
 ## The one thing that matters most
 
-**Show that you think.** Not just that you code.
+Show that you think. Coding is the baseline, not the differentiator.
 
-Anyone can build screens. The candidates who get hired are the ones who demonstrate judgement: why they chose this approach, what they'd do differently, where the code would break at scale, what tests actually matter.
+Anyone can build screens. The candidates who get hired demonstrate judgement: why they chose this approach, what they'd do differently, where the code would break at scale, what tests actually matter.
 
-The tech test isn't testing whether you can write React Native. It's testing whether you can make good decisions and communicate them clearly.
+The tech test is checking whether you can make good decisions and communicate them clearly. The React Native code is the medium, not the question.
 
-> Build something clean, test the important parts, document your thinking, and be ready to talk about it honestly. That's it. That's the whole secret.
+> Build something clean, test the important parts, document your thinking, and be ready to talk about it honestly. That's the whole secret.
