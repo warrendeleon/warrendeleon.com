@@ -18,9 +18,9 @@ Llavors l'equip de backend reanomena `profilePicture` a `avatar`. O canvia `phon
 
 TypeScript no pot detectar res d'això. Comprova els tipus en temps de compilació. Les respostes de l'API arriben en temps d'execució. Quan les dades arriben al teu component, TypeScript ja ha fet la seva feina i ha plegat.
 
-El resultat: l'app peta en accedir a una propietat, mostra camps buits o emmagatzema dades corruptes silenciosament. I el missatge d'error no et dóna res útil perquè la fallada està tres capes lluny de la causa.
+El resultat: l'app peta en accedir a una propietat, mostra camps buits o emmagatzema dades corruptes silenciosament. El missatge d'error no et dóna res útil perquè la fallada està tres capes lluny de la causa.
 
-> 💡 **La bretxa:** TypeScript valida la forma del teu codi. Zod valida la forma de les teves dades. Necessites tots dos.
+TypeScript valida la forma del teu codi. Zod valida la forma de les teves dades. Els vols tots dos, i el cost d'afegir Zod és petit: una llibreria que pesa uns 50KB minificada, la feina de parsejar es fa un cop per crida d'API, i un fitxer d'esquema per resposta.
 
 ## Què fa Zod
 
@@ -104,7 +104,7 @@ export type Location = z.infer<typeof LocationSchema>;
 export type Coordinates = z.infer<typeof CoordinatesSchema>;
 ```
 
-Cada camp té una regla de validació. `z.string().url()` comprova que és una URL vàlida. `z.string().email()` comprova el format d'email. `z.string().min(1)` rebutja strings buits. No són simples assertions de tipus. Són comprovacions en temps d'execució que s'executen cada cop que les dades passen per allà.
+Cada camp té una regla de validació. `z.string().url()` comprova que és una URL vàlida. `z.string().email()` comprova el format d'email. `z.string().min(1)` rebutja strings buits. S'executen en temps d'execució, cada cop que les dades passen per l'esquema, no en temps de compilació.
 
 ### Validadors personalitzats
 
@@ -407,7 +407,7 @@ export { WorkExperienceSchema, type WorkExperience } from './workExperience.sche
 
 **No et saltis els tests d'esquemes.** Un esquema sense tests és un esquema en què no pots confiar. El test de validació de fixture (`safeParse(mockData)`) és el teu canari. Si falla, o la fixture o l'esquema està malament. En qualsevol cas, ho has de saber abans que l'app es publiqui.
 
-**No oblidis `.passthrough()` per a APIs de tercers.** Sense ell, Zod elimina els camps desconeguts. Si un backend afegeix un camp nou, el teu objecte validat el perd. Per a APIs que controles, eliminar camps està bé (prevé la contaminació de dades). Per a APIs de tercers, usa `.passthrough()` per ser compatible amb el futur.
+**No oblidis `.passthrough()` per a APIs de tercers.** Sense ell, Zod elimina els camps desconeguts. Si un backend afegeix un camp nou, el teu objecte validat el perd. Per a APIs que controles, eliminar camps està bé (prevé la contaminació de dades). Per a APIs de tercers, `.passthrough()` deixa que els camps nous flueixin sense trencar l'esquema que vas escriure el trimestre passat.
 
 ## El que costa, el que atrapa
 
