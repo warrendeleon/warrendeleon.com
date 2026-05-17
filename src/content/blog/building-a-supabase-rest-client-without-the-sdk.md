@@ -1,6 +1,6 @@
 ---
 title: "Building a Supabase integration in React Native without the SDK"
-description: "Series intro: why I built a production-grade Supabase integration in React Native without the SDK. Auth, token refresh, storage, pinning, masking, RLS."
+description: "Series intro: why I built a custom Supabase integration in React Native without the SDK. Auth, token refresh, storage, pinning, masking, RLS."
 publishDate: 2026-06-01
 series: "React Native Foundations"
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
@@ -13,7 +13,7 @@ relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-stora
 
 If you want to understand what an SDK actually does, the best exercise is to not use it.
 
-This is the opening essay in a series on building a production-grade Supabase integration in React Native without the SDK. The series covers auth, token refresh race conditions, storage uploads with retry, certificate pinning, PII-masking interceptors, and backend hardening with RLS. Six tutorials and this essay on *why*.
+This is the opening essay in a series on building a custom Supabase integration in React Native without the SDK. The series covers auth, token refresh race conditions, storage uploads with retry, certificate pinning, PII-masking interceptors, and backend hardening with RLS. Six tutorials and this essay on *why*.
 
 The Supabase SDK gives you working auth in three lines. A custom client takes around 600. Both work. The difference is whether you can see what the auth layer is doing when something needs to change.
 
@@ -30,7 +30,7 @@ The SDK exposes hooks for some of the cross-cutting concerns: you can pass a cus
 
 For a prototype, none of that matters. For an app that has to operate in production, with token rotation, intermittent networks, observability requirements, and a real security posture, all of it matters.
 
-> 💡 **The SDK is a shortcut, and shortcuts are fine when you know what they skip.** The interesting part of building this from scratch is discovering exactly what those skipped pieces are.
+The SDK is a shortcut, and shortcuts are fine when you know what they skip. The interesting part of building this from scratch is discovering exactly what those skipped pieces are.
 
 ## Why this codebase is open to clients and employers
 
