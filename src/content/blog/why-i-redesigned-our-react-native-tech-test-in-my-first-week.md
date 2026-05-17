@@ -1,6 +1,6 @@
 ---
 title: "Why I redesigned our React Native tech test in my first week"
-description: "I joined as Engineering Manager and one of my first projects was rethinking the hiring process for platform roles. What I learned and what I built."
+description: "I joined as Engineering Manager and one of my first projects was rethinking the hiring process for platform roles. The thinking behind the redesign, and what I built."
 publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
@@ -18,28 +18,28 @@ I'm the new Engineering Manager for the mobile platform squad. We're rebuilding 
 
 I didn't need to ask to see the tech test. I'd been through it myself just weeks earlier. It's how they hired *me*: a live coding exercise where you build a small app in about an hour with the interviewer watching, followed by technical questions from a questionnaire. The whole interview ran about 90 minutes.
 
-The test made sense for its original context. When the team was smaller and hiring for different roles, it was a reasonable way to screen candidates quickly. But our needs had changed. We weren't hiring someone to build simple screens anymore. We were hiring **platform engineers** who'd own the architecture that every other mobile team would ship through.
+The test made sense for its original context. When the team was smaller and hiring for different roles, it was a reasonable way to screen candidates quickly. Our needs had moved on. We weren't hiring someone to build simple screens anymore. We were hiring platform engineers who'd own the architecture every other mobile team would ship through.
 
 I needed the test to answer different questions:
 
-- Can they structure a **multi-screen app** with navigation that doesn't fall apart?
-- Can they call a **real API** and handle what happens when the network fails?
-- Do they write **tests** because they care about working software, or because someone told them to?
+- Can they structure a multi-screen app with navigation that doesn't fall apart?
+- Can they call a real API and handle what happens when the network fails?
+- Do they write tests because they care about working software, or because someone told them to?
 - Can they sit across from me and explain *why* they built it that way?
 
 The existing test was designed for different questions. I needed to build something around ours.
 
 *This post covers the thinking behind the redesign. The companion posts cover [the take-home brief in detail](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/), [the scorecard system](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/), and [what candidates should focus on](/blog/how-to-pass-a-react-native-tech-test/).*
 
-## The limits of live coding
+## Where live coding fits a different shape
 
 Live coding can tell you whether someone codes comfortably under observation. For some roles, that matters. For ours, I needed to see something different.
 
-I've been on both sides. As recently as January this year, I bombed a live coding exercise for a role I was perfectly qualified for. The problem was simple. I knew how to solve it. But with someone watching my every keystroke, my mind went blank. *I didn't pass.*
+I've been on both sides. Earlier this year I sat a live coding exercise for a role I was qualified for and blanked. The problem was simple, I knew how to solve it, and with someone watching every keystroke I lost the thread. As an interviewer, I've watched the same thing happen to candidates: strong engineers who freeze on problems they'd solve in five minutes at their own desk.
 
-As an interviewer, I've watched the same thing happen to candidates. Strong engineers who freeze on problems they'd solve in five minutes at their own desk. Live coding measures composure under observation. That's a valid signal for some roles, but it wasn't the signal I needed.
+Live coding measures composure under observation. That's a useful signal for some roles. It wasn't the one I needed.
 
-For a platform engineering role, where the work is architecture decisions, design system components, and CI/CD pipelines, I wanted to see how candidates approach problems with time and context. **The kind of thinking the job actually requires.**
+For a platform engineering role, where the work is architecture decisions, design system components, and CI/CD pipelines, I wanted to see how candidates approach problems with time and context. The kind of thinking the job actually requires.
 
 ## Showing vs telling
 
@@ -51,29 +51,29 @@ The new process tests the same topics through the candidate's own code. Instead 
 
 ## What I built instead
 
-I designed a take-home assessment. A small but real app: multiple screens, a public API, navigation, state management with actual business rules, TypeScript throughout. Not a toy. Not a weekend project either. Something that requires **genuine architectural thinking**.
+I designed a take-home assessment. A small but real app: multiple screens, a public API, navigation, state management with actual business rules, TypeScript throughout. Not a toy. Not a weekend project either. Something that asks for real architectural thinking.
 
-Four principles guided the design:
+Four principles guided the design.
 
 **Mirror the actual job.** The test should feel like the work. If a candidate can build this app, they can contribute to our codebase on day one. If they can't, that's useful information too.
 
-**Remove the boilerplate tax.** I give candidates a fully configured starter project. TypeScript, ESLint, Prettier, Jest, React Native Testing Library, path aliases. *All set up.* I don't care whether someone can configure a bundler. I care whether they can write application code.
+**Remove the boilerplate.** I give candidates a fully configured starter project. TypeScript, ESLint, Prettier, Jest, React Native Testing Library, path aliases. All set up. I don't care whether someone can configure a bundler. I care whether they can write application code.
 
-**Be clear about what, not how.** The brief explains what the app should do. It never says which state management library to use, how to structure the folders, or which API client to pick. Those decisions are the most revealing part of the submission. A candidate who picks Redux Toolkit for a three-screen app tells me something different from one who picks Zustand or React Context. Neither is wrong. *Both are interesting.* I break down every design decision behind the brief in [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/).
+**Be clear about what, not how.** The brief explains what the app should do. It never says which state management library to use, how to structure the folders, or which API client to pick. Those decisions are the most revealing part of the submission. A candidate who picks Redux Toolkit for a three-screen app tells me something different from one who picks Zustand or React Context. Neither is wrong. Both are interesting. I break down every design decision behind the brief in [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/).
 
 **Respect people's time.** Candidates get a week. The work should take 4 to 6 hours. People have jobs, families, lives. No one should have to take a day off to do a tech test for a company that might not hire them.
 
-## The walkthrough is where the magic happens
+## Why the walkthrough does most of the work
 
-The take-home code is half the evaluation. The other half is a walkthrough call: the candidate **demos the app**, runs their tests live, and walks through the code.
+The take-home code is half the evaluation. The other half is a walkthrough call: the candidate demos the app, runs their tests live, and walks through the code.
 
-This is where you learn how deeply someone understands what they built. In the age of AI-assisted development, that understanding matters more than ever.
+This is where you learn how deeply someone understands what they built. That understanding is what separates an engineer who can extend their own code from one who can only ship a working version of it.
 
-Three things I'm looking for:
+Three things I'm looking for.
 
 **Ownership.** *"Navigate to the file where you handle the API response."* If they wrote it, they'll jump straight there. If they're not fully comfortable with the codebase, that becomes clear quickly.
 
-**Trade-off thinking.** I ask about every significant decision. *"Why this state management approach?"* The answer I want isn't "because it's the best." The answer I want is *"because it fits this scope, but here's where it would break down, and here's what I'd move to."* Engineers who think in trade-offs build better systems than engineers who think in absolutes.
+**Trade-off thinking.** I ask about every significant decision. *"Why this state management approach?"* The answer I want isn't "because it's the best." The answer I want is *"because it fits this scope, here's where it would break down, and here's what I'd move to."* Engineers who think in trade-offs build better systems than engineers who think in absolutes.
 
 **Self-awareness.** *"What would you change if you had more time?"* Strong candidates light up at this question. They have a list. They know where they cut corners. They know what's fragile. They've been thinking about improvements since they submitted. Less experienced candidates tend to say *"I'm happy with it"* and move on.
 
@@ -81,39 +81,39 @@ If you're preparing for a take-home assessment like this, I wrote a candidate-fa
 
 ## Structured scoring
 
-One thing I wanted from day one was a **structured scorecard**. When you're scaling a team and multiple people are involved in hiring, everyone needs to evaluate the same things in the same way. Without that, two interviewers can review the same candidate and reach different conclusions because they're weighting different things.
+One thing I wanted from day one was a structured scorecard. When you're growing a team and multiple people are involved in hiring, everyone needs to evaluate the same things in the same way. Without that, two interviewers can review the same candidate and reach different conclusions because they're weighting different things.
 
-I built a scorecard that breaks the evaluation into weighted sections: does the app work, is the data layer sound, is the code well-structured, are there tests, and can the candidate explain it all in the walkthrough. Each section has specific criteria on a consistent scale. **Every interviewer evaluates the same things in the same order.**
+I built a scorecard that breaks the evaluation into weighted sections: does the app work, is the data layer sound, is the code well-structured, are there tests, and can the candidate explain it all in the walkthrough. Each section has specific criteria on a consistent scale. Every interviewer evaluates the same things in the same order.
 
-The scorecard also maps scores to levels. A number tells you whether someone is Graduate, Associate, Software Engineer, or Senior level. This removes ambiguity from the levelling conversation. The rubric does the thinking. The humans verify it. I published the full framework, including the weighting system and level thresholds, in [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).
+The scorecard also maps scores to levels. A number tells you whether someone is Graduate, Associate, Software Engineer, or Senior level. This takes ambiguity out of the levelling conversation. The rubric does the thinking. The humans verify it. I published the full rubric, including the weighting system and level thresholds, in [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).
 
 ## Senior candidates get a harder round
 
-For senior hires, there's an additional **system design** conversation. No whiteboard. No *"design Twitter in 45 minutes."* We talk through real scenarios relevant to the platform we're building. What changes when 20 teams build on the same mobile platform? How do you handle shared dependencies? What's your approach to backwards compatibility?
+For senior hires, there's an additional system design conversation. No whiteboard. No *"design Twitter in 45 minutes."* We talk through real scenarios relevant to the platform we're building. What changes when 20 teams build on the same mobile platform? How do you handle shared dependencies? What's your approach to backwards compatibility?
 
-It's a conversation between two engineers, not a performance for an audience. The best candidates **push back** on my assumptions and ask clarifying questions. That's exactly the behaviour I want from a senior on the team.
+It's a conversation between two engineers, not a performance for an audience. The best candidates push back on my assumptions and ask clarifying questions. That's the behaviour I want from a senior on the team.
 
 ## Early days
 
-In my first week, I hired a Senior Engineer through the existing process (that happened on day two, before the new test was ready). Going forward, the new process is the standard for all React Native hiring across the organisation. My peer EM, who runs another squad, reviewed the test and the scorecard and agreed to adopt it for his team's hires too. That's the advantage of a well-documented system: **it scales beyond one manager's squad.**
+In my first week, I hired a Senior Engineer through the existing process (that happened on day two, before the new test was ready). From here on, the new process is the standard for all React Native hiring across the organisation. My peer EM, who runs another squad, reviewed the test and the scorecard and agreed to adopt it for his team's hires too. That's the advantage of a well-documented system: it works beyond one manager's squad.
 
 I'm about to hire two Software Engineers using the new process. Every candidate will get the same test, the same starter project, the same evaluation criteria, and the same scoring rubric. The bias surface area shrinks when you standardise.
 
 ## The lesson
 
-If you're joining a new team as an engineering manager, **look at the hiring process early**. Don't wait until you've "learned the codebase" or "understood the culture." Hiring is one of the highest-leverage activities you have. Every person you bring on shapes the team for years.
+If you're joining a new team as an engineering manager, look at the hiring process early. Don't wait until you've "learned the codebase" or "understood the culture." Hiring is one of the highest-impact things you do. Every person you bring on shapes the team for years.
 
-And if your tech test no longer matches what you're hiring for, it's worth revisiting. The best hiring processes evolve alongside the team's needs.
+And if your tech test no longer matches what you're hiring for, it's worth revisiting. The best hiring processes move with the team's needs.
 
-Design a test that mirrors the actual job. Give candidates a starter project so you're testing *engineering*, not *configuration*. Make the requirements clear but let them make their own decisions. Then sit across from them and ask ***why***.
+Design a test that mirrors the actual job. Give candidates a starter project so you're testing *engineering*, not *configuration*. Make the requirements clear, then let candidates make their own decisions. Then sit across from them and ask ***why***.
 
-> The combination of thoughtful take-home code and a structured walkthrough gives you more signal in two hours than any live coding exercise gives you in two days.
+> Thoughtful take-home code paired with a structured walkthrough gives you more signal in two hours than any live coding exercise gives you in two days.
 
 ---
 
 ### Continue reading in this series
 
-- [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/) — the full brief, the API choices, and why every requirement exists.
-- [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) — the weighting system, level thresholds, and how to make scoring consistent across interviewers.
-- [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/) — a candidate-facing guide to standing out in take-home assessments.
-- [I built an app the hiring panel will never open](/blog/i-built-an-app-the-hiring-panel-will-never-open/) — what happens when you build a reference implementation of your own tech test.
+- [How to write a take-home tech test that candidates actually want to do](/blog/how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do/): the full brief, the API choices, and why every requirement exists.
+- [How I designed a tech test scorecard that works from graduate to senior](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/): the weighting system, level thresholds, and how to make scoring consistent across interviewers.
+- [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/): a candidate-facing guide to standing out in take-home assessments.
+- [I built an app the hiring panel will never open](/blog/i-built-an-app-the-hiring-panel-will-never-open/): what happens when you build a reference implementation of your own tech test.
