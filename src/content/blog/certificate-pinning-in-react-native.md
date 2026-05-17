@@ -19,7 +19,7 @@ Certificate pinning locks the HTTPS connection to specific public-key hashes. Th
 
 Source: [`ios/warrendeleon/AppDelegate.swift`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/ios/warrendeleon/AppDelegate.swift) and [`android/app/src/main/res/xml/network_security_config.xml`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/android/app/src/main/res/xml/network_security_config.xml).
 
-## What pinning actually defends against
+## Attacks pinning blocks
 
 Standard HTTPS trusts any certificate signed by a CA in the OS trust store. That's typically 100+ root CAs across iOS and Android. If *any* of them are compromised, malicious, or coerced into issuing a fraudulent certificate for your domain, the app accepts the connection and the attacker reads everything in plaintext.
 
@@ -29,7 +29,7 @@ Three concrete scenarios cert pinning blocks:
 2. **A corporate MITM proxy on enterprise Wi-Fi.** IT departments install root certs on managed devices to inspect TLS traffic. Without pinning, the proxy can read every Supabase request; with pinning, the app refuses to talk through the proxy at all.
 3. **A device with a malicious profile installed.** iOS configuration profiles or Android user-installed CAs can grant trust to attacker-controlled certificates. Without pinning, the app trusts them; with pinning, only the configured public keys count.
 
-The trade-off is real: pinning makes the app more rigid. If your pins expire, the app stops working until you ship a new build. The rest of this post is about how to set pins up so they fail safely and how to rotate them without locking users out.
+The trade-off is real. Pinning makes the app brittle. If your pins expire, the app stops working until you ship a new build. The rest of this post covers how to set pins up with safe rotation paths so a routine cert change doesn't lock users out.
 
 ## Assumptions
 
@@ -198,7 +198,7 @@ The exception only applies when the app is running on a developer's machine. Pro
 
 Both iOS and Android configs above include an expiration. iOS doesn't enforce it directly, but TrustKit logs a warning. Android does enforce it: when `expiration` passes, the pin set is ignored and the OS falls back to standard CA validation (which is exactly the threat pinning was meant to defend against).
 
-The right approach is to **monitor expiration as a build-time check**, not rely on the OS to remind you. A 90-day-out alert gives you enough time to extract new pins, ship an updated build, and let users update before the old pins expire.
+Monitor expiration as a build-time check rather than relying on the OS to remind you. A 90-day-out alert gives you enough time to extract new pins, ship an updated build, and let users update before the old pins expire.
 
 A simple shell script you can run as part of CI:
 
@@ -216,18 +216,18 @@ fi
 
 Wire that into a GitHub Action that runs weekly, and the team gets a notification before a pin expires rather than after.
 
-## The rotation problem (and how not to brick your users)
+## Pin rotation without locking users out
 
 Pin rotation is the part where most cert-pinning implementations fail in production. The naive approach (extract a new pin, ship a build) locks out everyone who hasn't updated yet, because their app still has the old pins and Supabase is now serving the new cert.
 
-The pattern that actually works is **overlap windows**:
+The pattern that works in practice is overlap windows:
 
 1. **Today (build N).** App pins `[primary_v1, intermediate]`. Supabase serves a cert chained to `intermediate`. Both pins match.
 2. **3 months before primary_v1 expires (build N+1).** Add the *next* primary pin (`primary_v2`) to the configuration. App now pins `[primary_v1, primary_v2, intermediate]`. Ship the build, encourage updates.
 3. **Cert rotation day.** Supabase rotates from `primary_v1` to `primary_v2`. Old app builds (N) still validate because `intermediate` matches. New builds (N+1) validate because `primary_v2` matches.
 4. **3 months after rotation (build N+2).** Remove `primary_v1` from the configuration since it's no longer in any deployed cert. Pins are `[primary_v2, intermediate_v2_if_changed]`.
 
-The invariant is that **every active app build has at least one pin that matches the current Supabase cert chain at all times.** The intermediate pin is the load-bearing piece during rotation: as long as Supabase keeps using the same CA, intermediate-pin-only validation gets you through.
+The invariant: every active app build has at least one pin that matches the current Supabase cert chain at all times. The intermediate pin is the load-bearing piece during rotation. As long as Supabase keeps using the same CA, intermediate-pin-only validation gets you through.
 
 That's why backup pins exist. Without them, certificate rotation is a coordination nightmare that requires every user to update on the day the cert rotates. With them, rotation is a non-event for users; they update at their own pace within a multi-month window.
 
@@ -262,7 +262,7 @@ The general rule: pinning is a *production* defence. Tests should never rely on 
 
 ## Verifying pinning is on
 
-The mistake that wastes the most time is shipping a build that doesn't actually pin. Three checks that catch this fast.
+The mistake that wastes the most time is shipping a build that doesn't pin at all. Three checks that catch this fast.
 
 **iOS: install a malicious root cert and visit the app.** Tools like Charles Proxy or mitmproxy install a root cert on the device. With pinning off, the app talks to Supabase through the proxy and you can read every request. With pinning on, the app fails to connect and Charles shows TLS handshake failures. If the proxy is reading your traffic, pinning isn't enabled.
 
@@ -276,7 +276,7 @@ The mistake that wastes the most time is shipping a build that doesn't actually 
 
 **Don't forget the intermediate.** A leaf-only pin set is a pinning configuration with one bullet in the chamber. The day Supabase rotates the leaf cert (which happens whenever the upstream CA reissues; on Let's Encrypt-style CAs that's often inside a 90-day window), every user without the latest build is locked out. The intermediate pin is what gives you the rotation overlap.
 
-**Don't rely on `kTSKEnforcePinning: false` permanently.** Report-only mode is useful for the first week of rollout when you want to confirm pinning isn't breaking real users. After that, switch it to `true`. A report-only pin is a security control that doesn't actually control anything.
+**Don't rely on `kTSKEnforcePinning: false` permanently.** Report-only mode is useful for the first week of rollout when you want to confirm pinning isn't breaking real users. After that, switch it to `true`. A report-only pin is a security control that doesn't control anything.
 
 **Don't pin third-party CDNs you don't control.** If your app loads Sentry, Mixpanel, or Cloudflare URLs and you pin them, you're now responsible for tracking those vendors' cert rotation schedules. Pin only the domains you own and that you can coordinate rotation with.
 
