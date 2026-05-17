@@ -13,6 +13,12 @@ This is part 3 of the series on giving Claude Code persistent memory. Part 1 cov
 
 Source: [`rag/src/watcher.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/watcher.py), [`rag/src/queue_db.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/queue_db.py), [`rag/src/indexer.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/indexer.py), [`rag/src/store.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/store.py), [`rag/src/parsers/jsonl.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/parsers/jsonl.py).
 
+## What a broken pipeline looks like
+
+You search for something you wrote yesterday and get nothing back. Or worse, you get hits from three weeks ago for a file you've since rewritten. The indexer is wedged on a malformed JSONL, the queue is full of duplicates, or the embedding model never released GPU memory and the Mac is at 90% swap.
+
+This is the bit between "Claude wrote a JSONL" and "the MCP server can search it". When it breaks, retrieval lies quietly. The rest of the post is how to keep it honest.
+
 ## The shape
 
 Three processes, decoupled by a SQLite queue:
@@ -34,7 +40,9 @@ That's the only system dependency the watcher needs.
 
 ## The watcher
 
-`fswatch` is a single-purpose tool: it tails a directory and emits one line per change. The watcher process wraps it in Python so it can filter and enqueue.
+There's no shortage of options here. Python's `watchdog` package gives you a cross-platform API with handlers and a thread pool. Facebook's `watchman` is the heavy artillery for large trees. `fsnotify` on Linux, `FSEvents` on macOS, or a polling loop with `os.scandir` if you want zero dependencies.
+
+`fswatch` is a CLI that tails a directory and emits one line per change. Pick it for two reasons: it's a separate process, so a bug in the Python wrapper can't take it down between events, and the wire format is one path per line, which is trivial to parse. The watcher process wraps it in Python so it can filter and enqueue.
 
 ```python
 """File watcher: fswatch subprocess -> enqueue conversation JSONL changes."""
@@ -140,7 +148,7 @@ The whole watcher is ~120 lines. `fswatch` does the hard part.
 
 ## The queue
 
-A vector store with retry, dedup, and exponential backoff sounds like a job for Redis or RabbitMQ. It's actually a job for SQLite.
+A queue with retry, dedup, and exponential backoff sounds like a job for Redis or RabbitMQ. For this workload, SQLite covers it.
 
 ```python
 DEFAULT_QUEUE_PATH = Path.home() / ".rag" / "queue.db"
@@ -159,7 +167,7 @@ class JobType(str, Enum):
     CONVERSATION = "conversation"
 ```
 
-One table, four statuses, one job type. Future-proofed for new job types via the enum but I never needed any.
+One table, four statuses, one job type. The enum leaves room for new job types; I haven't needed any.
 
 ```python
 def _init_db(self) -> None:
@@ -185,7 +193,7 @@ def _init_db(self) -> None:
         """)
 ```
 
-`file_hash` is the dedup key. SHA-256 of the file's first chunk is enough.
+`file_hash` is the dedup key: SHA-256 of the whole file streamed in 8KB chunks, truncated to the first 16 hex characters. Full content (so two distinct sessions don't collide on a shared prefix), small key (so the index stays compact).
 
 ```python
 def _file_hash(path: str) -> str | None:
@@ -329,7 +337,7 @@ def recover_stale(self) -> int:
 
 Called once at indexer startup. If the indexer was killed mid-job, the `processing` row is the only evidence. Reset to `pending` and the dequeue picks it up. Some jobs get processed twice; `upsert_batch` with stable IDs makes that idempotent.
 
-> 💡 **The general lesson:** SQLite is a job queue if you want it to be. WAL journaling, deterministic commits, single-writer is fine for your laptop. You don't need a broker for low-throughput queues you can't justify operating.
+SQLite is a fine job queue for this shape of work. WAL journaling, deterministic commits, single-writer. For a laptop chewing through tens of thousands of files over weeks, a broker like Redis or RabbitMQ is more operational cost than the workload justifies.
 
 ## The JSONL parser
 
@@ -399,20 +407,41 @@ class SentenceTransformersEmbeddingFunction(EmbeddingFunction[Documents]):
         self._model = None
 
     def __call__(self, input: Documents) -> Embeddings:
-        if self._model is None:
-            from sentence_transformers import SentenceTransformer
-            self._model = SentenceTransformer(
-                self.model_name,
-                device=self.device,
-                trust_remote_code=True,
+        import torch
+
+        self._ensure_loaded()
+        with torch.no_grad():
+            embeddings = self._model.encode(
+                list(input),
+                convert_to_numpy=True,
+                normalize_embeddings=True,
+                show_progress_bar=False,
             )
-        return self._model.encode(
-            list(input),
-            convert_to_numpy=True,
-            normalize_embeddings=True,
-            show_progress_bar=False,
-        ).tolist()
+        result = embeddings.tolist()
+        del embeddings
+        if torch.backends.mps.is_available():
+            torch.mps.empty_cache()
+        return result
 ```
+
+`torch.mps.empty_cache()` on every batch isn't optional. On Apple Silicon the Metal allocator pools blocks between calls and never returns them to the OS unless you ask. On Qwen3-Embedding-8B I watched the graphics footprint climb to 123 GB in under an hour before I added the per-call empty. The sync has a cost. The leak is worse.
+
+The `unload()` method does the heavier eviction when the indexer goes idle:
+
+```python
+def unload(self) -> None:
+    if self._model is None:
+        return
+    import gc
+    import torch
+    del self._model
+    self._model = None
+    gc.collect()
+    if torch.backends.mps.is_available():
+        torch.mps.empty_cache()
+```
+
+Per-batch empty stops the pool from growing within a job. Idle unload returns the model weights themselves. You need both. One without the other and either each job leaks, or the model sits in GPU memory for hours after the last job.
 
 For machines without sentence-transformers, an Ollama HTTP wrapper:
 
@@ -459,39 +488,40 @@ Cosine distance. Higher = less similar. The MCP server converts to a relevance p
 
 ## The indexer loop
 
+The shape is dequeue, process, sleep, repeat, with three gates on top: battery, foreground Claude session, idle unload.
+
 ```python
-class Indexer:
-    def __init__(self, store=None, queue=None) -> None:
-        self.store = store or Store()
-        self.queue = queue or JobQueue()
-        self._running = False
-        self._paused = False
-        self._job_delay, self._throttle_delay = _load_delays()
+while self._running:
+    idle = self._should_pause() or self._session_active()
 
-    def run(self) -> None:
-        self._running = True
-        # ... signal handlers ...
-        self.queue.recover_stale()
+    if (
+        not self._idle_unloaded
+        and time.monotonic() - self._last_job_time > IDLE_UNLOAD_SECONDS
+    ):
+        self.store.unload()
+        gc.collect()
+        self._idle_unloaded = True
 
-        while self._running:
-            if self._should_pause():
-                time.sleep(POLL_INTERVAL)
-                continue
+    if idle:
+        time.sleep(POLL_INTERVAL)
+        continue
 
-            jobs = self.queue.dequeue(batch_size=1)
-            if not jobs:
-                time.sleep(POLL_INTERVAL)
-                continue
+    jobs = self.queue.dequeue(batch_size=BATCH_SIZE)
+    if not jobs:
+        time.sleep(POLL_INTERVAL)
+        continue
 
-            for job in jobs:
-                if not self._running or self._should_pause():
-                    break
-                self.process_job(job)
-                if self._should_throttle():
-                    time.sleep(self._throttle_delay)
+    self._last_job_time = time.monotonic()
+    for job in jobs:
+        if not self._running or self._should_pause() or self._session_active():
+            break
+        self.process_job(job)
+        gc.collect()
+        if self._should_throttle():
+            time.sleep(self._throttle_delay)
 ```
 
-Dequeue, process, sleep, repeat. Two power checks: `_should_pause()` halts work entirely below 15% battery (resumes above 20%); `_should_throttle()` adds an inter-job delay when on AC but the battery is still discharging (the charger isn't keeping up).
+`_should_pause()` halts work entirely below 15% battery and resumes above 20%. `_should_throttle()` adds an inter-job delay when on AC but the battery is still discharging, which means the charger isn't keeping up.
 
 ```python
 def _should_pause(self) -> bool:
@@ -540,6 +570,28 @@ def _get_power_state(self) -> dict[str, Any]:
 ```
 
 `pmset -g batt` is a 5ms subprocess call but it's still a subprocess call. Cache for 30 seconds; the answer doesn't change faster than that.
+
+`_session_active()` is the third gate. Indexing competes with Claude itself for the same GPU. If a `claude` process is in `ps -axo comm`, the indexer steps back until the foreground session is gone. The chat stays responsive; embeddings wait. Cached for 10 seconds, same reason.
+
+### The watchdog
+
+Python can't reliably interrupt a blocked C extension call. If MPS wedges inside a single `model.encode()`, no signal handler will get a look in. The recovery has to be external.
+
+```python
+def _watchdog_loop(self) -> None:
+    while self._running:
+        time.sleep(WATCHDOG_POLL)
+        jid = self._current_job_id
+        if jid is None:
+            continue
+        stalled = time.monotonic() - self._progress_ts
+        if stalled <= WATCHDOG_TIMEOUT:
+            continue
+        self.queue.fail(jid, f"watchdog timeout after {int(stalled)}s")
+        os._exit(2)
+```
+
+A daemon thread bumps `_progress_ts` after every embed batch. If the timestamp ages past `WATCHDOG_TIMEOUT` (600 seconds), the watchdog marks the job failed and calls `os._exit(2)`. launchd respawns the process, `recover_stale()` flips any `processing` rows back to `pending`, and the queue retry/backoff stops a poisoned job from running forever.
 
 The processing function itself is small because `store.upsert_batch` does the work:
 
