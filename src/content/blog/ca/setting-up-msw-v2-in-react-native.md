@@ -1,6 +1,6 @@
 ---
 title: "Configurant MSW v2 a React Native"
-description: "Una guia pràctica per configurar Mock Service Worker v2 en un projecte React Native. Des de la instal·lació fins a handler sets de nivell producció que cobreixen èxit, errors, timeouts i escenaris offline."
+description: "Guia pràctica de Mock Service Worker v2 en un projecte React Native. De la instal·lació a un joc complet d'handlers per a èxits, errors, timeouts i offline."
 publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: ca
@@ -20,7 +20,7 @@ El problema: estàs verificant la interacció del teu codi amb un mock, no amb u
 
 **Mock Service Worker (MSW)** intercepta les peticions a nivell de xarxa. El teu codi fa crides HTTP reals. MSW les captura abans que surtin del procés i retorna les teves respostes simulades. Tot el que hi ha entre el teu component i la xarxa s'exercita: el thunk de Redux, els interceptors d'Axios, la gestió d'errors, el parseig de la resposta.
 
-> 💡 **La diferència clau:** els mocks manuals reemplacen el teu codi. MSW reemplaça la xarxa. El teu codi s'executa exactament com ho faria en producció, fins al punt on la petició sortiria del dispositiu.
+Els mocks manuals reemplacen el teu codi. MSW reemplaça la xarxa. El codi s'executa exactament com ho faria en un dispositiu, fins al punt just on la petició n'hauria sortit.
 
 ## Instal·lació
 
@@ -96,12 +96,7 @@ export const handlers = [
 ];
 ```
 
-Coses clau a notar:
-
-- ✅ `http.get`, `http.post`, etc. coincideixen amb el mètode HTTP
-- ✅ Els paràmetres d'URL (`:id`) s'extreuen automàticament
-- ✅ El body de la petició està disponible via `request.json()`
-- ✅ `HttpResponse.json()` retorna respostes JSON tipades amb codis d'estat
+Algunes coses que val la pena saber: els helpers específics per mètode (`http.get`, `http.post` i la resta) coincideixen pel verb HTTP, els paràmetres d'URL com `:id` se t'extreuen a `params`, el body de la petició arriba via `await request.json()`, i `HttpResponse.json()` retorna JSON tipat amb el codi d'estat que li passis.
 
 ## Handler sets per a cada escenari
 
@@ -299,13 +294,21 @@ Això és útil per a edge cases com JSON malformat, camps que falten o codis d'
 
 ## Errors comuns
 
-**Els handlers es coincideixen en ordre.** Si dos handlers coincideixen amb la mateixa petició, el primer guanya. Quan uses `server.use(...overrides)`, els overrides s'afegeixen al principi, així que tenen prioritat sobre els defaults.
+Els handlers es comproven en ordre. Si dos handlers coincideixen amb la mateixa petició, guanya el primer. Quan crides `server.use(...overrides)`, els overrides s'afegeixen al principi, així que prevalen sobre els defaults.
 
-**`HttpResponse.error()` simula una fallada de xarxa**, no un error HTTP. La petició mai rep resposta. Usa això per a escenaris offline/sense xarxa. Per a errors HTTP (500, 401, etc.), usa `HttpResponse.json()` amb un codi d'estat.
+`HttpResponse.error()` simula una fallada de xarxa, no un error HTTP. La petició mai rep resposta. Usa-ho per a escenaris offline. Per a errors HTTP (500, 401, etc.), tira de `HttpResponse.json()` amb un codi d'estat.
 
-**Els handlers async necessiten `await`.** Si el teu handler llegeix el body de la petició (`request.json()`), la funció del handler ha de ser `async`. Oblidar-ho fa que el handler retorni `undefined` en comptes d'una resposta.
+Si el teu handler llegeix el body de la petició via `request.json()`, la funció del handler ha de ser `async`. Oblidar-ho és una de les maneres més habituals d'acabar amb un handler que retorna `undefined` silenciosament.
 
-**Les peticions sense handler són silencioses per defecte.** Sempre usa `onUnhandledRequest: 'warn'` (o `'error'` en CI) per atrapar handlers que falten. Una petició sense handler silenciosa significa que el teu test passa per la raó equivocada.
+**Les peticions sense handler són silencioses per defecte.** Sempre usa `onUnhandledRequest: 'warn'` (o `'error'` en CI) perquè els handlers que falten surtin a la llum. Una petició sense handler silenciosa vol dir que el test passa per la raó equivocada.
+
+Un error `Response is not defined` o `TextEncoder is not defined` vol dir que el fitxer de polyfills no s'està carregant. Comprova que `setupFiles: ['<rootDir>/jest.polyfills.cjs']` hi és a la config de Jest, que l'extensió del fitxer és `.cjs` i no `.ts`, i que el path és correcte respecte a `rootDir`.
+
+Un `SyntaxError: Cannot use import statement outside a module` llançat des de `node_modules/msw/` vol dir que MSW no s'està transformant. Afegeix `msw|until-async` a la allow-list dins de `transformIgnorePatterns`.
+
+Les barres finals importen: `http.get('/api/items')` no coincideix amb una petició a `/api/items/`. Coincideix exactament el que el teu codi envia, o usa un patró de path com `http.get('/api/items*', ...)`.
+
+**Els tests passen en local i fallen en CI** acostuma a ser `onUnhandledRequest: 'error'` atrapant una petició que no t'havies adonat que el codi feia en l'entorn de CI, sovint d'analytics o crash reporting. O bé hi afegeixes un handler, o bé treus aquestes crides en mode test.
 
 ## L'estructura de fitxers completa
 
@@ -329,7 +332,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 ## En resum
 
-Sí. El setup porta uns 30 minuts. Després d'això, cada test nou és més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers són reutilitzables a cada fitxer de test. I estàs verificant comportament d'integració real, no comportament de mocks.
+El setup costa uns trenta minuts. A partir d'aquí, cada test nou surt més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers es reutilitzen a cada fitxer de test. I el que el test exercita és comportament d'integració, no comportament de mocks.
 
 Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Combinats amb [tests E2E escrits en Gherkin amb Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) i [mocking en temps d'execució a nivell de Metro](/blog/metro-runtime-mocking-react-native-e2e/), els handler sets cobreixen des de tests unitaris fins a fluxos complets d'usuari. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis.
 
