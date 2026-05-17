@@ -1,6 +1,6 @@
 ---
 title: "Pagbuo ng Supabase REST client nang walang SDK"
-description: "Bakit Axios ang pinili ko imbes na ang official Supabase SDK para sa isang React Native app. Full control sa interceptors, token refresh, error handling, at kakayahang palitan ang backend nang hindi ginagalaw ang app code."
+description: "Bakit Axios ang pinili ko imbes na ang official Supabase SDK para sa isang React Native app. Full control sa interceptors, token refresh, at error handling."
 publishDate: 2026-06-01
 tags: ["react-native", "architecture", "http", "authentication"]
 locale: tl
