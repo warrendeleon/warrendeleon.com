@@ -1,6 +1,6 @@
 ---
 title: "Building an MCP server for Claude Code"
-description: "A walkthrough of the FastMCP server I expose to Claude Code: six tools for searching past conversations, logging actions, and watching the indexing queue."
+description: "A walkthrough of the FastMCP server I expose to Claude Code: seven tools for searching past conversations, logging actions, and watching the indexing queue."
 publishDate: 2026-08-24
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "mcp", "python", "fastmcp", "ai-tooling"]
@@ -9,19 +9,21 @@ campaign: "claude-mcp-server"
 relatedPosts: ["giving-claude-a-memory-with-a-local-rag", "the-watcher-and-indexer-behind-a-local-rag", "pairing-claude-rag-with-a-curated-wiki"]
 ---
 
-This is part 2 of a four-part series on giving Claude Code persistent memory. Part 1 covered [the design and the lessons from the build](/blog/giving-claude-a-memory-with-a-local-rag/). This part is the tutorial: write a small MCP server in Python, register it with Claude Code, and end up with six new tools the model can call.
+This is part 2 of a four-part series on giving Claude Code persistent memory. Part 1 covered [the design and the lessons from the build](/blog/giving-claude-a-memory-with-a-local-rag/). This part is the tutorial: write a small MCP server in Python, register it with Claude Code, and end up with seven new tools the model can call.
 
 Full source for the server: [`rag/src/server.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/server.py) in my dotfiles.
 
-## What MCP gives you
+## Where MCP earns its place
 
-Model Context Protocol is the contract Claude Code uses to discover external tools. You write a process that speaks MCP over stdio, register it in a JSON file, and on the next session the model has new tools in its tool list. Claude calls them the same way it calls `Read` or `Bash`.
+Claude Code already gives the model a decent toolbox. The built-in `Read`, `Bash`, and `Grep` tools cover a lot. Custom slash commands handle deterministic recipes. Sub-agents handle long-running orchestration. If those cover the job, use them. The bar for adding an MCP server should be: I want a piece of behaviour the model can reach from any session, in any project, without the user remembering a slash command.
 
-The minimum viable MCP server is a few dozen lines of Python with [FastMCP](https://github.com/jlowin/fastmcp).
+That's the niche this one fills. Semantic search across transcripts. A persistent audit log. A read-only view into a background indexing queue. None of those map cleanly to a built-in tool or a slash command. They want to be sat behind a Python process that owns the embedding model and the SQLite database.
 
-> 💡 **What you don't have to do:** no HTTP server, no auth flow, no message-pump boilerplate. FastMCP handles the protocol. You write functions and decorate them with `@mcp.tool()`.
+Model Context Protocol is the contract Claude Code uses to discover that process. You write something that speaks MCP over stdio, register it in a JSON file, and on the next session the model has new tools in its tool list. Claude calls them the same way it calls `Read` or `Bash`.
 
-> ⚠️ **Security boundary.** This server runs locally over stdio, not as a public HTTP service. Claude Code spawns it as a subprocess and communicates through pipes, so there's no listening port and no remote attack surface. That keeps the threat model small. The boundary that does matter: the tools below return private transcript snippets, audit-log entries, and arbitrary file paths under `~/.claude/`. Only register this server in Claude Code environments you trust with that data. Don't drop the same `mcp_servers.json` into a shared workstation or a CI runner.
+The minimum viable MCP server is a few dozen lines of Python with [FastMCP](https://github.com/jlowin/fastmcp). FastMCP handles the protocol layer. You write functions and decorate them with `@mcp.tool()`. No HTTP server, no auth flow, no message-pump boilerplate.
+
+A note on the threat model. This server runs locally over stdio, not as a public HTTP service. Claude Code spawns it as a subprocess and talks to it through pipes, so there's no listening port and no remote attack surface. The boundary that does matter: the tools below return private transcript snippets, audit-log entries, and arbitrary file paths under `~/.claude/`. Only register this server in environments you trust with that data. Don't drop the same registration into a shared workstation or a CI runner.
 
 ## Project layout
 
@@ -81,7 +83,7 @@ _queue: JobQueue | None = None
 _audit: AuditLog | None = None
 ```
 
-Three lazily-initialised singletons. ChromaDB takes a few hundred milliseconds to open, the embedding model takes a couple of seconds to load. You don't want either happening at server startup, because Claude Code waits on the handshake.
+Three lazily-initialised singletons. ChromaDB takes a few hundred milliseconds to open. The embedding model takes a couple of seconds to load. You don't want either happening at server startup, because Claude Code waits on the handshake before declaring the server ready.
 
 ```python
 def _get_store() -> Store:
@@ -156,7 +158,7 @@ A few non-obvious things in there.
 
 **Catch and convert exceptions.** A raised exception inside a tool returns an error to Claude that's hard for the model to recover from. A returned string ("Search failed. Check that the embedding model is available.") is something the model can read and reason about. Same shape, much friendlier failure mode.
 
-## The other five tools
+## The other six tools
 
 Same pattern, different jobs:
 
@@ -300,6 +302,21 @@ def get_failed_jobs(limit: int = 20) -> str:
 
 Failed jobs are weirdly the most useful debugging tool I added. When the embedding model can't open a file, or a JSONL has a malformed turn, the failure ends up here with a stack-trace tail. Asking Claude "what failed?" gets you a list of files and reasons in two seconds.
 
+```python
+@mcp.tool()
+def get_audit_log(since: str | None = None, limit: int = 20) -> str:
+    """View recent audit log entries.
+
+    Args:
+        since: Optional time filter, hours ago ("24h"), days ago ("7d"),
+               or Unix timestamp. Omit for the most recent entries.
+        limit: Maximum entries to return (default 20).
+    """
+    ...
+```
+
+The body parses `"24h"` / `"7d"` strings into Unix timestamps and reads from the audit table. Pairs with `log_action`: that one writes the row, this one reads it back. Useful at the start of a session when I want a quick "what did I do yesterday" without scrolling shell history.
+
 ## The entrypoint
 
 ```python
@@ -334,19 +351,31 @@ exec "$HOME/.rag/venv/bin/python" -m src.server
 chmod +x ~/.rag/start-server.sh
 ```
 
-Then `~/.claude/mcp_servers.json`:
+Then register the server. The supported way is the CLI:
+
+```bash
+claude mcp add -s user rag /Users/warrendeleon/.rag/start-server.sh \
+  -e ANONYMIZED_TELEMETRY=false \
+  -e CHROMA_TELEMETRY=false
+```
+
+That writes the entry into `~/.claude.json` under `mcpServers`:
 
 ```json
-{
-  "mcpServers": {
-    "rag": {
-      "command": "/Users/warrendeleon/.rag/start-server.sh"
+"mcpServers": {
+  "rag": {
+    "type": "stdio",
+    "command": "/Users/warrendeleon/.rag/start-server.sh",
+    "args": [],
+    "env": {
+      "ANONYMIZED_TELEMETRY": "false",
+      "CHROMA_TELEMETRY": "false"
     }
   }
 }
 ```
 
-That's the whole registration. Restart Claude Code; the next session has six new tools.
+That's the whole registration. Restart Claude Code; the next session has seven new tools.
 
 You can verify the server is alive without going through Claude:
 
@@ -356,8 +385,6 @@ echo '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' \
 ```
 
 Returns the JSON-RPC tool list. If that works, Claude will see them.
-
-> 💡 **Gotcha worth knowing:** `claude mcp add -s user rag` writes to `~/.claude.json` (the settings file), which is the wrong place. Claude Code reads MCP server registrations from `~/.claude/mcp_servers.json`. Edit that file directly instead.
 
 ## Telling Claude to use the tools
 
@@ -381,7 +408,7 @@ Without this, Claude defaults to "I don't have access to previous sessions". The
 
 ## What you've got
 
-A Python module with six decorated functions and around 300 lines of code. A 30-line JSON file. A two-line bash wrapper. That's enough to give Claude Code persistent search over your conversation history, an audit log it writes to itself, and visibility into the indexing pipeline.
+A Python module with seven decorated functions and around 300 lines of code. A small block of JSON. A two-line bash wrapper. That's enough to give Claude Code persistent search over your conversation history, an audit log it writes to itself, and visibility into the indexing pipeline.
 
 The interesting part isn't the protocol. FastMCP makes that almost invisible. The interesting parts are the things that don't show up in MCP tutorials: lazy initialisation so the handshake stays fast, returning strings not objects, catching exceptions to friendly messages, validating paths before they reach the file system, and writing docstrings that read like prompts.
 
