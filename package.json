@@ -14,7 +14,14 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
+    "@mermaid-js/layout-elk": "^0.2.1",
     "astro": "^6.1.1",
-    "lottie-web": "^5.13.0"
+    "astro-mermaid": "^2.0.1",
+    "lottie-web": "^5.13.0",
+    "mermaid": "^11.15.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
   }
 }
