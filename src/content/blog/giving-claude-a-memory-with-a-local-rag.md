@@ -3,7 +3,7 @@ title: "Giving Claude a memory with a local RAG"
 description: "How I gave Claude Code a local memory by indexing JSONL transcripts into a local RAG exposed through MCP. Architecture, trade-offs, and a battery lesson."
 heroImage: "/images/blog/local-rag-memory.webp"
 heroAlt: "Giving Claude a memory with a local RAG"
-publishDate: 2026-08-24
+publishDate: 2026-08-31
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "mcp", "local-llm", "ai-tooling"]
 locale: en

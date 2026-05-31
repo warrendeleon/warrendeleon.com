@@ -3,7 +3,7 @@ title: "Pairing Claude's RAG with a curated wiki"
 description: "RAG search recalls; a wiki answers. Pair them via a strict lookup order so Claude knows which to reach for. Use cases, schema, setup, and sync."
 heroImage: "/images/blog/rag-curated-wiki.webp"
 heroAlt: "Pairing Claude's RAG with a curated wiki"
-publishDate: 2026-09-14
+publishDate: 2026-09-21
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "knowledge-management", "obsidian", "ai-tooling"]
 locale: en

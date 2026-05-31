@@ -1,7 +1,7 @@
 ---
 title: "Building a Supabase storage client with retry in React Native"
 description: "Build an Axios-based Supabase Storage client in React Native with file uploads, deletes, typed errors, idempotent retries, and exponential backoff."
-publishDate: 2026-06-29
+publishDate: 2026-07-06
 series: "Supabase Security"
 tags: ["react-native", "supabase", "axios", "storage", "uploads"]
 locale: en

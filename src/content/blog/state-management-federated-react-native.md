@@ -1,7 +1,7 @@
 ---
 title: "Three lenses for picking state management in a federated React Native app"
 description: "Module Federation changes the state-management question. Three lenses for comparing options: runtime extensibility, cross-team cache invalidation, and store ownership at multi-team scale."
-publishDate: 2026-08-17
+publishDate: 2026-08-24
 series: "State Management"
 tags: ["react-native", "state-management", "module-federation", "rtk-query", "tanstack-query", "zustand"]
 locale: en

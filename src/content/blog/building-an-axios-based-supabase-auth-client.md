@@ -1,7 +1,7 @@
 ---
 title: "Building an Axios-based Supabase auth client in React Native"
 description: "Build a typed Axios Supabase auth client in React Native: sign-up/in/out, request interceptor, token attachment, mapped errors, Zod validation, MSW tests."
-publishDate: 2026-06-15
+publishDate: 2026-06-22
 series: "Supabase Security"
 tags: ["react-native", "supabase", "axios", "authentication", "typescript"]
 locale: en

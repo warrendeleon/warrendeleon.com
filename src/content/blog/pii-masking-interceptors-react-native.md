@@ -1,7 +1,7 @@
 ---
 title: "PII-masking interceptors and a production-safe logger in React Native"
 description: "Build a React Native logger and Sentry scrubber that masks tokens, emails, phone numbers, and other sensitive fields before they leave the device."
-publishDate: 2026-07-13
+publishDate: 2026-07-20
 series: "Supabase Security"
 tags: ["react-native", "security", "logging", "sentry", "privacy"]
 locale: en
