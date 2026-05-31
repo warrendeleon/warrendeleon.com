@@ -1,7 +1,7 @@
 ---
 title: "i18n with automated parity tests in React Native"
 description: "Set up type-safe i18n in React Native with device locale detection and Jest parity tests that catch missing translation keys before they ship."
-publishDate: 2026-08-10
+publishDate: 2026-08-17
 series: "Testing and Infrastructure"
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: en

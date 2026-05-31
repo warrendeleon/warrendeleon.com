@@ -1,7 +1,7 @@
 ---
 title: "Building an MCP server for Claude Code"
 description: "A walkthrough of the FastMCP server I expose to Claude Code: seven tools for searching past conversations, logging actions, and watching the indexing queue."
-publishDate: 2026-08-24
+publishDate: 2026-08-31
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "mcp", "python", "fastmcp", "ai-tooling"]
 locale: en
