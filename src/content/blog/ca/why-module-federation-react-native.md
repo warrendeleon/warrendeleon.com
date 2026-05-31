@@ -24,7 +24,7 @@ Aquest acoblament és el que Module Federation intenta desfer. No la mida del bu
 
 Una app federada té un **host** i un conjunt de **remotes**. El host és la closca: navegació, la tab bar, les llibreries compartides, les peces que sempre hi són. Els remotes són les funcionalitats, i cadascun es construeix i es desplega pel seu compte, després s'incorpora en temps d'execució des d'una URL.
 
-El host no compila els remotes dins seu com fa un sol bundle. Una còpia de cadascun encara viatja dins del binari de l'app com a fallback, l'app revisada ha de funcionar per si sola, sense xarxa, però aquesta còpia és només el mínim garantit; la versió en viu ve del CDN i s'actualitza sense una publicació. El host també proporciona les llibreries compartides pesades un sol cop, React, el navigation stack, la capa d'estils, així cada remote consumeix la còpia del host en lloc de portar la seva. Un remote esdevé una petita càrrega de codi de funcionalitat que encaixa en una closca que ja té tot per sota.
+El host no compila els remotes dins seu com fa un sol bundle. Una còpia de cadascun encara viatja dins del binari de l'app com a fallback, l'app revisada ha de funcionar per si sola, sense xarxa, però aquesta còpia és només el mínim garantit. La versió en viu ve del CDN i s'actualitza sense una publicació. El host també proporciona les llibreries compartides pesades un sol cop, React, el navigation stack, la capa d'estils, així cada remote consumeix la còpia del host en lloc de portar la seva. Un remote esdevé una petita càrrega de codi de funcionalitat que encaixa en una closca que ja té tot per sota.
 
 <div id="architecture"></div>
 
@@ -63,7 +63,7 @@ Aquesta és la part que els posts entusiastes es salten, així que és la part q
 
 **Integritat.** Un cop la teva app descarrega i executa codi des d'una URL, aquella URL és una superfície d'atac. Has de signar el que envies i fer que el dispositiu ho verifiqui abans d'executar-ho, o un host compromès pot donar als teus usuaris el que vulgui. Després has de protegir també la *tria* de versió, perquè un manifest repetit o revertit no pugui servir en silenci un build antic i vulnerable. Seguretat que un sol binari signat et donava gratis, ara la construeixes tu.
 
-**Regles de plataforma.** La [directriu 2.5.2 d'Apple](https://developer.apple.com/app-store/review/guidelines/#software-requirements) permet que una app descarregui i executi codi interpretat com JavaScript, que és el que fa que l'OTA sigui legal del tot, però només mentre no canviï el propòsit principal de l'app, i el binari que envies encara ha de funcionar per si sol. Res d'enviar funcionalitats grans sense revisar over-the-air. La federació viu dins d'aquestes línies; no les esborra.
+**Regles de plataforma.** La [directriu 2.5.2 d'Apple](https://developer.apple.com/app-store/review/guidelines/#software-requirements) permet que una app descarregui i executi codi interpretat com JavaScript, que és el que fa que l'OTA sigui legal del tot, però només mentre no canviï el propòsit principal de l'app, i el binari que envies encara ha de funcionar per si sol. Res d'enviar funcionalitats grans sense revisar over-the-air. La federació viu dins d'aquestes línies, no les esborra.
 
 **Superfície operativa.** Un CDN per fer funcionar, caches per invalidar, rollbacks per programar, fallades per monitoritzar. Quan un remote no carrega, l'app ha de degradar a alguna cosa segura en lloc de mostrar una pantalla en blanc. Aquesta xarxa de seguretat és enginyeria de veritat, i recau en tu.
 

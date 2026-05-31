@@ -25,7 +25,7 @@ That coupling is the thing Module Federation is trying to undo. Not bundle size,
 
 A federated app has a **host** and a set of **remotes**. The host is the shell: navigation, the tab bar, the shared libraries, the bits that are always there. The remotes are the features, and each one is built and deployed on its own, then pulled in at runtime from a URL.
 
-The host doesn't compile the remotes into itself the way a single bundle does. A copy of each still rides inside the app binary as a fallback, the reviewed app has to work on its own, with no network, but that copy is only the guaranteed minimum; the live version comes from the CDN and updates without a release. The host also provides the heavy shared libraries once, React, the navigation stack, the styling layer, so each remote consumes the host's copy instead of carrying its own. A remote becomes a small payload of feature code that snaps into a shell already holding everything underneath it.
+The host doesn't compile the remotes into itself the way a single bundle does. A copy of each still rides inside the app binary as a fallback, the reviewed app has to work on its own, with no network, but that copy is only the guaranteed minimum. The live version comes from the CDN and updates without a release. The host also provides the heavy shared libraries once, React, the navigation stack, the styling layer, so each remote consumes the host's copy instead of carrying its own. A remote becomes a small payload of feature code that snaps into a shell already holding everything underneath it.
 
 <div id="architecture"></div>
 
@@ -64,7 +64,7 @@ This is the part the enthusiastic posts skip, so it's the part worth slowing dow
 
 **Integrity.** Once your app downloads and runs code from a URL, that URL is an attack surface. You have to sign what you ship and have the device verify it before executing, or a compromised host can hand your users whatever it likes. Then you have to protect the *choice* of version too, so a replayed or rolled-back manifest can't quietly serve an old, vulnerable build. Security that a single signed binary gave you for free, you now build yourself.
 
-**Platform rules.** [Apple's guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements) allows an app to download and run interpreted code like JavaScript, which is what makes OTA legal at all, but only as long as it doesn't change the app's primary purpose, and the binary you submit still has to work on its own. No shipping major unreviewed features over the air. Federation lives inside those lines; it doesn't erase them.
+**Platform rules.** [Apple's guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements) allows an app to download and run interpreted code like JavaScript, which is what makes OTA legal at all, but only as long as it doesn't change the app's primary purpose, and the binary you submit still has to work on its own. No shipping major unreviewed features over the air. Federation lives inside those lines, it doesn't erase them.
 
 **Operational surface.** A CDN to run, caches to invalidate, rollbacks to script, failures to monitor. When a remote won't load, the app has to degrade to something safe instead of showing a blank screen. That safety net is real engineering, and it's on you.
 

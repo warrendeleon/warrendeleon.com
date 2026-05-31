@@ -63,7 +63,7 @@ That single file is what makes `react-native start` and `react-native bundle` us
 
 ## The remote: expose a screen
 
-A federated remote is an app with no `AppRegistry.registerComponent`. It doesn't boot itself; it waits to be pulled into a host. It declares a name and what it hands out.
+A federated remote is an app with no `AppRegistry.registerComponent`. It doesn't boot itself, it waits to be pulled into a host. It declares a name and what it hands out.
 
 First the screen it hands out, `apps/list/src/PokedexScreen.tsx`. Plain React Native on purpose, this post is about loading it, not styling it:
 
@@ -182,7 +182,7 @@ export default Repack.defineRspackConfig(env => {
 });
 ```
 
-Three things in there matter. `exposes` maps a public key, `./PokedexScreen`, to a file; that key is the remote's entire public surface. `shared` declares react and react-native as singletons, so the remote renders against the host's one copy instead of bundling its own (two Reacts in one runtime would break hooks). And `enablePackageExports: true` is not optional: without it the federation runtime can't resolve its own subpath imports and the build fails.
+Three things in there matter. `exposes` maps a public key, `./PokedexScreen`, to a file. That key is the remote's entire public surface. `shared` declares react and react-native as singletons, so the remote renders against the host's one copy instead of bundling its own (two Reacts in one runtime would break hooks). And `enablePackageExports: true` is not optional: without it the federation runtime can't resolve its own subpath imports and the build fails.
 
 Add a dev-server script to `apps/list/package.json`:
 
@@ -198,7 +198,7 @@ Start it:
 cd apps/list && npm run start:remote
 ```
 
-It serves a manifest at `http://localhost:8082/ios/mf-manifest.json` describing the container and the screen it exposes. Open that URL and you'll see `./PokedexScreen` listed. The remote renders nothing on its own; it's a feature waiting for an app.
+It serves a manifest at `http://localhost:8082/ios/mf-manifest.json` describing the container and the screen it exposes. Open that URL and you'll see `./PokedexScreen` listed. The remote renders nothing on its own, it's a feature waiting for an app.
 
 ## The host: load the remote
 
@@ -303,7 +303,7 @@ declare module 'listApp/PokedexScreen' {
 
 Everything above would look familiar to anyone who's done Module Federation on the web. React Native is where it diverges.
 
-On the web, `import('listApp/PokedexScreen')` ends in the browser fetching a script over HTTP and the engine running it. A browser does that constantly; loading code from a URL is routine for it. A React Native runtime has no equivalent. No DOM, no `<script>` tag, no built-in way to pull in more code on demand once the app has booted. A standard RN app is one self-contained bundle, loaded at launch, with nothing in it that knows how to go and fetch another chunk later.
+On the web, `import('listApp/PokedexScreen')` ends in the browser fetching a script over HTTP and the engine running it. A browser does that constantly. Loading code from a URL is routine for it. A React Native runtime has no equivalent. No DOM, no `<script>` tag, no built-in way to pull in more code on demand once the app has booted. A standard RN app is one self-contained bundle, loaded at launch, with nothing in it that knows how to go and fetch another chunk later.
 
 Re.Pack fills that gap with **ScriptManager**: the piece that turns a request the federation runtime makes ("I need listApp's container") into the real steps, work out the URL, fetch the script, hand it to the engine to run, cache it. On native, every federated import goes through it.
 
@@ -328,7 +328,7 @@ When you move to production, ScriptManager is where the real work is: resolving 
 
 ## Run it
 
-The host has the native iOS project; the remote is JS-only. So pods are installed for the host only:
+The host has the native iOS project, the remote is JS-only. So pods are installed for the host only:
 
 ```sh
 cd apps/host/ios && bundle install && bundle exec pod install
@@ -353,7 +353,7 @@ To prove they really are separate, stop the list dev server and reload the host.
 
 ## What you built, and what's still minimal
 
-You have two apps that build and deploy on their own, joined at runtime. The host imports a screen by name; the code arrives over the network and runs inside it. The remote compiled nothing into the host.
+You have two apps that build and deploy on their own, joined at runtime. The host imports a screen by name, and the code arrives over the network and runs inside it. The remote compiled nothing into the host.
 
 Two things were kept deliberately minimal, each its own post:
 
@@ -366,4 +366,4 @@ Next: the shared-singleton contract, and the one mistake that fails it silently.
 
 - [Re.Pack](https://re-pack.dev/) — the React Native bundler that wraps Rspack and provides ScriptManager and Module Federation support
 - [Module Federation 2.0](https://module-federation.io/) — the runtime architecture behind `name@url` remotes and `exposes`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation) — the companion repo; this post is the tag `post-02-first-remote`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation) — the companion repo, at the tag `post-02-first-remote`

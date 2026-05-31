@@ -61,7 +61,7 @@ Ang iisang file na iyon ang gumagawa para gamitin ng `react-native start` at `re
 
 ## Ang remote: i-expose ang isang screen
 
-Ang isang federated remote ay isang app na walang `AppRegistry.registerComponent`. Hindi ito nagbu-boot sa sarili nito; naghihintay ito na hilahin papasok sa isang host. Nagde-declare ito ng pangalan at kung ano ang ibinibigay nito.
+Ang isang federated remote ay isang app na walang `AppRegistry.registerComponent`. Hindi ito nagbu-boot sa sarili nito, naghihintay ito na hilahin papasok sa isang host. Nagde-declare ito ng pangalan at kung ano ang ibinibigay nito.
 
 Una ang screen na ibinibigay nito, `apps/list/src/PokedexScreen.tsx`. Sadyang plain React Native, ang post na ito ay tungkol sa pag-load nito, hindi sa pag-istilo nito:
 
@@ -180,7 +180,7 @@ export default Repack.defineRspackConfig(env => {
 });
 ```
 
-Tatlong bagay doon ang mahalaga. Mina-map ng `exposes` ang isang public key, `./PokedexScreen`, sa isang file; ang key na iyon ang buong public surface ng remote. Nide-declare ng `shared` ang react at react-native bilang singletons, kaya nire-render ang remote laban sa iisang kopya ng host sa halip na i-bundle ang sarili nito (sisira ang hooks sa dalawang React sa iisang runtime). At ang `enablePackageExports: true` ay hindi opsyonal: kung wala ito, hindi ma-resolve ng federation runtime ang sarili nitong subpath imports at mabibigo ang build.
+Tatlong bagay doon ang mahalaga. Mina-map ng `exposes` ang isang public key, `./PokedexScreen`, sa isang file. Ang key na iyon ang buong public surface ng remote. Nide-declare ng `shared` ang react at react-native bilang singletons, kaya nire-render ang remote laban sa iisang kopya ng host sa halip na i-bundle ang sarili nito (sisira ang hooks sa dalawang React sa iisang runtime). At ang `enablePackageExports: true` ay hindi opsyonal: kung wala ito, hindi ma-resolve ng federation runtime ang sarili nitong subpath imports at mabibigo ang build.
 
 Magdagdag ng dev-server script sa `apps/list/package.json`:
 
@@ -196,7 +196,7 @@ Simulan ito:
 cd apps/list && npm run start:remote
 ```
 
-Nagse-serve ito ng manifest sa `http://localhost:8082/ios/mf-manifest.json` na naglalarawan sa container at sa screen na ini-expose nito. Buksan ang URL na iyon at makikita mo ang `./PokedexScreen` na nakalista. Walang nire-render ang remote sa sarili nito; isa itong feature na naghihintay ng app.
+Nagse-serve ito ng manifest sa `http://localhost:8082/ios/mf-manifest.json` na naglalarawan sa container at sa screen na ini-expose nito. Buksan ang URL na iyon at makikita mo ang `./PokedexScreen` na nakalista. Walang nire-render ang remote sa sarili nito, isa itong feature na naghihintay ng app.
 
 ## Ang host: i-load ang remote
 
@@ -301,7 +301,7 @@ declare module 'listApp/PokedexScreen' {
 
 Lahat ng nasa itaas ay magiging pamilyar sa kahit sinong gumawa na ng Module Federation sa web. Ang React Native ang kung saan naghihiwalay ito.
 
-Sa web, ang `import('listApp/PokedexScreen')` ay nagtatapos sa pag-fetch ng browser ng script over HTTP at pagpapatakbo nito ng engine. Palaging ginagawa iyon ng browser; rutina lang para rito ang pag-load ng code mula sa isang URL. Walang katumbas ang React Native runtime. Walang DOM, walang `<script>` tag, walang built-in na paraan para humila ng dagdag na code on demand kapag naka-boot na ang app. Ang standard na RN app ay iisang self-contained na bundle, naka-load sa launch, na walang lamang nakakaalam kung paano humayo at kumuha ng isa pang chunk mamaya.
+Sa web, ang `import('listApp/PokedexScreen')` ay nagtatapos sa pag-fetch ng browser ng script over HTTP at pagpapatakbo nito ng engine. Palaging ginagawa iyon ng browser. Rutina lang para rito ang pag-load ng code mula sa isang URL. Walang katumbas ang React Native runtime. Walang DOM, walang `<script>` tag, walang built-in na paraan para humila ng dagdag na code on demand kapag naka-boot na ang app. Ang standard na RN app ay iisang self-contained na bundle, naka-load sa launch, na walang lamang nakakaalam kung paano humayo at kumuha ng isa pang chunk mamaya.
 
 Pinupunan ng Re.Pack ang gap na iyon gamit ang **ScriptManager**: ang bahaging gumagawa sa isang request na ginagawa ng federation runtime ("kailangan ko ang container ng listApp") na maging tunay na hakbang, alamin ang URL, kunin ang script, ibigay ito sa engine para patakbuhin, i-cache ito. Sa native, dumadaan dito ang bawat federated import.
 
@@ -326,7 +326,7 @@ Kapag lumipat ka sa production, ang ScriptManager ang kung saan nasa tunay na tr
 
 ## Patakbuhin ito
 
-May native iOS project ang host; JS-only ang remote. Kaya nai-install ang pods para sa host lang:
+May native iOS project ang host, JS-only ang remote. Kaya nai-install ang pods para sa host lang:
 
 ```sh
 cd apps/host/ios && bundle install && bundle exec pod install
@@ -351,7 +351,7 @@ Para patunayan na talagang hiwalay sila, ihinto ang list dev server at i-reload 
 
 ## Ano ang ginawa mo, at ano ang minimal pa
 
-May dalawa kang app na nagbu-build at nagde-deploy nang mag-isa, na pinagsama sa runtime. Ini-import ng host ang isang screen by name; dumarating ang code over the network at tumatakbo sa loob nito. Walang kino-compile ang remote papasok sa host.
+May dalawa kang app na nagbu-build at nagde-deploy nang mag-isa, na pinagsama sa runtime. Ini-import ng host ang isang screen by name, at dumarating ang code over the network at tumatakbo sa loob nito. Walang kino-compile ang remote papasok sa host.
 
 Dalawang bagay ang sadyang pinanatiling minimal, bawat isa ay sariling post:
 
@@ -364,4 +364,4 @@ Susunod: ang shared-singleton contract, at ang isang pagkakamaling tahimik itong
 
 - [Re.Pack](https://re-pack.dev/): ang React Native bundler na bumabalot sa Rspack at nagbibigay ng ScriptManager at Module Federation support
 - [Module Federation 2.0](https://module-federation.io/): ang runtime architecture sa likod ng `name@url` remotes at `exposes`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): ang companion repo; ang post na ito ang tag na `post-02-first-remote`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): ang companion repo, sa tag na `post-02-first-remote`

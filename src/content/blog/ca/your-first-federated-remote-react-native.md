@@ -61,7 +61,7 @@ Aquest sol fitxer és el que fa que `react-native start` i `react-native bundle`
 
 ## El remote: exposa una pantalla
 
-Un remote federat és una app sense `AppRegistry.registerComponent`. No s'arrenca a si mateix; espera ser incorporat a un host. Declara un nom i el que reparteix.
+Un remote federat és una app sense `AppRegistry.registerComponent`. No s'arrenca a si mateix, espera ser incorporat a un host. Declara un nom i el que reparteix.
 
 Primer la pantalla que reparteix, `apps/list/src/PokedexScreen.tsx`. React Native pelat a propòsit, aquest post tracta de carregar-la, no d'estilitzar-la:
 
@@ -180,7 +180,7 @@ export default Repack.defineRspackConfig(env => {
 });
 ```
 
-Tres coses d'aquí importen. `exposes` mapeja una clau pública, `./PokedexScreen`, a un fitxer; aquesta clau és tota la superfície pública del remote. `shared` declara react i react-native com a singletons, així el remote es renderitza contra l'única còpia del host en lloc d'empaquetar la seva (dos React en un mateix runtime trencarien els hooks). I `enablePackageExports: true` no és opcional: sense això el runtime de federació no pot resoldre els seus propis subpath imports i el build falla.
+Tres coses d'aquí importen. `exposes` mapeja una clau pública, `./PokedexScreen`, a un fitxer. Aquesta clau és tota la superfície pública del remote. `shared` declara react i react-native com a singletons, així el remote es renderitza contra l'única còpia del host en lloc d'empaquetar la seva (dos React en un mateix runtime trencarien els hooks). I `enablePackageExports: true` no és opcional: sense això el runtime de federació no pot resoldre els seus propis subpath imports i el build falla.
 
 Afegeix un script de dev-server a `apps/list/package.json`:
 
@@ -196,7 +196,7 @@ Arrenca'l:
 cd apps/list && npm run start:remote
 ```
 
-Serveix un manifest a `http://localhost:8082/ios/mf-manifest.json` que descriu el container i la pantalla que exposa. Obre aquesta URL i veuràs `./PokedexScreen` a la llista. El remote no renderitza res per si sol; és una funcionalitat que espera una app.
+Serveix un manifest a `http://localhost:8082/ios/mf-manifest.json` que descriu el container i la pantalla que exposa. Obre aquesta URL i veuràs `./PokedexScreen` a la llista. El remote no renderitza res per si sol, és una funcionalitat que espera una app.
 
 ## El host: carrega el remote
 
@@ -301,7 +301,7 @@ declare module 'listApp/PokedexScreen' {
 
 Tot l'anterior li resultaria familiar a qualsevol que hagi fet Module Federation a la web. React Native és on divergeix.
 
-A la web, `import('listApp/PokedexScreen')` acaba amb el navegador anant a buscar un script per HTTP i el motor executant-lo. Un navegador ho fa constantment; carregar codi des d'una URL és rutina per a ell. Un runtime de React Native no en té cap equivalent. Sense DOM, sense etiqueta `<script>`, sense cap manera integrada d'incorporar més codi sota demanda un cop l'app ha arrencat. Una app de RN estàndard és un sol bundle autocontingut, carregat a l'arrencada, sense res a dins que sàpiga com anar a buscar un altre chunk més tard.
+A la web, `import('listApp/PokedexScreen')` acaba amb el navegador anant a buscar un script per HTTP i el motor executant-lo. Un navegador ho fa constantment. Carregar codi des d'una URL és rutina per a ell. Un runtime de React Native no en té cap equivalent. Sense DOM, sense etiqueta `<script>`, sense cap manera integrada d'incorporar més codi sota demanda un cop l'app ha arrencat. Una app de RN estàndard és un sol bundle autocontingut, carregat a l'arrencada, sense res a dins que sàpiga com anar a buscar un altre chunk més tard.
 
 Re.Pack omple aquest buit amb **ScriptManager**: la peça que converteix una petició que fa el runtime de federació ("necessito el container de listApp") en els passos reals, esbrinar la URL, anar a buscar l'script, passar-lo al motor perquè l'executi, posar-lo a la cache. En natiu, cada import federat passa per aquí.
 
@@ -326,7 +326,7 @@ Quan passes a producció, ScriptManager és on hi ha la feina de veritat: resold
 
 ## Fes-lo funcionar
 
-El host té el projecte natiu d'iOS; el remote és només JS. Així que els pods s'instal·len només per al host:
+El host té el projecte natiu d'iOS, el remote és només JS. Així que els pods s'instal·len només per al host:
 
 ```sh
 cd apps/host/ios && bundle install && bundle exec pod install
@@ -351,7 +351,7 @@ Per demostrar que de veritat són separades, atura el dev server de list i recar
 
 ## Què has construït, i què encara és mínim
 
-Tens dues apps que es construeixen i es despleguen pel seu compte, unides en temps d'execució. El host importa una pantalla pel nom; el codi arriba per la xarxa i s'executa dins seu. El remote no ha compilat res dins del host.
+Tens dues apps que es construeixen i es despleguen pel seu compte, unides en temps d'execució. El host importa una pantalla pel nom, i el codi arriba per la xarxa i s'executa dins seu. El remote no ha compilat res dins del host.
 
 Dues coses s'han mantingut deliberadament mínimes, cadascuna amb el seu propi post:
 
@@ -364,4 +364,4 @@ Següent: el contracte de singletons compartits, i l'únic error que el fa falla
 
 - [Re.Pack](https://re-pack.dev/): el bundler de React Native que embolcalla Rspack i proporciona ScriptManager i suport per a Module Federation
 - [Module Federation 2.0](https://module-federation.io/): l'arquitectura de runtime darrere dels remotes `name@url` i `exposes`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): el repo company; aquest post és l'etiqueta `post-02-first-remote`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): el repo company, a l'etiqueta `post-02-first-remote`
