@@ -8,7 +8,7 @@ locale: en
 heroImage: "/images/blog/server-vs-client-state.webp"
 heroAlt: "Server state and client state in React"
 campaign: "server-vs-client-state"
-relatedPosts: ["state-management-federated-react-native", "rtk-query-tags-vs-tanstack-query-keys", "runtime-api-validation-zod-react-native"]
+relatedPosts: ["rtk-query-tags-vs-tanstack-query-keys", "runtime-api-validation-zod-react-native"]
 ---
 
 ## The short version

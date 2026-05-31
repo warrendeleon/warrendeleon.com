@@ -5,6 +5,7 @@ publishDate: 2026-08-24
 series: "State Management"
 tags: ["react-native", "state-management", "module-federation", "rtk-query", "tanstack-query", "zustand"]
 locale: en
+draft: true
 heroImage: "/images/blog/state-mgmt-federated-rn.webp"
 heroAlt: "State management for federated React Native apps"
 campaign: "state-mgmt-federated"

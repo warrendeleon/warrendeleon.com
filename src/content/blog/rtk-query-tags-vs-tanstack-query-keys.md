@@ -8,7 +8,7 @@ locale: en
 heroImage: "/images/blog/tags-vs-query-keys.webp"
 heroAlt: "RTK Query tags vs TanStack Query keys"
 campaign: "tags-vs-query-keys"
-relatedPosts: ["state-management-federated-react-native", "server-state-and-client-state-react-native", "runtime-api-validation-zod-react-native"]
+relatedPosts: ["server-state-and-client-state-react-native", "runtime-api-validation-zod-react-native"]
 ---
 
 ## The punchline
