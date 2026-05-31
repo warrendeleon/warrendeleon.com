@@ -17,7 +17,7 @@ The short version: Module Federation lets a React Native app load its features a
 
 A standard React Native app is one bundle. Organise it well, [by feature](/blog/feature-first-project-structure-react-native/) rather than by type, and it changes nothing here: the login screen, the settings page, the report nobody opens, all compiled together, all gated behind the same store review, all riding the same release train. A one-line fix to one screen waits for the whole app to be rebuilt, resubmitted, and approved.
 
-For a small app with one team, that's fine. The release train is cheap and everyone is on it anyway. For a large app with several teams, it's a tax. One team's urgent fix sits behind another team's half-finished feature because they share a binary. The release turns into a negotiation, and the cadence drops to the slowest contributor on the train.
+For a small app with one team, that's fine. The release train is cheap and everyone is on it anyway. For a large app with several teams, it's expensive. One team's urgent fix sits behind another team's half-finished feature because they share a binary. The release turns into a negotiation, and the cadence drops to the slowest contributor on the train.
 
 That coupling is the thing Module Federation is trying to undo. Not bundle size, not build speed, those are nice side effects. The real prize is breaking the link between "I changed my feature" and "the whole app has to ship".
 
@@ -25,7 +25,7 @@ That coupling is the thing Module Federation is trying to undo. Not bundle size,
 
 A federated app has a **host** and a set of **remotes**. The host is the shell: navigation, the tab bar, the shared libraries, the bits that are always there. The remotes are the features, and each one is built and deployed on its own, then pulled in at runtime from a URL.
 
-The host doesn't compile the remotes into itself the way a single bundle does. A copy of each still rides inside the app binary as a fallback, the reviewed app has to work on its own, with no network, but that copy is a floor; the live version comes from the CDN and updates without a release. The host also provides the heavy shared libraries once, React, the navigation stack, the styling layer, so each remote consumes the host's copy instead of carrying its own. A remote becomes a small payload of feature code that snaps into a shell already holding everything underneath it.
+The host doesn't compile the remotes into itself the way a single bundle does. A copy of each still rides inside the app binary as a fallback, the reviewed app has to work on its own, with no network, but that copy is only the guaranteed minimum; the live version comes from the CDN and updates without a release. The host also provides the heavy shared libraries once, React, the navigation stack, the styling layer, so each remote consumes the host's copy instead of carrying its own. A remote becomes a small payload of feature code that snaps into a shell already holding everything underneath it.
 
 <div id="architecture"></div>
 
@@ -40,7 +40,7 @@ flowchart TB
     embedded -.->|fallback when offline or a version is gone| host
 ```
 
-In practice that runs on [Re.Pack](https://re-pack.dev/) (Rspack under the hood) with [Module Federation 2.0](https://module-federation.io/). The mechanics are a later post. For now the mental model is enough: a shell that loads features at runtime, from the network or a baked-in fallback, against a contract about what the shell provides.
+In practice that runs on [Re.Pack](https://re-pack.dev/) (Rspack underneath) with [Module Federation 2.0](https://module-federation.io/). The mechanics are a later post. For now the mental model is enough: a shell that loads features at runtime, from the network or a baked-in fallback, against a contract about what the shell provides.
 
 ## What it buys you
 
@@ -48,7 +48,7 @@ In practice that runs on [Re.Pack](https://re-pack.dev/) (Rspack under the hood)
 
 **Over-the-air fixes.** A bug in one remote is a re-upload of that remote, not a store submission. The fix is live in minutes, and each user picks it up on their next launch, within the platform rules (more on those below).
 
-**Faster starts.** Features that aren't needed at launch load lazily, so less JavaScript runs on the critical path. The download itself doesn't shrink if you ship an offline floor, the binary still carries every remote, but startup can.
+**Faster starts.** Features that aren't needed at launch load lazily, so less JavaScript runs on the critical path. The download itself doesn't shrink if you ship an offline fallback, the binary still carries every remote, but startup can.
 
 **Team autonomy at scale.** Each feature owns its own build, its own deploy, its own cadence. The architecture stops forcing teams into lockstep.
 
