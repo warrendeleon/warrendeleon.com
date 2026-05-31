@@ -4,13 +4,15 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, type ScheduledPost } from '../../utils/blogHelpers';
+import type { MarkdownHeading } from 'astro';
 
 interface Props {
   locale: Locale;
-  post: any;
+  post: ScheduledPost;
+  // render()'s Content component; rendered as <Content /> below.
   Content: any;
-  headings: any[];
+  headings: MarkdownHeading[];
 }
 
 const { locale, post, Content, headings } = Astro.props;
@@ -60,7 +62,7 @@ const manualRelated = post.data.relatedPosts || [];
 const relatedPosts = manualRelated.length > 0
   ? manualRelated
       .map(slug => sortedAsc.find(p => getPostSlug(p.id) === slug))
-      .filter(p => p && (import.meta.env.DEV || p.data.publishDate <= now))
+      .filter((p): p is ScheduledPost => p !== undefined && (import.meta.env.DEV || p.data.publishDate <= now))
       .slice(0, 3)
   : sortedAsc
       .filter(p => getPostSlug(p.id) !== postSlug && (import.meta.env.DEV || p.data.publishDate <= now))
@@ -142,15 +144,6 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
     </div>
   </section>
 
-  {post.data.hiringUrl && (
-    <div class="hiring-banner">
-      <div class="container">
-        <span class="hiring-banner-badge">We're hiring</span>
-        <span class="hiring-banner-text">{post.data.hiringText || "We're looking for engineers to join the team."}</span>
-        <a href={post.data.hiringUrl} class="hiring-banner-link">View open roles &rarr;</a>
-      </div>
-    </div>
-  )}
 
   <article class="section post-content-section">
     <div class="container">
@@ -497,12 +490,6 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
 </BaseLayout>
 
 <style is:global>
-  .hiring-banner { background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 0.75rem 0; }
-  .hiring-banner .container { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-  .hiring-banner-badge { background: var(--color-green); color: white; font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
-  .hiring-banner-text { font-size: 0.95rem; color: var(--text-secondary); flex: 1; }
-  .hiring-banner-link { font-size: 0.95rem; font-weight: 600; color: var(--color-green); white-space: nowrap; text-decoration: none; }
-  .hiring-banner-link:hover { text-decoration: underline; }
 
   .reading-progress { position: fixed; top: 0; left: 0; width: 100%; height: 3px; z-index: 200; background: transparent; }
   .reading-progress-bar { height: 100%; width: 0; background: var(--color-green); transition: width 0.1s linear; }

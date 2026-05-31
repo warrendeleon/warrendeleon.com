@@ -163,7 +163,7 @@ const cleanPath = getCleanPath(currentPath);
 
       updateThemeToggleLabel();
 
-      document.querySelectorAll('[data-track-social]').forEach(function(link) {
+      document.querySelectorAll<HTMLElement>('[data-track-social]').forEach(function(link) {
         link.addEventListener('click', function() {
           t('social_click', { platform: link.dataset.trackSocial });
         });
