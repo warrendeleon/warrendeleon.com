@@ -4,11 +4,12 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, type ScheduledPost } from '../../utils/blogHelpers';
+import type { Page } from 'astro';
 
 interface Props {
   locale: Locale;
-  page: any;
+  page: Page<ScheduledPost>;
 }
 
 const { locale, page } = Astro.props;
