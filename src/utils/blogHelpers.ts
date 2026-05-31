@@ -1,5 +1,14 @@
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import type { Locale } from '../i18n/index';
+
+/**
+ * A blog post whose publishDate is guaranteed present. Translations omit their own
+ * date in frontmatter and inherit the English master's, so the schema types it as
+ * optional; getPostsForLocale fills it and narrows the type at its boundary.
+ */
+export type ScheduledPost = CollectionEntry<'blog'> & {
+  data: CollectionEntry<'blog'>['data'] & { publishDate: Date };
+};
 
 /**
  * Locale-to-Intl mapping for date formatting.
@@ -15,11 +24,36 @@ const dateLocaleMap: Record<Locale, string> = {
  * Returns all published (non-draft) blog posts for a given locale,
  * sorted by publish date descending (newest first).
  */
-export async function getPostsForLocale(locale: Locale, includeFuture = import.meta.env.DEV) {
+export async function getPostsForLocale(locale: Locale, includeFuture = import.meta.env.DEV): Promise<ScheduledPost[]> {
   const now = new Date();
   now.setUTCHours(23, 59, 59, 999);
-  return (await getCollection('blog'))
-    .filter(post => !post.data.draft && (post.data.locale || 'en') === locale && (includeFuture || post.data.publishDate <= now))
+  const all = await getCollection('blog');
+
+  // English is the single source of truth for scheduling. Build a slug -> date map
+  // from the English posts, then fill every translation's date from its master.
+  const masterDate = new Map<string, Date>();
+  for (const post of all) {
+    if ((post.data.locale || 'en') === 'en' && post.data.publishDate) {
+      masterDate.set(getPostSlug(post.id), post.data.publishDate);
+    }
+  }
+  for (const post of all) {
+    if (post.data.publishDate) continue;
+    const inherited = masterDate.get(getPostSlug(post.id));
+    if (!inherited) {
+      // A translation with no English master, or an English post missing a date,
+      // would otherwise vanish from the site silently. Fail loudly instead.
+      throw new Error(`Blog post "${post.id}" has no publishDate and no English master to inherit one from.`);
+    }
+    post.data.publishDate = inherited;
+  }
+
+  return all
+    .filter((post): post is ScheduledPost =>
+      post.data.publishDate instanceof Date &&
+      !post.data.draft &&
+      (post.data.locale || 'en') === locale &&
+      (includeFuture || post.data.publishDate <= now))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 }
 
