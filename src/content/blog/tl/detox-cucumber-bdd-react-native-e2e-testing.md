@@ -1,7 +1,6 @@
 ---
 title: "Detox + Cucumber BDD para sa React Native E2E testing"
 description: "Detox + Cucumber para sa React Native E2E. Step definitions, custom formatter, parallel execution, at accessibility regression tests sa plain Gherkin."
-publishDate: 2026-05-18
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: tl
 heroImage: "/images/blog/detox-cucumber-rn.webp"

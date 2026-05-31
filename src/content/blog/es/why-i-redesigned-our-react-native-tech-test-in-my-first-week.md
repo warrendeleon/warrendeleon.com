@@ -1,7 +1,6 @@
 ---
 title: "Por qué rediseñé nuestra prueba técnica de React Native en mi primera semana"
 description: "Entré como Engineering Manager y uno de mis primeros proyectos fue repensar la contratación para roles de plataforma. El razonamiento del rediseño y lo que construí."
-publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"

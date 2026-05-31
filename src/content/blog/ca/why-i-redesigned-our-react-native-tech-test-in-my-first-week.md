@@ -1,7 +1,6 @@
 ---
 title: "Per què vaig redissenyar la nostra prova tècnica de React Native la meva primera setmana"
 description: "Vaig entrar com a Engineering Manager i un dels primers projectes va ser repensar la contractació per a rols de plataforma. El pensament i el que vaig construir."
-publishDate: 2026-03-29
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: ca
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"

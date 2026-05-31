@@ -1,7 +1,6 @@
 ---
 title: "Feature-first na project structure sa React Native"
 description: "Argumento para sa pag-organisa ng React Native projects by feature, hindi by type. Ang delete test, import boundaries, at kung saan nakatira ang shared code."
-publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: tl
 heroImage: "/images/blog/feature-first-rn.webp"

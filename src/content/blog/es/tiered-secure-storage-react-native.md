@@ -1,7 +1,6 @@
 ---
 title: "Almacenamiento seguro por niveles en React Native"
 description: "Tres niveles en React Native: Keychain para tokens, cifrado para datos personales, AsyncStorage para preferencias. Cuándo usar cada uno y cómo encaja Redux Persist."
-publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: es
 heroImage: "/images/blog/tiered-secure-storage.webp"

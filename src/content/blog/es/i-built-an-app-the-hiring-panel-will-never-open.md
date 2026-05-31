@@ -1,7 +1,6 @@
 ---
 title: "Construí una app que el comité de contratación nunca va a abrir"
 description: "Cómo pasé de Notion a markdown y de ahí a una app de React para entrevistas técnicas estructuradas. Tres iteraciones para llamadas en directo y para el comité."
-publishDate: 2026-04-27
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: es
 heroImage: "/images/blog/interview-kit.webp"

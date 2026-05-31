@@ -1,7 +1,6 @@
 ---
 title: "Tiered secure storage sa React Native"
 description: "Tatlong storage tier sa React Native: Keychain para sa tokens, encrypted store para sa PII, AsyncStorage para sa preferences. Saan papasok ang Redux Persist."
-publishDate: 2026-05-11
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: tl
 heroImage: "/images/blog/tiered-secure-storage.webp"

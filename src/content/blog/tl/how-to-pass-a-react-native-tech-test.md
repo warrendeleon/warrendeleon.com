@@ -1,7 +1,6 @@
 ---
 title: "Paano pumasa sa React Native tech test"
 description: "Practical na advice mula sa nagrereview ng take-home submissions. Ano ang mahalaga, ano ang hindi, at ang mga pagkakamaling nagko-cost ng trabaho."
-publishDate: 2026-04-06
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: tl
 heroImage: "/images/blog/react-native-tech-test-tips.webp"

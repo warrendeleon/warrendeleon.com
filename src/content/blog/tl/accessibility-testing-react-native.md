@@ -1,7 +1,6 @@
 ---
 title: "Accessibility testing sa React Native"
 description: "Automated React Native accessibility tests: touch targets, contrast ratios, focus order, screen reader announcements. Plus kung saan pa rin nananalo ang manual testing."
-publishDate: 2026-06-22
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: tl
 heroImage: "/images/blog/accessibility-testing-rn.webp"

@@ -1,7 +1,6 @@
 ---
 title: "Cómo aprobar una prueba técnica de React Native"
 description: "Consejos prácticos de alguien que revisa pruebas técnicas take-home. Qué importa, qué no, y los errores que cuestan el puesto a los candidatos."
-publishDate: 2026-04-06
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: es
 heroImage: "/images/blog/react-native-tech-test-tips.webp"

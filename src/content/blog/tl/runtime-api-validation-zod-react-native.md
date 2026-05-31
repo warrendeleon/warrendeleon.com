@@ -1,7 +1,6 @@
 ---
 title: "Runtime API response validation gamit ang Zod sa React Native"
 description: "Hulihin ang backend contract changes bago mag-crash ang React Native app mo. Paano gamitin ang Zod para sa runtime API validation na doble bilang TypeScript types."
-publishDate: 2026-06-08
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: tl
 heroImage: "/images/blog/zod-runtime-validation.webp"

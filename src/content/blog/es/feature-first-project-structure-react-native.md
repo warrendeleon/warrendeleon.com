@@ -1,7 +1,6 @@
 ---
 title: "Estructura de proyecto feature-first en React Native"
 description: "Un argumento para organizar proyectos React Native por feature, no por tipo. La prueba de eliminar, los límites de import y dónde vive el código compartido."
-publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: es
 heroImage: "/images/blog/feature-first-rn.webp"

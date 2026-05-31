@@ -1,7 +1,6 @@
 ---
 title: "Construir un cliente REST para Supabase sin el SDK"
 description: "Por qué elegí Axios en lugar del SDK oficial de Supabase para una app React Native. Control total sobre interceptores, refresco de tokens, gestión de errores y la posibilidad de cambiar el backend sin tocar el código de la app."
-publishDate: 2026-06-01
 tags: ["react-native", "architecture", "http", "authentication"]
 locale: es
 heroImage: "/images/blog/supabase-rest-client.webp"

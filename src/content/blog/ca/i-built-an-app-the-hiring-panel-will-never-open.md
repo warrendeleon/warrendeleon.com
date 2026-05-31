@@ -1,7 +1,6 @@
 ---
 title: "He construït una app que el comitè de contractació no obrirà mai"
 description: "De Notion a markdown i a una app de React per a entrevistes tècniques estructurades. Tres intents per trobar el format que funcionés a la trucada i al comitè."
-publishDate: 2026-04-27
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: ca
 heroImage: "/images/blog/interview-kit.webp"

@@ -1,7 +1,6 @@
 ---
 title: "Configurant MSW v2 a React Native"
 description: "Guia pràctica de Mock Service Worker v2 en un projecte React Native. De la instal·lació a un joc complet d'handlers per a èxits, errors, timeouts i offline."
-publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: ca
 heroImage: "/images/blog/msw-react-native.webp"

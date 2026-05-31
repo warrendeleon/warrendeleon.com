@@ -1,7 +1,6 @@
 ---
 title: "Pag-setup ng MSW v2 sa React Native"
 description: "Praktikal na gabay sa pag-setup ng Mock Service Worker v2 sa React Native. Mula installation hanggang sa handler sets para sa success, errors, timeouts, at offline."
-publishDate: 2026-05-04
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: tl
 heroImage: "/images/blog/msw-react-native.webp"

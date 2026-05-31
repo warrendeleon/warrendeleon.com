@@ -1,7 +1,6 @@
 ---
 title: "Paano ko dinisenyuhan ang tech test scorecard na gumagana mula Graduate hanggang Senior"
 description: "Paano ginawa ng checklist-based scorecard na gumana ang React Native take-home test mula Graduate hanggang Senior. Ang mga design choice sa fair na scorecard."
-publishDate: 2026-04-13
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: tl
 heroImage: "/images/blog/tech-test-scorecard.webp"

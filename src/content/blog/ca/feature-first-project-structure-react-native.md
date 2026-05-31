@@ -1,7 +1,6 @@
 ---
 title: "Estructura de projecte per funcionalitat a React Native"
 description: "Un argument per organitzar projectes React Native per funcionalitat, no per tipus. La prova d'eliminació, les fronteres d'import i on viu el codi compartit."
-publishDate: 2026-05-25
 tags: ["react-native", "architecture", "project-structure"]
 locale: ca
 heroImage: "/images/blog/feature-first-rn.webp"

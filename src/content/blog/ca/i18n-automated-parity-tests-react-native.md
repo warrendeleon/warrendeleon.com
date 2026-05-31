@@ -1,7 +1,6 @@
 ---
 title: "i18n amb tests automatitzats de paritat a React Native"
 description: "Configura i18n amb tipus a React Native, amb detecció del locale del dispositiu i tests de paritat de Jest que detecten claus que falten abans de publicar."
-publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: ca
 heroImage: "/images/blog/i18n-parity-tests.webp"

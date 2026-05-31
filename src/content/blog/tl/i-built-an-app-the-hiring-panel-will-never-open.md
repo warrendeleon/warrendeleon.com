@@ -1,7 +1,6 @@
 ---
 title: "Gumawa ako ng app na hindi naman bubuksan ng hiring panel"
 description: "Mula Notion hanggang markdown patungo sa isang React app para sa structured technical interviews. Tatlong subok para sa live calls at hiring panel reports."
-publishDate: 2026-04-27
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: tl
 heroImage: "/images/blog/interview-kit.webp"

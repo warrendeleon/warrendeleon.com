@@ -1,7 +1,6 @@
 ---
 title: "Testing d'accessibilitat a React Native"
 description: "Tests automatitzats d'accessibilitat per React Native: touch targets, ràtios de contrast, ordre de focus, anuncis del lector. I on el testing manual encara guanya."
-publishDate: 2026-06-22
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: ca
 heroImage: "/images/blog/accessibility-testing-rn.webp"

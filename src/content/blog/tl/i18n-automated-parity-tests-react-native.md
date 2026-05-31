@@ -1,7 +1,6 @@
 ---
 title: "i18n na may automated parity tests sa React Native"
 description: "I-set up ang type-safe i18n sa React Native na may device locale detection at Jest parity tests na humuhuli ng nawawalang translation keys bago mag-ship."
-publishDate: 2026-06-29
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: tl
 heroImage: "/images/blog/i18n-parity-tests.webp"

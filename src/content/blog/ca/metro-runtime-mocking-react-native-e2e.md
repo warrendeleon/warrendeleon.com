@@ -1,7 +1,6 @@
 ---
 title: "Mocking en temps d'execució amb Metro per a tests E2E deterministes a React Native"
 description: "Mocking del backend a nivell del bundle de Metro per a Detox. Sense intercepció de xarxa, sense tests inestables, sense serveis externs. Per què bat MSW per a E2E."
-publishDate: 2026-06-15
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: ca
 heroImage: "/images/blog/metro-runtime-mocking.webp"
