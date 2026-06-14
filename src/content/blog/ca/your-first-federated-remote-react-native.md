@@ -21,7 +21,7 @@ git checkout post-02-first-remote
 
 Això és el que tindràs al final. La llista de Pokémon a la pantalla viu en, i és servida per, una app *diferent* de la que s'està executant:
 
-![L'app host mostrant una pantalla Pokédex servida pel remote list](/images/blog/your-first-federated-remote-result.png)
+<img src="/images/blog/your-first-federated-remote-result.png" alt="L'app host mostrant una pantalla Pokédex servida pel remote list" class="screenshot" />
 
 ## Dues apps
 
@@ -265,17 +265,20 @@ Ara carrega'l. Reemplaça `apps/host/App.tsx`:
 
 ```tsx
 import React, { Suspense } from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const PokedexScreen = React.lazy(() => import('listApp/PokedexScreen'));
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.root}>
-      <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
-        <PokedexScreen />
-      </Suspense>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.root}>
+        <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
+          <PokedexScreen />
+        </Suspense>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -355,10 +358,10 @@ Tens dues apps que es construeixen i es despleguen pel seu compte, unides en tem
 
 Dues coses s'han mantingut deliberadament mínimes, cadascuna amb el seu propi post:
 
-- **Les llibreries compartides.** react i react-native es comparteixen perquè el remote es renderitzi contra la còpia del host. El contracte complet, eager contra lazy, version skew, i l'error que el trenca en silenci, és el següent post.
+- **Les llibreries compartides.** react i react-native es comparteixen perquè el remote es renderitzi contra la còpia del host. El contracte complet, eager contra lazy, version skew, i l'error que fa petar l'app en arrencar, és el següent post.
 - **Tot el que cal per a producció.** Càrregues versionades del CDN, signatura, un fallback offline, i què passa quan un remote ja no hi és. La segona meitat de la sèrie.
 
-Següent: el contracte de singletons compartits, i l'únic error que el fa fallar en silenci.
+Següent: el contracte de singletons compartits, i l'error que fa petar l'app en arrencar.
 
 ## Fonts
 

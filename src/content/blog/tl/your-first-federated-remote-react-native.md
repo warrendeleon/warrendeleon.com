@@ -21,7 +21,7 @@ git checkout post-02-first-remote
 
 Ito ang makukuha mo sa dulo. Ang listahan ng Pokémon sa screen ay nakatira sa, at ini-serve ng, isang *ibang app* mula sa tumatakbo:
 
-![Ang host app na nagpapakita ng Pokédex screen na ini-serve ng list remote](/images/blog/your-first-federated-remote-result.png)
+<img src="/images/blog/your-first-federated-remote-result.png" alt="Ang host app na nagpapakita ng Pokédex screen na ini-serve ng list remote" class="screenshot" />
 
 ## Dalawang app
 
@@ -265,17 +265,20 @@ Ngayon i-load ito. Palitan ang `apps/host/App.tsx`:
 
 ```tsx
 import React, { Suspense } from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const PokedexScreen = React.lazy(() => import('listApp/PokedexScreen'));
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.root}>
-      <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
-        <PokedexScreen />
-      </Suspense>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.root}>
+        <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
+          <PokedexScreen />
+        </Suspense>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -355,10 +358,10 @@ May dalawa kang app na nagbu-build at nagde-deploy nang mag-isa, na pinagsama sa
 
 Dalawang bagay ang sadyang pinanatiling minimal, bawat isa ay sariling post:
 
-- **Ang shared libraries.** Naka-share ang react at react-native kaya nire-render ang remote laban sa kopya ng host. Ang buong contract, eager kontra lazy, version skew, at ang pagkakamaling tahimik itong sumisira, ang susunod na post.
+- **Ang shared libraries.** Naka-share ang react at react-native kaya nire-render ang remote laban sa kopya ng host. Ang buong contract, eager kontra lazy, version skew, at ang pagkakamaling nagpapa-crash sa app sa pag-launch, ang susunod na post.
 - **Lahat ng kailangan ng production.** Versioned CDN loads, signing, isang offline fallback, at kung ano ang nangyayari kapag wala na ang isang remote. Ang ikalawang kalahati ng series.
 
-Susunod: ang shared-singleton contract, at ang isang pagkakamaling tahimik itong sumisira.
+Susunod: ang shared-singleton contract, at ang pagkakamaling nagpapa-crash sa app sa pag-launch.
 
 ## Mga Sanggunian
 

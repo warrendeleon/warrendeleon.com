@@ -23,7 +23,7 @@ git checkout post-02-first-remote
 
 This is what you'll have at the end. The list of Pokémon on screen lives in, and is served by, a *different app* from the one running:
 
-![The host app showing a Pokédex screen served by the list remote](/images/blog/your-first-federated-remote-result.png)
+<img src="/images/blog/your-first-federated-remote-result.png" alt="The host app showing a Pokédex screen served by the list remote" class="screenshot" />
 
 ## Two apps
 
@@ -267,17 +267,20 @@ Now load it. Replace `apps/host/App.tsx`:
 
 ```tsx
 import React, { Suspense } from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const PokedexScreen = React.lazy(() => import('listApp/PokedexScreen'));
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.root}>
-      <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
-        <PokedexScreen />
-      </Suspense>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.root}>
+        <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
+          <PokedexScreen />
+        </Suspense>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -357,10 +360,10 @@ You have two apps that build and deploy on their own, joined at runtime. The hos
 
 Two things were kept deliberately minimal, each its own post:
 
-- **The shared libraries.** react and react-native are shared so the remote renders against the host's copy. The full contract, eager versus lazy, version skew, and the mistake that breaks it silently, is the next post.
+- **The shared libraries.** react and react-native are shared so the remote renders against the host's copy. The full contract, eager versus lazy, version skew, and the mistake that crashes the app on launch, is the next post.
 - **Everything production needs.** Versioned CDN loads, signing, an offline fallback, and what happens when a remote is gone. The second half of the series.
 
-Next: the shared-singleton contract, and the one mistake that fails it silently.
+Next: the shared-singleton contract, and the mistake that crashes the app on launch.
 
 ## Sources
 

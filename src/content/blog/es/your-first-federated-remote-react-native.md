@@ -21,7 +21,7 @@ git checkout post-02-first-remote
 
 Esto es lo que tendrás al final. La lista de Pokémon en pantalla vive en, y la sirve, una *app distinta* de la que está corriendo:
 
-![La app host mostrando una pantalla de Pokédex servida por el remote list](/images/blog/your-first-federated-remote-result.png)
+<img src="/images/blog/your-first-federated-remote-result.png" alt="La app host mostrando una pantalla de Pokédex servida por el remote list" class="screenshot" />
 
 ## Dos apps
 
@@ -265,17 +265,20 @@ Ahora cárgalo. Reemplaza `apps/host/App.tsx`:
 
 ```tsx
 import React, { Suspense } from 'react';
-import { ActivityIndicator, SafeAreaView, StyleSheet } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 const PokedexScreen = React.lazy(() => import('listApp/PokedexScreen'));
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.root}>
-      <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
-        <PokedexScreen />
-      </Suspense>
-    </SafeAreaView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.root}>
+        <Suspense fallback={<ActivityIndicator style={styles.loader} size="large" />}>
+          <PokedexScreen />
+        </Suspense>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -355,10 +358,10 @@ Tienes dos apps que se construyen y despliegan por su cuenta, unidas en runtime.
 
 Dos cosas se dejaron deliberadamente mínimas, cada una su propio post:
 
-- **Las librerías compartidas.** react y react-native se comparten para que el remote renderice contra la copia del host. El contrato completo, eager contra lazy, version skew, y el error que lo rompe en silencio, es el próximo post.
+- **Las librerías compartidas.** react y react-native se comparten para que el remote renderice contra la copia del host. El contrato completo, eager contra lazy, version skew, y el error que rompe la app al arrancar, es el próximo post.
 - **Todo lo que producción necesita.** Cargas de CDN versionadas, firma, un fallback offline, y qué pasa cuando un remote ya no está. La segunda mitad de la serie.
 
-Siguiente: el contrato de singletons compartidos, y el único error que lo rompe en silencio.
+Siguiente: el contrato de singletons compartidos, y el error que rompe la app al arrancar.
 
 ## Fuentes
 
