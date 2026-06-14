@@ -9,6 +9,7 @@ draft: false
 heroImage: "/images/blog/shared-singleton-contract-react-native.webp"
 heroAlt: "A host and a remote React Native app sharing one copy of a library through a single share scope"
 campaign: "module-federation-shared-singleton"
+companionTag: "post-03-shared-singleton"
 relatedPosts: ["your-first-federated-remote-react-native", "why-module-federation-react-native"]
 ---
 
