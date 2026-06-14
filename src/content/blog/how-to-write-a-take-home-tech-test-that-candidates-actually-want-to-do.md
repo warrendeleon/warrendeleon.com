@@ -2,6 +2,7 @@
 title: "How to write a take-home tech test that candidates actually want to do"
 description: "Most take-home tests fail because of setup friction, unclear briefs, or disrespecting people's time. This is how I designed one that candidates thank us for."
 publishDate: 2026-04-20
+series: "Hiring"
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: en
 heroImage: "/images/blog/take-home-tech-test-design.webp"

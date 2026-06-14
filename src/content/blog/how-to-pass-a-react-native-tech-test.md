@@ -2,6 +2,7 @@
 title: "How to pass a React Native tech test"
 description: "Practical advice from someone who reviews take-home tech test submissions. What actually matters, what doesn't, and the mistakes that cost candidates the job."
 publishDate: 2026-04-06
+series: "Hiring"
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: en
 heroImage: "/images/blog/react-native-tech-test-tips.webp"

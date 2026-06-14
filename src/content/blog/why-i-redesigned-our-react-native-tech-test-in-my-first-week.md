@@ -2,6 +2,7 @@
 title: "Why I redesigned our React Native tech test in my first week"
 description: "I joined as Engineering Manager and one of my first projects was rethinking the hiring process for platform roles. The thinking behind the redesign, and what I built."
 publishDate: 2026-03-29
+series: "Hiring"
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"

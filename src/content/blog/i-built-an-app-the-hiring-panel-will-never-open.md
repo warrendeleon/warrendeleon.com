@@ -2,6 +2,7 @@
 title: "I built an app the hiring panel will never open"
 description: "How I went from Notion to markdown to a React app for running structured technical interviews. Three iterations to find the right format for live calls and hiring panel reports."
 publishDate: 2026-04-27
+series: "Hiring"
 tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: en
 heroImage: "/images/blog/interview-kit.webp"

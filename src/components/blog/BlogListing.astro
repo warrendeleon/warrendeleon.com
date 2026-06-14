@@ -4,7 +4,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, type ScheduledPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, type ScheduledPost } from '../../utils/blogHelpers';
 import type { Page } from 'astro';
 
 interface Props {
@@ -17,6 +17,7 @@ const i18n = t(locale);
 
 const allPosts = await getPostsForLocale(locale);
 const allTags = [...new Set(allPosts.flatMap(post => post.data.tags))].sort();
+const allSeries = await getAllSeries(locale);
 
 const isFirstPage = page.currentPage === 1;
 const featuredPost = isFirstPage ? allPosts[0] : null;
@@ -42,12 +43,32 @@ const blogBase = getLocalePath(locale, '/blog/');
     <div class="container">
       <h1 class="section-heading">Blog</h1>
 
-      {isFirstPage && allTags.length > 0 && (
-        <nav class="blog-tag-filter" aria-label={i18n.blog.filterByTag}>
-          {allTags.map(tag => (
-            <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="blog-tag-filter-link" data-tag-dates={getTagDates(tag)}>{getTagLabel(tag, locale)}</a>
-          ))}
-        </nav>
+      {isFirstPage && (allSeries.length > 0 || allTags.length > 0) && (
+        <div class="blog-browse">
+          {allSeries.length > 0 && (
+            <div class="blog-browse-group">
+              <h2 class="blog-browse-heading">{i18n.blog.browseBySeries}</h2>
+              <nav class="blog-series-filter" aria-label={i18n.blog.browseBySeries}>
+                {allSeries.map(s => (
+                  <a href={getLocalePath(locale, `/blog/series/${s.slug}/`)} class="blog-series-chip">
+                    <span class="blog-series-chip-name">{s.name}</span>
+                    <span class="blog-series-chip-count">{s.count}</span>
+                  </a>
+                ))}
+              </nav>
+            </div>
+          )}
+          {allTags.length > 0 && (
+            <details class="blog-browse-group blog-tags-details">
+              <summary class="blog-browse-heading blog-browse-toggle">{i18n.blog.browseByTag}</summary>
+              <nav class="blog-tag-filter" aria-label={i18n.blog.filterByTag}>
+                {allTags.map(tag => (
+                  <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="blog-tag-filter-link" data-tag-dates={getTagDates(tag)}>{getTagLabel(tag, locale)}</a>
+                ))}
+              </nav>
+            </details>
+          )}
+        </div>
       )}
 
       {featuredPost && (
@@ -214,6 +235,93 @@ const blogBase = getLocalePath(locale, '/blog/');
     border-color: var(--color-green);
     color: var(--color-green);
     background: var(--bg-secondary);
+  }
+
+  .blog-browse {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .blog-browse-heading {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .blog-series-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .blog-series-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.6rem 0.5rem 1rem;
+    border-radius: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+
+  .blog-series-chip:hover {
+    border-color: var(--color-green);
+    color: var(--color-green);
+    background: var(--bg-secondary);
+  }
+
+  .blog-series-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 0.4rem;
+    border-radius: 12px;
+    background: var(--color-green);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .blog-browse-toggle {
+    cursor: pointer;
+    width: fit-content;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0;
+  }
+
+  .blog-browse-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .blog-browse-toggle::before {
+    content: '\25B8';
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    transition: transform 0.15s ease;
+  }
+
+  .blog-tags-details[open] .blog-browse-toggle::before {
+    transform: rotate(90deg);
+  }
+
+  .blog-tags-details .blog-tag-filter {
+    margin-top: 0.85rem;
+    margin-bottom: 0;
   }
 
   .blog-featured {

@@ -668,11 +668,92 @@ main {
   margin: 1.5rem 0;
 }
 
+/* Tall phone screenshots: half width, centred, so they don't dominate the column. */
+.prose img.screenshot {
+  max-width: min(50%, 340px);
+  margin-inline: auto;
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .prose img.screenshot {
+    max-width: 70%;
+  }
+}
+
 .prose hr {
   border: none;
   border-top: 2px solid var(--color-green);
   margin: 2.5rem auto;
   width: 60px;
+}
+
+/* Series navigation box at the top of a post that belongs to a series. */
+.series-nav {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.series-nav-heading {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.series-nav-part {
+  color: var(--color-green);
+  font-weight: 600;
+}
+
+.series-nav-heading strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.series-nav-sep {
+  margin: 0 0.5rem;
+  color: var(--text-muted);
+}
+
+.series-nav-list {
+  margin: 0;
+  padding-left: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.series-nav-list li {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.series-nav-list li::marker {
+  color: var(--text-muted);
+}
+
+.series-nav-list a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.series-nav-list a:hover {
+  color: var(--color-green);
+  text-decoration: underline;
+}
+
+.series-nav-list li.series-current {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.series-nav-list li.series-current::marker {
+  color: var(--color-green);
 }
 
 .prose table {

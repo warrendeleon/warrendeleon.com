@@ -1,0 +1,26 @@
+---
+import BlogSeriesPage from '../../../components/blog/BlogSeriesPage.astro';
+import { getPostsForLocale, getSeriesSlug } from '../../../utils/blogHelpers';
+
+export async function getStaticPaths() {
+  const posts = await getPostsForLocale('en');
+  const series = new Map<string, { name: string; posts: any[] }>();
+  for (const post of posts) {
+    if (!post.data.series) continue;
+    const slug = getSeriesSlug(post.data.series);
+    if (!series.has(slug)) series.set(slug, { name: post.data.series, posts: [] });
+    series.get(slug)!.posts.push(post);
+  }
+  return [...series.entries()].map(([slug, { name, posts }]) => ({
+    params: { series: slug },
+    props: {
+      seriesName: name,
+      posts: posts.sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf()),
+    },
+  }));
+}
+
+const { posts, seriesName } = Astro.props;
+---
+
+<BlogSeriesPage locale="en" posts={posts} seriesName={seriesName} />
