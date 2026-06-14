@@ -1,7 +1,7 @@
 ---
 title: "Accessibility testing in React Native"
 description: "Automated React Native accessibility tests: touch targets, contrast ratios, focus order, screen reader announcements. Plus where manual testing still wins."
-publishDate: 2026-08-17
+publishDate: 2026-08-24
 series: "Testing and Infrastructure"
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: en

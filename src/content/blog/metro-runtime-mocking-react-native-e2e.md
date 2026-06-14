@@ -1,7 +1,7 @@
 ---
 title: "Metro runtime mocking for deterministic React Native E2E tests"
 description: "Mocking the backend at the Metro bundle level for Detox. No network interception, no flaky tests, no external services. Why this beats MSW for E2E."
-publishDate: 2026-08-10
+publishDate: 2026-08-17
 series: "Testing and Infrastructure"
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: en

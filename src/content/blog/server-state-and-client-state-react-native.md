@@ -1,7 +1,7 @@
 ---
 title: "Server state and client state: why React apps need two libraries"
 description: "Most apps put everything in one store and call it state management. Server state and client state have different requirements. Modern React stacks split the job between two libraries for good reason."
-publishDate: 2026-08-17
+publishDate: 2026-08-24
 series: "State Management"
 tags: ["react-native", "state-management", "redux", "redux-toolkit", "tanstack-query", "zustand"]
 locale: en
