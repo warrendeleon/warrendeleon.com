@@ -1,0 +1,166 @@
+---
+// Click-to-zoom for blog media: mermaid diagrams and in-content images.
+// - astro-mermaid renders ```mermaid blocks into `pre.mermaid` (marked `data-processed`).
+// - Content images live in `.prose`; the hero image and card thumbnails sit outside it,
+//   so they are left alone. The author avatar inside the bio is excluded explicitly.
+// Click opens a fullscreen lightbox; click the backdrop or press Escape to close.
+---
+
+<script is:inline>
+  (() => {
+    if (window.__mediaZoomInit) return;
+    window.__mediaZoomInit = true;
+
+    const EXPAND_ICON =
+      '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>';
+
+    function markZoomable() {
+      document.querySelectorAll('pre.mermaid[data-processed]').forEach((pre) => {
+        if (pre.dataset.zoomReady || !pre.querySelector('svg')) return;
+        pre.dataset.zoomReady = '1';
+        pre.classList.add('media-zoomable');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'media-zoom-btn';
+        btn.setAttribute('aria-label', 'Open diagram full screen');
+        btn.innerHTML = EXPAND_ICON;
+        pre.appendChild(btn);
+      });
+      document.querySelectorAll('.prose img').forEach((img) => {
+        if (img.dataset.zoomReady || img.classList.contains('author-avatar')) return;
+        img.dataset.zoomReady = '1';
+        img.classList.add('media-zoomable-img');
+      });
+    }
+
+    function openOverlay(buildInner) {
+      const overlay = document.createElement('div');
+      overlay.className = 'media-lightbox';
+      const inner = document.createElement('div');
+      inner.className = 'media-lightbox-inner';
+      buildInner(inner);
+      const close = () => {
+        overlay.remove();
+        document.removeEventListener('keydown', onKey);
+        document.body.style.overflow = '';
+      };
+      const onKey = (e) => {
+        if (e.key === 'Escape') close();
+      };
+      overlay.addEventListener('click', close);
+      document.addEventListener('keydown', onKey);
+      document.body.style.overflow = 'hidden';
+      overlay.appendChild(inner);
+      document.body.appendChild(overlay);
+    }
+
+    function openDiagram(pre) {
+      const svg = pre.querySelector('svg');
+      if (!svg) return;
+      openOverlay((inner) => {
+        inner.innerHTML = svg.outerHTML;
+        const clone = inner.querySelector('svg');
+        if (clone) {
+          clone.removeAttribute('width');
+          clone.removeAttribute('height');
+        }
+      });
+    }
+
+    function openImage(img) {
+      openOverlay((inner) => {
+        const full = document.createElement('img');
+        full.src = img.currentSrc || img.src;
+        full.alt = img.alt || '';
+        inner.appendChild(full);
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (!target || !target.closest) return;
+      const pre = target.closest('pre.mermaid');
+      if (pre) {
+        e.preventDefault();
+        openDiagram(pre);
+        return;
+      }
+      const img = target.closest('.prose img');
+      if (img && !img.classList.contains('author-avatar')) {
+        e.preventDefault();
+        openImage(img);
+      }
+    });
+
+    markZoomable();
+    new MutationObserver(markZoomable).observe(document.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['data-processed'],
+    });
+  })();
+</script>
+
+<style is:global>
+  pre.mermaid.media-zoomable {
+    position: relative;
+    cursor: zoom-in;
+  }
+  .prose img.media-zoomable-img {
+    cursor: zoom-in;
+  }
+  /* Dark pill with a light border and white icon reads on both the light and dark
+     mermaid backgrounds, so the affordance is theme-proof. */
+  .media-zoom-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(17, 17, 17, 0.6);
+    color: #fff;
+    opacity: 0;
+    cursor: zoom-in;
+    transition: opacity 0.15s ease;
+  }
+  pre.mermaid.media-zoomable:hover .media-zoom-btn,
+  pre.mermaid.media-zoomable:focus-within .media-zoom-btn {
+    opacity: 0.9;
+  }
+  @media (hover: none) {
+    .media-zoom-btn {
+      opacity: 0.9;
+    }
+  }
+  .media-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 4vw, 3rem);
+    background: rgba(0, 0, 0, 0.82);
+    cursor: zoom-out;
+  }
+  .media-lightbox-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+  .media-lightbox-inner svg,
+  .media-lightbox-inner img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+</style>

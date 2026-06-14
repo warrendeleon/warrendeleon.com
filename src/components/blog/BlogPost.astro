@@ -6,6 +6,8 @@ import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostsForLocale, getPostSlug, formatBlogDate, type ScheduledPost } from '../../utils/blogHelpers';
 import type { MarkdownHeading } from 'astro';
+import popularity from '../../data/popularity.json';
+import MediaZoom from '../MediaZoom.astro';
 
 interface Props {
   locale: Locale;
@@ -74,6 +76,35 @@ const relatedPosts = manualRelated.length > 0
       .sort((a, b) => b.sharedTags - a.sharedTags)
       .slice(0, 3)
       .map(p => p.post);
+
+// "More from the blog": surface lower-traffic published posts the reader has not been pointed to yet.
+// Views come from src/data/popularity.json (refreshed from Umami); posts with no entry count as 0,
+// so new posts surface first. Excludes the current post and anything already in related posts.
+const popularityViews = popularity as Record<string, number>;
+const relatedSlugs = new Set(relatedPosts.map(p => getPostSlug(p.id)));
+const recommendedPosts = sortedAsc
+  .filter(p => {
+    const slug = getPostSlug(p.id);
+    return slug !== postSlug
+      && !relatedSlugs.has(slug)
+      && (import.meta.env.DEV || p.data.publishDate <= now);
+  })
+  .map(p => ({ post: p, views: popularityViews[getPostSlug(p.id)] ?? 0 }))
+  .sort((a, b) => a.views - b.views || a.post.data.publishDate.valueOf() - b.post.data.publishDate.valueOf())
+  .slice(0, 3)
+  .map(x => x.post);
+
+// Series navigation: the published posts that share this post's `series`, in publish order.
+// Position in the series is computed here, so no post needs a hand-assigned number.
+const seriesPosts = post.data.series
+  ? sortedAsc.filter(p =>
+      p.data.series === post.data.series &&
+      (import.meta.env.DEV || p.data.publishDate <= now))
+  : [];
+const seriesIndex = seriesPosts.findIndex(p => getPostSlug(p.id) === postSlug);
+const seriesPartLabel = i18n.blog.seriesPart
+  .replace('{n}', String(seriesIndex + 1))
+  .replace('{m}', String(seriesPosts.length));
 
 const shareUrl = `https://warrendeleon.com${postPath}`;
 const campaignParam = `&utm_campaign=${post.data.campaign}`;
@@ -147,6 +178,28 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
 
   <article class="section post-content-section">
     <div class="container">
+      {seriesPosts.length > 1 && (
+        <aside class="series-nav" aria-label={post.data.series}>
+          <p class="series-nav-heading">
+            <span class="series-nav-part">{seriesPartLabel}</span>
+            <span class="series-nav-sep" aria-hidden="true">&middot;</span>
+            <strong>{post.data.series}</strong>
+          </p>
+          <ol class="series-nav-list">
+            {seriesPosts.map(sp => {
+              const sSlug = getPostSlug(sp.id);
+              const isCurrent = sSlug === postSlug;
+              return (
+                <li class={isCurrent ? 'series-current' : ''} aria-current={isCurrent ? 'step' : undefined}>
+                  {isCurrent
+                    ? <span>{sp.data.title}</span>
+                    : <a href={getLocalePath(locale, `/blog/${sSlug}/`)}>{sp.data.title}</a>}
+                </li>
+              );
+            })}
+          </ol>
+        </aside>
+      )}
       <div class={showToc ? 'post-layout' : ''}>
         {showToc && (
           <nav class="toc" aria-label={i18n.blog.contents}>
@@ -230,6 +283,32 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
         </section>
       )}
 
+      {recommendedPosts.length > 0 && (
+        <section class="related-posts more-from-blog" aria-label={i18n.blog.moreFromBlog}>
+          <h3>{i18n.blog.moreFromBlog}</h3>
+          <div class="related-grid">
+            {recommendedPosts.map(rp => (
+              <a href={getLocalePath(locale, `/blog/${getPostSlug(rp.id)}/`)} class="related-card">
+                {rp.data.heroImage && (
+                  <div class="related-card-image">
+                    <img src={rp.data.heroImage} alt={rp.data.heroAlt || rp.data.title} loading="lazy" />
+                  </div>
+                )}
+                <div class="related-card-content">
+                  <time datetime={rp.data.publishDate.toISOString()}>{formatBlogDate(rp.data.publishDate, locale)}</time>
+                  <h4>{rp.data.title}</h4>
+                  <div class="post-tags related-card-tags">
+                    {rp.data.tags.map((tag: string) => (
+                      <span class="post-tag" style="pointer-events: none;">{getTagLabel(tag, locale)}</span>
+                    ))}
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       <nav class="blog-nav" aria-label={`${i18n.blog.previous} / ${i18n.blog.next}`}>
         {prevPost ? (
           <a href={getLocalePath(locale, `/blog/${getPostSlug(prevPost.id)}/`)} class="blog-nav-link blog-nav-prev">
@@ -258,6 +337,8 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
       </nav>
     </div>
   </article>
+
+  <MediaZoom />
 
   <!-- Scroll to top button -->
   <button class="scroll-to-top" aria-label={i18n.blog.viewProfile} hidden>

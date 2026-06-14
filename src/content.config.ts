@@ -6,6 +6,9 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
+    // Optional series name. Posts sharing a series are ordered by publishDate and
+    // shown as a numbered series nav on each post (see BlogPost).
+    series: z.string().optional(),
     // English posts carry the publish date. Translations omit it and inherit the
     // date of the English post with the same slug (filled in getPostsForLocale),
     // so a translation always publishes exactly when its English master does.
