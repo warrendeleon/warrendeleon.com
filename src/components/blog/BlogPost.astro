@@ -26,8 +26,11 @@ const postSlug = getPostSlug(post.id);
 const postPath = getLocalePath(locale, `/blog/${postSlug}/`);
 const blogPath = getLocalePath(locale, '/blog/');
 
+// Match the published-cutoff used by getPostsForLocale / getStaticPaths exactly
+// (end-of-day UTC). A local-midnight cutoff is timezone-shifted, so on a post's
+// own publish day it can drop the current post from its series nav (PART 0 OF n).
 const now = new Date();
-now.setHours(0, 0, 0, 0);
+now.setUTCHours(23, 59, 59, 999);
 const allPosts = await getPostsForLocale(locale, true);
 const sortedAsc = [...allPosts].sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
 
