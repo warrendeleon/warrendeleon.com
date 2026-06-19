@@ -1,8 +1,15 @@
 ---
+import { t, type Locale } from '../i18n/index';
 
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
 ---
 
-<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme">
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label={i18n.a11y.switchTheme} data-label-light={i18n.a11y.switchToLight} data-label-dark={i18n.a11y.switchToDark}>
   <span class="theme-toggle-track">
     <span class="theme-toggle-icon theme-toggle-sun">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

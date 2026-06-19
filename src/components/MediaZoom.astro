@@ -4,12 +4,36 @@
 // - Content images live in `.prose`; the hero image and card thumbnails sit outside it,
 //   so they are left alone. The author avatar inside the bio is excluded explicitly.
 // Click opens a fullscreen lightbox; click the backdrop or press Escape to close.
+import { t, type Locale } from '../i18n/index';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
 ---
+
+<!-- Labels for the inline script below, which cannot read Astro scope directly. -->
+<span
+  id="media-zoom-i18n"
+  hidden
+  data-open-diagram={i18n.a11y.openDiagram}
+  data-diagram={i18n.a11y.diagram}
+  data-image={i18n.a11y.image}
+></span>
 
 <script is:inline>
   (() => {
     if (window.__mediaZoomInit) return;
     window.__mediaZoomInit = true;
+
+    const cfg = document.getElementById('media-zoom-i18n');
+    const LABELS = {
+      openDiagram: (cfg && cfg.dataset.openDiagram) || 'Open diagram full screen',
+      diagram: (cfg && cfg.dataset.diagram) || 'Diagram',
+      image: (cfg && cfg.dataset.image) || 'Image',
+    };
 
     const EXPAND_ICON =
       '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>';
@@ -22,7 +46,7 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'media-zoom-btn';
-        btn.setAttribute('aria-label', 'Open diagram full screen');
+        btn.setAttribute('aria-label', LABELS.openDiagram);
         btn.innerHTML = EXPAND_ICON;
         pre.appendChild(btn);
       });
@@ -68,7 +92,7 @@
     function openDiagram(pre) {
       const svg = pre.querySelector('svg');
       if (!svg) return;
-      openOverlay('Diagram', (inner) => {
+      openOverlay(LABELS.diagram, (inner) => {
         inner.innerHTML = svg.outerHTML;
         const clone = inner.querySelector('svg');
         if (clone) {
@@ -79,7 +103,7 @@
     }
 
     function openImage(img) {
-      openOverlay(img.alt || 'Image', (inner) => {
+      openOverlay(img.alt || LABELS.image, (inner) => {
         const full = document.createElement('img');
         full.src = img.currentSrc || img.src;
         full.alt = img.alt || '';

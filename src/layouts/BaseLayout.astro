@@ -153,8 +153,10 @@ const cleanPath = getCleanPath(currentPath);
     <script>
       function updateThemeToggleLabel() {
         const toggle = document.getElementById('theme-toggle');
+        if (!toggle) return;
         const theme = document.documentElement.getAttribute('data-theme') || 'light';
-        toggle?.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        const label = theme === 'dark' ? toggle.dataset.labelLight : toggle.dataset.labelDark;
+        if (label) toggle.setAttribute('aria-label', label);
       }
 
       const toggle = document.getElementById('theme-toggle');

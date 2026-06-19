@@ -1,4 +1,13 @@
 ---
+import { t, type Locale } from '../i18n/index';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
+
 const photos = [
   'warren-1.webp', 'warren-2.webp', 'warren-3.webp',
   'profile-01.webp', 'profile-02.webp', 'profile-03.webp',
@@ -8,7 +17,7 @@ const photos = [
 ];
 ---
 
-<div class="carousel" id="hero-carousel" role="region" aria-label="Photo carousel" aria-roledescription="carousel">
+<div class="carousel" id="hero-carousel" role="region" aria-label={i18n.a11y.photoCarousel} aria-roledescription="carousel">
   <div class="carousel-track" id="carousel-track">
     {photos.map((photo, i) => (
       <div class="carousel-slide">
@@ -22,10 +31,10 @@ const photos = [
       </div>
     ))}
   </div>
-  <button class="carousel-btn carousel-btn-prev" id="carousel-prev" type="button" aria-label="Previous photo">
+  <button class="carousel-btn carousel-btn-prev" id="carousel-prev" type="button" aria-label={i18n.a11y.previousPhoto}>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
   </button>
-  <button class="carousel-btn carousel-btn-next" id="carousel-next" type="button" aria-label="Next photo">
+  <button class="carousel-btn carousel-btn-next" id="carousel-next" type="button" aria-label={i18n.a11y.nextPhoto}>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
   </button>
   <span class="carousel-counter" id="carousel-counter">1 / 15</span>
@@ -35,13 +44,13 @@ const photos = [
         <button
           class:list={['carousel-dot', { active: i === 0 }]}
           type="button"
-          aria-label={`Go to photo ${i + 1}`}
+          aria-label={i18n.a11y.goToPhoto.replace('{n}', String(i + 1))}
           aria-current={i === 0 ? 'true' : undefined}
           data-index={i}
         />
       ))}
     </div>
-    <button class="carousel-pause" id="carousel-pause" type="button" aria-label="Pause carousel">
+    <button class="carousel-pause" id="carousel-pause" type="button" aria-label={i18n.a11y.pauseCarousel} data-label-pause={i18n.a11y.pauseCarousel} data-label-play={i18n.a11y.playCarousel}>
       <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
         <rect x="6" y="4" width="4" height="16"></rect>
         <rect x="14" y="4" width="4" height="16"></rect>
@@ -245,7 +254,10 @@ const photos = [
   function updatePauseButton() {
     if (iconPause) iconPause.style.display = isPlaying ? '' : 'none';
     if (iconPlay) iconPlay.style.display = isPlaying ? 'none' : '';
-    pauseBtn?.setAttribute('aria-label', isPlaying ? 'Pause carousel' : 'Play carousel');
+    if (pauseBtn) {
+      const label = isPlaying ? pauseBtn.dataset.labelPause : pauseBtn.dataset.labelPlay;
+      if (label) pauseBtn.setAttribute('aria-label', label);
+    }
   }
 
   function resetAutoplay() {

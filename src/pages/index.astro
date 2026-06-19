@@ -45,14 +45,14 @@ const jsonLd = {
         <h1>{i18n.home.title}</h1>
         <p class="hero-subtitle">{i18n.home.subtitle}</p>
         <div class="hero-social mt-3">
-          <SocialLinks />
+          <SocialLinks locale={locale} />
         </div>
         <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-primary mt-2">
           {i18n.home.viewWorkExperience}
         </a>
       </div>
       <div class="hero-carousel">
-        <HeroCarousel />
+        <HeroCarousel locale={locale} />
       </div>
     </div>
   </section>

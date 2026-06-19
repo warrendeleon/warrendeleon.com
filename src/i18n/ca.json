@@ -94,5 +94,28 @@
     "bookACallDescription": "Programa una trucada telefònica/videotrucada de 30 minuts amb Warren de Leon per discutir oportunitats o col·laboració.",
     "blogTitle": "Blog | Warren de Leon",
     "blogDescription": "Articles sobre enginyeria de software, lideratge d'equips i desenvolupament mòbil."
+  },
+  "a11y": {
+    "mainNavigation": "Navegació principal",
+    "toggleMenu": "Obrir o tancar el menú",
+    "selectLanguage": "Seleccionar idioma",
+    "footerNavigation": "Navegació del peu de pàgina",
+    "rssFeed": "Canal RSS",
+    "switchTheme": "Canviar de tema",
+    "switchToLight": "Canviar al tema clar",
+    "switchToDark": "Canviar al tema fosc",
+    "photoCarousel": "Carrusel de fotos",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Foto següent",
+    "goToPhoto": "Ves a la foto {n}",
+    "pauseCarousel": "Posa en pausa el carrusel",
+    "playCarousel": "Reprodueix el carrusel",
+    "postHeader": "Capçalera de l'article",
+    "blogPagination": "Paginació del blog",
+    "shareOn": "Comparteix a {n} (s'obre en una pestanya nova)",
+    "openDiagram": "Obre el diagrama a pantalla completa",
+    "diagram": "Diagrama",
+    "image": "Imatge",
+    "opensInNewTab": "(s'obre en una pestanya nova)"
   }
 }

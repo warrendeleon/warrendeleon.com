@@ -1,5 +1,5 @@
 ---
-import { locales, localeNames, getLocalePath, type Locale } from '../i18n/index';
+import { locales, localeNames, getLocalePath, t, type Locale } from '../i18n/index';
 
 interface Props {
   locale: Locale;
@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { locale, currentPath } = Astro.props;
+const i18n = t(locale);
 
 function getPathForLocale(targetLocale: Locale, path: string): string {
   let cleanPath = path;
@@ -37,7 +38,7 @@ function getPathForLocale(targetLocale: Locale, path: string): string {
 ---
 
 <div class="language-selector">
-  <button class="lang-btn" id="lang-toggle" type="button" aria-label="Select language" aria-expanded="false">
+  <button class="lang-btn" id="lang-toggle" type="button" aria-label={i18n.a11y.selectLanguage} aria-expanded="false">
     {locale.toUpperCase()}
     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"></polyline>
