@@ -63,7 +63,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
   currentPath={`/tl/work-experience/${slugify(displayName)}/`}
 >
   <!-- Hero header -->
-  <section class="work-hero section-alt" aria-label="Company header">
+  <section class="work-hero section-alt" aria-label="Header ng kompanya">
     <div class="container">
       <a href={backLink} class="work-back-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -346,7 +346,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
 
       {/* Prev/Next navigation */}
       {!isClientPage && (prevCompany || nextCompany) && (
-        <nav class="work-detail-nav" aria-label="Previous and next companies">
+        <nav class="work-detail-nav" aria-label="Nakaraan at susunod na kompanya">
           {prevCompany ? (
             <a href={getLocalePath(locale, `/work-experience/${slugify(prevCompany.company)}/`)} class="work-detail-nav-link work-detail-nav-prev">
               <span class="work-detail-nav-label">

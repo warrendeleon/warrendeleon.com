@@ -94,5 +94,28 @@
     "bookACallDescription": "Programa una llamada telefónica/videollamada de 30 minutos con Warren de Leon para discutir oportunidades o colaboración.",
     "blogTitle": "Blog | Warren de Leon",
     "blogDescription": "Artículos sobre ingeniería de software, liderazgo de equipos y desarrollo móvil."
+  },
+  "a11y": {
+    "mainNavigation": "Navegación principal",
+    "toggleMenu": "Abrir o cerrar el menú",
+    "selectLanguage": "Seleccionar idioma",
+    "footerNavigation": "Navegación del pie de página",
+    "rssFeed": "Fuente RSS",
+    "switchTheme": "Cambiar de tema",
+    "switchToLight": "Cambiar al tema claro",
+    "switchToDark": "Cambiar al tema oscuro",
+    "photoCarousel": "Carrusel de fotos",
+    "previousPhoto": "Foto anterior",
+    "nextPhoto": "Foto siguiente",
+    "goToPhoto": "Ir a la foto {n}",
+    "pauseCarousel": "Pausar el carrusel",
+    "playCarousel": "Reproducir el carrusel",
+    "postHeader": "Encabezado del artículo",
+    "blogPagination": "Paginación del blog",
+    "shareOn": "Compartir en {n} (se abre en una pestaña nueva)",
+    "openDiagram": "Abrir el diagrama en pantalla completa",
+    "diagram": "Diagrama",
+    "image": "Imagen",
+    "opensInNewTab": "(se abre en una pestaña nueva)"
   }
 }

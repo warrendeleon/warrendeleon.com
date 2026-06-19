@@ -94,5 +94,28 @@
     "bookACallDescription": "Mag-iskedyul ng 30-minutong phone/video call kay Warren de Leon para sa mga oportunidad o kolaborasyon.",
     "blogTitle": "Blog | Warren de Leon",
     "blogDescription": "Mga artikulo tungkol sa software engineering, team leadership, at mobile development."
+  },
+  "a11y": {
+    "mainNavigation": "Pangunahing nabigasyon",
+    "toggleMenu": "Buksan o isara ang menu",
+    "selectLanguage": "Pumili ng wika",
+    "footerNavigation": "Nabigasyon ng footer",
+    "rssFeed": "RSS feed",
+    "switchTheme": "Palitan ang tema",
+    "switchToLight": "Lumipat sa light na tema",
+    "switchToDark": "Lumipat sa dark na tema",
+    "photoCarousel": "Carousel ng mga larawan",
+    "previousPhoto": "Nakaraang larawan",
+    "nextPhoto": "Susunod na larawan",
+    "goToPhoto": "Pumunta sa larawan {n}",
+    "pauseCarousel": "I-pause ang carousel",
+    "playCarousel": "I-play ang carousel",
+    "postHeader": "Header ng post",
+    "blogPagination": "Pagination ng blog",
+    "shareOn": "Ibahagi sa {n} (bubukas sa bagong tab)",
+    "openDiagram": "Buksan ang diagram sa full screen",
+    "diagram": "Diagram",
+    "image": "Larawan",
+    "opensInNewTab": "(bubukas sa bagong tab)"
   }
 }

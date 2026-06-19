@@ -20,7 +20,7 @@ const navLinks = [
 ];
 ---
 
-<nav class="nav" aria-label="Main navigation">
+<nav class="nav" aria-label={i18n.a11y.mainNavigation}>
   <div class="nav-inner container">
     <a href={getLocalePath(locale, '/')} class="nav-logo">
       <img src="/images/logo.gif" alt="Warren de Leon" class="nav-logo-img" />
@@ -28,10 +28,10 @@ const navLinks = [
 
     <div class="nav-right">
       <div class="nav-actions">
-        <ThemeToggle />
+        <ThemeToggle locale={locale} />
         <LanguageSelector locale={locale} currentPath={currentPath} />
       </div>
-      <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu" aria-expanded="false">
+      <button class="hamburger" id="hamburger" type="button" aria-label={i18n.a11y.toggleMenu} aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
