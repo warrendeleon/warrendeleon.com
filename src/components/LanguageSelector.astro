@@ -26,6 +26,12 @@ function getPathForLocale(targetLocale: Locale, path: string): string {
     return getLocalePath(targetLocale, '/blog/');
   }
 
+  // The 404 page has no localised route, so switching language would itself 404.
+  // Send the visitor to the target locale's home instead.
+  if (cleanPath === '/404') {
+    return getLocalePath(targetLocale, '/');
+  }
+
   return getLocalePath(targetLocale, cleanPath);
 }
 ---
