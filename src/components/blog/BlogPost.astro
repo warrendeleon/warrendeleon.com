@@ -4,7 +4,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, type ScheduledPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, type ScheduledPost } from '../../utils/blogHelpers';
 import type { MarkdownHeading } from 'astro';
 import popularity from '../../data/popularity.json';
 import MediaZoom from '../MediaZoom.astro';
@@ -25,6 +25,7 @@ const readingTime = getReadingTime(post.body ?? '');
 const postSlug = getPostSlug(post.id);
 const postPath = getLocalePath(locale, `/blog/${postSlug}/`);
 const blogPath = getLocalePath(locale, '/blog/');
+const hreflangLocales = await getAvailableLocales(postSlug);
 
 // Match the published-cutoff used by getPostsForLocale / getStaticPaths exactly
 // (end-of-day UTC). A local-midnight cutoff is timezone-shifted, so on a post's
@@ -123,6 +124,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
   description={post.data.description}
   locale={locale}
   currentPath={postPath}
+  hreflangLocales={hreflangLocales}
   ogImage={post.data.heroImage}
   ogType="article"
   jsonLd={blogPostingJsonLd}

@@ -14,9 +14,15 @@ interface Props {
   ogImage?: string;
   ogType?: string;
   preloadImage?: string;
+  hreflangLocales?: Locale[];
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType, preloadImage } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType, preloadImage, hreflangLocales } = Astro.props;
+
+// Default to every locale; pages that only exist in some locales (e.g. an
+// untranslated blog post) pass the subset that actually exists, so we never
+// emit an hreflang alternate to a page that 404s.
+const altLocales = hreflangLocales ?? locales;
 
 const siteUrl = 'https://warrendeleon.com';
 const canonical = `${siteUrl}${canonicalPath || currentPath}`;
@@ -65,7 +71,7 @@ const cleanPath = getCleanPath(currentPath);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage ? `https://warrendeleon.com${ogImage}` : "https://warrendeleon.com/images/warren-deleon-headshot.webp"} />
 
-    {locales.map(loc => (
+    {altLocales.map(loc => (
       <link
         rel="alternate"
         hreflang={loc === 'en' ? 'en' : loc}
