@@ -1,5 +1,5 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { Locale } from '../i18n/index';
+import { locales, type Locale } from '../i18n/index';
 
 /**
  * A blog post whose publishDate is guaranteed present. Translations omit their own
@@ -105,6 +105,24 @@ export async function getSeriesPosts(locale: Locale, seriesSlug: string): Promis
   return posts
     .filter(post => post.data.series && getSeriesSlug(post.data.series) === seriesSlug)
     .sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+}
+
+/**
+ * The locales a given post is actually available in (English master plus any
+ * translation that exists). Used to emit hreflang only for pages that exist,
+ * so an untranslated post does not advertise alternates that 404.
+ */
+export async function getAvailableLocales(slug: string): Promise<Locale[]> {
+  const all = await getCollection('blog');
+  const present = new Set<Locale>(['en']);
+  for (const post of all) {
+    const parts = post.id.split('/');
+    if (parts.length === 2 && getPostSlug(post.id) === slug) {
+      const loc = parts[0] as Locale;
+      if (locales.includes(loc)) present.add(loc);
+    }
+  }
+  return locales.filter(l => present.has(l));
 }
 
 /**

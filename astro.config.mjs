@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mermaid from 'astro-mermaid';
+import rehypeUnpublishedLinks from './src/lib/rehype-unpublished-links.mjs';
 
 export default defineConfig({
   site: 'https://warrendeleon.com',
@@ -27,5 +28,6 @@ export default defineConfig({
         dark: 'github-dark',
       },
     },
+    rehypePlugins: [rehypeUnpublishedLinks],
   },
 });
