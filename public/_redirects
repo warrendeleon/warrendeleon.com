@@ -1,5 +1,12 @@
-# Old /work/ paths → /work-experience/
+# Old /work/ and /work-xp/ paths → /work-experience/
 /work/* /work-experience/:splat 301
+/work-xp/* /work-experience/:splat 301
+/sky /work-experience/sky/ 301
+/sky/ /work-experience/sky/ 301
+
+# Removed /hiring page → home
+/hiring / 301
+/hiring/ / 301
 
 # Legacy blog URL rename
 /blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/ /blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ 301
