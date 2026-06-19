@@ -33,9 +33,15 @@
       });
     }
 
-    function openOverlay(buildInner) {
+    function openOverlay(label, buildInner) {
+      // Remember what had focus, to restore it when the lightbox closes.
+      const trigger = document.activeElement;
       const overlay = document.createElement('div');
       overlay.className = 'media-lightbox';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      if (label) overlay.setAttribute('aria-label', label);
+      overlay.tabIndex = -1;
       const inner = document.createElement('div');
       inner.className = 'media-lightbox-inner';
       buildInner(inner);
@@ -43,21 +49,26 @@
         overlay.remove();
         document.removeEventListener('keydown', onKey);
         document.body.style.overflow = '';
+        if (trigger && typeof trigger.focus === 'function') trigger.focus();
       };
       const onKey = (e) => {
         if (e.key === 'Escape') close();
+        // No focusable children, so keep focus on the overlay rather than
+        // letting Tab move behind the modal.
+        if (e.key === 'Tab') { e.preventDefault(); overlay.focus(); }
       };
       overlay.addEventListener('click', close);
       document.addEventListener('keydown', onKey);
       document.body.style.overflow = 'hidden';
       overlay.appendChild(inner);
       document.body.appendChild(overlay);
+      overlay.focus();
     }
 
     function openDiagram(pre) {
       const svg = pre.querySelector('svg');
       if (!svg) return;
-      openOverlay((inner) => {
+      openOverlay('Diagram', (inner) => {
         inner.innerHTML = svg.outerHTML;
         const clone = inner.querySelector('svg');
         if (clone) {
@@ -68,7 +79,7 @@
     }
 
     function openImage(img) {
-      openOverlay((inner) => {
+      openOverlay(img.alt || 'Image', (inner) => {
         const full = document.createElement('img');
         full.src = img.currentSrc || img.src;
         full.alt = img.alt || '';

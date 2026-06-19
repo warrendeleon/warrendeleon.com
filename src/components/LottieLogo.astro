@@ -43,11 +43,14 @@
     }
 
     const theme = getTheme();
+    // Respect prefers-reduced-motion: render the logo as a static frame rather
+    // than a looping animation for users who ask for less motion.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     currentAnimation = lottie.loadAnimation({
       container,
       renderer: 'svg',
-      loop: true,
-      autoplay: true,
+      loop: !reduceMotion,
+      autoplay: !reduceMotion,
       path: getAnimationPath(theme),
     });
   }
