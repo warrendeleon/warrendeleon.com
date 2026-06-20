@@ -7,6 +7,9 @@ tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: en
 heroImage: "/images/blog/tech-test-scorecard.webp"
 heroAlt: "Designing a tech test scorecard for React Native hiring"
+heroImgPrompt: "A single tall ladder of checkboxes, the lower ones ticked and the upper ones empty, with a rising step line and level bands marking tiers"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#FBEDE4"
 campaign: "tech-test-scorecard"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---

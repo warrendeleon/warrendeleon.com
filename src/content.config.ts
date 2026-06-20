@@ -18,6 +18,13 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     heroImage: z.string().optional(),
     heroAlt: z.string().optional(),
+    // Hero generation, consumed by the blog-publisher. heroImgPrompt is the
+    // colourless concept; heroPalette is the shared foreground hex palette;
+    // heroBgColor is the per-series background hex. The publisher maps the hex
+    // to colour names when it builds the image-model prompt.
+    heroImgPrompt: z.string().optional(),
+    heroPalette: z.array(z.string()).optional(),
+    heroBgColor: z.string().optional(),
     
     
     campaign: z.string(),

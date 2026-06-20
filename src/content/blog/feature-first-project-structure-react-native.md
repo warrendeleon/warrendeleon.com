@@ -7,6 +7,9 @@ tags: ["react-native", "architecture", "project-structure", "opinion"]
 locale: en
 heroImage: "/images/blog/feature-first-rn.webp"
 heroAlt: "Feature-first project structure in React Native"
+heroImgPrompt: "Scattered pieces regrouped into self-contained sealed boxes, each with a single doorway and none reaching into another, around one shared central hub"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F4F1E9"
 campaign: "feature-first-structure"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing"]
 ---

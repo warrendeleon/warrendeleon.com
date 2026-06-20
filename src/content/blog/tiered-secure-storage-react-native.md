@@ -7,6 +7,9 @@ tags: ["react-native", "security", "storage", "mobile-security"]
 locale: en
 heroImage: "/images/blog/tiered-secure-storage.webp"
 heroAlt: "Tiered secure storage in React Native"
+heroImgPrompt: "A hardware vault with a biometric ring, a locked safe and an open shallow tray stacked as three descending tiers, with a sorting arrow routing items to each"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F4F1E9"
 campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---

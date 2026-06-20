@@ -7,6 +7,9 @@ tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: en
 heroImage: "/images/blog/detox-cucumber-rn.webp"
 heroAlt: "Detox and Cucumber BDD for React Native E2E testing"
+heroImgPrompt: "A plain-language script panel sitting above two phone frames it drives, with a tap pointer, split parallel arrows and a checkmark"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F4F1E9"
 campaign: "detox-cucumber-bdd"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "metro-runtime-mocking-react-native-e2e", "accessibility-testing-react-native"]
 ---

@@ -7,6 +7,9 @@ tags: ["engineering-management", "hiring", "react", "internal-tools"]
 locale: en
 heroImage: "/images/blog/interview-kit.webp"
 heroAlt: "Interview Kit running on a laptop during a technical interview"
+heroImgPrompt: "An iceberg with submerged gears and three stacked layers below the waterline feeding a single printed page above it, an output arrow rising to the page"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#FBEDE4"
 campaign: "interview-kit"
 relatedPosts: ["how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---

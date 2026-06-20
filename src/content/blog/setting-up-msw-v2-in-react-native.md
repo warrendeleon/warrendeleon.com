@@ -7,6 +7,9 @@ tags: ["react-native", "testing", "mocking", "jest"]
 locale: en
 heroImage: "/images/blog/msw-react-native.webp"
 heroAlt: "Setting up MSW v2 in React Native for testing"
+heroImgPrompt: "A mesh sieve at a network edge catching outbound request arrows and returning a stack of swappable response cards, with branching success and failure paths"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F4F1E9"
 campaign: "msw-v2-react-native"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]
 ---

@@ -7,6 +7,9 @@ tags: ["engineering-management", "hiring", "tech-interviews", "developer-experie
 locale: en
 heroImage: "/images/blog/take-home-tech-test-design.webp"
 heroAlt: "Designing a take-home tech test for software engineers"
+heroImgPrompt: "A tangled cable knot resolving into a single toggle switch that opens a clean runway, a gift-wrapped starter box and a ticking clock nearby"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#FBEDE4"
 campaign: "take-home-tech-test"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior"]
 ---
