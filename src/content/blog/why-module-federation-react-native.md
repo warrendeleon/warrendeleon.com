@@ -9,7 +9,7 @@ heroImage: "/images/blog/module-federation-react-native.webp"
 heroAlt: "Module Federation in React Native"
 heroImgPrompt: "A balance scale weighing a single freed module against a tangle of operational weights, a broken chain link and a small cloud nearby"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
-heroBgColor: "#EAEFF7"
+heroBgColor: "#DBE3F7"
 campaign: "module-federation-why"
 relatedPosts: ["feature-first-project-structure-react-native"]
 ---

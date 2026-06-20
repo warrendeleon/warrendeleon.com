@@ -9,7 +9,7 @@ heroImage: "/images/blog/redesigning-react-native-tech-test.webp"
 heroAlt: "Redesigning a tech test for React Native hiring"
 heroImgPrompt: "A magnifying glass and stopwatch set aside in favour of a small layered structure built at a desk with a speech bubble beside it, swap arrows between the two"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
-heroBgColor: "#FBEDE4"
+heroBgColor: "#F8DBC0"
 campaign: "rn-tech-test-redesign"
 relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---

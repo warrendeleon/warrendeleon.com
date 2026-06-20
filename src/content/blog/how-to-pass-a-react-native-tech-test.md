@@ -9,7 +9,7 @@ heroImage: "/images/blog/react-native-tech-test-tips.webp"
 heroAlt: "How to pass a React Native tech test"
 heroImgPrompt: "A forking path with a checkmark tag on the chosen branch and a spotlight circle waiting at its end, one standout figure ahead of a small crowd"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
-heroBgColor: "#FBEDE4"
+heroBgColor: "#F8DBC0"
 campaign: "pass-rn-tech-test"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---

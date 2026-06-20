@@ -10,7 +10,7 @@ heroImage: "/images/blog/shared-singleton-contract-react-native.webp"
 heroAlt: "A host and a remote React Native app sharing one copy of a library through a single share scope"
 heroImgPrompt: "Two modules merging into one shared core inside a single ring, set against two mirrored duplicates colliding in a spark burst"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
-heroBgColor: "#EAEFF7"
+heroBgColor: "#DBE3F7"
 campaign: "module-federation-shared-singleton"
 companionTag: "post-03-shared-singleton"
 relatedPosts: ["your-first-federated-remote-react-native", "why-module-federation-react-native"]

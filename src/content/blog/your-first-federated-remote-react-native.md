@@ -10,7 +10,7 @@ heroImage: "/images/blog/your-first-federated-remote-react-native.webp"
 heroAlt: "A host React Native app loading a screen from a separate remote app at runtime"
 heroImgPrompt: "A host shell with an empty slot receiving a feature tile sent across a gap from a second shell, a connecting arrow and a signal pulse between them"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
-heroBgColor: "#EAEFF7"
+heroBgColor: "#DBE3F7"
 campaign: "module-federation-first-remote"
 relatedPosts: ["why-module-federation-react-native", "feature-first-project-structure-react-native"]
 ---
