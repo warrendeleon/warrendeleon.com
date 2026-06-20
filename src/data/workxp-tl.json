@@ -8,15 +8,15 @@
         "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
         "title": "Engineering Manager — Mobile Platform",
         "startDate": "2026-03",
-        "endDate": "",
-        "description": "Pinamumunuan ko ang Mobile Platform squad sa loob ng UCX-Core tribe, bahagi ng Digital Product Engineering division ng Hargreaves Lansdown. Ang aking team ay gumagawa ng bagong React Native mobile app ng HL mula sa simula, pinapalitan ang mga kasalukuyang native iOS at Android apps. Kami ang may-ari ng platform architecture na ginagamit ng lahat ng mobile team sa HL.\n\nIto ay isang brownfield project: ang mga kasalukuyang apps, na gawa sa Swift (iOS) at Kotlin (Android) na may REST APIs, ay unti-unting inililipat sa React Native na may GraphQL. Ang team ay gumagawa ng native bridge modules para i-integrate ang React Native screens sa mga kasalukuyang native shells. Ang HL ay namamahala ng mahigit £150 bilyon sa mga investment ng mga kliyente, kaya ang mobile app ay isa sa pinakamahalagang touchpoints para sa mahigit isang milyong aktibong users. Ang tungkulin ay 50% technical delivery at 50% people at talent management, nakikipagtulungan sa isang Product Manager para isulong ang roadmap ng squad.",
+        "endDate": "2026-06",
+        "description": "Pinamunuan ko ang Mobile Platform team sa loob ng engineering organisation ng Hargreaves Lansdown, na may-ari ng pundasyong React Native platform na pinagtatayuan ng mga product team: ang shared architecture, mga component, CI/CD pipelines, at developer-experience tooling, kasama ang mga engineering standard sa likod nito.\n\nHati nang pantay ang tungkulin sa pagitan ng hands-on na teknikal na direksyon at pamumuno sa tao. Binuo at pinalaki ko ang team sa pamamagitan ng hiring at onboarding, itinakda ang mobile architecture at testing strategy, at ipinakilala ang mga \"Agile\" practice at dokumentasyon na ginamit ng team, na malapit na nakikipagtulungan sa Product at sa mga katuwang na platform team.",
         "responsibilities": [
-          "Pagmamay-ari ng Platform: Nagdidisenyo at gumagawa ng pundasyon ng mobile platform, kabilang ang module federation, design system components, CI/CD pipelines, at developer experience tooling na gagamitin ng ibang squads.",
-          "Pamumuno sa Tao: Namamahala ng maliit at mataas ang performance na squad ng mga senyòr at mid-level na engineers. Nakatuon sa coaching, career progression, at paglikha ng magandang kapaligiran para sa mga engineers.",
-          "Teknikal na Direksyon: Tinutukoy ang mobile architecture strategy, gumagawa ng mahahalagang teknikal na desisyon sa state management, navigation, testing infrastructure, at GraphQL integration sa mga backend services ng HL.",
-          "Pagkuha at Pagbuo ng Team: Sumusulat ng job descriptions, pinamumunuan ang hiring process, at ino-onboard ang mga bagong engineers sa squad habang lumalaki ang engineering hub ng HL sa London.",
-          "Delivery at Kalidad: Sinusubaybayan ang delivery pace, pinamamahalaan ang technical debt, at pinapanatili ang mataas na engineering standards sa buong mobile platform. Gumagawa ng testing infrastructure kabilang ang E2E tests, mock APIs, at shared test utilities.",
-          "Cross-functional na Pakikipagtulungan: Nakikipagtulungan sa Product, Design, at iba pang tribe squads (Web Platform, Portfolio & Accounts) para i-align ang shared platform capabilities at ang mas malawak na digital transformation roadmap."
+          "Pananagutan sa Platform: Dinisenyo at binuo ko ang pundasyon ng mobile platform, kabilang ang mga shared component, CI/CD pipelines, at developer-experience tooling na pinagtatayuan ng mga product team.",
+          "Pamumuno: Namahala ako ng maliit at mataas ang performance na team ng mga senior at mid-level na engineer, nakatuon sa coaching, career progression, at paglikha ng kapaligiran kung saan magagawa ng mga engineer ang kanilang pinakamahusay na trabaho.",
+          "Teknikal na Direksyon: Itinakda ko ang mobile architecture at testing strategy, at gumawa ng mahahalagang desisyon sa state management, navigation, at testing infrastructure.",
+          "Pagkuha at Pagbuo ng Team: Sumulat ako ng mga job description, pinamunuan ang hiring process, at nag-onboard ng mga bagong engineer sa panahon ng paglago ng team.",
+          "Delivery at Kalidad: Sinubaybayan ko ang delivery, pinamahalaan ang technical debt, at pinanatili ang mataas na engineering standards, at gumawa ng testing infrastructure kabilang ang E2E tests, mock APIs, at shared test utilities.",
+          "Cross-functional na Pakikipagtulungan: Nakipagtulungan ako sa Product, Design, at mga katuwang na platform team para i-align ang shared capabilities at ang engineering roadmap."
         ],
         "technologies": {
           "languages": ["TypeScript", "Swift", "Kotlin"],
@@ -41,11 +41,11 @@
         "endDate": "2025-12",
         "description": "Pinamunuan ko ang dalawang engineering squads sa loob ng SAFe-based Join, Onboard, Engage (JOE ART) Agile Release Train, na bahagi ng Cross-Product Sales Experience Portfolio ng Sky. Ang mga responsibilidad ko ay sumasaklaw sa delivery ownership, technical oversight, people management, at cross-functional collaboration.",
         "responsibilities": [
-          "People Leadership: Namamahala ako ng 10+ engineers (permanent, contract, at early-career), na may focus sa coaching, performance, at progression sa pamamagitan ng regular na 1:1s, feedback, at mentoring.",
-          "Agile Delivery sa SAFe: Nag-ooperate ako sa loob ng SAFe framework, pinamumunuan ang paghahanda ng PI planning, nakikilahok sa ART Syncs, nakikipagtulungan sa Product Management, at tinitiyak ang predictability at alignment sa release train.",
-          "Technical Direction: Ginagabayan ko ang mga architectural decisions at platform evolution para sa parehong mobile (React Native) at web stacks, na may hands-on experience sa CI/CD pipelines, automated testing, at system scalability.",
-          "Stakeholder Engagement: Nakikipagtulungan ako sa Product Owners, Scrum Masters, at Delivery Leads upang makamit ang clarity sa scope, delivery cadence, at roadmap alignment. Komportable akong mag-translate ng technical topics para sa non-technical audiences.",
-          "Organisational Influence: Pinamumunuan ko ang squad transitions (hal. SAFe adoption, contractor off-boarding), onboarding ng bagong hires, at nag-aambag sa cross-team initiatives tulad ng engineering standards, hiring processes, at OKRs.",
+          "People Leadership: Namahala ako ng 10+ engineers (permanent, contract, at early-career), na may focus sa coaching, performance, at progression sa pamamagitan ng regular na 1:1s, feedback, at mentoring.",
+          "Agile Delivery sa SAFe: Nag-operate ako sa loob ng SAFe framework, pinamunuan ang paghahanda ng PI planning, nakilahok sa ART Syncs, nakipagtulungan sa Product Management, at tiniyak ang predictability at alignment sa release train.",
+          "Technical Direction: Ginabayan ko ang mga architectural decisions at platform evolution para sa parehong mobile (React Native) at web stacks, na may hands-on experience sa CI/CD pipelines, automated testing, at system scalability.",
+          "Stakeholder Engagement: Nakipagtulungan ako sa Product Owners, Scrum Masters, at Delivery Leads upang makamit ang clarity sa scope, delivery cadence, at roadmap alignment. Komportable akong mag-translate ng technical topics para sa non-technical audiences.",
+          "Organisational Influence: Pinamunuan ko ang squad transitions (hal. SAFe adoption, contractor off-boarding), onboarding ng bagong hires, at nag-ambag sa cross-team initiatives tulad ng engineering standards, hiring processes, at OKRs.",
           "Career Development: Matagumpay kong na-transition ang maraming Associate Engineers patungo sa productive at confident team members, sinusuportahan sila mula sa early-career onboarding hanggang sa independent contribution."
         ],
         "technologies": null
@@ -87,7 +87,7 @@
         "title": "Lead React Native Developer",
         "startDate": "2022-09",
         "endDate": "2022-11",
-        "description": "Pinamunuan ko ang team na gumagawa ng Chelsea 5th Stand app. Ang mga araw-araw kong gawain ay kasama ang pag-mentor sa mga junior developers, pakikipag-usap sa client para maintindihan ang kanilang requirements, at pagsusulat/pag-edit ng user stories at technical tasks. Nag-review, nag-plano at gumawa rin ako ng mga POC at sinuri ang viability ng mga bagong features.",
+        "description": "Pinamunuan ko ang team na gumawa ng Chelsea 5th Stand app. Ang mga araw-araw kong gawain ay kasama ang pag-mentor sa mga junior developers, pakikipag-usap sa client para maintindihan ang kanilang requirements, at pagsusulat/pag-edit ng user stories at technical tasks. Nag-review, nag-plano at gumawa rin ako ng mga POC at sinuri ang viability ng mga bagong features.",
         "responsibilities": null,
         "technologies": {
           "programmingLanguages": ["Typescript"],
@@ -151,7 +151,7 @@
         "title": "Lead React Native Developer",
         "startDate": "2021-09",
         "endDate": "2022-04",
-        "description": "Nagtrabaho ako bilang Lead React Native Developer sa xDesign, nagde-deliver ng mga proyekto para sa iba't ibang clients kabilang ang FanDuel at Zonal.",
+        "description": "Nagtrabaho ako bilang Lead React Native Developer sa xDesign, naghatid ng mga proyekto para sa iba't ibang clients kabilang ang FanDuel at Zonal.",
         "responsibilities": null,
         "technologies": null
       },
@@ -160,7 +160,7 @@
         "title": "Lead React Native Developer",
         "startDate": "2022-01",
         "endDate": "2022-04",
-        "description": "Naging lead software engineer ako para sa FanDuel, isang betting company. Pinamunuan ko ang multifunctional team na gumagawa ng NodeJS, ReactJS, at React Native.",
+        "description": "Naging lead engineer ako para sa FanDuel project. Pinamunuan ko ang multifunctional team na gumawa ng NodeJS, ReactJS, at React Native.",
         "responsibilities": null,
         "technologies": {
           "programmingLanguages": ["Typescript"],
@@ -291,7 +291,7 @@
         "title": "Software Engineer",
         "startDate": "2018-11",
         "endDate": "2019-11",
-        "description": "Ang tungkulin ko sa team ay gumawa ng app para mahanap ang mga charge points para sa electric cars. Bilang parte ng araw-araw kong gawain, nag-setup ako ng base project na ginagamit ng team at gumawa ng initial unit tests at integration tests para sa app gamit ang Detox. Bilang parte ng BDD at TDD, ginagawa muna namin ang unit tests at integration tests bago gumawa ng kahit anong component o screen.\n\nBukod dito, ginawa ko rin ang component library na ginagamit namin para ipakita ang aming components sa business, design at QA teams. Gumawa rin ako ng ability na mag-change dynamically sa pagitan ng Shell o NewMotion themes (automatic na nag-aaply ng appropriate styling sa lahat ng screens at components sa app sa pamamagitan lamang ng pagpili ng theme).",
+        "description": "Ang tungkulin ko sa team ay gumawa ng app para mahanap ang mga charge points para sa electric cars. Bilang parte ng araw-araw kong gawain, nag-setup ako ng base project na ginagamit ng team at gumawa ng initial unit tests at integration tests para sa app gamit ang Detox. Bilang parte ng BDD at TDD, ginawa muna namin ang unit tests at integration tests bago gumawa ng kahit anong component o screen.\n\nBukod dito, ginawa ko rin ang component library na ginamit namin para ipakita ang aming components sa business, design at QA teams. Gumawa rin ako ng ability na mag-change dynamically sa pagitan ng Shell o NewMotion themes (automatic na nag-aaply ng appropriate styling sa lahat ng screens at components sa app sa pamamagitan lamang ng pagpili ng theme).",
         "responsibilities": null,
         "technologies": {
           "programmingLanguages": ["Typescript"],
@@ -485,7 +485,7 @@
         "title": "Full Stack Developer",
         "startDate": "2014-10",
         "endDate": "2015-04",
-        "description": "Gumawa ako ng medical system gamit ang sumusunod na technological stack:\n\n - Spring Boot Framework, Spring/Hibernate integration sa MySQL at Spring MVC Restful Web Services API.\n - Android na may Material Design UI para sa Lollipop at backwards compatibility.\n - OpenShift RedHat Cloud: Apache HTTP server + Apache Tomcat 7.\n - Complete end-to-end security system: AES, CBC, at PKCS5 encryption sa local Android DB, HTTPS client/server communication, Spring Security hashing algorithm para sa remote MySQL DB.\n - Bidirectional synchronisation sa pagitan ng local Android DB at remote MySQL DB sa pamamagitan ng REST API. Ang feature na ito ay nagbibigay-daan sa user na mag-switch sa pagitan ng iba't ibang devices.\n - Development tools: IntelliJ IDEA, Maven Build System, FindBugs, GitHub & Bitbucket SCMs, Basecamp project management platform. Agile methodology na may rigorous iterative development approach.\n\nAng mga patients, gamit ang kanilang credentials para mag-access, ay nag-introduce ng urological measurements sa Android app. Ang app ay nagpapadala ng measurements na iyon sa Spring Boot Web Service na naka-program gamit ang Rest Template API. Ang Backend ay gumagamit ng Hibernate para mag-manage ng lahat ng Java objects at nag-save ng data sa database. Si Marc Fuentes ay gumagawa ng similar app gamit ang Ionic technology para ma-cover ang operating systems maliban sa Android. Si Alberto Mendez ay gumagawa ng website gamit ang Angular JS para makuha ang data na iyon para sa mga doctors at makita nila ang charts na naka-filter ayon sa iba't ibang type ng settings.",
+        "description": "Gumawa ako ng medical system gamit ang sumusunod na technological stack:\n\n - Spring Boot Framework, Spring/Hibernate integration sa MySQL at Spring MVC Restful Web Services API.\n - Android na may Material Design UI para sa Lollipop at backwards compatibility.\n - OpenShift RedHat Cloud: Apache HTTP server + Apache Tomcat 7.\n - Complete end-to-end security system: AES, CBC, at PKCS5 encryption sa local Android DB, HTTPS client/server communication, Spring Security hashing algorithm para sa remote MySQL DB.\n - Bidirectional synchronisation sa pagitan ng local Android DB at remote MySQL DB sa pamamagitan ng REST API. Ang feature na ito ay nagbibigay-daan sa user na mag-switch sa pagitan ng iba't ibang devices.\n - Development tools: IntelliJ IDEA, Maven Build System, FindBugs, GitHub & Bitbucket SCMs, Basecamp project management platform. Agile methodology na may rigorous iterative development approach.\n\nAng mga patients, gamit ang kanilang credentials para mag-access, ay nag-introduce ng urological measurements sa Android app. Ang app ay nagpadala ng measurements na iyon sa Spring Boot Web Service na naka-program gamit ang Rest Template API. Ang Backend ay gumamit ng Hibernate para mag-manage ng lahat ng Java objects at nag-save ng data sa database. Si Marc Fuentes ay gumawa ng similar app gamit ang Ionic technology para ma-cover ang operating systems maliban sa Android. Si Alberto Mendez ay gumawa ng website gamit ang Angular JS para makuha ang data na iyon para sa mga doctors at makita nila ang charts na naka-filter ayon sa iba't ibang type ng settings.",
         "responsibilities": null,
         "technologies": null
       }

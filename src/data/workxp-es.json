@@ -8,15 +8,15 @@
         "id": "d9b2e3f4-a5c6-7890-bcde-1234567890cd",
         "title": "Engineering Manager — Mobile Platform",
         "startDate": "2026-03",
-        "endDate": "",
-        "description": "Lidero el squad de Mobile Platform dentro de la tribu UCX-Core, parte de la división de Digital Product Engineering de Hargreaves Lansdown. Mi equipo está construyendo la nueva app móvil de HL en React Native desde cero, reemplazando las apps nativas existentes de iOS y Android. Somos los responsables de la arquitectura de la plataforma que todos los equipos móviles de HL utilizan.\n\nEs un proyecto brownfield: las apps existentes, construidas en Swift (iOS) y Kotlin (Android) con APIs REST, se están migrando progresivamente a React Native con GraphQL. El equipo construye módulos de puente nativos para integrar pantallas de React Native en las shells nativas existentes. HL gestiona más de 150.000 millones de libras en inversiones de clientes, haciendo que la app móvil sea uno de los puntos de contacto más críticos para más de un millón de usuarios activos. El rol es 50% entrega técnica y 50% gestión de personas y talento, colaborando con un Product Manager para impulsar la hoja de ruta del squad.",
+        "endDate": "2026-06",
+        "description": "Lideré el equipo de Mobile Platform dentro de la organización de ingeniería de Hargreaves Lansdown, siendo responsable de la plataforma React Native sobre la que construyen los equipos de producto: la arquitectura compartida, los componentes, los pipelines de CI/CD y las herramientas de experiencia de desarrollo, junto con los estándares de ingeniería que la sustentan.\n\nEl rol se repartía a partes iguales entre dirección técnica práctica y liderazgo de personas. Construí e hice crecer el equipo mediante contratación e incorporación, definí la arquitectura móvil y la estrategia de testing, e introduje las prácticas \"Agile\" y la documentación con las que funcionaba el equipo, colaborando estrechamente con Producto y con equipos de plataforma homólogos.",
         "responsibilities": [
-          "Propiedad de la Plataforma: Diseñando y construyendo la plataforma móvil fundacional, incluyendo federación de módulos, componentes del sistema de diseño, pipelines de CI/CD y herramientas de experiencia de desarrollo que otros squads adoptarán.",
-          "Liderazgo de Personas: Gestionando un squad pequeño y de alto rendimiento de ingenieros sénior y de nivel medio. Enfocado en coaching, progresión profesional y crear un entorno donde los ingenieros puedan hacer su mejor trabajo.",
-          "Dirección Técnica: Definiendo la estrategia de arquitectura móvil, tomando decisiones técnicas clave sobre gestión de estado, navegación, infraestructura de testing e integración con GraphQL de los servicios backend de HL.",
-          "Contratación y Formación de Equipo: Escribiendo descripciones de puestos, liderando el proceso de contratación e incorporando nuevos ingenieros al squad durante una fase crítica de crecimiento del hub de ingeniería de HL en Londres.",
-          "Entrega y Calidad: Siguiendo el ritmo de entrega, gestionando la deuda técnica y manteniendo altos estándares de ingeniería en toda la plataforma móvil. Construyendo la infraestructura de testing incluyendo tests E2E, APIs mock y utilidades de test compartidas.",
-          "Colaboración Multifuncional: Colaborando con Producto, Diseño y otros squads de la tribu (Web Platform, Portfolio & Accounts) para alinear capacidades compartidas de la plataforma y la hoja de ruta de transformación digital."
+          "Responsabilidad de la Plataforma: Diseñé y construí la plataforma móvil, incluyendo componentes compartidos, pipelines de CI/CD y herramientas de experiencia de desarrollo sobre las que construyen los equipos de producto.",
+          "Liderazgo: Gestioné un equipo pequeño y de alto rendimiento de ingenieros sénior y de nivel medio, enfocado en coaching, progresión profesional y crear un entorno donde los ingenieros pudieran hacer su mejor trabajo.",
+          "Dirección Técnica: Definí la arquitectura móvil y la estrategia de testing, tomando decisiones clave sobre gestión de estado, navegación e infraestructura de testing.",
+          "Contratación y Formación de Equipo: Escribí descripciones de puestos, lideré el proceso de contratación e incorporé nuevos ingenieros durante una fase de crecimiento del equipo.",
+          "Entrega y Calidad: Seguí el ritmo de entrega, gestioné la deuda técnica y mantuve altos estándares de ingeniería, construyendo la infraestructura de testing incluyendo tests E2E, APIs mock y utilidades de test compartidas.",
+          "Colaboración Multifuncional: Colaboré con Producto, Diseño y equipos de plataforma homólogos para alinear capacidades compartidas y la hoja de ruta de ingeniería."
         ],
         "technologies": {
           "languages": ["TypeScript", "Swift", "Kotlin"],
@@ -41,12 +41,12 @@
         "endDate": "2025-12",
         "description": "Lideré dos squads de ingeniería dentro del Agile Release Train Join, Onboard, Engage (JOE ART) basado en SAFe, parte del Portfolio Cross-Product Sales Experience de Sky. Mis responsabilidades abarcaban propiedad de entrega, supervisión técnica, gestión de personas y colaboración interfuncional.",
         "responsibilities": [
-          "Liderazgo de Personas: Gestiono 10+ ingenieros (permanentes, contratistas y principiantes), con foco en coaching, rendimiento y progresión a través de 1:1s regulares, feedback y mentoría.",
-          "Entrega Ágil en SAFe: Opero dentro del framework SAFe, liderando la preparación del PI planning, participando en ART Syncs, colaborando con Product Management, y asegurando previsibilidad y alineación en el release train.",
-          "Dirección Técnica: Guío decisiones arquitectónicas y evolución de plataforma tanto para stacks móvil (React Native) como web, con experiencia práctica en pipelines CI/CD, testing automatizado y escalabilidad de sistemas.",
-          "Engagement de Stakeholders: Colaboro con Product Owners, Scrum Masters y Delivery Leads para impulsar claridad en alcance, cadencia de entrega y alineación de roadmap. Cómodo traduciendo temas técnicos para audiencias no técnicas.",
-          "Influencia Organizacional: Lidero transiciones de squad (ej. adopción SAFe, offboarding de contractors), onboarding de nuevas incorporaciones, y contribuyo a iniciativas cross-team como estándares de ingeniería, procesos de contratación y OKRs.",
-          "Desarrollo de Carrera: He transicionado exitosamente múltiples Associate Engineers a miembros del equipo productivos y seguros, apoyándoles desde el onboarding de early-career hasta la contribución independiente."
+          "Liderazgo de Personas: Gestioné 10+ ingenieros (permanentes, contratistas y principiantes), con foco en coaching, rendimiento y progresión a través de 1:1s regulares, feedback y mentoría.",
+          "Entrega Ágil en SAFe: Operé dentro del framework SAFe, liderando la preparación del PI planning, participando en ART Syncs, colaborando con Product Management, y asegurando previsibilidad y alineación en el release train.",
+          "Dirección Técnica: Guié decisiones arquitectónicas y evolución de plataforma tanto para stacks móvil (React Native) como web, con experiencia práctica en pipelines CI/CD, testing automatizado y escalabilidad de sistemas.",
+          "Engagement de Stakeholders: Colaboré con Product Owners, Scrum Masters y Delivery Leads para impulsar claridad en alcance, cadencia de entrega y alineación de roadmap. Cómodo traduciendo temas técnicos para audiencias no técnicas.",
+          "Influencia Organizacional: Lideré transiciones de squad (ej. adopción SAFe, offboarding de contractors), onboarding de nuevas incorporaciones, y contribuí a iniciativas cross-team como estándares de ingeniería, procesos de contratación y OKRs.",
+          "Desarrollo de Carrera: Transicioné exitosamente múltiples Associate Engineers a miembros del equipo productivos y seguros, apoyándoles desde el onboarding de early-career hasta la contribución independiente."
         ],
         "technologies": null
       },
@@ -160,7 +160,7 @@
         "title": "Lead React Native Developer",
         "startDate": "2022-01",
         "endDate": "2022-04",
-        "description": "Fui ingeniero de software líder para FanDuel, una empresa de apuestas. Lideraba un equipo multifuncional que trabajaba con NodeJS, ReactJS y React Native.",
+        "description": "Fui el ingeniero líder del proyecto FanDuel, liderando un equipo multifuncional que trabajaba con NodeJS, ReactJS y React Native.",
         "responsibilities": null,
         "technologies": {
           "languages": ["TypeScript"],
