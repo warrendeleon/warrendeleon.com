@@ -64,7 +64,7 @@ This is the part the enthusiastic posts skip, so it's the part worth slowing dow
 
 **Integrity.** Once your app downloads and runs code from a URL, that URL is an attack surface. You have to sign what you ship and have the device verify it before executing, or a compromised host can hand your users whatever it likes. Then you have to protect the *choice* of version too, so a replayed or rolled-back manifest can't quietly serve an old, vulnerable build. Security that a single signed binary gave you for free, you now build yourself.
 
-**Platform rules.** [Apple's guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements) allows an app to download and run interpreted code like JavaScript, which is what makes OTA legal at all, but only as long as it doesn't change the app's primary purpose, and the binary you submit still has to work on its own. No shipping major unreviewed features over the air. Federation lives inside those lines, it doesn't erase them.
+**Platform rules.** What makes OTA legal at all is Apple's Developer Program License Agreement (section 3.3.2): an app may run downloaded interpreted code like JavaScript, as long as it doesn't change the app's primary purpose. Review [guideline 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements) is the matching constraint, the binary you submit still has to work on its own and can't pull down code that introduces or changes features. No shipping major unreviewed features over the air. Federation lives inside those lines, it doesn't erase them.
 
 **Operational surface.** A CDN to run, caches to invalidate, rollbacks to script, failures to monitor. When a remote won't load, the app has to degrade to something safe instead of showing a blank screen. That safety net is real engineering, and it's on you.
 
@@ -96,7 +96,7 @@ By the end you'll have a working version of everything this post just warned you
 
 ## Sources
 
-- [Re.Pack](https://re-pack.dev/) — the React Native bundler that wraps Rspack and ships Module Federation support
-- [Module Federation 2.0](https://module-federation.io/) — the runtime architecture
-- [Rspack](https://rspack.dev/) — the Rust-based bundler under Re.Pack
-- [App Store Review Guidelines, 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements) — Apple's rule on downloaded interpreted code
+- [Re.Pack](https://re-pack.dev/): the React Native bundler that wraps Rspack and ships Module Federation support
+- [Module Federation 2.0](https://module-federation.io/): the runtime architecture
+- [Rspack](https://rspack.dev/): the Rust-based bundler under Re.Pack
+- [App Store Review Guidelines, 2.5.2](https://developer.apple.com/app-store/review/guidelines/#software-requirements): Apple's rule on downloaded interpreted code

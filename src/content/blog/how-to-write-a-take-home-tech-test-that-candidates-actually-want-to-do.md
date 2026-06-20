@@ -21,7 +21,7 @@ The best candidates, the ones you actually want to hire, are the most likely to 
 
 The classic version of the take-home does have a logic to it. A prescriptive brief with a fixed stack gives you comparable submissions across candidates, and the rough edges in setup do filter for grit. If you're hiring high volumes for one narrow role, that signal is useful. For a small team hiring across levels, where two senior engineers will probably reach for different state libraries on day one, you're filtering on the wrong thing.
 
-Our first candidate on the old test made the point for me. Two hours fighting Ruby versions before any application code was written. System Ruby too old. Upgrade to Ruby 4, bundler breaks. Downgrade to 3.3, vendored bundler incompatible. Back-and-forth messages all the way through. Zero lines of code at the end of it.
+Our first take-home candidate made the point for me. Two hours fighting Ruby versions before any application code was written. System Ruby too old, the version manager and the vendored bundler at odds at every step. Back-and-forth messages all the way through. Zero lines of code at the end of it.
 
 The questions were fine. The developer experience was the problem.
 

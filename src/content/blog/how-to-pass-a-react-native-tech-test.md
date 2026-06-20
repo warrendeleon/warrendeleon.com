@@ -131,7 +131,7 @@ Red flag: the app crashes on a slow network. No loading state, no error handling
 
 ## The API call matters
 
-**GraphQL vs REST.** If the brief offers both, GraphQL is the stronger choice. It shows you can work with current API patterns. A well-implemented REST client beats a messy GraphQL setup.
+**GraphQL vs REST.** If the brief offers both, the choice matters less than the execution. A well-implemented REST client beats a messy GraphQL setup. Pick the one you can do cleanly, and be ready to explain why.
 
 **Use FlatList or FlashList. Never ScrollView for lists.** `ScrollView` renders every item at once. With 100+ items, you'll see frame drops, memory spikes, and eventual crashes. `FlatList` virtualises the list, only rendering what's on screen. A `ScrollView` wrapping a `.map()` over a data list suggests a gap in understanding RN's rendering model.
 

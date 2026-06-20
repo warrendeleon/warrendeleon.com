@@ -15,7 +15,7 @@ relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase
 
 Most React Native apps put everything in AsyncStorage. Tokens, user data, preferences, session state. All in one place, all in plain text.
 
-AsyncStorage is a key-value store backed by SQLite on iOS and SharedPreferences on Android. It's fast and convenient. It's also unencrypted. Anyone with physical access, or a rooted/jailbroken device, can read every value.
+AsyncStorage is a key-value store, backed by SQLite on Android and on-disk files on iOS. It's fast and convenient. It's also unencrypted. Anyone with physical access, or a rooted/jailbroken device, can read every value.
 
 For a theme preference, that's fine. For an access token, it's an incident.
 
@@ -368,25 +368,36 @@ The Axios interceptor handles token refresh in the background. It reads from and
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response?.status === 401) {
-      const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-      const { data } = await axios.post('/auth/v1/token', {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-      });
+    // Only retry once per request, or a refresh that keeps 401ing loops forever.
+    if (error.response?.status === 401 && !error.config._retry) {
+      error.config._retry = true;
+      try {
+        const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+        const { data } = await axios.post('/auth/v1/token', {
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+        });
 
-      // Update tokens in SecureStore
-      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
-      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
+        // Update tokens in SecureStore
+        await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
+        await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
 
-      // Retry the original request
-      error.config.headers.Authorization = `Bearer ${data.access_token}`;
-      return axiosInstance(error.config);
+        // Retry the original request
+        error.config.headers.Authorization = `Bearer ${data.access_token}`;
+        return axiosInstance(error.config);
+      } catch (refreshError) {
+        // No refresh token, or it has expired: the session is over. Clear the
+        // secure tier so the app falls back to the login flow.
+        await SecureStore.clear();
+        return Promise.reject(refreshError);
+      }
     }
     return Promise.reject(error);
   }
 );
 ```
+
+The `_retry` flag stops a failed refresh from looping forever, and a failed refresh clears the secure tier so the app falls back to the login flow. One case it doesn't cover: several requests hitting a 401 at once each fire their own refresh. Collapsing those into a single in-flight refresh is a separate problem.
 
 ## The data classification
 

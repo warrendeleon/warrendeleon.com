@@ -63,7 +63,7 @@ This walkthrough is written against:
 - Android Studio with at least one AVD created (e.g. Pixel 7 API 35)
 - Node 18 or later
 
-The versions in my own project are Detox `^20.45`, `@cucumber/cucumber ^12.2`, React Native `0.82.1`, `ts-node ^10.9`. The pieces of this post that are most likely to drift over time are the Detox init signature and the Cucumber config keys. Both are noted inline.
+I built this on Detox 20, `@cucumber/cucumber` 12, `ts-node`, and a recent React Native. The pieces most likely to drift are the Detox init signature and the Cucumber config keys, so I've noted both inline.
 
 If you're on Expo, Detox needs a custom dev client. The Cucumber layer is the same regardless.
 
@@ -329,7 +329,7 @@ Feature: User Authentication
 
   Scenario: Successful login
     Given the app is launched
-    And I navigate to the Login screen
+    And I am on the "Login" screen
     When I type "testuser@example.com" into the input with testID "email-input"
     And I type "SecurePass123" into the input with testID "password-input"
     And I tap the "Login" button
@@ -337,7 +337,7 @@ Feature: User Authentication
 
   Scenario: Login with invalid credentials
     Given the app is launched
-    And I navigate to the Login screen
+    And I am on the "Login" screen
     When I type "testuser@example.com" into the input with testID "email-input"
     And I type "WrongPassword" into the input with testID "password-input"
     And I tap the "Login" button
@@ -452,7 +452,7 @@ Cucumber's default output is noisy. A custom formatter gives you clean results t
 ✓ Feature: User Authentication
   ✓ Scenario: Successful login (2340ms)
     ✓ Given the app is launched (890ms)
-    ✓ And I navigate to the Login screen (450ms)
+    ✓ And I am on the "Login" screen (450ms)
     ✓ When I type "testuser@example.com" into the input with testID "email-input" (120ms)
     ✓ And I type "SecurePass123" into the input with testID "password-input" (95ms)
     ✓ And I tap the "Login" button (85ms)
@@ -460,7 +460,7 @@ Cucumber's default output is noisy. A custom formatter gives you clean results t
 
   ✗ Scenario: Login with expired token (1890ms)
     ✓ Given the app is launched (850ms)
-    ✓ And I navigate to the Login screen (420ms)
+    ✓ And I am on the "Login" screen (420ms)
     ✗ Then I should see the "Session Expired" screen (620ms)
       Error: Element not found: session-expired-screen
 

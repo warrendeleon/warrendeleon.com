@@ -270,26 +270,21 @@ export default [
         patterns: [
           {
             group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
-            message: 'Import features only via their public index. Internals are private.',
+            message: 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
           },
         ],
       }],
     },
   },
   {
-    // Allow features to import from their own internals
-    files: ['src/features/*/**'],
-    rules: { 'no-restricted-imports': 'off' },
-  },
-  {
-    // Cross-feature integration tests are the only place cross-imports are allowed
-    files: ['src/features/__tests__/**'],
+    // Tests can reach into a feature's internals to set up state.
+    files: ['**/__tests__/**'],
     rules: { 'no-restricted-imports': 'off' },
   },
 ];
 ```
 
-The pattern blocks any import from inside another feature. The first override lets a feature import from its own internals. Cross-feature tests sit outside any single feature, so they get an explicit exemption.
+The pattern blocks any import that reaches into another feature's internals. Within a feature you use relative imports (`./store`, `../components`), which never match the alias pattern, so a feature can always reach its own code. The one exemption is tests, which often need to reach inside a feature to set up state.
 
 That's it. Path aliases, one ESLint rule, and the discipline to keep each feature's internals private. The architecture survives because the tooling enforces what the convention asks for.
 

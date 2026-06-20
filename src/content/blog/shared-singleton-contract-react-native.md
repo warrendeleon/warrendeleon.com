@@ -220,6 +220,6 @@ Next in the series: the host stops being a single screen and becomes a real shel
 
 ## Sources
 
-- [react-native-safe-area-context](https://github.com/AppAndFlow/react-native-safe-area-context) — the maintained safe-area library, and the `RNCSafeAreaProvider` native view in the crash
-- [Module Federation 2.0](https://module-federation.io/) — the `shared` contract: `singleton`, `eager`, and `requiredVersion`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation) — the companion repo, at the tag `post-03-shared-singleton`
+- [react-native-safe-area-context](https://github.com/AppAndFlow/react-native-safe-area-context): the maintained safe-area library, and the `RNCSafeAreaProvider` native view in the crash
+- [Module Federation 2.0](https://module-federation.io/): the `shared` contract: `singleton`, `eager`, and `requiredVersion`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): the companion repo, at the tag `post-03-shared-singleton`

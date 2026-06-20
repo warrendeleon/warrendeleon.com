@@ -367,6 +367,6 @@ Next: the shared-singleton contract, and the mistake that crashes the app on lau
 
 ## Sources
 
-- [Re.Pack](https://re-pack.dev/) — the React Native bundler that wraps Rspack and provides ScriptManager and Module Federation support
-- [Module Federation 2.0](https://module-federation.io/) — the runtime architecture behind `name@url` remotes and `exposes`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation) — the companion repo, at the tag `post-02-first-remote`
+- [Re.Pack](https://re-pack.dev/): the React Native bundler that wraps Rspack and provides ScriptManager and Module Federation support
+- [Module Federation 2.0](https://module-federation.io/): the runtime architecture behind `name@url` remotes and `exposes`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): the companion repo, at the tag `post-02-first-remote`
