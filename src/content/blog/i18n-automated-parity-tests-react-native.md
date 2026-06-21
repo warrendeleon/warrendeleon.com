@@ -6,6 +6,9 @@ series: "Testing and Infrastructure"
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: en
 heroImage: "/images/blog/i18n-parity-tests.webp"
+heroImgPrompt: "Several plain tiles aligned in matching rows against a taller reference column, one slot in the grid left empty, a small globe and a magnifying lens"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#D3E7EE"
 heroAlt: "i18n with automated parity tests in React Native"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]

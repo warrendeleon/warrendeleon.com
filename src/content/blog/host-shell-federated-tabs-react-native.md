@@ -7,6 +7,9 @@ tags: ["react-native", "module-federation", "re-pack", "rspack", "navigation", "
 locale: en
 draft: false
 heroImage: "/images/blog/host-shell-federated-tabs-react-native.webp"
+heroImgPrompt: "A phone frame with a bottom tab bar whose slots each pull in a separately-shipped remote screen panel on first tap, a runtime-load arrow and a lazy-loading spinner"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#DBE3F7"
 heroAlt: "A React Native host app with a bottom tab bar, each tab loading a different remote at runtime"
 campaign: "module-federation-host-shell"
 companionTag: "post-04-host-shell"

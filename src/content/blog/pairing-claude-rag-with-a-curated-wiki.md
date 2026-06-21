@@ -2,6 +2,9 @@
 title: "Pairing Claude's RAG with a curated wiki"
 description: "RAG search recalls; a wiki answers. Pair them via a strict lookup order so Claude knows which to reach for. Use cases, schema, setup, and sync."
 heroImage: "/images/blog/rag-curated-wiki.webp"
+heroImgPrompt: "Two stacked flat shelves, a small tidy block on the upper shelf and a tall messy stack of plain sheets on the lower shelf, a branching arrow choosing between them"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F6DCE2"
 heroAlt: "Pairing Claude's RAG with a curated wiki"
 publishDate: 2026-09-28
 series: "Claude RAG + Tooling"

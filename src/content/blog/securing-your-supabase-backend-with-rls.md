@@ -6,6 +6,9 @@ series: "Supabase Security"
 tags: ["supabase", "security", "rls", "postgres", "owasp"]
 locale: en
 heroImage: "/images/blog/supabase-rls-security.webp"
+heroImgPrompt: "A single key reaching a wall of pigeonhole cells where each only unlocks for its owner, one cell glowing open, a shield over a function block and a throttle gauge"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#E4DCF2"
 heroAlt: "Securing Supabase with Row Level Security"
 campaign: "supabase-backend-security"
 relatedPosts: ["pii-masking-interceptors-react-native", "certificate-pinning-in-react-native", "building-a-supabase-rest-client-without-the-sdk"]

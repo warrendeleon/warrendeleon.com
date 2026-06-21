@@ -6,6 +6,9 @@ series: "React Native Foundations"
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: en
 heroImage: "/images/blog/supabase-rest-client.webp"
+heroImgPrompt: "A plain sealed cube with one face opened on a hinge to reveal interlocking gears and pipes working inside, a magnifying glass beside it"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#D9E8D0"
 heroAlt: "Building a Supabase integration in React Native without the SDK"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]

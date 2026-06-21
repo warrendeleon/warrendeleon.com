@@ -7,7 +7,7 @@ tags: ["engineering-management", "hiring", "tech-interviews", "developer-experie
 locale: en
 heroImage: "/images/blog/take-home-tech-test-design.webp"
 heroAlt: "Designing a take-home tech test for software engineers"
-heroImgPrompt: "A tangled cable knot resolving into a single toggle switch that opens a clean runway, a gift-wrapped starter box and a ticking clock nearby"
+heroImgPrompt: "A tangled cluster of cables on the left resolving into one large toggle switch that opens onto a clean empty runway strip, a plain gift box beside it"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F8DBC0"
 campaign: "take-home-tech-test"

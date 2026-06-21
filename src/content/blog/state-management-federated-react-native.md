@@ -7,6 +7,9 @@ tags: ["react-native", "state-management", "module-federation", "rtk-query", "ta
 locale: en
 draft: true
 heroImage: "/images/blog/state-mgmt-federated-rn.webp"
+heroImgPrompt: "A flat central platform with one glowing core block, three separate module cubes docking into it with connector arrows, a single small lock on the core"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#CDE7E0"
 heroAlt: "State management for federated React Native apps"
 campaign: "state-mgmt-federated"
 relatedPosts: ["server-state-and-client-state-react-native", "rtk-query-tags-vs-tanstack-query-keys", "feature-first-project-structure-react-native"]

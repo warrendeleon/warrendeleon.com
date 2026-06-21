@@ -6,6 +6,9 @@ series: "Testing and Infrastructure"
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: en
 heroImage: "/images/blog/accessibility-testing-rn.webp"
+heroImgPrompt: "Callipers and a split light-dark contrast swatch inspecting a phone button and labels, a checklist tick and a sound-wave announcement icon"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#D3E7EE"
 heroAlt: "Accessibility testing in React Native"
 campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]

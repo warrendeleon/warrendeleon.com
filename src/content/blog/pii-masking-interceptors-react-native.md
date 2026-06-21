@@ -6,6 +6,9 @@ series: "Supabase Security"
 tags: ["react-native", "security", "logging", "sentry", "privacy"]
 locale: en
 heroImage: "/images/blog/pii-masking-rn.webp"
+heroImgPrompt: "A flat phone with an outbound pipe where small coloured chips enter a mesh filter and emerge the other side as solid black bars, a plain blank cloud at the end of the pipe"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#E4DCF2"
 heroAlt: "PII-masking interceptors in React Native"
 campaign: "pii-masking-rn"
 relatedPosts: ["certificate-pinning-in-react-native", "building-an-axios-based-supabase-auth-client", "tiered-secure-storage-react-native"]

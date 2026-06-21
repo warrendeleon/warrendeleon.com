@@ -7,7 +7,7 @@ tags: ["react-native", "security", "storage", "mobile-security"]
 locale: en
 heroImage: "/images/blog/tiered-secure-storage.webp"
 heroAlt: "Tiered secure storage in React Native"
-heroImgPrompt: "A hardware vault with a biometric ring, a locked safe and an open shallow tray stacked as three descending tiers, with a sorting arrow routing items to each"
+heroImgPrompt: "Three plain platforms stacked as descending steps, a thick locked cube on the top step, a rounded safe on the middle step, an open shallow tray on the bottom, a sorting arrow"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#D9E8D0"
 campaign: "tiered-secure-storage"

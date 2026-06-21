@@ -6,6 +6,9 @@ series: "Supabase Security"
 tags: ["react-native", "security", "supabase", "tls", "certificate-pinning"]
 locale: en
 heroImage: "/images/blog/certificate-pinning-rn.webp"
+heroImgPrompt: "A flat phone outline linked by a chain to a padlock that accepts two matching plain keys, a blocked intruder shape and a broken node off to the side"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#E4DCF2"
 heroAlt: "Certificate pinning in React Native"
 campaign: "certificate-pinning-rn"
 relatedPosts: ["building-an-axios-based-supabase-auth-client", "building-a-supabase-storage-client-with-retry", "building-a-supabase-rest-client-without-the-sdk"]

@@ -6,6 +6,9 @@ series: "Supabase Security"
 tags: ["react-native", "supabase", "axios", "storage", "uploads"]
 locale: en
 heroImage: "/images/blog/supabase-storage-client.webp"
+heroImgPrompt: "An image-file parcel looping back into a folder on widening rebound arcs with ascending step bars, while a wall blocks one dead-end path"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#E4DCF2"
 heroAlt: "Building a Supabase storage client with retry in React Native"
 campaign: "supabase-storage-client"
 relatedPosts: ["building-an-axios-based-supabase-auth-client", "token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk"]

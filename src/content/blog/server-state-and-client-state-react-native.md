@@ -6,6 +6,9 @@ series: "State Management"
 tags: ["react-native", "state-management", "redux", "redux-toolkit", "tanstack-query", "zustand"]
 locale: en
 heroImage: "/images/blog/server-vs-client-state.webp"
+heroImgPrompt: "One large cube splitting into two separate cubes, the left linked by sync arrows to a plain blank cloud, the right holding a single round dial, a gear cluster between them"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#CDE7E0"
 heroAlt: "Server state and client state in React"
 campaign: "server-vs-client-state"
 relatedPosts: ["rtk-query-tags-vs-tanstack-query-keys", "runtime-api-validation-zod-react-native"]

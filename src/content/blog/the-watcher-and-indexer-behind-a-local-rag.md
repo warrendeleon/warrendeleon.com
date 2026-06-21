@@ -2,6 +2,9 @@
 title: "The watcher and indexer behind a local RAG"
 description: "How conversation JSONLs become searchable vectors: fswatch, a SQLite job queue, a streaming JSONL parser, and a ChromaDB indexer with power-aware throttle."
 heroImage: "/images/blog/rag-watcher-indexer.webp"
+heroImgPrompt: "A flat conveyor belt carrying plain file shapes past a single large eye into a drum, then gears stamping them into a grid of small squares, a circular arrow and a small valve"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F6DCE2"
 heroAlt: "The watcher and indexer behind a local RAG"
 publishDate: 2026-09-21
 series: "Claude RAG + Tooling"

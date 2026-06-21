@@ -6,6 +6,9 @@ series: "Testing and Infrastructure"
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: en
 heroImage: "/images/blog/metro-runtime-mocking.webp"
+heroImgPrompt: "A large two-way toggle switch inside a plain bundle cube rerouting an arrow away from a crossed-out cloud toward a stack of plain folders, a small phone outline"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#D3E7EE"
 heroAlt: "Metro runtime mocking for React Native E2E testing"
 campaign: "metro-runtime-mocking"
 relatedPosts: ["setting-up-msw-v2-in-react-native", "detox-cucumber-bdd-react-native-e2e-testing", "building-a-supabase-rest-client-without-the-sdk"]

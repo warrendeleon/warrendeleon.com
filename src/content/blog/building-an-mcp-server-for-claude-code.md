@@ -2,6 +2,9 @@
 title: "Building an MCP server for Claude Code"
 description: "A walkthrough of the FastMCP server I expose to Claude Code: seven tools for searching past conversations, logging actions, and watching the indexing queue."
 heroImage: "/images/blog/mcp-server.webp"
+heroImgPrompt: "A small cube server connected by one pipe, seven plain tool-shaped icons fanning out from a single doorway toward a larger machine block"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#F6DCE2"
 heroAlt: "Building an MCP server for Claude Code"
 publishDate: 2026-09-14
 series: "Claude RAG + Tooling"

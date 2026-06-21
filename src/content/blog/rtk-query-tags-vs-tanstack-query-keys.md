@@ -6,6 +6,9 @@ series: "State Management"
 tags: ["react-native", "state-management", "rtk-query", "tanstack-query", "cache-invalidation"]
 locale: en
 heroImage: "/images/blog/tags-vs-query-keys.webp"
+heroImgPrompt: "Two cables linking team workstations, one clipping to a labelled category socket, the other dangling from a snapped hand-typed cord, beside a stale data panel"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#CDE7E0"
 heroAlt: "RTK Query tags vs TanStack Query keys"
 campaign: "tags-vs-query-keys"
 relatedPosts: ["server-state-and-client-state-react-native", "runtime-api-validation-zod-react-native"]

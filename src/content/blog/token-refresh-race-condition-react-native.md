@@ -6,6 +6,9 @@ series: "Supabase Security"
 tags: ["react-native", "security", "authentication", "http"]
 locale: en
 heroImage: "/images/blog/token-refresh-race.webp"
+heroImgPrompt: "Five plain arrows on the left all converging into one narrow gate, a short queue of identical plain markers waiting behind the gate, one plain key resting beside it"
+heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
+heroBgColor: "#E4DCF2"
 heroAlt: "Token refresh race condition prevention in React Native"
 campaign: "token-refresh-race"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "tiered-secure-storage-react-native", "runtime-api-validation-zod-react-native"]
