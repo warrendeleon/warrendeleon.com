@@ -1,235 +1,69 @@
 ---
-title: "Construir un client REST de Supabase sense el SDK"
-description: "Per què vaig triar Axios en lloc del SDK de Supabase: interceptors, renovació de tokens, gestió d'errors i backend intercanviable."
-tags: ["react-native", "architecture", "http", "authentication"]
+title: "Construir una integració de Supabase a React Native sense el SDK"
+description: "Introducció a la sèrie: per què vaig construir una integració personalitzada de Supabase a React Native sense el SDK. Auth, renovació de tokens, storage, pinning, emmascarament i RLS."
+draft: true
+tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: ca
 heroImage: "/images/blog/supabase-rest-client.webp"
-heroAlt: "Construir un client REST de Supabase sense el SDK a React Native"
+heroAlt: "Construir una integració de Supabase a React Native sense el SDK"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]
 ---
 
-## Tres línies de codi que em van costar totes les entrevistes
+Si vols entendre què fa realment un SDK, el millor exercici és no fer-lo servir.
 
-```typescript
-const { data } = await supabase.auth.signInWithPassword({ email, password });
-```
+Aquest és l'assaig d'obertura d'una sèrie sobre construir una integració personalitzada de Supabase a React Native sense el SDK. La sèrie cobreix auth, condicions de carrera en la renovació de tokens, pujades a storage amb reintent, certificate pinning, interceptors d'emmascarament de PII i enduriment del backend amb RLS. Sis tutorials i aquest assaig sobre el *perquè*.
 
-Això és el SDK de Supabase. Una línia per a autenticació. Una per a pujada de fitxers. Una per a consultes a base de dades. Funciona. Està ben documentat. I cada cop que un client potencial obria el codi font de la meva app de portafoli, era tot el que veia.
+El SDK de Supabase et dona auth funcional en tres línies. Un client personalitzat en demana unes 600. Tots dos funcionen. La diferència és si pots veure què fa la capa d'auth quan alguna cosa ha de canviar.
 
-Fa anys que treballo com a contractista. La meva app React Native no és un projecte personal. **És el meu portafoli.** Quan un client em pregunta què sé fer, li envio aquest codi. L'obren, el llegeixen, i decideixen si em contracten basant-se en el que hi troben.
+## Què fa el SDK per tu (i què t'amaga)
 
-Si hi troben crides al SDK, veuen algú que sap llegir documentació. Si hi troben un client REST personalitzat amb interceptors tipats, gestió de condicions de carrera en la renovació de tokens, certificate pinning i emmagatzematge segur per nivells, veuen algú que entén com funcionen de debò les apps mòbils en producció.
+El SDK de Supabase gestiona autenticació, storage, consultes a base de dades i subscripcions en temps real. L'instal·les, li passes la URL del projecte i la clau anon, i ja funciona. Tres línies per fer login, dues per pujar un fitxer, una per a una consulta.
 
-No vaig considerar fer servir el SDK ni un moment.
+El SDK exposa punts d'enganxament per a algunes de les preocupacions transversals: pots passar un adaptador de storage personalitzat amb `auth: { storage }` i sobreescriure `global.fetch` a `createClient`. La flexibilitat és real. Els punts d'integració segueixen sent incòmodes:
 
-## Què amaga el SDK
+- **Storage de tokens.** El valor per defecte a React Native és AsyncStorage, en text pla. El pots canviar per un adaptador recolzat pel Keychain escrivint el teu propi shim de `getItem`/`setItem`/`removeItem`, però el SDK crida l'adaptador en moments que no pots veure, i continues operant dins del model de sessió del SDK. Auditar què s'emmagatzema de debò, quan i en quin camí de codi vol dir traçar el codi font del SDK.
+- **Renovació de tokens.** El SDK renova els tokens expirats internament. La lògica de renovació, el mecanisme de reintent i què passa quan cinc peticions es disparen simultàniament amb el mateix token expirat queden tots per sota de la teva línia de visibilitat.
+- **Formes dels errors.** El SDK llança els seus propis tipus d'error. Reps una cadena de text amb el missatge i un nom de classe; mapejar això a un estat amigable per a la UI amb un codi llegible per la màquina que sobrevisqui a les actualitzacions del SDK és problema teu.
+- **Capa HTTP.** El SDK accepta una sobreescriptura de `global.fetch`, així que pots embolcallar les crides. Però els patrons de crida *interns* del SDK continuen sent opacs: quines URLs es disparen, en quin ordre, amb quin comportament de reintent. Posar certificate pinning, observabilitat i una cua de renovació a sobre del bucle HTTP d'un altre és més difícil que ser-ne tu el propietari.
 
-El SDK de Supabase gestiona autenticació, emmagatzematge, consultes a base de dades i subscripcions en temps real. L'instal·les, li passes la URL del projecte i la clau anon, i ja funciona. Tres línies per fer login, dues per pujar un fitxer, una per a una consulta.
+Per a un prototip, res d'això importa. Per a una app que ha de funcionar en producció, amb rotació de tokens, xarxes intermitents, requisits d'observabilitat i una postura de seguretat real, tot importa.
 
-Darrere d'aquestes línies, el SDK pren decisions que no veus:
+El SDK és una drecera, i les dreceres van bé quan saps què es deixen. La part interessant de construir això des de zero és descobrir exactament quines són aquestes peces que es deixen.
 
-- **On s'emmagatzemen els tokens.** El SDK fa servir el seu propi adaptador d'emmagatzematge. A React Native, normalment és AsyncStorage. Text pla. Sense xifrar. Sense seguretat recolzada per hardware.
-- **Com funciona la renovació de tokens.** El SDK gestiona els tokens expirats internament. No veus la lògica de renovació, el mecanisme de reintent, ni què passa quan cinc peticions es disparen simultàniament amb tokens expirats.
-- **Què passa amb els errors.** El SDK llança els seus propis tipus d'error. Reps una cadena de text amb el missatge i esperes que sigui útil.
-- **Com es fan les crides HTTP.** El SDK fa servir `fetch` internament. No pots afegir interceptors, certificate pinning ni registre de peticions sense haver de fer workarounds sobre el SDK.
+## Per què aquest codi és obert a clients i ocupadors
 
-Per a un prototip, res d'això importa. Per a una app que representa les meves capacitats professionals davant de responsables de contractació i clients, **tot importa.**
+Mantinc el repo del meu portafoli de React Native a GitHub com a registre de com penso sobre la plataforma. Quan apareix un exercici de codi o una prova tècnica, el treball resultant va al mateix repo, al costat de la resta del codi. Clients per als quals he treballat, i ocupadors amb qui he fet entrevistes, l'han llegit tots com a part de l'avaluació de la meva feina.
 
-## El client
+Això converteix el repo en un artefacte viu, no en un projecte de tutorial. La integració de Supabase és la part on les decisions de producció són més visibles. Les crides al SDK mostren que algú ha llegit la documentació. Un client REST personalitzat amb interceptors tipats, una cua de subscriptors per a la renovació de tokens, certificate pinning, validació en temps d'execució i storage segur per nivells mostra que algú ha pensat com funcionen de debò les apps mòbils en producció.
 
-Una instància d'Axios. Un fitxer. L'únic lloc de tota l'app que sap que Supabase existeix.
+Aquesta visibilitat és la raó de la reconstrucció. Les raons tècniques se'n deriven.
 
-```typescript
-this.axiosInstance = axios.create({
-  baseURL: Config.SUPABASE_URL,
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json',
-    apikey: Config.SUPABASE_ANON_KEY,
-  },
-});
-```
+## Què cobreix aquesta sèrie
 
-Canvia la URL base i les rutes dels endpoints, i aquest client parla amb un backend completament diferent. Firebase, AWS Cognito, un servidor Node.js propi. **La resta de l'app no se n'assabenta.** Cap crida al SDK escampada per 13 funcionalitats. Cap dependència de proveïdor. Un sol fitxer per canviar.
+Sis tutorials, cadascun sobre una peça de l'stack:
 
-La meva app ja parla amb dos backends seguint el mateix patró: Supabase per a autenticació i emmagatzematge, l'API de contingut raw de GitHub per a dades del portafoli. Mateixa estructura Axios, mateixa estratègia d'interceptors, mateixa gestió d'errors. El SDK convertiria un d'aquests backends en un cas especial.
+1. **Construir un client d'auth de Supabase basat en Axios.** El client base, l'interceptor de petició per adjuntar el token, sign-in/up/out, mapeig d'errors tipat amb `AuthError`, handlers de test amb MSW.
+2. **Condicions de carrera en la renovació de tokens.** Què passa quan cinc peticions reben un 401 simultàniament, i el patró de cua de subscriptors que evita múltiples crides de renovació. Amb un test que demostra que la cua funciona.
+3. **Construir un client de storage de Supabase amb reintent.** Pujades de fitxers amb backoff exponencial, gestió del content-type, patrons de pujada i esborrat d'imatges, tests de reintent.
+4. **Certificate pinning a React Native.** TrustKit a iOS, `network_security_config.xml` a Android, extracció de pins, estratègia de rotació sense deixar fora els usuaris en binaris ja desplegats.
+5. **Interceptors d'emmascarament de PII.** Registre de breadcrumbs a Sentry que no filtra tokens, correus ni números de telèfon. Patrons regex i un logger personalitzat.
+6. **Assegurar el backend de Supabase amb RLS.** Polítiques de Row Level Security que aguanten sota pressió, seguretat a nivell de funció, limitació de freqüència i la superfície d'atac d'OWASP-mobile que la majoria de contingut de "tutorial de Supabase" deixa de banda.
 
-## Interceptor de petició: tokens des de l'enclavament segur
+Cada post funciona pel seu compte. Llegeix els que encaixin amb el que estàs construint. L'ordre de la sèrie és l'ordre en què jo els construiria.
 
-Cada petició autenticada necessita un token Bearer. L'interceptor el llegeix de l'**enclavament segur recolzat per hardware** del dispositiu (iOS Keychain / Android Keystore) i l'adjunta automàticament:
+## Què es queda al SDK
 
-```typescript
-this.axiosInstance.interceptors.request.use(async config => {
-  const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
-  return config;
-});
-```
+Hi ha una cosa que l'API REST no pot fer: **subscripcions en temps real.** Supabase Realtime fa servir WebSockets, que no pots gestionar des d'Axios.
 
-No AsyncStorage. No l'adaptador d'emmagatzematge del SDK. El [Keychain](/blog/tiered-secure-storage-react-native/). El mateix lloc on les apps bancàries del teu mòbil emmagatzemen els seus tokens.
-
-El SDK ignoraria tot això. Gestiona el seu propi emmagatzematge de tokens, i a React Native vol dir que els teus tokens d'accés queden en text pla al costat de la teva preferència de tema. Per a una app de portafoli que ha de demostrar pràctiques de seguretat de producció, no és acceptable.
-
-## Interceptor de resposta: la condició de carrera de la qual ningú parla
-
-Quan un token d'accés expira, Supabase retorna un 401. Renoves el token i reintentes la petició. Senzill.
-
-Fins que **cinc peticions es disparen al mateix temps** i totes reben 401. Sense coordinació, cadascuna dispara la seva pròpia renovació. Cinc crides de renovació. La primera funciona. La segona falla perquè el refresh token ja s'ha fet servir. Els tokens se sobreescriuen. La sessió es trenca. L'usuari es desconnecta sense motiu.
-
-El SDK ho gestiona internament. Mai ho veus. Tampoc veus quan falla, i mai aprens a arreglar-ho.
-
-El meu client fa servir **una cua de subscriptors**:
-
-```typescript
-private isRefreshing = false;
-private refreshSubscribers: Array<(token: string) => void> = [];
-```
-
-La primera petició que detecta un 401 inicia la renovació. Cada 401 posterior **s'afegeix a la cua i espera.** Quan la renovació acaba, totes les peticions en espera reben el nou token i reintenten simultàniament.
-
-```typescript
-if (this.isRefreshing) {
-  return new Promise(resolve => {
-    this.refreshSubscribers.push((token: string) => {
-      originalRequest.headers.Authorization = `Bearer ${token}`;
-      resolve(this.axiosInstance(originalRequest));
-    });
-  });
-}
-
-originalRequest._retry = true;
-this.isRefreshing = true;
-
-try {
-  const { data } = await this.axiosInstance.post(
-    '/auth/v1/token?grant_type=refresh_token',
-    { refresh_token: refreshToken }
-  );
-
-  // Notify all waiting requests
-  this.refreshSubscribers.forEach(cb => cb(data.access_token));
-  this.refreshSubscribers = [];
-
-  return this.axiosInstance(originalRequest);
-} catch (refreshError) {
-  await SecureStore.clear(); // Logout on refresh failure
-  return Promise.reject(refreshError);
-} finally {
-  this.isRefreshing = false;
-}
-```
-
-Tres mecanismes treballant junts: el **flag `_retry`** prevé bucles infinits, la **porta `isRefreshing`** assegura que només una renovació s'executa a la vegada, i l'**array `refreshSubscribers`** és la cua. Si la renovació falla, els tokens s'esborren i l'usuari es desconnecta. Cap estat a mitges. Cap error silenciós.
-
-Quan un client obre aquest fitxer i veu la cua de subscriptors, sap que he tractat amb autenticació concurrent en producció. Això no s'aprèn d'un SDK.
-
-## Cada resposta es valida
-
-El SDK confia en tot el que Supabase retorna. El meu client, no.
-
-```typescript
-async signIn(request: SupabaseSignInRequest): Promise<SupabaseSignInResponse> {
-  const { data } = await this.axiosInstance.post(
-    '/auth/v1/token?grant_type=password', request
-  );
-  return validateResponse(SupabaseSignInResponseSchema, data, 'signIn');
-}
-```
-
-Cada resposta de l'API passa per un esquema Zod abans d'entrar a l'app. Si Supabase canvia el format de resposta, la meva app ho detecta a la capa de validació amb un error clar, en lloc de petar tres capes més avall amb `Cannot read property 'email' of undefined`.
-
-## Errors sobre els quals l'app pot actuar
-
-El SDK llança objectes d'error amb una cadena de text. El meu client mapeja cada codi d'error de Supabase a un `AuthError` amb un **missatge per a l'usuari** i un **codi llegible per la màquina**:
-
-```typescript
-switch (errorData?.error_code) {
-  case 'email_not_confirmed':
-    return new AuthError('Email not confirmed', 'email_not_confirmed');
-  case 'invalid_credentials':
-    return new AuthError('Invalid email or password', 'invalid_credentials');
-}
-
-switch (error.response?.status) {
-  case 429:
-    return new AuthError(
-      'Too many attempts. Please try again later.', 'rate_limit_exceeded'
-    );
-}
-```
-
-La UI mostra el missatge. El store de Redux fa switch sobre el codi per decidir quina pantalla mostrar. **Cap detall intern de Supabase arriba a l'app.** La capa de gestió d'errors és la frontera. Tot el que queda per sobre parla el llenguatge de l'app, no el de Supabase.
-
-## Les pujades es reintenten automàticament
-
-El client d'emmagatzematge segueix el mateix patró Axios, amb una addició: **backoff exponencial** per a pujades. Les xarxes mòbils cauen. Hi ha túnels. Una sola pujada fallida no hauria de significar que l'usuari perd la seva foto de perfil.
-
-```typescript
-for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-  try {
-    const { data } = await this.axiosInstance.post(
-      `/object/${BUCKET_NAME}/${filePath}`, bytes,
-      { headers: { 'Content-Type': 'image/jpeg', 'x-upsert': 'true' } }
-    );
-    return validateResponse(SupabaseUploadResponseSchema, data, 'upload');
-  } catch (error) {
-    // Don't retry client errors (400-499)
-    if (error.response?.status >= 400 && error.response?.status < 500) {
-      throw error;
-    }
-    if (attempt < MAX_RETRIES) {
-      await this.sleep(RETRY_BASE_DELAY_MS * Math.pow(2, attempt - 1));
-    }
-  }
-}
-```
-
-Reintent en errors de xarxa i errors del servidor. Falla immediatament en errors del client. El SDK no et dona aquest control. O ho reintenta tot o res.
-
-## I el certificate pinning?
-
-El client Axios funciona amb **certificate pinning** a les dues plataformes (pins SHA-256 sobre el domini de Supabase al `network_security_config.xml` d'Android i al TrustKit d'iOS). Cada crida HTTP passa per la connexió fixada. Els atacs MITM no poden interceptar el tràfic ni en xarxes compromeses.
-
-El SDK fa les seves pròpies crides HTTP internament. Aquestes crides no passarien per la connexió fixada tret que el SDK ho suporti explícitament. No ho fa. **El certificate pinning només funciona quan controles la capa HTTP.**
-
-El mateix aplica per a l'**observabilitat en producció**. Tinc interceptors d'Axios que registren breadcrumbs de peticions a Sentry, amb totes les dades sensibles (tokens, correus, contrasenyes) emmascarades automàticament per un logger personalitzat. Les crides internes del SDK no farien servir les meves regles d'emmascarament de PII.
-
-## Tests E2E sense xarxa
-
-Els meus [tests E2E amb Detox](/blog/detox-cucumber-bdd-react-native-e2e-testing/) s'executen sense connexió de xarxa. Tota la capa d'API es canvia per fixtures locals en temps de build. Això només funciona perquè controlo el client HTTP. Cada mètode d'autenticació té un camí amb dades simulades que retorna fixtures quan el flag E2E està actiu.
-
-Amb el SDK, les crides de xarxa estan enterrades dins del codi de Supabase. No les puc intercanviar a nivell de Metro. El SDK necessitaria la seva pròpia estratègia de simulació, afegint complexitat per a alguna cosa que la meva arquitectura ja resol.
-
-## "Per què no React Query?"
-
-La meva app fa servir **Redux Toolkit com a única font de veritat.** Estat d'autenticació, perfil d'usuari, configuració, experiència laboral. Les crides a l'API passen per thunks de Redux, que criden el client Axios, que emmagatzema els resultats al store de Redux. Un sol sistema d'estat, un sol model mental.
-
-Vaig avaluar RTK Query com a migració:
-
-| | Axios + thunks | RTK Query |
-|---|---|---|
-| **Boilerplate** | ~160 línies per funcionalitat | ~3 línies per endpoint |
-| **Cache** | Manual | Automàtic amb TTL |
-| **Simulació E2E** | Simple, per funció | Custom baseQuery, més complex |
-| **Cost de migració** | Cap | 18+ fitxers de tests per reescriure |
-
-Per a una app de portafoli amb cinc endpoints i dades majoritàriament estàtiques, **l'esforç de migració supera els beneficis.** RTK Query i React Query guanyen el seu lloc en apps amb desenes d'endpoints, refetching freqüent i dashboards en temps real. Afegir un segon sistema d'estat per a dades que es carreguen un cop a l'inici no val la complexitat.
-
-## On el SDK encara guanya
-
-Hi ha una cosa que l'API REST no pot fer: **subscripcions en temps real.** Supabase Realtime fa servir WebSockets. No ho pots replicar amb Axios.
-
-Quan la meva app tingui la funcionalitat de xat, incorporaré el SDK de Supabase per a *només aquesta funcionalitat*. El client d'autenticació es queda amb Axios. El client d'emmagatzematge es queda amb Axios. **Un sol import del SDK, contingut a una sola funcionalitat.** No escampat per tota l'app.
+Quan la funcionalitat de xat arribi a la meva app, el SDK de Supabase entrarà per a *només aquesta funcionalitat*. El client d'auth es queda amb Axios. El client de storage es queda amb Axios. Un sol import del SDK, contingut a una sola funcionalitat, amb un abast clar. No escampat per tota l'app tocant cada capa.
 
 ## El compromís
 
-Saltar-se el SDK vol dir mantenir la lògica d'autenticació jo mateix. Si Supabase canvia un endpoint, actualitzo el meu client. Si afegeixen un nou flux d'autenticació, l'implemento. Això és feina real.
+Saltar-se el SDK vol dir mantenir la lògica d'auth contra l'API REST de Supabase directament. Si Supabase canvia un endpoint, el client s'actualitza. Si apareix un nou flux d'auth, s'implementa. Això és feina real, i el SDK ho fa de franc.
 
-Però l'alternativa és pitjor: una app que sembla qualsevol altre projecte de tutorial amb SDK. Quan un client tria entre contractistes, el que té un portafoli que mostra patrons de producció (certificate pinning, cues de renovació de tokens, emmagatzematge per nivells, validació en temps d'execució) **guanya al que ha instal·lat un SDK i ho ha donat per acabat.**
+El que el SDK no fa de franc és *ensenyar-te* els patrons de producció de sota. El client d'auth d'aquest codi és el fitxer més llegit del repo, perquè és on el pensament de producció està més concentrat. Storage de tokens per nivells. Una cua de subscriptors per a renovacions concurrents. Tipus d'error mapejats sobre els quals la UI pot actuar de debò. HTTP fixat. Emmascarament de PII de camí cap a Sentry. Validació en temps d'execució contra la deriva de l'esquema.
 
-El SDK és una drecera. Les dreceres van bé quan saps què es deixen. El problema és quan la persona que avalua el teu codi *també* sap què es deixen.
+Si estàs construint alguna cosa que ha de durar més enllà del prototip, la resta d'aquesta sèrie desgrana cadascuna d'aquestes peces al seu torn.
 
-La implementació completa és a [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), dins de `src/httpClients/`.
+La implementació completa és a [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), dins de `src/httpClients/`. Cada post d'aquesta sèrie queda arxivat sota [l'etiqueta supabase a warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/) a mesura que es publica.
