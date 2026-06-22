@@ -15,7 +15,7 @@ La mayoría de los proyectos React Native mockean su capa de API con `jest.fn()`
 
 Funciona. Hasta que no.
 
-El problema: estás testeando la interacción de tu código con un mock, no con una capa HTTP. Si tu cliente de API cambia cómo construye URLs, agrega headers o maneja reintentos, el mock no detecta la regresión. (Una capa de [validación de respuestas en runtime con Zod](/blog/runtime-api-validation-zod-react-native/) tampoco se ejercitaría). El mock siempre devuelve lo que le dijiste, sin importar lo que el código realmente envió.
+El problema: estás testeando la interacción de tu código con un mock, no con una capa HTTP. Si tu cliente de API cambia cómo construye URLs, agrega headers o maneja reintentos, el mock no detecta la regresión. Esto importa aún más si validas respuestas en runtime con algo como Zod, porque quieres que la capa de [validación de respuestas en runtime con Zod](/blog/runtime-api-validation-zod-react-native/) corra contra formas de respuesta reales, no contra objetos mock hechos a mano. El mock siempre devuelve lo que le dijiste, sin importar lo que el código realmente envió.
 
 **Mock Service Worker (MSW)** intercepta las peticiones a nivel de red. Tu código hace llamadas HTTP reales. MSW las captura antes de que salgan del proceso y devuelve tus respuestas mockeadas. Todo lo que hay entre tu componente y la red se ejercita: el thunk de Redux, los interceptores de Axios, el manejo de errores, el parseo de la respuesta.
 
@@ -34,15 +34,93 @@ flowchart TD
     M -.-> N["Red real<br/>nunca se alcanza en tests"]
 ```
 
+## Supuestos
+
+El setup de abajo está escrito contra:
+
+- React Native 0.74+ con el preset de Jest `react-native` por defecto
+- TypeScript con la config de Babel estándar de RN
+- Redux Toolkit (el wrapper de render personalizado lo asume)
+- Node 18 o posterior (Node 20 recomendado)
+
+Si estás en una versión más vieja de RN, en un preset de Jest de Expo, o sin Redux, los *conceptos* siguen aplicando pero algunos snippets necesitarán ajustes.
+
 ## Instalación
 
-MSW v2 funciona en React Native a través del servidor de Node.js (para tests de Jest). El service worker del navegador no aplica para mobile.
+MSW v2 corre en los tests de Jest a través del servidor de Node.js. El service worker del navegador no aplica para mobile, así que ignora todo lo que digan los docs de MSW sobre el registro del service worker.
 
 ```bash
-yarn add -D msw
+yarn add -D msw node-fetch@2 web-streams-polyfill
 ```
 
-Eso es todo. Sin polyfills, sin cambios en la config de Metro, sin linking de módulos nativos.
+`msw` es el obvio. `node-fetch` y `web-streams-polyfill` son los polyfills que MSW v2 necesita en el entorno de Jest de React Native, que conectaremos en el siguiente paso.
+
+> 💡 **¿Por qué fijar `node-fetch@2`?** `node-fetch` v3+ es solo ESM y no carga vía `require()` en un archivo de setup de Jest con CommonJS. O fijas a v2 (lo que hace este post), o migras el archivo de polyfills a ESM. v2 es el camino con menos fricción en un preset de Jest de React Native por defecto.
+
+> 💡 **No confíes en posts que dicen "no hacen falta polyfills".** MSW v2 está construido sobre la Fetch API y Web Streams. Algunas combinaciones de Node + Jest tienen estos globals; el preset de Jest de React Native no. Sin los polyfills verás `ReferenceError: Response is not defined` o `TextEncoder is not defined` la primera vez que MSW intente construir una respuesta.
+
+## Polyfills
+
+Crea `jest.polyfills.cjs` en la raíz del proyecto. Tiene que ser `.cjs` (no `.ts`) porque Jest lo carga antes de que el transformer de TypeScript esté configurado:
+
+```js
+/**
+ * Polyfills de MSW para React Native.
+ * Necesarios para Mock Service Worker v2 en los tests de Jest.
+ */
+
+// TextEncoder / TextDecoder
+const { TextEncoder, TextDecoder } = require('util');
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+
+// Fetch API
+if (!global.fetch) {
+  global.fetch = require('node-fetch');
+  global.Headers = require('node-fetch').Headers;
+  global.Request = require('node-fetch').Request;
+  global.Response = require('node-fetch').Response;
+}
+
+// ReadableStream (para el streaming de respuestas)
+if (!global.ReadableStream) {
+  try {
+    const { ReadableStream } = require('web-streams-polyfill');
+    global.ReadableStream = ReadableStream;
+  } catch {
+    // web-streams-polyfill es opcional en versiones más viejas de MSW v2
+  }
+}
+```
+
+Este archivo corre *antes* de que cargue el framework de tests, así que `beforeAll`, `jest`, etc. no están disponibles aquí. Es puramente para configurar globals.
+
+## Config de Jest
+
+Conecta el archivo de polyfills y un archivo de setup aparte en `jest.config.cjs`:
+
+```js
+module.exports = {
+  preset: 'react-native',
+  testEnvironment: 'node',
+  setupFiles: ['<rootDir>/jest.polyfills.cjs'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  transformIgnorePatterns: [
+    // El preset de RN por defecto ignora casi todo node_modules; MSW necesita transformarse.
+    'node_modules/(?!(react-native|@react-native|msw|until-async)/)',
+  ],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+};
+```
+
+Dos claves hacen el trabajo:
+
+| Clave | Cuándo corre | Para qué |
+|---|---|---|
+| `setupFiles` | Antes de que se instale el framework de Jest | Polyfills, variables globales, cualquier cosa que no necesite `jest`/`expect` |
+| `setupFilesAfterEnv` | Después del framework de Jest, antes de cada archivo de test | Hooks `beforeAll`/`afterEach`, ciclo de vida del servidor de MSW, matchers personalizados |
+
+La línea de `transformIgnorePatterns` es el otro gotcha: el preset de RN por defecto se salta la transformación de `node_modules`, pero MSW trae sintaxis moderna que Jest no puede correr tal cual. Agrega `msw|until-async` a la allow-list o verás `SyntaxError: Cannot use import statement outside a module` desde dentro de `node_modules/msw/`.
 
 ## El servidor
 
@@ -52,18 +130,24 @@ Crea `src/test-utils/msw/server.ts`:
 import { setupServer } from 'msw/node';
 import { handlers } from './handlers';
 
+/**
+ * Servidor de MSW para Jest. Se inicia/detiene en jest.setup.ts.
+ * Usa `server.use(...errorHandlers)` para sobrescribir por test.
+ */
 export const server = setupServer(...handlers);
 ```
 
-Tres líneas. El servidor toma tus handlers por defecto (respuestas exitosas) e intercepta las peticiones que matchean.
+El servidor toma tus handlers por defecto (respuestas exitosas) e intercepta las peticiones que matchean.
 
-## Conectándolo con Jest
+## Conectando el ciclo de vida
 
-En tu `jest.setup.ts` (o `.js`), añade el ciclo de vida de MSW:
+En `jest.setup.ts` (que Jest carga vía `setupFilesAfterEnv`), inicia el servidor antes de los tests, resetéalo entre tests, ciérralo al final:
 
 ```typescript
+import '@testing-library/jest-native/extend-expect';
 import { server } from './src/test-utils/msw/server';
 
+// Ciclo de vida del servidor de MSW
 beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }));
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
@@ -75,7 +159,14 @@ afterAll(() => server.close());
 | `afterEach` | Resetea los handlers a los defaults entre tests (para que los overrides de un test no se filtren) |
 | `afterAll` | Apaga el servidor después de que todos los tests terminan |
 
-La opción `onUnhandledRequest: 'warn'` registra un warning si tu código hace una petición que ningún handler coincide. Esto atrapa handlers faltantes temprano en vez de dejar que los tests fallen con errores de red crípticos.
+La opción `onUnhandledRequest: 'warn'` registra un warning si tu código hace una petición que ningún handler coincide. En CI, cámbiala a `'error'` para que los handlers faltantes hagan fallar la build:
+
+```typescript
+const onUnhandledRequest = process.env.CI ? 'error' : 'warn';
+beforeAll(() => server.listen({ onUnhandledRequest }));
+```
+
+> 💡 **Si tus tests usan fake timers**, vacía los timers pendientes en `afterEach` antes de resetear los handlers. Si no, un timer de animación agendado dentro de un componente puede dispararse después de que el siguiente test arranque y provocar fallos espurios.
 
 ## Escribiendo handlers
 
@@ -110,9 +201,45 @@ export const handlers = [
 
 Algunas cosas que conviene saber: los helpers por método (`http.get`, `http.post` y los demás) matchean el verbo HTTP, los parámetros de URL como `:id` se extraen en `params` automáticamente, el body del request llega vía `await request.json()`, y `HttpResponse.json()` devuelve JSON tipado con el código de estado que le pases.
 
+## Separando fixtures de handlers
+
+Los objetos de respuesta inline sirven para un boceto. No sirven en un codebase real: las mismas formas aparecen en los handlers, en los tests de componentes y en las stories de Storybook, y no quieres mantener tres copias.
+
+Saca los datos fixture a su propio archivo:
+
+```typescript
+// src/test-utils/msw/mockData.ts
+export const mockItems = [
+  { id: 1, name: 'Item One', createdAt: '2026-01-01T00:00:00Z' },
+  { id: 2, name: 'Item Two', createdAt: '2026-01-02T00:00:00Z' },
+];
+
+export const mockProfile = {
+  id: 'user_1',
+  name: 'Warren de Leon',
+  email: 'hi@example.com',
+};
+```
+
+Los handlers entonces leen de `mockData`:
+
+```typescript
+import { http, HttpResponse } from 'msw';
+import { mockItems, mockProfile } from './mockData';
+
+export const handlers = [
+  http.get(`${BASE_URL}/items`, () => HttpResponse.json(mockItems)),
+  http.get(`${BASE_URL}/me`, () => HttpResponse.json(mockProfile)),
+];
+```
+
+Los mismos fixtures se reutilizan en los tests de componentes donde te saltas MSW y pasas los datos directamente. Una sola fuente de verdad.
+
 ## Handler sets para cada escenario
 
 Los handlers de éxito por defecto son el punto de partida. Pero las apps reales necesitan manejar errores también. Aquí es donde la mayoría de los setups de MSW se detienen. **No te detengas aquí.**
+
+Los bugs que de verdad llegan a producción no son los fallos del happy path. Son los incómodos: el 401 que vuelve a mitad de sesión porque un token expiró hace cinco minutos, el 429 de una ráfaga de intentos de refresh tras un corte de red breve, el 422 con una forma de validación distinta a la que tu formulario espera, el 408 que debería haber sido un reintento pero no lo fue. Ninguno de esos se atrapa si tu cobertura de errores es "¿qué pasa si la API devuelve 500?".
 
 Yo creo handler sets separados para cada escenario de error que la app necesita manejar:
 
@@ -215,11 +342,18 @@ El spread (`...errorHandlers`) reemplaza los handlers que matchean. Los handlers
 
 ## El wrapper de render personalizado
 
-MSW funciona mejor con un store real de Redux, no uno mockeado. El punto es testear la integración completa: componente → thunk de Redux → petición HTTP → intercepción de MSW → respuesta → actualización de estado → actualización de UI.
+MSW funciona mejor con un store real de Redux, no uno mockeado. El punto es testear la integración real: componente → thunk de Redux → petición HTTP → intercepción de MSW → respuesta → actualización de estado → actualización de UI.
 
 ```typescript
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+// src/test-utils/renderWithProviders.tsx
+import React from 'react';
+import { Provider } from 'react-redux';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import type { RenderOptions } from '@testing-library/react-native';
 import { render } from '@testing-library/react-native';
+
+import { itemsReducer } from '@app/features/Items';
+import { authReducer } from '@app/features/Auth';
 
 const rootReducer = combineReducers({
   items: itemsReducer,
@@ -240,19 +374,22 @@ function createTestStore(preloadedState?: Partial<RootState>) {
   });
 }
 
+type AppStore = ReturnType<typeof createTestStore>;
+
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'wrapper'> {
+  preloadedState?: Partial<RootState>;
+  store?: AppStore;
+}
+
 export function renderWithProviders(
   ui: React.ReactElement,
-  { preloadedState, store, ...options } = {}
+  { preloadedState, store, ...options }: ExtendedRenderOptions = {},
 ) {
-  const createdStore = store || createTestStore(preloadedState);
+  const createdStore = store ?? createTestStore(preloadedState);
 
-  function Wrapper({ children }) {
-    return (
-      <Provider store={createdStore}>
-        {children}
-      </Provider>
-    );
-  }
+  const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    <Provider store={createdStore}>{children}</Provider>
+  );
 
   return {
     store: createdStore,
@@ -260,6 +397,24 @@ export function renderWithProviders(
   };
 }
 ```
+
+Eso cubre Redux. Las apps reales suelen necesitar más: i18n, navegación, theming, contexto de toast/notificaciones. El wrapper es el lugar correcto para componerlos todos. Agrega los providers alrededor de `{children}`:
+
+```tsx
+const Wrapper = ({ children }: { children: React.ReactNode }) => (
+  <Provider store={createdStore}>
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider>
+        <ToastProvider>
+          {children}
+        </ToastProvider>
+      </ThemeProvider>
+    </I18nextProvider>
+  </Provider>
+);
+```
+
+Si una pantalla usa `react-navigation`, envuélvela en `NavigationContainer` y un navegador en memoria para el test. El principio es el mismo: cada provider que envuelve tu app en `App.tsx` debería envolver tu componente en `renderWithProviders`. Cualquier cosa que olvides es una diferencia entre el entorno de test y el runtime, y esas diferencias son donde viven los tests flaky.
 
 Ahora tus tests renderizan con un store real, despachan thunks reales, y MSW maneja la red:
 
@@ -304,6 +459,30 @@ it('handles unexpected response shape', async () => {
 
 Esto es útil para edge cases como JSON malformado, campos faltantes o códigos de estado inesperados que no ameritan un handler set completo.
 
+## Corriendo los tests
+
+Con todo conectado, correr un solo archivo de test se ve así:
+
+```bash
+yarn jest src/features/Items/__tests__/ItemList.rntl.tsx
+```
+
+```text
+PASS  src/features/Items/__tests__/ItemList.rntl.tsx
+  ItemList
+    ✓ loads and displays items (218 ms)
+    ✓ shows error state on failure (94 ms)
+    ✓ redirects to login on 401 (102 ms)
+    ✓ surfaces rate-limit message (89 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+Si ves un warning como `[MSW] Warning: captured a request without a matching request handler`, eso es `onUnhandledRequest: 'warn'` haciendo su trabajo. O agregas un handler para la URL, o arreglas la petición que tu código está haciendo.
+
+Si la suite se cuelga y nunca termina, normalmente MSW está esperando una petición que nunca resuelve. Lo más habitual es un set de `timeoutHandlers` que usa `setTimeout(..., 60000)` mientras el entorno de test todavía tiene timers reales. Cambia a fake timers en ese test (`jest.useFakeTimers()` y luego `jest.advanceTimersByTime(...)`) o acorta el delay simulado.
+
 ## Errores comunes
 
 Los handlers se matchean en orden. Si dos handlers matchean la misma petición, el primero gana. Cuando llamas a `server.use(...overrides)`, los overrides se agregan al principio, así que tienen prioridad sobre los defaults.
@@ -314,17 +493,29 @@ Si tu handler lee el body del request vía `request.json()`, la función tiene q
 
 **Las peticiones sin handler son silenciosas por defecto.** Siempre usa `onUnhandledRequest: 'warn'` (o `'error'` en CI) para que los handlers faltantes salgan a la luz. Una petición sin handler silenciosa significa que el test pasa por la razón equivocada.
 
+Un error `Response is not defined` o `TextEncoder is not defined` significa que el archivo de polyfills no está cargando. Revisa que `setupFiles: ['<rootDir>/jest.polyfills.cjs']` esté en la config de Jest, que la extensión del archivo sea `.cjs` y no `.ts`, y que el path sea correcto respecto a `rootDir`.
+
+Un `SyntaxError: Cannot use import statement outside a module` lanzado desde `node_modules/msw/` significa que MSW no se está transformando. Agrega `msw|until-async` a la allow-list dentro de `transformIgnorePatterns`.
+
+Las barras al final importan: `http.get('/api/items')` no matcheará una petición a `/api/items/`. Matchea exactamente lo que tu código envía, o usa un patrón de path como `http.get('/api/items*', ...)`.
+
+**Los tests pasan en local y fallan en CI** suele ser `onUnhandledRequest: 'error'` atrapando una petición que no sabías que tu código hacía en el entorno de CI, a menudo analytics o crash reporting. O agregas un handler para ella, o quitas esas llamadas en modo test.
+
 ## La estructura de archivos completa
 
-```
-src/
-  test-utils/
-    msw/
-      handlers.ts       # Todos los handler sets (éxito, error, 401, etc.)
-      server.ts          # setupServer con handlers por defecto
-      mockData.ts        # Datos fixture usados por los handlers
-    renderWithProviders.tsx  # Render personalizado con store real + providers
-    index.ts             # Barrel export
+```text
+project-root/
+  jest.config.cjs           # Config de Jest (preset, setupFiles, setupFilesAfterEnv)
+  jest.polyfills.cjs        # Globals de TextEncoder, fetch, ReadableStream
+  jest.setup.ts             # Ciclo de vida del servidor, matchers personalizados, mocks globales
+  src/
+    test-utils/
+      msw/
+        handlers.ts         # Todos los handler sets (éxito, error, 401, etc.)
+        server.ts           # setupServer con handlers por defecto
+        mockData.ts         # Datos fixture usados por los handlers
+      renderWithProviders.tsx  # Render personalizado con store real + providers
+      index.ts              # Barrel export
 ```
 
 El barrel export (`index.ts`) permite que los tests importen utilidades comunes desde un solo lugar. Para handler sets específicos, importa directamente del archivo de handlers:
@@ -338,7 +529,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 El setup lleva unos treinta minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribes `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y el test ejercita comportamiento de integración real, no comportamiento de mocks.
 
-Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Combinados con [tests E2E escritos en Gherkin con Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) y [mocking en runtime a nivel de Metro](/blog/metro-runtime-mocking-react-native-e2e/), los handler sets cubren desde tests unitarios hasta flujos completos de usuario. Cuando añado un nuevo endpoint de API, añado handlers una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis.
+Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando añado un nuevo endpoint de API, añado handlers para él una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis. El mismo enfoque de handler sets también combina bien con [tests E2E escritos en Gherkin con Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/), donde Detox + Cucumber maneja los flujos de usuario y una capa aparte de [mocking en runtime a nivel de Metro](/blog/metro-runtime-mocking-react-native-e2e/) controla las respuestas de la API, pero esos son temas para próximos posts.
 
 > Si escribir el próximo test es más difícil que saltártelo, tu infraestructura de test es el problema.
 
