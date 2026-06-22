@@ -19,6 +19,17 @@ Para una preferencia de tema, no pasa nada. Para un access token, es un incident
 
 Este post recorre los tres niveles que uso en producción: Keychain respaldado por hardware para tokens, un almacenamiento cifrado para datos personales y AsyncStorage (vía Redux Persist) para preferencias. Cada nivel es un wrapper corto. El trabajo está en decidir qué vive dónde, y luego mantener esa frontera honesta dentro de tu flujo de auth.
 
+<div id="storage-tiers"></div>
+
+```mermaid
+flowchart TD
+    D[Dato a guardar] --> Q1{"¿Da acceso?"}
+    Q1 -->|Sí| T1["Nivel 1: SecureStore<br/>Keychain / Keystore por hardware<br/>tokens, claves, PIN hasheado"]
+    Q1 -->|No| Q2{"¿Identifica a una persona?"}
+    Q2 -->|Sí| T2["Nivel 2: EncryptedStore<br/>AES-256 en reposo<br/>email, nombre, teléfono"]
+    Q2 -->|No| T3["Nivel 3: AsyncStorage<br/>Texto plano vía Redux Persist<br/>tema, idioma"]
+```
+
 ## Los tres niveles
 
 | Nivel | Librería | Seguridad | Velocidad | Usa para |

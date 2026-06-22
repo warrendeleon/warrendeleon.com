@@ -19,6 +19,17 @@ Per a una preferència de tema, no passa res. Per a un access token, és un inci
 
 En aquest post recorro els tres nivells que faig servir en producció: Keychain amb suport de hardware per a tokens, un magatzem xifrat per a dades personals, i AsyncStorage (via Redux Persist) per a preferències. Cada nivell és un wrapper curt. La feina està a decidir què va on, i mantenir aquesta frontera honesta al flux d'autenticació.
 
+<div id="storage-tiers"></div>
+
+```mermaid
+flowchart TD
+    D[Dada a desar] --> Q1{"Dona accés?"}
+    Q1 -->|Sí| T1["Nivell 1: SecureStore<br/>Keychain / Keystore per hardware<br/>tokens, claus, PIN hashejat"]
+    Q1 -->|No| Q2{"Identifica una persona?"}
+    Q2 -->|Sí| T2["Nivell 2: EncryptedStore<br/>AES-256 en repòs<br/>email, nom, telèfon"]
+    Q2 -->|No| T3["Nivell 3: AsyncStorage<br/>Text pla via Redux Persist<br/>tema, idioma"]
+```
+
 ## Suposicions
 
 El setup d'aquí sota es va escriure contra:

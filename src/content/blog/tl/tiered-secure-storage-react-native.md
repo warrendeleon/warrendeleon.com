@@ -19,6 +19,17 @@ Para sa theme preference, okay lang iyan. Para sa access token, isang incident n
 
 Tatalakayin ng post na ito ang tatlong tier na ginagamit ko sa production: hardware-backed Keychain para sa tokens, encrypted store para sa PII, at AsyncStorage (sa pamamagitan ng Redux Persist) para sa preferences. Maikli lang ang wrapper ng bawat tier. Ang trabaho ay nasa pagdedesisyon kung saan napupunta ang bawat data, at sa pagpapanatili ng hangganang iyon sa iyong auth flow.
 
+<div id="storage-tiers"></div>
+
+```mermaid
+flowchart TD
+    D[Data na ise-store] --> Q1{"Nagbibigay ng access?"}
+    Q1 -->|Oo| T1["Tier 1: SecureStore<br/>Hardware-backed Keychain / Keystore<br/>tokens, keys, hashed PIN"]
+    Q1 -->|Hindi| Q2{"Nagpapakilala ng tao?"}
+    Q2 -->|Oo| T2["Tier 2: EncryptedStore<br/>AES-256 at rest<br/>email, pangalan, phone"]
+    Q2 -->|Hindi| T3["Tier 3: AsyncStorage<br/>Plain text via Redux Persist<br/>theme, language"]
+```
+
 ## Ang tatlong tier
 
 | Tier | Library | Seguridad | Bilis | Gamitin para sa |

@@ -24,6 +24,17 @@ For a theme preference, that's fine. For an access token, it's an incident.
 
 This post walks through the three tiers I use in production: hardware-backed Keychain for tokens, an encrypted store for PII, and AsyncStorage (via Redux Persist) for preferences. Each tier is one short wrapper. The work is in deciding what lives where, then keeping that boundary honest in your auth flow.
 
+<div id="storage-tiers"></div>
+
+```mermaid
+flowchart TD
+    D[Data to store] --> Q1{"Grants access?"}
+    Q1 -->|Yes| T1["Tier 1: SecureStore<br/>Hardware-backed Keychain / Keystore<br/>tokens, keys, hashed PIN"]
+    Q1 -->|No| Q2{"Identifies a person?"}
+    Q2 -->|Yes| T2["Tier 2: EncryptedStore<br/>AES-256 at rest<br/>email, name, phone"]
+    Q2 -->|No| T3["Tier 3: AsyncStorage<br/>Plain text via Redux Persist<br/>theme, language"]
+```
+
 ## Assumptions
 
 The setup below was written against:
