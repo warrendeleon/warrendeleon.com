@@ -50,6 +50,21 @@ Feature: User Authentication
 
 Parehong Detox commands sa ilalim. Kahit sino sa team ay makakabasa na ngayon ng test, makakapag-review, at makakapag-suggest ng mga scenario na napalampas mo. Kapag bumagsak ang isa, ang linyang nasira ay nasa plain language, hindi sa TypeScript.
 
+## Mga assumption
+
+Ang walkthrough na ito ay isinulat para sa:
+
+- React Native 0.74+ (bare workflow, hindi Expo)
+- TypeScript na may standard na RN Babel config
+- macOS host (iOS simulator at Android emulator)
+- Xcode 15+ na may Command Line Tools, kasama ang isang iOS simulator na nagawa na (halimbawa iPhone 17 Pro)
+- Android Studio na may kahit isang AVD na nagawa na (halimbawa Pixel 7 API 35)
+- Node 18 o mas bago
+
+Binuo ko ito sa Detox 20, `@cucumber/cucumber` 12, `ts-node`, at isang kamakailang React Native. Ang mga bahaging malamang na mag-drift ay ang Detox init signature at ang Cucumber config keys, kaya ininote ko pareho inline.
+
+Kung nasa Expo ka, kailangan ng Detox ng custom dev client. Pareho lang ang Cucumber layer anuman ang mangyari.
+
 ## Step 1. I-install ang Detox at Cucumber
 
 Kailangan mo ang Detox (para sa device automation) at Cucumber (para sa BDD layer):
@@ -562,6 +577,28 @@ Ang mga script na ginagamit ko ay nasa `package.json` nang ganito:
 ```
 
 Pansinin na ang test script ay nagpapatakbo nang direkta ng `cucumber-js` sa halip na `detox test`. Sa Cucumber bilang runner, hindi ka dumadaan sa runner wrapper ng Detox. Nag-i-initialise ang Detox mula sa iyong support file.
+
+Unang run:
+
+```bash
+yarn e2e:ios
+```
+
+```text
+$ detox build -c ios.sim.debug
+Building app for ios.sim.debug...
+xcodebuild ... ** BUILD SUCCEEDED **
+
+$ cucumber-js
+✓ Feature: User Authentication
+  ✓ Scenario: Successful login (2340ms)
+  ✓ Scenario: Login with invalid credentials (1820ms)
+
+2 scenarios (2 passed)
+12 steps (12 passed)
+```
+
+Kung mag-fail ang `xcodebuild` sa unang run, i-check na talagang umiiral ang simulator na nakapangalan sa `.detoxrc.js` (`xcrun simctl list devices`). Ang pinakakaraniwang first-run trip ay isang hardcoded na `iPhone 17 Pro` na hindi mo kailanman ginawa sa Xcode.
 
 ## Mga karaniwang pagkakamali
 

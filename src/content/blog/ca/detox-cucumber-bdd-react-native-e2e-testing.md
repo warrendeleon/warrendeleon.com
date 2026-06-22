@@ -50,6 +50,21 @@ Feature: User Authentication
 
 Les mateixes comandes de Detox per sota. Ara qualsevol persona de l'equip pot llegir el test, revisar-lo i suggerir els escenaris que t'has deixat. Quan un falla, la línia que s'ha trencat surt en llenguatge pla, no en TypeScript.
 
+## Supòsits
+
+Aquesta guia està escrita per a:
+
+- React Native 0.74+ (bare workflow, no Expo)
+- TypeScript amb la configuració estàndard de Babel de RN
+- Host macOS (simulador iOS i emulador Android)
+- Xcode 15+ amb les Command Line Tools, més un simulador iOS creat (per exemple iPhone 17 Pro)
+- Android Studio amb almenys un AVD creat (per exemple Pixel 7 API 35)
+- Node 18 o posterior
+
+Ho vaig construir sobre Detox 20, `@cucumber/cucumber` 12, `ts-node` i un React Native recent. Les peces amb més probabilitat de canviar són la firma de l'init de Detox i les claus de configuració de Cucumber, així que he anotat totes dues inline.
+
+Si estàs a Expo, Detox necessita un dev client personalitzat. La capa de Cucumber és la mateixa igualment.
+
 ## Pas 1. Instal·lar Detox i Cucumber
 
 Detox, Cucumber i el carregador de TypeScript com a dependències de desenvolupament:
@@ -567,6 +582,28 @@ Els scripts que uso viuen a `package.json` així:
 ```
 
 Fixa't que l'script de test executa `cucumber-js` directament, no `detox test`. Amb Cucumber com a runner, no passes pel wrapper de runner de Detox. Detox s'inicialitza des del teu fitxer de suport.
+
+Primera execució:
+
+```bash
+yarn e2e:ios
+```
+
+```text
+$ detox build -c ios.sim.debug
+Building app for ios.sim.debug...
+xcodebuild ... ** BUILD SUCCEEDED **
+
+$ cucumber-js
+✓ Feature: User Authentication
+  ✓ Scenario: Successful login (2340ms)
+  ✓ Scenario: Login with invalid credentials (1820ms)
+
+2 scenarios (2 passed)
+12 steps (12 passed)
+```
+
+Si `xcodebuild` falla en la primera execució, comprova que el simulador anomenat a `.detoxrc.js` existeix realment (`xcrun simctl list devices`). El ensopec més habitual de la primera execució és un `iPhone 17 Pro` hardcodejat que mai vas crear a Xcode.
 
 ## Errors comuns
 

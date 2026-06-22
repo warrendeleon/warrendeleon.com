@@ -50,6 +50,21 @@ Feature: User Authentication
 
 Los mismos comandos de Detox por debajo. Ahora cualquiera del equipo puede leer el test, revisarlo y sugerir los escenarios que te faltaron. Cuando uno falla, la línea que se rompió está en lenguaje claro, no en TypeScript.
 
+## Suposiciones
+
+Esta guía está escrita para:
+
+- React Native 0.74+ (bare workflow, no Expo)
+- TypeScript con la configuración estándar de Babel de RN
+- Host macOS (simulador de iOS y emulador de Android)
+- Xcode 15+ con las Command Line Tools, más un simulador de iOS creado (por ejemplo iPhone 17 Pro)
+- Android Studio con al menos un AVD creado (por ejemplo Pixel 7 API 35)
+- Node 18 o posterior
+
+Lo armé sobre Detox 20, `@cucumber/cucumber` 12, `ts-node` y un React Native reciente. Las piezas con más probabilidad de cambiar son la firma del init de Detox y las claves de configuración de Cucumber, así que dejé anotadas las dos inline.
+
+Si estás en Expo, Detox necesita un dev client personalizado. La capa de Cucumber es la misma de todos modos.
+
 ## Paso 1. Instalar Detox y Cucumber
 
 Necesitas Detox (para la automatización del dispositivo) y Cucumber (para la capa de BDD):
@@ -562,6 +577,28 @@ Los scripts que uso viven en `package.json` así:
 ```
 
 Notá que el script de test corre `cucumber-js` directamente en vez de `detox test`. Con Cucumber como runner, no pasás por el wrapper de Detox. Detox se inicializa desde tu archivo de soporte.
+
+Primera ejecución:
+
+```bash
+yarn e2e:ios
+```
+
+```text
+$ detox build -c ios.sim.debug
+Building app for ios.sim.debug...
+xcodebuild ... ** BUILD SUCCEEDED **
+
+$ cucumber-js
+✓ Feature: User Authentication
+  ✓ Scenario: Successful login (2340ms)
+  ✓ Scenario: Login with invalid credentials (1820ms)
+
+2 scenarios (2 passed)
+12 steps (12 passed)
+```
+
+Si `xcodebuild` falla en la primera ejecución, comprobá que el simulador nombrado en `.detoxrc.js` realmente existe (`xcrun simctl list devices`). El tropiezo más común en la primera ejecución es un `iPhone 17 Pro` hardcodeado que nunca creaste en Xcode.
 
 ## Errores comunes
 
