@@ -63,6 +63,19 @@ Bilis. Walang round trips. Walang database. Sumasagot ang mock responses nang sy
 
 Error states nang walang infrastructure. Para mag-test ng 500 laban sa tunay na server, kailangan mong sirain ito o mag-wire ng espesyal na endpoint. Sa isang flag at isang launch argument, makukuha mo ang bawat error class on demand: network, 500, 404, timeout.
 
+## Mga assumption
+
+Ang setup sa baba ay isinulat laban sa:
+
+- React Native 0.74+ (bare workflow, hindi Expo)
+- TypeScript na may standard na RN Babel config
+- `react-native-config` na naka-install para sa build-time flag (`Config.E2E_MOCK`)
+- `react-native-launch-arguments` para sa per-test arguments sa runtime
+- Detox na naka-wire na para sa E2E tests
+- Isang custom HTTP client kung saan kinokontrol mo ang request layer (isang Axios instance, isang hand-rolled REST client), hindi ang Supabase o Firebase SDK nang direkta
+
+Kung ang tanging daan mo papunta sa backend ay isang vendor SDK, hindi makakaabot doon ang approach na ito. Kailangan mo munang i-wrap ang SDK sa likod ng sarili mong client, tapos mag-mock sa boundary na iyon.
+
 ## Paano gumagana
 
 Sa build time, i-bake ang isang flag sa native build. Sa runtime, tine-check ng bawat API function ang flag. Kung naka-on ang mocking, ibabalik ang fixture data na naka-wrap sa parehong response shape; kung hindi, tumama sa tunay na network. Nangyayari ang pagpili sa loob ng function, kaya pareho pa rin ang mga callers (Redux, screens, hooks).
@@ -144,13 +157,13 @@ Ine-export ng isang barrel file ang mga ito na may naka-attach na types, kaya is
 
 ```typescript
 // src/test-utils/fixtures/index.ts
-import profileEN from './api/en/profile.json';
-import educationEN from './api/en/education.json';
-import workxpEN from './api/en/workxp.json';
+import profileENData from './api/en/profile.json';
+import educationENData from './api/en/education.json';
+import workxpENData from './api/en/workxp.json';
 
-export const mockProfileEN = profileEN as Profile;
-export const mockEducationEN = educationEN as Education[];
-export const mockWorkXPEN = workxpEN as WorkExperience[];
+export const mockProfileEN = profileENData as Profile;
+export const mockEducationEN = educationENData as Education[];
+export const mockWorkXPEN = workxpENData as WorkExperience[];
 ```
 
 ### Step 4: ang API switch

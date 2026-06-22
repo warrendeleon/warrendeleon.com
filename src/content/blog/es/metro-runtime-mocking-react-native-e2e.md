@@ -63,6 +63,19 @@ Velocidad. Sin round trips. Sin base de datos. Las respuestas mockeadas resuelve
 
 Estados de error sin infraestructura. Testear un 500 contra un servidor real significa romperlo o cablear un endpoint especial. Con un flag y un argumento de lanzamiento, tienes cada clase de error a demanda: red, 500, 404, timeout.
 
+## Supuestos
+
+El setup de abajo se escribió contra:
+
+- React Native 0.74+ (bare workflow, no Expo)
+- TypeScript con la configuración Babel estándar de RN
+- `react-native-config` instalado para el flag de build-time (`Config.E2E_MOCK`)
+- `react-native-launch-arguments` para los argumentos por test en runtime
+- Detox ya cableado para los tests E2E
+- Un cliente HTTP propio donde controlas la capa de peticiones (una instancia de Axios, un cliente REST hecho a mano), no el SDK de Supabase o Firebase directamente
+
+Si tu único camino al backend es un SDK de proveedor, este enfoque no puede llegar ahí dentro. Tendrías que envolver el SDK detrás de tu propio cliente primero, y luego mockear en esa frontera.
+
 ## Cómo funciona
 
 En tiempo de build, metes un flag en la compilación nativa. En runtime, cada función de API comprueba el flag. Si el mocking está activo, devuelve datos fixture envueltos en la misma forma de respuesta; si no, va a la red real. La elección ocurre dentro de la función, así que los llamantes (Redux, pantallas, hooks) quedan idénticos.
@@ -72,6 +85,11 @@ En tiempo de build, metes un flag en la compilación nativa. En runtime, cada fu
 Dos opciones prácticas. No son excluyentes, pero normalmente quieres una de ellas.
 
 `react-native-config` lee de un archivo `.env` en tiempo de build nativo y expone los valores a través de `Config.E2E_MOCK`. El valor se fija cuando Xcode o Gradle compilan el binario, así que ejecutarías `E2E_MOCK=true yarn detox:ios:build` para producir un build mockeado.
+
+```bash
+yarn add react-native-config
+cd ios && pod install && cd ..
+```
 
 El plugin de Babel `babel-plugin-transform-inline-environment-variables` es la alternativa del lado JS. Reescribe `process.env.E2E_MOCK` en tu código fuente al string literal en tiempo de bundle. Si vas por ese camino, lees el flag directamente:
 
@@ -123,17 +141,29 @@ src/test-utils/fixtures/api/
 └── tl/
 ```
 
+Un archivo fixture es JSON plano que encaja con la forma de respuesta de la API:
+
+```json
+// src/test-utils/fixtures/api/en/profile.json
+{
+  "name": "Warren",
+  "email": "warren@example.com",
+  "phone": "+44 7700 900000",
+  "profilePicture": "https://example.com/avatar.png"
+}
+```
+
 Un barrel file los exporta con los tipos atados, así que un fixture que no encaje es un error de compilación:
 
 ```typescript
 // src/test-utils/fixtures/index.ts
-import profileEN from './api/en/profile.json';
-import educationEN from './api/en/education.json';
-import workxpEN from './api/en/workxp.json';
+import profileENData from './api/en/profile.json';
+import educationENData from './api/en/education.json';
+import workxpENData from './api/en/workxp.json';
 
-export const mockProfileEN = profileEN as Profile;
-export const mockEducationEN = educationEN as Education[];
-export const mockWorkXPEN = workxpEN as WorkExperience[];
+export const mockProfileEN = profileENData as Profile;
+export const mockEducationEN = educationENData as Education[];
+export const mockWorkXPEN = workxpENData as WorkExperience[];
 ```
 
 ### Paso 4: el switch en la API

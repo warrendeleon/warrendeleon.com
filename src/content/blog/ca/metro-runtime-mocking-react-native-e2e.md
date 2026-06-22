@@ -63,6 +63,19 @@ Velocitat. Sense viatges d'anada i tornada. Sense base de dades. Les respostes s
 
 Estats d'error sense infraestructura. Provar un 500 contra un servidor real vol dir trencar-lo o cablejar un endpoint especial. Amb un flag i un argument de llançament, tens cada classe d'error a la carta: xarxa, 500, 404, timeout.
 
+## Supòsits
+
+El setup de sota es va escriure contra:
+
+- React Native 0.74+ (bare workflow, no Expo)
+- TypeScript amb la configuració Babel estàndard de RN
+- `react-native-config` instal·lat per al flag de build-time (`Config.E2E_MOCK`)
+- `react-native-launch-arguments` per als arguments per test en temps d'execució
+- Detox ja cablejat per als tests E2E
+- Un client HTTP propi on controles la capa de peticions (una instància d'Axios, un client REST fet a mà), no el SDK de Supabase o Firebase directament
+
+Si l'únic camí cap al backend és un SDK de proveïdor, aquest enfocament no hi pot arribar a dins. Primer hauries d'embolcallar el SDK darrere del teu propi client, i després simular en aquesta frontera.
+
 ## Com funciona
 
 En temps de build, incorpora un flag al build natiu. En temps d'execució, cada funció d'API comprova el flag. Si el mocking està activat, retorna dades fixture embolcallades en la mateixa forma de resposta; si no, fa la crida real. La decisió passa dins de la funció, així els consumidors (Redux, pantalles, hooks) queden idèntics.
