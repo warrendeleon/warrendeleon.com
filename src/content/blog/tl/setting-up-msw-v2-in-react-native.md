@@ -21,6 +21,19 @@ Ang problema: tine-test mo ang interaction ng iyong code sa isang mock, hindi sa
 
 Pinapalitan ng manual mocks ang iyong code. Pinapalitan ng MSW ang network. Tumatakbo ang code nang eksakto kung paano ito tatakbo sa device, hanggang sa punto kung saan aalis na sana ang request.
 
+<div id="msw-intercept"></div>
+
+```mermaid
+flowchart TD
+    C[Component] --> T[Redux thunk]
+    T --> X["Axios + interceptors"]
+    X --> M{"MSW: may match na handler?"}
+    M -->|may match| H[HttpResponse mock]
+    H --> P["Babalik sa tunay na stack:<br/>interceptors, parsing, state, UI"]
+    M -->|walang handler| U["onUnhandledRequest:<br/>warn, o error sa CI"]
+    M -.-> N["Tunay na network<br/>hindi naaabot sa tests"]
+```
+
 ## Installation
 
 Gumagana ang MSW v2 sa React Native sa pamamagitan ng Node.js server (para sa Jest tests). Hindi relevant ang browser service worker para sa mobile.

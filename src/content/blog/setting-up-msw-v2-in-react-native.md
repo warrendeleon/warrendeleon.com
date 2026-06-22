@@ -26,6 +26,19 @@ The problem: you're testing your code's interaction with a mock, not with an HTT
 
 Manual mocks replace your code. MSW replaces the network. The code runs exactly as it would on a device, right up to the point where the request would have left it.
 
+<div id="msw-intercept"></div>
+
+```mermaid
+flowchart TD
+    C[Component] --> T[Redux thunk]
+    T --> X["Axios + interceptors"]
+    X --> M{"MSW: handler match?"}
+    M -->|matched| H[HttpResponse mock]
+    H --> P["Response back up the real stack:<br/>interceptors, parsing, state, UI"]
+    M -->|no handler| U["onUnhandledRequest:<br/>warn, or error in CI"]
+    M -.-> N["Real network<br/>never reached in tests"]
+```
+
 ## Assumptions
 
 The setup below was written against:

@@ -21,6 +21,19 @@ El problema: estàs verificant la interacció del teu codi amb un mock, no amb u
 
 Els mocks manuals reemplacen el teu codi. MSW reemplaça la xarxa. El codi s'executa exactament com ho faria en un dispositiu, fins al punt just on la petició n'hauria sortit.
 
+<div id="msw-intercept"></div>
+
+```mermaid
+flowchart TD
+    C[Component] --> T[Thunk de Redux]
+    T --> X["Axios + interceptors"]
+    X --> M{"MSW: coincideix un handler?"}
+    M -->|coincideix| H[HttpResponse mock]
+    H --> P["La resposta torna per l'stack real:<br/>interceptors, parseig, estat, UI"]
+    M -->|sense handler| U["onUnhandledRequest:<br/>warn, o error a CI"]
+    M -.-> N["Xarxa real<br/>mai s'assoleix als tests"]
+```
+
 ## Instal·lació
 
 MSW v2 funciona a React Native a través del servidor de Node.js (per a tests de Jest). El service worker del navegador no és rellevant per a mòbil.
