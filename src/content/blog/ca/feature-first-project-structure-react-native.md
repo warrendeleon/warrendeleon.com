@@ -161,6 +161,24 @@ Aquesta és la regla que ho aguanta tot.
 
 Si Auth necessita saber si un perfil està carregat, llegeix del store de Redux via un selector. No importa de `@app/features/Profile` directament. **El store és l'única capa de comunicació entre funcionalitats.**
 
+<div id="feature-boundaries"></div>
+
+```mermaid
+flowchart TD
+    subgraph features["Funcionalitats (privades rere el seu index.ts)"]
+        A[Auth]
+        B[Profile]
+        C[Settings]
+    end
+    store[("Redux store")]
+    A -->|reducer| store
+    B -->|reducer| store
+    C -->|reducer| store
+    store -.->|selector| A
+    store -.->|selector| B
+    store -.->|selector| C
+```
+
 Cada funcionalitat és propietària del seu slice de Redux. El store arrel els combina:
 
 ```typescript

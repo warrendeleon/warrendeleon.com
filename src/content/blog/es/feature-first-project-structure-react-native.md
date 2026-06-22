@@ -161,6 +161,24 @@ Esta es la regla que mantiene todo unido.
 
 Si Auth necesita saber si un perfil está cargado, lee del store de Redux a través de un selector. No importa de `@app/features/Profile` directamente. **El store es la única capa de comunicación entre features.**
 
+<div id="feature-boundaries"></div>
+
+```mermaid
+flowchart TD
+    subgraph features["Features (privadas tras su index.ts)"]
+        A[Auth]
+        B[Profile]
+        C[Settings]
+    end
+    store[("Redux store")]
+    A -->|reducer| store
+    B -->|reducer| store
+    C -->|reducer| store
+    store -.->|selector| A
+    store -.->|selector| B
+    store -.->|selector| C
+```
+
 Cada feature es dueña de su slice de Redux. El root store los combina:
 
 ```typescript

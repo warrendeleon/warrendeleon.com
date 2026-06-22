@@ -166,6 +166,24 @@ This is the rule that holds everything together.
 
 If Auth needs to know whether a profile is loaded, it reads from the Redux store via a selector. It doesn't import from `@app/features/Profile` directly. **The store is the only communication layer between features.**
 
+<div id="feature-boundaries"></div>
+
+```mermaid
+flowchart TD
+    subgraph features["Features (private behind index.ts)"]
+        A[Auth]
+        B[Profile]
+        C[Settings]
+    end
+    store[("Redux store")]
+    A -->|reducer| store
+    B -->|reducer| store
+    C -->|reducer| store
+    store -.->|selector| A
+    store -.->|selector| B
+    store -.->|selector| C
+```
+
 Each feature owns its Redux slice. The root store combines them:
 
 ```typescript
