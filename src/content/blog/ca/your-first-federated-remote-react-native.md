@@ -21,7 +21,9 @@ git checkout post-02-first-remote
 
 Això és el que tindràs al final. La llista de Pokémon a la pantalla viu en, i és servida per, una app *diferent* de la que s'està executant:
 
-<img src="/images/blog/your-first-federated-remote-result.png" alt="L'app host mostrant una pantalla Pokédex servida pel remote list" class="screenshot" />
+<div class="device-frame">
+  <img src="/images/blog/your-first-federated-remote-result.webp" alt="L'app host mostrant una pantalla Pokédex servida pel remote list" />
+</div>
 
 ## Dues apps
 

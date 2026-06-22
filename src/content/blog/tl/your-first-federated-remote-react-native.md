@@ -21,7 +21,9 @@ git checkout post-02-first-remote
 
 Ito ang makukuha mo sa dulo. Ang listahan ng Pokémon sa screen ay nakatira sa, at ini-serve ng, isang *ibang app* mula sa tumatakbo:
 
-<img src="/images/blog/your-first-federated-remote-result.png" alt="Ang host app na nagpapakita ng Pokédex screen na ini-serve ng list remote" class="screenshot" />
+<div class="device-frame">
+  <img src="/images/blog/your-first-federated-remote-result.webp" alt="Ang host app na nagpapakita ng Pokédex screen na ini-serve ng list remote" />
+</div>
 
 ## Dalawang app
 
