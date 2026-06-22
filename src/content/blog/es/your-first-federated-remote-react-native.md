@@ -314,17 +314,17 @@ La buena noticia para este post: en dev no escribes nada de eso. El plugin de Mo
 
 ```mermaid
 sequenceDiagram
-    participant Host as Host app
-    participant MF as MF runtime
+    participant Host as App host
+    participant MF as Runtime de MF
     participant SM as ScriptManager
-    participant Dev as list dev server :8082
+    participant Dev as Servidor dev de list :8082
     Host->>MF: import('listApp/PokedexScreen')
-    MF->>SM: fetch listApp container
-    SM->>Dev: GET the container + chunks
+    MF->>SM: busca el contenedor listApp
+    SM->>Dev: GET del contenedor + chunks
     Dev-->>SM: JavaScript
-    SM-->>MF: executed module
-    MF-->>Host: PokedexScreen component
-    Host->>Host: render it
+    SM-->>MF: módulo ejecutado
+    MF-->>Host: componente PokedexScreen
+    Host->>Host: renderízalo
 ```
 
 Cuando pasas a producción, ScriptManager es donde está el trabajo de verdad: resolver URLs de CDN versionadas, verificar una firma antes de ejecutar nada, recurrir a una copia empotrada cuando la red falla. Todo eso más adelante en la serie. Por ahora basta con saber que es el puente entre "importa un remote" y "el código llega por la red y corre" que el navegador le dio gratis a la federation web.

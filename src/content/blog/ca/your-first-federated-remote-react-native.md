@@ -314,17 +314,17 @@ La bona notícia per a aquest post: en dev no n'escrius res. El plugin de Module
 
 ```mermaid
 sequenceDiagram
-    participant Host as Host app
-    participant MF as MF runtime
+    participant Host as App host
+    participant MF as Runtime d'MF
     participant SM as ScriptManager
-    participant Dev as list dev server :8082
+    participant Dev as Servidor dev de list :8082
     Host->>MF: import('listApp/PokedexScreen')
-    MF->>SM: fetch listApp container
-    SM->>Dev: GET the container + chunks
+    MF->>SM: busca el contenidor listApp
+    SM->>Dev: GET del contenidor + chunks
     Dev-->>SM: JavaScript
-    SM-->>MF: executed module
-    MF-->>Host: PokedexScreen component
-    Host->>Host: render it
+    SM-->>MF: mòdul executat
+    MF-->>Host: component PokedexScreen
+    Host->>Host: renderitza'l
 ```
 
 Quan passes a producció, ScriptManager és on hi ha la feina de veritat: resoldre URLs versionades del CDN, verificar una signatura abans d'executar res, recórrer a una còpia incrustada quan la xarxa falla. Tot més endavant a la sèrie. De moment n'hi ha prou de saber que és el pont entre "importar un remote" i "el codi arriba per la xarxa i s'executa" que el navegador donava gratis a la federació web.

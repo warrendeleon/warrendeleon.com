@@ -178,19 +178,19 @@ I aquí tens per què és sorollós i no silenciós. `react-native-safe-area-con
 
 ```mermaid
 flowchart TB
-    subgraph good["Shared as a singleton (app runs)"]
+    subgraph good["Compartit com a singleton (l'app funciona)"]
         direction LR
-        GH[Host bundle] --> GS[(one shared copy)]
-        GR[Remote bundle] --> GS
-        GS --> GOK["RNCSafeAreaProvider\nregistered once"]
+        GH[Bundle del host] --> GS[(una còpia compartida)]
+        GR[Bundle del remote] --> GS
+        GS --> GOK["RNCSafeAreaProvider\nregistrat un cop"]
     end
-    subgraph bad["Remote forgets to share (crash on launch)"]
+    subgraph bad["El remote oblida compartir (crash en arrencar)"]
         direction LR
-        BH[Host bundle] --> BHC[(host's copy)]
-        BR[Remote bundle] --> BRC[(remote's own copy)]
-        BHC --> BREG["both register the\nsame native view"]
+        BH[Bundle del host] --> BHC[(còpia del host)]
+        BR[Bundle del remote] --> BRC[(còpia pròpia del remote)]
+        BHC --> BREG["tots dos registren la\nmateixa vista nativa"]
         BRC --> BREG
-        BREG --> BX["duplicate native view"]
+        BREG --> BX["vista nativa duplicada"]
     end
     good ~~~ bad
 ```

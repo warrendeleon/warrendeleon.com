@@ -30,13 +30,13 @@ El host no compila els remotes dins seu com fa un sol bundle. Una còpia de cada
 
 ```mermaid
 flowchart TB
-    cdn[("CDN<br/>live remote versions")]
-    subgraph binary["App binary (shipped to the store)"]
-        host["Host shell<br/>navigation, tab bar<br/>+ shared singletons: React, navigation, styling"]
-        embedded["Embedded copy of every remote<br/>(offline fallback)"]
+    cdn[("CDN<br/>versions actives dels remotes")]
+    subgraph binary["Binari de l'app (enviat a la store)"]
+        host["Closca del host<br/>navegació, tab bar<br/>+ singletons compartits: React, navegació, estils"]
+        embedded["Còpia incrustada de cada remote<br/>(fallback offline)"]
     end
-    cdn -->|loaded at runtime| host
-    embedded -.->|fallback when offline or a version is gone| host
+    cdn -->|carregat en temps d'execució| host
+    embedded -.->|fallback quan no hi ha xarxa o falta una versió| host
 ```
 
 A la pràctica això s'executa sobre [Re.Pack](https://re-pack.dev/) (Rspack per sota) amb [Module Federation 2.0](https://module-federation.io/). La mecànica és un post posterior. De moment el model mental ja n'hi ha prou: una closca que carrega funcionalitats en temps d'execució, des de la xarxa o d'un fallback incrustat, contra un contracte sobre què proporciona la closca.

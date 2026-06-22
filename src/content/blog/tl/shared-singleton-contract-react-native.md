@@ -178,19 +178,19 @@ At narito kung bakit ito maingay sa halip na tahimik. Hindi purong JavaScript an
 
 ```mermaid
 flowchart TB
-    subgraph good["Shared as a singleton (app runs)"]
+    subgraph good["Ibinahagi bilang singleton (gumagana ang app)"]
         direction LR
-        GH[Host bundle] --> GS[(one shared copy)]
+        GH[Host bundle] --> GS[(isang ibinahaging kopya)]
         GR[Remote bundle] --> GS
-        GS --> GOK["RNCSafeAreaProvider\nregistered once"]
+        GS --> GOK["RNCSafeAreaProvider\nminsang nairehistro"]
     end
-    subgraph bad["Remote forgets to share (crash on launch)"]
+    subgraph bad["Nakalimutang ibahagi ng remote (crash sa paglulunsad)"]
         direction LR
-        BH[Host bundle] --> BHC[(host's copy)]
-        BR[Remote bundle] --> BRC[(remote's own copy)]
-        BHC --> BREG["both register the\nsame native view"]
+        BH[Host bundle] --> BHC[(kopya ng host)]
+        BR[Remote bundle] --> BRC[(sariling kopya ng remote)]
+        BHC --> BREG["pareho nilang nirerehistro ang\nparehong native view"]
         BRC --> BREG
-        BREG --> BX["duplicate native view"]
+        BREG --> BX["dobleng native view"]
     end
     good ~~~ bad
 ```

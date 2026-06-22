@@ -30,13 +30,13 @@ El host no compila los remotes dentro de sí mismo como hace un bundle único. U
 
 ```mermaid
 flowchart TB
-    cdn[("CDN<br/>live remote versions")]
-    subgraph binary["App binary (shipped to the store)"]
-        host["Host shell<br/>navigation, tab bar<br/>+ shared singletons: React, navigation, styling"]
-        embedded["Embedded copy of every remote<br/>(offline fallback)"]
+    cdn[("CDN<br/>versiones activas de los remotes")]
+    subgraph binary["Binario de la app (enviado a la store)"]
+        host["Cáscara del host<br/>navegación, tab bar<br/>+ singletons compartidos: React, navegación, estilos"]
+        embedded["Copia embebida de cada remote<br/>(fallback offline)"]
     end
-    cdn -->|loaded at runtime| host
-    embedded -.->|fallback when offline or a version is gone| host
+    cdn -->|cargado en runtime| host
+    embedded -.->|fallback cuando no hay red o falta una versión| host
 ```
 
 En la práctica eso corre sobre [Re.Pack](https://re-pack.dev/) (Rspack por debajo) con [Module Federation 2.0](https://module-federation.io/). La mecánica es un post posterior. Por ahora el modelo mental basta: un caparazón que carga features en runtime, desde la red o desde un fallback empotrado, contra un contrato sobre lo que el caparazón provee.

@@ -16,17 +16,17 @@ La forma que vamos a construir, antes de tocar código: el host es dueño de la 
 
 ```mermaid
 flowchart TB
-    subgraph host["Host app — the shell (owns navigation + tab bar)"]
-        tabs["Bottom tab bar"]
-        t1["Pokédex tab"]
-        t2["Trainer tab"]
+    subgraph host["App host — la cáscara (dueña de la navegación + tab bar)"]
+        tabs["Tab bar inferior"]
+        t1["Pestaña Pokédex"]
+        t2["Pestaña Trainer"]
         tabs --> t1
         tabs --> t2
     end
     list[("list remote<br/>:8082 · PokedexScreen")]
     profile[("profile remote<br/>:8083 · ProfileScreen")]
-    t1 -.->|"React.lazy · loaded on first open"| list
-    t2 -.->|"React.lazy · loaded on first open"| profile
+    t1 -.->|"React.lazy · se carga al abrirla por primera vez"| list
+    t2 -.->|"React.lazy · se carga al abrirla por primera vez"| profile
 ```
 
 Retomamos donde lo dejó el post 3. Si seguiste el tutorial, quédate con tu propio código. Si no, parte del estado final del post 3:

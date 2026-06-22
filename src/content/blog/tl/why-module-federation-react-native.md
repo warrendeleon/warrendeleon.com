@@ -30,13 +30,13 @@ Hindi kino-compile ng host ang mga remote papasok sa sarili nito tulad ng ginaga
 
 ```mermaid
 flowchart TB
-    cdn[("CDN<br/>live remote versions")]
-    subgraph binary["App binary (shipped to the store)"]
+    cdn[("CDN<br/>live na mga bersyon ng remote")]
+    subgraph binary["App binary (na-ship sa store)"]
         host["Host shell<br/>navigation, tab bar<br/>+ shared singletons: React, navigation, styling"]
-        embedded["Embedded copy of every remote<br/>(offline fallback)"]
+        embedded["Naka-embed na kopya ng bawat remote<br/>(offline fallback)"]
     end
-    cdn -->|loaded at runtime| host
-    embedded -.->|fallback when offline or a version is gone| host
+    cdn -->|nilo-load sa runtime| host
+    embedded -.->|fallback kapag offline o wala na ang isang bersyon| host
 ```
 
 Sa praktika, tumatakbo iyon sa [Re.Pack](https://re-pack.dev/) (Rspack sa ilalim) na may [Module Federation 2.0](https://module-federation.io/). Ang mga mechanics ay nasa susunod na post. Sa ngayon sapat na ang mental model: isang shell na nag-lo-load ng features sa runtime, mula sa network o sa naka-bake na fallback, laban sa isang contract tungkol sa kung ano ang ibinibigay ng shell.

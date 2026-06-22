@@ -319,12 +319,12 @@ sequenceDiagram
     participant SM as ScriptManager
     participant Dev as list dev server :8082
     Host->>MF: import('listApp/PokedexScreen')
-    MF->>SM: fetch listApp container
-    SM->>Dev: GET the container + chunks
+    MF->>SM: kunin ang listApp container
+    SM->>Dev: GET ang container + chunks
     Dev-->>SM: JavaScript
-    SM-->>MF: executed module
+    SM-->>MF: na-execute na module
     MF-->>Host: PokedexScreen component
-    Host->>Host: render it
+    Host->>Host: i-render ito
 ```
 
 Kapag lumipat ka sa production, ang ScriptManager ang kung saan nasa tunay na trabaho: pag-resolve ng versioned CDN URLs, pag-verify ng signature bago patakbuhin ang anuman, pag-fall back sa isang embedded copy kapag nabigo ang network. Lahat mamaya sa series. Sa ngayon sapat nang malaman na ito ang tulay sa pagitan ng "i-import ang isang remote" at "dumarating ang code over the wire at tumatakbo" na ibinigay ng browser sa web federation nang libre.

@@ -16,8 +16,8 @@ Ang hugis na bubuuin natin, bago ang anumang code: ang host ang may-ari ng tab b
 
 ```mermaid
 flowchart TB
-    subgraph host["Host app — the shell (owns navigation + tab bar)"]
-        tabs["Bottom tab bar"]
+    subgraph host["Host app — ang shell (may-ari ng navigation + tab bar)"]
+        tabs["Tab bar sa ibaba"]
         t1["Pokédex tab"]
         t2["Trainer tab"]
         tabs --> t1
@@ -25,8 +25,8 @@ flowchart TB
     end
     list[("list remote<br/>:8082 · PokedexScreen")]
     profile[("profile remote<br/>:8083 · ProfileScreen")]
-    t1 -.->|"React.lazy · loaded on first open"| list
-    t2 -.->|"React.lazy · loaded on first open"| profile
+    t1 -.->|"React.lazy · nilo-load sa unang pagbukas"| list
+    t2 -.->|"React.lazy · nilo-load sa unang pagbukas"| profile
 ```
 
 Magpapatuloy tayo kung saan tumigil ang post 3. Kung sumunod ka sa tutorial, manatili sa sarili mong code. Kung hindi, magsimula mula sa tapos na estado ng post 3:
