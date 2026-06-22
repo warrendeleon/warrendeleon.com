@@ -221,6 +221,6 @@ El següent a la sèrie: el host deixa de ser una sola pantalla i es converteix 
 
 ## Fonts
 
-- [react-native-safe-area-context](https://github.com/AppAndFlow/react-native-safe-area-context) — la llibreria de safe area mantinguda, i la vista nativa `RNCSafeAreaProvider` del crash
-- [Module Federation 2.0](https://module-federation.io/) — el contracte `shared`: `singleton`, `eager` i `requiredVersion`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation) — el repo company, a l'etiqueta `post-03-shared-singleton`
+- [react-native-safe-area-context](https://github.com/AppAndFlow/react-native-safe-area-context): la llibreria de safe area mantinguda, i la vista nativa `RNCSafeAreaProvider` del crash
+- [Module Federation 2.0](https://module-federation.io/): el contracte `shared`: `singleton`, `eager` i `requiredVersion`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): el repo company, a l'etiqueta `post-03-shared-singleton`

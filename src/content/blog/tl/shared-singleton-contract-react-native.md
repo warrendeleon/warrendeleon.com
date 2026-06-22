@@ -221,6 +221,6 @@ Ang susunod sa serye: titigil ang host bilang iisang screen at magiging tunay na
 
 ## Mga sanggunian
 
-- [react-native-safe-area-context](https://github.com/AppAndFlow/react-native-safe-area-context) — ang minementinang safe area library, at ang native view na `RNCSafeAreaProvider` sa crash
-- [Module Federation 2.0](https://module-federation.io/) — ang `shared` contract: `singleton`, `eager`, at `requiredVersion`
-- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation) — ang companion repo, sa tag na `post-03-shared-singleton`
+- [react-native-safe-area-context](https://github.com/AppAndFlow/react-native-safe-area-context): ang minementinang safe area library, at ang native view na `RNCSafeAreaProvider` sa crash
+- [Module Federation 2.0](https://module-federation.io/): ang `shared` contract: `singleton`, `eager`, at `requiredVersion`
+- [react-native-module-federation](https://github.com/warrendeleon/react-native-module-federation): ang companion repo, sa tag na `post-03-shared-singleton`
