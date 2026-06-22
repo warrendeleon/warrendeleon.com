@@ -4,7 +4,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostSlug, formatBlogDate, toDateString } from '../../utils/blogHelpers';
+import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug } from '../../utils/blogHelpers';
 
 interface Props {
   locale: Locale;
@@ -15,13 +15,41 @@ interface Props {
 const { locale, posts, seriesName } = Astro.props;
 const i18n = t(locale);
 const blogPath = getLocalePath(locale, '/blog/');
+
+// The hub's own URL. Without this the page inherited currentPath=/blog/, which set
+// its canonical and hreflang to the blog index, telling search engines the series
+// page was a duplicate. That alone kept it from ranking. Drive them off the real URL.
+const siteUrl = 'https://warrendeleon.com';
+const seriesPath = getLocalePath(locale, `/blog/series/${getSeriesSlug(seriesName)}/`);
+
+// Reuse the first (intro) post's description as the series lede + meta description:
+// it is already keyword-rich and already translated into every locale, so no new
+// per-series copy is needed and nothing goes stale.
+const lede = posts[0]?.data.description ?? `${i18n.blog.seriesLabel}: ${seriesName}`;
+
+// ItemList structured data: tells search engines this is an ordered, multi-part guide
+// and makes the parts eligible for a list/carousel rich result.
+const itemListJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: seriesName,
+  description: lede,
+  numberOfItems: posts.length,
+  itemListElement: posts.map((post, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: `${siteUrl}${getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)}`,
+    name: post.data.title,
+  })),
+};
 ---
 
 <BaseLayout
   title={`${seriesName} | Warren de Leon`}
-  description={`${i18n.blog.seriesLabel}: ${seriesName}`}
+  description={lede}
   locale={locale}
-  currentPath={blogPath}
+  currentPath={seriesPath}
+  jsonLd={itemListJsonLd}
 >
   <section class="section">
     <div class="container">
@@ -35,6 +63,7 @@ const blogPath = getLocalePath(locale, '/blog/');
         </a>
         <p class="series-page-eyebrow">{i18n.blog.seriesLabel}</p>
         <h1 class="section-heading">{seriesName}</h1>
+        <p class="series-page-lede">{lede}</p>
         <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
       </div>
 
@@ -90,6 +119,7 @@ const blogPath = getLocalePath(locale, '/blog/');
   .tag-page-header .blog-back-link:hover { color: var(--color-green); gap: 0.6rem; }
   .tag-page-count { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem; }
   .series-page-eyebrow { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-green); margin-bottom: 0.4rem; }
+  .series-page-lede { font-size: 1.05rem; line-height: 1.6; color: var(--text-secondary); max-width: 60ch; margin-top: 0.75rem; }
 
   .series-page-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
   .series-page-item {
