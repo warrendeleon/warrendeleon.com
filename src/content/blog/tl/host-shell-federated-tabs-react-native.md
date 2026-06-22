@@ -12,6 +12,23 @@ relatedPosts: ["shared-singleton-contract-react-native", "your-first-federated-r
 
 Hanggang ngayon, isang screen mula sa isang remote ang nilo-load ng host. Higit pa sa isang screen ang tunay na app: may shell ito, may tab bar, may lugar para sa mga feature. Ginagawang shell na iyon ang host sa post na ito. Ito ang may-ari ng navigation at ng tab bar, at bawat tab ay hiwalay na remote, binuo at na-deploy nang mag-isa, nilo-load sa runtime.
 
+Ang hugis na bubuuin natin, bago ang anumang code: ang host ang may-ari ng tab bar, at bawat tab ay hiwalay na remote, na kinukuha at pinapatakbo sa runtime sa unang pagbukas mo nito.
+
+```mermaid
+flowchart TB
+    subgraph host["Host app — the shell (owns navigation + tab bar)"]
+        tabs["Bottom tab bar"]
+        t1["Pokédex tab"]
+        t2["Trainer tab"]
+        tabs --> t1
+        tabs --> t2
+    end
+    list[("list remote<br/>:8082 · PokedexScreen")]
+    profile[("profile remote<br/>:8083 · ProfileScreen")]
+    t1 -.->|"React.lazy · loaded on first open"| list
+    t2 -.->|"React.lazy · loaded on first open"| profile
+```
+
 Magpapatuloy tayo kung saan tumigil ang post 3. Kung sumunod ka sa tutorial, manatili sa sarili mong code. Kung hindi, magsimula mula sa tapos na estado ng post 3:
 
 ```sh
@@ -200,6 +217,10 @@ cd apps/host && npm run ios
 ```
 
 Nag-boot ang host sa Pokédex tab at nire-render ang remote na `list`. Pindutin ang **Trainer** at kinukuha ng host ang remote na `profile` mula sa 8083, pinapatakbo ito, at ipinapakita ang card ng trainer. Dalawang feature, binuo at sineserve ng dalawang hiwalay na app, sa isang tab bar na hindi pag-aari ng alinman sa kanila.
+
+<div class="device-frame">
+  <img src="/images/blog/host-shell-federated-tabs-react-native-app.webp" alt="Ang host shell na tumatakbo sa iOS: isang bottom tab bar na may Pokédex at Trainer na tab, ang Pokédex tab na nagre-render ng listahan ng Pokémon mula sa list remote" />
+</div>
 
 ## Ang nabuo mo, at ang susunod
 

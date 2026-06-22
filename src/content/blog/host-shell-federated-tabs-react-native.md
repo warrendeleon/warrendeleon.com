@@ -18,6 +18,23 @@ relatedPosts: ["shared-singleton-contract-react-native", "your-first-federated-r
 
 So far the host has loaded one screen from one remote. A real app is more than a screen: it has a shell, a tab bar, somewhere to put the features. This post makes the host that shell. It owns the navigation and the tab bar, and each tab is a separate remote, built and deployed on its own, loaded at runtime.
 
+The shape we're building, before any code: the host owns the tab bar, and each tab is a separate remote app, fetched and run at runtime the first time you open it.
+
+```mermaid
+flowchart TB
+    subgraph host["Host app — the shell (owns navigation + tab bar)"]
+        tabs["Bottom tab bar"]
+        t1["Pokédex tab"]
+        t2["Trainer tab"]
+        tabs --> t1
+        tabs --> t2
+    end
+    list[("list remote<br/>:8082 · PokedexScreen")]
+    profile[("profile remote<br/>:8083 · ProfileScreen")]
+    t1 -.->|"React.lazy · loaded on first open"| list
+    t2 -.->|"React.lazy · loaded on first open"| profile
+```
+
 We pick up where post 3 left off. If you built along, stay on your own code. If not, start from post 3's finished state:
 
 ```sh
@@ -206,6 +223,10 @@ cd apps/host && npm run ios
 ```
 
 The host boots on the Pokédex tab and renders the `list` remote. Tap **Trainer** and the host fetches the `profile` remote from 8083, runs it, and shows the trainer card. Two features, built and served by two separate apps, sitting in one tab bar that belongs to neither of them.
+
+<div class="device-frame">
+  <img src="/images/blog/host-shell-federated-tabs-react-native-app.webp" alt="The host shell running on iOS: a bottom tab bar with Pokédex and Trainer tabs, the Pokédex tab rendering the list remote's Pokémon list" />
+</div>
 
 ## What you built, and what's next
 

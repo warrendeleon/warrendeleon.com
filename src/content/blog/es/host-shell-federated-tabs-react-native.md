@@ -12,6 +12,23 @@ relatedPosts: ["shared-singleton-contract-react-native", "your-first-federated-r
 
 Hasta ahora el host ha cargado una pantalla de un remote. Una app de verdad es más que una pantalla: tiene una cáscara, una tab bar, un sitio donde poner las features. Este post convierte el host en esa cáscara. Es dueño de la navegación y de la tab bar, y cada pestaña es un remote separado, construido y desplegado por su cuenta, cargado en runtime.
 
+La forma que vamos a construir, antes de tocar código: el host es dueño de la tab bar, y cada pestaña es un remote separado, que se descarga y se ejecuta en runtime la primera vez que la abres.
+
+```mermaid
+flowchart TB
+    subgraph host["Host app — the shell (owns navigation + tab bar)"]
+        tabs["Bottom tab bar"]
+        t1["Pokédex tab"]
+        t2["Trainer tab"]
+        tabs --> t1
+        tabs --> t2
+    end
+    list[("list remote<br/>:8082 · PokedexScreen")]
+    profile[("profile remote<br/>:8083 · ProfileScreen")]
+    t1 -.->|"React.lazy · loaded on first open"| list
+    t2 -.->|"React.lazy · loaded on first open"| profile
+```
+
 Retomamos donde lo dejó el post 3. Si seguiste el tutorial, quédate con tu propio código. Si no, parte del estado final del post 3:
 
 ```sh
@@ -200,6 +217,10 @@ cd apps/host && npm run ios
 ```
 
 El host arranca en la pestaña Pokédex y renderiza el remote `list`. Toca **Trainer** y el host busca el remote `profile` en 8083, lo ejecuta, y muestra la tarjeta del entrenador. Dos features, construidas y servidas por dos apps separadas, en una tab bar que no pertenece a ninguna de las dos.
+
+<div class="device-frame">
+  <img src="/images/blog/host-shell-federated-tabs-react-native-app.webp" alt="La cáscara del host ejecutándose en iOS: una tab bar inferior con las pestañas Pokédex y Trainer, la pestaña Pokédex renderizando la lista de Pokémon del remote list" />
+</div>
 
 ## Lo que construiste, y lo que viene
 
