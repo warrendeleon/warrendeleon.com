@@ -30,6 +30,18 @@ flowchart TD
     Q2 -->|No| T3["Nivel 3: AsyncStorage<br/>Texto plano vía Redux Persist<br/>tema, idioma"]
 ```
 
+## Supuestos
+
+El montaje de abajo se escribió contra:
+
+- React Native 0.74+ (bare workflow, no Expo)
+- TypeScript con la config de Babel estándar de RN
+- Redux Toolkit + Redux Persist para la gestión de estado
+- iOS 13+ y Android API 23+ (el Keystore respaldado por hardware necesita API 23 como mínimo)
+- Un backend de Supabase (o cualquier REST API que devuelva access/refresh tokens)
+
+En Expo, cambia `react-native-keychain` por `expo-secure-store` en el wrapper del Nivel 1. La estructura se mantiene igual.
+
 ## Los tres niveles
 
 | Nivel | Librería | Seguridad | Velocidad | Usa para |
@@ -46,6 +58,7 @@ El nivel más alto. Usa el enclave seguro respaldado por hardware de la platafor
 
 ```bash
 yarn add react-native-keychain
+cd ios && pod install && cd ..
 ```
 
 El wrapper:
@@ -66,12 +79,13 @@ export enum SecureStoreKey {
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
 export const SecureStore = {
-  async set(key: SecureStoreKey, value: string): Promise<void> {
+  async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
       accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
+    return true;
   },
 
   async get(key: SecureStoreKey): Promise<string | null> {
@@ -81,18 +95,20 @@ export const SecureStore = {
     return result ? result.password : null;
   },
 
-  async remove(key: SecureStoreKey): Promise<void> {
+  async remove(key: SecureStoreKey): Promise<boolean> {
     await Keychain.resetGenericPassword({
       service: `${SERVICE_PREFIX}.${key}`,
     });
+    return true;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     for (const key of Object.values(SecureStoreKey)) {
       await Keychain.resetGenericPassword({
         service: `${SERVICE_PREFIX}.${key}`,
       });
     }
+    return true;
   },
 };
 ```
@@ -110,6 +126,7 @@ El nivel intermedio. Los datos se cifran con AES-256, sin barrera de hardware ni
 
 ```bash
 yarn add react-native-encrypted-storage
+cd ios && pod install && cd ..
 ```
 
 El wrapper:
@@ -128,24 +145,27 @@ export enum EncryptedStoreKey {
 }
 
 export const EncryptedStore = {
-  async set(key: EncryptedStoreKey, value: string): Promise<void> {
+  async set(key: EncryptedStoreKey, value: string): Promise<boolean> {
     await EncryptedStorage.setItem(key, value);
+    return true;
   },
 
   async get(key: EncryptedStoreKey): Promise<string | null> {
     return await EncryptedStorage.getItem(key);
   },
 
-  async remove(key: EncryptedStoreKey): Promise<void> {
+  async remove(key: EncryptedStoreKey): Promise<boolean> {
     await EncryptedStorage.removeItem(key);
+    return true;
   },
 
   async setMultiple(
     items: { key: EncryptedStoreKey; value: string }[]
-  ): Promise<void> {
+  ): Promise<boolean> {
     for (const item of items) {
       await EncryptedStorage.setItem(item.key, item.value);
     }
+    return true;
   },
 
   async getMultiple(
@@ -158,8 +178,9 @@ export const EncryptedStore = {
     return result;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     await EncryptedStorage.clear();
+    return true;
   },
 };
 ```
@@ -181,7 +202,8 @@ await EncryptedStore.setMultiple([
 El nivel más rápido. Texto plano, sin cifrado. Reservado para datos sin peso de seguridad: preferencia de tema, selección de idioma.
 
 ```bash
-yarn add @react-native-async-storage/async-storage redux-persist
+yarn add @react-native-async-storage/async-storage redux-persist @reduxjs/toolkit react-redux
+cd ios && pod install && cd ..
 ```
 
 No hablas con AsyncStorage directamente para las preferencias. Lo hace Redux Persist por ti. Guarda tu estado de Redux en AsyncStorage y lo rehidrata al arrancar la app.
@@ -218,6 +240,22 @@ const rootPersistConfig = {
   storage: AsyncStorage,
   whitelist: ['settings'],
 };
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Redux Persist despacha acciones no serializables durante la rehidratación.
+        // Ignóralas para que el middleware de serializable-check no avise.
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
 ```
 
 | Config | Qué persiste | Qué excluye |
@@ -244,12 +282,23 @@ const settingsSlice = createSlice({
 Cuando el usuario cambia el tema o el idioma, Redux Persist se encarga de escribir en AsyncStorage. En el próximo arranque, `PersistGate` espera la rehidratación antes de renderizar:
 
 ```typescript
-<Provider store={store}>
-  <PersistGate loading={null} persistor={persistor}>
-    <App />
-  </PersistGate>
-</Provider>
+// App.tsx
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '@app/store/configureStore';
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {/* tus pantallas */}
+      </PersistGate>
+    </Provider>
+  );
+}
 ```
+
+`PersistGate` bloquea el render hasta que el slice persistido se ha vuelto a cargar en el store. Sin él, la app muestra el estado por defecto durante un frame antes de que el tema/idioma persistido tome el relevo.
 
 ## Cómo se componen los niveles en un flujo de auth
 
@@ -324,20 +373,29 @@ El interceptor de Axios se encarga de la [renovación de tokens](/blog/token-ref
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response?.status === 401) {
-      const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-      const { data } = await axios.post('/auth/v1/token', {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-      });
+    // Reintenta solo una vez por petición, o un refresh que sigue dando 401 entra en bucle infinito.
+    if (error.response?.status === 401 && !error.config._retry) {
+      error.config._retry = true;
+      try {
+        const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+        const { data } = await axios.post('/auth/v1/token', {
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+        });
 
-      // Actualizar tokens en SecureStore
-      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
-      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
+        // Actualizar tokens en SecureStore
+        await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
+        await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
 
-      // Reintentar la petición original
-      error.config.headers.Authorization = `Bearer ${data.access_token}`;
-      return axiosInstance(error.config);
+        // Reintentar la petición original
+        error.config.headers.Authorization = `Bearer ${data.access_token}`;
+        return axiosInstance(error.config);
+      } catch (refreshError) {
+        // No hay refresh token, o ha expirado: la sesión ha terminado. Limpia el
+        // nivel seguro para que la app vuelva al flujo de login.
+        await SecureStore.clear();
+        return Promise.reject(refreshError);
+      }
     }
     return Promise.reject(error);
   }

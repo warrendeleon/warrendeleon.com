@@ -30,6 +30,18 @@ flowchart TD
     Q2 -->|Hindi| T3["Tier 3: AsyncStorage<br/>Plain text via Redux Persist<br/>theme, language"]
 ```
 
+## Mga assumption
+
+Ang setup sa ibaba ay isinulat laban sa:
+
+- React Native 0.74+ (bare workflow, hindi Expo)
+- TypeScript gamit ang standard na RN Babel config
+- Redux Toolkit + Redux Persist para sa state management
+- iOS 13+ at Android API 23+ (kailangan ng hardware-backed Keystore ang API 23 bilang floor)
+- Isang Supabase backend (o kahit anong REST API na nagbabalik ng access/refresh tokens)
+
+Sa Expo, palitan ang `react-native-keychain` ng `expo-secure-store` sa Tier 1 wrapper. Mananatiling pareho ang structure.
+
 ## Ang tatlong tier
 
 | Tier | Library | Seguridad | Bilis | Gamitin para sa |
@@ -46,6 +58,7 @@ Ang pinakamataas na tier. Gumagamit ng hardware-backed secure enclave ng platfor
 
 ```bash
 yarn add react-native-keychain
+cd ios && pod install && cd ..
 ```
 
 Ang wrapper:
@@ -66,12 +79,13 @@ export enum SecureStoreKey {
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
 export const SecureStore = {
-  async set(key: SecureStoreKey, value: string): Promise<void> {
+  async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
       accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
+    return true;
   },
 
   async get(key: SecureStoreKey): Promise<string | null> {
@@ -81,18 +95,20 @@ export const SecureStore = {
     return result ? result.password : null;
   },
 
-  async remove(key: SecureStoreKey): Promise<void> {
+  async remove(key: SecureStoreKey): Promise<boolean> {
     await Keychain.resetGenericPassword({
       service: `${SERVICE_PREFIX}.${key}`,
     });
+    return true;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     for (const key of Object.values(SecureStoreKey)) {
       await Keychain.resetGenericPassword({
         service: `${SERVICE_PREFIX}.${key}`,
       });
     }
+    return true;
   },
 };
 ```
@@ -110,6 +126,7 @@ Ang gitnang tier. Naka-encrypt ang data gamit ang AES-256, walang hardware-backe
 
 ```bash
 yarn add react-native-encrypted-storage
+cd ios && pod install && cd ..
 ```
 
 Ang wrapper:
@@ -128,24 +145,27 @@ export enum EncryptedStoreKey {
 }
 
 export const EncryptedStore = {
-  async set(key: EncryptedStoreKey, value: string): Promise<void> {
+  async set(key: EncryptedStoreKey, value: string): Promise<boolean> {
     await EncryptedStorage.setItem(key, value);
+    return true;
   },
 
   async get(key: EncryptedStoreKey): Promise<string | null> {
     return await EncryptedStorage.getItem(key);
   },
 
-  async remove(key: EncryptedStoreKey): Promise<void> {
+  async remove(key: EncryptedStoreKey): Promise<boolean> {
     await EncryptedStorage.removeItem(key);
+    return true;
   },
 
   async setMultiple(
     items: { key: EncryptedStoreKey; value: string }[]
-  ): Promise<void> {
+  ): Promise<boolean> {
     for (const item of items) {
       await EncryptedStorage.setItem(item.key, item.value);
     }
+    return true;
   },
 
   async getMultiple(
@@ -158,8 +178,9 @@ export const EncryptedStore = {
     return result;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     await EncryptedStorage.clear();
+    return true;
   },
 };
 ```
@@ -181,7 +202,8 @@ await EncryptedStore.setMultiple([
 Ang pinakamabilis na tier. Plain text, walang encryption. Para lang sa data na walang security sensitivity: theme preference, language selection.
 
 ```bash
-yarn add @react-native-async-storage/async-storage redux-persist
+yarn add @react-native-async-storage/async-storage redux-persist @reduxjs/toolkit react-redux
+cd ios && pod install && cd ..
 ```
 
 Hindi mo ginagamit nang direkta ang AsyncStorage para sa preferences. Ang Redux Persist ang nagha-handle niyan. Awtomatiko nitong sini-save ang iyong Redux state sa AsyncStorage at nire-rehydrate ito kapag nagla-launch ang app.
@@ -191,7 +213,11 @@ Ang susi ay ang persist config:
 ```typescript
 // src/store/configureStore.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
+
+import { authReducer } from '@app/features/Auth';
+import { settingsReducer } from '@app/features/Settings';
 
 // May sariling persist config ang auth slice para makapag-whitelist ng iisang field.
 const authPersistConfig = {
@@ -201,12 +227,35 @@ const authPersistConfig = {
   blacklist: ['user', 'error', 'isLoading'],
 };
 
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
+
+const rootReducer = combineReducers({
+  settings: settingsReducer,
+  auth: persistedAuthReducer,
+});
+
 // Ang root persist config ang nag-pe-persist lang sa settings slice (theme, language).
 const rootPersistConfig = {
   key: 'root',
   storage: AsyncStorage,
   whitelist: ['settings'],
 };
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        // Nagdi-dispatch ang Redux Persist ng non-serialisable na actions habang nire-rehydrate.
+        // I-ignore ang mga ito para hindi mag-warn ang serialisable-check middleware.
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);
 ```
 
 | Config | Ano ang pini-persist | Ano ang hindi kasama |
@@ -233,12 +282,23 @@ const settingsSlice = createSlice({
 Kapag nagpalit ang user ng theme o language, awtomatikong nagsusulat ang Redux Persist sa AsyncStorage. Sa susunod na launch, naghihintay ang `PersistGate` ng rehydration bago mag-render:
 
 ```typescript
-<Provider store={store}>
-  <PersistGate loading={null} persistor={persistor}>
-    <App />
-  </PersistGate>
-</Provider>
+// App.tsx
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '@app/store/configureStore';
+
+export default function App() {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {/* ang iyong mga screen */}
+      </PersistGate>
+    </Provider>
+  );
+}
 ```
+
+Hinaharangan ng `PersistGate` ang render hanggang sa muling ma-load ang persisted slice pabalik sa store. Kung wala ito, panandaliang lumalabas ang default state ng app nang isang frame bago pumalit ang naka-persist na theme/language.
 
 ## Paano nag-cocompose ang mga tier sa auth flow
 
@@ -313,20 +373,29 @@ Ang Axios interceptor ang nagha-handle ng [awtomatikong token refresh](/blog/tok
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response?.status === 401) {
-      const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-      const { data } = await axios.post('/auth/v1/token', {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-      });
+    // Mag-retry lang nang isang beses bawat request, o ang refresh na patuloy na nagiging 401 ay paiikot nang walang hanggan.
+    if (error.response?.status === 401 && !error.config._retry) {
+      error.config._retry = true;
+      try {
+        const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+        const { data } = await axios.post('/auth/v1/token', {
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+        });
 
-      // I-update ang tokens sa SecureStore
-      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
-      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
+        // I-update ang tokens sa SecureStore
+        await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
+        await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
 
-      // I-retry ang original request
-      error.config.headers.Authorization = `Bearer ${data.access_token}`;
-      return axiosInstance(error.config);
+        // I-retry ang original request
+        error.config.headers.Authorization = `Bearer ${data.access_token}`;
+        return axiosInstance(error.config);
+      } catch (refreshError) {
+        // Walang refresh token, o nag-expire na ito: tapos na ang session. I-clear ang
+        // secure tier para bumalik ang app sa login flow.
+        await SecureStore.clear();
+        return Promise.reject(refreshError);
+      }
     }
     return Promise.reject(error);
   }

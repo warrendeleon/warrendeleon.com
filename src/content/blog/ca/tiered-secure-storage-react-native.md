@@ -83,12 +83,13 @@ export enum SecureStoreKey {
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
 export const SecureStore = {
-  async set(key: SecureStoreKey, value: string): Promise<void> {
+  async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
       accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
+    return true;
   },
 
   async get(key: SecureStoreKey): Promise<string | null> {
@@ -98,18 +99,20 @@ export const SecureStore = {
     return result ? result.password : null;
   },
 
-  async remove(key: SecureStoreKey): Promise<void> {
+  async remove(key: SecureStoreKey): Promise<boolean> {
     await Keychain.resetGenericPassword({
       service: `${SERVICE_PREFIX}.${key}`,
     });
+    return true;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     for (const key of Object.values(SecureStoreKey)) {
       await Keychain.resetGenericPassword({
         service: `${SERVICE_PREFIX}.${key}`,
       });
     }
+    return true;
   },
 };
 ```
@@ -146,24 +149,27 @@ export enum EncryptedStoreKey {
 }
 
 export const EncryptedStore = {
-  async set(key: EncryptedStoreKey, value: string): Promise<void> {
+  async set(key: EncryptedStoreKey, value: string): Promise<boolean> {
     await EncryptedStorage.setItem(key, value);
+    return true;
   },
 
   async get(key: EncryptedStoreKey): Promise<string | null> {
     return await EncryptedStorage.getItem(key);
   },
 
-  async remove(key: EncryptedStoreKey): Promise<void> {
+  async remove(key: EncryptedStoreKey): Promise<boolean> {
     await EncryptedStorage.removeItem(key);
+    return true;
   },
 
   async setMultiple(
     items: { key: EncryptedStoreKey; value: string }[]
-  ): Promise<void> {
+  ): Promise<boolean> {
     for (const item of items) {
       await EncryptedStorage.setItem(item.key, item.value);
     }
+    return true;
   },
 
   async getMultiple(
@@ -176,8 +182,9 @@ export const EncryptedStore = {
     return result;
   },
 
-  async clear(): Promise<void> {
+  async clear(): Promise<boolean> {
     await EncryptedStorage.clear();
+    return true;
   },
 };
 ```
@@ -370,20 +377,29 @@ L'interceptor d'Axios gestiona la [renovació de tokens](/blog/token-refresh-rac
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
-    if (error.response?.status === 401) {
-      const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-      const { data } = await axios.post('/auth/v1/token', {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-      });
+    // Reintenta només un cop per petició, o un refresh que segueix donant 401 entra en bucle infinit.
+    if (error.response?.status === 401 && !error.config._retry) {
+      error.config._retry = true;
+      try {
+        const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+        const { data } = await axios.post('/auth/v1/token', {
+          grant_type: 'refresh_token',
+          refresh_token: refreshToken,
+        });
 
-      // Actualitzar tokens a SecureStore
-      await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
-      await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
+        // Actualitzar tokens a SecureStore
+        await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
+        await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
 
-      // Reintentar la petició original
-      error.config.headers.Authorization = `Bearer ${data.access_token}`;
-      return axiosInstance(error.config);
+        // Reintentar la petició original
+        error.config.headers.Authorization = `Bearer ${data.access_token}`;
+        return axiosInstance(error.config);
+      } catch (refreshError) {
+        // No hi ha refresh token, o ha expirat: la sessió s'ha acabat. Neteja el
+        // nivell segur perquè l'app torni al flux de login.
+        await SecureStore.clear();
+        return Promise.reject(refreshError);
+      }
     }
     return Promise.reject(error);
   }
