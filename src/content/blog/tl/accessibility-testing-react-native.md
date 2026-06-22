@@ -267,16 +267,12 @@ Hinihintay ng `'polite'` na matapos muna ang kasalukuyang interaction ng user ba
 
 ### Focus order verification
 
-Sunud-sunod ang pag-navigate ng mga screen reader user. Kung mali ang pagkakasunod ng iyong form inputs, masisira ang experience:
+Sunud-sunod ang pag-navigate ng mga screen reader user. Ang check sa baba ay isang smoke test, hindi totoong focus-order verifier: kinukumpirma nito na bawat element sa array ay focusable, at ang *pagkakasunod ng pagpasa mo sa kanila* ang nagdo-document sa inaasahang sequence. Ang totoong reading order ay tinutukoy sa runtime ng screen reader at ng layout tree, na hindi kayang i-simulate nang buo ng Jest. Para sa totoong reading-order checks, gamitin ang Detox + VoiceOver feature files sa [ang BDD post](/blog/detox-cucumber-bdd-react-native-e2e-testing/).
 
 ```typescript
 export function expectFocusOrder(elements: ReactTestInstance[]): void {
-  for (let i = 0; i < elements.length - 1; i++) {
-    const current = elements[i];
-    const next = elements[i + 1];
-
-    expect(current.props.accessible !== false).toBe(true);
-    expect(next.props.accessible !== false).toBe(true);
+  for (const element of elements) {
+    expect(element.props.accessible !== false).toBe(true);
   }
 }
 
@@ -517,6 +513,26 @@ Pinapayagan ka ng `*.accessibility.rntl.tsx` naming convention na patakbuhin sil
 
 ```bash
 yarn jest --testPathPattern='accessibility'
+```
+
+```text
+PASS  src/features/Auth/__tests__/LoginScreen.accessibility.rntl.tsx
+  LoginScreen Accessibility
+    focus order
+      ✓ has correct focus order for form elements (12 ms)
+      ✓ has focusable email input (4 ms)
+    touch targets
+      ✓ login button meets minimum touch target (5 ms)
+      ✓ register link meets minimum touch target (3 ms)
+    screen reader announcements
+      ✓ announces error message on failed login (98 ms)
+    accessibility roles and labels
+      ✓ email input has correct accessibility props (3 ms)
+      ✓ login button has correct role (2 ms)
+      ✓ disabled button announces disabled state (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
 ```
 
 O patakbuhin ang lahat nang sabay. Regular Jest tests ang mga ito. Walang espesyal na configuration, walang hiwalay na test runner.

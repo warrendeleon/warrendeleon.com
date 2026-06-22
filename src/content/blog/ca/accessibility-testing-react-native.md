@@ -29,6 +29,17 @@ La mida del touch target és un número. El ràtio de contrast és un càlcul. L
 | Identificació d'errors | 3.3.1 | Verificar que els missatges d'error tenen `role="alert"` i live region |
 | Etiquetes i indicacions | 3.3.2 | Comprovar que `accessibilityLabel` i `accessibilityHint` existeixen als inputs de formulari |
 
+## Assumpcions
+
+El setup de sota es va escriure contra:
+
+- React Native 0.74+ (bare o Expo)
+- TypeScript amb la config estàndard de Babel per a RN
+- Jest configurat (mira [Configurant MSW v2 a React Native](/ca/blog/setting-up-msw-v2-in-react-native/) per als polyfills, la config i `renderWithProviders`)
+- Dimensions numèriques o en string amb unitats als touchables (el helper parseja totes dues via `parseFloat`)
+
+Les llibreries d'estils que passen les dimensions als components com a theme tokens (`h="$12"`, `className="h-12"`) necessiten o bé resoldre's a un valor numèric a l'arbre renderitzat, o bé substituir-se per valors numèrics als components sota test. El helper llegeix a través de `StyleSheet.flatten`, no a través d'un resolver de temes.
+
 ## Instal·lació
 
 Sense dependències addicionals. Les utilitats fan servir React Native Testing Library, que ja tens per als tests de components, més assercions de Jest:
@@ -256,16 +267,12 @@ export function expectScreenReaderAnnouncement(
 
 ### Verificació de l'ordre de focus
 
-Els usuaris de lectors de pantalla naveguen seqüencialment. Si els inputs del teu formulari estan en l'ordre incorrecte, l'experiència es trenca:
+Els usuaris de lectors de pantalla naveguen seqüencialment. La comprovació de sota és un smoke test, no un verificador real de l'ordre de focus: confirma que cada element de l'array és enfocable, i l'*ordre en què els passes* documenta la seqüència esperada. L'ordre de lectura real el determina en temps d'execució el lector de pantalla i l'arbre de layout, que Jest no pot simular del tot. Per a comprovacions reals de l'ordre de lectura, fes servir els fitxers de feature de Detox + VoiceOver a [el post de BDD](/blog/detox-cucumber-bdd-react-native-e2e-testing/).
 
 ```typescript
 export function expectFocusOrder(elements: ReactTestInstance[]): void {
-  for (let i = 0; i < elements.length - 1; i++) {
-    const current = elements[i];
-    const next = elements[i + 1];
-
-    expect(current.props.accessible !== false).toBe(true);
-    expect(next.props.accessible !== false).toBe(true);
+  for (const element of elements) {
+    expect(element.props.accessible !== false).toBe(true);
   }
 }
 
@@ -506,6 +513,26 @@ La convenció de nomenclatura `*.accessibility.rntl.tsx` permet executar-los com
 
 ```bash
 yarn jest --testPathPattern='accessibility'
+```
+
+```text
+PASS  src/features/Auth/__tests__/LoginScreen.accessibility.rntl.tsx
+  LoginScreen Accessibility
+    focus order
+      ✓ has correct focus order for form elements (12 ms)
+      ✓ has focusable email input (4 ms)
+    touch targets
+      ✓ login button meets minimum touch target (5 ms)
+      ✓ register link meets minimum touch target (3 ms)
+    screen reader announcements
+      ✓ announces error message on failed login (98 ms)
+    accessibility roles and labels
+      ✓ email input has correct accessibility props (3 ms)
+      ✓ login button has correct role (2 ms)
+      ✓ disabled button announces disabled state (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
 ```
 
 O executar-ho tot junt. Són tests de Jest normals. Sense configuració especial, sense un runner de tests separat.
