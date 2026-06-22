@@ -19,6 +19,17 @@ Nangyayari ito sa bawat multilingual app. Hindi pabaya ang mga translators. Wala
 
 Karamihan sa mga teams ay nilalaktawan ang i18n parity testing, at sa isa o dalawang locales ay makatuwiran iyon. Puwede mong tingnan ang JSON sa PR review. Sa limang locales, hindi na ito gumagana. Ang manual na diff mismo ang nagiging pinagmumulan ng bug. Isang test na nagko-compare ng keys ng bawat locale laban sa reference locale ang humuhuli sa drift bago mag-ship. Kung may key ang `en.json` na wala sa `es.json`, babagsak ang test. Patakbuhin ito sa bawat PR.
 
+## Mga assumption
+
+Ang setup sa ibaba ay isinulat laban sa:
+
+- React Native 0.74+ (bare workflow)
+- TypeScript na may standard na RN Babel config
+- Jest na naka-configure para sa unit tests (sa Jest tumatakbo ang parity test)
+- Isang reference locale (English sa post na ito) na ginagamit para i-validate ang lahat ng iba pa
+
+Kung nasa Expo ka, palitan ang `react-native-localize` ng `expo-localization`. Pareho lang ang hugis ng resolution logic.
+
 ## Ang setup
 
 Limang piraso. Ang locale JSONs, ang i18next config, isang resources file, isang TypeScript declaration, at ang parity test.
@@ -291,6 +302,26 @@ Received: [..., "auth.forgotPassword.successTitle", ...]
 ```
 
 Walang hulaan. Walang manual na paghahambing. Isang test, pinapatakbo sa bawat PR.
+
+## Pagpapatakbo nito
+
+```bash
+yarn jest src/i18n/__tests__/localesParity.rntl.ts
+```
+
+```text
+PASS  src/i18n/__tests__/localesParity.rntl.ts
+  i18n locales
+    ✓ en and es have the same keys (4 ms)
+    ✓ en and ca have the same keys (3 ms)
+    ✓ en and pl have the same keys (3 ms)
+    ✓ en and tl have the same keys (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+Kapag may nawawalang key sa isang locale, tinuturo ng failure message ang eksaktong key path. Walang manual na diff. Idagdag ito sa listahan ng CI steps mo at hihinto na sa pag-abot sa production ang mga nawawalang translation.
 
 ## Edge case tests
 

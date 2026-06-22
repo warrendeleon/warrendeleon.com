@@ -19,6 +19,17 @@ Això passa a totes les aplicacions multilingües. Els traductors no són descur
 
 La majoria d'equips no fan tests de paritat d'i18n, i amb un o dos locales és una decisió raonable. Pots revisar el JSON a l'ull en una revisió de PR. Amb cinc locales deixa de funcionar. La comparació manual es converteix en la font del bug. Un únic test que compara les claus de cada locale amb el locale de referència detecta la deriva abans no arribi a producció. Si `en.json` té una clau que `es.json` no té, el test falla. Executa'l a cada PR.
 
+## Supòsits
+
+La configuració de sota es va escriure contra:
+
+- React Native 0.74+ (bare workflow)
+- TypeScript amb la configuració estàndard de Babel de RN
+- Jest configurat per a tests unitaris (el test de paritat s'executa amb Jest)
+- Un locale de referència (l'anglès en aquest article) contra el qual es validen tots els altres
+
+Si fas servir Expo, canvia `react-native-localize` per `expo-localization`. La lògica de resolució té la mateixa forma.
+
 ## La configuració
 
 Cinc peces. Els JSONs de locale, la configuració d'i18next, un fitxer de recursos, una declaració de TypeScript i el test de paritat.
@@ -291,6 +302,26 @@ Received: [..., "auth.forgotPassword.successTitle", ...]
 ```
 
 Sense endevinar. Sense comparació manual. Un test, executat a cada PR.
+
+## Executar-lo
+
+```bash
+yarn jest src/i18n/__tests__/localesParity.rntl.ts
+```
+
+```text
+PASS  src/i18n/__tests__/localesParity.rntl.ts
+  i18n locales
+    ✓ en and es have the same keys (4 ms)
+    ✓ en and ca have the same keys (3 ms)
+    ✓ en and pl have the same keys (3 ms)
+    ✓ en and tl have the same keys (3 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+Quan falta una clau en un locale, el missatge de fallada apunta al camí exacte de la clau. Sense diff manual. Afegeix això a la llista de passos de la teva CI i les traduccions que falten deixen d'arribar a producció.
 
 ## Tests de casos límit
 
