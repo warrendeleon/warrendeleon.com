@@ -28,6 +28,9 @@
   --text-secondary: #555;
   --text-muted: #666;
   --border-color: #e0e0e0;
+  --device-edge: rgba(0, 0, 0, 0.08);
+  --device-button: #4f8e02; /* darker green than the rail, so buttons read with depth */
+  --device-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
   --badge-bg: #f0f0f0;
@@ -47,6 +50,9 @@
   --text-secondary: #b0b0b0;
   --text-muted: #999;
   --border-color: #333333;
+  --device-body: #d9d9de;
+  --device-edge: rgba(0, 0, 0, 0.5);
+  --device-shadow: 0 16px 40px rgba(255, 255, 255, 0.08); /* faint light lift on the dark page */
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
   --badge-bg: #2a2a2a;
@@ -668,11 +674,108 @@ main {
   margin: 1.5rem 0;
 }
 
+/* Brand-theme the rendered mermaid SVG from the site's own tokens, both in-page and in the
+   zoom lightbox. The lightbox clones the SVG to <body> (outside .prose), so both contexts
+   are targeted via :is(); colours track light/dark with no re-render (base theme + Inter
+   set in astro.config.mjs). Node borders carry the green brand accent. */
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node rect,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node polygon,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node circle,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node path {
+  fill: var(--bg-card) !important;
+  stroke: var(--color-green) !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .cluster rect {
+  fill: var(--bg-secondary) !important;
+  stroke: var(--border-color) !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .nodeLabel,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .cluster-label {
+  color: var(--text-primary) !important;
+  font-family: "Inter", system-ui, -apple-system, sans-serif !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel p,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel rect {
+  background: var(--bg-primary) !important;
+  fill: var(--bg-primary) !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .flowchart-link,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgePath path,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .relation {
+  stroke: #8a8f98 !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) marker path {
+  fill: #8a8f98 !important;
+  stroke: #8a8f98 !important;
+}
+
 /* Tall phone screenshots: half width, centred, so they don't dominate the column. */
 .prose img.screenshot {
   max-width: min(50%, 340px);
   margin-inline: auto;
   display: block;
+}
+
+/* Flat iPhone frame for app screenshots. The body colour is theme-aware (a black phone on
+   the light page, a silver phone on the dark page) so the frame is always visible against
+   the background; matches the blog's flat aesthetic rather than a glossy photoreal render. */
+.prose .device-frame {
+  max-width: min(46%, 300px);
+  margin: 1.75rem auto;
+  position: relative;
+  padding: 5px;                             /* thin black screen bezel (17 Pro is slim) */
+  background: #000;
+  border: 4px solid var(--color-green);     /* brand-green metal rail, both themes */
+  border-radius: 46px;
+  box-shadow: 0 0 0 1px var(--device-edge), var(--device-shadow);
+}
+/* Screen radius = inner body radius (46 - 4 border) minus the 5px bezel = 37px, so the
+   black bezel is uniform on the sides and the corners instead of bunching at the corners. */
+.prose .device-frame img {
+  display: block;
+  width: 100%;
+  margin: 0;
+  border-radius: 37px;
+  background: #000;
+}
+/* Side buttons sit just OUTSIDE the rail (offset past the 4px border) so they read as
+   real buttons rather than marks on the frame. Right: power. Left: action + volume x2. */
+/* Right edge: the long side (power) button. */
+.prose .device-frame::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: 27%;
+  width: 4px;
+  height: 62px;
+  border-radius: 0 2px 2px 0;
+  background: var(--device-button);
+}
+/* Left edge, matched to the 17 Pro: a short action button, then two longer volume buttons.
+   Painted as one gradient strip so the three can have different lengths (box-shadow clones
+   can't). Segment lengths in px against the ~630px-tall frame. */
+.prose .device-frame::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 18%;
+  width: 4px;
+  height: 168px;
+  border-radius: 2px 0 0 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--device-button) 0 22px,        /* action button (short) */
+    transparent 22px 54px,
+    var(--device-button) 54px 100px,    /* volume up */
+    transparent 100px 112px,
+    var(--device-button) 112px 158px,   /* volume down */
+    transparent 158px 168px
+  );
+}
+@media (max-width: 640px) {
+  .prose .device-frame { max-width: 66%; }
 }
 
 @media (max-width: 640px) {
