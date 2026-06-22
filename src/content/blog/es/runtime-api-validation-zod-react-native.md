@@ -21,6 +21,15 @@ El resultado: tu app crashea por un acceso a propiedad, muestra campos vacíos o
 
 TypeScript valida la forma de tu código. Zod valida la forma de tus datos. Quieres los dos, y el coste de añadir Zod es bajo: una librería que pesa unos 50KB minificada, el parseo se hace una vez por llamada a la API, y un archivo de schema por respuesta.
 
+## Suposiciones
+
+El setup de abajo se escribió contra:
+
+- React Native 0.74+ (bare o Expo, ambos funcionan; Zod no tiene módulos nativos)
+- TypeScript con la config estándar de Babel de RN
+- Un cliente HTTP donde las respuestas vuelven como `unknown` (o donde las puedes envolver)
+- Jest configurado para tests unitarios (mira [Configurando MSW v2 en React Native](/blog/setting-up-msw-v2-in-react-native/) si todavía no lo tienes)
+
 ## Qué hace Zod
 
 Zod es una librería de declaración y validación de schemas. Defines un schema una vez, y te da dos cosas:
@@ -395,6 +404,26 @@ export { ProfileSchema, type Profile } from './profile.schema';
 export { EducationSchema, type Education } from './education.schema';
 export { WorkExperienceSchema, type WorkExperience } from './workExperience.schema';
 ```
+
+## Corriendo los tests
+
+```bash
+yarn jest src/schemas/__tests__/
+```
+
+```text
+PASS  src/schemas/__tests__/profile.schema.rntl.ts
+  ProfileSchema
+    ✓ validates real fixture data (8 ms)
+    ✓ rejects invalid email (3 ms)
+    ✓ rejects missing required field (2 ms)
+    ✓ rejects invalid URL in gallery (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+El test `validates real fixture data` es el canario en la mina: si alguna vez falla, tus fixtures y tu schema se han separado, y el próximo cambio de la API será un crash en runtime.
 
 ## Errores comunes
 

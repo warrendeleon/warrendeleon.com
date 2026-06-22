@@ -21,6 +21,15 @@ El resultat: l'app peta en accedir a una propietat, mostra camps buits o emmagat
 
 TypeScript valida la forma del teu codi. Zod valida la forma de les teves dades. Els vols tots dos, i el cost d'afegir Zod és petit: una llibreria que pesa uns 50KB minificada, la feina de parsejar es fa un cop per crida d'API, i un fitxer d'esquema per resposta.
 
+## Suposicions
+
+El setup de sota es va escriure contra:
+
+- React Native 0.74+ (bare o Expo, tots dos funcionen; Zod no té mòduls natius)
+- TypeScript amb la config estàndard de Babel de RN
+- Un client HTTP on les respostes tornen com a `unknown` (o on les pots envoltar)
+- Jest configurat per a tests unitaris (mira [Configurant MSW v2 a React Native](/blog/setting-up-msw-v2-in-react-native/) si encara no en tens cap)
+
 ## Què fa Zod
 
 Zod és una llibreria de declaració i validació d'esquemes. Defineixes un esquema un cop, i et dóna dues coses:
@@ -395,6 +404,26 @@ export { ProfileSchema, type Profile } from './profile.schema';
 export { EducationSchema, type Education } from './education.schema';
 export { WorkExperienceSchema, type WorkExperience } from './workExperience.schema';
 ```
+
+## Executant els tests
+
+```bash
+yarn jest src/schemas/__tests__/
+```
+
+```text
+PASS  src/schemas/__tests__/profile.schema.rntl.ts
+  ProfileSchema
+    ✓ validates real fixture data (8 ms)
+    ✓ rejects invalid email (3 ms)
+    ✓ rejects missing required field (2 ms)
+    ✓ rejects invalid URL in gallery (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+El test `validates real fixture data` és el canari: si algun cop falla, els teus fixtures i el teu esquema s'han separat, i el pròxim canvi de l'API serà un crash en temps d'execució.
 
 ## Errors comuns
 

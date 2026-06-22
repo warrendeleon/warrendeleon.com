@@ -21,6 +21,15 @@ Ang resulta: nag-crash ang app mo sa property access, nagpapakita ng blangkong f
 
 Vina-validate ng TypeScript ang hugis ng code mo. Vina-validate ng Zod ang hugis ng data mo. Kailangan mo pareho, at maliit lang ang gastos ng pagdaragdag ng Zod: library na mga 50KB minified, parsing na isang beses lang kada API call, at isang schema file kada response.
 
+## Mga assumption
+
+Ang setup sa baba ay isinulat laban sa:
+
+- React Native 0.74+ (bare o Expo, parehong gumagana; walang native modules ang Zod)
+- TypeScript na may standard na RN Babel config
+- Isang HTTP client kung saan bumabalik ang responses bilang `unknown` (o kung saan puwede mong i-wrap)
+- Jest na naka-configure para sa unit tests (tingnan ang [Pag-set up ng MSW v2 sa React Native](/blog/setting-up-msw-v2-in-react-native/) kung wala ka pa nito)
+
 ## Ano ang ginagawa ng Zod
 
 Ang Zod ay isang schema declaration at validation library. Mag-define ka ng schema nang isang beses, at dalawang bagay ang ibibigay nito:
@@ -395,6 +404,26 @@ export { ProfileSchema, type Profile } from './profile.schema';
 export { EducationSchema, type Education } from './education.schema';
 export { WorkExperienceSchema, type WorkExperience } from './workExperience.schema';
 ```
+
+## Pagpapatakbo ng mga test
+
+```bash
+yarn jest src/schemas/__tests__/
+```
+
+```text
+PASS  src/schemas/__tests__/profile.schema.rntl.ts
+  ProfileSchema
+    ✓ validates real fixture data (8 ms)
+    ✓ rejects invalid email (3 ms)
+    ✓ rejects missing required field (2 ms)
+    ✓ rejects invalid URL in gallery (2 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       4 passed, 4 total
+```
+
+Ang test na `validates real fixture data` ang canary: kapag nag-fail ito, naghiwalay na ang fixtures at schema mo, at ang susunod na pagbabago ng API ay magiging runtime crash.
 
 ## Mga karaniwang pagkakamali
 
