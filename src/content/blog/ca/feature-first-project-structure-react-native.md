@@ -286,26 +286,21 @@ export default [
         patterns: [
           {
             group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
-            message: 'Importa funcionalitats només via el seu index públic. Els interns són privats.',
+            message: 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
           },
         ],
       }],
     },
   },
   {
-    // Permet que les funcionalitats importin dels seus propis interns
-    files: ['src/features/*/**'],
-    rules: { 'no-restricted-imports': 'off' },
-  },
-  {
-    // Els tests d'integració entre funcionalitats són l'únic lloc on s'admeten cross-imports
-    files: ['src/features/__tests__/**'],
+    // Els tests poden accedir als interns d'una funcionalitat per preparar l'estat.
+    files: ['**/__tests__/**'],
     rules: { 'no-restricted-imports': 'off' },
   },
 ];
 ```
 
-El patró bloqueja qualsevol import des de dins d'una altra funcionalitat. El primer override deixa que una funcionalitat importi dels seus propis interns. Els tests entre funcionalitats viuen fora de qualsevol funcionalitat individual, així que reben una exempció explícita.
+El patró bloqueja qualsevol import que arribi als interns d'una altra funcionalitat. Dins d'una funcionalitat fas servir imports relatius (`./store`, `../components`), que mai coincideixen amb el patró d'àlies, així que una funcionalitat sempre pot accedir al seu propi codi. L'única excepció són els tests, que sovint necessiten entrar en una funcionalitat per preparar l'estat.
 
 Prou. Path aliases, una regla d'ESLint, i la disciplina de mantenir privats els interns de cada funcionalitat. L'arquitectura aguanta perquè el tooling fa complir el que la convenció demana.
 

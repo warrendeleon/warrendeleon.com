@@ -232,4 +232,76 @@ Ang crossover ay nakaupo sa bandang **limang features na may sariling state**. S
 
 Buksan mo ang `screens/` folder mo ngayon. Bilangin ang files. Kung hindi mo masabi kung alin ang magkakasama sa tingin lang sa list, hindi ka na tinutulungan ng structure.
 
+## Pag-set up nito
+
+Ang structure sa itaas ay isang convention, hindi isang tool. May dalawang piraso ng config ang nagpapatatag nito.
+
+**Path aliases.** Kung wala ang mga ito, mauuwi ka sa `import { authReducer } from '../../../features/Auth'` sa kung saan-saan. Magdagdag ng aliases sa `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app": ["src"],
+      "@app/*": ["src/*"]
+    }
+  }
+}
+```
+
+At sa `babel.config.js` para ma-resolve ng runtime ang mga ito:
+
+```js
+module.exports = {
+  presets: ['@react-native/babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        alias: {
+          '@app': './src',
+        },
+      },
+    ],
+  ],
+};
+```
+
+```bash
+yarn add -D babel-plugin-module-resolver
+```
+
+Ngayon ang `import { authReducer } from '@app/features/Auth'` ay nare-resolve sa compile time at runtime, kahit saan nakaupo ang file na nag-i-import.
+
+**Isang ESLint rule para panatilihing honest ang boundary.** Ang path aliases lang ay hindi makakapigil sa kung sino mang magsusulat ng `import { profileSelector } from '@app/features/Profile'` sa loob ng Auth. Sa sandaling ma-ship 'yon, nagsisimula nang gumuho ang structure. Isang `no-restricted-imports` rule ang nag-aayos sa boundary:
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          {
+            group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+            message: 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
+          },
+        ],
+      }],
+    },
+  },
+  {
+    // Puwedeng umabot ang tests sa internals ng feature para mag-set up ng state.
+    files: ['**/__tests__/**'],
+    rules: { 'no-restricted-imports': 'off' },
+  },
+];
+```
+
+Bina-block ng pattern ang kahit anong import na umaabot sa internals ng ibang feature. Sa loob ng feature, gumagamit ka ng relative imports (`./store`, `../components`), na hindi kailanman tumutugma sa alias pattern, kaya laging kayang abutin ng feature ang sarili nitong code. Ang tanging exemption ay ang tests, na madalas nangangailangang umabot sa loob ng feature para mag-set up ng state.
+
+'Yon lang. Path aliases, isang ESLint rule, at ang disiplina na panatilihing pribado ang internals ng bawat feature. Nabubuhay ang architecture dahil ipinatutupad ng tooling ang hinihingi ng convention.
+
 Ang buong project source ay nasa [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).

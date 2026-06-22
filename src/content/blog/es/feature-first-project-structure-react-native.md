@@ -232,4 +232,76 @@ El punto de inflexión está en torno a las **cinco features con su propio estad
 
 Abre tu carpeta `screens/` ahora mismo. Cuenta los ficheros. Si no puedes decir cuáles van juntos solo mirando la lista, la estructura ya ha dejado de ayudarte.
 
+## Cómo montarlo
+
+La estructura de arriba es una convención, no una herramienta. Dos piezas de configuración hacen que se mantenga.
+
+**Path aliases.** Sin ellos, acabas con `import { authReducer } from '../../../features/Auth'` por todas partes. Añade los aliases en `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app": ["src"],
+      "@app/*": ["src/*"]
+    }
+  }
+}
+```
+
+Y en `babel.config.js` para que el runtime los resuelva:
+
+```js
+module.exports = {
+  presets: ['@react-native/babel-preset'],
+  plugins: [
+    [
+      'module-resolver',
+      {
+        root: ['./src'],
+        alias: {
+          '@app': './src',
+        },
+      },
+    ],
+  ],
+};
+```
+
+```bash
+yarn add -D babel-plugin-module-resolver
+```
+
+Ahora `import { authReducer } from '@app/features/Auth'` se resuelve en tiempo de compilación y en runtime, sin importar dónde esté el fichero que lo importa.
+
+**Una regla de ESLint para mantener honesto el límite.** Los path aliases por sí solos no impiden que alguien escriba `import { profileSelector } from '@app/features/Profile'` dentro de Auth. En cuanto eso se publica, la estructura empieza a desmoronarse. Una regla `no-restricted-imports` fija el límite:
+
+```js
+// eslint.config.mjs
+export default [
+  {
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [
+          {
+            group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+            message: 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
+          },
+        ],
+      }],
+    },
+  },
+  {
+    // Los tests pueden acceder a los internos de una feature para preparar estado.
+    files: ['**/__tests__/**'],
+    rules: { 'no-restricted-imports': 'off' },
+  },
+];
+```
+
+El patrón bloquea cualquier import que acceda a los internos de otra feature. Dentro de una feature usas imports relativos (`./store`, `../components`), que nunca coinciden con el patrón del alias, así que una feature siempre puede acceder a su propio código. La única exención son los tests, que a menudo necesitan acceder al interior de una feature para preparar estado.
+
+Eso es todo. Path aliases, una regla de ESLint, y la disciplina de mantener privados los internos de cada feature. La arquitectura sobrevive porque el tooling hace cumplir lo que la convención pide.
+
 El código fuente completo del proyecto está en [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).
