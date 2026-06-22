@@ -170,6 +170,10 @@ L'app no renderitza una pantalla una mica malament. Peta en arrencar:
 Uncaught Error: Tried to register two views with the same name RNCSafeAreaProvider
 ```
 
+<div class="device-frame">
+  <img src="/images/blog/shared-singleton-crash.webp" alt="L'app mostrant un red box en arrencar amb l'error: Tried to register two views with the same name RNCSafeAreaProvider" />
+</div>
+
 I aquí tens per què és sorollós i no silenciós. `react-native-safe-area-context` no és JavaScript pur. Porta una vista nativa, `RNCSafeAreaProvider`, que registra al registre de vistes de React Native en arrencar. La còpia del host la registra un cop. Quan el remote deixa anar el share, empaqueta la seva pròpia còpia, i aquesta còpia intenta registrar el mateix nom natiu una segona vegada. React Native manté un únic registre per app i rebutja el duplicat. El crash salta abans que un sol Pokémon arribi a la pantalla.
 
 ```mermaid

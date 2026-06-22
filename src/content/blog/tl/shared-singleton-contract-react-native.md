@@ -170,6 +170,10 @@ Hindi nagre-render ang app ng bahagyang maling screen. Nagka-crash ito sa pag-la
 Uncaught Error: Tried to register two views with the same name RNCSafeAreaProvider
 ```
 
+<div class="device-frame">
+  <img src="/images/blog/shared-singleton-crash.webp" alt="Ang app na nagpapakita ng red box sa paglulunsad gamit ang error: Tried to register two views with the same name RNCSafeAreaProvider" />
+</div>
+
 At narito kung bakit ito maingay sa halip na tahimik. Hindi purong JavaScript ang `react-native-safe-area-context`. May dala itong native view, ang `RNCSafeAreaProvider`, na nirerehistro nito sa view registry ng React Native sa pag-startup. Minsan itong nirerehistro ng kopya ng host. Kapag binitawan ng remote ang share, binabalot nito ang sarili nitong kopya, at sinusubukan ng kopyang iyon na irehistro ang parehong native na pangalan sa pangalawang pagkakataon. Iisang registry kada app ang pinapanatili ng React Native at tinatanggihan nito ang duplicate. Pumuputok ang crash bago pa man marating ng kahit isang Pokémon ang screen.
 
 ```mermaid
