@@ -1,7 +1,7 @@
 ---
 title: "Certificate pinning in React Native for Supabase (TrustKit + network_security_config)"
 description: "Lock the React Native HTTP layer to specific public-key pins so the app refuses to talk to anyone but real Supabase. TrustKit, NSC, rotation."
-publishDate: 2026-07-20
+publishDate: 2026-11-23
 series: "Supabase Security"
 tags: ["react-native", "security", "supabase", "tls", "certificate-pinning"]
 locale: en

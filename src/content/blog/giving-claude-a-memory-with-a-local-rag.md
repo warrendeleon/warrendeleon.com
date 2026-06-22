@@ -6,7 +6,7 @@ heroImgPrompt: "A flat geometric brain built from plain stacked square blocks re
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F6DCE2"
 heroAlt: "Giving Claude a memory with a local RAG"
-publishDate: 2026-09-07
+publishDate: 2027-01-11
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "mcp", "local-llm", "ai-tooling"]
 locale: en

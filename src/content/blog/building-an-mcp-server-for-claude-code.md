@@ -6,7 +6,7 @@ heroImgPrompt: "A small cube server connected by one pipe, seven plain tool-shap
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F6DCE2"
 heroAlt: "Building an MCP server for Claude Code"
-publishDate: 2026-09-14
+publishDate: 2027-01-18
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "mcp", "python", "fastmcp", "ai-tooling"]
 locale: en

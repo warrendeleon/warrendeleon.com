@@ -6,7 +6,7 @@ heroImgPrompt: "Two stacked flat shelves, a small tidy block on the upper shelf 
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F6DCE2"
 heroAlt: "Pairing Claude's RAG with a curated wiki"
-publishDate: 2026-09-28
+publishDate: 2027-02-01
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "knowledge-management", "obsidian", "ai-tooling"]
 locale: en

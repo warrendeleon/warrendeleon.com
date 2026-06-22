@@ -1,7 +1,7 @@
 ---
 title: "Token refresh race condition prevention in React Native"
 description: "What happens when five API calls get a 401 at the same time. The race condition most apps ignore, and the subscriber queue pattern that prevents it."
-publishDate: 2026-07-06
+publishDate: 2026-11-09
 series: "Supabase Security"
 tags: ["react-native", "security", "authentication", "http"]
 locale: en
