@@ -232,7 +232,7 @@ Ang tapos na code para sa post na ito ay ang tag na `post-04-host-shell`, para m
 git checkout post-04-host-shell
 ```
 
-Ang susunod sa serye: titigil ang mga tab sa hardcoded na data at magsisimulang mag-share ng isang store. Isang RTK Query cache sa mga remote, totoong data mula sa isang API, at cross-module dispatch.
+Ang susunod sa serye: manu-manong isinusulat ng host ang hugis ng bawat remote na nilo-load nito, isang hula na walang sumusuri laban sa tunay na screen. Pinapalitan natin iyon ng isang maliit na shared contracts package, kaya nagkakasundo ang host at ang mga remote sa mga props na tumatawid sa pagitan nila at nahuhuli ng compiler ang anumang pag-aanod.
 
 ## Mga sanggunian
 

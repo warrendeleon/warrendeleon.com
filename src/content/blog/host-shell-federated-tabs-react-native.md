@@ -238,7 +238,7 @@ The finished code for this post is the `post-04-host-shell` tag, so you can diff
 git checkout post-04-host-shell
 ```
 
-Next in the series: the tabs stop holding hardcoded data and start sharing one store. A single RTK Query cache across remotes, real data from an API, and cross-module dispatch.
+Next in the series: the host hand-writes the shape of every remote it loads, a guess nothing checks against the real screen. We replace that with a small shared contracts package, so the host and the remotes agree on the props that cross between them and the compiler catches any drift.
 
 ## Sources
 

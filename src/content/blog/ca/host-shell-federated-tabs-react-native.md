@@ -232,7 +232,7 @@ El codi acabat d'aquest post és el tag `post-04-host-shell`, perquè en puguis 
 git checkout post-04-host-shell
 ```
 
-El següent a la sèrie: les pestanyes deixen de tenir dades hardcodejades i comencen a compartir un store. Una sola memòria cau de RTK Query entre remotes, dades reals d'una API, i dispatch entre mòduls.
+El següent a la sèrie: el host escriu a mà la forma de cada remote que carrega, una suposició que res no comprova contra la pantalla de debò. La substituïm per un petit paquet de contractes compartit, així el host i els remotes es posen d'acord sobre les props que travessen entre ells i el compilador detecta qualsevol deriva.
 
 ## Fonts
 
