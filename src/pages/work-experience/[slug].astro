@@ -84,7 +84,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
         <div class="work-hero-info">
           <h1>{displayName}</h1>
           {nonClientPositions.length === 1 && (
-            <p class="work-hero-role">{nonClientPositions[0].title}</p>
+            <h2 class="work-hero-role">{nonClientPositions[0].title}</h2>
           )}
           {nonClientPositions.length === 1 && (
             <span class="work-hero-date">
@@ -156,7 +156,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
               <div class="work-tech-grid">
                 {position.technologies.languages && position.technologies.languages.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.programmingLanguages}</h4>
+                    <h3>{i18n.workExperience.programmingLanguages}</h3>
                     <div class="badge-group">
                       {position.technologies.languages.map((lang: string) => <TechBadge label={lang} />)}
                     </div>
@@ -164,7 +164,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.frameworks && position.technologies.frameworks.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.technologyStack}</h4>
+                    <h3>{i18n.workExperience.technologyStack}</h3>
                     <div class="badge-group">
                       {position.technologies.frameworks.map((fw: string) => <TechBadge label={fw} />)}
                     </div>
@@ -172,7 +172,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.testing?.unit && position.technologies.testing.unit.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.unitTesting}</h4>
+                    <h3>{i18n.workExperience.unitTesting}</h3>
                     <div class="badge-group">
                       {position.technologies.testing.unit.map((t: string) => <TechBadge label={t} />)}
                     </div>
@@ -180,7 +180,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.testing?.e2e && position.technologies.testing.e2e.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.e2eTesting}</h4>
+                    <h3>{i18n.workExperience.e2eTesting}</h3>
                     <div class="badge-group">
                       {position.technologies.testing.e2e.map((t: string) => <TechBadge label={t} />)}
                     </div>
@@ -188,7 +188,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.tools && position.technologies.tools.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.developmentTools}</h4>
+                    <h3>{i18n.workExperience.developmentTools}</h3>
                     <div class="badge-group">
                       {position.technologies.tools.map((tool: string) => <TechBadge label={tool} />)}
                     </div>
@@ -196,7 +196,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.ci && position.technologies.ci.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.ciCd}</h4>
+                    <h3>{i18n.workExperience.ciCd}</h3>
                     <div class="badge-group">
                       {position.technologies.ci.map((ci: string) => <TechBadge label={ci} />)}
                     </div>
@@ -204,7 +204,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.methodology && position.technologies.methodology.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.agileMethodology}</h4>
+                    <h3>{i18n.workExperience.agileMethodology}</h3>
                     <div class="badge-group">
                       {position.technologies.methodology.map((m: string) => <TechBadge label={m} />)}
                     </div>
@@ -249,7 +249,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
               <div class="work-tech-grid">
                 {position.technologies.languages && position.technologies.languages.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.programmingLanguages}</h4>
+                    <h3>{i18n.workExperience.programmingLanguages}</h3>
                     <div class="badge-group">
                       {position.technologies.languages.map((lang: string) => <TechBadge label={lang} />)}
                     </div>
@@ -257,7 +257,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.frameworks && position.technologies.frameworks.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.technologyStack}</h4>
+                    <h3>{i18n.workExperience.technologyStack}</h3>
                     <div class="badge-group">
                       {position.technologies.frameworks.map((fw: string) => <TechBadge label={fw} />)}
                     </div>
@@ -265,7 +265,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.testing?.unit && position.technologies.testing.unit.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.unitTesting}</h4>
+                    <h3>{i18n.workExperience.unitTesting}</h3>
                     <div class="badge-group">
                       {position.technologies.testing.unit.map((t: string) => <TechBadge label={t} />)}
                     </div>
@@ -273,7 +273,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.testing?.e2e && position.technologies.testing.e2e.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.e2eTesting}</h4>
+                    <h3>{i18n.workExperience.e2eTesting}</h3>
                     <div class="badge-group">
                       {position.technologies.testing.e2e.map((t: string) => <TechBadge label={t} />)}
                     </div>
@@ -281,7 +281,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.tools && position.technologies.tools.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.developmentTools}</h4>
+                    <h3>{i18n.workExperience.developmentTools}</h3>
                     <div class="badge-group">
                       {position.technologies.tools.map((tool: string) => <TechBadge label={tool} />)}
                     </div>
@@ -289,7 +289,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.ci && position.technologies.ci.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.ciCd}</h4>
+                    <h3>{i18n.workExperience.ciCd}</h3>
                     <div class="badge-group">
                       {position.technologies.ci.map((ci: string) => <TechBadge label={ci} />)}
                     </div>
@@ -297,7 +297,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
                 )}
                 {position.technologies.methodology && position.technologies.methodology.length > 0 && (
                   <div class="work-tech-category">
-                    <h4>{i18n.workExperience.agileMethodology}</h4>
+                    <h3>{i18n.workExperience.agileMethodology}</h3>
                     <div class="badge-group">
                       {position.technologies.methodology.map((m: string) => <TechBadge label={m} />)}
                     </div>
@@ -573,7 +573,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
     border: 1px solid var(--border-color);
   }
 
-  .work-tech-category h4 {
+  .work-tech-category h3 {
     font-size: 0.9rem;
     color: var(--text-muted);
     font-weight: 700;
