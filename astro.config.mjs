@@ -15,6 +15,9 @@ export default defineConfig({
     // diagrams match the brand and track light/dark instantly without a re-render.
     mermaid({
       autoTheme: false,
+      // Silence the plugin's [astro-mermaid] console.log noise in the browser.
+      // Errors are still logged.
+      enableLog: false,
       mermaidConfig: {
         theme: 'base',
         themeVariables: {
