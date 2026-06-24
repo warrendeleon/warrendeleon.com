@@ -80,6 +80,20 @@
     "post": "artikulo",
     "posts": "mga artikulo",
     "filterByTag": "I-filter ayon sa tag",
+    "search": {
+      "heading": "Maghanap sa blog",
+      "triggerLabel": "Maghanap o mag-explore sa blog",
+      "dialogLabel": "Paghahanap sa blog",
+      "recommended": "Baka napalampas mo",
+      "tryLabel": "Subukan:",
+      "placeholder": "Maghanap ng mga artikulo…",
+      "clear_search": "I-clear",
+      "load_more": "Mag-load pa ng mga resulta",
+      "searching": "Naghahanap ng [SEARCH_TERM]…",
+      "zero_results": "Walang resulta para sa [SEARCH_TERM]",
+      "one_result": "[COUNT] resulta para sa [SEARCH_TERM]",
+      "many_results": "[COUNT] na resulta para sa [SEARCH_TERM]"
+    },
     "authorBio": "Software Engineering Manager sa Hargreaves Lansdown. Sumusulat tungkol sa engineering leadership, React Native, at pagbuo ng magagandang team.",
     "clientProjects": "Mga proyekto sa kliyente"
   },

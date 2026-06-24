@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mermaid from 'astro-mermaid';
 import rehypeUnpublishedLinks from './src/lib/rehype-unpublished-links.mjs';
+import pagefind from './src/lib/astro-pagefind.mjs';
 
 export default defineConfig({
   site: 'https://warrendeleon.com',
@@ -39,6 +40,10 @@ export default defineConfig({
         !page.includes('/es/') &&
         !page.includes('/tl/'),
     }),
+    // Indexes only pages carrying `data-pagefind-body` (the blog posts), so
+    // search is scoped to the blog and nothing else. Must run last so the
+    // index is built over the finished output.
+    pagefind(),
   ],
   output: 'static',
   trailingSlash: 'always',

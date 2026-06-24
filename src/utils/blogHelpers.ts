@@ -83,6 +83,15 @@ export function getSeriesSlug(series: string): string {
 }
 
 /**
+ * Compact display label for a series chip: shortens the "React Native" product
+ * name to "RN" so chips stay tight. Display only — the canonical series name
+ * (and therefore the slug and every series URL) is left untouched.
+ */
+export function shortenSeriesName(name: string): string {
+  return name.replace(/React Native/g, 'RN');
+}
+
+/**
  * All series for a locale with their post counts, ordered by size then name.
  * Counts reflect published posts only (getPostsForLocale gates future posts in prod).
  */

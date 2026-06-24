@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogSearch from './BlogSearch.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, type ScheduledPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, shortenSeriesName, type ScheduledPost } from '../../utils/blogHelpers';
 import type { Page } from 'astro';
 
 interface Props {
@@ -43,6 +44,8 @@ const blogBase = getLocalePath(locale, '/blog/');
     <div class="container">
       <h1 class="section-heading">Blog</h1>
 
+      <BlogSearch locale={locale} />
+
       {isFirstPage && (allSeries.length > 0 || allTags.length > 0) && (
         <div class="blog-browse">
           {allSeries.length > 0 && (
@@ -51,7 +54,7 @@ const blogBase = getLocalePath(locale, '/blog/');
               <nav class="blog-series-filter" aria-label={i18n.blog.browseBySeries}>
                 {allSeries.map(s => (
                   <a href={getLocalePath(locale, `/blog/series/${s.slug}/`)} class="blog-series-chip">
-                    <span class="blog-series-chip-name">{s.name}</span>
+                    <span class="blog-series-chip-name">{shortenSeriesName(s.name)}</span>
                     <span class="blog-series-chip-count">{s.count}</span>
                   </a>
                 ))}
@@ -257,41 +260,6 @@ const blogBase = getLocalePath(locale, '/blog/');
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-  }
-
-  .blog-series-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 0.6rem 0.5rem 1rem;
-    border-radius: 24px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-  }
-
-  .blog-series-chip:hover {
-    border-color: var(--color-green);
-    color: var(--color-green);
-    background: var(--bg-secondary);
-  }
-
-  .blog-series-chip-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.5rem;
-    height: 1.5rem;
-    padding: 0 0.4rem;
-    border-radius: 12px;
-    background: var(--color-green);
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 700;
   }
 
   .blog-browse-toggle {

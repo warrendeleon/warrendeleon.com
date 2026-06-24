@@ -80,6 +80,20 @@
     "post": "article",
     "posts": "articles",
     "filterByTag": "Filtrar per etiqueta",
+    "search": {
+      "heading": "Cerca al blog",
+      "triggerLabel": "Cerca o explora el blog",
+      "dialogLabel": "Cerca del blog",
+      "recommended": "Potser te'l vas perdre",
+      "tryLabel": "Prova:",
+      "placeholder": "Cerca articles…",
+      "clear_search": "Esborra",
+      "load_more": "Carrega més resultats",
+      "searching": "Cercant [SEARCH_TERM]…",
+      "zero_results": "Cap resultat per a [SEARCH_TERM]",
+      "one_result": "[COUNT] resultat per a [SEARCH_TERM]",
+      "many_results": "[COUNT] resultats per a [SEARCH_TERM]"
+    },
     "authorBio": "Software Engineering Manager a Hargreaves Lansdown. Escric sobre lideratge tècnic, React Native i com construir bons equips.",
     "clientProjects": "Projectes per a clients"
   },
