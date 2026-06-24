@@ -7,7 +7,7 @@ tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio"
 locale: en
 draft: false
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
-heroImgPrompt: "A shared contract package on a registry shelf labelled 1.0.0, 1.1.0, 2.0.0; a host panel and a federated remote panel each pulling their own versioned copy off the shelf; a semver tag glowing on the seam between them"
+heroImgPrompt: "Two separate flat app-screen panels, one on the left and one on the right, meeting a central host panel along a clean vertical seam, a single plain rounded card bridging the seam and linking all three panels, a few identical small connector dots running along the join, simple geometric shapes, blank unlabelled surfaces"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#DBE3F7"
 heroAlt: "A host and a federated remote each installing their own version of one shared contract package from a registry"
