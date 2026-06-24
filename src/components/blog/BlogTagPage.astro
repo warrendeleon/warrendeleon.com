@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogSearch from './BlogSearch.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
@@ -24,6 +25,8 @@ const tagLabel = getTagLabel(tag, locale);
   locale={locale}
   currentPath={getLocalePath(locale, `/blog/tag/${tag}/`)}
 >
+  <BlogSearch locale={locale} />
+
   <section class="section">
     <div class="container">
       <div class="tag-page-header">

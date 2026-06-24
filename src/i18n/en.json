@@ -80,6 +80,20 @@
     "post": "post",
     "posts": "posts",
     "filterByTag": "Filter by tag",
+    "search": {
+      "heading": "Search the blog",
+      "triggerLabel": "Search or explore the blog",
+      "dialogLabel": "Blog search",
+      "recommended": "You might have missed",
+      "tryLabel": "Try:",
+      "placeholder": "Search posts…",
+      "clear_search": "Clear",
+      "load_more": "Load more results",
+      "searching": "Searching for [SEARCH_TERM]…",
+      "zero_results": "No results for [SEARCH_TERM]",
+      "one_result": "[COUNT] result for [SEARCH_TERM]",
+      "many_results": "[COUNT] results for [SEARCH_TERM]"
+    },
     "authorBio": "Software Engineering Manager at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.",
     "clientProjects": "Client projects"
   },

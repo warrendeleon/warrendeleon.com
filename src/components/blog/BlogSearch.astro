@@ -1,0 +1,823 @@
+---
+// Command-palette search + discovery for the blog listing.
+// - Trigger pill in the listing flow; Cmd/Ctrl+K or "/" or click opens an overlay.
+// - The engine is a build-time JSON manifest of EVERY published post for this locale
+//   (title, description, localised tags, series). No WASM, no network, no full-text body
+//   search — the honest fit for a small, curated blog. Pagefind stays available as a
+//   deferred body-text tier but is not loaded here.
+// - Results render in the blog's own card language. The overlay is painted above the page,
+//   so the listing below never reflows. Per-locale manifest ⇒ locale isolation is free.
+import { getLocalePath, t } from '../../i18n/index';
+import type { Locale } from '../../i18n/index';
+import { getTagLabel } from '../../i18n/tagLabels';
+import { getReadingTime } from '../../utils/readingTime';
+import { getPostsForLocale, getPostSlug, getAllSeries, formatBlogDate, shortenSeriesName } from '../../utils/blogHelpers';
+import popularity from '../../data/popularity.json';
+
+interface Props {
+  locale: Locale;
+}
+
+// The palette is opened from the nav magnifier (every blog page) or the keyboard
+// (Cmd/Ctrl+K, "/"). This component renders only the overlay, manifest and script.
+const { locale } = Astro.props;
+const i18n = t(locale);
+const s = i18n.blog.search;
+
+const posts = await getPostsForLocale(locale);
+const series = await getAllSeries(locale);
+const views = popularity as Record<string, number>;
+
+// Fold to lowercase, accent-stripped form so es/ca/tl searches are accent-insensitive
+// both ways. The query is folded the same way at runtime.
+function fold(value: string): string {
+  return value.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+}
+
+const manifest = posts.map((p) => {
+  const slug = getPostSlug(p.id);
+  const tags = p.data.tags.map((tag: string) => getTagLabel(tag, locale));
+  const seriesName = p.data.series ?? '';
+  return {
+    url: getLocalePath(locale, `/blog/${slug}/`),
+    title: p.data.title,
+    description: p.data.description,
+    tags,
+    hero: p.data.heroImage ?? '',
+    heroAlt: p.data.heroAlt ?? p.data.title,
+    date: formatBlogDate(p.data.publishDate, locale),
+    minutes: getReadingTime(p.body ?? ''),
+    views: views[slug] ?? 0,
+    haystack: fold([p.data.title, p.data.description, tags.join(' '), seriesName].join(' ')),
+  };
+});
+
+// The "you might have missed" rows are picked client-side at open time — a rotating
+// sample of under-read posts (excluding the current one) — so traffic spreads across
+// the long tail and varies per visit rather than hammering a static bottom three.
+
+// "Try:" chips are derived, not hand-curated: the most frequent tags become short,
+// query-like suggestions. Localised already, so no translation debt.
+const tagCounts = new Map<string, number>();
+for (const p of posts) {
+  for (const tag of p.data.tags) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+}
+const tryChips = [...tagCounts.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 4)
+  .map(([tag]) => getTagLabel(tag, locale));
+---
+
+<div class="blog-search-overlay" data-bs-overlay hidden>
+  <div class="bso-backdrop" data-bs-close></div>
+  <div class="bso-panel" role="dialog" aria-modal="true" aria-label={s.dialogLabel}>
+    <div class="bso-header">
+      <svg class="bso-header-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input
+        type="text"
+        class="bso-input"
+        placeholder={s.placeholder}
+        role="combobox"
+        aria-expanded="true"
+        aria-controls="bso-results"
+        aria-autocomplete="list"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        data-bs-input
+      />
+      <span class="bso-count" data-bs-count aria-hidden="true"></span>
+      <button type="button" class="bso-clear" data-bs-clear hidden aria-label={s.clear_search}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <kbd class="bso-esc">esc</kbd>
+    </div>
+
+    <div class="bso-body">
+      <div class="bso-discovery" data-bs-discovery>
+        <div class="bso-section" data-bs-recs-section hidden>
+          <p class="bso-section-label">{s.recommended}</p>
+          <ul class="bso-recs" data-bs-recs role="list"></ul>
+        </div>
+
+        {series.length > 0 && (
+          <div class="bso-section">
+            <p class="bso-section-label">{i18n.blog.browseBySeries}</p>
+            <nav class="bso-series" aria-label={i18n.blog.browseBySeries}>
+              {series.map((item) => (
+                <a href={getLocalePath(locale, `/blog/series/${item.slug}/`)} class="blog-series-chip">
+                  <span class="blog-series-chip-name">{shortenSeriesName(item.name)}</span>
+                  <span class="blog-series-chip-count">{item.count}</span>
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
+
+        {tryChips.length > 0 && (
+          <div class="bso-section bso-try">
+            <span class="bso-try-label">{s.tryLabel}</span>
+            {tryChips.map((chip) => (
+              <button type="button" class="bso-try-chip" data-bs-prefill={chip}>{chip}</button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <ul class="bso-results" id="bso-results" role="listbox" aria-label={s.dialogLabel} hidden></ul>
+
+      <div class="bso-zero" data-bs-zero hidden>
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <line x1="8" y1="11" x2="14" y2="11"></line>
+        </svg>
+        <p class="bso-zero-text" data-bs-zero-text></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" data-bs-manifest set:html={JSON.stringify(manifest).replace(/</g, '\\u003c')}></script>
+
+<span class="bso-live" data-bs-live role="status" aria-live="polite"></span>
+
+<script
+  is:inline
+  define:vars={{ L: { minRead: i18n.blog.minRead, one: s.one_result, many: s.many_results, zero: s.zero_results } }}
+>
+  (function () {
+    if (window.__blogSearchInit) return;
+    window.__blogSearchInit = true;
+
+    var overlay = document.querySelector('[data-bs-overlay]');
+    var openers = document.querySelectorAll('[data-bs-open]');
+    if (!overlay) return;
+
+    var panel = overlay.querySelector('.bso-panel');
+    var input = overlay.querySelector('[data-bs-input]');
+    var results = overlay.querySelector('[data-bs-results], #bso-results') || overlay.querySelector('.bso-results');
+    var discovery = overlay.querySelector('[data-bs-discovery]');
+    var zero = overlay.querySelector('[data-bs-zero]');
+    var zeroText = overlay.querySelector('[data-bs-zero-text]');
+    var countEl = overlay.querySelector('[data-bs-count]');
+    var clearBtn = overlay.querySelector('[data-bs-clear]');
+    var live = document.querySelector('[data-bs-live]');
+    var recsList = overlay.querySelector('[data-bs-recs]');
+    var recsSection = overlay.querySelector('[data-bs-recs-section]');
+
+    var manifestEl = document.querySelector('[data-bs-manifest]');
+    var POSTS = [];
+    try { POSTS = JSON.parse(manifestEl.textContent || '[]'); } catch (e) { POSTS = []; }
+
+    var lastFocus = null;
+    var activeIndex = -1;
+    var currentMatches = [];
+    var debounceId = 0;
+
+    function fold(v) {
+      return v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    }
+
+    function isOpen() {
+      return !overlay.hasAttribute('hidden');
+    }
+
+    function open() {
+      if (isOpen()) return;
+      lastFocus = document.activeElement;
+      overlay.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+      reset();
+      // Focus after paint so the input is ready and the open animation can run.
+      requestAnimationFrame(function () { input.focus(); });
+      document.addEventListener('keydown', onKeydown, true);
+    }
+
+    function close() {
+      if (!isOpen()) return;
+      overlay.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKeydown, true);
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    function reset() {
+      input.value = '';
+      currentMatches = [];
+      activeIndex = -1;
+      results.innerHTML = '';
+      results.setAttribute('hidden', '');
+      zero.setAttribute('hidden', '');
+      discovery.removeAttribute('hidden');
+      countEl.textContent = '';
+      clearBtn.setAttribute('hidden', '');
+      input.removeAttribute('aria-activedescendant');
+    }
+
+    function tmpl(str, count, term) {
+      return String(str).replace('[COUNT]', count).replace('[SEARCH_TERM]', term);
+    }
+
+    // Highlight raw token occurrences in a string, returning a DocumentFragment.
+    function highlight(text, tokens) {
+      var frag = document.createDocumentFragment();
+      var ranges = [];
+      var lower = text.toLowerCase();
+      tokens.forEach(function (tok) {
+        if (!tok) return;
+        var from = 0;
+        var idx;
+        while ((idx = lower.indexOf(tok, from)) !== -1) {
+          ranges.push([idx, idx + tok.length]);
+          from = idx + tok.length;
+        }
+      });
+      if (!ranges.length) { frag.appendChild(document.createTextNode(text)); return frag; }
+      ranges.sort(function (a, b) { return a[0] - b[0]; });
+      // Merge overlaps.
+      var merged = [ranges[0]];
+      for (var i = 1; i < ranges.length; i++) {
+        var last = merged[merged.length - 1];
+        if (ranges[i][0] <= last[1]) last[1] = Math.max(last[1], ranges[i][1]);
+        else merged.push(ranges[i]);
+      }
+      var cursor = 0;
+      merged.forEach(function (r) {
+        if (r[0] > cursor) frag.appendChild(document.createTextNode(text.slice(cursor, r[0])));
+        var mark = document.createElement('mark');
+        mark.textContent = text.slice(r[0], r[1]);
+        frag.appendChild(mark);
+        cursor = r[1];
+      });
+      if (cursor < text.length) frag.appendChild(document.createTextNode(text.slice(cursor)));
+      return frag;
+    }
+
+    // Shared card for both typed-search results and the discovery recommendations,
+    // so they share one visual language (hero thumbnail + meta + title + excerpt).
+    // asOption=true wires the listbox/keyboard semantics; recommendations are plain
+    // tabbable links with no query highlight.
+    function cardEl(post, opts) {
+      var li = document.createElement('li');
+      li.className = 'bso-result';
+      if (opts.asOption) {
+        li.id = 'bso-opt-' + opts.index;
+        li.setAttribute('role', 'option');
+        li.setAttribute('aria-selected', 'false');
+      }
+
+      var link = document.createElement('a');
+      link.className = 'bso-result-link';
+      link.href = post.url;
+      link.tabIndex = opts.asOption ? -1 : 0;
+
+      var thumb = document.createElement('span');
+      thumb.className = 'bso-result-thumb';
+      if (post.hero) {
+        var img = document.createElement('img');
+        img.src = post.hero;
+        img.alt = '';
+        img.loading = 'lazy';
+        thumb.appendChild(img);
+      } else {
+        thumb.classList.add('bso-result-thumb-empty');
+      }
+
+      var main = document.createElement('span');
+      main.className = 'bso-result-main';
+
+      var meta = document.createElement('span');
+      meta.className = 'bso-result-meta';
+      meta.textContent = post.date + ' · ' + post.minutes + ' ' + L.minRead;
+
+      var title = document.createElement('span');
+      title.className = 'bso-result-title';
+      title.appendChild(highlight(post.title, opts.tokens || []));
+
+      var desc = document.createElement('span');
+      desc.className = 'bso-result-desc';
+      desc.textContent = post.description;
+
+      main.appendChild(meta);
+      main.appendChild(title);
+      main.appendChild(desc);
+      link.appendChild(thumb);
+      link.appendChild(main);
+      li.appendChild(link);
+      return li;
+    }
+
+    function buildResult(post, index, rawTokens) {
+      return cardEl(post, { asOption: true, index: index, tokens: rawTokens });
+    }
+
+    function runSearch(raw) {
+      var query = raw.trim();
+      clearBtn.toggleAttribute('hidden', query.length === 0);
+
+      if (query.length === 0) {
+        currentMatches = [];
+        activeIndex = -1;
+        results.innerHTML = '';
+        results.setAttribute('hidden', '');
+        zero.setAttribute('hidden', '');
+        discovery.removeAttribute('hidden');
+        countEl.textContent = '';
+        input.removeAttribute('aria-activedescendant');
+        return;
+      }
+
+      var folded = fold(query);
+      var tokens = folded.split(/\s+/).filter(Boolean);
+      var rawTokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+
+      currentMatches = POSTS.filter(function (post) {
+        return tokens.every(function (tok) { return post.haystack.indexOf(tok) !== -1; });
+      }).sort(function (a, b) { return b.views - a.views; });
+
+      discovery.setAttribute('hidden', '');
+      results.innerHTML = '';
+      activeIndex = -1;
+      input.removeAttribute('aria-activedescendant');
+
+      if (currentMatches.length === 0) {
+        results.setAttribute('hidden', '');
+        zeroText.textContent = tmpl(L.zero, 0, query);
+        zero.removeAttribute('hidden');
+        countEl.textContent = '';
+        live.textContent = tmpl(L.zero, 0, query);
+        return;
+      }
+
+      zero.setAttribute('hidden', '');
+      var frag = document.createDocumentFragment();
+      currentMatches.forEach(function (post, i) { frag.appendChild(buildResult(post, i, rawTokens)); });
+      results.appendChild(frag);
+      results.removeAttribute('hidden');
+
+      var n = currentMatches.length;
+      var label = tmpl(n === 1 ? L.one : L.many, n, query);
+      countEl.textContent = label;
+      live.textContent = label;
+    }
+
+    function setActive(next) {
+      var options = results.querySelectorAll('.bso-result');
+      if (!options.length) return;
+      if (activeIndex >= 0 && options[activeIndex]) {
+        options[activeIndex].classList.remove('is-active');
+        options[activeIndex].setAttribute('aria-selected', 'false');
+      }
+      activeIndex = (next + options.length) % options.length;
+      var el = options[activeIndex];
+      el.classList.add('is-active');
+      el.setAttribute('aria-selected', 'true');
+      el.scrollIntoView({ block: 'nearest' });
+      input.setAttribute('aria-activedescendant', el.id);
+    }
+
+    function focusables() {
+      return Array.prototype.filter.call(
+        panel.querySelectorAll('a[href], button:not([hidden]), input, [tabindex]:not([tabindex="-1"])'),
+        function (el) { return el.offsetParent !== null && !el.hasAttribute('hidden'); }
+      );
+    }
+
+    function onKeydown(e) {
+      if (!isOpen()) return;
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        if (input.value) { input.value = ''; runSearch(''); input.focus(); }
+        else close();
+        return;
+      }
+      if (e.key === 'Tab') {
+        var f = focusables();
+        if (!f.length) return;
+        var first = f[0];
+        var last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        return;
+      }
+      // Arrow / Enter navigation applies to the results list.
+      if (!currentMatches.length) return;
+      if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIndex + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIndex - 1); }
+      else if (e.key === 'Enter' && activeIndex >= 0) {
+        e.preventDefault();
+        var link = results.querySelectorAll('.bso-result')[activeIndex].querySelector('a');
+        if (link) window.location.href = link.href;
+      }
+    }
+
+    function shuffle(arr) {
+      for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    // "You might have missed": a rotating sample of under-read posts, excluding the
+    // current one. Picked from the lowest-view portion so traffic spreads across the
+    // long tail; reshuffled per page load so it varies across visits and pages.
+    function buildRecs() {
+      if (!recsList || !recsSection) return;
+      var here = location.pathname;
+      var pool = POSTS.filter(function (p) { return p.url !== here; });
+      if (!pool.length) return;
+      pool.sort(function (a, b) { return a.views - b.views; });
+      var underRead = pool.slice(0, Math.min(6, pool.length));
+      var picks = shuffle(underRead).slice(0, Math.min(3, underRead.length));
+      var frag = document.createDocumentFragment();
+      picks.forEach(function (p) { frag.appendChild(cardEl(p, { asOption: false })); });
+      recsList.innerHTML = '';
+      recsList.appendChild(frag);
+      recsSection.removeAttribute('hidden');
+    }
+
+    buildRecs();
+
+    // Open triggers — the magnifier icon in the nav (every blog page)
+    openers.forEach(function (el) { el.addEventListener('click', open); });
+    document.addEventListener('keydown', function (e) {
+      var key = e.key.toLowerCase();
+      if ((e.metaKey || e.ctrlKey) && key === 'k') { e.preventDefault(); isOpen() ? close() : open(); return; }
+      if (key === '/' && !isOpen()) {
+        var el = document.activeElement;
+        var typing = el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
+        if (!typing) { e.preventDefault(); open(); }
+      }
+    });
+
+    overlay.querySelector('[data-bs-close]').addEventListener('click', close);
+
+    clearBtn.addEventListener('click', function () { input.value = ''; runSearch(''); input.focus(); });
+
+    overlay.querySelectorAll('[data-bs-prefill]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        input.value = chip.getAttribute('data-bs-prefill');
+        runSearch(input.value);
+        input.focus();
+      });
+    });
+
+    input.addEventListener('input', function () {
+      window.clearTimeout(debounceId);
+      var value = input.value;
+      debounceId = window.setTimeout(function () { runSearch(value); }, 100);
+    });
+  })();
+</script>
+
+<style is:global>
+  .bso-esc {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    line-height: 1;
+    padding: 0.28rem 0.4rem;
+    border-radius: 5px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+  }
+
+  /* Overlay — painted above the page; the page underneath never reflows. */
+  .blog-search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 48px 1rem 1rem;
+  }
+
+  .blog-search-overlay[hidden] {
+    display: none;
+  }
+
+  /* An explicit `display` on a class outranks the `hidden` attribute's UA rule,
+     so toggled children (results, zero state, clear button) need this to honour
+     `hidden`. The descendant selector wins on specificity without !important. */
+  .blog-search-overlay [hidden] {
+    display: none;
+  }
+
+  .bso-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+  }
+
+  [data-theme="dark"] .bso-backdrop {
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .bso-panel {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    max-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    animation: bso-in 0.16s ease;
+  }
+
+  @keyframes bso-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .bso-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  .bso-header-icon {
+    color: var(--color-green);
+    flex-shrink: 0;
+  }
+
+  .bso-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font: inherit;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    caret-color: var(--color-green);
+  }
+
+  .bso-input:focus {
+    outline: none;
+  }
+
+  .bso-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .bso-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .bso-clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 5px;
+    flex-shrink: 0;
+  }
+
+  .bso-clear:hover {
+    color: var(--color-green);
+    background: var(--bg-secondary);
+  }
+
+  .bso-body {
+    overflow-y: auto;
+    padding: 0.85rem 1rem 1rem;
+  }
+
+  .bso-section {
+    margin-bottom: 1.1rem;
+  }
+
+  .bso-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .bso-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .bso-recs {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .bso-series {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Series-chip primitive. Lives here (not in BlogListing) because BlogSearch is
+     mounted on every blog page, so these styles are present wherever a chip is
+     rendered — the overlay here, and BlogListing's own browse section. */
+  .blog-series-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.6rem 0.5rem 1rem;
+    border-radius: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  }
+
+  .blog-series-chip:hover {
+    border-color: var(--color-green);
+    color: var(--color-green);
+    background: var(--bg-secondary);
+  }
+
+  .blog-series-chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 0.4rem;
+    border-radius: 12px;
+    background: var(--color-green);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .bso-try {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .bso-try-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .bso-try-chip {
+    padding: 0.3rem 0.7rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--color-green);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  [data-theme="dark"] .bso-try-chip {
+    color: var(--color-green-light);
+  }
+
+  .bso-try-chip:hover {
+    border-color: var(--color-green);
+    background: var(--bg-secondary);
+  }
+
+  /* Results — the blog's card language, compact for a palette. */
+  .bso-results {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .bso-result {
+    border-radius: 10px;
+    border: 1px solid transparent;
+  }
+
+  .bso-result.is-active,
+  .bso-result:hover {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+  }
+
+  .bso-result-link {
+    display: flex;
+    gap: 0.85rem;
+    padding: 0.65rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .bso-result-thumb {
+    width: 72px;
+    height: 54px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--bg-secondary);
+  }
+
+  .bso-result-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .bso-result-thumb-empty {
+    background: linear-gradient(135deg, var(--bg-secondary), var(--badge-bg));
+  }
+
+  .bso-result-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .bso-result-meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .bso-result-title {
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .bso-result-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .bso-result-title mark {
+    background: rgba(109, 196, 2, 0.25);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 0.1em;
+  }
+
+  .bso-zero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1.75rem 1rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .bso-zero-text {
+    font-size: 0.95rem;
+  }
+
+  .bso-live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bso-panel { animation: none; }
+  }
+
+  @media (max-width: 560px) {
+    .bso-panel { max-height: 75vh; }
+  }
+</style>

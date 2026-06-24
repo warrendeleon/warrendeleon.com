@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogSearch from './BlogSearch.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
@@ -129,6 +130,8 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
   ogType="article"
   jsonLd={blogPostingJsonLd}
 >
+  <BlogSearch locale={locale} />
+
   <!-- Reading progress bar -->
   <div class="reading-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label={i18n.blog.contents}>
     <div class="reading-progress-bar"></div>
@@ -218,7 +221,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
             </ul>
           </nav>
         )}
-        <div class="prose">
+        <div class="prose" data-pagefind-body data-pagefind-meta={`title:${post.data.title}`}>
           <Content />
         </div>
       </div>
