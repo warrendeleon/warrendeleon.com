@@ -86,7 +86,24 @@ const year = new Date().getFullYear();
   .footer-social-row {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  /* Flatten the inner .social-links so its icons and the RSS link become equal
+     siblings of this row. They then wrap together as one set instead of the RSS
+     stranding on its own line. */
+  .footer .social-links {
+    display: contents;
+  }
+
+  @media (max-width: 480px) {
+    .footer-social-row {
+      flex-wrap: wrap;
+      max-width: 15rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   .footer-rss {
