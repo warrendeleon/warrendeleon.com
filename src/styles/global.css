@@ -556,6 +556,10 @@ main {
   font-size: 0.88em;
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
   border: 1px solid var(--border-color);
+  /* Break long inline tokens (e.g. com.app.accessToken) so they don't overflow
+     the column on narrow screens. Inert for block code, which keeps white-space:
+     pre and scrolls inside .prose pre instead. */
+  overflow-wrap: break-word;
 }
 
 /* Code block wrapper (injected by JS) */
@@ -859,13 +863,20 @@ main {
   color: var(--color-green);
 }
 
+/* Wide tables scroll inside this wrapper instead of stretching the page.
+   overflow-x: auto only works on a block container, never on the table element
+   itself, so the rehype-table-wrapper plugin wraps each table in one. */
+.prose .table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
 .prose table {
   width: 100%;
   min-width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: 0;
   font-size: 0.95rem;
-  overflow-x: auto;
   display: table;
   border: 1px solid var(--border-color);
   border-radius: 8px;

@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import mermaid from 'astro-mermaid';
 import rehypeUnpublishedLinks from './src/lib/rehype-unpublished-links.mjs';
+import rehypeTableWrapper from './src/lib/rehype-table-wrapper.mjs';
 import pagefind from './src/lib/astro-pagefind.mjs';
 
 export default defineConfig({
@@ -54,6 +55,6 @@ export default defineConfig({
         dark: 'github-dark',
       },
     },
-    rehypePlugins: [rehypeUnpublishedLinks],
+    rehypePlugins: [rehypeUnpublishedLinks, rehypeTableWrapper],
   },
 });
