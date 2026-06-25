@@ -37,7 +37,14 @@
     "title": "Curriculum Vitae",
     "description": "Veure o descarregar el meu CV.",
     "download": "Descarregar CV",
-    "previewOnDesktop": "Vista pr\u00e8via disponible a l'escriptori"
+    "downloadPdf": "Descarregar PDF",
+    "previewOnDesktop": "Vista pr\u00e8via disponible a l'escriptori",
+    "profile": "Perfil",
+    "experience": "Experi\u00e8ncia",
+    "earlierCareer": "Traject\u00f2ria anterior",
+    "skills": "Compet\u00e8ncies",
+    "education": "Formaci\u00f3",
+    "languages": "Idiomes"
   },
   "bookACall": {
     "title": "Reservar Trucada",

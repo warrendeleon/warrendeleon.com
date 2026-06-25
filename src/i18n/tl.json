@@ -37,7 +37,14 @@
     "title": "Curriculum Vitae",
     "description": "Tingnan o i-download ang aking CV.",
     "download": "I-download ang CV",
-    "previewOnDesktop": "Available ang preview sa desktop"
+    "downloadPdf": "I-download ang PDF",
+    "previewOnDesktop": "Available ang preview sa desktop",
+    "profile": "Profile",
+    "experience": "Karanasan",
+    "earlierCareer": "Mga nakaraang trabaho",
+    "skills": "Mga Kasanayan",
+    "education": "Edukasyon",
+    "languages": "Mga Wika"
   },
   "bookACall": {
     "title": "Mag-book ng Tawag",
