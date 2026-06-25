@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CV from '../../components/CV.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../i18n/index';
+import cvEn from '../../data/cv-en.json';
+import cvEs from '../../data/cv-es.json';
+import cvCa from '../../data/cv-ca.json';
+import cvTl from '../../data/cv-tl.json';
+
+export const getStaticPaths = localeStaticPaths;
+
+const cvByLocale: Record<Locale, unknown> = { en: cvEn, es: cvEs, ca: cvCa, tl: cvTl };
+const { locale } = Astro.props as { locale: Locale };
+const i18n = t(locale);
+const cv = cvByLocale[locale] as typeof cvEn;
+---
+
+<BaseLayout
+  title={i18n.seo.cvTitle}
+  description={i18n.seo.cvDescription}
+  locale={locale}
+  currentPath={getLocalePath(locale, '/cv/')}
+>
+  <CV locale={locale} cv={cv} />
+</BaseLayout>

@@ -1,25 +1,37 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { t } from '../../i18n/index';
-import type { Locale } from '../../i18n/index';
-import education from '../../data/education-es.json';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../i18n/index';
+import educationEn from '../../data/education-en.json';
+import educationEs from '../../data/education-es.json';
+import educationCa from '../../data/education-ca.json';
+import educationTl from '../../data/education-tl.json';
 
-const locale: Locale = 'es';
+export const getStaticPaths = localeStaticPaths;
+
+const educationByLocale: Record<Locale, unknown> = {
+  en: educationEn,
+  es: educationEs,
+  ca: educationCa,
+  tl: educationTl,
+};
+
+const { locale } = Astro.props as { locale: Locale };
 const i18n = t(locale);
+const education = educationByLocale[locale] as typeof educationEn;
 
 const qualifications = education.filter(e => e.endDate && e.endDate !== e.startDate);
 const certifications = education.filter(e => !e.endDate || e.endDate === e.startDate);
 ---
 
 <BaseLayout
-  title="Formación | Warren de Leon"
-  description="Formación, titulaciones y certificaciones de Warren de Leon."
+  title={i18n.seo.educationTitle}
+  description={i18n.seo.educationDescription}
   locale={locale}
-  currentPath="/es/education/"
+  currentPath={getLocalePath(locale, '/education/')}
 >
   <section class="section">
     <div class="container">
-      <h1 class="section-heading">Formación</h1>
+      <h1 class="section-heading">{i18n.education.heading}</h1>
 
       {qualifications.length > 0 && (
         <div class="edu-section">
@@ -28,7 +40,7 @@ const certifications = education.filter(e => !e.endDate || e.endDate === e.start
               <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
               <path d="M6 12v5c0 1.1 2.7 3 6 3s6-1.9 6-3v-5"></path>
             </svg>
-            Titulaciones
+            {i18n.education.qualifications}
           </h2>
           <div class="edu-grid">
             {qualifications.map(item => (
@@ -57,7 +69,7 @@ const certifications = education.filter(e => !e.endDate || e.endDate === e.start
               <circle cx="12" cy="8" r="7"></circle>
               <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
             </svg>
-            Certificaciones y Cursos
+            {i18n.education.certifications}
           </h2>
           <div class="edu-grid">
             {certifications.map(item => (
@@ -74,7 +86,7 @@ const certifications = education.filter(e => !e.endDate || e.endDate === e.start
                   )}
                   {item.certificateUrl && (
                     <a href={item.certificateUrl} target="_blank" rel="noopener noreferrer" class="edu-card-cert">
-                      Ver certificado
+                      {i18n.education.viewCertificate}
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                         <polyline points="15 3 21 3 21 9"></polyline>
@@ -166,13 +178,13 @@ const certifications = education.filter(e => !e.endDate || e.endDate === e.start
   }
 
   .edu-card-date {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--text-muted);
     margin-bottom: 0.5rem;
   }
 
   .edu-card-desc {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     line-height: 1.6;
   }
