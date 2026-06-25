@@ -18,7 +18,10 @@
     "viewFullDetails": "Veure tots els detalls",
     "latestPosts": "El més recent del blog",
     "readPost": "Llegir post",
-    "viewAllPosts": "Veure tots els posts"
+    "viewAllPosts": "Veure tots els posts",
+    "currentSeries": "Sèrie en curs",
+    "readTheSeries": "Llegir la sèrie",
+    "fromTheBlog": "Del blog"
   },
   "workExperience": {
     "title": "Experiència Laboral",

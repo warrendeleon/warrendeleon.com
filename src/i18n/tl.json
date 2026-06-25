@@ -18,7 +18,10 @@
     "viewFullDetails": "Tingnan ang buong detalye",
     "latestPosts": "Pinakabago sa blog",
     "readPost": "Basahin ang post",
-    "viewAllPosts": "Tingnan lahat ng posts"
+    "viewAllPosts": "Tingnan lahat ng posts",
+    "currentSeries": "Kasalukuyang serye",
+    "readTheSeries": "Basahin ang serye",
+    "fromTheBlog": "Mula sa blog"
   },
   "workExperience": {
     "title": "Karanasan sa Trabaho",
