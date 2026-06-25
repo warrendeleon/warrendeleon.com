@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
+import SeriesHeroCard from './SeriesHeroCard.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
@@ -26,13 +27,7 @@ const newest = allPosts[0];
 const currentSeriesName = newest?.data.series ?? null;
 const currentSeriesSlug = currentSeriesName ? getSeriesSlug(currentSeriesName) : null;
 const currentParts = isFirstPage && currentSeriesSlug ? await getSeriesPosts(locale, currentSeriesSlug) : [];
-const currentIntro = currentParts[0];
-const hasCurrentSeries = currentParts.length >= 2 && !!currentSeriesName && !!currentSeriesSlug && !!currentIntro;
-// A curated series description (falls back to the intro post's own if none is set).
-const currentDesc = currentSeriesName ? (getSeriesDescription(currentSeriesName, locale) || currentIntro?.data.description || '') : '';
-// Cap the parts listed in the hero; the rest live on the series page.
-const HERO_PART_LIMIT = 5;
-const visibleParts = currentParts.slice(0, HERO_PART_LIMIT);
+const hasCurrentSeries = currentParts.length >= 2 && !!currentSeriesName && !!currentSeriesSlug;
 
 // More series = every other series, each with its intro post for art + a description.
 const moreSeriesBase = isFirstPage ? allSeries.filter(s => s.name !== currentSeriesName) : [];
@@ -56,39 +51,10 @@ const blogBase = getLocalePath(locale, '/blog/');
 
       <BlogSearch locale={locale} />
 
-      {hasCurrentSeries && (
+      {hasCurrentSeries && currentSeriesName && (
         <div class="series-hero">
           <h2 class="blog-section-heading">{i18n.blog.currentSeries}</h2>
-          <div class="series-hero-card">
-            <div class="series-hero-head">
-              <h3 class="series-hero-title">
-                <a href={getLocalePath(locale, `/blog/series/${currentSeriesSlug}/`)}>{currentSeriesName}</a>
-              </h3>
-              <p class="series-hero-desc">{currentDesc}</p>
-            </div>
-            <div class="series-hero-grid">
-              <a class="series-hero-art" href={getLocalePath(locale, `/blog/series/${currentSeriesSlug}/`)} tabindex="-1" aria-hidden="true">
-                {currentIntro.data.heroImage && (
-                  <img src={currentIntro.data.heroImage} alt={currentIntro.data.heroAlt || currentSeriesName} loading="lazy" />
-                )}
-              </a>
-              <div class="series-hero-parts">
-                <ol class="series-parts">
-                  {visibleParts.map((p, i) => (
-                    <li data-publish-date={toDateString(p.data.publishDate)}>
-                      <a href={getLocalePath(locale, `/blog/${getPostSlug(p.id)}/`)}>
-                        <span class="series-part-n blog-mono">{String(i + 1).padStart(2, '0')}</span>
-                        <span class="series-part-title">{p.data.title}</span>
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-                <a class="series-hero-cta" href={getLocalePath(locale, `/blog/series/${currentSeriesSlug}/`)}>
-                  {i18n.blog.viewAllParts.replace('{n}', String(currentParts.length))} <span aria-hidden="true">&rarr;</span>
-                </a>
-              </div>
-            </div>
-          </div>
+          <SeriesHeroCard locale={locale} seriesName={currentSeriesName} />
         </div>
       )}
 
@@ -259,7 +225,6 @@ const blogBase = getLocalePath(locale, '/blog/');
 </script>
 
 <style is:global>
-  .blog-mono { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
 
   .blog-section-heading {
     font-size: 1.6rem;
@@ -270,80 +235,8 @@ const blogBase = getLocalePath(locale, '/blog/');
     margin: 0 0 1.5rem;
   }
 
-  /* Current series hero */
+  /* Current series hero — the card itself lives in SeriesHeroCard.astro */
   .series-hero { margin-bottom: 3.6rem; }
-
-  .series-hero-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    padding: 2.6rem 2.8rem;
-  }
-
-  .series-hero-head { margin-bottom: 2.2rem; }
-
-  .series-hero-grid {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 2.8rem;
-    align-items: center;
-  }
-
-  .series-hero-art {
-    display: block;
-    aspect-ratio: 4 / 3;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-  }
-
-  .series-hero-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  .series-hero-title {
-    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.07;
-  }
-
-  .series-hero-title a { color: var(--text-primary); text-decoration: none; transition: color 0.2s ease; }
-  .series-hero-title a:hover { color: var(--color-green-text); }
-
-  .series-hero-desc {
-    margin: 1rem 0 0;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-    line-height: 1.6;
-  }
-
-  .series-parts { list-style: none; margin: 0 0 1.6rem; padding: 0; }
-
-  .series-parts li a {
-    display: flex;
-    gap: 1rem;
-    align-items: baseline;
-    padding: 0.7rem 0;
-    border-top: 1px solid var(--border-color);
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .series-parts li:first-child a { border-top: none; }
-  .series-part-n { flex: none; width: 1.8rem; font-size: 0.9rem; color: var(--color-green-text); }
-  .series-part-title { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; transition: color 0.15s ease; }
-  .series-parts li a:hover .series-part-title { color: var(--color-green-text); }
-
-  .series-hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 700;
-    font-size: 0.98rem;
-    color: var(--color-green-text);
-    text-decoration: none;
-  }
 
   /* More series — manual scroll carousel with arrow controls */
   .series-shelf-block { margin-bottom: 3.6rem; }
@@ -418,42 +311,7 @@ const blogBase = getLocalePath(locale, '/blog/');
     overflow: hidden;
   }
 
-  /* All posts — full-width row cards */
-  .blog-feed { display: flex; flex-direction: column; gap: 1.25rem; }
-
-  .feed-post {
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .feed-post:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
-  .feed-post-thumb { overflow: hidden; background: var(--bg-secondary); min-height: 150px; }
-  .feed-post-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-  .feed-post:hover .feed-post-thumb img { transform: scale(1.04); }
-  .feed-post-body { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding: 1.3rem 1.6rem; }
-  .feed-post-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: baseline; font-size: 0.9rem; color: var(--text-muted); }
-  .feed-post-series { color: var(--color-green-text); }
-  .feed-post-title { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; color: var(--text-primary); transition: color 0.15s ease; }
-  .feed-post:hover .feed-post-title { color: var(--color-green-text); }
-  .feed-post-desc {
-    color: var(--text-secondary);
-    font-size: 0.94rem;
-    line-height: 1.55;
-    max-width: 70ch;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
+  /* All posts feed-card styles are shared in global.css */
   .blog-empty { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 2rem; }
 
   /* Pagination */
@@ -505,12 +363,7 @@ const blogBase = getLocalePath(locale, '/blog/');
   .blog-pagination-current:hover { background: var(--color-green-dark); border-color: var(--color-green-dark); color: white; }
 
   @media (max-width: 760px) {
-    .series-hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .series-hero-art { order: -1; aspect-ratio: 16 / 10; }
     .series-card { width: 260px; }
-    .feed-post { grid-template-columns: 1fr; }
-    .feed-post-thumb { aspect-ratio: 16 / 9; min-height: 0; }
-    .feed-post-title { font-size: 1.08rem; }
     .blog-pagination-link { padding: 0.4rem 0.75rem; }
     .blog-pagination-num { width: 36px; height: 36px; }
   }
