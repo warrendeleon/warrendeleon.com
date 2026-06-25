@@ -37,9 +37,11 @@ export default defineConfig({
       },
     }),
     sitemap({
+      // Keep the /blog/tags/ index (a real browse hub) but drop the thin
+      // individual tag pages and the old /blog/tag/ redirect stubs, to protect
+      // crawl budget. Locale pages stay out; they're discoverable via hreflang.
       filter: (page) =>
-        !page.includes('/blog/tag/') &&
-        !page.includes('/hiring/') &&
+        !/\/blog\/tags?\/[^/]+\//.test(page) &&
         !page.includes('/ca/') &&
         !page.includes('/es/') &&
         !page.includes('/tl/'),
