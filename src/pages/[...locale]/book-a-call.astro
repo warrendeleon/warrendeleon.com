@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { t } from '../../i18n/index';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../i18n/index';
 
-const locale = 'tl' as const;
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
 const i18n = t(locale);
 ---
 
@@ -10,7 +12,7 @@ const i18n = t(locale);
   title={i18n.seo.bookACallTitle}
   description={i18n.seo.bookACallDescription}
   locale={locale}
-  currentPath="/tl/book-a-call/"
+  currentPath={getLocalePath(locale, '/book-a-call/')}
 >
   <section class="section">
     <div class="container">
@@ -22,7 +24,7 @@ const i18n = t(locale);
           width="100%"
           height="700"
           frameborder="0"
-          title="Mag-book ng tawag"
+          title={i18n.bookACall.iframeTitle}
           loading="lazy"
         ></iframe>
       </div>
@@ -31,6 +33,13 @@ const i18n = t(locale);
 </BaseLayout>
 
 <style>
-  .calendly-embed { border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); }
-  .calendly-embed iframe { display: block; }
+  .calendly-embed {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  .calendly-embed iframe {
+    display: block;
+  }
 </style>
