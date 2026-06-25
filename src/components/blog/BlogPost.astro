@@ -596,7 +596,7 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .post-meta-reading svg { opacity: 0.6; }
   .post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
   .post-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600; background: var(--badge-bg); color: var(--badge-text); border: 1px solid var(--border-color); text-decoration: none; transition: border-color 0.2s ease, color 0.2s ease; }
-  .post-tag:hover { border-color: var(--color-green); color: var(--color-green); }
+  .post-tag:hover { border-color: var(--color-green); color: var(--color-green-text); }
   .post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; }
   .post-layout > .toc { grid-column: 2; grid-row: 1; align-self: start; }
   /* min-width: 0 lets the 1fr track shrink below the content's intrinsic width.
@@ -608,21 +608,21 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .toc ul { list-style: none; padding: 0; margin: 0; border-left: 2px solid var(--border-color); }
   .toc li { margin-bottom: 0; }
   .toc a { font-size: 0.9rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s ease, border-color 0.2s ease; display: block; padding: 0.5rem 0.5rem 0.5rem 1rem; line-height: 1.4; border-left: 2px solid transparent; margin-left: -2px; min-height: 40px; }
-  .toc a:hover { color: var(--color-green); }
-  .toc a.toc-active { color: var(--color-green); border-left-color: var(--color-green); font-weight: 600; }
+  .toc a:hover { color: var(--color-green-text); }
+  .toc a.toc-active { color: var(--color-green-text); border-left-color: var(--color-green); font-weight: 600; }
   .toc-depth-3 a { padding-left: 2rem; }
   .blog-back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
-  .blog-back-link:hover { color: var(--color-green); gap: 0.6rem; }
+  .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
   .author-card { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; background: var(--bg-secondary); border-radius: 16px; margin-top: 3rem; border: 1px solid var(--border-color); }
   .author-avatar { width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0; border: 3px solid var(--border-color); }
   .author-info strong { display: block; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.35rem; }
   .author-info p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.6rem; }
-  .author-profile-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.95rem; color: var(--color-green); font-weight: 600; transition: gap 0.2s ease; }
+  .author-profile-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.95rem; color: var(--color-green-text); font-weight: 600; transition: gap 0.2s ease; }
   .author-profile-link:hover { gap: 0.6rem; }
   .share-links { display: flex; align-items: center; gap: 0.75rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; }
   .share-links > span { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
   .share-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; padding: 0.45rem 0.85rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; text-decoration: none; font-weight: 500; transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease; font-family: inherit; }
-  .share-btn:hover { border-color: var(--color-green); color: var(--color-green); transform: translateY(-1px); }
+  .share-btn:hover { border-color: var(--color-green); color: var(--color-green-text); transform: translateY(-1px); }
   .share-btn svg { flex-shrink: 0; }
   .related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
   .related-posts h3 { font-size: 1.15rem; margin-bottom: 1.25rem; color: var(--text-primary); }
@@ -635,17 +635,17 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .related-card-content { padding: 1.25rem; }
   .related-card time { font-size: 0.9rem; color: var(--text-muted); }
   .related-card h4 { font-size: 1rem; margin-top: 0.35rem; line-height: 1.35; transition: color 0.2s ease; }
-  .related-card:hover h4 { color: var(--color-green); }
+  .related-card:hover h4 { color: var(--color-green-text); }
   .related-card-tags { margin-top: 0.75rem; }
   .blog-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
   .blog-nav-link { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
   .blog-nav-link:hover { border-color: var(--color-green); transform: translateY(-2px); }
-  .blog-nav-label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-green); }
+  .blog-nav-label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-green-text); }
   .blog-nav-title { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); line-height: 1.35; }
   .blog-nav-next { text-align: right; }
   .blog-nav-next .blog-nav-label { justify-content: flex-end; }
   .scroll-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; z-index: 50; }
-  .scroll-to-top:hover { border-color: var(--color-green); color: var(--color-green); transform: translateY(-2px); }
+  .scroll-to-top:hover { border-color: var(--color-green); color: var(--color-green-text); transform: translateY(-2px); }
   .scroll-to-top[hidden] { display: none; }
 
   @media (max-width: 1200px) {
