@@ -17,6 +17,11 @@
   --color-green: #6dc402;
   --color-green-dark: #5aa302;
   --color-green-light: #8fd640;
+  /* Readable green for text on light backgrounds (lime itself is ~2.2:1).
+     #5aa302 clears the 3:1 bar (large/bold text + UI) and stays close to the brand lime.
+     Theme-aware: dark backgrounds keep the bright lime. */
+  --color-green-text: #5aa302;
+  --color-green-text-hover: #4a8601;
   --color-black: #111111;
   --color-white: #ffffff;
 
@@ -50,6 +55,8 @@
   --text-secondary: #b0b0b0;
   --text-muted: #999;
   --border-color: #333333;
+  --color-green-text: var(--color-green);
+  --color-green-text-hover: var(--color-green-dark);
   --device-body: #d9d9de;
   --device-edge: rgba(0, 0, 0, 0.5);
   --device-shadow: 0 16px 40px rgba(255, 255, 255, 0.08); /* faint light lift on the dark page */
@@ -83,13 +90,13 @@ body {
 }
 
 a {
-  color: var(--color-green);
+  color: var(--color-green-text);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-green-dark);
+  color: var(--color-green-text-hover);
 }
 
 img {
@@ -168,7 +175,7 @@ h4 { font-size: 1.25rem; }
 
 .btn-outline {
   background: transparent;
-  color: var(--color-green);
+  color: var(--color-green-text);
   border: 2px solid var(--color-green);
 }
 
@@ -301,7 +308,7 @@ h4 { font-size: 1.25rem; }
 }
 
 .current-role-content h3 {
-  color: var(--color-green);
+  color: var(--color-green-text);
   font-size: 1.25rem;
 }
 
@@ -363,7 +370,7 @@ h4 { font-size: 1.25rem; }
 }
 
 .latest-post-card:hover .latest-post-title {
-  color: var(--color-green);
+  color: var(--color-green-text);
 }
 
 .latest-post-desc {
@@ -446,7 +453,7 @@ main {
 }
 
 .work-nav a:hover {
-  color: var(--color-green);
+  color: var(--color-green-text);
 }
 
 .work-nav-next {
@@ -480,7 +487,7 @@ main {
 }
 
 .prose h3 {
-  color: var(--color-green);
+  color: var(--color-green-text);
   margin-top: 2rem;
   margin-bottom: 0.75rem;
   font-size: 1.25rem;
@@ -491,7 +498,7 @@ main {
 }
 
 .prose a {
-  color: var(--color-green);
+  color: var(--color-green-text);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -510,7 +517,7 @@ main {
 }
 
 .prose li::marker {
-  color: var(--color-green);
+  color: var(--color-green-text);
 }
 
 .prose blockquote {
@@ -636,7 +643,7 @@ main {
 }
 
 .code-copy-btn:hover {
-  color: var(--color-green);
+  color: var(--color-green-text);
   background: var(--bg-secondary);
 }
 
@@ -843,7 +850,7 @@ main {
 }
 
 .series-nav-part {
-  color: var(--color-green);
+  color: var(--color-green-text);
   font-weight: 600;
 }
 
@@ -880,7 +887,7 @@ main {
 }
 
 .series-nav-list a:hover {
-  color: var(--color-green);
+  color: var(--color-green-text);
   text-decoration: underline;
 }
 
@@ -890,7 +897,7 @@ main {
 }
 
 .series-nav-list li.series-current::marker {
-  color: var(--color-green);
+  color: var(--color-green-text);
 }
 
 /* Wide tables scroll inside this wrapper instead of stretching the page.

@@ -199,6 +199,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
     --border-color: #e0e0e0;
     --badge-bg: #f0f0f0;
     --badge-text: #333;
+    --color-green-text: #5aa302;
     max-width: 880px;
     margin: 0 auto;
     background: #ffffff;
@@ -219,6 +220,8 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
     padding: 2.1rem 2.4rem;
     color: #fff;
     margin-bottom: 2.5rem;
+    /* Hero is always dark, so its green text keeps the bright lime. */
+    --color-green-text: var(--color-green);
   }
   .cv-hero::before {
     content: "";
@@ -246,7 +249,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-green);
+    color: var(--color-green-text);
   }
   .cv-name {
     font-size: 2.8rem;
@@ -285,7 +288,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
   }
   .cv-contact a { transition: color 0.2s ease; }
   .cv-contact a:hover { color: #8fd640; }
-  .cv-contact svg { flex: none; color: var(--color-green); }
+  .cv-contact svg { flex: none; color: var(--color-green-text); }
 
   /* ---------- Section blocks ---------- */
   .cv-block { margin-bottom: 2.5rem; }
@@ -328,7 +331,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
   .cv-role {
     font-size: 0.92rem;
     font-weight: 600;
-    color: var(--color-green);
+    color: var(--color-green-text);
     margin-top: 0.15rem;
   }
   .cv-summary {
@@ -376,7 +379,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
   .cv-role-head { margin-top: 0; }
 
   .cv-company-compact { font-size: 1.02rem; font-weight: 700; }
-  .cv-company-compact span { color: var(--color-green); font-weight: 600; font-size: 0.92rem; }
+  .cv-company-compact span { color: var(--color-green-text); font-weight: 600; font-size: 0.92rem; }
 
   .cv-subheading {
     font-size: 0.82rem;
@@ -416,7 +419,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
   }
   .cv-chip-strong {
     border-color: var(--color-green);
-    color: var(--color-green);
+    color: var(--color-green-text);
     font-weight: 600;
   }
 
@@ -457,7 +460,7 @@ const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</stron
   .cv-languages { display: flex; flex-wrap: wrap; gap: 1rem 1.6rem; }
   .cv-lang { display: flex; align-items: baseline; gap: 0.5rem; }
   .cv-lang-name { font-weight: 600; }
-  .cv-lang-level { font-size: 0.82rem; color: var(--color-green); font-weight: 600; }
+  .cv-lang-level { font-size: 0.82rem; color: var(--color-green-text); font-weight: 600; }
   .cv-lang-level.muted { color: var(--text-muted); }
 
   /* ---------- Floating download ---------- */
