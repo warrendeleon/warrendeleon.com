@@ -37,7 +37,9 @@
     "present": "Presente",
     "clients": "Clientes",
     "ctaHeading": "¿Quieres que hablemos o prefieres descargar la versión de una página?",
-    "downloadCV": "Descargar CV"
+    "downloadCV": "Descargar CV",
+    "companyHeader": "Encabezado de la empresa",
+    "prevNextNav": "Empresas anterior y siguiente"
   },
   "cv": {
     "title": "Curriculum Vitae",
@@ -54,7 +56,8 @@
   },
   "bookACall": {
     "title": "Reservar Llamada",
-    "description": "Programa una llamada telefónica/videollamada de 30 minutos conmigo."
+    "description": "Programa una llamada telefónica/videollamada de 30 minutos conmigo.",
+    "iframeTitle": "Reservar llamada"
   },
   "common": {
     "download": "Descargar",
@@ -115,7 +118,15 @@
     "authorBio": "Software Engineering Manager en Hargreaves Lansdown. Escribo sobre liderazgo técnico, React Native y cómo construir buenos equipos.",
     "clientProjects": "Proyectos para clientes"
   },
+  "education": {
+    "heading": "Formación",
+    "qualifications": "Titulaciones",
+    "certifications": "Certificaciones y Cursos",
+    "viewCertificate": "Ver certificado"
+  },
   "seo": {
+    "educationTitle": "Formación | Warren de Leon",
+    "educationDescription": "Formación, titulaciones y certificaciones de Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
     "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager con más de una década de experiencia en desarrollo de software y liderazgo de equipos.",
     "workExperienceTitle": "Experiencia Laboral | Warren de Leon",

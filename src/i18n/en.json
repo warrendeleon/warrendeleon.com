@@ -37,7 +37,9 @@
     "present": "Present",
     "clients": "Clients",
     "ctaHeading": "Want to talk, or download the one-page version?",
-    "downloadCV": "Download CV"
+    "downloadCV": "Download CV",
+    "companyHeader": "Company header",
+    "prevNextNav": "Previous and next companies"
   },
   "cv": {
     "title": "Curriculum Vitae",
@@ -54,7 +56,8 @@
   },
   "bookACall": {
     "title": "Book a Call",
-    "description": "Schedule a 30-minute phone/video call with me."
+    "description": "Schedule a 30-minute phone/video call with me.",
+    "iframeTitle": "Book a call"
   },
   "common": {
     "download": "Download",
@@ -115,7 +118,15 @@
     "authorBio": "Software Engineering Manager at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.",
     "clientProjects": "Client projects"
   },
+  "education": {
+    "heading": "Education",
+    "qualifications": "Qualifications",
+    "certifications": "Certifications & Courses",
+    "viewCertificate": "View certificate"
+  },
   "seo": {
+    "educationTitle": "Education & Certifications | Warren de Leon",
+    "educationDescription": "Qualifications in software development from Stucom Barcelona. Oracle Java certification and CI/CD courses. Warren de Leon's technical education background.",
     "homeTitle": "Warren de Leon | Software Engineering Manager at Hargreaves Lansdown",
     "homeDescription": "Warren de Leon is a Software Engineering Manager at Hargreaves Lansdown, leading the Mobile Platform team. Previously at Sky. Specialising in React Native, team leadership, and mobile architecture.",
     "workExperienceTitle": "Work Experience | Warren de Leon",
