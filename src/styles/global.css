@@ -230,6 +230,15 @@ h4 { font-size: 1.25rem; }
   margin-top: 0.5rem;
 }
 
+.hero-tagline {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  margin-top: 0.75rem;
+  max-width: 30rem;
+  text-wrap: balance;
+}
+
 .hero-social {
   display: flex;
 }
