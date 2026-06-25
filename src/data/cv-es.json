@@ -1,0 +1,108 @@
+{
+  "role": "Software Engineering Manager",
+  "profile": "Engineering Manager con más de diez años en el ámbito móvil, especializado en React Native a gran escala. Recientemente lideré la plataforma móvil de la nueva aplicación de Hargreaves Lansdown y dirigí dos squads en el SAFe Release Train de Sky. Combino la dirección técnica práctica con la faceta humana del liderazgo: contratar, formar y hacer crecer a los ingenieros hasta convertirlos en profesionales seguros e independientes.",
+  "contact": {
+    "email": "hi@warrendeleon.com",
+    "phone": "+447510084239",
+    "website": "warrendeleon.com",
+    "status": "Settled Status (EU Settlement Scheme)",
+    "linkedin": "linkedin.com/in/warrendeleon",
+    "github": "github.com/warrendeleon"
+  },
+  "experience": [
+    {
+      "company": "Hargreaves Lansdown",
+      "role": "Engineering Manager — Mobile Platform",
+      "dates": "Mar 2026 – Jun 2026",
+      "summary": "Lideré el squad de Mobile Platform que construyó desde cero la nueva app de React Native de HL, sustituyendo las apps nativas de iOS y Android y siendo responsable de la plataforma sobre la que publicaba cada equipo móvil. Una migración brownfield a React Native + GraphQL para un negocio que gestiona más de £150bn y más de un millón de usuarios activos, asumiendo responsabilidades de Product Manager y Principal Engineer además del rol de EM.",
+      "bullets": [
+        "Saqué adelante el lanzamiento de una OPV de alto perfil y plazos críticos, adelantado dos veces, publicando una sala de espera virtual en iOS y Android para soportar una previsión de **500k+ solicitantes simultáneos**.",
+        "Contraté a **3 ingenieros** para el equipo de plataforma y ayudé a formar un squad hermano, realizando seis entrevistas para una contratación adicional, y dirigí el traspaso de la plataforma desde un equipo offshore saliente, dejando al equipo de Londres publicando de forma autónoma.",
+        "Definí la dirección técnica: demostré la viabilidad de module federation en React Native con dos pruebas de concepto y convertí el discovery en un backlog de **67 épicas** con práctica Scrum y documentación completa de la plataforma."
+      ],
+      "tech": "TypeScript · Swift · Kotlin · React Native · Apollo GraphQL · Appium"
+    },
+    {
+      "company": "Sky",
+      "role": "Software Engineering Manager",
+      "dates": "Jan 2023 – Dec 2025",
+      "summary": "Dirigí dos squads de ingeniería dentro del SAFe Release Train Join, Onboard & Engage, parte del portfolio Cross-Product Sales Experience de Sky, abarcando la responsabilidad de entrega, la supervisión técnica, la gestión de personas y la colaboración interfuncional.",
+      "bullets": [
+        "Gestioné a **10+ ingenieros** (de plantilla, contratados y junior) mediante 1:1 periódicos, feedback, mentoría y planes de desarrollo.",
+        "Impulsé la planificación de PI, las sincronizaciones del ART y la alineación del roadmap, guiando la arquitectura tanto del stack de React Native como del de web.",
+        "Desarrollé a varios ingenieros junior desde la incorporación como graduados hasta la promoción y la entrega autónoma."
+      ],
+      "subRole": {
+        "role": "Senior React Native Engineer",
+        "dates": "Jan 2023 – Oct 2023",
+        "summary": "Construí los nuevos flujos de eSIM en React Native (activación, instalación, conversión, reinstalación) para dispositivos solo eSIM, y mentoricé a desarrolladores junior y de nivel medio.",
+        "tech": "TypeScript · React Native · Apollo GraphQL · Redux Toolkit · WebdriverIO · CircleCI"
+      }
+    }
+  ],
+  "experienceCompact": [
+    {
+      "company": "Stadion",
+      "role": "Lead React Native Developer",
+      "dates": "Sep 2022 – Nov 2022",
+      "summary": "Lideré el equipo que construyó la app Fifth Stand del Chelsea FC: mentoricé a los desarrolladores, definí los requisitos con el cliente y realicé POCs para validar nuevas funcionalidades.",
+      "tech": "TypeScript · React Native · Redux Toolkit · Detox · CircleCI"
+    },
+    {
+      "company": "Candide",
+      "role": "Senior Software Engineer",
+      "dates": "Apr 2022 – Jul 2022",
+      "summary": "Construí las nuevas apps de React Native para Babylonstoren y The Newt.",
+      "tech": "TypeScript · React Native · Redux Toolkit · Detox · CircleCI"
+    },
+    {
+      "company": "xDesign",
+      "role": "Lead React Native Developer",
+      "dates": "Sep 2021 – Apr 2022",
+      "summary": "Lideré un equipo de NodeJS / ReactJS / React Native para FanDuel y levanté el TPV en tablet de Zonal hasta un **MVP en 4 meses**, además de dar forma a la práctica de React Native de xDesign.",
+      "tech": "TypeScript · React Native · ReactJS · Redux · RxJS · Detox · Bitrise"
+    },
+    {
+      "company": "Concentrix TigerSpike",
+      "role": "Senior Software Engineer",
+      "dates": "Apr 2021 – Sep 2021",
+      "summary": "Lideré un squad de transformación que migró las apps Priority Pass, Mastercard Airport Experience y LoungeKey de iOS/Android nativo a React Native.",
+      "tech": "TypeScript · React Native · Redux Toolkit · Bitrise"
+    }
+  ],
+  "earlier": [
+    { "company": "OpenHealth Group", "role": "Senior Software Engineer", "stack": "React Native", "dates": "Nov 2020 – Apr 2021" },
+    { "company": "BP", "role": "Senior Software Engineer", "stack": "React Native platform", "dates": "Nov 2019 – May 2020" },
+    { "company": "Shell", "role": "Software Engineer", "stack": "React Native", "dates": "Nov 2018 – Nov 2019" },
+    { "company": "WonderBill", "role": "Software Engineer", "stack": "React Native & web", "dates": "Dec 2017 – Nov 2018" },
+    { "company": "Nucleus Central", "role": "Frontend Developer", "stack": "Angular 4", "dates": "Jul 2017 – Nov 2017" },
+    { "company": "Lexel Software", "role": "Multiplatform Developer", "stack": "Angular & Android", "dates": "Sep 2016 – Jun 2017" },
+    { "company": "All Now Europe", "role": "Frontend Developer", "stack": "React / Redux / Sagas", "dates": "May 2016 – Sep 2016" },
+    { "company": "Altran", "role": "Full-Stack Developer & JavaScript Teacher", "stack": "", "dates": "Dec 2015 – Mar 2016" },
+    { "company": "Desigual", "role": "Software Developer", "stack": "Java / Oracle ATG", "dates": "Aug 2015 – Dec 2015" },
+    { "company": "Everis NTT Data", "role": "Backend Developer", "stack": "Java / Spring Batch", "dates": "Apr 2015 – Jun 2015" },
+    { "company": "Teknon Uroclínica", "role": "Full-Stack Developer", "stack": "Spring Boot / Android", "dates": "Oct 2014 – Apr 2015" },
+    { "company": "Edenic Games", "role": "Android Teacher", "stack": "Smart Employability Program", "dates": "Oct 2012 – Jul 2014" }
+  ],
+  "skills": [
+    { "label": "Liderazgo", "emphasis": true, "items": ["Gestión de ingeniería", "Liderazgo de personas", "Contratación e incorporación", "Coaching y desarrollo", "Colaboración interfuncional"] },
+    { "label": "Lenguajes de programación", "items": ["TypeScript", "JavaScript", "Swift", "Kotlin", "Java"] },
+    { "label": "Frameworks y librerías", "items": ["React Native", "ReactJS", "Apollo / GraphQL", "Redux Toolkit", "RxJS", "React Navigation", "Angular"] },
+    { "label": "Arquitectura", "items": ["Module Federation", "Brownfield native bridging", "Sistemas de diseño"] },
+    { "label": "Testing", "items": ["Jest", "RN Testing Library", "Detox", "Appium", "WebdriverIO"] },
+    { "label": "CI/CD y herramientas", "items": ["CircleCI", "Bitrise", "Azure DevOps", "GitLab CI", "Fastlane"] },
+    { "label": "Formas de trabajo", "items": ["SAFe", "Scrum", "Kanban", "Tribe / Squad", "BDD / TDD"] }
+  ],
+  "education": [
+    { "title": "Desarrollo de Aplicaciones Multiplataforma (HND)", "institution": "Stucom Centre d'Estudis", "dates": "2014 – 2016" },
+    { "title": "Desarrollo de Aplicaciones Web (HND)", "institution": "Stucom Centre d'Estudis", "dates": "2012 – 2014" },
+    { "title": "Sistemas Microinformáticos y Redes", "institution": "Ciclo formativo · Stucom Centre d'Estudis", "dates": "2009 – 2011" }
+  ],
+  "certs": ["Oracle Certified Associate · Java SE7", "CircleCI · Complete Introduction", "Fastlane for React Native"],
+  "languages": [
+    { "name": "Español", "level": "Nativo" },
+    { "name": "Catalán", "level": "Nativo" },
+    { "name": "Inglés", "level": "Fluido" },
+    { "name": "Filipino (tagalo)", "level": "Solo comprensión", "muted": true }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "role": "Software Engineering Manager",
+  "profile": "Engineering Manager amb més de deu anys en l'àmbit mòbil, especialitzat en React Native a gran escala. Recentment vaig liderar la plataforma mòbil de la nova aplicació de Hargreaves Lansdown i vaig dirigir dos squads al SAFe Release Train de Sky. Combino la direcció tècnica pràctica amb la vessant humana del lideratge: contractar, formar i fer créixer els enginyers fins a convertir-los en professionals segurs i independents.",
+  "contact": {
+    "email": "hi@warrendeleon.com",
+    "phone": "+447510084239",
+    "website": "warrendeleon.com",
+    "status": "Settled Status (EU Settlement Scheme)",
+    "linkedin": "linkedin.com/in/warrendeleon",
+    "github": "github.com/warrendeleon"
+  },
+  "experience": [
+    {
+      "company": "Hargreaves Lansdown",
+      "role": "Engineering Manager — Mobile Platform",
+      "dates": "Mar 2026 – Jun 2026",
+      "summary": "Vaig liderar el squad de Mobile Platform que va construir des de zero la nova app de React Native de HL, substituint les apps natives d'iOS i Android i sent responsable de la plataforma sobre la qual publicava cada equip mòbil. Una migració brownfield a React Native + GraphQL per a un negoci que gestiona més de £150bn i més d'un milió d'usuaris actius, assumint responsabilitats de Product Manager i Principal Engineer a més del rol d'EM.",
+      "bullets": [
+        "Vaig treure endavant el llançament d'una OPV d'alt perfil i terminis crítics, avançat dues vegades, publicant una sala d'espera virtual a iOS i Android per suportar una previsió de **500k+ sol·licitants simultanis**.",
+        "Vaig contractar **3 enginyers** per a l'equip de plataforma i vaig ajudar a formar un squad germà, fent sis entrevistes per a una contractació addicional, i vaig dirigir el traspàs de la plataforma des d'un equip offshore sortint, deixant l'equip de Londres publicant de manera autònoma.",
+        "Vaig definir la direcció tècnica: vaig demostrar la viabilitat de module federation a React Native amb dues proves de concepte i vaig convertir el discovery en un backlog de **67 èpiques** amb pràctica Scrum i documentació completa de la plataforma."
+      ],
+      "tech": "TypeScript · Swift · Kotlin · React Native · Apollo GraphQL · Appium"
+    },
+    {
+      "company": "Sky",
+      "role": "Software Engineering Manager",
+      "dates": "Jan 2023 – Dec 2025",
+      "summary": "Vaig dirigir dos squads d'enginyeria dins del SAFe Release Train Join, Onboard & Engage, part del portfolio Cross-Product Sales Experience de Sky, abastant la responsabilitat de lliurament, la supervisió tècnica, la gestió de persones i la col·laboració interfuncional.",
+      "bullets": [
+        "Vaig gestionar **10+ enginyers** (de plantilla, contractats i júnior) mitjançant 1:1 periòdics, feedback, mentoria i plans de desenvolupament.",
+        "Vaig impulsar la planificació de PI, les sincronitzacions de l'ART i l'alineació del roadmap, guiant l'arquitectura tant del stack de React Native com del de web.",
+        "Vaig desenvolupar diversos enginyers júnior des de la incorporació com a graduats fins a la promoció i el lliurament autònom."
+      ],
+      "subRole": {
+        "role": "Senior React Native Engineer",
+        "dates": "Jan 2023 – Oct 2023",
+        "summary": "Vaig construir els nous fluxos d'eSIM en React Native (activació, instal·lació, conversió, reinstal·lació) per a dispositius només eSIM, i vaig mentoritzar desenvolupadors júnior i de nivell mitjà.",
+        "tech": "TypeScript · React Native · Apollo GraphQL · Redux Toolkit · WebdriverIO · CircleCI"
+      }
+    }
+  ],
+  "experienceCompact": [
+    {
+      "company": "Stadion",
+      "role": "Lead React Native Developer",
+      "dates": "Sep 2022 – Nov 2022",
+      "summary": "Vaig liderar l'equip que va construir l'app Fifth Stand del Chelsea FC: vaig mentoritzar els desenvolupadors, vaig definir els requisits amb el client i vaig fer POCs per validar noves funcionalitats.",
+      "tech": "TypeScript · React Native · Redux Toolkit · Detox · CircleCI"
+    },
+    {
+      "company": "Candide",
+      "role": "Senior Software Engineer",
+      "dates": "Apr 2022 – Jul 2022",
+      "summary": "Vaig construir les noves apps de React Native per a Babylonstoren i The Newt.",
+      "tech": "TypeScript · React Native · Redux Toolkit · Detox · CircleCI"
+    },
+    {
+      "company": "xDesign",
+      "role": "Lead React Native Developer",
+      "dates": "Sep 2021 – Apr 2022",
+      "summary": "Vaig liderar un equip de NodeJS / ReactJS / React Native per a FanDuel i vaig aixecar el TPV en tauleta de Zonal fins a un **MVP en 4 mesos**, a més de donar forma a la pràctica de React Native de xDesign.",
+      "tech": "TypeScript · React Native · ReactJS · Redux · RxJS · Detox · Bitrise"
+    },
+    {
+      "company": "Concentrix TigerSpike",
+      "role": "Senior Software Engineer",
+      "dates": "Apr 2021 – Sep 2021",
+      "summary": "Vaig liderar un squad de transformació que va migrar les apps Priority Pass, Mastercard Airport Experience i LoungeKey d'iOS/Android natiu a React Native.",
+      "tech": "TypeScript · React Native · Redux Toolkit · Bitrise"
+    }
+  ],
+  "earlier": [
+    { "company": "OpenHealth Group", "role": "Senior Software Engineer", "stack": "React Native", "dates": "Nov 2020 – Apr 2021" },
+    { "company": "BP", "role": "Senior Software Engineer", "stack": "React Native platform", "dates": "Nov 2019 – May 2020" },
+    { "company": "Shell", "role": "Software Engineer", "stack": "React Native", "dates": "Nov 2018 – Nov 2019" },
+    { "company": "WonderBill", "role": "Software Engineer", "stack": "React Native & web", "dates": "Dec 2017 – Nov 2018" },
+    { "company": "Nucleus Central", "role": "Frontend Developer", "stack": "Angular 4", "dates": "Jul 2017 – Nov 2017" },
+    { "company": "Lexel Software", "role": "Multiplatform Developer", "stack": "Angular & Android", "dates": "Sep 2016 – Jun 2017" },
+    { "company": "All Now Europe", "role": "Frontend Developer", "stack": "React / Redux / Sagas", "dates": "May 2016 – Sep 2016" },
+    { "company": "Altran", "role": "Full-Stack Developer & JavaScript Teacher", "stack": "", "dates": "Dec 2015 – Mar 2016" },
+    { "company": "Desigual", "role": "Software Developer", "stack": "Java / Oracle ATG", "dates": "Aug 2015 – Dec 2015" },
+    { "company": "Everis NTT Data", "role": "Backend Developer", "stack": "Java / Spring Batch", "dates": "Apr 2015 – Jun 2015" },
+    { "company": "Teknon Uroclínica", "role": "Full-Stack Developer", "stack": "Spring Boot / Android", "dates": "Oct 2014 – Apr 2015" },
+    { "company": "Edenic Games", "role": "Android Teacher", "stack": "Smart Employability Program", "dates": "Oct 2012 – Jul 2014" }
+  ],
+  "skills": [
+    { "label": "Lideratge", "emphasis": true, "items": ["Gestió d'enginyeria", "Lideratge de persones", "Contractació i incorporació", "Coaching i desenvolupament", "Col·laboració interfuncional"] },
+    { "label": "Llenguatges de programació", "items": ["TypeScript", "JavaScript", "Swift", "Kotlin", "Java"] },
+    { "label": "Frameworks i llibreries", "items": ["React Native", "ReactJS", "Apollo / GraphQL", "Redux Toolkit", "RxJS", "React Navigation", "Angular"] },
+    { "label": "Arquitectura", "items": ["Module Federation", "Brownfield native bridging", "Sistemes de disseny"] },
+    { "label": "Testing", "items": ["Jest", "RN Testing Library", "Detox", "Appium", "WebdriverIO"] },
+    { "label": "CI/CD i eines", "items": ["CircleCI", "Bitrise", "Azure DevOps", "GitLab CI", "Fastlane"] },
+    { "label": "Formes de treball", "items": ["SAFe", "Scrum", "Kanban", "Tribe / Squad", "BDD / TDD"] }
+  ],
+  "education": [
+    { "title": "Desenvolupament d'Aplicacions Multiplataforma (HND)", "institution": "Stucom Centre d'Estudis", "dates": "2014 – 2016" },
+    { "title": "Desenvolupament d'Aplicacions Web (HND)", "institution": "Stucom Centre d'Estudis", "dates": "2012 – 2014" },
+    { "title": "Sistemes Microinformàtics i Xarxes", "institution": "Cicle formatiu · Stucom Centre d'Estudis", "dates": "2009 – 2011" }
+  ],
+  "certs": ["Oracle Certified Associate · Java SE7", "CircleCI · Complete Introduction", "Fastlane for React Native"],
+  "languages": [
+    { "name": "Espanyol", "level": "Natiu" },
+    { "name": "Català", "level": "Natiu" },
+    { "name": "Anglès", "level": "Fluid" },
+    { "name": "Filipí (tagal)", "level": "Només comprensió", "muted": true }
+  ]
+}

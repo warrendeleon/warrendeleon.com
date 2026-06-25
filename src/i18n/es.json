@@ -37,7 +37,14 @@
     "title": "Curriculum Vitae",
     "description": "Ver o descargar mi CV.",
     "download": "Descargar CV",
-    "previewOnDesktop": "Vista previa disponible en escritorio"
+    "downloadPdf": "Descargar PDF",
+    "previewOnDesktop": "Vista previa disponible en escritorio",
+    "profile": "Perfil",
+    "experience": "Experiencia",
+    "earlierCareer": "Trayectoria anterior",
+    "skills": "Competencias",
+    "education": "Formación",
+    "languages": "Idiomas"
   },
   "bookACall": {
     "title": "Reservar Llamada",

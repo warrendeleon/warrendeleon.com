@@ -37,7 +37,14 @@
     "title": "Curriculum Vitae",
     "description": "View or download my CV.",
     "download": "Download CV",
-    "previewOnDesktop": "Preview available on desktop"
+    "downloadPdf": "Download PDF",
+    "previewOnDesktop": "Preview available on desktop",
+    "profile": "Profile",
+    "experience": "Experience",
+    "earlierCareer": "Earlier career",
+    "skills": "Skills",
+    "education": "Education",
+    "languages": "Languages"
   },
   "bookACall": {
     "title": "Book a Call",
