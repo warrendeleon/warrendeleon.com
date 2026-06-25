@@ -71,6 +71,11 @@
   },
   "blog": {
     "latestPost": "Pinakabagong artikulo",
+    "currentSeries": "Kasalukuyang serye",
+    "moreSeries": "Iba pang serye",
+    "allPosts": "Lahat ng artikulo",
+    "parts": "bahagi",
+    "viewAllParts": "Tingnan lahat ng {n} bahagi",
     "minRead": "min basahin",
     "backToBlog": "Bumalik sa blog",
     "contents": "Nilalaman",

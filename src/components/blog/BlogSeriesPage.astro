@@ -6,6 +6,7 @@ import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug } from '../../utils/blogHelpers';
+import { getSeriesDescription } from '../../i18n/seriesDescriptions';
 
 interface Props {
   locale: Locale;
@@ -23,10 +24,10 @@ const blogPath = getLocalePath(locale, '/blog/');
 const siteUrl = 'https://warrendeleon.com';
 const seriesPath = getLocalePath(locale, `/blog/series/${getSeriesSlug(seriesName)}/`);
 
-// Reuse the first (intro) post's description as the series lede + meta description:
-// it is already keyword-rich and already translated into every locale, so no new
-// per-series copy is needed and nothing goes stale.
-const lede = posts[0]?.data.description ?? `${i18n.blog.seriesLabel}: ${seriesName}`;
+// Series lede + meta description: prefer a curated, per-series description (already
+// translated into every locale), falling back to the intro post's description and
+// then a generic label. Keeps the lede keyword-rich without leaving anything stale.
+const lede = getSeriesDescription(seriesName, locale) || posts[0]?.data.description || `${i18n.blog.seriesLabel}: ${seriesName}`;
 
 // ItemList structured data: tells search engines this is an ordered, multi-part guide
 // and makes the parts eligible for a list/carousel rich result.

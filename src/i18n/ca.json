@@ -71,6 +71,11 @@
   },
   "blog": {
     "latestPost": "Últim article",
+    "currentSeries": "Sèrie en curs",
+    "moreSeries": "Més sèries",
+    "allPosts": "Tots els articles",
+    "parts": "parts",
+    "viewAllParts": "Veure les {n} parts",
     "minRead": "min de lectura",
     "backToBlog": "Tornar al blog",
     "contents": "Continguts",
