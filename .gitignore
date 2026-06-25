@@ -26,3 +26,4 @@ publish-devto.sh
 
 # jetbrains setting folder
 .idea/
+.cv-pdf-build/
