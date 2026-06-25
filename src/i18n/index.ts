@@ -51,3 +51,14 @@ export function formatDateRange(startDate: string, endDate: string | null, local
   const end = endDate && endDate.trim() ? formatMonth(endDate) : i18n.workExperience.present;
   return `${start} - ${end}`;
 }
+
+// getStaticPaths for the [...locale] rest routes. English builds at the root
+// (an undefined segment, so `/`, `/cv/`, …) and every other locale gets its
+// prefix (`/es/`, `/es/cv/`, …). The resolved locale rides along in props so
+// each page reads it straight from Astro.props instead of re-deriving it.
+export function localeStaticPaths() {
+  return locales.map((locale) => ({
+    params: { locale: locale === 'en' ? undefined : locale },
+    props: { locale },
+  }));
+}

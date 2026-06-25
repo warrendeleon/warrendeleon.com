@@ -37,7 +37,9 @@
     "present": "Kasalukuyan",
     "clients": "Mga Kliyente",
     "ctaHeading": "Gusto mo bang mag-usap, o i-download ang one-page na bersyon?",
-    "downloadCV": "I-download ang CV"
+    "downloadCV": "I-download ang CV",
+    "companyHeader": "Header ng kompanya",
+    "prevNextNav": "Nakaraan at susunod na kompanya"
   },
   "cv": {
     "title": "Curriculum Vitae",
@@ -54,7 +56,8 @@
   },
   "bookACall": {
     "title": "Mag-book ng Tawag",
-    "description": "Mag-iskedyul ng 30-minutong phone/video call sa akin."
+    "description": "Mag-iskedyul ng 30-minutong phone/video call sa akin.",
+    "iframeTitle": "Mag-book ng tawag"
   },
   "common": {
     "download": "I-download",
@@ -115,7 +118,15 @@
     "authorBio": "Software Engineering Manager sa Hargreaves Lansdown. Sumusulat tungkol sa engineering leadership, React Native, at pagbuo ng magagandang team.",
     "clientProjects": "Mga proyekto sa kliyente"
   },
+  "education": {
+    "heading": "Edukasyon",
+    "qualifications": "Mga Kwalipikasyon",
+    "certifications": "Mga Sertipikasyon at Kurso",
+    "viewCertificate": "Tingnan ang sertipiko"
+  },
   "seo": {
+    "educationTitle": "Edukasyon | Warren de Leon",
+    "educationDescription": "Edukasyon, mga kwalipikasyon, at mga sertipikasyon ni Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
     "homeDescription": "Personal portfolio ni Warren de Leon, isang Software Engineering Manager na may mahigit isang dekada ng karanasan sa software development at team leadership.",
     "workExperienceTitle": "Karanasan sa Trabaho | Warren de Leon",
