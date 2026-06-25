@@ -18,7 +18,10 @@
     "viewFullDetails": "Ver detalles completos",
     "latestPosts": "Lo último del blog",
     "readPost": "Leer post",
-    "viewAllPosts": "Ver todos los posts"
+    "viewAllPosts": "Ver todos los posts",
+    "currentSeries": "Serie actual",
+    "readTheSeries": "Leer la serie",
+    "fromTheBlog": "Del blog"
   },
   "workExperience": {
     "title": "Experiencia Laboral",

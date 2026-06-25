@@ -1,0 +1,150 @@
+---
+import { t, getLocalePath } from '../i18n/index';
+import type { Locale } from '../i18n/index';
+import { getPostsForLocale, getPostSlug, getSeriesSlug, getSeriesPosts, formatBlogDate } from '../utils/blogHelpers';
+import { getReadingTime } from '../utils/readingTime';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
+
+const posts = await getPostsForLocale(locale);
+
+// Feature the series the newest post belongs to, so the homepage tracks whatever
+// series is currently being published. A one-off post with no series falls back
+// to the latest-posts grid alone, so the section is never empty.
+const newest = posts[0];
+const featuredSeriesName = newest?.data.series ?? null;
+const featuredSeriesSlug = featuredSeriesName ? getSeriesSlug(featuredSeriesName) : null;
+const seriesPosts = featuredSeriesSlug ? await getSeriesPosts(locale, featuredSeriesSlug) : [];
+const intro = seriesPosts[0];
+const hasSeries = seriesPosts.length >= 2 && featuredSeriesName && featuredSeriesSlug && intro;
+
+const latestPosts = posts.slice(0, 2);
+const heading = hasSeries ? i18n.home.fromTheBlog : i18n.home.latestPosts;
+---
+
+{(hasSeries || latestPosts.length > 0) && (
+  <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-heading">{heading}</h2>
+
+      {hasSeries && (
+        <a class="featured-series" href={getLocalePath(locale, `/blog/series/${featuredSeriesSlug}/`)}>
+          {intro.data.heroImage && (
+            <div class="featured-series-media">
+              <img src={intro.data.heroImage} alt={intro.data.heroAlt || featuredSeriesName} loading="lazy" />
+            </div>
+          )}
+          <div class="featured-series-body">
+            <p class="featured-series-eyebrow">
+              {`${i18n.home.currentSeries} · ${seriesPosts.length} ${seriesPosts.length === 1 ? i18n.blog.post : i18n.blog.posts}`}
+            </p>
+            <h3 class="featured-series-title">{featuredSeriesName}</h3>
+            <p class="featured-series-lede">{intro.data.description}</p>
+            <span class="featured-series-cta">{i18n.home.readTheSeries} →</span>
+          </div>
+        </a>
+      )}
+
+      {latestPosts.length > 0 && (
+        <div class="latest-posts-grid">
+          {latestPosts.map(post => (
+            <a href={getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)} class="latest-post-card">
+              {post.data.heroImage && (
+                <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} class="latest-post-image" loading="lazy" />
+              )}
+              <div class="latest-post-content">
+                <h3 class="latest-post-title">{post.data.title}</h3>
+                <p class="latest-post-desc">{post.data.description}</p>
+                <span class="latest-post-meta">
+                  {formatBlogDate(post.data.publishDate, locale)} · {getReadingTime(post.body ?? '')} {i18n.blog.minRead}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+
+      <a href={getLocalePath(locale, '/blog/')} class="btn btn-outline mt-3">
+        {i18n.home.viewAllPosts}
+      </a>
+    </div>
+  </section>
+)}
+
+<style>
+  .featured-series {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    margin-bottom: 2rem;
+  }
+  .featured-series:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+  }
+  .featured-series-media {
+    min-height: 260px;
+    background: var(--bg-secondary);
+  }
+  .featured-series-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .featured-series-body {
+    padding: 2rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.65rem;
+  }
+  .featured-series-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-green-text);
+  }
+  .featured-series-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+  }
+  .featured-series-lede {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+  .featured-series-cta {
+    margin-top: 0.35rem;
+    color: var(--color-green-text);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 700px) {
+    .featured-series {
+      grid-template-columns: 1fr;
+    }
+    .featured-series-media {
+      min-height: 180px;
+    }
+    .featured-series-body {
+      padding: 1.5rem;
+    }
+  }
+</style>
