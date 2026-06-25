@@ -9,8 +9,11 @@ interface Props {
 const { locale, cv } = Astro.props;
 const i18n = t(locale);
 
-// The downloadable PDF is the English master for every locale — it is not translated.
-const pdfHref = '/pdf/CV_WARRENDELEON_2026.pdf';
+// Each locale downloads its own pre-generated PDF (see scripts/generate-cv-pdfs.mjs).
+const pdfHref =
+  locale === 'en'
+    ? '/pdf/CV_WARRENDELEON_2026.pdf'
+    : `/pdf/CV_WARRENDELEON_2026_${locale.toUpperCase()}.pdf`;
 
 const bold = (text: string) => text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
 ---
