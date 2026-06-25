@@ -32,7 +32,9 @@
     "ciCd": "CI/CD",
     "agileMethodology": "Metodología Ágil",
     "present": "Presente",
-    "clients": "Clientes"
+    "clients": "Clientes",
+    "ctaHeading": "¿Quieres que hablemos o prefieres descargar la versión de una página?",
+    "downloadCV": "Descargar CV"
   },
   "cv": {
     "title": "Curriculum Vitae",

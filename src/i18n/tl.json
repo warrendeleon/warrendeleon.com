@@ -32,7 +32,9 @@
     "ciCd": "CI/CD",
     "agileMethodology": "Agile Methodology",
     "present": "Kasalukuyan",
-    "clients": "Mga Kliyente"
+    "clients": "Mga Kliyente",
+    "ctaHeading": "Gusto mo bang mag-usap, o i-download ang one-page na bersyon?",
+    "downloadCV": "I-download ang CV"
   },
   "cv": {
     "title": "Curriculum Vitae",
