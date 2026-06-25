@@ -60,8 +60,8 @@
   --device-body: #d9d9de;
   --device-edge: rgba(0, 0, 0, 0.5);
   --device-shadow: 0 16px 40px rgba(255, 255, 255, 0.08); /* faint light lift on the dark page */
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+  --shadow-hover: 0 6px 22px rgba(255, 255, 255, 0.1);
   --badge-bg: #2a2a2a;
   --badge-text: #d0d0d0;
   --timeline-line: #333333;
