@@ -71,6 +71,11 @@
   },
   "blog": {
     "latestPost": "Latest post",
+    "currentSeries": "Current series",
+    "moreSeries": "More series",
+    "allPosts": "All posts",
+    "parts": "parts",
+    "viewAllParts": "View all {n} parts",
     "minRead": "min read",
     "backToBlog": "Back to blog",
     "contents": "Contents",

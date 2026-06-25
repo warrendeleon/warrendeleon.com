@@ -71,6 +71,11 @@
   },
   "blog": {
     "latestPost": "Último artículo",
+    "currentSeries": "Serie actual",
+    "moreSeries": "Más series",
+    "allPosts": "Todos los artículos",
+    "parts": "partes",
+    "viewAllParts": "Ver las {n} partes",
     "minRead": "min de lectura",
     "backToBlog": "Volver al blog",
     "contents": "Contenidos",
