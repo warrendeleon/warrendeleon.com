@@ -1040,10 +1040,6 @@ main {
     justify-content: center;
   }
 
-  .hero-carousel {
-    order: -1;
-  }
-
   .current-role-inner {
     grid-template-columns: 60px 1fr;
   }
