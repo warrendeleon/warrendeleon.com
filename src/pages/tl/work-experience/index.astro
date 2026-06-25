@@ -1,11 +1,16 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Timeline from '../../../components/Timeline.astro';
-import { t } from '../../../i18n/index';
+import { t, getLocalePath } from '../../../i18n/index';
 import workxp from '../../../data/workxp-tl.json';
 
 const locale = 'tl' as const;
 const i18n = t(locale);
+
+const pdfHref =
+  locale === 'en'
+    ? '/pdf/CV_WARRENDELEON_2026.pdf'
+    : `/pdf/CV_WARRENDELEON_2026_${locale.toUpperCase()}.pdf`;
 ---
 
 <BaseLayout
@@ -18,6 +23,18 @@ const i18n = t(locale);
     <div class="container">
       <h1 class="section-heading">{i18n.workExperience.title}</h1>
       <Timeline companies={workxp} locale={locale} />
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="wx-cta">
+        <p class="wx-cta-heading">{i18n.workExperience.ctaHeading}</p>
+        <div class="wx-cta-actions">
+          <a href={getLocalePath(locale, '/book-a-call/')} class="btn btn-primary">{i18n.nav.bookACall}</a>
+          <a href={pdfHref} class="btn btn-outline" download>{i18n.workExperience.downloadCV}</a>
+        </div>
+      </div>
     </div>
   </section>
 </BaseLayout>

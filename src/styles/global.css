@@ -248,6 +248,27 @@ h4 { font-size: 1.25rem; }
   justify-content: center;
 }
 
+/* Work experience CTA */
+.wx-cta {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.wx-cta-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.wx-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
 /* Current role */
 .current-role-inner {
   display: grid;
