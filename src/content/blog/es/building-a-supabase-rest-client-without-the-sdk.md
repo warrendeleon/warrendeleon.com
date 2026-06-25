@@ -66,4 +66,4 @@ Lo que el SDK no hace gratis es *enseñarte* los patrones de producción que hay
 
 Si estás construyendo algo que tiene que durar más allá del prototipo, el resto de esta serie desgrana cada una de esas piezas por turnos.
 
-La implementación completa está en [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), en `src/httpClients/`. Cada post de esta serie se archiva bajo [el tag de supabase en warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/) a medida que se publica.
+La implementación completa está en [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), en `src/httpClients/`. Cada post de esta serie se archiva bajo [el tag de supabase en warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/) a medida que se publica.

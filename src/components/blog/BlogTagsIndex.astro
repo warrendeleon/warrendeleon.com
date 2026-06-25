@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogSearch from './BlogSearch.astro';
+import { t, getLocalePath } from '../../i18n/index';
+import type { Locale } from '../../i18n/index';
+import { getPostsForLocale } from '../../utils/blogHelpers';
+import { getTagLabel } from '../../i18n/tagLabels';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
+const blogPath = getLocalePath(locale, '/blog/');
+
+// Every tag with its published-post count, sorted alphabetically. A dedicated page
+// has room for the full list, so there is no cap: this scales to any number of tags.
+const posts = await getPostsForLocale(locale);
+const tagCounts = new Map<string, number>();
+for (const p of posts) {
+  for (const tag of p.data.tags ?? []) tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+}
+const tags = [...tagCounts.entries()]
+  .map(([tag, count]) => ({ tag, count, label: getTagLabel(tag, locale) }))
+  .sort((a, b) => a.label.localeCompare(b.label));
+---
+
+<BaseLayout
+  title={`${i18n.blog.browseByTag} | Warren de Leon`}
+  description={i18n.seo.blogDescription}
+  locale={locale}
+  currentPath={getLocalePath(locale, '/blog/tags/')}
+>
+  <BlogSearch locale={locale} />
+
+  <section class="section">
+    <div class="container">
+      <div class="tag-page-header">
+        <a href={blogPath} class="blog-back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          {i18n.blog.backToBlog}
+        </a>
+        <h1 class="section-heading">{i18n.blog.browseByTag}</h1>
+      </div>
+
+      <ul class="tag-cloud">
+        {tags.map(({ tag, label, count }) => (
+          <li>
+            <a class="tag-cloud-item" href={getLocalePath(locale, `/blog/tags/${tag}/`)}>
+              <span class="tag-cloud-label">{label}</span>
+              <span class="tag-cloud-count">{count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .tag-page-header { margin-bottom: 2rem; }
+  .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
+  .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
+
+  .tag-cloud { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .tag-cloud-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1rem;
+    box-shadow: var(--shadow);
+    transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .tag-cloud-item:hover { color: var(--color-green-text); border-color: var(--color-green); transform: translateY(-2px); }
+  .tag-cloud-count { font-size: 0.9rem; color: var(--text-muted); }
+</style>

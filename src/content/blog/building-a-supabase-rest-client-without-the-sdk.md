@@ -71,4 +71,4 @@ What the SDK doesn't do for free is *show* you the production patterns underneat
 
 If you're building something that has to last past prototype, the rest of this series unpacks each of those pieces in turn.
 
-The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/`. Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/) as it publishes.
+The full implementation is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), in `src/httpClients/`. Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/) as it publishes.

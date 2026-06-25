@@ -66,4 +66,4 @@ El que el SDK no fa de franc és *ensenyar-te* els patrons de producció de sota
 
 Si estàs construint alguna cosa que ha de durar més enllà del prototip, la resta d'aquesta sèrie desgrana cadascuna d'aquestes peces al seu torn.
 
-La implementació completa és a [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), dins de `src/httpClients/`. Cada post d'aquesta sèrie queda arxivat sota [l'etiqueta supabase a warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/) a mesura que es publica.
+La implementació completa és a [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), dins de `src/httpClients/`. Cada post d'aquesta sèrie queda arxivat sota [l'etiqueta supabase a warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/) a mesura que es publica.

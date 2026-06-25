@@ -538,4 +538,4 @@ Both clients now have token attachment, response handling, and typed errors. The
 
 The next post in the series covers certificate pinning: locking the HTTP layer to specific public-key pins so the app refuses to talk to anyone but the real Supabase, even on a network that thinks it can intercept TLS.
 
-Source: [`src/httpClients/SupabaseStorageClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseStorageClient.ts). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
+Source: [`src/httpClients/SupabaseStorageClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseStorageClient.ts). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/).

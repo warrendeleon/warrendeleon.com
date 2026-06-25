@@ -66,4 +66,4 @@ Ang hindi ginagawa ng SDK nang libre ay ang *ipakita* sa iyo ang mga production 
 
 Kung may binubuo kang kailangang tumagal lampas sa prototype, binubuksan ng natitirang bahagi ng series na ito ang bawat isa sa mga pirasong iyon nang paisa-isa.
 
-Ang buong implementation ay nasa [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), sa `src/httpClients/`. Bawat post sa series na ito ay naka-file sa ilalim ng [supabase tag sa warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/) habang nila-lalabas ito.
+Ang buong implementation ay nasa [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), sa `src/httpClients/`. Bawat post sa series na ito ay naka-file sa ilalim ng [supabase tag sa warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/) habang nila-lalabas ito.

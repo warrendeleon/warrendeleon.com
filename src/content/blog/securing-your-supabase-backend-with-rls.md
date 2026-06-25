@@ -501,4 +501,4 @@ Seven posts. The full Supabase integration in React Native, from the why through
 
 Reading the series end-to-end builds a complete Supabase integration ready for production. Reading any one post solves a single concrete problem. Both shapes are intentional.
 
-Source for everything: [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon). Each post in the series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
+Source for everything: [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon). Each post in the series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/).

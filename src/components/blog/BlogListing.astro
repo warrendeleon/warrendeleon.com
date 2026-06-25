@@ -37,6 +37,7 @@ const moreSeries = await Promise.all(moreSeriesBase.map(async s => {
 }));
 const feedPosts = page.data;
 const blogBase = getLocalePath(locale, '/blog/');
+const tagsPath = getLocalePath(locale, '/blog/tags/');
 ---
 
 <BaseLayout
@@ -95,6 +96,7 @@ const blogBase = getLocalePath(locale, '/blog/');
       {feedPosts.length > 0 && (
         <div class="blog-feed-block">
           <h2 class="blog-section-heading">{i18n.blog.allPosts}</h2>
+          <a class="blog-tag-link" href={tagsPath}>{i18n.blog.browseByTag} <span aria-hidden="true">&rarr;</span></a>
           <div class="blog-feed">
             {feedPosts.map(post => (
               <a
@@ -310,6 +312,20 @@ const blogBase = getLocalePath(locale, '/blog/');
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Link to the full tag index — keeps the post list page uncluttered */
+  .blog-tag-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1.6rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--color-green-text);
+    text-decoration: none;
+    transition: gap 0.15s ease;
+  }
+  .blog-tag-link:hover { gap: 0.6rem; }
 
   /* All posts feed-card styles are shared in global.css */
   .blog-empty { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 2rem; }

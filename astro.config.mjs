@@ -51,6 +51,14 @@ export default defineConfig({
   ],
   output: 'static',
   trailingSlash: 'always',
+  // Tag pages moved from /blog/tag/:tag to /blog/tags/:tag. Keep the old paths
+  // working for any external or bookmarked links.
+  redirects: {
+    '/blog/tag/[tag]': '/blog/tags/[tag]',
+    '/es/blog/tag/[tag]': '/es/blog/tags/[tag]',
+    '/ca/blog/tag/[tag]': '/ca/blog/tags/[tag]',
+    '/tl/blog/tag/[tag]': '/tl/blog/tags/[tag]',
+  },
   markdown: {
     shikiConfig: {
       themes: {

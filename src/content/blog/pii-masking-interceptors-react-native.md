@@ -508,4 +508,4 @@ Five posts of this series have hardened the *client*: the auth client, the stora
 
 The final post in the series covers Supabase backend hardening: RLS that actually holds, the cleanup-queue pattern from the storage post (with the SQL trigger this time), and the OWASP-mobile attack surface most "Supabase tutorial" content stops short of.
 
-Source: [`src/utils/logger.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logger.ts) and [`src/utils/logging/maskSensitiveData.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logging/maskSensitiveData.ts). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tag/supabase/).
+Source: [`src/utils/logger.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logger.ts) and [`src/utils/logging/maskSensitiveData.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/utils/logging/maskSensitiveData.ts). Each post in this series is filed under [the supabase tag at warrendeleon.com](https://warrendeleon.com/blog/tags/supabase/).

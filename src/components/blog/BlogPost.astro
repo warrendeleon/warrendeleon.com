@@ -174,7 +174,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
             <span class="post-meta-separator" aria-hidden="true">&middot;</span>
             <div class="post-tags">
               {post.data.tags.map((tag: string) => (
-                <a href={getLocalePath(locale, `/blog/tag/${tag}/`)} class="post-tag">{getTagLabel(tag, locale)}</a>
+                <a href={getLocalePath(locale, `/blog/tags/${tag}/`)} class="post-tag">{getTagLabel(tag, locale)}</a>
               ))}
             </div>
           </>
