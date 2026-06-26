@@ -186,6 +186,8 @@
     "body": "Engineering leadership, React Native, at pagbuo ng mga team — sa inbox mo kapag may bago. Walang spam.",
     "emailLabel": "Email address",
     "placeholder": "ikaw@halimbawa.com",
+    "nameLabel": "Buong pangalan",
+    "namePlaceholder": "Pangalan (opsyonal)",
     "button": "Mag-subscribe",
     "note": "Double opt-in. Mag-unsubscribe anumang oras.",
     "privacyLink": "Privacy",

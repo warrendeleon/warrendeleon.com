@@ -13,7 +13,15 @@ const s = i18n.subscribe;
 // JS (opens Listmonk's confirmation page in a new tab); progressive enhancement
 // submits in the background, then collapses to an inline confirmation.
 const ACTION = 'https://mailinglist.warrendeleon.com/subscription/form';
-const LIST_UUID = '680a729d-7fb6-4f93-b8be-cfe1867c5ea6'; // Blog list
+// One Listmonk list per locale, so each subscriber's language is captured (as
+// list membership) and campaigns can be sent in their language.
+const LIST_UUIDS: Record<Locale, string> = {
+  en: '680a729d-7fb6-4f93-b8be-cfe1867c5ea6',
+  es: '7d7131a8-be46-47d0-a1f7-9b2de31cb243',
+  ca: '4ac14bee-d378-4696-857f-a6190a668ee8',
+  tl: '90d567ce-fd4d-4a13-9ced-e02ec51910d3',
+};
+const LIST_UUID = LIST_UUIDS[locale];
 const privacyHref = getLocalePath(locale, '/privacy/');
 ---
 
@@ -31,17 +39,29 @@ const privacyHref = getLocalePath(locale, '/privacy/');
             from people and off the tab order; bots fill it, humans never see it. */}
         <input type="text" name="nonce" value="" class="subscribe-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-        <label class="subscribe-sr" for="subscribe-email">{s.emailLabel}</label>
+        <label class="subscribe-sr" for="subscribe-name">{s.nameLabel}</label>
         <input
-          id="subscribe-email"
+          id="subscribe-name"
           class="subscribe-input"
-          type="email"
-          name="email"
-          required
-          autocomplete="email"
-          placeholder={s.placeholder}
+          type="text"
+          name="name"
+          autocomplete="name"
+          placeholder={s.namePlaceholder}
         />
-        <button type="submit" class="btn btn-primary subscribe-btn">{s.button}</button>
+
+        <div class="subscribe-row">
+          <label class="subscribe-sr" for="subscribe-email">{s.emailLabel}</label>
+          <input
+            id="subscribe-email"
+            class="subscribe-input"
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder={s.placeholder}
+          />
+          <button type="submit" class="btn btn-primary subscribe-btn">{s.button}</button>
+        </div>
       </form>
 
       <p class="subscribe-note">{s.note} &middot; <a href={privacyHref}>{s.privacyLink}</a></p>
@@ -66,6 +86,7 @@ const privacyHref = getLocalePath(locale, '/privacy/');
     var success = document.querySelector('.subscribe-success');
     var errorEl = document.querySelector('.subscribe-error');
     var email = form.querySelector('input[name="email"]');
+    var nameInput = form.querySelector('input[name="name"]');
     var honeypot = form.querySelector('input[name="nonce"]');
     var btn = form.querySelector('button[type="submit"]');
 
@@ -81,6 +102,7 @@ const privacyHref = getLocalePath(locale, '/privacy/');
 
       var body = new URLSearchParams();
       body.append('email', email.value);
+      if (nameInput && nameInput.value.trim()) body.append('name', nameInput.value.trim());
       body.append('l', form.querySelector('input[name="l"]').value);
       body.append('nonce', '');
 
@@ -136,6 +158,12 @@ const privacyHref = getLocalePath(locale, '/privacy/');
   }
 
   .subscribe-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .subscribe-row {
     display: flex;
     gap: 0.6rem;
   }
@@ -231,7 +259,7 @@ const privacyHref = getLocalePath(locale, '/privacy/');
   }
 
   @media (max-width: 560px) {
-    .subscribe-form {
+    .subscribe-row {
       flex-direction: column;
     }
 

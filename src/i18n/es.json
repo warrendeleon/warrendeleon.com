@@ -186,6 +186,8 @@
     "body": "Liderazgo técnico, React Native y cómo construir equipos, en tu bandeja cuando haya algo nuevo. Sin spam.",
     "emailLabel": "Correo electrónico",
     "placeholder": "tu@ejemplo.com",
+    "nameLabel": "Nombre completo",
+    "namePlaceholder": "Nombre (opcional)",
     "button": "Suscribirme",
     "note": "Doble confirmación. Cancela cuando quieras.",
     "privacyLink": "Privacidad",
