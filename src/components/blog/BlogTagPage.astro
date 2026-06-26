@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
+import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
@@ -68,6 +69,8 @@ const tagLabel = getTagLabel(tag, locale);
       <p id="blog-empty" class="blog-empty" style="display: none;">{i18n.blog.noPostsYet}</p>
     </div>
   </section>
+
+  <SubscribeForm locale={locale} />
 </BaseLayout>
 
 <script is:inline>
