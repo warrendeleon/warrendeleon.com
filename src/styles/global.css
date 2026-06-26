@@ -78,6 +78,11 @@
 /* Base */
 html {
   scroll-behavior: smooth;
+  /* Full-bleed sections (the post hero, the subscribe band) use 100vw-style
+     bleeds that include the scrollbar width and would otherwise force a stray
+     horizontal scrollbar. Clip the page so they never do — `clip` (not
+     `hidden`) avoids creating a scroll container, so position:sticky still works. */
+  overflow-x: clip;
 }
 
 body {
