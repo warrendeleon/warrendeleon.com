@@ -47,7 +47,7 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
   locale={locale}
   currentPath={getLocalePath(locale, page.url.current.replace(/^\/(?:es|ca|tl)/, ''))}
 >
-  <section class="section">
+  <section class="section blog-lead">
     <div class="container">
       <h1 class="section-heading">Blog</h1>
 
@@ -64,7 +64,7 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
 
   {hasCurrentSeries && <SubscribeForm locale={locale} />}
 
-  <section class="section">
+  <section class="section blog-after">
     <div class="container">
       {moreSeries.length > 0 && (
         <div class="series-shelf-block">

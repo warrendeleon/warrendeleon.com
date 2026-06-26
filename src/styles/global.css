@@ -137,6 +137,13 @@ h4 { font-size: 1.25rem; }
   background: var(--bg-secondary);
 }
 
+/* Blog landing: the lead and content sections sit either side of the full-width
+   subscribe band. Trim their adjacent padding (and the lead series' redundant
+   bottom margin) so the band isn't framed by doubled-up whitespace. */
+.blog-lead { padding-bottom: 2rem; }
+.blog-lead .series-hero { margin-bottom: 0; }
+.blog-after { padding-top: 2rem; }
+
 .section-heading {
   font-size: 2rem;
   margin-bottom: 2rem;
