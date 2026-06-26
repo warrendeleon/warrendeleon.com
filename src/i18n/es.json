@@ -181,6 +181,17 @@
     "manageBody": "Cambia si Google Analytics se ejecuta en este navegador.",
     "manageLink": "Lee la página de Privacidad completa"
   },
+  "subscribe": {
+    "heading": "Recibe los nuevos artículos por correo",
+    "body": "Liderazgo técnico, React Native y cómo construir equipos, en tu bandeja cuando haya algo nuevo. Sin spam.",
+    "emailLabel": "Correo electrónico",
+    "placeholder": "tu@ejemplo.com",
+    "button": "Suscribirme",
+    "note": "Doble confirmación. Cancela cuando quieras.",
+    "privacyLink": "Privacidad",
+    "success": "Ya casi está: revisa tu correo para confirmar la suscripción.",
+    "error": "Algo ha ido mal. Inténtalo de nuevo en un momento."
+  },
   "seo": {
     "privacyTitle": "Privacidad | Warren de Leon",
     "privacyDescription": "Cómo trata tus datos warrendeleon.com: analítica respetuosa con la privacidad, la newsletter, las cookies y cómo desactivarlo.",

@@ -1,0 +1,242 @@
+---
+import { t, getLocalePath, type Locale } from '../i18n/index';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
+const s = i18n.subscribe;
+
+// Self-hosted Listmonk public subscription form. The native POST works without
+// JS (opens Listmonk's confirmation page in a new tab); progressive enhancement
+// submits in the background, then collapses to an inline confirmation.
+const ACTION = 'https://mailinglist.warrendeleon.com/subscription/form';
+const LIST_UUID = '680a729d-7fb6-4f93-b8be-cfe1867c5ea6'; // Blog list
+const privacyHref = getLocalePath(locale, '/privacy/');
+---
+
+<section class="subscribe" aria-labelledby="subscribe-heading">
+  <div class="subscribe-card">
+    <div class="subscribe-main">
+      <div class="subscribe-copy">
+        <h3 id="subscribe-heading">{s.heading}</h3>
+        <p>{s.body}</p>
+      </div>
+
+      <form class="subscribe-form" method="post" action={ACTION} target="_blank">
+        <input type="hidden" name="l" value={LIST_UUID} />
+        {/* Honeypot: Listmonk rejects the submission if this is filled. Hidden
+            from people and off the tab order; bots fill it, humans never see it. */}
+        <input type="text" name="nonce" value="" class="subscribe-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <label class="subscribe-sr" for="subscribe-email">{s.emailLabel}</label>
+        <input
+          id="subscribe-email"
+          class="subscribe-input"
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          placeholder={s.placeholder}
+        />
+        <button type="submit" class="btn btn-primary subscribe-btn">{s.button}</button>
+      </form>
+
+      <p class="subscribe-note">{s.note} &middot; <a href={privacyHref}>{s.privacyLink}</a></p>
+      <p class="subscribe-error" role="alert" hidden>{s.error}</p>
+    </div>
+
+    <div class="subscribe-success" role="status" tabindex="-1" hidden>
+      <svg class="subscribe-success-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <p>{s.success}</p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    var form = document.querySelector('.subscribe-form');
+    if (!form) return;
+    var main = document.querySelector('.subscribe-main');
+    var success = document.querySelector('.subscribe-success');
+    var errorEl = document.querySelector('.subscribe-error');
+    var email = form.querySelector('input[name="email"]');
+    var honeypot = form.querySelector('input[name="nonce"]');
+    var btn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function (e) {
+      // Bot filled the honeypot — drop it silently.
+      if (honeypot && honeypot.value) { e.preventDefault(); return; }
+      // Let the browser's native validation handle empty/invalid email.
+      if (!email.value || (email.checkValidity && !email.checkValidity())) return;
+
+      e.preventDefault();
+      btn.disabled = true;
+      errorEl.hidden = true;
+
+      var body = new URLSearchParams();
+      body.append('email', email.value);
+      body.append('l', form.querySelector('input[name="l"]').value);
+      body.append('nonce', '');
+
+      // no-cors: the cross-origin POST goes through (form-encoded is preflight
+      // free); the response is opaque, so we confirm optimistically — the
+      // double opt-in email is the real confirmation.
+      fetch(form.action, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString()
+      })
+        .then(function () {
+          // Collapse the form to a clean confirmation.
+          main.hidden = true;
+          success.hidden = false;
+          success.focus();
+          if (typeof t === 'function') t('newsletter_subscribe', { source: 'blog_post' });
+        })
+        .catch(function () {
+          // Only a genuine network failure lands here; keep the form for retry.
+          errorEl.hidden = false;
+          btn.disabled = false;
+        });
+    });
+  })();
+</script>
+
+<style is:global>
+  .subscribe {
+    margin: 3rem 0 1rem;
+  }
+
+  .subscribe-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .subscribe-copy h3 {
+    font-size: 1.3rem;
+    margin: 0 0 0.4rem;
+    color: var(--text-primary);
+  }
+
+  .subscribe-copy p {
+    margin: 0 0 1.25rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .subscribe-form {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .subscribe-input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.7rem 0.9rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+  }
+
+  .subscribe-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .subscribe-input:focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 1px;
+    border-color: var(--color-green);
+  }
+
+  .subscribe-btn {
+    white-space: nowrap;
+  }
+
+  .subscribe-note {
+    margin: 0.85rem 0 0;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .subscribe-note a {
+    color: var(--color-green-text);
+    text-decoration: underline;
+  }
+
+  .subscribe-error {
+    margin: 0.85rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #d64545;
+  }
+
+  /* Confirmation shown in place of the form after a successful subscribe. */
+  .subscribe-success {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    color: var(--text-primary);
+  }
+
+  .subscribe-success[hidden] {
+    display: none;
+  }
+
+  .subscribe-success:focus {
+    outline: none;
+  }
+
+  .subscribe-success-icon {
+    flex-shrink: 0;
+    color: var(--color-green);
+  }
+
+  .subscribe-success p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+
+  /* Honeypot — kept in the DOM and submittable but out of sight and off-tab. */
+  .subscribe-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .subscribe-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .subscribe-form {
+      flex-direction: column;
+    }
+
+    .subscribe-btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -181,6 +181,17 @@
     "manageBody": "Change whether Google Analytics runs in this browser.",
     "manageLink": "Read the full Privacy page"
   },
+  "subscribe": {
+    "heading": "Get new posts by email",
+    "body": "Engineering leadership, React Native, and building teams — in your inbox when something new goes live. No spam.",
+    "emailLabel": "Email address",
+    "placeholder": "you@example.com",
+    "button": "Subscribe",
+    "note": "Double opt-in. Unsubscribe any time.",
+    "privacyLink": "Privacy",
+    "success": "Almost there — check your inbox to confirm your subscription.",
+    "error": "Something went wrong. Please try again in a moment."
+  },
   "seo": {
     "privacyTitle": "Privacy | Warren de Leon",
     "privacyDescription": "How warrendeleon.com handles your data: privacy-friendly analytics, the newsletter, cookies, and how to opt out.",

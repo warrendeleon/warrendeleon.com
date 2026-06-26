@@ -181,6 +181,17 @@
     "manageBody": "Baguhin kung gumagana ang Google Analytics sa browser na ito.",
     "manageLink": "Basahin ang buong pahina ng Privacy"
   },
+  "subscribe": {
+    "heading": "Makakuha ng bagong post sa email",
+    "body": "Engineering leadership, React Native, at pagbuo ng mga team — sa inbox mo kapag may bago. Walang spam.",
+    "emailLabel": "Email address",
+    "placeholder": "ikaw@halimbawa.com",
+    "button": "Mag-subscribe",
+    "note": "Double opt-in. Mag-unsubscribe anumang oras.",
+    "privacyLink": "Privacy",
+    "success": "Malapit na — tingnan ang inbox mo para kumpirmahin ang subscription.",
+    "error": "May nagkamali. Subukan ulit sa ilang sandali."
+  },
   "seo": {
     "privacyTitle": "Privacy | Warren de Leon",
     "privacyDescription": "Kung paano hinahawakan ng warrendeleon.com ang data mo: analytics na may respeto sa privacy, ang newsletter, cookies, at paano mag-opt out.",
