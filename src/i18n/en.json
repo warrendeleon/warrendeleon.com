@@ -124,7 +124,66 @@
     "certifications": "Certifications & Courses",
     "viewCertificate": "View certificate"
   },
+  "privacy": {
+    "heading": "Privacy",
+    "updated": "Last updated 26 June 2026",
+    "intro": "This is the personal website of Warren de Leon. I keep what I collect to a minimum, never sell it, and never share it for advertising. This page explains what is gathered, why, and how to turn it off.",
+    "analytics": {
+      "title": "Analytics",
+      "body": "I use two tools to see which posts land and how people find the site. Neither one is used to identify you.",
+      "recordsIntro": "Between them, they record:",
+      "records": [
+        "The pages you visit and the link or search that brought you here",
+        "Your rough location (country), device type and browser",
+        "Actions such as switching theme or following a social link"
+      ],
+      "tools": "**Google Analytics**, run by Google, sets cookies and may process data outside the UK under Google's terms. **Umami** is privacy-friendly analytics I host myself: no cookies, no cross-site tracking, and the data never leaves my own server.",
+      "optout": "Umami runs without cookies, but you can still switch it off in this browser.",
+      "optoutDisable": "Turn off Umami",
+      "optoutEnable": "Turn Umami back on",
+      "statusOn": "Umami is on in this browser.",
+      "statusOff": "Umami is off in this browser."
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "body": "If you subscribe, I store your email address so I can send you new posts, and nothing else. I only email when there is something new.\n\nThe newsletter runs on Listmonk, software I host myself. Signing up uses double opt-in: you get one email to confirm, and you are only added once you click it.\n\nEach email records whether it was opened and which links you clicked, so I can tell what is worth writing. Those links carry tags that show up in the analytics above.\n\nEvery email has an unsubscribe link. One click removes your address straight away."
+    },
+    "cookies": {
+      "title": "Cookies and local storage",
+      "body": "Your browser keeps a few small values: your theme and language choice, and — unless you have opted out — Google Analytics' cookies. Umami sets none."
+    },
+    "rights": {
+      "title": "Your rights",
+      "body": "You can ask what data I hold about you, request a copy, or have it deleted. To leave the newsletter, the unsubscribe link in any email does it at once. For anything else, get in touch."
+    },
+    "contact": {
+      "title": "Contact",
+      "body": "Questions about privacy, or a request about your data? Email me at <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    }
+  },
+  "consent": {
+    "message": "I use Google Analytics to see which posts are worth writing more of. You choose whether it runs.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "customise": "Customise",
+    "save": "Save choices",
+    "modalTitle": "Cookie choices",
+    "modalIntro": "Pick what you're happy for me to use. You can change this any time from the Privacy page.",
+    "necessaryTitle": "Essential",
+    "necessaryBody": "Remembers your theme and language. Always on.",
+    "analyticsTitle": "Google Analytics",
+    "analyticsBody": "Helps me see which posts land. Sets cookies in your browser.",
+    "umamiTitle": "Privacy-friendly analytics (Umami)",
+    "umamiBody": "No cookies and nothing stored on your device, so it needs no consent. You can still opt out on the Privacy page.",
+    "alwaysOn": "Always on",
+    "noConsent": "No consent needed",
+    "manageLabel": "Cookie settings",
+    "manageBody": "Change whether Google Analytics runs in this browser.",
+    "manageLink": "Read the full Privacy page"
+  },
   "seo": {
+    "privacyTitle": "Privacy | Warren de Leon",
+    "privacyDescription": "How warrendeleon.com handles your data: privacy-friendly analytics, the newsletter, cookies, and how to opt out.",
     "educationTitle": "Education & Certifications | Warren de Leon",
     "educationDescription": "Qualifications in software development from Stucom Barcelona. Oracle Java certification and CI/CD courses. Warren de Leon's technical education background.",
     "homeTitle": "Warren de Leon | Software Engineering Manager at Hargreaves Lansdown",
