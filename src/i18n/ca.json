@@ -186,6 +186,8 @@
     "body": "Lideratge tècnic, React Native i com construir equips, a la teva safata quan hi hagi res nou. Sense spam.",
     "emailLabel": "Correu electrònic",
     "placeholder": "tu@exemple.com",
+    "nameLabel": "Nom complet",
+    "namePlaceholder": "Nom (opcional)",
     "button": "Subscriure'm",
     "note": "Doble confirmació. Cancel·la quan vulguis.",
     "privacyLink": "Privacitat",

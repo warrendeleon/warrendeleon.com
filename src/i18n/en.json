@@ -186,6 +186,8 @@
     "body": "Engineering leadership, React Native, and building teams — in your inbox when something new goes live. No spam.",
     "emailLabel": "Email address",
     "placeholder": "you@example.com",
+    "nameLabel": "Full name",
+    "namePlaceholder": "Name (optional)",
     "button": "Subscribe",
     "note": "Double opt-in. Unsubscribe any time.",
     "privacyLink": "Privacy",
