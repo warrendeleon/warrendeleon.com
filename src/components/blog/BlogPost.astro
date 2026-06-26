@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
+import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
@@ -264,6 +265,8 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
           <span>{i18n.blog.copyLink}</span>
         </button>
       </div>
+
+      <SubscribeForm locale={locale} />
 
       {relatedPosts.length > 0 && (
         <section class="related-posts" aria-label={i18n.blog.relatedPosts}>
