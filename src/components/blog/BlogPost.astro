@@ -265,9 +265,13 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
           <span>{i18n.blog.copyLink}</span>
         </button>
       </div>
+    </div>
+  </article>
 
-      <SubscribeForm locale={locale} />
+  <SubscribeForm locale={locale} />
 
+  <section class="section">
+    <div class="container">
       {relatedPosts.length > 0 && (
         <section class="related-posts" aria-label={i18n.blog.relatedPosts}>
           <h3>{i18n.blog.relatedPosts}</h3>
@@ -347,7 +351,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
         ) : <span />}
       </nav>
     </div>
-  </article>
+  </section>
 
   <MediaZoom locale={locale} />
 

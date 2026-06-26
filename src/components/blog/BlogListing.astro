@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
 import SeriesHeroCard from './SeriesHeroCard.astro';
+import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
@@ -58,7 +59,13 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
           <SeriesHeroCard locale={locale} seriesName={currentSeriesName} />
         </div>
       )}
+    </div>
+  </section>
 
+  {hasCurrentSeries && <SubscribeForm locale={locale} />}
+
+  <section class="section">
+    <div class="container">
       {moreSeries.length > 0 && (
         <div class="series-shelf-block">
           <div class="series-shelf-head">
@@ -162,6 +169,8 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
       <p id="blog-empty" class="blog-empty" style="display: none;" data-is-dev={import.meta.env.DEV ? 'true' : undefined}>{i18n.blog.noPostsYet}</p>
     </div>
   </section>
+
+  {!hasCurrentSeries && <SubscribeForm locale={locale} />}
 </BaseLayout>
 
 <script is:inline>
