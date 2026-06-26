@@ -124,7 +124,66 @@
     "certifications": "Certificaciones y Cursos",
     "viewCertificate": "Ver certificado"
   },
+  "privacy": {
+    "heading": "Privacidad",
+    "updated": "Última actualización: 26 de junio de 2026",
+    "intro": "Esta es la web personal de Warren de Leon. Recojo lo mínimo, nunca lo vendo y nunca lo comparto con fines publicitarios. Esta página explica qué se recopila, por qué y cómo desactivarlo.",
+    "analytics": {
+      "title": "Analítica",
+      "body": "Uso dos herramientas para ver qué artículos funcionan y cómo llega la gente a la web. Ninguna sirve para identificarte.",
+      "recordsIntro": "Entre las dos registran:",
+      "records": [
+        "Las páginas que visitas y el enlace o la búsqueda que te trajo aquí",
+        "Tu ubicación aproximada (país), tipo de dispositivo y navegador",
+        "Acciones como cambiar de tema o seguir un enlace a redes sociales"
+      ],
+      "tools": "**Google Analytics**, de Google, instala cookies y puede tratar datos fuera del Reino Unido según las condiciones de Google. **Umami** es una analítica respetuosa con la privacidad que alojo yo mismo: sin cookies, sin seguimiento entre webs y los datos nunca salen de mi propio servidor.",
+      "optout": "Umami funciona sin cookies, pero aun así puedes desactivarla en este navegador.",
+      "optoutDisable": "Desactivar Umami",
+      "optoutEnable": "Volver a activar Umami",
+      "statusOn": "Umami está activada en este navegador.",
+      "statusOff": "Umami está desactivada en este navegador."
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "body": "Si te suscribes, guardo tu dirección de correo para enviarte los artículos nuevos, y nada más. Solo escribo cuando hay algo nuevo.\n\nLa newsletter funciona con Listmonk, un software que alojo yo mismo. El alta usa doble confirmación: recibes un correo para confirmar y solo te añado cuando haces clic en él.\n\nCada correo registra si se ha abierto y en qué enlaces has hecho clic, para saber qué vale la pena escribir. Esos enlaces llevan etiquetas que aparecen en la analítica anterior.\n\nTodos los correos llevan un enlace para darte de baja. Con un clic, tu dirección se elimina al instante."
+    },
+    "cookies": {
+      "title": "Cookies y almacenamiento local",
+      "body": "Tu navegador guarda algunos valores pequeños: tu elección de tema e idioma y, salvo que hayas desactivado el seguimiento, las cookies de Google Analytics. Umami no instala ninguna."
+    },
+    "rights": {
+      "title": "Tus derechos",
+      "body": "Puedes pedir qué datos tengo sobre ti, solicitar una copia o que los elimine. Para salir de la newsletter, el enlace de baja de cualquier correo lo hace al momento. Para cualquier otra cosa, escríbeme."
+    },
+    "contact": {
+      "title": "Contacto",
+      "body": "¿Dudas sobre privacidad o alguna petición sobre tus datos? Escríbeme a <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    }
+  },
+  "consent": {
+    "message": "Uso Google Analytics para ver qué artículos vale la pena ampliar. Tú decides si se activa.",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "customise": "Personalizar",
+    "save": "Guardar preferencias",
+    "modalTitle": "Preferencias de cookies",
+    "modalIntro": "Elige qué quieres que use. Puedes cambiarlo cuando quieras desde la página de Privacidad.",
+    "necessaryTitle": "Esenciales",
+    "necessaryBody": "Recuerdan tu tema e idioma. Siempre activas.",
+    "analyticsTitle": "Google Analytics",
+    "analyticsBody": "Me ayuda a ver qué artículos funcionan. Instala cookies en tu navegador.",
+    "umamiTitle": "Analítica respetuosa con la privacidad (Umami)",
+    "umamiBody": "Sin cookies y sin guardar nada en tu dispositivo, así que no necesita consentimiento. Aun así puedes desactivarla en la página de Privacidad.",
+    "alwaysOn": "Siempre activas",
+    "noConsent": "Sin consentimiento",
+    "manageLabel": "Preferencias de cookies",
+    "manageBody": "Cambia si Google Analytics se ejecuta en este navegador.",
+    "manageLink": "Lee la página de Privacidad completa"
+  },
   "seo": {
+    "privacyTitle": "Privacidad | Warren de Leon",
+    "privacyDescription": "Cómo trata tus datos warrendeleon.com: analítica respetuosa con la privacidad, la newsletter, las cookies y cómo desactivarlo.",
     "educationTitle": "Formación | Warren de Leon",
     "educationDescription": "Formación, titulaciones y certificaciones de Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",

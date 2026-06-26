@@ -1,0 +1,410 @@
+---
+import { t, getLocalePath, type Locale } from '../i18n/index';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
+const c = i18n.consent;
+const privacyHref = getLocalePath(locale, '/privacy/');
+---
+
+<div id="cookie-consent" class="cc" hidden>
+  <!-- The bar: a complementary region, not a modal — it never traps the page,
+       so reading the site while undecided keeps GA off (compliant default). -->
+  <section class="cc-bar" role="region" aria-label={c.modalTitle}>
+    <p class="cc-msg">
+      {c.message} <a href={privacyHref}>{i18n.privacy.heading}</a>
+    </p>
+    <div class="cc-actions">
+      <button type="button" class="btn btn-outline cc-btn" data-cc="customise">{c.customise}</button>
+      <button type="button" class="btn btn-outline cc-btn" data-cc="decline">{c.decline}</button>
+      <button type="button" class="btn btn-primary cc-btn" data-cc="accept">{c.accept}</button>
+    </div>
+  </section>
+
+  <div class="cc-modal" hidden>
+    <div class="cc-modal-overlay" data-cc="close-modal"></div>
+    <div class="cc-modal-card" role="dialog" aria-modal="true" aria-labelledby="cc-modal-title" tabindex="-1">
+      <h2 id="cc-modal-title">{c.modalTitle}</h2>
+      <p class="cc-modal-intro">{c.modalIntro}</p>
+
+      <ul class="cc-cats">
+        <li class="cc-cat">
+          <div class="cc-cat-head">
+            <span class="cc-cat-name">{c.necessaryTitle}</span>
+            <span class="cc-pill">{c.alwaysOn}</span>
+          </div>
+          <p class="cc-cat-body">{c.necessaryBody}</p>
+        </li>
+
+        <li class="cc-cat">
+          <div class="cc-cat-head">
+            <span class="cc-cat-name">{c.analyticsTitle}</span>
+            <label class="cc-switch">
+              <input type="checkbox" id="cc-analytics-toggle" />
+              <span class="cc-track" aria-hidden="true"></span>
+              <span class="cc-sr">{c.analyticsTitle}</span>
+            </label>
+          </div>
+          <p class="cc-cat-body">{c.analyticsBody}</p>
+        </li>
+
+        <li class="cc-cat">
+          <div class="cc-cat-head">
+            <span class="cc-cat-name">{c.umamiTitle}</span>
+            <span class="cc-pill cc-pill-muted">{c.noConsent}</span>
+          </div>
+          <p class="cc-cat-body">{c.umamiBody}</p>
+        </li>
+      </ul>
+
+      <a class="cc-modal-privacy" href={privacyHref}>{c.manageLink}</a>
+
+      <div class="cc-actions cc-actions-modal">
+        <button type="button" class="btn btn-outline cc-btn" data-cc="save">{c.save}</button>
+        <button type="button" class="btn btn-primary cc-btn" data-cc="accept">{c.accept}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var GA_ID = 'G-8FWR6HT36Y';
+    var KEY = 'cc-analytics';
+    var MAX_AGE = 1000 * 60 * 60 * 24 * 183; // ~6 months, then re-ask
+    var PROD = location.hostname === 'warrendeleon.com';
+
+    var root = document.getElementById('cookie-consent');
+    if (!root) return;
+    var modal = root.querySelector('.cc-modal');
+    var card = root.querySelector('.cc-modal-card');
+    var toggle = document.getElementById('cc-analytics-toggle');
+    var lastFocus = null;
+
+    // A choice counts only while it's under MAX_AGE; after that we re-ask
+    // (symmetric expiry for accept and decline alike, not a per-visit nag).
+    function validChoice() {
+      try {
+        var raw = localStorage.getItem(KEY);
+        if (!raw) return null;
+        var c = JSON.parse(raw);
+        if (!c || !c.ts || (Date.now() - c.ts) >= MAX_AGE) return null;
+        return c.v === 'on' ? 'on' : 'off';
+      } catch (e) {
+        return null;
+      }
+    }
+
+    // Mirror BaseLayout's loader so a runtime "Accept" brings GA up without a
+    // page reload. Guarded to production so dev never loads GA.
+    function loadGA() {
+      if (!PROD || window.gtag) return;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+      document.head.appendChild(s);
+    }
+
+    function applyGA(on) {
+      window['ga-disable-' + GA_ID] = !on;
+      if (on) loadGA();
+    }
+
+    function setConsent(on) {
+      // Persist if we can; if storage is blocked (private mode), still apply the
+      // choice for this session rather than letting the click throw.
+      try {
+        localStorage.setItem(KEY, JSON.stringify({ v: on ? 'on' : 'off', ts: Date.now() }));
+      } catch (e) {}
+      applyGA(on);
+      hideBar();
+      if (typeof t === 'function') {
+        t(on ? 'consent_granted' : 'consent_denied', { source: 'banner' });
+      }
+    }
+
+    function showBar() { root.hidden = false; }
+    function hideBar() { closeModal(); root.hidden = true; }
+
+    function openModal() {
+      if (toggle) toggle.checked = validChoice() === 'on';
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      if (card) card.focus();
+    }
+
+    function closeModal() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+
+    root.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-cc]');
+      if (!el) return;
+      var action = el.getAttribute('data-cc');
+      if (action === 'accept') setConsent(true);
+      else if (action === 'decline') setConsent(false);
+      else if (action === 'customise') openModal();
+      else if (action === 'save') setConsent(!!(toggle && toggle.checked));
+      else if (action === 'close-modal') closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) closeModal();
+    });
+
+    // Let the Privacy page reopen this to change the choice later.
+    window.openCookieSettings = function () { showBar(); openModal(); };
+
+    // Initial state. BaseLayout already set GA's runtime flag in <head>; here we
+    // only surface the banner when no choice has been recorded yet.
+    var choice = validChoice();
+    if (choice === 'on') applyGA(true);
+    else if (choice === 'off') applyGA(false);
+    else { applyGA(false); showBar(); }
+  })();
+</script>
+
+<style is:global>
+  .cc[hidden] { display: none; }
+
+  .cc-bar {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 1000;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: var(--shadow, 0 8px 30px rgba(0, 0, 0, 0.18));
+  }
+
+  .cc-msg {
+    flex: 1;
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .cc-msg a {
+    color: var(--color-green-text);
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+
+  .cc-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+  }
+
+  .cc-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.9rem;
+    min-height: 40px;
+  }
+
+  /* Modal */
+  .cc-modal[hidden] { display: none; }
+
+  .cc-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .cc-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .cc-modal-card {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
+
+  .cc-modal-card h2 {
+    font-size: 1.35rem;
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+  }
+
+  .cc-modal-intro {
+    margin: 0 0 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .cc-cats {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cc-cat {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+  }
+
+  .cc-cat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .cc-cat-name {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .cc-cat-body {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .cc-pill {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-green-text);
+    white-space: nowrap;
+  }
+
+  .cc-pill-muted {
+    color: var(--text-muted);
+  }
+
+  /* Switch — a real checkbox, visually a toggle */
+  .cc-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .cc-switch input {
+    position: absolute;
+    opacity: 0;
+    width: 44px;
+    height: 24px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .cc-track {
+    width: 44px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--border-color);
+    transition: background 0.2s ease;
+    position: relative;
+  }
+
+  .cc-track::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+  }
+
+  .cc-switch input:checked + .cc-track {
+    background: var(--color-green);
+  }
+
+  .cc-switch input:checked + .cc-track::after {
+    transform: translateX(20px);
+  }
+
+  .cc-switch input:focus-visible + .cc-track {
+    outline: 2px solid var(--color-green);
+    outline-offset: 2px;
+  }
+
+  .cc-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .cc-modal-privacy {
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    font-size: 0.88rem;
+    color: var(--color-green-text);
+    text-decoration: underline;
+  }
+
+  .cc-modal-privacy:hover {
+    color: var(--color-green-text-hover);
+  }
+
+  .cc-actions-modal {
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 640px) {
+    .cc-bar {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+    }
+
+    /* Stack the buttons full-width — three across don't fit at phone widths
+       (and longer locale labels overflow). */
+    .cc-actions {
+      flex-direction: column;
+    }
+
+    .cc-actions .cc-btn {
+      width: 100%;
+    }
+  }
+</style>

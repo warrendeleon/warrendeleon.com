@@ -124,7 +124,66 @@
     "certifications": "Certificacions i Cursos",
     "viewCertificate": "Veure certificat"
   },
+  "privacy": {
+    "heading": "Privacitat",
+    "updated": "Última actualització: 26 de juny de 2026",
+    "intro": "Aquest és el web personal de Warren de Leon. Recullo el mínim, no ho venc mai i no ho comparteixo mai amb finalitats publicitàries. Aquesta pàgina explica què es recull, per què i com desactivar-ho.",
+    "analytics": {
+      "title": "Analítica",
+      "body": "Faig servir dues eines per veure quins articles funcionen i com arriba la gent al web. Cap de les dues serveix per identificar-te.",
+      "recordsIntro": "Entre totes dues registren:",
+      "records": [
+        "Les pàgines que visites i l'enllaç o la cerca que t'hi ha portat",
+        "La teva ubicació aproximada (país), tipus de dispositiu i navegador",
+        "Accions com canviar de tema o seguir un enllaç a xarxes socials"
+      ],
+      "tools": "**Google Analytics**, de Google, instal·la galetes i pot tractar dades fora del Regne Unit segons les condicions de Google. **Umami** és una analítica respectuosa amb la privacitat que allotjo jo mateix: sense galetes, sense seguiment entre webs i les dades no surten mai del meu propi servidor.",
+      "optout": "Umami funciona sense galetes, però tot i així pots desactivar-la en aquest navegador.",
+      "optoutDisable": "Desactiva Umami",
+      "optoutEnable": "Torna a activar Umami",
+      "statusOn": "Umami està activada en aquest navegador.",
+      "statusOff": "Umami està desactivada en aquest navegador."
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "body": "Si t'hi subscrius, guardo la teva adreça de correu per enviar-te els articles nous, i res més. Només escric quan hi ha alguna cosa nova.\n\nLa newsletter funciona amb Listmonk, un programari que allotjo jo mateix. L'alta fa servir doble confirmació: reps un correu per confirmar i només t'afegeixo quan hi fas clic.\n\nCada correu registra si s'ha obert i en quins enllaços has fet clic, per saber què val la pena escriure. Aquests enllaços porten etiquetes que apareixen a l'analítica anterior.\n\nTots els correus porten un enllaç per donar-te de baixa. Amb un clic, la teva adreça s'elimina a l'instant."
+    },
+    "cookies": {
+      "title": "Galetes i emmagatzematge local",
+      "body": "El teu navegador guarda uns quants valors petits: la teva elecció de tema i idioma i, tret que hagis desactivat el seguiment, les galetes de Google Analytics. Umami no n'instal·la cap."
+    },
+    "rights": {
+      "title": "Els teus drets",
+      "body": "Pots demanar quines dades tinc sobre tu, sol·licitar-ne una còpia o que les elimini. Per sortir de la newsletter, l'enllaç de baixa de qualsevol correu ho fa a l'instant. Per a qualsevol altra cosa, escriu-me."
+    },
+    "contact": {
+      "title": "Contacte",
+      "body": "Dubtes sobre privacitat o alguna petició sobre les teves dades? Escriu-me a <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    }
+  },
+  "consent": {
+    "message": "Faig servir Google Analytics per veure quins articles val la pena ampliar. Tu decideixes si s'activa.",
+    "accept": "Accepta",
+    "decline": "Rebutja",
+    "customise": "Personalitza",
+    "save": "Desa les preferències",
+    "modalTitle": "Preferències de galetes",
+    "modalIntro": "Tria què vols que faci servir. Ho pots canviar quan vulguis des de la pàgina de Privacitat.",
+    "necessaryTitle": "Essencials",
+    "necessaryBody": "Recorden el teu tema i idioma. Sempre actives.",
+    "analyticsTitle": "Google Analytics",
+    "analyticsBody": "M'ajuda a veure quins articles funcionen. Instal·la galetes al teu navegador.",
+    "umamiTitle": "Analítica respectuosa amb la privacitat (Umami)",
+    "umamiBody": "Sense galetes i sense desar res al teu dispositiu, així que no necessita consentiment. Tot i així pots desactivar-la a la pàgina de Privacitat.",
+    "alwaysOn": "Sempre actives",
+    "noConsent": "Sense consentiment",
+    "manageLabel": "Preferències de galetes",
+    "manageBody": "Canvia si Google Analytics s'executa en aquest navegador.",
+    "manageLink": "Llegeix la pàgina de Privacitat completa"
+  },
   "seo": {
+    "privacyTitle": "Privacitat | Warren de Leon",
+    "privacyDescription": "Com tracta les teves dades warrendeleon.com: analítica respectuosa amb la privacitat, la newsletter, les galetes i com desactivar-ho.",
     "educationTitle": "Formació | Warren de Leon",
     "educationDescription": "Formació, titulacions i certificacions de Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",

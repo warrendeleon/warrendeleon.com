@@ -124,7 +124,66 @@
     "certifications": "Mga Sertipikasyon at Kurso",
     "viewCertificate": "Tingnan ang sertipiko"
   },
+  "privacy": {
+    "heading": "Privacy",
+    "updated": "Huling na-update: 26 Hunyo 2026",
+    "intro": "Ito ang personal na website ni Warren de Leon. Pinapanatili kong kaunti lang ang kinokolekta ko, hindi ko ito ibinebenta, at hindi ko ibinabahagi para sa advertising. Ipinapaliwanag ng pahinang ito kung ano ang kinokolekta, bakit, at paano ito i-off.",
+    "analytics": {
+      "title": "Analytics",
+      "body": "Gumagamit ako ng dalawang tool para makita kung aling mga post ang umuubra at kung paano nakakarating ang mga tao sa site. Wala sa dalawa ang ginagamit para kilalanin ka.",
+      "recordsIntro": "Sa dalawang ito, naitatala ang:",
+      "records": [
+        "Ang mga pahinang binibisita mo at ang link o paghahanap na nagdala sa iyo rito",
+        "Ang tinatayang lokasyon mo (bansa), uri ng device at browser",
+        "Mga aksyon tulad ng pagpapalit ng tema o pag-click sa isang social link"
+      ],
+      "tools": "Ang **Google Analytics**, na pag-aari ng Google, ay naglalagay ng cookies at maaaring magproseso ng data sa labas ng UK ayon sa mga tuntunin ng Google. Ang **Umami** ay analytics na may respeto sa privacy na ako mismo ang nagho-host: walang cookies, walang cross-site tracking, at hindi umaalis ang data sa sarili kong server.",
+      "optout": "Gumagana ang Umami nang walang cookies, pero puwede mo pa rin itong i-off sa browser na ito.",
+      "optoutDisable": "I-off ang Umami",
+      "optoutEnable": "I-on muli ang Umami",
+      "statusOn": "Naka-on ang Umami sa browser na ito.",
+      "statusOff": "Naka-off ang Umami sa browser na ito."
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "body": "Kung mag-subscribe ka, iniimbak ko ang email address mo para mapadala sa iyo ang mga bagong post, at wala nang iba. Nag-eemail lang ako kapag may bago.\n\nGumagana ang newsletter sa Listmonk, isang software na ako mismo ang nagho-host. Gumagamit ng double opt-in ang pag-sign up: makakatanggap ka ng isang email para kumpirmahin, at idaragdag ka lang kapag na-click mo ito.\n\nNaitatala ng bawat email kung nabuksan ito at kung aling mga link ang na-click mo, para malaman ko kung ano ang sulit isulat. May dala ang mga link na ito na mga tag na lumalabas sa analytics sa itaas.\n\nMay unsubscribe link ang bawat email. Sa isang click, agad na natatanggal ang address mo."
+    },
+    "cookies": {
+      "title": "Cookies at local storage",
+      "body": "May iilang maliliit na halaga na iniimbak ang browser mo: ang pinili mong tema at wika, at — maliban kung nag-opt out ka — ang mga cookies ng Google Analytics. Walang nilalagay ang Umami."
+    },
+    "rights": {
+      "title": "Ang iyong mga karapatan",
+      "body": "Maaari mong itanong kung anong data ang hawak ko tungkol sa iyo, humiling ng kopya, o ipa-delete ito. Para umalis sa newsletter, agad itong nagagawa ng unsubscribe link sa kahit aling email. Para sa iba pang bagay, mag-message ka lang."
+    },
+    "contact": {
+      "title": "Kontak",
+      "body": "May tanong tungkol sa privacy, o kahilingan tungkol sa data mo? I-email mo ako sa <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    }
+  },
+  "consent": {
+    "message": "Gumagamit ako ng Google Analytics para makita kung aling mga post ang sulit pang palawakin. Ikaw ang magpapasya kung gagana ito.",
+    "accept": "Tanggapin",
+    "decline": "Tanggihan",
+    "customise": "I-customize",
+    "save": "I-save ang mga pinili",
+    "modalTitle": "Mga pagpipilian sa cookies",
+    "modalIntro": "Piliin kung ano ang puwede kong gamitin. Mababago mo ito kahit kailan sa pahina ng Privacy.",
+    "necessaryTitle": "Mahalaga",
+    "necessaryBody": "Tinatandaan ang tema at wika mo. Laging naka-on.",
+    "analyticsTitle": "Google Analytics",
+    "analyticsBody": "Tumutulong na makita kung aling mga post ang umuubra. Naglalagay ng cookies sa browser mo.",
+    "umamiTitle": "Analytics na may respeto sa privacy (Umami)",
+    "umamiBody": "Walang cookies at walang iniimbak sa device mo, kaya hindi ito nangangailangan ng pahintulot. Maaari mo pa ring i-off ito sa pahina ng Privacy.",
+    "alwaysOn": "Laging naka-on",
+    "noConsent": "Walang kailangang pahintulot",
+    "manageLabel": "Mga setting ng cookies",
+    "manageBody": "Baguhin kung gumagana ang Google Analytics sa browser na ito.",
+    "manageLink": "Basahin ang buong pahina ng Privacy"
+  },
   "seo": {
+    "privacyTitle": "Privacy | Warren de Leon",
+    "privacyDescription": "Kung paano hinahawakan ng warrendeleon.com ang data mo: analytics na may respeto sa privacy, ang newsletter, cookies, at paano mag-opt out.",
     "educationTitle": "Edukasyon | Warren de Leon",
     "educationDescription": "Edukasyon, mga kwalipikasyon, at mga sertipikasyon ni Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",

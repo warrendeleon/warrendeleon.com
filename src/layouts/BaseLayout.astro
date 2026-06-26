@@ -1,6 +1,7 @@
 ---
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import { locales, getLocalePath, type Locale } from '../i18n/index';
 import '../styles/global.css';
 
@@ -90,17 +91,32 @@ const cleanPath = getCleanPath(currentPath);
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
-    <!-- Google Analytics (production only) -->
+    <!-- Google Analytics (production only, consent-gated) -->
     <script is:inline>
       if (location.hostname === 'warrendeleon.com') {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8FWR6HT36Y';
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-8FWR6HT36Y');
+        // GA is non-essential: load it only on a still-valid opt-in (set by the
+        // cookie banner, expires after ~6 months), and still honour the owner
+        // opt-out flag.
+        var ccOk = false;
+        try {
+          var ccRaw = localStorage.getItem('cc-analytics');
+          if (ccRaw) {
+            var cc = JSON.parse(ccRaw);
+            if (cc && cc.v === 'on' && cc.ts && (Date.now() - cc.ts) < 1000 * 60 * 60 * 24 * 183) ccOk = true;
+          }
+        } catch (e) {}
+        if (ccOk && !localStorage.getItem('umami.disabled')) {
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8FWR6HT36Y';
+          document.head.appendChild(s);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-8FWR6HT36Y');
+        } else {
+          window['ga-disable-G-8FWR6HT36Y'] = true;
+        }
       }
     </script>
 
@@ -123,6 +139,7 @@ const cleanPath = getCleanPath(currentPath);
       <slot />
     </main>
     <Footer locale={locale} />
+    <CookieConsent locale={locale} />
 
     <script is:inline>
       (function() {

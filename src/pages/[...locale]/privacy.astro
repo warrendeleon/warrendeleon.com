@@ -1,0 +1,183 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../i18n/index';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const i18n = t(locale);
+const p = i18n.privacy;
+
+// Same render path as the homepage About section: split paragraphs on a blank
+// line and turn **bold** into <strong>. The strings are my own trusted copy,
+// so inline <a> in them (contact, opt-out note) renders through set:html too.
+const md = (s: string) => s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+const paras = (s: string) => s.split('\n\n');
+---
+
+<BaseLayout
+  title={i18n.seo.privacyTitle}
+  description={i18n.seo.privacyDescription}
+  locale={locale}
+  currentPath={getLocalePath(locale, '/privacy/')}
+>
+  <section class="section">
+    <div class="container">
+      <article class="privacy">
+        <h1 class="section-heading">{p.heading}</h1>
+        <p class="privacy-updated">{p.updated}</p>
+
+        {paras(p.intro).map((par) => <p set:html={md(par)} />)}
+
+        <h2>{p.analytics.title}</h2>
+        {paras(p.analytics.body).map((par) => <p set:html={md(par)} />)}
+        <p>{p.analytics.recordsIntro}</p>
+        <ul>
+          {p.analytics.records.map((item) => <li set:html={md(item)} />)}
+        </ul>
+        <p set:html={md(p.analytics.tools)} />
+
+        <div class="privacy-optout">
+          <p>{i18n.consent.manageBody}</p>
+          <button type="button" class="btn btn-outline" data-cc-open>{i18n.consent.manageLabel}</button>
+        </div>
+
+        <div class="privacy-optout">
+          <p>{p.analytics.optout}</p>
+          <button
+            id="privacy-umami-btn"
+            type="button"
+            class="btn btn-outline"
+            data-disable={p.analytics.optoutDisable}
+            data-enable={p.analytics.optoutEnable}
+            aria-describedby="privacy-umami-status"
+          ></button>
+          <p
+            id="privacy-umami-status"
+            class="privacy-status"
+            aria-live="polite"
+            data-on={p.analytics.statusOn}
+            data-off={p.analytics.statusOff}
+          ></p>
+        </div>
+
+        <h2>{p.newsletter.title}</h2>
+        {paras(p.newsletter.body).map((par) => <p set:html={md(par)} />)}
+
+        <h2>{p.cookies.title}</h2>
+        {paras(p.cookies.body).map((par) => <p set:html={md(par)} />)}
+
+        <h2>{p.rights.title}</h2>
+        {paras(p.rights.body).map((par) => <p set:html={md(par)} />)}
+
+        <h2>{p.contact.title}</h2>
+        {paras(p.contact.body).map((par) => <p set:html={md(par)} />)}
+      </article>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      // "Cookie settings" reopens the consent banner — the banner is the single
+      // source of truth for the Google Analytics choice.
+      var openers = document.querySelectorAll('[data-cc-open]');
+      for (var i = 0; i < openers.length; i++) {
+        openers[i].addEventListener('click', function () {
+          if (window.openCookieSettings) window.openCookieSettings();
+        });
+      }
+
+      // Umami opt-out. Umami needs no consent (it stores nothing on the device),
+      // so its switch lives here, not in the banner. Order matters: Umami
+      // re-checks its flag on every event, so record before disabling and after
+      // re-enabling, or the event is dropped.
+      var btn = document.getElementById('privacy-umami-btn');
+      var status = document.getElementById('privacy-umami-status');
+      if (!btn || !status) return;
+
+      function isOff() { return !!localStorage.getItem('umami.disabled'); }
+      function track(name) { if (typeof t === 'function') t(name, { source: 'privacy_page' }); }
+
+      function paint() {
+        var off = isOff();
+        btn.textContent = off ? btn.dataset.enable : btn.dataset.disable;
+        btn.setAttribute('aria-pressed', String(off));
+        status.textContent = off ? status.dataset.off : status.dataset.on;
+      }
+
+      btn.addEventListener('click', function () {
+        if (isOff()) {
+          localStorage.removeItem('umami.disabled');
+          track('umami_opt_in');
+        } else {
+          track('umami_opt_out');
+          localStorage.setItem('umami.disabled', '1');
+        }
+        paint();
+      });
+
+      paint();
+    })();
+  </script>
+</BaseLayout>
+
+<style is:global>
+  .privacy {
+    max-width: 720px;
+  }
+
+  .privacy-updated {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: -1rem 0 2.5rem;
+  }
+
+  .privacy h2 {
+    font-size: 1.4rem;
+    margin: 2.75rem 0 0.75rem;
+  }
+
+  .privacy p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  .privacy ul {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0 0 1rem 1.25rem;
+  }
+
+  .privacy li {
+    margin-bottom: 0.4rem;
+  }
+
+  .privacy a {
+    color: var(--color-green-text);
+    text-decoration: underline;
+  }
+
+  .privacy a:hover {
+    color: var(--color-green-text-hover);
+  }
+
+  .privacy-optout {
+    margin: 1.5rem 0 0;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+  }
+
+  .privacy-optout > p:first-child {
+    margin-bottom: 1rem;
+  }
+
+  .privacy-status {
+    font-size: 0.9rem;
+    color: var(--text-muted) !important;
+    margin: 0.85rem 0 0 !important;
+    min-height: 1.2em;
+  }
+</style>
