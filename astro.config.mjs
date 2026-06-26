@@ -6,6 +6,22 @@ import rehypeUnpublishedLinks from './src/lib/rehype-unpublished-links.mjs';
 import rehypeTableWrapper from './src/lib/rehype-table-wrapper.mjs';
 import pagefind from './src/lib/astro-pagefind.mjs';
 
+// Old work-experience URLs (`/work/:slug`) that Google still has indexed and 404ing,
+// mapped to the current `/work-experience/:slug`. A fixed historical slug set; literal
+// redirects per locale (Astro can't resolve a dynamic destination into the [...locale]
+// route). Keep in sync with the company slugs under /work-experience/.
+const WORK_SLUGS = [
+  'all-now-europe-sl', 'altran', 'bp', 'candide', 'concentrix-tigerspike',
+  'desigual', 'edenic-games', 'everis-ntt-data', 'fanduel', 'hargreaves-lansdown',
+  'lexel-software-ltd', 'nucleus-central', 'openhealth-group', 'shell', 'sky',
+  'stadion', 'teknon-uroclnica-barcelona', 'wonderbill', 'xdesign', 'zonal',
+];
+const workRedirects = Object.fromEntries(
+  ['', '/es', '/ca', '/tl'].flatMap((prefix) =>
+    WORK_SLUGS.map((slug) => [`${prefix}/work/${slug}`, `${prefix}/work-experience/${slug}`]),
+  ),
+);
+
 export default defineConfig({
   site: 'https://warrendeleon.com',
   integrations: [
@@ -60,6 +76,7 @@ export default defineConfig({
     '/es/blog/tag/[tag]': '/es/blog/tags/[tag]',
     '/ca/blog/tag/[tag]': '/ca/blog/tags/[tag]',
     '/tl/blog/tag/[tag]': '/tl/blog/tags/[tag]',
+    ...workRedirects,
   },
   markdown: {
     shikiConfig: {
