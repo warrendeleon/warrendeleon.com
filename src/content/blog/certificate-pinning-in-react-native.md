@@ -47,7 +47,9 @@ Expo managed workflow doesn't expose the native config files this post relies on
 
 ## Extracting the pins
 
-The pins are SHA-256 hashes of the **public key** in the certificate, not the certificate itself. That's what makes them survive certificate renewal: as long as the same key pair gets reused (which Supabase does for `*.supabase.co`), the public-key hash stays the same even when the certificate is reissued.
+The pins are SHA-256 hashes of the **public key** in the certificate, not the certificate itself. That's what lets them survive certificate renewal: if the same key pair is reused when the certificate is reissued, the public-key hash stays the same.
+
+Don't count on that reuse for `your-project.supabase.co`, though. You don't control that domain. Supabase's edge terminates TLS for it, the leaf certificates there are short-lived, and key reuse across renewals is neither documented nor promised. That asymmetry shapes the whole configuration below: the leaf pin is the tight, optimistic pin, and the intermediate CA pin is the one doing the real work, because intermediate keys rotate far less often and their lifecycles are published by the CA, so they're the only part of the chain you can observe and plan around. If you want pins whose rotation you can genuinely coordinate, put Supabase behind a custom domain you control and pin that instead.
 
 Extract two pins. The first from your domain's leaf certificate; the second from the intermediate CA. The intermediate is the backup that protects you when the leaf rotates.
 
@@ -78,7 +80,7 @@ Both commands return base64 strings that look like `PzfKSv758ttsdJwUCkGhW/oxG9Wk
 
 > ⚠️ **Sanity-check that the two pins are different.** A naive range pattern like `awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/'` (without the `n==2` block-counter) captures *all* certificate blocks concatenated, and the downstream pipe consumes only the first one. The "backup" silently equals the primary, leaving you with one pin pretending to be two. If both extractions produce the same hash, the pipeline is wrong and your backup pin isn't a backup.
 
-> 💡 **Why two pins, not one?** OWASP and TrustKit both require a backup pin for a reason. If the leaf cert gets compromised and Supabase rotates only the leaf, an app with a single leaf-only pin breaks. With the intermediate as a backup, the connection still validates because the backup pin still matches. You buy yourself a window to ship a new app build with a fresh primary pin.
+> 💡 **Why two pins, not one?** OWASP and TrustKit both require a backup pin for a reason. If Supabase rotates the leaf (routine housekeeping on short-lived edge certificates, not just incident response), an app with a single leaf-only pin breaks. With the intermediate as a backup, the connection still validates because the backup pin still matches. You buy yourself a window to ship a new app build with a fresh primary pin.
 
 ## iOS: TrustKit
 
@@ -116,6 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         "your-project.supabase.co": [
           kTSKIncludeSubdomains: true,
           kTSKEnforcePinning: true,
+          kTSKExpirationDate: "2027-01-01",
           kTSKPublicKeyHashes: [
             "REPLACE_WITH_PRIMARY_PIN=",   // Leaf certificate
             "REPLACE_WITH_BACKUP_PIN=",    // Intermediate CA
@@ -131,13 +134,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ```
 
-The four config keys that matter:
+The five config keys that matter:
 
 | Key | Purpose |
 |---|---|
 | `kTSKSwizzleNetworkDelegates: true` | Lets TrustKit hook into every URLSession created by the app and React Native, so all Axios calls go through pinning automatically. |
-| `kTSKIncludeSubdomains: true` | Pins apply to subdomains too. Useful because Supabase Storage and Realtime live on the same parent domain. |
+| `kTSKIncludeSubdomains: true` | Pins apply to subdomains of the project host too. Storage and Realtime are *paths* on the same host (`/storage/v1`, `/realtime/v1`), so this buys nothing for them; what it covers is host-per-service endpoints under the project domain, like the `db.your-project.supabase.co` hostname used for direct Postgres connections. |
 | `kTSKEnforcePinning: true` | Fail closed. If the pin doesn't match, the connection is rejected. Set to `false` and pinning becomes report-only, which is useful during initial rollout but useless as a defence. |
+| `kTSKExpirationDate` | The date the pin set stops being enforced. Keep it in sync with the Android `pin-set expiration` below. |
 | `kTSKPublicKeyHashes` | The two base64-encoded SHA-256 hashes from the openssl extraction above. |
 
 > 💡 **Don't forget the pod install.** TrustKit is a native iOS library; it has to be linked into the binary. A pod install that didn't run is the most common reason "pinning isn't working" reports turn out to be "pinning was never enabled".
@@ -149,8 +153,8 @@ Android 7+ ships with declarative cert pinning via `network_security_config.xml`
 ### The config file
 
 ```xml
-<!-- android/app/src/main/res/xml/network_security_config.xml -->
 <?xml version="1.0" encoding="utf-8"?>
+<!-- android/app/src/main/res/xml/network_security_config.xml -->
 <network-security-config>
     <!-- Production: HTTPS-only, no cleartext -->
     <base-config cleartextTrafficPermitted="false">
@@ -159,9 +163,9 @@ Android 7+ ships with declarative cert pinning via `network_security_config.xml`
         </trust-anchors>
     </base-config>
 
-    <!-- Pin Supabase -->
+    <!-- Pin the project host: the same scope as the iOS config -->
     <domain-config>
-        <domain includeSubdomains="true">supabase.co</domain>
+        <domain includeSubdomains="true">your-project.supabase.co</domain>
         <pin-set expiration="2027-01-01">
             <pin digest="SHA-256">REPLACE_WITH_PRIMARY_PIN=</pin>
             <pin digest="SHA-256">REPLACE_WITH_BACKUP_PIN=</pin>
@@ -191,6 +195,8 @@ Android 7+ ships with declarative cert pinning via `network_security_config.xml`
 
 That's it. No library, no native code, no manual pinning logic. Android validates pins on every TLS handshake to the configured domains.
 
+The domain entry deliberately matches the iOS scope: the project host, not all of `supabase.co`. Pinning the parent domain would make you responsible for the certificates of every host Supabase operates, most of which your app never talks to.
+
 ### Why the localhost block matters
 
 The base config sets `cleartextTrafficPermitted="false"`, which blocks plain HTTP everywhere by default. The Metro bundler in development serves the JavaScript bundle over plain HTTP from `localhost`. Without the explicit localhost exception, debug builds can't reach Metro and the app crashes on launch with a network error.
@@ -199,7 +205,7 @@ The exception only applies when the app is running on a developer's machine. Pro
 
 ## Pin expiration
 
-Both iOS and Android configs above include an expiration. iOS doesn't enforce it directly, but TrustKit logs a warning. Android does enforce it: when `expiration` passes, the pin set is ignored and the OS falls back to standard CA validation (which is exactly the threat pinning was meant to defend against).
+Both configs above include an expiration, and both platforms treat it the same way: past the date, the pin set stops being enforced and connections fall back to standard CA validation (which is exactly the threat pinning was meant to defend against). The fallback is deliberate. It's the escape hatch that stops a forgotten pin set from bricking every installed copy of the app, at the price of a window with no pinning.
 
 Monitor expiration as a build-time check rather than relying on the OS to remind you. A 90-day-out alert gives you enough time to extract new pins, ship an updated build, and let users update before the old pins expire.
 
@@ -217,22 +223,22 @@ if [ "$DAYS_UNTIL" -lt 90 ]; then
 fi
 ```
 
-Wire that into a GitHub Action that runs weekly, and the team gets a notification before a pin expires rather than after.
+Wire that into a GitHub Action that runs weekly, and the team gets a notification before a pin expires rather than after. One portability note: `date -d` is GNU date, so the script as written runs on Linux CI runners; macOS's BSD `date` needs `-j -f '%Y-%m-%d'` instead.
 
 ## Pin rotation without locking users out
 
 Pin rotation is the part where most cert-pinning implementations fail in production. The naive approach (extract a new pin, ship a build) locks out everyone who hasn't updated yet, because their app still has the old pins and Supabase is now serving the new cert.
 
-The pattern that works in practice is overlap windows:
+On a domain you don't control, there's a second problem: nobody tells you when rotation happens. Supabase doesn't publish its certificate schedule, so any plan built around "three months before the cert rotates" is fiction. The plan has to be observation-driven: detect the change when it lands, rely on the backup pin for the gap, ship at your own pace.
 
-1. **Today (build N).** App pins `[primary_v1, intermediate]`. Supabase serves a cert chained to `intermediate`. Both pins match.
-2. **3 months before primary_v1 expires (build N+1).** Add the *next* primary pin (`primary_v2`) to the configuration. App now pins `[primary_v1, primary_v2, intermediate]`. Ship the build, encourage updates.
-3. **Cert rotation day.** Supabase rotates from `primary_v1` to `primary_v2`. Old app builds (N) still validate because `intermediate` matches. New builds (N+1) validate because `primary_v2` matches.
-4. **3 months after rotation (build N+2).** Remove `primary_v1` from the configuration since it's no longer in any deployed cert. Pins are `[primary_v2, intermediate_v2_if_changed]`.
+1. **Today (build N).** App pins `[leaf_v1, intermediate]`. Supabase serves a cert chained to `intermediate`. Both pins match.
+2. **Continuously.** A scheduled CI job re-runs the pin extraction against the live host and compares the output to the pins in the shipped config. That job is the rotation calendar you don't otherwise have.
+3. **The day the job reports a new leaf key.** Old builds keep validating because `intermediate` still matches. Extract the new leaf pin, ship build N+1 with `[leaf_v2, intermediate]`, and encourage updates. No user was locked out; the backup pin carried the gap.
+4. **The day the job reports a new intermediate.** This is rarer but real: CAs retire intermediates on published schedules. The same detection fires, and the `expiration` date in both configs is the backstop. Past it, the OS falls back to standard CA validation instead of bricking the app, and the fallback window is the time you have to ship a build with the new intermediate pin.
 
 The invariant: every active app build has at least one pin that matches the current Supabase cert chain at all times. The intermediate pin is the load-bearing piece during rotation. As long as Supabase keeps using the same CA, intermediate-pin-only validation gets you through.
 
-That's why backup pins exist. Without them, certificate rotation is a coordination nightmare that requires every user to update on the day the cert rotates. With them, rotation is a non-event for users; they update at their own pace within a multi-month window.
+That's why backup pins exist. Without them, certificate rotation on a third-party domain means every user has to update on the day the cert rotates, and you don't find out which day that is until it's happening. With them, rotation is a non-event for users; they update at their own pace while you ship the refreshed pin set.
 
 ## Skip pinning under test runners
 
@@ -277,7 +283,7 @@ The mistake that wastes the most time is shipping a build that doesn't pin at al
 
 **Don't pin the certificate. Pin the public key.** The openssl commands at the top of this post extract the public key, not the cert. Pinning the cert means rotation breaks every app that hasn't updated. Pinning the public key means rotation only breaks apps when the *key pair* changes, which is much rarer.
 
-**Don't forget the intermediate.** A leaf-only pin set is a pinning configuration with one bullet in the chamber. The day Supabase rotates the leaf cert (which happens whenever the upstream CA reissues; on Let's Encrypt-style CAs that's often inside a 90-day window), every user without the latest build is locked out. The intermediate pin is what gives you the rotation overlap.
+**Don't forget the intermediate.** A leaf-only pin set is a pinning configuration with no fallback. The day Supabase rotates the leaf cert (which happens whenever the upstream CA reissues; on Let's Encrypt-style CAs that's often inside a 90-day window), every user without the latest build is locked out. The intermediate pin is what gives you the rotation overlap.
 
 **Don't rely on `kTSKEnforcePinning: false` permanently.** Report-only mode is useful for the first week of rollout when you want to confirm pinning isn't breaking real users. After that, switch it to `true`. A report-only pin is a security control that doesn't control anything.
 

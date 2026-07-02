@@ -40,7 +40,7 @@ Detail follows in every section below. The short pre-flight check, to run before
 - [ ] **Policies tested as the anon role and as authenticated users.** Not just "the query works in the SQL editor" (which runs as `postgres` and bypasses RLS).
 - [ ] **Storage paths constrained by user ID.** Either `(storage.foldername(name))[1] = auth.uid()::text` on the bucket policy, or your equivalent path-encoded ownership.
 - [ ] **`SECURITY DEFINER` functions all have an explicit `SET search_path`.** The Supabase dashboard linter flags missing ones.
-- [ ] **`UPDATE` policies have both `USING` and `WITH CHECK`.** Skipping `WITH CHECK` lets users change ownership of their own rows.
+- [ ] **`UPDATE` policies state both `USING` and `WITH CHECK` explicitly.** An omitted `WITH CHECK` safely falls back to `USING`; the patterns to hunt for are an explicit `WITH CHECK (true)` and pairs where the write predicate is weaker than the read predicate.
 - [ ] **The service role key never appears in client code or `.env` files committed to source control.** Audit the repo with `git log -S 'service_role'`.
 - [ ] **Auth-sensitive flows have rate limiting** (Supabase's built-in dashboard limits, or the SQL pattern below for RPC abuse).
 
@@ -111,9 +111,9 @@ The distinction between `USING` and `WITH CHECK` is the part most policies get w
 - **`USING`** filters rows the user can see. It's the predicate that runs against existing rows for `SELECT`, `UPDATE`, and `DELETE`.
 - **`WITH CHECK`** validates rows the user is *creating* or *modifying into*. It runs against the new row for `INSERT` and the post-update row for `UPDATE`.
 
-A common bug: an `UPDATE` policy with only `USING (auth.uid() = id)`. That lets a user update their *own* row, including changing the `id` column to someone else's UUID. The post-update row is now claimed by a different user, and the original user has elevated their access.
+A common misreading: that an `UPDATE` policy with only `USING (auth.uid() = id)` lets a user change the `id` column to someone else's UUID. It doesn't. When `WITH CHECK` is omitted, Postgres applies the `USING` expression to the new row as well, so the reassignment is already blocked. The genuinely dangerous patterns are explicit ones: a policy that adds `WITH CHECK (true)` next to a strict `USING` (which really does let the post-update row belong to anyone), and mismatched pairs where the write predicate is quietly weaker than the read predicate.
 
-The fix is `WITH CHECK (auth.uid() = id)` in addition. Now the user can update their row, but the post-update row also has to belong to them, so `id` can't change.
+Writing both clauses explicitly, as the policy above does, is still the right habit. Not because the fallback is unsafe, but because an explicit pair states the intent: a reviewer can check the two predicates against each other instead of having to remember the fallback rule.
 
 ## Reading other users' rows safely
 
@@ -128,17 +128,28 @@ CREATE POLICY "Public can read public profile fields"
   USING (true);
 ```
 
-But that policy returns *every* column. The right pattern is splitting public and private data into two tables, or using a view that exposes only the public columns:
+But that policy returns *every* column, and RLS can't help with that: policies filter rows, never columns. There's no such thing as a policy for the private columns. Column-level privacy comes from one of two other mechanisms: column grants, or a two-table split. A view is the usual way to package the column-grant shape:
 
 ```sql
-CREATE VIEW public.public_profiles AS
+CREATE VIEW public.public_profiles
+  WITH (security_invoker = true) AS
   SELECT id, display_name, bio, created_at
   FROM public.profiles;
 
 GRANT SELECT ON public.public_profiles TO authenticated, anon;
 ```
 
-Now the table holds the full row with strict policies, and the view exposes only the safe columns to other users. RLS on the underlying table still applies through the view, so a user reading another user's row through the view sees the public columns; the private columns can have a separate policy that filters them.
+The `security_invoker = true` option (PostgreSQL 15+) is doing real work. By default a Postgres view runs with its **owner's** privileges, and in Supabase that owner is typically `postgres`, a role that bypasses RLS entirely. A plain `CREATE VIEW` here would serve the selected columns from *all* rows, ignoring every policy on the base table; that's the "security definer view" warning the Supabase dashboard linter raises. With `security_invoker` set, the base table's RLS applies to whoever queries the view.
+
+Two things follow from that. The view now needs the base table to allow the rows through, so the `USING (true)` `SELECT` policy stays, but it can't be left there with the default table-wide `SELECT` grant: that combination hands every column of every row to any authenticated user who queries `profiles` directly, which is exactly what the view was built to prevent. Revoke the wide grant and grant only the public columns:
+
+```sql
+REVOKE SELECT ON public.profiles FROM authenticated, anon;
+GRANT SELECT (id, display_name, bio, created_at)
+  ON public.profiles TO authenticated, anon;
+```
+
+The alternative that's easier to reason about six months later is the two-table split: a `public_profiles` *table* with a `USING (true)` read policy, and the private fields in a table with owner-only policies. No view, no grants to keep in sync.
 
 ## Storage policies
 
@@ -249,6 +260,27 @@ The deliberate absence of policies is the point. RLS is enabled, no policies gra
 ### The trigger
 
 ```sql
+-- Parses '.../storage/v1/object/public/{bucket}/{path}' into '{path}'
+CREATE OR REPLACE FUNCTION extract_storage_path(url TEXT, bucket_name TEXT)
+RETURNS TEXT
+LANGUAGE plpgsql
+IMMUTABLE
+AS $$
+DECLARE
+  pattern TEXT;
+  result TEXT;
+BEGIN
+  pattern := '/storage/v1/object/public/' || bucket_name || '/';
+
+  IF position(pattern IN url) > 0 THEN
+    result := substring(url FROM position(pattern IN url) + length(pattern));
+    RETURN result;
+  END IF;
+
+  RETURN NULL;
+END;
+$$;
+
 CREATE OR REPLACE FUNCTION queue_old_profile_picture()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -284,7 +316,16 @@ CREATE TRIGGER queue_old_profile_picture_trigger
   EXECUTE FUNCTION queue_old_profile_picture();
 ```
 
-The trigger sits on `auth.users` and fires whenever `raw_user_meta_data` changes. If the `profile_picture` field inside that JSONB changes, the old URL is parsed into a storage path and inserted into the queue. The user's session never has to coordinate two operations; the trigger does it atomically as part of the same transaction that updates the profile.
+The trigger sits on `auth.users` and fires whenever `raw_user_meta_data` changes. If the `profile_picture` key inside that JSONB changes, the old URL is parsed into a storage path (by `extract_storage_path` above) and inserted into the queue. The user's session never has to coordinate two operations; the trigger does it atomically as part of the same transaction that updates the profile.
+
+The client side of that handshake is one call after a successful upload: the auth client writes the new URL into user metadata, and that write is what the trigger watches. GoTrue's `data` field is what lands in `raw_user_meta_data`:
+
+```typescript
+// On SupabaseAuthClient, called after uploadProfilePicture succeeds
+await this.axiosInstance.put('/auth/v1/user', {
+  data: { profile_picture: publicUrl },
+});
+```
 
 `SECURITY DEFINER` is required here because authenticated users have no INSERT permission on `storage_cleanup_queue`. The function runs as the migration's owner (typically `postgres`), which does have permission. `SET search_path = public` keeps it from being hijacked.
 
@@ -345,7 +386,7 @@ Deno.serve(async (req: Request) => {
 
 The function uses the **service role key** because it needs to bypass RLS on the queue table and delete files across user folders. That key never leaves Supabase's infrastructure: it's set as a function secret, the function reads it from `Deno.env`, and the function runs server-side.
 
-Schedule it via `pg_cron` or a Supabase cron (weekly is plenty for profile pictures):
+Schedule it weekly (plenty for profile pictures). Two extensions have to be enabled first, under **Database → Extensions** in the dashboard: `pg_cron` for the schedule and `pg_net` for the HTTP call.
 
 ```sql
 SELECT cron.schedule(
@@ -355,7 +396,10 @@ SELECT cron.schedule(
     SELECT net.http_post(
       url := 'https://your-project.supabase.co/functions/v1/cleanup-storage',
       headers := jsonb_build_object(
-        'Authorization', 'Bearer ' || current_setting('app.settings.service_role_key'),
+        'Authorization', 'Bearer ' || (
+          SELECT decrypted_secret FROM vault.decrypted_secrets
+          WHERE name = 'service_role_key'
+        ),
         'Content-Type', 'application/json'
       )
     );
@@ -363,7 +407,7 @@ SELECT cron.schedule(
 );
 ```
 
-The `service_role_key` is stored as a database setting, not in the cron job source. Set it once before scheduling: in the Supabase dashboard, **Settings → Database → Custom Postgres Config**, add `app.settings.service_role_key = 'eyJ...'`. Without that setting, every cron run silently 401s with no log line that tells you why.
+The key comes from **Supabase Vault**, not from a database setting. The tempting alternative, a custom GUC read with `current_setting('app.settings.service_role_key')`, is readable by anything that can evaluate SQL in the database: dashboard users, a definer function, any SQL-injection foothold. Vault stores the secret encrypted, and `vault.decrypted_secrets` is only readable by the roles you grant. Create the secret once (dashboard, **Settings → Vault**, name it `service_role_key`) before scheduling; without it, every cron run silently 401s with no log line that tells you why.
 
 ## Rate limiting
 
@@ -371,14 +415,17 @@ Supabase Auth has built-in rate limits on the auth endpoints: sign-in, sign-up, 
 
 For your own RPC functions and table queries, Supabase enforces a global throughput limit per project (varies by plan) but **no per-user limit by default**. A stolen anon key plus an expensive RPC is enough to drive a bill spike or a soft DoS. The mitigation is something you build yourself; Supabase doesn't ship a per-user rate limiter.
 
-A pattern that works without standing up a separate rate-limiter service:
+One scope note before the SQL: this limiter covers **authenticated** RPC abuse only. For the anon role, `auth.uid()` is NULL, so the insert below would fail on the NOT NULL column rather than rate-limit anything. Unauthenticated abuse is the job of Supabase's built-in auth limits and edge-level limits (the Cloudflare option at the end of this section). The pattern below is for a signed-in user, or an attacker holding a captured session, hammering an expensive RPC.
 
 ```sql
 -- 1. A log table that records every rate-limited action per user.
+--    clock_timestamp(), not NOW(): NOW() is frozen for the whole
+--    transaction, so two same-action calls in one transaction would
+--    collide on the primary key instead of both being counted.
 CREATE TABLE public.rate_limit_log (
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   action TEXT NOT NULL,
-  occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  occurred_at TIMESTAMPTZ NOT NULL DEFAULT clock_timestamp(),
   PRIMARY KEY (user_id, action, occurred_at)
 );
 
@@ -464,12 +511,12 @@ The OWASP Mobile Top 10 covers concerns this series has addressed in passing. Ma
 | M4 Insufficient Input/Output Validation | Zod runtime validation in [the auth client post](/blog/building-an-axios-based-supabase-auth-client/) |
 | M5 Insecure Communication | [Certificate pinning](/blog/certificate-pinning-in-react-native/) |
 | M6 Inadequate Privacy Controls | [PII masking](/blog/pii-masking-interceptors-react-native/), RLS limiting cross-user reads |
-| M7 Insufficient Binary Protections | App Transport Security, Android `usesCleartextTraffic=false`, code obfuscation (out of scope here) |
+| M7 Insufficient Binary Protections | Not covered in this series. This one is about reverse engineering and tampering; the standard mitigations are code obfuscation, root/jailbreak detection, and integrity checks. |
 | M8 Security Misconfiguration | This post (RLS off by default, missing search_path) |
 | M9 Insecure Data Storage | Tiered storage |
 | M10 Insufficient Cryptography | Use platform crypto (Keychain, AES-256), don't roll your own |
 
-Five of the ten are addressed by RLS plus the cert pinning and PII masking posts. The other five are addressed by the rest of the series. Together, that's a reasonable mobile security posture for any Supabase-backed app.
+Eight of the ten are addressed across the series. The remaining two, M2 (supply chain) and M7 (binary protections), are real concerns that sit outside these posts' scope. Together with mitigations for those two, that's a reasonable mobile security posture for any Supabase-backed app.
 
 ## Common pitfalls
 
@@ -477,13 +524,13 @@ Five of the ten are addressed by RLS plus the cert pinning and PII masking posts
 
 **Don't use the service role key on the client. Ever.** It bypasses every RLS policy on every table. If it leaks (and it will, the moment one developer copies it into a `.env` file), every row in your database is readable and writable. The service role exists for Edge Functions and trusted backend code only.
 
-**Don't write `SELECT` policies that leak through aggregates.** A policy like `USING (is_public = true)` looks safe, but `SELECT count(*) FROM private_data` returns the count of private rows the policy hides without needing the rows themselves. Aggregate functions can leak information in this way if the policy isn't applied at the row level.
+**Don't assume plain aggregates leak hidden rows; the real side channels are subtler.** RLS filters rows before aggregation, so `SELECT count(*)` only counts what the policy allows. The channels that genuinely leak are indirect: a unique-constraint violation on INSERT confirms a hidden row exists (and the default error names the conflicting value), `pg_stats` exposes sampled column values to anyone allowed to read it, and your own functions can echo protected data in `RAISE` messages. Keep constraint errors generic in RPCs, and treat anything that reports *why* a write failed as a potential oracle.
 
 **Don't trust the trigger to fire on every code path.** The cleanup queue trigger runs on `UPDATE OF raw_user_meta_data ON auth.users`. If a future code path updates the column without going through the user metadata, the trigger doesn't fire and the orphan accumulates. Audit the schema for direct writes that bypass triggers.
 
-**Don't forget the `WITH CHECK` clause on `UPDATE` policies.** This is the bug that lets users change ownership of their own rows. Always set both `USING` (filters which rows the user can update) and `WITH CHECK` (validates the post-update row).
+**Don't write a `WITH CHECK` weaker than your `USING` on `UPDATE` policies.** An omitted `WITH CHECK` falls back to `USING`, which is safe. An explicit `WITH CHECK (true)` next to a strict `USING` is what lets users hand their rows to someone else. State both clauses and check them against each other in review.
 
-**Don't expose the `auth` schema to PostgREST.** It's not exposed by default, but a careless `GRANT SELECT ON auth.users TO anon` somewhere in a migration is the kind of thing nobody notices for months. Use `SELECT * FROM pg_policies WHERE schemaname = 'auth'` to audit, and `REVOKE` anything that shouldn't be there.
+**Don't expose the `auth` schema to PostgREST.** It's not exposed by default, but a careless `GRANT SELECT ON auth.users TO anon` somewhere in a migration is the kind of thing nobody notices for months. Audit the grants directly: `SELECT * FROM information_schema.role_table_grants WHERE table_schema = 'auth' AND grantee IN ('anon', 'authenticated')`, and `REVOKE` anything that shouldn't be there.
 
 **Don't skip the `SET search_path` on `SECURITY DEFINER` functions.** This is the privilege-escalation pattern most Supabase tutorials miss. The Supabase dashboard linter flags it; treat the warning as a blocker.
 

@@ -32,6 +32,8 @@ The user opens the app, sees a loading screen for half a second, and gets thrown
 
 This is a race condition. It only happens when multiple requests fire concurrently with an expired token. In development, you're usually testing one screen at a time. In production, the home screen loads everything at once.
 
+This is part 3 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). Part 2 built [the auth client](/blog/building-an-axios-based-supabase-auth-client/); this post adds the response interceptor that stops the race above.
+
 ## Assumptions
 
 The setup below was written against:
@@ -54,18 +56,23 @@ The snippets below sit on a class that wraps an Axios instance. The full structu
 
 ```typescript
 // src/httpClients/SupabaseAuthClient.ts
+import Config from 'react-native-config';
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { SecureStore, SecureStoreKey } from '@app/utils/storage';
 
-class SupabaseAuthClient {
+class SupabaseAuthClientClass {
   private axiosInstance: AxiosInstance;
   private isRefreshing = false;
   private refreshSubscribers: Array<(token: string) => void> = [];
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: process.env.SUPABASE_URL,
+      baseURL: Config.SUPABASE_URL,
       timeout: 10_000,
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: Config.SUPABASE_ANON_KEY,
+      },
     });
 
     this.axiosInstance.interceptors.request.use(this.attachToken);
@@ -78,10 +85,12 @@ class SupabaseAuthClient {
   // ... the methods below all live on this class
 }
 
-export const authClient = new SupabaseAuthClient();
+export const SupabaseAuthClient = new SupabaseAuthClientClass();
 ```
 
 Two pieces of state on the class instance: `isRefreshing` is the gate, `refreshSubscribers` is the queue. Both are instance properties so they're shared across requests through the same client. If you put them at module scope or per-request, the coordination falls apart.
+
+The class, the export, and the headers block are the same as part 2's, and the `apikey` default header is load-bearing here: the refresh POST goes through this same instance, and Supabase rejects a refresh sent without `apikey` with a 401.
 
 ## The naive approach
 
@@ -91,6 +100,8 @@ Most token refresh implementations look like this:
 this.axiosInstance.interceptors.response.use(
   response => response,
   async (error) => {
+    const originalRequest = error.config;
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -157,6 +168,12 @@ private refreshSubscribers: SubscriberCallback[] = [];
 `isRefreshing` is a gate. When the first 401 arrives, it flips to `true` and the refresh starts. When the second, third, fourth, and fifth 401s arrive, they see the gate is closed and **add themselves to the queue instead of starting their own refresh.**
 
 ```typescript
+// The refresh call itself goes through this instance, and so through this
+// interceptor. If it comes back 401, bail out instead of queueing it.
+if (originalRequest.url?.includes('grant_type=refresh_token')) {
+  return Promise.reject(error);
+}
+
 if (isTokenExpired && !originalRequest._retry) {
   // Mark this request as already-retried before either branch runs, so a
   // 401 on the retry itself can't drop us back into the queue.
@@ -180,6 +197,8 @@ if (isTokenExpired && !originalRequest._retry) {
   // I'm the first. I'll do the refresh.
   this.isRefreshing = true;
 ```
+
+The early-exit guard at the top is the most instructive line in the file. Without it, a 401 on the refresh request itself re-enters this handler, sees `isRefreshing` is true, and queues itself: a promise that only settles when the refresh finishes, and the refresh is now waiting on that promise. Neither `catch` nor `finally` ever runs, the gate stays closed, and every future 401 joins a queue nobody will drain. Supabase normally answers a dead refresh token with a 400, which escapes on its own, but a stripped header, a corporate proxy, or a gateway 401 hits the deadlock.
 
 Each subscriber stores a **callback function** that takes either a token (success) or an error (failure). On success, attach the token and retry. On failure, reject the queued promise so the caller sees the same error the refresh did.
 
@@ -252,19 +271,24 @@ Timeline (milliseconds):
 Supabase doesn't always return a clean 401. Sometimes an expired token triggers a **403 with a JWT error** in the body. If you only check for `status === 401`, you'll miss these.
 
 ```typescript
+const errorData = error.response?.data as
+  | { error_code?: string; msg?: string; message?: string }
+  | undefined;
+const errorMessage = errorData?.msg ?? errorData?.message ?? '';
+
 const isTokenExpired =
   status === 401 ||
   (status === 403 &&
     (errorData?.error_code === 'bad_jwt' ||
       errorMessage.includes('token is expired') ||
-      errorMessage.includes('exp')));
+      /\bexp\b/.test(errorMessage)));
 ```
 
-Three checks: the status code, the error code field, and the error message. Paranoid, but necessary. I've seen Supabase return all three variants depending on which endpoint was called and how the token expired. Test token expiry against every endpoint your app calls before trusting any single error shape.
+Three checks: the status code, the error code field, and the error message. The last check matches `exp` on a word boundary because a bare substring match would also catch "unexpected" or "expected" and treat unrelated 403s as token expiry. Paranoid, but necessary. I've seen Supabase return all three variants depending on which endpoint was called and how the token expired. Test token expiry against every endpoint your app calls before trusting any single error shape.
 
 ## What if the refresh itself fails?
 
-The `finally` block ensures `isRefreshing` always resets, even on failure:
+The `finally` block resets `isRefreshing` on every path, success or failure:
 
 ```typescript
 } finally {
@@ -272,7 +296,7 @@ The `finally` block ensures `isRefreshing` always resets, even on failure:
 }
 ```
 
-Without this, a failed refresh would leave the gate permanently closed. Every subsequent 401 would join a queue that **never gets processed.** The app would freeze on every API call. The `finally` block prevents this.
+Without this, a failed refresh would leave the gate permanently closed. Every subsequent 401 would join a queue that **never gets processed.** The app would freeze on every API call. The guarantee only holds because of the early-exit guard above: it stops the refresh's own 401 from parking itself in the queue before `finally` gets a chance to run.
 
 When the refresh fails, `SecureStore.clear()` wipes all tokens. The user gets logged out. That's the correct behaviour. If your refresh token is rejected, the session is dead. Trying to recover from that state would create worse problems than a clean logout.
 

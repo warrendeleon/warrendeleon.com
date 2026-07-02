@@ -98,7 +98,7 @@ Each file has one job. The auth client doesn't know about storage internals; it 
 import Config from 'react-native-config';
 import axios, { AxiosError, AxiosInstance, InternalAxiosRequestConfig } from 'axios';
 
-import { SecureStore, SecureStoreKey } from '@app/utils/storage';
+import { EncryptedStore, EncryptedStoreKey, SecureStore, SecureStoreKey } from '@app/utils/storage';
 
 class SupabaseAuthClientClass {
   private axiosInstance: AxiosInstance;
@@ -159,9 +159,8 @@ async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
   try {
     const { data } = await this.axiosInstance.post('/auth/v1/signup', request);
 
-    // Supabase returns the user object directly when email confirmation is required.
-    // When confirmation is disabled, it returns { user, session } instead. The schema
-    // handles both with z.union.
+    // This client assumes email confirmation is on (the Supabase default), so
+    // /auth/v1/signup returns the user object directly.
     const user = validateResponse(SupabaseUserSchema, data, 'Supabase Auth signUp');
 
     if (user) {
@@ -178,7 +177,7 @@ async signUp(request: SupabaseSignUpRequest): Promise<SupabaseSignUpResponse> {
 
 A few things worth calling out.
 
-Email confirmation is the default Supabase behaviour, and the response shape changes accordingly. When confirmation is required, `/auth/v1/signup` returns just the user object. When it's disabled, it returns `{ user, session }`. The Zod schema accepts either via `z.union`, so the validation passes in both cases.
+Email confirmation is the default Supabase behaviour, and this client assumes it stays on. With confirmation required, `/auth/v1/signup` returns just the user object, and that's the shape the Zod schema validates. If your project has confirmation disabled, the endpoint returns the session fields directly (access token, refresh token, user) rather than a bare user, and this method would need to store that session the way `signIn` does. Scoping the client to one configuration keeps the validation honest instead of pretending one schema covers both.
 
 Email and ID are stored immediately. Email goes into the AES-256 EncryptedStore (it's PII, but you need it for the profile screen). The ID goes into the Keychain (it's used to identify the user in subsequent requests).
 
@@ -248,6 +247,11 @@ The `try` still attempts the server-side logout because Supabase tracks active s
 
 ```typescript
 async getCurrentUser(): Promise<SupabaseUser | null> {
+  const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+  if (!accessToken) {
+    return null;
+  }
+
   try {
     const { data } = await this.axiosInstance.get('/auth/v1/user');
     return validateResponse(SupabaseUserSchema, data, 'Supabase Auth getCurrentUser');
@@ -261,6 +265,8 @@ async getCurrentUser(): Promise<SupabaseUser | null> {
 ```
 
 A 401 means the access token is expired or invalid. The token-refresh interceptor (covered in the next post) handles refresh transparently for *most* requests. `getCurrentUser` is the exception: when called at app startup before any other request has fired, a 401 means there's no valid session, and the right answer is to return `null` so the app knows to show the login screen instead of throwing.
+
+The Keychain pre-check at the top matters more than it looks: once the next post's refresh interceptor is installed on this instance, a no-session 401 would trigger a refresh attempt that fails with a different status, and the error reaching this method would no longer be a 401, so a cold start would throw instead of showing login. Reading the token first means "no session" never touches the network at all.
 
 Every other error gets converted to an `AuthError` and rethrown.
 
@@ -497,7 +503,7 @@ The third test is the one that matters most. It's easy to write a sign-in that *
 
 ## Common pitfalls
 
-**Don't put `apikey` in the Authorization header.** It goes in its own `apikey` header. Supabase rejects requests where the anon key is mistaken for a Bearer token.
+**Don't rely on the Authorization header alone.** The anon key is itself a JWT, and unauthenticated requests legitimately carry it as `Authorization: Bearer <anon-key>` (supabase-js does exactly that). What actually breaks requests is omitting the `apikey` header, which Supabase requires on every call regardless of what Authorization holds. That's why the constructor sets it as a default.
 
 **Don't forget to clear storage on sign-out.** A user who signs out and then opens the app expects to land on login. If `SecureStore.clear()` doesn't run, the request interceptor still attaches a stale token, the app thinks they're authenticated, and the home screen flashes briefly before any other check catches the inconsistency.
 

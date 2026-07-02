@@ -34,7 +34,7 @@ Three concrete leak paths that PII masking closes:
 
 **Crash report payloads.** Crash reporters attach the JS stack trace plus surrounding context. The arguments to a thrown error frequently include exactly the kind of objects your app was about to operate on, which is exactly the kind of object you didn't want logged.
 
-"Be careful what you log" doesn't survive contact with a team of five and a deadline. The fix is a logger that's careful for you, and an interceptor on the way to Sentry that scrubs the payload one more time as a backstop.
+"Be careful what you log" doesn't hold once five people and a deadline are involved. The fix is a logger that's careful for you, and an interceptor on the way to Sentry that scrubs the payload one more time as a backstop.
 
 ## Assumptions
 
@@ -74,11 +74,14 @@ const MASKED = {
 const SENSITIVE_FIELDS = new Set([
   'password', 'newPassword', 'currentPassword', 'confirmPassword', 'oldPassword',
   'secret', 'apiKey', 'apiSecret',
-  'accessToken', 'refreshToken', 'token', 'authToken', 'bearerToken',
-  'idToken', 'sessionToken',
   'pin', 'cvv', 'cvc', 'securityCode',
   'ssn', 'socialSecurityNumber', 'taxId',
   'creditCard', 'cardNumber', 'accountNumber',
+]);
+
+const TOKEN_FIELDS = new Set([
+  'accessToken', 'refreshToken', 'token', 'authToken', 'bearerToken',
+  'idToken', 'sessionToken',
 ]);
 
 const EMAIL_FIELDS = new Set(['email', 'emailAddress', 'userEmail', 'contactEmail']);
@@ -104,6 +107,9 @@ const maskByFieldName = (fieldName: string, value: unknown): unknown => {
   for (const sensitive of SENSITIVE_FIELDS) {
     if (lower === sensitive.toLowerCase()) return MASKED.PASSWORD;
   }
+  for (const token of TOKEN_FIELDS) {
+    if (lower === token.toLowerCase()) return MASKED.TOKEN;
+  }
   for (const email of EMAIL_FIELDS) {
     if (lower === email.toLowerCase()) return MASKED.EMAIL;
   }
@@ -118,7 +124,7 @@ const maskByFieldName = (fieldName: string, value: unknown): unknown => {
 };
 ```
 
-A case-insensitive lookup against four sets. Cheap, deterministic, easy to extend. When a new sensitive field shows up in your codebase, you add it to the appropriate set and every existing log call that touches it becomes safe immediately.
+A case-insensitive lookup against five sets. Cheap, deterministic, easy to extend. When a new sensitive field shows up in your codebase, you add it to the appropriate set and every existing log call that touches it becomes safe immediately.
 
 ## Regex-based masking
 
@@ -149,8 +155,9 @@ const PATTERNS = {
   // International phone (catch-all, runs last)
   PHONE_INTL: /\+\d{1,3}[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/g,
 
-  // US Social Security Number
-  SSN: /\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g,
+  // US Social Security Number. Separators are required: a bare 9-digit
+  // number is far more often an order ID or a timestamp than an SSN.
+  SSN: /\b\d{3}[-\s]\d{2}[-\s]\d{4}\b/g,
 
   // UK National Insurance Number
   NI_NUMBER: /\b[A-Za-z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-Za-z]\b/g,
@@ -168,9 +175,9 @@ const maskString = (str: string): string => {
   result = result.replace(PATTERNS.EMAIL, MASKED.EMAIL);
   result = result.replace(PATTERNS.SSN, MASKED.SSN);
   result = result.replace(PATTERNS.NI_NUMBER, MASKED.SSN);
-  result = result.replace(PATTERNS.PHONE_INTL, MASKED.PHONE);
   result = result.replace(PATTERNS.PHONE_UK, MASKED.PHONE);
   result = result.replace(PATTERNS.PHONE_US, MASKED.PHONE);
+  result = result.replace(PATTERNS.PHONE_INTL, MASKED.PHONE);
   return result;
 };
 ```
@@ -231,6 +238,18 @@ const maskDataRecursive = (
     return data.map(item => maskDataRecursive(item, undefined, seen));
   }
 
+  if (data instanceof Error) {
+    return {
+      name: data.name,
+      message: maskString(data.message),
+      stack: data.stack,
+    };
+  }
+
+  if (data instanceof Date) {
+    return data;
+  }
+
   if (typeof data === 'object') {
     if (seen.has(data)) return '[Circular Reference]';
     seen.add(data);
@@ -249,7 +268,9 @@ export const maskSensitiveData = (data: unknown, fieldName?: string): unknown =>
 };
 ```
 
-Three points worth flagging.
+Four points worth flagging.
+
+**`Error` and `Date` get their own branches.** `Object.entries()` only sees enumerable properties, and an `Error`'s `message` and `stack` aren't enumerable, so the generic object branch would reduce a thrown error to `{}` and the log line would destroy the very error it was reporting. The `Error` branch keeps the name and stack and runs the message through the string masker. `Date` passes through for the same reason: no enumerable properties, and nothing in a timestamp to mask.
 
 **Circular references are real.** Older Axios versions had circulars between `error.config` and `error.request`; v1+ scrubbed those, but other libraries still produce them. React fiber nodes are circular by design. Anything you've ever attached `parent`/`child` references to is. A naive recursive mask hits stack overflow on the first one you log. The `WeakSet` of seen objects catches the loop and replaces the second occurrence with `'[Circular Reference]'`.
 
@@ -310,6 +331,8 @@ When you add an off-device error tracker (Sentry, Crashlytics, Datadog), the mas
 ```typescript
 // src/config/sentry.ts
 import * as Sentry from '@sentry/react-native';
+import Config from 'react-native-config';
+
 import { maskSensitiveData } from '@app/utils/logging/maskSensitiveData';
 
 Sentry.init({
@@ -369,8 +392,8 @@ describe('maskSensitiveData', () => {
         REFRESHTOKEN: 'eyJ...',
       });
       expect(result).toEqual({
-        AccessToken: '[MASKED]',
-        REFRESHTOKEN: '[MASKED]',
+        AccessToken: '[MASKED_TOKEN]',
+        REFRESHTOKEN: '[MASKED_TOKEN]',
       });
     });
   });
@@ -416,7 +439,7 @@ describe('maskSensitiveData', () => {
       expect(result).toEqual({
         user: {
           email: '[MASKED_EMAIL]',
-          credentials: { password: '[MASKED]', token: '[MASKED]' },
+          credentials: { password: '[MASKED]', token: '[MASKED_TOKEN]' },
         },
       });
     });
@@ -463,25 +486,6 @@ yarn jest maskSensitiveData
 
 ```text
 PASS  src/utils/logging/__tests__/maskSensitiveData.rntl.ts
-  maskSensitiveData
-    field-name masking
-      ✓ masks password fields (3 ms)
-      ✓ masks email fields (1 ms)
-      ✓ masks any sensitive field regardless of casing (1 ms)
-    regex-based masking
-      ✓ masks Bearer tokens in strings (2 ms)
-      ✓ masks emails in free-text strings (1 ms)
-      ✓ masks UK phone numbers (1 ms)
-      ✓ masks card numbers via the cardNumber field (1 ms)
-      ✓ does not mask card-shaped strings without a field name (1 ms)
-    nested structures
-      ✓ walks into nested objects (1 ms)
-      ✓ handles arrays of objects (1 ms)
-      ✓ does not stack overflow on circular references (1 ms)
-    looksLikeToken heuristic
-      ✓ masks long base64-like strings even without a field name (1 ms)
-      ✓ does not mask short non-token strings (1 ms)
-
 Test Suites: 1 passed, 1 total
 Tests:       13 passed, 13 total
 ```
@@ -496,7 +500,7 @@ The circular-reference test is the highest-value one. Without the `WeakSet` guar
 
 **Don't reuse `MASKED.PASSWORD` for tokens.** The constants distinguish kinds of sensitive data. Masking everything as `[REDACTED]` makes debugging harder ("was that an email or a token?"). Keep the categories distinct so a stack trace tells you what kind of value was there before redaction.
 
-**Don't mask in development.** The `__DEV__` check skips the logger's masking pass at the console level so developers can read what's being logged. The remote-sink hooks (`beforeSend` / `beforeBreadcrumb` in Sentry's case) still run in development if the SDK is enabled there, which is one more reason to disable it in DEV builds.
+**Don't expect unmasked output in development.** The logger masks inside the `__DEV__` branch too, and that's deliberate: dev console output gets copied into bug reports, GitHub issues, and Slack threads, and masking at the source means those pastes are safe without anyone thinking about it. When you genuinely need to see a raw value while debugging, use a breakpoint or a throwaway direct `console.log`, and let the ESLint rule stop it reaching a commit.
 
 **Don't forget to add new fields when they appear.** A new feature ships, the schema gets a `nationalInsurance` field, six weeks later you find it's been shipping unmasked. The pattern that protects against that is treating `SENSITIVE_FIELDS` (and friends) as part of the same code review as the schema change. When a new sensitive field lands in a Zod schema, the same PR adds it to the masker's set.
 

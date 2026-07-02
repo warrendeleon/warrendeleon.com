@@ -1,6 +1,6 @@
 ---
 title: "Building a Supabase storage client with retry in React Native"
-description: "Build an Axios-based Supabase Storage client in React Native with file uploads, deletes, typed errors, idempotent retries, and exponential backoff."
+description: "Build an Axios-based Supabase Storage client in React Native with file uploads, deletes, mapped error messages, idempotent retries, and exponential backoff."
 publishDate: 2026-11-16
 series: "Supabase Security"
 tags: ["react-native", "supabase", "axios", "storage", "uploads"]
@@ -22,14 +22,14 @@ The retry rule, up front:
 |---|---|
 | Network error / timeout / connection drop | Retry with exponential backoff |
 | 5xx (server error) | Retry with exponential backoff |
-| 408, 429 | Retry, respecting `Retry-After` if present |
-| 4xx (400, 401, 403, 413, 422, 404) | Don't retry. Return the error to the caller. |
+| 408, 429 | Retry with exponential backoff (`Retry-After` isn't read; the backoff schedule stands in for it) |
+| Other 4xx (400, 401, 403, 404, 413, 422) | Don't retry. Return the error to the caller. |
 
-The rest of the post is what makes that policy work for real uploads: file reading, idempotency on retries, the timeouts, and the typed error mapping.
+The rest of the post is what makes that policy work for real uploads: file reading, idempotency on retries, the timeouts, and the error-message mapping.
 
 ### Why not `axios-retry` or `p-retry`?
 
-Fair question. Both are well-trodden, both work, and for a generic HTTP client they're the right call. The reason the storage client rolls its own is narrow: the retry decision is tightly coupled to Supabase-specific 4xx semantics (a 413 from Supabase Storage genuinely won't get better with another attempt, a 422 means a schema problem, a 401 has already been handled by the response interceptor before the retry loop sees it), and the idempotency story depends on the `x-upsert: true` header that only this endpoint understands. A reusable retry library would have you configure all of that anyway. The hand-rolled version is forty lines, easy to read in a code review, and lives next to the code it serves. If you want a generic policy across many clients, reach for the library. For one tightly-scoped flow, the loop below earns its keep.
+Fair question. Both are widely used, both work, and for a generic HTTP client they're the right call. The reason the storage client rolls its own is narrow: the retry decision is tightly coupled to Supabase-specific 4xx semantics (a 413 from Supabase Storage genuinely won't get better with another attempt, a 422 means a schema problem, a 401 has already been handled by the response interceptor before the retry loop sees it), and the idempotency story depends on the `x-upsert: true` header that only this endpoint understands. A reusable retry library would have you configure all of that anyway. The hand-rolled version is forty lines, easy to read in a code review, and lives next to the code it serves. If you want a generic policy across many clients, reach for the library. For one tightly-scoped flow, the loop below justifies itself.
 
 Source: [`src/httpClients/SupabaseStorageClient.ts`](https://github.com/warrendeleon/rn-warrendeleon/blob/main/src/httpClients/SupabaseStorageClient.ts).
 
@@ -86,6 +86,7 @@ import { SecureStore, SecureStoreKey } from '@app/utils/storage';
 import { EncryptedStore, EncryptedStoreKey } from '@app/utils/storage';
 import { SupabaseAuthClient } from './SupabaseAuthClient';
 import { validateResponse } from '@app/utils/validation';
+import { logWarning } from '@app/utils/logger';
 import { SupabaseUploadResponseSchema } from '@app/schemas';
 
 const BUCKET_NAME = 'profile-pictures';
@@ -170,7 +171,7 @@ private isTokenExpired(error: AxiosError): boolean {
     (status === 403 &&
       (errorData?.error_code === 'bad_jwt' ||
         errorMessage.includes('token is expired') ||
-        errorMessage.includes('exp')))
+        /\bexp\b/.test(errorMessage)))
   );
 }
 ```
@@ -192,6 +193,23 @@ The `_retry` flag prevents infinite loops if the refresh succeeds but the second
 > }
 > ```
 >
+> `_doRefresh()` is nothing new: it's the previous post's `try` block extracted into a named method, so the auth interceptor and `refreshSession()` can share it:
+>
+> ```typescript
+> // On SupabaseAuthClient
+> private async _doRefresh(): Promise<RefreshResponse> {
+>   const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
+>   const { data } = await this.axiosInstance.post(
+>     '/auth/v1/token?grant_type=refresh_token',
+>     { refresh_token: refreshToken },
+>   );
+>
+>   await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
+>   await SecureStore.set(SecureStoreKey.REFRESH_TOKEN, data.refresh_token);
+>   return data;
+> }
+> ```
+>
 > With that wrapper, every concurrent caller (the auth client's own interceptor, the storage client's interceptor, anything else that calls `refreshSession()` directly) shares the same in-flight promise. One network refresh per token-expiry window, regardless of how many subsystems were affected. The pattern in [the token refresh post](/blog/token-refresh-race-condition-react-native/) puts the gate inside the auth interceptor; lifting it up to the method level is the version that scales beyond a single client.
 
 ## Uploading a profile picture
@@ -202,6 +220,16 @@ async uploadProfilePicture(
   localFilePath: string,
 ): Promise<UploadResult> {
   try {
+    const accessToken = await SecureStore.get(SecureStoreKey.ACCESS_TOKEN);
+    if (!accessToken) {
+      return {
+        success: false,
+        publicUrl: null,
+        filePath: null,
+        error: 'Session expired. Please log in again.',
+      };
+    }
+
     const timestamp = Date.now();
     const filePath = `${userId}/profile-${timestamp}.jpg`;
 
@@ -271,12 +299,20 @@ private async uploadWithRetry(
     } catch (error) {
       lastError = error as Error;
 
-      // Don't retry client errors (400-499). They won't get better with another try.
-      if (axios.isAxiosError(error) && error.response?.status) {
-        const status = error.response.status;
-        if (status >= 400 && status < 500) {
-          throw error;
-        }
+      // A non-Axios error here is validateResponse rejecting the response
+      // shape (or a decode failure). Neither improves with another attempt,
+      // so fail fast instead of burning 3s of backoff on a permanent problem.
+      if (!axios.isAxiosError(error)) {
+        throw error;
+      }
+
+      // Don't retry client errors (400-499). They won't get better with
+      // another try. The exceptions are 408 (request timeout) and 429 (rate
+      // limited): both are transient by definition, so they fall through to
+      // the backoff with the 5xx family.
+      const status = error.response?.status;
+      if (status && status >= 400 && status < 500 && status !== 408 && status !== 429) {
+        throw error;
       }
 
       if (attempt < MAX_RETRIES) {
@@ -302,7 +338,9 @@ The retry policy is the part worth understanding.
 
 5xx errors and network errors are different. A 503 from a Supabase region having a bad five seconds, or a TCP reset on a flaky cell signal, often resolves on the next attempt. Those go through the backoff.
 
-The general rule under both branches: retry idempotent operations on transient failures. Idempotent means the same call twice has the same effect as once; `x-upsert: true` makes that true for this upload. Transient means a temporary condition likely to resolve on its own. 5xx and network errors qualify, 4xx don't.
+Two 4xx codes cross the line: 408 (the server timed the request out) and 429 (rate limited). Both describe a temporary state, so the loop sends them through the backoff with the 5xx family. A 429 can carry a `Retry-After` header naming the exact wait; this client doesn't read it, and the exponential schedule stands in for it. Honouring the header is the natural next refinement if rate limits show up in your telemetry.
+
+The general rule under both branches: retry idempotent operations on transient failures. Idempotent means the same call twice has the same effect as once; `x-upsert: true` makes that true for this upload. Transient means a temporary condition likely to resolve on its own. 5xx, network errors, 408, and 429 qualify; the rest of the 4xx family doesn't.
 
 **`x-upsert: true` makes the upload idempotent.** Without it, the second attempt would 409 because the path already exists. With it, the upload either succeeds or fails the same way every time, so retrying is safe.
 
@@ -311,15 +349,17 @@ The general rule under both branches: retry idempotent operations on transient f
 ## Deleting a picture
 
 ```typescript
-async deleteProfilePicture(
-  userId: string,
-  filePath: string,
-): Promise<DeleteResult> {
+async deleteProfilePicture(filePath: string): Promise<DeleteResult> {
   try {
     await this.axiosInstance.delete(`/object/${BUCKET_NAME}/${filePath}`);
     await EncryptedStore.remove(EncryptedStoreKey.PROFILE_PICTURE_URL);
     return { success: true };
   } catch (error) {
+    if (axios.isAxiosError(error) && error.response?.status === 404) {
+      logWarning('Profile picture already deleted', { filePath });
+      await EncryptedStore.remove(EncryptedStoreKey.PROFILE_PICTURE_URL);
+      return { success: true };
+    }
     return { success: false, error: this.getErrorMessage(error) };
   }
 }
@@ -327,13 +367,13 @@ async deleteProfilePicture(
 
 Delete is a single DELETE request. There's no retry loop because the operation is short, idempotent (deleting an already-deleted file returns 404), and a failed delete on the user side rarely matters. The actual cleanup of orphaned files happens server-side via a database trigger, covered briefly below.
 
-A 404 on delete usually means the file was already gone, which is fine to treat as success in most flows. But log it. If every delete starts 404-ing, your filename construction is wrong, your bucket configuration changed, or someone else's user ID is in your path. A silent 404-as-success would hide all three.
+A 404 on delete means the file was already gone, so the branch above treats it as success. But it never does so silently: the `logWarning` is the trace. If every delete starts 404-ing, your filename construction is wrong, your bucket configuration changed, or someone else's user ID is in your path. The warning log is what surfaces all three.
 
 ## Old picture cleanup, briefly
 
 A common bug pattern: user uploads picture A, then picture B, then their bucket has both and you've leaked storage. The naive fix is to delete A from the client *before* uploading B, which fails when the client crashes between the two operations.
 
-The pattern that actually works: a database trigger. When the user's `profile_picture_url` column changes, the trigger inserts the old URL into a `cleanup_queue` table. A scheduled Edge Function reads the queue and deletes the orphaned files. The client never has to coordinate the two operations.
+The pattern that actually works: a database trigger. When the `profile_picture` key in the user's metadata changes, the trigger inserts the old URL into a `cleanup_queue` table. A scheduled Edge Function reads the queue and deletes the orphaned files. The client never has to coordinate the two operations.
 
 The full SQL for the trigger and the Edge Function lives in the final post in this series on RLS and backend security; they're related concerns and easier to read together.
 
@@ -347,30 +387,9 @@ getPublicUrl(filePath: string): string {
 
 A pure function. Public buckets serve files at a predictable URL pattern, so there's no need to ask the server for the URL after upload. The filename is the URL.
 
-## Typed errors
+## Error messages
 
 ```typescript
-export type StorageErrorCode =
-  | 'UPLOAD_FAILED'
-  | 'DELETE_FAILED'
-  | 'FILE_NOT_FOUND'
-  | 'UNAUTHORIZED'
-  | 'NETWORK_ERROR'
-  | 'INVALID_FILE';
-
-export class StorageError extends Error {
-  public readonly code: StorageErrorCode;
-
-  constructor(message: string, code: StorageErrorCode) {
-    super(message);
-    this.name = 'StorageError';
-    this.code = code;
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, StorageError);
-    }
-  }
-}
-
 private getErrorMessage(error: unknown): string {
   if (axios.isAxiosError(error)) {
     switch (error.response?.status) {
@@ -397,7 +416,7 @@ private getErrorMessage(error: unknown): string {
 }
 ```
 
-Same pattern as the auth client's `AuthError` (and same reason): the UI switches on the error code while the user sees the message. The codes are storage-specific so they don't collide with auth codes when both surface to the same toast component.
+One deliberate difference from the auth client: no typed error class. The auth client throws `AuthError` because callers branch on the code (`email_not_confirmed` routes to a verification screen, `rate_limit_exceeded` to a toast). Storage callers don't branch; they show a message and offer a retry. So the public methods never throw, the result object carries a ready-to-render message string, and `getErrorMessage` is the one place Supabase's status codes get translated into user-facing copy.
 
 ## Testing the upload flow
 
@@ -530,11 +549,11 @@ The 5xx retry test takes ~1 second of wall-clock because the first backoff sleep
 
 **Don't ignore the timeout in the upload error message.** A 30-second timeout firing isn't necessarily a permanent failure. The user-facing message ("Upload timed out. Please check your connection.") suggests a retry is safe to attempt manually. Don't conflate timeout with "the file is bad".
 
-**Don't try to delete the old picture from the client.** It looks correct ("delete A, upload B") and fails at the worst time: a crash between the two operations leaves the user with no picture at all. Use a server-side cleanup queue triggered by the column update; the client only ever uploads, never tries to coordinate two operations.
+**Don't try to delete the old picture from the client.** It looks correct ("delete A, upload B") and fails at the worst time: a crash between the two operations leaves the user with no picture at all. Use a server-side cleanup queue triggered by the metadata update; the client only ever uploads, never tries to coordinate two operations.
 
 ## What's next in the series
 
-Both clients now have token attachment, response handling, and typed errors. The next concern is the network underneath them. By default, an Axios call goes through whatever certificate the operating system trusts, which means a malicious certificate authority (or a corporate MITM proxy with the right root cert installed) can read every token, every email, every file URL the app exchanges with Supabase.
+Both clients now have token attachment, response handling, and mapped error messages. The next concern is the network underneath them. By default, an Axios call goes through whatever certificate the operating system trusts, which means a malicious certificate authority (or a corporate MITM proxy with the right root cert installed) can read every token, every email, every file URL the app exchanges with Supabase.
 
 The next post in the series covers certificate pinning: locking the HTTP layer to specific public-key pins so the app refuses to talk to anyone but the real Supabase, even on a network that thinks it can intercept TLS.
 
