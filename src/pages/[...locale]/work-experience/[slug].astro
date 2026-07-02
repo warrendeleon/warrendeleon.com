@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TechBadge from '../../../components/TechBadge.astro';
 import { t, slugify, formatDateRange, getLocalePath, locales, type Locale } from '../../../i18n/index';
+import { renderSimpleMarkdown, stripSimpleMarkdown, truncateAtWord } from '../../../utils/text';
 import workxpEn from '../../../data/workxp-en.json';
 import workxpEs from '../../../data/workxp-es.json';
 import workxpCa from '../../../data/workxp-ca.json';
@@ -79,7 +80,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
 
 <BaseLayout
   title={`${displayName} | Warren de Leon`}
-  description={(positions[0].description || `${displayName} — Warren de Leon`).substring(0, 160)}
+  description={truncateAtWord(stripSimpleMarkdown(positions[0].description || `${displayName} — Warren de Leon`), 160)}
   locale={locale}
   currentPath={getLocalePath(locale, `/work-experience/${slugify(displayName)}/`)}
 >
@@ -147,9 +148,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
             </div>
 
             {position.description && (
-              <div class="work-description">
-                <p>{position.description}</p>
-              </div>
+              <div class="work-description" set:html={renderSimpleMarkdown(position.description)} />
             )}
 
             {position.responsibilities && position.responsibilities.length > 0 && (
@@ -240,9 +239,7 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
         nonClientPositions.map((position: any) => (
           <div class="work-position">
             {position.description && (
-              <div class="work-description">
-                <p>{position.description}</p>
-              </div>
+              <div class="work-description" set:html={renderSimpleMarkdown(position.description)} />
             )}
 
             {position.responsibilities && position.responsibilities.length > 0 && (
@@ -520,8 +517,43 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
   .work-description p {
     color: var(--text-secondary);
     line-height: 1.8;
-    white-space: pre-line;
     font-size: 1.05rem;
+  }
+
+  .work-description p + p,
+  .work-description ul {
+    margin-top: 1rem;
+  }
+
+  .work-description ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .work-description li {
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+
+  .work-description li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-green);
+  }
+
+  .work-description strong {
+    color: var(--text-primary);
   }
 
   /* Responsibilities */

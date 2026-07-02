@@ -416,7 +416,7 @@
         "title": "Full Stack Developer & Teacher",
         "startDate": "2015-12",
         "endDate": "2016-03",
-        "description": "Vaig aprendre a crear i configurar serveis web REST amb seguretat OAuth2 i realitzar operacions CRUD des d'un frontend Angular JS 1.X.\n\nA més, em van donar l'oportunitat d'ensenyar en un curs de Javascript de 20 hores anomenat \"Javascript de principiant a avançat\". Els requisits del curs eren que l'estudiant havia de tenir coneixements bàsics d'HTML, CSS i Javascript. L'objectiu era que, a partir del coneixement impartit, l'estudiant tingués les eines i recursos que li permetessin ser autosuficient per progressar en la seva carrera com a desenvolupador. A partir d'aquest curs, l'estudiant podia aprendre frameworks Angular JS posteriors, o Node.js i/o assistir a formació MEAN.",
+        "description": "Vaig crear i configurar serveis web REST amb seguretat OAuth2, consumits des d'un frontend AngularJS 1.x amb operacions CRUD completes.\n\nA més, em van donar l'oportunitat d'ensenyar en un curs de Javascript de 20 hores anomenat \"Javascript de principiant a avançat\". Els requisits del curs eren que l'estudiant havia de tenir coneixements bàsics d'HTML, CSS i Javascript. L'objectiu era que, a partir del coneixement impartit, l'estudiant tingués les eines i recursos que li permetessin ser autosuficient per progressar en la seva carrera com a desenvolupador. A partir d'aquest curs, l'estudiant podia aprendre frameworks Angular JS posteriors, o Node.js i/o assistir a formació MEAN.",
         "responsibilities": null,
         "technologies": {
           "programmingLanguages": ["Typescript", "Java"],
