@@ -54,6 +54,10 @@ const i18n = t(locale);
         if (img.dataset.zoomReady || img.classList.contains('author-avatar')) return;
         img.dataset.zoomReady = '1';
         img.classList.add('media-zoomable-img');
+        // Keyboard parity with the click-to-zoom affordance.
+        img.tabIndex = 0;
+        img.setAttribute('role', 'button');
+        img.setAttribute('aria-label', (img.alt ? img.alt + ' — ' : '') + LABELS.openDiagram);
       });
     }
 
@@ -124,6 +128,15 @@ const i18n = t(locale);
       if (img && !img.classList.contains('author-avatar')) {
         e.preventDefault();
         openImage(img);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const el = document.activeElement;
+      if (el && el.classList && el.classList.contains('media-zoomable-img')) {
+        e.preventDefault();
+        openImage(el);
       }
     });
 
