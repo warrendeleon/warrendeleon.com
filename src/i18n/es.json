@@ -57,7 +57,20 @@
   },
   "bookACall": {
     "title": "Reservar Llamada",
-    "description": "Programa una llamada telefónica/videollamada de 30 minutos conmigo.",
+    "description": "Una llamada gratuita de 30 minutos, por vídeo o teléfono.",
+    "intro": "Tanto si buscas cubrir un puesto, estás valorando React Native o Module Federation, o quieres una segunda opinión sobre un problema de liderazgo técnico — elige un hueco y hablamos.",
+    "expectTitle": "Qué esperar",
+    "expect": [
+      "30 minutos, por vídeo o teléfono — tú eliges.",
+      "Sin preparación necesaria. Si tienes una oferta o un problema concreto, envíamelo antes.",
+      "Sin discursos de venta. Si no puedo ayudarte, te lo diré y te indicaré dónde acudir."
+    ],
+    "loading": "Cargando el calendario…",
+    "fallbackPrefix": "¿No carga el calendario?",
+    "fallbackCalendly": "Reserva directamente en Calendly",
+    "fallbackOr": "o escríbeme a",
+    "privacyNote": "El calendario de reservas lo proporciona Calendly — más detalles en la",
+    "privacyLink": "política de privacidad",
     "iframeTitle": "Reservar llamada"
   },
   "common": {
@@ -161,6 +174,10 @@
     "contact": {
       "title": "Contacto",
       "body": "¿Dudas sobre privacidad o alguna petición sobre tus datos? Escríbeme a <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    },
+    "scheduling": {
+      "title": "Reservar una llamada",
+      "body": "La página **Reservar Llamada** incorpora un calendario de **Calendly**. Si reservas, Calendly recoge los datos que introduces (nombre, correo y lo que añadas en las notas) según su propia política de privacidad, y puede instalar cookies dentro del embed. Yo solo recibo los datos de la reserva y no los uso para nada más que la llamada."
     }
   },
   "consent": {

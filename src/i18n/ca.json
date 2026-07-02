@@ -47,17 +47,30 @@
     "description": "Veure o descarregar el meu CV.",
     "download": "Descarregar CV",
     "downloadPdf": "Descarregar PDF",
-    "previewOnDesktop": "Vista pr\u00e8via disponible a l'escriptori",
+    "previewOnDesktop": "Vista prèvia disponible a l'escriptori",
     "profile": "Perfil",
-    "experience": "Experi\u00e8ncia",
-    "earlierCareer": "Traject\u00f2ria anterior",
-    "skills": "Compet\u00e8ncies",
-    "education": "Formaci\u00f3",
+    "experience": "Experiència",
+    "earlierCareer": "Trajectòria anterior",
+    "skills": "Competències",
+    "education": "Formació",
     "languages": "Idiomes"
   },
   "bookACall": {
     "title": "Reservar Trucada",
-    "description": "Programa una trucada telefònica/videotrucada de 30 minuts amb mi.",
+    "description": "Una trucada gratuïta de 30 minuts, per vídeo o telèfon.",
+    "intro": "Tant si vols cobrir una posició, estàs valorant React Native o Module Federation, o vols una segona opinió sobre un problema de lideratge tècnic — tria un forat i en parlem.",
+    "expectTitle": "Què pots esperar",
+    "expect": [
+      "30 minuts, per vídeo o telèfon — tu tries.",
+      "Sense preparació necessària. Si tens una oferta o un problema concret, envia-me'l abans.",
+      "Sense discursos de venda. Si no et puc ajudar, t'ho diré i t'indicaré on anar."
+    ],
+    "loading": "Carregant el calendari…",
+    "fallbackPrefix": "No es carrega el calendari?",
+    "fallbackCalendly": "Reserva directament a Calendly",
+    "fallbackOr": "o escriu-me a",
+    "privacyNote": "El calendari de reserves el proporciona Calendly — més detalls a la",
+    "privacyLink": "política de privacitat",
     "iframeTitle": "Reservar trucada"
   },
   "common": {
@@ -161,6 +174,10 @@
     "contact": {
       "title": "Contacte",
       "body": "Dubtes sobre privacitat o alguna petició sobre les teves dades? Escriu-me a <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    },
+    "scheduling": {
+      "title": "Reservar una trucada",
+      "body": "La pàgina **Reservar Trucada** incorpora un calendari de **Calendly**. Si reserves, Calendly recull les dades que introdueixes (nom, correu i el que afegeixis a les notes) segons la seva pròpia política de privacitat, i pot instal·lar galetes dins de l'embed. Jo només rebo les dades de la reserva i no les faig servir per a res més que la trucada."
     }
   },
   "consent": {

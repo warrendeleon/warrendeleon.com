@@ -57,7 +57,20 @@
   },
   "bookACall": {
     "title": "Mag-book ng Tawag",
-    "description": "Mag-iskedyul ng 30-minutong phone/video call sa akin.",
+    "description": "Isang libreng 30-minutong video o phone call.",
+    "intro": "Nag-hire ka man para sa isang posisyon, nagtitimbang ng React Native o Module Federation, o gusto ng second opinion sa isang engineering-leadership na problema — pumili ng oras at mag-usap tayo.",
+    "expectTitle": "Ano ang aasahan",
+    "expect": [
+      "30 minuto, video o tawag — ikaw ang pipili.",
+      "Hindi kailangan ng paghahanda. Kung may job spec o problem statement ka, ipadala mo muna.",
+      "Walang pitch. Kung hindi kita matutulungan, sasabihin ko at ituturo kita sa mas makakatulong."
+    ],
+    "loading": "Nilo-load ang kalendaryo…",
+    "fallbackPrefix": "Hindi naglo-load ang kalendaryo?",
+    "fallbackCalendly": "Mag-book nang direkta sa Calendly",
+    "fallbackOr": "o mag-email sa",
+    "privacyNote": "Ang booking calendar ay mula sa Calendly — detalye sa",
+    "privacyLink": "privacy policy",
     "iframeTitle": "Mag-book ng tawag"
   },
   "common": {
@@ -161,6 +174,10 @@
     "contact": {
       "title": "Kontak",
       "body": "May tanong tungkol sa privacy, o kahilingan tungkol sa data mo? I-email mo ako sa <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    },
+    "scheduling": {
+      "title": "Pag-book ng tawag",
+      "body": "Ang pahinang **Mag-book ng Tawag** ay may naka-embed na kalendaryo mula sa **Calendly**. Kapag nag-book ka, kinokolekta ng Calendly ang mga detalyeng inilagay mo (pangalan, email, at anumang idagdag sa notes) ayon sa sarili nitong privacy policy, at maaari itong maglagay ng cookies sa loob ng embed. Ang natatanggap ko lang ay ang detalye ng booking at hindi ko ito ginagamit sa iba maliban sa tawag."
     }
   },
   "consent": {

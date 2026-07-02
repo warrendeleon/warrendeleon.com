@@ -64,6 +64,9 @@ const paras = (s: string) => s.split('\n\n');
         <h2>{p.newsletter.title}</h2>
         {paras(p.newsletter.body).map((par) => <p set:html={md(par)} />)}
 
+        <h2>{p.scheduling.title}</h2>
+        {paras(p.scheduling.body).map((par) => <p set:html={md(par)} />)}
+
         <h2>{p.cookies.title}</h2>
         {paras(p.cookies.body).map((par) => <p set:html={md(par)} />)}
 

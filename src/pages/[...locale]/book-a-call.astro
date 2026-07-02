@@ -6,6 +6,8 @@ export const getStaticPaths = localeStaticPaths;
 
 const { locale } = Astro.props as { locale: Locale };
 const i18n = t(locale);
+
+const CALENDLY_BASE = 'https://calendly.com/warrendeleon/30min?hide_event_type_details=1&hide_gdpr_banner=1';
 ---
 
 <BaseLayout
@@ -17,10 +19,18 @@ const i18n = t(locale);
   <section class="section">
     <div class="container">
       <h1 class="section-heading">{i18n.bookACall.title}</h1>
-      <p class="text-muted mb-4">{i18n.bookACall.description}</p>
-      <div class="calendly-embed">
+      <p class="bac-subtitle text-muted">{i18n.bookACall.description}</p>
+      <p class="bac-intro">{i18n.bookACall.intro}</p>
+
+      <h2 class="bac-expect-title">{i18n.bookACall.expectTitle}</h2>
+      <ul class="bac-expect">
+        {i18n.bookACall.expect.map((item: string) => <li>{item}</li>)}
+      </ul>
+
+      <div class="calendly-embed" data-calendly-base={CALENDLY_BASE}>
+        <p class="calendly-loading" aria-hidden="true">{i18n.bookACall.loading}</p>
         <iframe
-          src="https://calendly.com/warrendeleon/30min?hide_event_type_details=1&hide_gdpr_banner=1"
+          src={CALENDLY_BASE}
           width="100%"
           height="700"
           frameborder="0"
@@ -28,18 +38,139 @@ const i18n = t(locale);
           loading="lazy"
         ></iframe>
       </div>
+
+      <p class="bac-fallback">
+        {i18n.bookACall.fallbackPrefix}
+        <a href="https://calendly.com/warrendeleon/30min" target="_blank" rel="noopener">{i18n.bookACall.fallbackCalendly}</a>
+        {i18n.bookACall.fallbackOr}
+        <a href="mailto:hi@warrendeleon.com">hi@warrendeleon.com</a>.
+      </p>
+      <p class="bac-privacy text-muted">
+        {i18n.bookACall.privacyNote}
+        <a href={getLocalePath(locale, '/privacy/')}>{i18n.bookACall.privacyLink}</a>.
+      </p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
+  .bac-subtitle {
+    margin-bottom: 1.5rem;
+  }
+
+  .bac-intro {
+    max-width: 46rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .bac-expect-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .bac-expect {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .bac-expect li {
+    padding-left: 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .bac-expect li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-green);
+  }
+
   .calendly-embed {
+    position: relative;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    min-height: 700px;
+  }
+
+  .calendly-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    z-index: 0;
   }
 
   .calendly-embed iframe {
     display: block;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .calendly-embed.loaded iframe {
+    opacity: 1;
+  }
+
+  @media (max-width: 640px) {
+    .calendly-embed iframe {
+      height: 980px;
+    }
+
+    .calendly-embed {
+      min-height: 980px;
+    }
+  }
+
+  .bac-fallback {
+    margin-top: 1.25rem;
+    color: var(--text-secondary);
+  }
+
+  .bac-privacy {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
   }
 </style>
+
+<script>
+  // Match the Calendly embed to the active theme. Calendly reads its colours
+  // from query params, so the iframe src is rebuilt when the theme changes.
+  const embed = document.querySelector('.calendly-embed') as HTMLElement | null;
+  const iframe = embed?.querySelector('iframe');
+  const base = embed?.dataset.calendlyBase;
+
+  function themedSrc(): string {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    const colours = dark
+      ? 'background_color=222222&text_color=f0f0f0&primary_color=6dc402'
+      : 'background_color=ffffff&text_color=0e0c19&primary_color=5aa302';
+    return `${base}&${colours}`;
+  }
+
+  if (embed && iframe && base) {
+    iframe.addEventListener('load', () => embed.classList.add('loaded'));
+    iframe.src = themedSrc();
+
+    new MutationObserver(() => {
+      embed.classList.remove('loaded');
+      iframe.src = themedSrc();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+</script>
