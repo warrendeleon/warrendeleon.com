@@ -57,7 +57,20 @@
   },
   "bookACall": {
     "title": "Book a Call",
-    "description": "Schedule a 30-minute phone/video call with me.",
+    "description": "A free 30-minute video or phone call.",
+    "intro": "Whether you're hiring for a role, weighing up React Native or Module Federation, or want a second opinion on an engineering-leadership problem — pick a slot and let's talk.",
+    "expectTitle": "What to expect",
+    "expect": [
+      "30 minutes, video or phone — your choice.",
+      "No preparation needed. If you have a job spec or a problem statement, send it over beforehand.",
+      "No pitch. If I can't help, I'll say so and point you somewhere useful."
+    ],
+    "loading": "Loading the calendar…",
+    "fallbackPrefix": "Calendar not loading?",
+    "fallbackCalendly": "Book directly on Calendly",
+    "fallbackOr": "or email me at",
+    "privacyNote": "The booking calendar is provided by Calendly — details in the",
+    "privacyLink": "privacy policy",
     "iframeTitle": "Book a call"
   },
   "common": {
@@ -161,6 +174,10 @@
     "contact": {
       "title": "Contact",
       "body": "Questions about privacy, or a request about your data? Email me at <a href=\"mailto:privacy@warrendeleon.com\">privacy@warrendeleon.com</a>."
+    },
+    "scheduling": {
+      "title": "Booking a call",
+      "body": "The **Book a Call** page embeds a calendar from **Calendly**. If you book, Calendly collects the details you enter (name, email, and anything you add to the notes) under its own privacy policy, and it may set cookies inside the embed. I only receive the booking details, and I don't use them for anything except the call."
     }
   },
   "consent": {
