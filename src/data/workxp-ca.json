@@ -9,8 +9,11 @@
         "title": "Engineering Manager — Mobile Platform",
         "startDate": "2026-03",
         "endDate": "2026-06",
-        "description": "Vaig liderar l'equip de Mobile Platform dins de l'organització d'enginyeria de Hargreaves Lansdown, sent responsable de la plataforma React Native sobre la qual construeixen els equips de producte: l'arquitectura compartida, els components, els pipelines de CI/CD i les eines d'experiència de desenvolupament, juntament amb els estàndards d'enginyeria que la sustenten.\n\nEl rol es repartia a parts iguals entre direcció tècnica pràctica i lideratge de persones. Vaig construir i fer créixer l'equip mitjançant contractació i incorporació, vaig definir l'arquitectura mòbil i l'estratègia de testing, i vaig introduir les pràctiques \"Agile\" i la documentació amb què funcionava l'equip, col·laborant estretament amb Producte i amb equips de plataforma homòlegs.",
+        "description": "Vaig liderar el squad de Mobile Platform que va construir des de zero la nova app de React Native de HL, substituint les apps natives d'iOS i Android i sent responsable de la plataforma sobre la qual publicava cada equip mòbil. Una migració brownfield a React Native + GraphQL per a un negoci que gestiona més de £150bn i més d'un milió d'usuaris actius, assumint responsabilitats de Product Manager i Principal Engineer a més del rol d'EM.",
         "responsibilities": [
+          "Vaig treure endavant el llançament d'una OPV d'alt perfil i terminis crítics, avançat dues vegades, publicant una sala d'espera virtual a iOS i Android per suportar una previsió de 500k+ sol·licitants simultanis.",
+          "Vaig contractar 3 enginyers per a l'equip de plataforma i vaig ajudar a formar un squad germà, fent sis entrevistes per a una contractació addicional, i vaig dirigir el traspàs de la plataforma des d'un equip offshore sortint, deixant l'equip de Londres publicant de manera autònoma.",
+          "Vaig definir la direcció tècnica: vaig demostrar la viabilitat de module federation a React Native amb dues proves de concepte i vaig convertir el discovery en un backlog de 67 èpiques amb pràctica Scrum i documentació completa de la plataforma.",
           "Responsabilitat de la Plataforma: Vaig dissenyar i construir la plataforma mòbil, incloent components compartits, pipelines de CI/CD i eines d'experiència de desenvolupament sobre les quals construeixen els equips de producte.",
           "Lideratge: Vaig gestionar un equip petit i d'alt rendiment d'enginyers sènior i de nivell mitjà, enfocat en coaching, progressió professional i crear un entorn on els enginyers poguessin fer la seva millor feina.",
           "Direcció Tècnica: Vaig definir l'arquitectura mòbil i l'estratègia de testing, prenent decisions clau sobre gestió d'estat, navegació i infraestructura de testing.",
@@ -39,7 +42,7 @@
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
         "endDate": "2025-12",
-        "description": "Vaig liderar dos squads d'enginyeria dins de l'Agile Release Train Join, Onboard, Engage (JOE ART) basat en SAFe, part del Portfolio Cross-Product Sales Experience de Sky. Les meves responsabilitats abarcaven propietat de lliurament, supervisió tècnica, gestió de persones i col·laboració interfuncional.",
+        "description": "Vaig dirigir dos squads d'enginyeria dins del SAFe Release Train Join, Onboard & Engage, part del portfolio Cross-Product Sales Experience de Sky, abastant la responsabilitat de lliurament, la supervisió tècnica, la gestió de persones i la col·laboració interfuncional.",
         "responsibilities": [
           "Lideratge de Persones: Vaig gestionar 10+ enginyers (permanents, contractistes i principiants), amb focus en coaching, rendiment i progressió a través d'1:1s regulars, feedback i mentoria.",
           "Lliurament Àgil en SAFe: Vaig operar dins del framework SAFe, liderant la preparació del PI planning, participant en ART Syncs, col·laborant amb Product Management, i assegurant previsibilitat i alineació en el release train.",

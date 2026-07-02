@@ -9,8 +9,11 @@
         "title": "Engineering Manager — Mobile Platform",
         "startDate": "2026-03",
         "endDate": "2026-06",
-        "description": "Pinamunuan ko ang Mobile Platform team sa loob ng engineering organisation ng Hargreaves Lansdown, na may-ari ng pundasyong React Native platform na pinagtatayuan ng mga product team: ang shared architecture, mga component, CI/CD pipelines, at developer-experience tooling, kasama ang mga engineering standard sa likod nito.\n\nHati nang pantay ang tungkulin sa pagitan ng hands-on na teknikal na direksyon at pamumuno sa tao. Binuo at pinalaki ko ang team sa pamamagitan ng hiring at onboarding, itinakda ang mobile architecture at testing strategy, at ipinakilala ang mga \"Agile\" practice at dokumentasyon na ginamit ng team, na malapit na nakikipagtulungan sa Product at sa mga katuwang na platform team.",
+        "description": "Pinamunuan ko ang Mobile Platform squad na bumuo ng bagong React Native app ng HL mula sa simula, pinalitan ang native iOS at Android apps at pinangasiwaan ang platform na pinagdadaanan ng bawat mobile team. Isang brownfield migration patungong React Native + GraphQL para sa negosyong namamahala ng mahigit £150bn at mahigit isang milyong aktibong user, na sumasaklaw sa mga responsibilidad ng Product Manager at Principal Engineer kasabay ng EM role.",
         "responsibilities": [
+          "Naihatid ang high-profile at time-critical na IPO launch nang mas maaga sa deadline na dalawang beses inilipat, naglunsad ng virtual waiting room sa iOS at Android para sa tinatayang 500k+ na sabay-sabay na aplikante.",
+          "Nag-hire ng 3 engineers sa platform team at tumulong sa pagbuo ng kapatid na squad, nagsagawa ng anim na interview para sa karagdagang hire, at pinangasiwaan ang handover ng platform mula sa paalis na offshore team, kaya nakapag-release nang nakapag-iisa ang London team.",
+          "Itinakda ang teknikal na direksyon: pinatunayang viable ang module federation sa React Native sa pamamagitan ng dalawang proof-of-concept, at ginawang 67-epic na backlog ang discovery na may Scrum practice at kumpletong platform documentation.",
           "Pananagutan sa Platform: Dinisenyo at binuo ko ang pundasyon ng mobile platform, kabilang ang mga shared component, CI/CD pipelines, at developer-experience tooling na pinagtatayuan ng mga product team.",
           "Pamumuno: Namahala ako ng maliit at mataas ang performance na team ng mga senior at mid-level na engineer, nakatuon sa coaching, career progression, at paglikha ng kapaligiran kung saan magagawa ng mga engineer ang kanilang pinakamahusay na trabaho.",
           "Teknikal na Direksyon: Itinakda ko ang mobile architecture at testing strategy, at gumawa ng mahahalagang desisyon sa state management, navigation, at testing infrastructure.",
@@ -39,7 +42,7 @@
         "title": "Software Engineering Manager",
         "startDate": "2023-10",
         "endDate": "2025-12",
-        "description": "Pinamunuan ko ang dalawang engineering squads sa loob ng SAFe-based Join, Onboard, Engage (JOE ART) Agile Release Train, na bahagi ng Cross-Product Sales Experience Portfolio ng Sky. Ang mga responsibilidad ko ay sumasaklaw sa delivery ownership, technical oversight, people management, at cross-functional collaboration.",
+        "description": "Pinamunuan ang dalawang engineering squad sa loob ng SAFe-based na Join, Onboard & Engage release train, bahagi ng Cross-Product Sales Experience portfolio ng Sky, na sumasaklaw sa delivery ownership, teknikal na pangangasiwa, pamamahala ng tao at cross-functional na pakikipagtulungan.",
         "responsibilities": [
           "People Leadership: Namahala ako ng 10+ engineers (permanent, contract, at early-career), na may focus sa coaching, performance, at progression sa pamamagitan ng regular na 1:1s, feedback, at mentoring.",
           "Agile Delivery sa SAFe: Nag-operate ako sa loob ng SAFe framework, pinamunuan ang paghahanda ng PI planning, nakilahok sa ART Syncs, nakipagtulungan sa Product Management, at tiniyak ang predictability at alignment sa release train.",
