@@ -1,0 +1,11 @@
+{
+  "name": "Warren de Leon",
+  "short_name": "warrendeleon",
+  "icons": [
+    { "src": "/images/favicon.png", "sizes": "300x300", "type": "image/png" }
+  ],
+  "theme_color": "#111111",
+  "background_color": "#111111",
+  "display": "browser",
+  "start_url": "/"
+}
