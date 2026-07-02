@@ -46,7 +46,10 @@ const pdfHref =
 >
   <section class="section">
     <div class="container">
-      <h1 class="section-heading">{i18n.workExperience.title}</h1>
+      <div class="wx-header">
+        <h1 class="section-heading">{i18n.workExperience.title}</h1>
+        <a href={pdfHref} class="btn btn-outline" download>{i18n.workExperience.downloadCV}</a>
+      </div>
       <Timeline companies={workxp} locale={locale} />
     </div>
   </section>
