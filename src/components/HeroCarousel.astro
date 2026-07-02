@@ -18,15 +18,18 @@ const photos = [
 ---
 
 <div class="carousel" id="hero-carousel" role="region" aria-label={i18n.a11y.photoCarousel} aria-roledescription="carousel">
-  <div class="carousel-track" id="carousel-track">
+  {/* The photos are presentational; the region label describes the widget and
+      the controls stay in the accessibility tree. Hiding the track spares
+      screen-reader users 15 near-identical stops. */}
+  <div class="carousel-track" id="carousel-track" aria-hidden="true">
     {photos.map((photo, i) => (
       <div class="carousel-slide">
         <img
           src={`/images/photos/${photo}`}
-          alt={`Warren de Leon — photo ${i + 1}`}
+          alt=""
           loading={i === 0 ? 'eager' : 'lazy'}
-          width="400"
-          height="500"
+          width="1200"
+          height="800"
         />
       </div>
     ))}
@@ -37,7 +40,7 @@ const photos = [
   <button class="carousel-btn carousel-btn-next" id="carousel-next" type="button" aria-label={i18n.a11y.nextPhoto}>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
   </button>
-  <span class="carousel-counter" id="carousel-counter">1 / 15</span>
+  <span class="carousel-counter" id="carousel-counter" aria-hidden="true">1 / 15</span>
   <div class="carousel-controls">
     <div class="carousel-dots" id="carousel-dots">
       {photos.map((_, i) => (
@@ -98,8 +101,8 @@ const photos = [
     color: white;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,7 +149,7 @@ const photos = [
 
   .carousel-dots {
     display: flex;
-    gap: 6px;
+    gap: 12px;
   }
 
   .carousel-dot {
@@ -179,8 +182,8 @@ const photos = [
     color: white;
     border: none;
     border-radius: 50%;
-    width: 28px;
-    height: 28px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -159,7 +159,25 @@ const privacyHref = getLocalePath(locale, '/privacy/');
     });
 
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && !modal.hidden) closeModal();
+      if (modal.hidden) return;
+      if (e.key === 'Escape') { closeModal(); return; }
+      // Contain Tab within the dialog: aria-modal promises focus stays inside.
+      if (e.key === 'Tab' && card) {
+        var focusables = card.querySelectorAll('button, input, a[href], [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+        var first = focusables[0];
+        var last = focusables[focusables.length - 1];
+        if (e.shiftKey && (document.activeElement === first || document.activeElement === card)) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        } else if (!card.contains(document.activeElement)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     });
 
     // Let the Privacy page reopen this to change the choice later.
