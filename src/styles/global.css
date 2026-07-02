@@ -820,10 +820,11 @@ main {
   margin: 1.5rem 0;
 }
 
-/* Brand-theme the rendered mermaid SVG from the site's own tokens, both in-page and in the
-   zoom lightbox. The lightbox clones the SVG to <body> (outside .prose), so both contexts
-   are targeted via :is(); colours track light/dark with no re-render (base theme + Inter
-   set in astro.config.mjs). Node borders carry the green brand accent. */
+/* Brand-theme the pre-rendered mermaid SVG from the site's own tokens, both in-page and in
+   the zoom lightbox. The lightbox clones the SVG to <body> (outside .prose), so both contexts
+   are targeted via :is(); colours track light/dark with no re-render. Label font and
+   line-height MUST match what scripts/mermaid.config.json measured with at render time
+   (plain sans-serif, normal line-height) or multi-line labels clip. */
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node rect,
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node polygon,
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .node circle,
@@ -839,7 +840,20 @@ main {
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel,
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .cluster-label {
   color: var(--text-primary) !important;
-  font-family: "Inter", system-ui, -apple-system, sans-serif !important;
+  font-family: sans-serif !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) foreignObject div,
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) foreignObject span {
+  font-family: sans-serif !important;
+  line-height: normal !important;
+  letter-spacing: normal !important;
+}
+/* Diagrams are pre-rendered with svg-native text labels (htmlLabels: false),
+   which are painted by fill, not color. */
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) :is(text, tspan) {
+  fill: var(--text-primary) !important;
 }
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel,
 :is(.prose pre.mermaid svg, .media-lightbox-inner svg) .edgeLabel p,

@@ -1,9 +1,9 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import mermaid from 'astro-mermaid';
 import rehypeUnpublishedLinks from './src/lib/rehype-unpublished-links.mjs';
 import rehypeTableWrapper from './src/lib/rehype-table-wrapper.mjs';
+import rehypeMermaidPrerendered from './src/lib/rehype-mermaid-prerendered.mjs';
 import pagefind from './src/lib/astro-pagefind.mjs';
 
 // Old work-experience URLs (`/work/:slug`) that Google still has indexed and 404ing,
@@ -25,33 +25,6 @@ const workRedirects = Object.fromEntries(
 export default defineConfig({
   site: 'https://warrendeleon.com',
   integrations: [
-    // Renders ```mermaid code blocks client-side. Loads mermaid only on pages with a diagram.
-    // Must run before other markdown integrations. Rendered once with the 'base' theme + Inter;
-    // colours come from the site's own CSS tokens (see .prose pre.mermaid in global.css), so the
-    // diagrams match the brand and track light/dark instantly without a re-render.
-    mermaid({
-      autoTheme: false,
-      // Silence the plugin's [astro-mermaid] console.log noise in the browser.
-      // Errors are still logged.
-      enableLog: false,
-      mermaidConfig: {
-        theme: 'base',
-        themeVariables: {
-          fontFamily: '"Inter", system-ui, -apple-system, sans-serif',
-          fontSize: '15px',
-          primaryColor: '#ffffff',
-          primaryBorderColor: '#6dc402',
-          primaryTextColor: '#0e0c19',
-          lineColor: '#8a8f98',
-          secondaryColor: '#f5f5f7',
-          tertiaryColor: '#f5f5f7',
-          clusterBkg: '#f5f5f7',
-          clusterBorder: '#e0e0e0',
-          titleColor: '#0e0c19',
-          edgeLabelBackground: '#ffffff',
-        },
-      },
-    }),
     sitemap({
       // Keep the /blog/tags/ index (a real browse hub) but drop the thin
       // individual tag pages and the old /blog/tag/ redirect stubs, to protect
@@ -90,12 +63,18 @@ export default defineConfig({
     ...workRedirects,
   },
   markdown: {
+    // Leave ```mermaid blocks unhighlighted so rehype-mermaid-prerendered
+    // still sees the raw source to swap for the pre-rendered SVG.
+    syntaxHighlight: { type: 'shiki', excludeLangs: ['mermaid'] },
     shikiConfig: {
       themes: {
         light: 'github-light',
         dark: 'github-dark',
       },
     },
-    rehypePlugins: [rehypeUnpublishedLinks, rehypeTableWrapper],
+    // Mermaid diagrams are pre-rendered to SVG at authoring time
+    // (scripts/render-mermaid.mjs); the rehype plugin inlines them at build,
+    // matching astro-mermaid's old markup so CSS theming and zoom still work.
+    rehypePlugins: [rehypeMermaidPrerendered, rehypeUnpublishedLinks, rehypeTableWrapper],
   },
 });
