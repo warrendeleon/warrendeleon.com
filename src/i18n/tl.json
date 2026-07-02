@@ -133,7 +133,10 @@
     },
     "authorBio": "Software Engineering Manager. Pinakahuling pinamunuan ang Mobile Platform team sa Hargreaves Lansdown. Sumusulat tungkol sa engineering leadership, React Native, at pagbuo ng magagandang team.",
     "clientProjects": "Mga proyekto sa kliyente",
-    "pageTitle": "Blog — Pahina {n} | Warren de Leon"
+    "pageTitle": "Blog — Pahina {n} | Warren de Leon",
+    "seriesComplete": "Kumpleto ang serye",
+    "seriesOngoing": "Patuloy — susunod na bahagi: {date}",
+    "startSeries": "Magsimula sa unang bahagi"
   },
   "education": {
     "heading": "Edukasyon",

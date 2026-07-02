@@ -133,7 +133,10 @@
     },
     "authorBio": "Software Engineering Manager. Recentment he liderat l'equip de Mobile Platform a Hargreaves Lansdown. Escric sobre lideratge tècnic, React Native i com construir bons equips.",
     "clientProjects": "Projectes per a clients",
-    "pageTitle": "Blog — Pàgina {n} | Warren de Leon"
+    "pageTitle": "Blog — Pàgina {n} | Warren de Leon",
+    "seriesComplete": "Sèrie completa",
+    "seriesOngoing": "En curs — propera part: {date}",
+    "startSeries": "Comença per la part 1"
   },
   "education": {
     "heading": "Formació",

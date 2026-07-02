@@ -6,7 +6,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug } from '../../utils/blogHelpers';
+import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug, getPostsForLocale } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
 
 interface Props {
@@ -29,6 +29,17 @@ const seriesPath = getLocalePath(locale, `/blog/series/${getSeriesSlug(seriesNam
 // translated into every locale), falling back to the intro post's description and
 // then a generic label. Keeps the lede keyword-rich without leaving anything stale.
 const lede = getSeriesDescription(seriesName, locale) || posts[0]?.data.description || `${i18n.blog.seriesLabel}: ${seriesName}`;
+
+// Momentum signals: total reading time, whether more parts are scheduled (and
+// when the next lands), and a start-here CTA for first-time visitors.
+const totalMinutes = posts.reduce((sum: number, p: any) => sum + getReadingTime(p.body ?? ''), 0);
+const cutoff = new Date();
+cutoff.setUTCHours(23, 59, 59, 999);
+const scheduled = (await getPostsForLocale(locale, true))
+  .filter(p => p.data.series === seriesName && p.data.publishDate > cutoff)
+  .sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
+const nextPartDate = scheduled[0]?.data.publishDate ?? null;
+const firstPart = posts[0];
 
 // ItemList structured data: tells search engines this is an ordered, multi-part guide
 // and makes the parts eligible for a list/carousel rich result.
@@ -69,7 +80,20 @@ const itemListJsonLd = {
         <p class="series-page-eyebrow">{i18n.blog.seriesLabel}</p>
         <h1 class="section-heading">{seriesName}</h1>
         <p class="series-page-lede">{lede}</p>
-        <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
+        <p class="tag-page-count blog-mono">
+          {posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}
+          <span aria-hidden="true">&middot;</span>
+          {totalMinutes} {i18n.blog.minRead}
+          <span aria-hidden="true">&middot;</span>
+          {nextPartDate
+            ? i18n.blog.seriesOngoing.replace('{date}', formatBlogDate(nextPartDate, locale))
+            : i18n.blog.seriesComplete}
+        </p>
+        {firstPart && (
+          <a href={getLocalePath(locale, `/blog/${getPostSlug(firstPart.id)}/`)} class="btn btn-outline series-start-btn">
+            {i18n.blog.startSeries} <span aria-hidden="true">&rarr;</span>
+          </a>
+        )}
       </div>
 
       <ol class="blog-feed series-page-feed">
@@ -130,6 +154,7 @@ const itemListJsonLd = {
   .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
   .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
   .tag-page-count { font-size: 1rem; color: var(--text-muted); margin-top: 0.75rem; }
+  .series-start-btn { margin-top: 1rem; }
   .series-page-eyebrow { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--color-green-text); margin-bottom: 0.4rem; }
   .series-page-lede { font-size: 1.05rem; line-height: 1.6; color: var(--text-secondary); margin-top: 0.75rem; }
 
