@@ -131,7 +131,8 @@
       "many_results": "[COUNT] resultados para [SEARCH_TERM]"
     },
     "authorBio": "Software Engineering Manager. Recientemente lideré el equipo de Mobile Platform en Hargreaves Lansdown. Escribo sobre liderazgo técnico, React Native y cómo construir buenos equipos.",
-    "clientProjects": "Proyectos para clientes"
+    "clientProjects": "Proyectos para clientes",
+    "pageTitle": "Blog — Página {n} | Warren de Leon"
   },
   "education": {
     "heading": "Formación",
@@ -250,6 +251,11 @@
     "openDiagram": "Abrir el diagrama en pantalla completa",
     "diagram": "Diagrama",
     "image": "Imagen",
-    "opensInNewTab": "(se abre en una pestaña nueva)"
+    "opensInNewTab": "(se abre en una pestaña nueva)",
+    "skipToContent": "Saltar al contenido"
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "message": "La página que buscas no existe o se ha movido. Prueba una de estas:"
   }
 }

@@ -40,6 +40,28 @@ export default defineConfig({
     // search is scoped to the blog and nothing else. Must run last so the
     // index is built over the finished output.
     pagefind(),
+    // Cloudflare Pages resolves not-found paths against the nearest 404.html,
+    // walking up directories — so /es/* misses need dist/es/404.html, but
+    // Astro only special-cases the root 404. Reshape the locale 404 output.
+    {
+      name: 'locale-404s',
+      hooks: {
+        'astro:build:done': async ({ dir }) => {
+          const { rename, rm } = await import('node:fs/promises');
+          const { fileURLToPath } = await import('node:url');
+          const { join } = await import('node:path');
+          const dist = fileURLToPath(dir);
+          for (const loc of ['es', 'ca', 'tl']) {
+            const from = join(dist, loc, '404', 'index.html');
+            const to = join(dist, loc, '404.html');
+            try {
+              await rename(from, to);
+              await rm(join(dist, loc, '404'), { recursive: true, force: true });
+            } catch { /* locale 404 not built; nothing to reshape */ }
+          }
+        },
+      },
+    },
   ],
   output: 'static',
   trailingSlash: 'always',

@@ -131,7 +131,8 @@
       "many_results": "[COUNT] results for [SEARCH_TERM]"
     },
     "authorBio": "Software Engineering Manager. Most recently led the Mobile Platform team at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.",
-    "clientProjects": "Client projects"
+    "clientProjects": "Client projects",
+    "pageTitle": "Blog — Page {n} | Warren de Leon"
   },
   "education": {
     "heading": "Education",
@@ -250,6 +251,11 @@
     "openDiagram": "Open diagram full screen",
     "diagram": "Diagram",
     "image": "Image",
-    "opensInNewTab": "(opens in new tab)"
+    "opensInNewTab": "(opens in new tab)",
+    "skipToContent": "Skip to content"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "The page you're looking for doesn't exist or has moved. Try one of these instead:"
   }
 }

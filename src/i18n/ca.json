@@ -131,7 +131,8 @@
       "many_results": "[COUNT] resultats per a [SEARCH_TERM]"
     },
     "authorBio": "Software Engineering Manager. Recentment he liderat l'equip de Mobile Platform a Hargreaves Lansdown. Escric sobre lideratge tècnic, React Native i com construir bons equips.",
-    "clientProjects": "Projectes per a clients"
+    "clientProjects": "Projectes per a clients",
+    "pageTitle": "Blog — Pàgina {n} | Warren de Leon"
   },
   "education": {
     "heading": "Formació",
@@ -250,6 +251,11 @@
     "openDiagram": "Obre el diagrama a pantalla completa",
     "diagram": "Diagrama",
     "image": "Imatge",
-    "opensInNewTab": "(s'obre en una pestanya nova)"
+    "opensInNewTab": "(s'obre en una pestanya nova)",
+    "skipToContent": "Salta al contingut"
+  },
+  "notFound": {
+    "title": "Pàgina no trobada",
+    "message": "La pàgina que busques no existeix o s'ha mogut. Prova una d'aquestes:"
   }
 }
