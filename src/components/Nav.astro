@@ -65,7 +65,8 @@ const navLinks = [
           <li>
             <a
               href={link.href}
-              class:list={['nav-link', { active: currentPath === link.href }]}
+              class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
+              aria-current={currentPath === link.href ? 'page' : undefined}
             >
               {link.label}
             </a>

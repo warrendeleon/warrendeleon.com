@@ -1,0 +1,26 @@
+---
+// BreadcrumbList structured data for pages that sit two or more levels deep
+// (blog posts, series hubs, tag pages, work-experience detail pages). Visual
+// orientation is handled by each page's own back-link / series box; this is
+// the machine-readable trail search engines use for breadcrumb rich results.
+
+interface Props {
+  items: Array<{ name: string; url?: string }>;
+}
+
+const { items } = Astro.props;
+const siteUrl = 'https://warrendeleon.com';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    ...(item.url ? { item: `${siteUrl}${item.url}` } : {}),
+  })),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
