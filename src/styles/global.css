@@ -313,6 +313,53 @@ h4 { font-size: 1.25rem; }
   justify-content: center;
 }
 
+/* Work experience: qualifications (folded from the old /education/ page) */
+.wx-quals {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wx-qual {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.wx-qual:last-child {
+  border-bottom: none;
+}
+
+.wx-qual-main {
+  flex: 1 1 24rem;
+  min-width: 0;
+}
+
+.wx-qual-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+}
+
+.wx-qual-inst {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.wx-qual-dates {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.wx-qual-cert {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
 /* Work experience CTA */
 .wx-cta {
   text-align: center;

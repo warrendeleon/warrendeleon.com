@@ -58,6 +58,7 @@ export default defineConfig({
       // crawl budget. Locale pages stay out; they're discoverable via hreflang.
       filter: (page) =>
         !/\/blog\/tags?\/[^/]+\//.test(page) &&
+        !/\/(cv|education)\/$/.test(page) &&
         !page.includes('/ca/') &&
         !page.includes('/es/') &&
         !page.includes('/tl/'),
@@ -76,6 +77,16 @@ export default defineConfig({
     '/es/blog/tag/[tag]': '/es/blog/tags/[tag]',
     '/ca/blog/tag/[tag]': '/ca/blog/tags/[tag]',
     '/tl/blog/tag/[tag]': '/tl/blog/tags/[tag]',
+    // /cv/ and /education/ folded into /work-experience/ (2026-07). The PDF
+    // download and the qualifications section live there now.
+    '/cv': '/work-experience',
+    '/es/cv': '/es/work-experience',
+    '/ca/cv': '/ca/work-experience',
+    '/tl/cv': '/tl/work-experience',
+    '/education': '/work-experience',
+    '/es/education': '/es/work-experience',
+    '/ca/education': '/ca/work-experience',
+    '/tl/education': '/tl/work-experience',
     ...workRedirects,
   },
   markdown: {

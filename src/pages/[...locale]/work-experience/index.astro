@@ -6,6 +6,10 @@ import workxpEn from '../../../data/workxp-en.json';
 import workxpEs from '../../../data/workxp-es.json';
 import workxpCa from '../../../data/workxp-ca.json';
 import workxpTl from '../../../data/workxp-tl.json';
+import educationEn from '../../../data/education-en.json';
+import educationEs from '../../../data/education-es.json';
+import educationCa from '../../../data/education-ca.json';
+import educationTl from '../../../data/education-tl.json';
 
 export const getStaticPaths = localeStaticPaths;
 
@@ -16,9 +20,17 @@ const workxpByLocale: Record<Locale, unknown> = {
   tl: workxpTl,
 };
 
+const educationByLocale: Record<Locale, unknown> = {
+  en: educationEn,
+  es: educationEs,
+  ca: educationCa,
+  tl: educationTl,
+};
+
 const { locale } = Astro.props as { locale: Locale };
 const i18n = t(locale);
 const workxp = workxpByLocale[locale] as typeof workxpEn;
+const education = educationByLocale[locale] as typeof educationEn;
 
 const pdfHref =
   locale === 'en'
@@ -40,6 +52,30 @@ const pdfHref =
   </section>
 
   <section class="section section-alt">
+    <div class="container">
+      <h2 class="section-heading">{i18n.education.heading}</h2>
+      <ul class="wx-quals">
+        {education.map((e) => (
+          <li class="wx-qual">
+            <div class="wx-qual-main">
+              <span class="wx-qual-title">{e.title}</span>
+              <span class="wx-qual-inst">{e.institution}</span>
+            </div>
+            <span class="wx-qual-dates">
+              {e.endDate && e.endDate !== e.startDate ? `${e.startDate} — ${e.endDate}` : e.startDate}
+            </span>
+            {e.certificateUrl && (
+              <a class="wx-qual-cert" href={e.certificateUrl} target="_blank" rel="noopener">
+                {i18n.education.viewCertificate}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container">
       <div class="wx-cta">
         <p class="wx-cta-heading">{i18n.workExperience.ctaHeading}</p>
