@@ -11,9 +11,9 @@ relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-te
 
 ## Isang test na gawa para sa ibang panahon
 
-Apat na araw bago ako opisyal na mag-start, pumunta ako sa office para sa passport check. Habang nandoon ako, sinabi ng manager ko na mag-hire ako ng team. Ang unang tanong ko: pwede ko bang baguhin ang interview process? Sabi niya oo. *Hindi pa nga ako nag-uumpisa.* Pagdating ng day one ko noong ika-23, ginagawa ko na ang bagong test.
+Apat na araw bago ako opisyal na mag-start, pumunta ako sa office para sa passport check. Habang nandoon ako, sinabi ng manager ko na mag-hire ako ng team. Ang unang tanong ko: pwede ko bang baguhin ang interview process? Sabi niya oo. *Hindi pa nga ako nag-uumpisa.* Pagdating ng day one ko, ginagawa ko na ang bagong test.
 
-Ako ang bagong Engineering Manager ng mobile platform squad. Nire-rebuild namin ang mobile app sa React Native, isang brownfield migration mula sa existing native iOS at Android apps. Kailangan ko ng mga engineer na kaya magtrabaho sa platform level.
+Ako ang bagong Engineering Manager ng mobile platform team. Nire-rebuild namin ang mobile app sa React Native, isang brownfield migration mula sa existing native iOS at Android apps. Kailangan ko ng mga engineer na kaya magtrabaho sa platform level.
 
 Hindi ko na kailangang humingi pa na makita ang tech test. Pinagdaanan ko rin ito ilang linggo lang ang nakalipas. Ganoon ako na-hire: isang live coding exercise kung saan mag-build ka ng maliit na app sa loob ng isang oras habang nanonood ang interviewer, tapos may mga technical questions mula sa isang questionnaire. Mga 90 minutos ang buong interview.
 
@@ -90,7 +90,7 @@ Usapan ito ng dalawang engineer, hindi performance para sa audience. Ang mga pin
 
 ## Mga unang araw
 
-Sa unang linggo ko, naka-hire ako ng isang Senior Engineer sa pamamagitan ng existing process (nangyari 'yon sa day two, bago pa matapos ang bagong test). Mula dito, ang bagong process na ang standard para sa lahat ng React Native hiring sa buong organisasyon. Ang kapwa ko na EM, na nagpapatakbo ng ibang squad, ni-review ang test at scorecard at pumayag na gamitin din para sa mga hire ng kanyang team. 'Yan ang advantage ng well-documented system: gumagana ito lampas sa squad ng isang manager.
+Sa unang linggo ko, naka-hire ako ng isang Senior Engineer sa pamamagitan ng existing process (nangyari 'yon sa day two, bago pa matapos ang bagong test). Mula dito, ang bagong process na ang standard para sa lahat ng React Native hiring sa buong organisasyon. Ang kapwa ko na EM, na nagpapatakbo ng ibang team, ni-review ang test at scorecard at pumayag na gamitin din para sa mga hire ng kanyang team. 'Yan ang advantage ng well-documented system: gumagana ito lampas sa team ng isang manager.
 
 Mag-hire na ako ng dalawang Software Engineers gamit ang bagong process. Bawat candidate, parehong test, parehong starter project, parehong evaluation criteria, at parehong scoring rubric ang matatanggap nila. Kumakaliit ang bias surface area kapag nag-standardize ka.
 

@@ -59,7 +59,7 @@ La solución fue dejar de confiar en la vista que tenía React de los datos en l
 
 ```typescript
 function freshCandidate(id: string): Candidate | undefined {
-  const raw = localStorage.getItem('hl-ik-candidates');
+  const raw = localStorage.getItem('ik-candidates');
   if (!raw) return undefined;
   return JSON.parse(raw).find((c: Candidate) => c.id === id);
 }

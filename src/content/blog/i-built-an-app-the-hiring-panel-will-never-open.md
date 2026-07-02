@@ -64,7 +64,7 @@ The fix was to stop trusting React's view of the data on writes. Every mutation 
 
 ```typescript
 function freshCandidate(id: string): Candidate | undefined {
-  const raw = localStorage.getItem('hl-ik-candidates');
+  const raw = localStorage.getItem('ik-candidates');
   if (!raw) return undefined;
   return JSON.parse(raw).find((c: Candidate) => c.id === id);
 }

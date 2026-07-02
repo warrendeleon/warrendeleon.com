@@ -11,9 +11,9 @@ relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-te
 
 ## Una prueba pensada para otro momento
 
-Cuatro días antes de empezar oficialmente, fui a la oficina para un control de pasaporte. Mientras estaba allí, mi jefe me comentó que iba a armar un equipo. Mi primera pregunta fue si podía cambiar el proceso de entrevistas. Dijo que sí. *Ni siquiera había tenido mi primer día.* Para cuando empecé el 23, ya estaba construyendo la nueva prueba.
+Cuatro días antes de empezar oficialmente, fui a la oficina para un control de pasaporte. Mientras estaba allí, mi jefe me comentó que iba a armar un equipo. Mi primera pregunta fue si podía cambiar el proceso de entrevistas. Dijo que sí. *Ni siquiera había tenido mi primer día.* Para cuando empecé, ya estaba construyendo la nueva prueba.
 
-Soy el nuevo Engineering Manager del squad de mobile platform. Estamos reconstruyendo la app móvil en React Native, una migración brownfield desde las apps nativas de iOS y Android. Necesito ingenieros que puedan trabajar a nivel de plataforma.
+Soy el nuevo Engineering Manager del equipo de mobile platform. Estamos reconstruyendo la app móvil en React Native, una migración brownfield desde las apps nativas de iOS y Android. Necesito ingenieros que puedan trabajar a nivel de plataforma.
 
 No tuve que pedir ver la prueba técnica. La había hecho yo mismo semanas antes. Así fue como me contrataron *a mí*: un ejercicio de live coding donde montas una app pequeña en una hora con el entrevistador mirando, seguido de preguntas técnicas de un cuestionario. La entrevista completa duraba unos 90 minutos.
 
@@ -94,7 +94,7 @@ Es una conversación entre dos ingenieros, no una actuación para un público. L
 
 ## Primeros días
 
-En mi primera semana, contraté a un Senior Engineer a través del proceso existente (eso pasó el segundo día, antes de que la nueva prueba estuviera lista). A partir de aquí, el nuevo proceso es el estándar para toda contratación de React Native en la organización. Mi par EM, que lidera otro squad, revisó la prueba y el scorecard y aceptó adoptarlo para las contrataciones de su equipo también. Esa es la ventaja de un sistema bien documentado: funciona más allá del squad de un solo manager.
+En mi primera semana, contraté a un Senior Engineer a través del proceso existente (eso pasó el segundo día, antes de que la nueva prueba estuviera lista). A partir de aquí, el nuevo proceso es el estándar para toda contratación de React Native en la organización. Mi par EM, que lidera otro equipo, revisó la prueba y el scorecard y aceptó adoptarlo para las contrataciones de su equipo también. Esa es la ventaja de un sistema bien documentado: funciona más allá del equipo de un solo manager.
 
 Estoy por contratar dos Software Engineers con el nuevo proceso. Cada candidato recibirá la misma prueba, el mismo starter project, los mismos criterios de evaluación y la misma rúbrica de puntuación. La superficie de sesgo se reduce cuando estandarizas.
 

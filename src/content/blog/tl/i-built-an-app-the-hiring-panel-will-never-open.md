@@ -59,7 +59,7 @@ Ang fix ay huminto sa pagtitiwala sa view ng React sa data tuwing nag-iimbak. An
 
 ```typescript
 function freshCandidate(id: string): Candidate | undefined {
-  const raw = localStorage.getItem('hl-ik-candidates');
+  const raw = localStorage.getItem('ik-candidates');
   if (!raw) return undefined;
   return JSON.parse(raw).find((c: Candidate) => c.id === id);
 }

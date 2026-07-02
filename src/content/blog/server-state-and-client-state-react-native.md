@@ -16,12 +16,12 @@ relatedPosts: ["rtk-query-tags-vs-tanstack-query-keys", "runtime-api-validation-
 
 ## The short version
 
-Two combinations work. Pick one, do not blend them.
+Two combinations work. Pick one, don't blend them.
 
-- **Redux Toolkit + RTK Query.** One package, one store, two specialised tools. RTK Query handles server state. `createSlice` handles client state. If your team is already on Redux, this is the path of least friction.
+- **Redux Toolkit + RTK Query.** One package, one store, two specialised tools. RTK Query handles server state. `createSlice` handles client state. If your team is already on Redux, this is the easier road.
 - **TanStack Query + Zustand.** Two separate libraries. TanStack handles server state. Zustand handles client state. Each one is purpose-built for its half and stays out of the other's way.
 
-What you generally do not want is one library doing both jobs by force. Redux Toolkit with `createAsyncThunk` everywhere ends up rolling its own caching, refetching, and dedup. Holding UI flags in TanStack's cache makes the cache do work it was not designed for. Both shapes are common; both leave features on the table.
+What you generally don't want is one library doing both jobs by force. Redux Toolkit with `createAsyncThunk` everywhere ends up rolling its own caching, refetching, and dedup. Holding UI flags in TanStack's cache makes the cache do work it wasn't designed for. Both shapes are common; both give up features the libraries already ship.
 
 The rest of this post is the reasoning behind that pick, with code from a real app.
 
@@ -56,14 +56,14 @@ Examples:
 
 What server state needs:
 
-- **Caching.** You do not want to refetch the same data every time a component mounts.
+- **Caching.** You don't want to refetch the same data every time a component mounts.
 - **Background refetching.** When the user comes back to the screen, the data might be stale, and you want to refresh quietly.
 - **Deduplication.** Two components asking for the same resource should not fire two requests.
 - **Retry.** Transient network failures should retry, not crash the screen.
 - **Stale-while-revalidate.** Show cached data immediately, fetch fresh data in the background, swap when ready.
 - **Garbage collection.** Drop entries that no component is subscribed to anymore.
 
-None of this is unique to React. It is the same problem any client app has when it caches server data.
+None of this is unique to React. It's the same problem any client app has when it caches server data.
 
 ## What client state actually means
 
@@ -83,7 +83,7 @@ What client state needs:
 - **Be reactive.** Components that depend on it re-render when it changes.
 - **Sometimes persist.** Survives the app being closed and reopened.
 
-That is almost the whole list. Client state does not need caching (it cannot be stale; it is the truth). It does not need refetching. It does not need deduplication.
+That's almost the whole list. Client state doesn't need caching (it can't be stale; it's the truth). It doesn't need refetching. It doesn't need deduplication.
 
 ## Where one-store-for-everything starts to bite
 
@@ -164,7 +164,7 @@ const { data: education = [], isLoading: loading, error } = useGetEducationQuery
 
 The thunk is gone. The slice is gone. The lifecycle cases are gone. The selectors are gone. The `useEffect` is gone.
 
-What you gained on top of less code: caching with configurable `staleTime` and `gcTime`, deduplication, background refetching, retry on failure, all built in. The argument to the hook (`language`) becomes the cache key, so when the user switches language the query refetches automatically.
+What you gained on top of less code: caching with a configurable cache lifetime (`keepUnusedDataFor`), deduplication, refetch-on-focus and refetch-on-reconnect flags, retry on failure, all built in. (TanStack's equivalents below are `staleTime` and `gcTime`.) The argument to the hook (`language`) becomes the cache key, so when the user switches language the query refetches automatically.
 
 The same pattern exists with TanStack Query, which is independent of Redux:
 
@@ -182,7 +182,7 @@ Different library, same idea: declare what data you want, let the library handle
 
 ## What a client-state library does
 
-Now look at client state. In my portfolio app, `settings.language` is client state. It is the user's preference. There is no server to compare against, nothing to cache, nothing to refetch. The store just needs to hold it.
+Now look at client state. In my portfolio app, `settings.language` is client state. It's the user's preference. There's no server to compare against, nothing to cache, nothing to refetch. The store just needs to hold it.
 
 With Redux Toolkit, a settings slice for it looks like this:
 
@@ -197,7 +197,7 @@ const settingsSlice = createSlice({
 });
 ```
 
-That works. It is also more ceremony than the problem needs. With Zustand, the same store is:
+That works. It's also more ceremony than the problem needs. With Zustand, the same store is:
 
 ```typescript
 const useSettingsStore = create((set) => ({
@@ -219,14 +219,12 @@ const setLanguage = useSettingsStore((state) => state.setLanguage);
 
 Same selector pattern as Redux, just no boilerplate around it.
 
-## Back to the pick
+## The takeaway
 
-The verdict from the top of the post earns its keep here. Server state has its own shape: caching, dedup, refetching, retry, garbage collection. Client state has a much smaller shape: hold a value, react to changes, sometimes persist. The libraries that have settled out for each half are sharper at their half than a general-purpose store doing both.
+The verdict from the top of the post is earned here. Server state has its own shape: caching, dedup, refetching, retry, garbage collection. Client state has a much smaller shape: hold a value, react to changes, sometimes persist. The libraries that have settled out for each half are sharper at their half than a general-purpose store doing both.
 
 RTK Query + `createSlice` is the cleaner one-store path because RTK Query was built by the Redux team to slot the server-state machinery into the same store. Zustand and TanStack Query work in the opposite direction: two small, focused libraries that compose without much overlap. Both are defensible. Redux Toolkit with `createAsyncThunk` for every fetch is the shape that quietly turns into homegrown cache work.
 
-## The takeaway
+So when you reach for a Redux slice to hold an API response, ask whether what you actually need is server-state machinery or just a place to hold a value that is reactive. The answer usually tells you which library belongs there, and whether the split is worth paying for in your app.
 
-When you reach for a Redux slice to hold an API response, ask whether what you actually need is server-state machinery (caching, refetching, dedup) or just a place to hold a value that is reactive. The answer usually tells you which library belongs there, and whether the split is worth paying for in your app.
-
-Two posts coming up that build on this: [how to pick a server-state library when your app uses Module Federation](/blog/state-management-federated-react-native/), and [how RTK Query's tags differ from TanStack's query keys in a way that affects cross-team coordination](/blog/rtk-query-tags-vs-tanstack-query-keys/).
+Next up: [how RTK Query's tags differ from TanStack's query keys in a way that affects cross-team coordination](/blog/rtk-query-tags-vs-tanstack-query-keys/). The Module Federation series picks up the federated side of this question when its state posts land.

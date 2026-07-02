@@ -11,9 +11,9 @@ relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-te
 
 ## Una prova pensada per a un altre moment
 
-Quatre dies abans de començar oficialment, vaig anar a l'oficina per una verificació de passaport. Mentre hi era, el meu cap em va comentar que hauria de muntar un equip. La meva primera pregunta va ser si podia canviar el procés d'entrevistes. Va dir que sí. *Ni tan sols havia tingut el meu primer dia.* Quan vaig començar el dia 23, ja estava construint la nova prova.
+Quatre dies abans de començar oficialment, vaig anar a l'oficina per una verificació de passaport. Mentre hi era, el meu cap em va comentar que hauria de muntar un equip. La meva primera pregunta va ser si podia canviar el procés d'entrevistes. Va dir que sí. *Ni tan sols havia tingut el meu primer dia.* Quan vaig començar, ja estava construint la nova prova.
 
-Sóc el nou Engineering Manager de l'squad de **Mobile Platform**. Estem reconstruint l'app mòbil en React Native, una migració brownfield des de les apps natives d'iOS i Android. Necessito enginyers que puguin treballar a nivell de plataforma.
+Sóc el nou Engineering Manager de l'equip de mobile platform. Estem reconstruint l'app mòbil en React Native, una migració brownfield des de les apps natives d'iOS i Android. Necessito enginyers que puguin treballar a nivell de plataforma.
 
 No vaig haver de demanar veure la prova tècnica. L'havia fet jo mateix setmanes enrere. Així és com em van contractar *a mi*: un exercici de live coding on construeixes una app petita en una hora amb l'entrevistador mirant, seguit de preguntes tècniques d'un qüestionari. Tota l'entrevista durava uns 90 minuts.
 
@@ -90,7 +90,7 @@ Per a contractacions senior, hi ha una conversa addicional de system design. Sen
 
 ## Primers dies
 
-En la meva primera setmana, vaig contractar un Senior Engineer a través del procés existent (això va passar el segon dia, abans que la nova prova estigués llesta). D'ara endavant, el nou procés és l'estàndard per a tota contractació de React Native a tota l'organització. El meu company EM, que lidera un altre squad, va revisar la prova i el scorecard i va acceptar adoptar-lo per a les contractacions del seu equip també. Aquest és l'avantatge d'un sistema ben documentat: funciona més enllà de l'squad d'un sol manager.
+En la meva primera setmana, vaig contractar un Senior Engineer a través del procés existent (això va passar el segon dia, abans que la nova prova estigués llesta). D'ara endavant, el nou procés és l'estàndard per a tota contractació de React Native a tota l'organització. El meu company EM, que lidera un altre equip, va revisar la prova i el scorecard i va acceptar adoptar-lo per a les contractacions del seu equip també. Aquest és l'avantatge d'un sistema ben documentat: funciona més enllà de l'equip d'un sol manager.
 
 Estic a punt de contractar dos Software Engineers amb el nou procés. Cada candidat rebrà la mateixa prova, el mateix starter project, els mateixos criteris d'avaluació i la mateixa rúbrica de puntuació. La superfície de biaix es redueix quan estandarditzes.
 

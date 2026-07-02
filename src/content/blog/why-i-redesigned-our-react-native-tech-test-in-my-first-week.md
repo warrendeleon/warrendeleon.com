@@ -16,9 +16,9 @@ relatedPosts: ["how-to-pass-a-react-native-tech-test", "how-i-designed-a-tech-te
 
 ## A test built for a different time
 
-Four days before I officially started, I went into the office for a passport check. While I was there, my manager mentioned I'd be hiring a team. My first question was whether I could change the interview process. He said yes. *I hadn't even had my first day yet.* By the time I started on the 23rd, I was already building the new test.
+Four days before I officially started, I went into the office for a passport check. While I was there, my manager mentioned I'd be hiring a team. My first question was whether I could change the interview process. He said yes. *I hadn't even had my first day yet.* By the time I started, I was already building the new test.
 
-I'm the new Engineering Manager for the mobile platform squad. We're rebuilding the mobile app in React Native, a brownfield migration from the existing native iOS and Android apps. I need engineers who can work at the platform level.
+I'm the new Engineering Manager for the mobile platform team. We're rebuilding the mobile app in React Native, a brownfield migration from the existing native iOS and Android apps. I need engineers who can work at the platform level.
 
 I didn't need to ask to see the tech test. I'd been through it myself just weeks earlier. It's how they hired *me*: a live coding exercise where you build a small app in about an hour with the interviewer watching, followed by technical questions from a questionnaire. The whole interview ran about 90 minutes.
 
@@ -99,7 +99,7 @@ It's a conversation between two engineers, not a performance for an audience. Th
 
 ## Early days
 
-In my first week, I hired a Senior Engineer through the existing process (that happened on day two, before the new test was ready). From here on, the new process is the standard for all React Native hiring across the organisation. My peer EM, who runs another squad, reviewed the test and the scorecard and agreed to adopt it for his team's hires too. That's the advantage of a well-documented system: it works beyond one manager's squad.
+In my first week, I hired a Senior Engineer through the existing process (that happened on day two, before the new test was ready). From here on, the new process is the standard for all React Native hiring across the organisation. My peer EM, who runs another team, reviewed the test and the scorecard and agreed to adopt it for his team's hires too. That's the advantage of a well-documented system: it works beyond one manager's team.
 
 I'm about to hire two Software Engineers using the new process. Every candidate will get the same test, the same starter project, the same evaluation criteria, and the same scoring rubric. The bias surface area shrinks when you standardise.
 

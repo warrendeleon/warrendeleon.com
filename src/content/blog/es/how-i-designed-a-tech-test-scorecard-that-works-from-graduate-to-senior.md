@@ -11,7 +11,7 @@ relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "
 
 ## El problema del "¿esto es un 3 o un 4?"
 
-Cuando empecé a montar el proceso de contratación para mi squad, quería un scorecard estructurado desde el principio. Escribí sobre la prueba técnica en sí en [un post anterior](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). La prueba funcionaba. La puntuación, no. Al menos, no como la diseñé al principio.
+Cuando empecé a montar el proceso de contratación para mi equipo, quería un scorecard estructurado desde el principio. Escribí sobre la prueba técnica en sí en [un post anterior](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). La prueba funcionaba. La puntuación, no. Al menos, no como la diseñé al principio.
 
 Mi primer scorecard usaba una escala del 1 al 5 para cada criterio. "Uso de TypeScript: puntuación 1 a 5." "Manejo de estado: puntuación 1 a 5." Cada criterio tenía una rúbrica describiendo qué significaba cada puntuación. Sobre el papel se veía bien.
 
@@ -150,7 +150,7 @@ Respeta la limitación de tiempo. Si un check necesitaría más de 6 horas de tr
 
 ## Sigue evolucionando
 
-Usé este scorecard para nuestra primera ronda de contratación de React Native. Mi par EM lo revisó y lo adoptó para las contrataciones de su squad también. Esa es la prueba de un buen sistema: otra persona puede cogerlo y usarlo sin que estés en la sala.
+Usé este scorecard para nuestra primera ronda de contratación de React Native. Mi par EM lo revisó y lo adoptó para las contrataciones de su equipo también. Esa es la prueba de un buen sistema: otra persona puede cogerlo y usarlo sin que estés en la sala.
 
 No pretendo que sea perfecto. Los rangos podrían necesitar recalibración después de que pasen más candidatos. Algunos checks podrían resultar demasiado fáciles o demasiado difíciles. Los stretch goals podrían necesitar rebalanceo.
 

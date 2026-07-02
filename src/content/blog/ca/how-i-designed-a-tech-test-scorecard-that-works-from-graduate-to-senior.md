@@ -11,7 +11,7 @@ relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "
 
 ## El problema del "això és un 3 o un 4?"
 
-Quan vaig començar a construir el procés de contractació per al meu squad, volia un scorecard estructurat des del primer dia. Vaig escriure sobre la prova tècnica en si en [un post anterior](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). La prova funcionava. La puntuació, no. Almenys, no com la vaig dissenyar al principi.
+Quan vaig començar a construir el procés de contractació per al meu equip, volia un scorecard estructurat des del primer dia. Vaig escriure sobre la prova tècnica en si en [un post anterior](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). La prova funcionava. La puntuació, no. Almenys, no com la vaig dissenyar al principi.
 
 El meu primer scorecard feia servir una escala d'1 a 5 per a cada criteri. "Ús de TypeScript: puntuació 1 a 5." "Gestió d'estat: puntuació 1 a 5." Cada criteri tenia una rúbrica descrivint què significava cada puntuació. Sobre el paper feia el fet.
 
@@ -150,7 +150,7 @@ Respecta la limitació de temps. Si un check requereix més de 6 hores de feina 
 
 ## Segueix evolucionant
 
-He fet servir aquest scorecard per a la nostra primera ronda de contractació de React Native. El meu company EM el va revisar i el va adoptar per a les contractacions del seu squad també. Aquesta és la prova d'un bon sistema: algú altre pot agafar-lo i fer-lo servir sense que tu siguis a la sala.
+He fet servir aquest scorecard per a la nostra primera ronda de contractació de React Native. El meu company EM el va revisar i el va adoptar per a les contractacions del seu equip també. Aquesta és la prova d'un bon sistema: algú altre pot agafar-lo i fer-lo servir sense que tu siguis a la sala.
 
 No pretenc que sigui perfecte. Els nivells podrien necessitar recalibració després que passin més candidats. Alguns checks podrien resultar massa fàcils o massa difícils. Els stretch goals podrien necessitar reequilibri.
 

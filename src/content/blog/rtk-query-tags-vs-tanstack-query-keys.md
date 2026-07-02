@@ -34,7 +34,7 @@ Portfolio team declares what their query holds:
 getPortfolio: builder.query({
   query: (id) => `/portfolio/${id}`,
   providesTags: ['Portfolio'],
-});
+}),
 ```
 
 Dealing team declares what their mutation affects:
@@ -43,12 +43,12 @@ Dealing team declares what their mutation affects:
 executeTrade: builder.mutation({
   query: (order) => ({ url: '/trades', method: 'POST', body: order }),
   invalidatesTags: ['Portfolio'],
-});
+}),
 ```
 
 When the mutation succeeds, the library walks its cache, finds queries that provide the `Portfolio` tag, and refetches the ones currently mounted. Dealing team never reads portfolio's code. They don't need to know what query key portfolio uses or what shape the cache entry takes. They declare intent at a categorical level and the library wires it.
 
-Both teams are coupled to the string `'Portfolio'`. That coupling lives in a shared `tagTypes` enum declared in the API module, so it has a single source of truth.
+Both teams are coupled to the string `'Portfolio'`. That coupling lives in a shared `tagTypes` list declared in the API module, so it has a single source of truth.
 
 ## With TanStack Query keys
 
@@ -76,7 +76,7 @@ useQuery({ queryKey: ['portfolio', accountId], queryFn: fetchPortfolio });
 useQuery({ queryKey: ['holdings', accountId], queryFn: fetchHoldings });
 ```
 
-They ship to the CDN.
+They ship.
 
 In an RTK Query world with tags, the rename has no effect on the dealing team's invalidation. Tags are independent of query keys. The portfolio team's query still provides `'Portfolio'`. The dealing team's mutation still invalidates `'Portfolio'`. The wiring holds.
 
@@ -100,8 +100,8 @@ A few things to take from this.
 
 If your app is one team and one codebase, the difference is mostly aesthetic. TanStack's key-based API is shorter and gets out of the way. The risk of silent invalidation drift is small because you have full visibility into every query key.
 
-If your app has multiple teams and they ship independently, the failure mode of key-based invalidation starts to compound. Each team's refactor is a possible silent break for any other team that referenced their keys. You can build conventions to soften that (shared key constants, code review checklists, integration tests across features), but you're rebuilding what the tag system gives you for free.
+If your app has multiple teams and they ship independently, the failure mode of key-based invalidation starts to compound. Each team's refactor is a possible silent break for any other team that referenced their keys. You can build conventions to soften that (query key factories, shared key constants, code review checklists, integration tests across features), but those are conventions, not enforcement: you're rebuilding what the tag system gives you for free.
 
 If you're early in a library choice and federation or multi-team coordination is on the horizon, the tag system is worth understanding before the API shape feels arbitrary. Picking between the two libraries means picking which failure modes you're willing to live with.
 
-The broader question of how to think about state management in a federated context [is in this post](/blog/state-management-federated-react-native/). If you're new to the server-vs-client-state split this one assumes, [start here](/blog/server-state-and-client-state-react-native/).
+The Module Federation series takes up the broader question of state management across independently shipped remotes when its state posts land. If you're new to the server-vs-client-state split this one assumes, [start here](/blog/server-state-and-client-state-react-native/).

@@ -16,7 +16,7 @@ relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "
 
 ## The problem with "is this a 3 or a 4?"
 
-When I started building the hiring process for my squad, I wanted a structured scorecard from the start. I wrote about the tech test itself in [an earlier post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). The test worked. The scoring didn't. At least, not the way I first designed it.
+When I started building the hiring process for my team, I wanted a structured scorecard from the start. I wrote about the tech test itself in [an earlier post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). The test worked. The scoring didn't. At least, not the way I first designed it.
 
 My first scorecard used a 1 to 5 scale for each criterion. "TypeScript usage: score 1 to 5." "State management: score 1 to 5." Each criterion had a rubric describing what each score meant. On paper it looked fine.
 
@@ -155,7 +155,7 @@ Respect the time constraint. If a check would need more than 6 hours of work fro
 
 ## It's still evolving
 
-I've used this scorecard for our first round of React Native hiring. My peer EM reviewed it and adopted it for his squad's hires too. That's the test of a good system: someone else can pick it up and use it without you in the room.
+I've used this scorecard for our first round of React Native hiring. My peer EM reviewed it and adopted it for his team's hires too. That's the test of a good system: someone else can pick it up and use it without you in the room.
 
 I'm not pretending it's perfect. The bands might need recalibrating after more candidates go through. Some checks might turn out to be too easy or too hard. The stretch goals might need rebalancing.
 

@@ -11,7 +11,7 @@ relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "
 
 ## Ang problema sa "3 ba 'to o 4?"
 
-Noong sinimulan kong buuin ang hiring process para sa squad ko, gusto ko ng structured scorecard mula sa simula. Isinulat ko ang tungkol sa mismong tech test sa [isang naunang post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). Gumana ang test. Ang scoring, hindi. Hindi naman sa totally hindi, pero hindi sa paraan na ginawa ko noong una.
+Noong sinimulan kong buuin ang hiring process para sa team ko, gusto ko ng structured scorecard mula sa simula. Isinulat ko ang tungkol sa mismong tech test sa [isang naunang post](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/). Gumana ang test. Ang scoring, hindi. Hindi naman sa totally hindi, pero hindi sa paraan na ginawa ko noong una.
 
 Ang unang scorecard ko ay gumagamit ng 1 hanggang 5 na scale para sa bawat criterion. "TypeScript usage: score 1 to 5." "State management: score 1 to 5." Bawat criterion may rubric na nagde-describe kung ano ang ibig sabihin ng bawat score. Sa papel, mukha siyang okay.
 
@@ -150,7 +150,7 @@ I-respeto ang time constraint. Kung ang isang check ay mangangailangan ng mahigi
 
 ## Nag-e-evolve pa rin
 
-Ginamit ko ang scorecard na ito para sa unang round ng React Native hiring namin. Ni-review ito ng kapwa ko na EM at in-adopt niya rin para sa mga hire ng squad niya. Iyan ang test ng magandang system: kaya itong kunin ng iba at gamitin nang wala ka sa kwarto.
+Ginamit ko ang scorecard na ito para sa unang round ng React Native hiring namin. Ni-review ito ng kapwa ko na EM at in-adopt niya rin para sa mga hire ng team niya. Iyan ang test ng magandang system: kaya itong kunin ng iba at gamitin nang wala ka sa kwarto.
 
 Hindi ko sinasabing perpekto ito. Pwedeng kailanganin ng recalibration ang mga bands pagkatapos dumaan ng mas maraming candidates. Baka lumabas na masyadong madali o masyadong mahirap ang ibang checks. Baka kailanganin ng rebalancing ang stretch goals.
 

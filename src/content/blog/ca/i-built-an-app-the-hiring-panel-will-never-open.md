@@ -59,7 +59,7 @@ La solució va ser deixar de confiar en la vista de React de les dades a les esc
 
 ```typescript
 function freshCandidate(id: string): Candidate | undefined {
-  const raw = localStorage.getItem('hl-ik-candidates');
+  const raw = localStorage.getItem('ik-candidates');
   if (!raw) return undefined;
   return JSON.parse(raw).find((c: Candidate) => c.id === id);
 }
