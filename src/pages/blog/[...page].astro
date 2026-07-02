@@ -5,9 +5,13 @@ import { getPostsForLocale } from '../../utils/blogHelpers';
 export async function getStaticPaths({ paginate }: any) {
   const posts = await getPostsForLocale('en');
   // The newest post's series leads page one as the hero card, which already
-  // lists every part - keep those posts out of the feed to avoid duplication.
+  // lists every part - demote (never remove) those posts to the end of the
+  // feed, so page one is not duplicated and the page count stays stable.
+  // Removing them shrank pagination and 404'd the indexed /blog/2/.
   const currentSeries = posts[0]?.data.series ?? null;
-  const feed = currentSeries ? posts.filter(p => p.data.series !== currentSeries) : posts;
+  const feed = currentSeries
+    ? [...posts.filter(p => p.data.series !== currentSeries), ...posts.filter(p => p.data.series === currentSeries)]
+    : posts;
   return paginate(feed, { pageSize: 12 });
 }
 
