@@ -14,8 +14,9 @@ const { locale } = Astro.props;
 const i18n = t(locale);
 const blogPath = getLocalePath(locale, '/blog/');
 
-// Every tag with its published-post count, sorted alphabetically. A dedicated page
-// has room for the full list, so there is no cap: this scales to any number of tags.
+// Every tag with its published-post count. A dedicated page has room for the
+// full list, so there is no cap. Highest-traffic tags lead (count, then name),
+// so the useful entry points aren't buried in an alphabetical wall.
 const posts = await getPostsForLocale(locale);
 const tagCounts = new Map<string, number>();
 for (const p of posts) {
@@ -23,7 +24,7 @@ for (const p of posts) {
 }
 const tags = [...tagCounts.entries()]
   .map(([tag, count]) => ({ tag, count, label: getTagLabel(tag, locale) }))
-  .sort((a, b) => a.label.localeCompare(b.label));
+  .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 ---
 
 <BaseLayout

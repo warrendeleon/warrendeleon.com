@@ -6,7 +6,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName } from '../../utils/blogHelpers';
+import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug } from '../../utils/blogHelpers';
 
 interface Props {
   locale: Locale;
@@ -18,6 +18,11 @@ const { locale, posts, tag } = Astro.props;
 const i18n = t(locale);
 const blogPath = getLocalePath(locale, '/blog/');
 const tagLabel = getTagLabel(tag, locale);
+
+// Thin tag pages are near dead ends; the series these posts belong to are the
+// natural next hop, so surface them as chips under the header.
+const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Boolean))]
+  .map((name) => ({ name: name as string, slug: getSeriesSlug(name as string) }));
 ---
 
 <BaseLayout
@@ -40,6 +45,14 @@ const tagLabel = getTagLabel(tag, locale);
         </a>
         <h1 class="section-heading">{i18n.blog.postsTagged} {tagLabel}</h1>
         <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
+        {relatedSeries.length > 0 && (
+          <p class="tag-page-series">
+            {i18n.blog.seriesLabel}:
+            {relatedSeries.map((s) => (
+              <a href={getLocalePath(locale, `/blog/series/${s.slug}/`)} class="post-tag">{shortenSeriesName(s.name)}</a>
+            ))}
+          </p>
+        )}
       </div>
 
       <div class="blog-feed">
@@ -106,6 +119,7 @@ const tagLabel = getTagLabel(tag, locale);
   .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
   .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
   .tag-page-count { font-size: 1rem; color: var(--text-muted); margin-top: 0.75rem; }
+  .tag-page-series { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: baseline; color: var(--text-muted); font-size: 0.95rem; }
   /* Post list reuses the shared .feed-post row card (global.css) */
   .blog-empty { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 2rem; }
 </style>

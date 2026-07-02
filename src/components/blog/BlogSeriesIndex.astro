@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogSearch from './BlogSearch.astro';
+import { t, getLocalePath } from '../../i18n/index';
+import type { Locale } from '../../i18n/index';
+import { getAllSeries, getSeriesPosts } from '../../utils/blogHelpers';
+import { getSeriesDescription } from '../../i18n/seriesDescriptions';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i18n = t(locale);
+const blogPath = getLocalePath(locale, '/blog/');
+
+const seriesBase = await getAllSeries(locale);
+const series = await Promise.all(seriesBase.map(async (s) => {
+  const intro = (await getSeriesPosts(locale, s.slug))[0];
+  return { ...s, intro, desc: getSeriesDescription(s.name, locale) || intro?.data.description || '' };
+}));
+---
+
+<BaseLayout
+  title={`${i18n.blog.browseBySeries} | Warren de Leon`}
+  description={i18n.blog.browseBySeries}
+  locale={locale}
+  currentPath={getLocalePath(locale, '/blog/series/')}
+>
+  <BlogSearch locale={locale} />
+
+  <section class="section">
+    <div class="container">
+      <div class="tag-page-header">
+        <a href={blogPath} class="blog-back-link">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          {i18n.blog.backToBlog}
+        </a>
+        <h1 class="section-heading">{i18n.blog.browseBySeries}</h1>
+      </div>
+
+      <div class="series-index-grid">
+        {series.map((s) => (
+          <a class="series-index-card" href={getLocalePath(locale, `/blog/series/${s.slug}/`)}>
+            {s.intro?.data.heroImage && (
+              <div class="series-index-art">
+                <img src={s.intro.data.heroImage} alt={s.intro.data.heroAlt || s.name} loading="lazy" />
+              </div>
+            )}
+            <div class="series-index-body">
+              <span class="series-index-kicker blog-mono">{s.count} {i18n.blog.parts}</span>
+              <h2 class="series-index-title">{s.name}</h2>
+              {s.desc && <p class="series-index-desc">{s.desc}</p>}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .series-index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .series-index-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .series-index-card:hover {
+    border-color: var(--color-green);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    color: var(--text-primary);
+  }
+
+  .series-index-art img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+  }
+
+  .series-index-body {
+    padding: 1.1rem 1.3rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .series-index-kicker {
+    font-size: 0.8rem;
+    color: var(--color-green-text);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .series-index-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .series-index-desc {
+    color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+</style>

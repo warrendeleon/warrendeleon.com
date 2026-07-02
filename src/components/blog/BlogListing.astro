@@ -107,6 +107,7 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
       {feedPosts.length > 0 && (
         <div class="blog-feed-block">
           <h2 class="blog-section-heading">{i18n.blog.allPosts}</h2>
+          <a class="blog-tag-link" href={getLocalePath(locale, '/blog/series/')}>{i18n.blog.browseBySeries} <span aria-hidden="true">&rarr;</span></a>
           <a class="blog-tag-link" href={tagsPath}>{i18n.blog.browseByTag} <span aria-hidden="true">&rarr;</span></a>
           <div class="blog-feed">
             {feedPosts.map(post => (

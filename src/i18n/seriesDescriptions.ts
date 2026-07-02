@@ -23,6 +23,30 @@ const seriesDescriptions: Record<string, Record<Locale, string>> = {
     ca: 'Repensar com contractar enginyers de React Native: redissenyar la prova tècnica, avaluar amb justícia de graduat a sènior i proves per a casa que els candidats sí que acaben.',
     tl: 'Muling pag-isipan kung paano mag-hire ng React Native engineers: pag-redesign ng tech test, patas na pag-score mula graduate hanggang senior, at take-home na natatapos talaga ng mga kandidato.',
   },
+  'Supabase Security': {
+    en: 'Harden a React Native + Supabase stack end to end: typed Axios auth and storage clients, token-refresh races, certificate pinning, PII-safe logging, and RLS policies that hold.',
+    es: 'Blinda un stack React Native + Supabase de punta a punta: clientes Axios tipados de auth y storage, carreras de refresco de token, certificate pinning, logs sin PII y políticas RLS que aguantan.',
+    ca: "Blinda un stack React Native + Supabase de punta a punta: clients Axios tipats d'auth i storage, curses de refresc de token, certificate pinning, logs sense PII i polítiques RLS que aguanten.",
+    tl: 'Patibayin ang React Native + Supabase stack mula dulo hanggang dulo: typed Axios auth at storage clients, token-refresh races, certificate pinning, PII-safe logging, at RLS policies na tumatagal.',
+  },
+  'Testing and Infrastructure': {
+    en: 'Deterministic React Native testing beyond unit specs: Metro-level backend mocking for Detox, Zod contract validation at runtime, and automated accessibility and i18n parity checks.',
+    es: 'Testing determinista en React Native más allá de los tests unitarios: mocking del backend a nivel de Metro para Detox, validación de contratos con Zod en runtime y comprobaciones automáticas de accesibilidad y paridad i18n.',
+    ca: "Testing determinista en React Native més enllà dels tests unitaris: mocking del backend a nivell de Metro per a Detox, validació de contractes amb Zod en runtime i comprovacions automàtiques d'accessibilitat i paritat i18n.",
+    tl: 'Deterministic na React Native testing lampas sa unit specs: Metro-level backend mocking para sa Detox, runtime contract validation gamit ang Zod, at automated na accessibility at i18n parity checks.',
+  },
+  'State Management': {
+    en: 'How to choose state management with a clear head: server state vs client state, cache-invalidation shapes that steer team habits, and what Module Federation changes about the question.',
+    es: 'Cómo elegir la gestión de estado con la cabeza fría: estado de servidor frente a estado de cliente, formas de invalidación de caché que moldean los hábitos del equipo y qué cambia Module Federation en la pregunta.',
+    ca: "Com triar la gestió d'estat amb el cap fred: estat de servidor davant estat de client, formes d'invalidació de cau que modelen els hàbits de l'equip i què canvia Module Federation en la pregunta.",
+    tl: 'Paano pumili ng state management nang malinaw ang isip: server state laban sa client state, mga hugis ng cache invalidation na humuhubog sa gawi ng team, at kung ano ang binabago ng Module Federation sa tanong.',
+  },
+  'Claude RAG + Tooling': {
+    en: 'How I gave Claude Code a local memory: a RAG over conversation transcripts, the fswatch-to-ChromaDB indexing pipeline, a FastMCP tool server, and a curated wiki that answers what search only recalls.',
+    es: 'Cómo le di memoria local a Claude Code: un RAG sobre transcripciones de conversaciones, el pipeline de indexado de fswatch a ChromaDB, un servidor de herramientas FastMCP y una wiki curada que responde lo que la búsqueda solo recuerda.',
+    ca: "Com vaig donar memòria local a Claude Code: un RAG sobre transcripcions de converses, el pipeline d'indexació de fswatch a ChromaDB, un servidor d'eines FastMCP i una wiki curada que respon el que la cerca només recorda.",
+    tl: 'Paano ko binigyan ng lokal na memorya ang Claude Code: RAG sa mga transcript ng usapan, ang fswatch-papuntang-ChromaDB indexing pipeline, FastMCP tool server, at curated wiki na sumasagot sa naaalala lang ng search.',
+  },
 };
 
 export const getSeriesDescription = (series: string, locale: Locale): string => {

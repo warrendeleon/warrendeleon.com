@@ -133,7 +133,10 @@
     },
     "authorBio": "Software Engineering Manager. Most recently led the Mobile Platform team at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.",
     "clientProjects": "Client projects",
-    "pageTitle": "Blog — Page {n} | Warren de Leon"
+    "pageTitle": "Blog — Page {n} | Warren de Leon",
+    "seriesComplete": "Series complete",
+    "seriesOngoing": "Ongoing — next part {date}",
+    "startSeries": "Start with part 1"
   },
   "education": {
     "heading": "Education",
