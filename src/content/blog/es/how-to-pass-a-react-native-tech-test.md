@@ -4,7 +4,7 @@ description: "Consejos prácticos de alguien que revisa pruebas técnicas take-h
 tags: ["react-native", "hiring", "career-advice", "tech-interviews"]
 locale: es
 heroImage: "/images/blog/react-native-tech-test-tips.webp"
-heroAlt: "Cómo aprobar una prueba técnica de React Native"
+heroAlt: "Un camino que se bifurca con una marca de verificación en la rama elegida y un foco esperando al final"
 campaign: "pass-rn-tech-test"
 relatedPosts: ["why-i-redesigned-our-react-native-tech-test-in-my-first-week", "how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior", "how-to-write-a-take-home-tech-test-that-candidates-actually-want-to-do"]
 ---

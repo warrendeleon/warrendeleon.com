@@ -1,6 +1,6 @@
 ---
 title: "Cómo diseñé un scorecard de prueba técnica que funciona de Graduate a Senior"
-description: "Cómo un scorecard de checklists hizo que nuestra prueba de React Native funcione de Graduate a Senior. Las decisiones detrás de un scorecard de contratación justo."
+description: "Cómo un scorecard de checklists hizo que nuestra prueba de React Native funcione en todos los niveles, y el diseño que lo mantiene justo de Graduate a Senior."
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: es
 heroImage: "/images/blog/tech-test-scorecard.webp"
@@ -153,5 +153,3 @@ Usé este scorecard para nuestra primera ronda de contratación de React Native,
 Si estás montando un proceso de contratación y tus entrevistadores siguen sin ponerse de acuerdo en las puntuaciones, prueba a reemplazar tu rúbrica con un checklist. Te vas a sorprender de cuánto acuerdo consigues cuando dejas de preguntar *"¿qué tan bueno es esto?"* y empiezas a preguntar *"¿esto está aquí?"*
 
 *Si quieres ver la mirada del candidato sobre lo que mide este scorecard, escribí un post complementario: [Cómo aprobar una prueba técnica de React Native](/blog/how-to-pass-a-react-native-tech-test/).*
-
-> Los mejores sistemas de puntuación no miden lo que sientes sobre el código. Miden lo que hay en el código.

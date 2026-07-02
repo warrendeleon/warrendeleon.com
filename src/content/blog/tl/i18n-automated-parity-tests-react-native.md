@@ -4,7 +4,7 @@ description: "I-set up ang type-safe i18n sa React Native na may device locale d
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: tl
 heroImage: "/images/blog/i18n-parity-tests.webp"
-heroAlt: "i18n na may automated parity tests sa React Native"
+heroAlt: "Mga hilera ng tiles na nakahanay sa isang reference column na may isang slot na walang laman, katabi ng globe at magnifying lens"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -467,10 +467,8 @@ src/
 
 ## Isang umaga, isang test, zero na nawawalang translations
 
-Isang umaga ang setup. i18next configuration, limang JSON files, isang type declaration, isang parity test. Pagkatapos noon, ang pagdadagdag ng bagong wika ay: kopyahin ang `en.json`, i-translate, idagdag sa `resources.ts`, idagdag sa parity test. Agad na hinuhuli ng test ang anumang nawawalang keys.
+Apat na moving parts lang ang buong setup: i18next configuration, limang JSON files, isang type declaration, isang parity test. Pagkatapos noon, ang pagdadagdag ng bagong wika ay: kopyahin ang `en.json`, i-translate, idagdag sa `resources.ts`, idagdag sa parity test. Agad na hinuhuli ng test ang anumang nawawalang keys.
 
-Sa aking project, ilang beses nang nahuli ng parity test ang mga nawawalang keys habang nagde-develop. Bawat isa sa mga iyon ay magiging tahimik na English string sa isang non-English na interface. Tumatakbo ang test sa ilalim ng isang segundo at walang gastos sa maintenance.
-
-> Ang tanging multilingual bug na mas masahol pa sa masamang translation ay ang nawawalang translation.
+Sa aking project, ilang beses nang nahuli ng parity test ang mga nawawalang keys habang nagde-develop. Bawat isa sa mga iyon ay magiging tahimik na English string sa isang non-English na interface, ang nag-iisang multilingual bug na mas masahol pa sa masamang translation, dahil walang nagre-report ng string na hindi nila nakita kailanman. Tumatakbo ang test sa ilalim ng isang segundo at walang gastos sa maintenance.
 
 *Ang mga code examples sa post na ito ay mula sa [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), ang aking personal na React Native project. Ang buong i18n configuration, locale files, type declarations, at parity tests ay nasa repo.*

@@ -1,6 +1,6 @@
 ---
 title: "Ang host shell: mga federated remote bilang tabs sa React Native"
-description: "Gawing tunay na app shell ang host mula sa iisang screen. Ito ang may-ari ng tab bar at navigation; bawat tab ay hiwalay na remote, binuo at na-deploy nang mag-isa, nilo-load sa runtime."
+description: "Gawing tunay na app shell ang host: ito ang may-ari ng tab bar at navigation, at bawat tab ay remote na binuo, na-ship at nilo-load nang mag-isa."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "ang host shell"
@@ -33,7 +33,7 @@ flowchart TB
     t2 -.->|"React.lazy · nilo-load sa unang pagbukas"| profile
 ```
 
-Magpapatuloy tayo kung saan tumigil ang post 3. Kung sumunod ka sa tutorial, manatili sa sarili mong code. Kung hindi, magsimula mula sa tapos na estado ng post 3:
+Ang panimulang punto ay ang tapos na estado ng post 3. Kung sumunod ka sa tutorial, iyon na ang code na hawak mo. Kung hindi:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

@@ -1,10 +1,10 @@
 ---
 title: "Ang contract package: isang versioned na tahi sa pagitan ng mga federated remote sa React Native"
-description: "Binuo at na-ship ang isang remote nang mag-isa, kaya hindi nakikita ng host kung ano ang inilalantad nito. Isang shared contract package, na-publish sa isang registry at na-install ayon sa bersyon, ang nagbibigay sa dalawang panig ng iisang depinisyon. Pagkatapos, pinamamahalaan ng semver kung ano ang nangyayari kapag nag-iiba sila."
+description: "Hindi nakikita ng host ang inilalantad ng remote. Isang contract package, na-install by version, ang nagbibigay ng isang depinisyon; semver ang bahala sa drift."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "ang contract package"
-tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
+tags: ["react-native", "module-federation", "re-pack", "rspack", "typescript", "verdaccio", "tutorial"]
 locale: tl
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
 heroAlt: "Isang host at isang federated remote na nag-i-install bawat isa ng sarili nilang bersyon ng isang shared contract package mula sa isang registry"
@@ -41,7 +41,7 @@ flowchart TB
     registry -->|"npm install"| l
 ```
 
-Itutuloy natin kung saan tumigil ang post 4. Kung sumunod ka sa build, manatili sa sarili mong code. Kung hindi, magsimula sa huling estado ng post 4:
+Magpatuloy mula sa sarili mong post 4 code kung sumunod ka sa build. Kung hindi, i-check out ang huling estado nito:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

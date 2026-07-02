@@ -1,6 +1,6 @@
 ---
 title: "Metro runtime mocking para sa deterministic na React Native E2E tests"
-description: "Pag-mock ng backend sa Metro bundle level para sa Detox. Walang network interception, walang flaky tests, walang external services. Bakit mas maganda ito kaysa MSW."
+description: "Pag-mock ng backend sa Metro bundle level para sa Detox. Walang network interception, flaky tests, o external services. Bakit mas maganda ito kaysa MSW."
 tags: ["react-native", "testing", "e2e-testing", "mocking"]
 locale: tl
 heroImage: "/images/blog/metro-runtime-mocking.webp"

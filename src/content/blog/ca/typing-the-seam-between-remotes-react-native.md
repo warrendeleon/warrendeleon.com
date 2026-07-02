@@ -1,10 +1,10 @@
 ---
 title: "El paquet de contractes: una costura versionada entre remotes federats a React Native"
-description: "Un remote es construeix i es desplega pel seu compte, així que el host no pot veure el que exposa. Un paquet de contractes compartit, publicat en un registre i instal·lat per versió, dona als dos costats una sola definició. Després semver governa el que passa quan divergeixen."
+description: "El host no veu què exposa un remote. Un paquet de contractes publicat i instal·lat per versió dona als dos costats una sola definició; semver governa la deriva."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "el paquet de contractes"
-tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
+tags: ["react-native", "module-federation", "re-pack", "rspack", "typescript", "verdaccio", "tutorial"]
 locale: ca
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
 heroAlt: "Un host i un remote federat instal·lant cadascun la seva pròpia versió d'un paquet de contractes compartit des d'un registre"
@@ -41,7 +41,7 @@ flowchart TB
     registry -->|"npm install"| l
 ```
 
-Reprenem on ho va deixar el post 4. Si ho vas construir pas a pas, segueix amb el teu propi codi. Si no, parteix de l'estat final del post 4:
+Continua amb el teu propi codi del post 4 si ho vas construir pas a pas. Si no, parteix del seu estat final:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

@@ -1,6 +1,6 @@
 ---
 title: "El contracte de singletons compartits a React Native Module Federation"
-description: "Comparteix react, react-native i una llibreria nativa entre un host i el seu remote de la manera correcta, i descobreix per què fer-ho malament fa que l'app peti en arrencar en lloc de trencar-se en silenci."
+description: "Comparteix react, react-native i una llibreria nativa entre un host i el seu remote com cal; fer-ho malament fa petar l'app en arrencar, no en silenci."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "el contracte de singletons compartits"

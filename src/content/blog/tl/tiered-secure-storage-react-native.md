@@ -4,7 +4,7 @@ description: "Tatlong storage tier sa React Native: Keychain para sa tokens, enc
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: tl
 heroImage: "/images/blog/tiered-secure-storage.webp"
-heroAlt: "Tiered secure storage sa React Native"
+heroAlt: "Tatlong pababang baitang na may nakakandadong cube, isang safe at isang bukas na tray, may sorting arrow"
 campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
@@ -453,7 +453,7 @@ Simple lang ang patakaran: kung nagbibigay ito ng access, Tier 1. Kung nagpapaki
 
 ## Kaya bakit tatlong libraries
 
-Iniiwan ng isang library (AsyncStorage) ang tokens sa plain text. Masyadong mabagal ang isang library (react-native-keychain) para sa hindi sensitive na reads. Tatlong libraries, tatlong wrappers, tatlong enums. Wala pang 50 linya bawat wrapper. Isang hapon lang ang setup.
+Iniiwan ng isang library (AsyncStorage) ang tokens sa plain text. Masyadong mabagal ang isang library (react-native-keychain) para sa hindi sensitive na reads. Tatlong libraries, tatlong wrappers, tatlong enums. Wala pang 50 linya bawat wrapper.
 
 Ang makukuha mo: tokens na hindi mababasa nang walang biometric authentication, PII na naka-encrypt at rest, at preferences na lumalabas sa unang frame. Bawat piraso ng data ay protektado sa level na talagang kailangan nito.
 

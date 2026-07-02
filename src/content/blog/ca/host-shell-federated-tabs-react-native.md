@@ -1,6 +1,6 @@
 ---
 title: "La closca del host: remotes federats com a pestanyes a React Native"
-description: "Converteix el host d'una sola pantalla en una closca d'app de debò. És propietari de la tab bar i la navegació; cada pestanya és un remote independent, construït i desplegat pel seu compte, carregat en temps d'execució."
+description: "Converteix el host d'una sola pantalla en una closca d'app: té la tab bar i la navegació, i cada pestanya és un remote construït, desplegat i carregat a part."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "la closca del host"
@@ -33,7 +33,7 @@ flowchart TB
     t2 -.->|"React.lazy · es carrega en obrir-la per primera vegada"| profile
 ```
 
-Reprenem on ho va deixar el post 3. Si vas seguir el tutorial, queda't amb el teu propi codi. Si no, parteix de l'estat final del post 3:
+El punt de partida és l'estat final del post 3. Si vas seguir el tutorial, aquest és el codi que ja tens. Si no:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

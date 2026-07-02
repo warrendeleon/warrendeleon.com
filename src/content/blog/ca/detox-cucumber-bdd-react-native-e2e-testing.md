@@ -1,6 +1,6 @@
 ---
 title: "Detox + Cucumber BDD per a tests E2E a React Native"
-description: "Detox + Cucumber per a E2E a React Native. Definicions de passos, formatter personalitzat, execució paral·lela i tests de regressió d'accessibilitat en Gherkin pla."
+description: "Detox + Cucumber per a E2E a React Native. Definicions de passos, formatter propi, execució paral·lela i tests de regressió d'accessibilitat en Gherkin pla."
 tags: ["react-native", "testing", "e2e-testing", "bdd"]
 locale: ca
 heroImage: "/images/blog/detox-cucumber-rn.webp"
@@ -614,11 +614,9 @@ El setup és feina d'un matí. El primer fitxer feature, una tarda. Després, af
 
 El que has construït al final:
 
-1. Tests que qualsevol persona de l'equip pot llegir. Product, QA, dissenyadors. El fitxer Gherkin és l'especificació i el test alhora.
+1. Tests que qualsevol persona de l'equip pot llegir. Product, QA, dissenyadors. El fitxer Gherkin és l'especificació i el test alhora, i quan un escenari falla, el report anomena el pas que s'ha trencat en lloc d'una línia de codi de test.
 2. Execució paral·lela que funciona amb Detox. Tres simuladors, tres workers, tres vegades més ràpid al CI.
 3. Cobertura de regressions d'accessibilitat. Uns 50 escenaris verificant labels, rols i traits. No és un substitut del testing manual amb lector de pantalla, però sí una xarxa que atura les regressions òbvies abans que arribin a QA.
-
-> Quan un test E2E falla, hauries de saber què s'ha trencat sense llegir el codi del test.
 
 *Aquest post cobreix testing E2E. Per a tests unitaris i d'integració uso [MSW v2 per simular la capa de xarxa](/ca/blog/setting-up-msw-v2-in-react-native/) en comptes de `jest.fn()`. Els dos s'emparellen bé: MSW per a tests ràpids i enfocats contra crides HTTP reals; Detox + Cucumber per a fluxos complets d'usuari en un dispositiu real.*
 

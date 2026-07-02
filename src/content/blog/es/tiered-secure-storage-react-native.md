@@ -1,10 +1,10 @@
 ---
 title: "Almacenamiento seguro por niveles en React Native"
-description: "Tres niveles en React Native: Keychain para tokens, cifrado para datos personales, AsyncStorage para preferencias. Cuándo usar cada uno y cómo encaja Redux Persist."
+description: "Tres niveles en React Native: Keychain para tokens, cifrado para PII, AsyncStorage para preferencias. Cuándo usar cada uno y cómo encaja Redux Persist."
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: es
 heroImage: "/images/blog/tiered-secure-storage.webp"
-heroAlt: "Almacenamiento seguro por niveles en React Native"
+heroAlt: "Tres escalones descendentes con un cubo cerrado con candado, una caja fuerte y una bandeja abierta, con una flecha clasificadora"
 campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
@@ -453,7 +453,7 @@ La regla es corta: si da acceso, Nivel 1. Si identifica a una persona, Nivel 2. 
 
 ## Entonces, ¿por qué tres librerías?
 
-Una librería (AsyncStorage) deja los tokens en texto plano. Una librería (react-native-keychain) es demasiado lenta para lecturas no sensibles. Tres librerías, tres wrappers, tres enums. Cada wrapper se queda por debajo de las 50 líneas. El setup lleva una tarde.
+Una librería (AsyncStorage) deja los tokens en texto plano. Una librería (react-native-keychain) es demasiado lenta para lecturas no sensibles. Tres librerías, tres wrappers, tres enums. Cada wrapper se queda por debajo de las 50 líneas.
 
 Lo que te llevas: tokens que no se pueden leer sin autenticación biométrica, datos personales cifrados en reposo y preferencias que cargan en el primer frame. Cada dato está protegido en el nivel que realmente necesita.
 

@@ -1,6 +1,6 @@
 ---
 title: "Paano magsulat ng take-home tech test na gusto talagang gawin ng mga kandidato"
-description: "Karamihan ng take-home tests, fail dahil sa setup friction, malabong brief, o hindi nire-respeto ang oras. Ganito ko dinesign ang gusto talagang gawin ng mga kandidato."
+description: "Karamihan ng take-home tests, fail dahil sa setup friction, malabong brief, o hindi nire-respeto ang oras. Ganito ko dinesign ang gustong gawin ng kandidato."
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: tl
 heroImage: "/images/blog/take-home-tech-test-design.webp"

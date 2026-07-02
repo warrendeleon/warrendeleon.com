@@ -4,7 +4,7 @@ description: "Guia pràctica de Mock Service Worker v2 en un projecte React Nati
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: ca
 heroImage: "/images/blog/msw-react-native.webp"
-heroAlt: "Configurant MSW v2 a React Native per a testing"
+heroAlt: "Una malla travessant una canonada que intercepta fletxes entrants i les classifica en una safata d'èxits i una de fallades"
 campaign: "msw-v2-react-native"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]
 ---
@@ -513,8 +513,6 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 El setup costa uns trenta minuts. A partir d'aquí, cada test nou surt més simple que l'equivalent amb mocks manuals. Escrius `server.use(...errorHandlers)` en comptes de `jest.fn().mockRejectedValue(new Error('Network error'))`. Els handlers es reutilitzen a cada fitxer de test. I el que el test exercita és comportament d'integració, no comportament de mocks.
 
-Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis. El mateix enfocament de handler sets també lliga bé amb tests E2E, on [Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) condueix els fluxos d'usuari i una capa separada de mocking en temps d'execució controla les respostes de l'API.
-
-> Si escriure el pròxim test és més difícil que saltar-se'l, la teva infraestructura de test és el problema.
+Els 11 handler sets del meu projecte cobreixen cada path d'error que l'app gestiona. Quan afegeixo un nou endpoint d'API, afegeixo handlers un cop, i cada test que toca aquell endpoint obté mocking correcte gratis. El mateix enfocament de handler sets també lliga bé amb tests E2E, on [Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) condueix els fluxos d'usuari i una capa separada de mocking en temps d'execució controla les respostes de l'API. La mesura de tot el setup és que escriure el pròxim test ara és més fàcil que saltar-se'l.
 
 *Els exemples de codi d'aquest post són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. El setup complet de MSW, els handler sets i el wrapper de render personalitzat són al repo.*

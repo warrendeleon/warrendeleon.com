@@ -1,6 +1,6 @@
 ---
 title: "Ang shared-singleton contract sa React Native Module Federation"
-description: "I-share ang react, react-native, at isang native library sa pagitan ng host at ng remote nito nang tama, at tingnan kung bakit ang maling paggawa nito ay nagpapa-crash sa app sa pag-launch sa halip na tahimik na masira."
+description: "I-share ang react, react-native at isang native library sa host at remote nito nang tama; ang maling paggawa ay nagpapa-crash sa app sa launch, hindi tahimik."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "ang shared-singleton contract"

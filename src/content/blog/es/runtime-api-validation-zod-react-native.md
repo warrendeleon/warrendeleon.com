@@ -1,10 +1,10 @@
 ---
 title: "Validación de respuestas de API en runtime con Zod en React Native"
-description: "Tus tipos de TypeScript no te protegen en runtime. Cómo detectar cambios en el contrato del backend antes de que rompan tu app usando schemas de Zod que funcionan también como tus definiciones de tipos."
+description: "TypeScript no te protege en runtime. Detecta cambios de contrato del backend antes de que rompan la app con schemas de Zod que también son tus tipos."
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: es
 heroImage: "/images/blog/zod-runtime-validation.webp"
-heroAlt: "Validación de respuestas de API en runtime con Zod en React Native"
+heroAlt: "Una puerta con ranuras que deja pasar los bloques que encajan mientras un bloque distinto rebota, con un escudo detrás de la puerta"
 campaign: "zod-runtime-validation"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]
 ---
@@ -439,12 +439,10 @@ El test `validates real fixture data` es el canario en la mina: si alguna vez fa
 
 ## Lo que cuesta, lo que atrapa
 
-El setup es trabajo de una mañana. Un schema por respuesta de API, dos funciones auxiliares, un test por schema.
+El coste es un schema por respuesta de API, dos funciones auxiliares y un test por schema.
 
 Lo que obtienes: cada respuesta de API se valida antes de que tu app la toque. Cuando el backend cambia, la validación lanza un error en la frontera con el campo exacto que se rompió. No más debuggear pantallas en blanco causadas por un campo renombrado a tres llamadas de API de profundidad.
 
-En mi proyecto, los schemas de Zod detectaron dos cambios del backend durante el desarrollo que se habrían publicado como bugs silenciosos. Uno era un campo nullable que pasó a ser requerido. El otro era un campo de URL que empezó a devolver paths relativos en vez de URLs absolutas. Ambos fueron atrapados por la validación antes de llegar a un componente.
-
-> Atrápalo en la frontera de la API o debuggealo en un reporte de crash. Tú decides.
+En mi proyecto, los schemas de Zod detectaron dos cambios del backend durante el desarrollo que se habrían publicado como bugs silenciosos. Uno era un campo nullable que pasó a ser requerido. El otro era un campo de URL que empezó a devolver paths relativos en vez de URLs absolutas. Ambos fueron atrapados por la validación antes de llegar a un componente. Ese es el intercambio completo: atrápalo en la frontera de la API o debuggealo desde un reporte de crash.
 
 *Los ejemplos de código en este post son de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), mi proyecto personal de React Native. Las definiciones completas de schemas de Zod, los helpers de validación y los tests están en el repo.*

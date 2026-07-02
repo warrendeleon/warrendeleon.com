@@ -1,10 +1,10 @@
 ---
 title: "Accessibility testing sa React Native"
-description: "Automated React Native accessibility tests: touch targets, contrast ratios, focus order, screen reader announcements. Plus kung saan pa rin nananalo ang manual testing."
+description: "Automated accessibility tests sa React Native: touch targets, contrast ratios, focus order, announcements. Plus kung saan pa rin nananalo ang manual testing."
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: tl
 heroImage: "/images/blog/accessibility-testing-rn.webp"
-heroAlt: "Accessibility testing sa React Native"
+heroAlt: "Callipers at light-dark contrast swatch na sumusukat sa isang phone button, may checklist tick at screen-reader sound wave"
 campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -570,7 +570,7 @@ src/
 
 ## Ang gastos sa setup
 
-Mga 200 linya ang utility file. Bawat screen accessibility test file ay 100-500 linya. Isang hapon lang ang setup.
+Mga 200 linya ang utility file. Bawat screen accessibility test file ay 100-500 linya.
 
 Ang nakukuha mo: automated regression testing para sa bawat WCAG requirement na puwedeng i-express bilang Jest assertion. Touch targets, contrast ratios, focus order, roles, labels, announcements. Lahat ay tumatakbo sa bawat PR, hinuhuli ang regressions na hindi mapapansin ng sinuman hanggang sa mag-report ang isang screen reader user.
 

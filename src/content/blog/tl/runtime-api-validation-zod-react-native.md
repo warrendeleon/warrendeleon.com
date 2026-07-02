@@ -1,10 +1,10 @@
 ---
 title: "Runtime API response validation gamit ang Zod sa React Native"
-description: "Hulihin ang backend contract changes bago mag-crash ang React Native app mo. Paano gamitin ang Zod para sa runtime API validation na doble bilang TypeScript types."
+description: "Hulihin ang backend contract changes bago mag-crash ang React Native app. Paano gamitin ang Zod sa runtime API validation na doble bilang TypeScript types."
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: tl
 heroImage: "/images/blog/zod-runtime-validation.webp"
-heroAlt: "Runtime API response validation gamit ang Zod sa React Native"
+heroAlt: "Isang slotted gate na nagpapadaan sa mga tumutugmang block habang tinatalbog pabalik ang isang kakaibang block, may shield sa likod ng gate"
 campaign: "zod-runtime-validation"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]
 ---
@@ -439,12 +439,10 @@ Ang test na `validates real fixture data` ang canary: kapag nag-fail ito, naghiw
 
 ## Ang gastos at ang nahuhuli
 
-Isang umaga lang ang setup. Isang schema bawat API response, dalawang helper function, isang test bawat schema.
+Ang gastos: isang schema bawat API response, dalawang helper function, at isang test bawat schema.
 
 Ang makukuha mo: bawat API response ay vina-validate bago ito galawin ng app mo. Kapag nagbago ang backend, mag-throw ang validation sa boundary na may eksaktong field na nasira. Wala nang pag-debug ng mga blangkong screen na dulot ng pinalitang field tatlong API call ang lalim.
 
-Sa project ko, dalawang backend change ang nahuli ng Zod schemas habang nagde-develop na sana ay nai-ship bilang tahimik na bugs. Ang isa ay nullable field na naging required. Ang isa pa ay URL field na nagsimulang magbalik ng relative paths sa halip na absolute URLs. Pareho ay nahuli ng validation bago umabot sa component.
-
-> Hulihin sa API boundary o i-debug sa crash report. Ikaw ang pipili.
+Sa project ko, dalawang backend change ang nahuli ng Zod schemas habang nagde-develop na sana ay nai-ship bilang tahimik na bugs. Ang isa ay nullable field na naging required. Ang isa pa ay URL field na nagsimulang magbalik ng relative paths sa halip na absolute URLs. Pareho ay nahuli ng validation bago umabot sa component. Iyan ang buong trade: hulihin sa API boundary, o i-debug mula sa crash report.
 
 *Ang mga code examples sa post na ito ay mula sa [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), ang aking personal na React Native project. Nasa repo ang kumpletong Zod schema definitions, validation helpers, at tests.*

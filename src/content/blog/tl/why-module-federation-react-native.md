@@ -1,8 +1,8 @@
 ---
 title: "Bakit Module Federation sa React Native"
-description: "Ano ang ibinibigay ng runtime micro-apps sa isang React Native app, ano ang halaga nito, at kailan sulit ang palitan. Ang panimula sa isang series na bubuo ng federated setup mula sa simula."
+description: "Ano ang ibinibigay ng runtime micro-apps sa React Native app, ano ang halaga nito, at kailan sulit ang palitan. Panimula sa series na bubuo ng federated setup."
 series: "React Native Module Federation"
-tags: ["react-native", "module-federation", "re-pack", "architecture", "opinion"]
+tags: ["react-native", "module-federation", "re-pack", "rspack", "architecture", "opinion"]
 locale: tl
 heroImage: "/images/blog/module-federation-react-native.webp"
 heroAlt: "Module Federation sa React Native"

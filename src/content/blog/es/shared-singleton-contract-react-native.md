@@ -1,6 +1,6 @@
 ---
 title: "El contrato de singletons compartidos en React Native Module Federation"
-description: "Comparte react, react-native y una librería nativa entre un host y su remote de la forma correcta, y descubre por qué hacerlo mal hace que la app falle al arrancar en lugar de romperse en silencio."
+description: "Comparte react, react-native y una librería nativa entre un host y su remote de la forma correcta; hacerlo mal rompe la app al arrancar, no en silencio."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "the shared-singleton contract"

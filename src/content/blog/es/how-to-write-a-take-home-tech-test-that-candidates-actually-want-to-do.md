@@ -1,6 +1,6 @@
 ---
 title: "Cómo escribir una prueba técnica para casa que los candidatos realmente quieran hacer"
-description: "La mayoría de las pruebas técnicas fallan por fricción en el setup, briefs vagos o no respetar el tiempo del candidato. Así diseñé una por la que dan las gracias."
+description: "La mayoría de las pruebas técnicas fallan por fricción en el setup, briefs vagos o no respetar el tiempo del candidato. Así diseñé una que agradecen."
 tags: ["engineering-management", "hiring", "tech-interviews", "developer-experience"]
 locale: es
 heroImage: "/images/blog/take-home-tech-test-design.webp"

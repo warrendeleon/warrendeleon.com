@@ -5,7 +5,7 @@ draft: true
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: tl
 heroImage: "/images/blog/supabase-rest-client.webp"
-heroAlt: "Pagbuo ng Supabase integration sa React Native nang walang SDK"
+heroAlt: "Isang selyadong cube na binuksan sa bisagra para ipakita ang mga gear at pipe na gumagana sa loob, may magnifying glass sa tabi"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -44,7 +44,7 @@ Ang visibility na iyon ang dahilan ng rebuild. Ang mga teknikal na dahilan ay su
 Anim na tutorial, bawat isa ay tungkol sa isang piraso ng stack:
 
 1. **Pagbuo ng Axios-based Supabase auth client.** Ang base client, request interceptor para sa token attachment, sign-in/up/out, typed error mapping gamit ang `AuthError`, MSW test handlers.
-2. **Token refresh race conditions.** Kung ano ang nangyayari kapag limang requests ang nakakuha ng 401 nang sabay-sabay, at ang subscriber queue pattern na pumipigil sa maramihang refresh calls. May test na nagpapatunay na gumagana ang queue.
+2. **Token refresh race conditions.** Ang failure window kapag sabay-sabay na tumama sa 401 ang mga parallel request na may parehong expired token, at ang subscriber queue na nagsisiguro na iisang refresh lang ang mangyayari. May test na nagpapatunay nito.
 3. **Pagbuo ng Supabase storage client na may retry.** File uploads na may exponential backoff, content-type handling, image upload + delete patterns, retry tests.
 4. **Certificate pinning sa React Native.** TrustKit sa iOS, `network_security_config.xml` sa Android, pin extraction, rotation strategy nang hindi nila-lock out ang mga user sa mga naka-deploy na binary.
 5. **PII-masking interceptors.** Sentry breadcrumb logging na hindi nagle-leak ng tokens, emails, o phone numbers. Regex patterns at custom logger.

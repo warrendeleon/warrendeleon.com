@@ -1,10 +1,10 @@
 ---
 title: "Configurando MSW v2 en React Native"
-description: "Una guía práctica para configurar Mock Service Worker v2 en un proyecto React Native. De la instalación a un conjunto de handlers para éxito, errores, timeouts y offline."
+description: "Configurar Mock Service Worker v2 en React Native, de la instalación a un conjunto completo de handlers: éxito, errores, timeouts y offline."
 tags: ["react-native", "testing", "mocking", "jest"]
 locale: es
 heroImage: "/images/blog/msw-react-native.webp"
-heroAlt: "Configurando MSW v2 en React Native para testing"
+heroAlt: "Una malla atravesada en una tubería que intercepta las flechas entrantes y las clasifica en una bandeja de éxito y otra de fallo"
 campaign: "msw-v2-react-native"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "metro-runtime-mocking-react-native-e2e", "runtime-api-validation-zod-react-native"]
 ---
@@ -513,8 +513,6 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 El setup lleva unos treinta minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribes `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y el test ejercita comportamiento de integración real, no comportamiento de mocks.
 
-Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando añado un nuevo endpoint de API, añado handlers para él una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis. El mismo enfoque de handler sets también combina bien con tests E2E, donde [Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) maneja los flujos de usuario y una capa aparte de mocking en runtime controla las respuestas de la API.
-
-> Si escribir el próximo test es más difícil que saltártelo, tu infraestructura de test es el problema.
+Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando añado un nuevo endpoint de API, añado handlers para él una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis. El mismo enfoque de handler sets también combina bien con tests E2E, donde [Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) maneja los flujos de usuario y una capa aparte de mocking en runtime controla las respuestas de la API. La medida de todo el setup es que escribir el próximo test ahora es más fácil que saltártelo.
 
 *Los ejemplos de código en este post son de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), mi proyecto personal de React Native. El setup completo de MSW, los handler sets y el wrapper de render personalizado están en el repo.*

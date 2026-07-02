@@ -1,10 +1,10 @@
 ---
 title: "Emmagatzematge segur per nivells a React Native"
-description: "Tres nivells a React Native: Keychain per a tokens, magatzem xifrat per a dades personals, AsyncStorage per preferències. Quan usar cada un, i com hi cap Redux Persist."
+description: "Tres nivells a React Native: Keychain per a tokens, magatzem xifrat per a PII, AsyncStorage per preferències. Quan usar cada un, i com hi cap Redux Persist."
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: ca
 heroImage: "/images/blog/tiered-secure-storage.webp"
-heroAlt: "Emmagatzematge segur per nivells a React Native"
+heroAlt: "Tres esglaons descendents que sostenen un cub tancat amb clau, una caixa forta i una safata oberta, amb una fletxa de classificació"
 campaign: "tiered-secure-storage"
 relatedPosts: ["token-refresh-race-condition-react-native", "building-a-supabase-rest-client-without-the-sdk", "feature-first-project-structure-react-native"]
 ---
@@ -457,7 +457,7 @@ La regla és curta: si dona accés, Nivell 1. Si identifica una persona, Nivell 
 
 ## Llavors, per què tres biblioteques
 
-Una biblioteca (AsyncStorage) deixa els tokens en text pla. Una biblioteca (react-native-keychain) és massa lenta per a lectures no sensibles. Tres biblioteques, tres wrappers, tres enums. Cada wrapper fa menys de 50 línies. El setup porta una tarda.
+Una biblioteca (AsyncStorage) deixa els tokens en text pla. Una biblioteca (react-native-keychain) és massa lenta per a lectures no sensibles. Tres biblioteques, tres wrappers, tres enums. Cada wrapper fa menys de 50 línies.
 
 El que t'emportes: tokens que no es poden llegir sense autenticació biomètrica, dades personals xifrades en repòs, i preferències que es carreguen al primer frame. Cada peça de dades està protegida exactament al nivell que realment necessita.
 

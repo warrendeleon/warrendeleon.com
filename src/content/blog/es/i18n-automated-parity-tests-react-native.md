@@ -4,7 +4,7 @@ description: "Cinco idiomas, un test que verifica que cada locale tiene las mism
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: es
 heroImage: "/images/blog/i18n-parity-tests.webp"
-heroAlt: "i18n con tests automáticos de paridad en React Native"
+heroAlt: "Filas de fichas alineadas contra una columna de referencia con un hueco vacío, junto a un globo terráqueo y una lupa"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -467,10 +467,8 @@ src/
 
 ## Una mañana, un test, cero traducciones perdidas
 
-La configuración es una mañana. Configuración de i18next, cinco ficheros JSON, una declaración de tipos, un test de paridad. Después de eso, añadir un nuevo idioma es: copiar `en.json`, traducirlo, añadirlo a `resources.ts`, añadirlo al test de paridad. El test detecta cualquier clave faltante de inmediato.
+La configuración entera son cuatro piezas: i18next, cinco ficheros JSON, una declaración de tipos, un test de paridad. Después de eso, añadir un nuevo idioma es: copiar `en.json`, traducirlo, añadirlo a `resources.ts`, añadirlo al test de paridad. El test detecta cualquier clave faltante de inmediato.
 
-En mi proyecto, el test de paridad ha detectado claves faltantes varias veces durante el desarrollo. Todas ellas habrían sido una cadena en inglés silenciosa en una interfaz que no es en inglés. El test se ejecuta en menos de un segundo y no cuesta nada mantenerlo.
-
-> El único fallo multilingüe peor que una mala traducción es una traducción que falta.
+En mi proyecto, el test de paridad ha detectado claves faltantes varias veces durante el desarrollo. Todas ellas habrían sido una cadena en inglés silenciosa en una interfaz que no es en inglés, el único fallo multilingüe peor que una mala traducción, porque nadie reporta una cadena que nunca ha visto. El test se ejecuta en menos de un segundo y no cuesta nada mantenerlo.
 
 *Los ejemplos de código en este artículo son de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), mi proyecto personal de React Native. La configuración completa de i18n, los ficheros de locale, las declaraciones de tipos y los tests de paridad están todos en el repositorio.*

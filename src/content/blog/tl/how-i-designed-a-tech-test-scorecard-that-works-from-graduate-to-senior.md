@@ -153,5 +153,3 @@ Ginamit ko ang scorecard na ito para sa unang round ng React Native hiring namin
 Kung gumagawa ka ng hiring process at palaging hindi nagkaka-agree ang mga interviewer mo sa scores, subukan mong palitan ang rubric mo ng checklist. Magugulat ka sa dami ng agreement na makukuha mo kapag tumigil ka sa pagtatanong ng *"gaano kaganda ito?"* at nagsimula kang magtanong ng *"nandito ba ito?"*
 
 *Kung gusto mong makita ang perspective ng candidate sa sinusukat ng scorecard na ito, sumulat ako ng companion post: [Paano pumasa sa React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).*
-
-> Ang pinakamahusay na scoring systems ay hindi sumusukat ng nararamdaman mo tungkol sa code. Sinusukat nila ang nasa code.

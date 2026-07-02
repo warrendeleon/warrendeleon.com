@@ -1,6 +1,6 @@
 ---
 title: "La cáscara del host: remotes federados como pestañas en React Native"
-description: "Convierte el host de una sola pantalla en una cáscara de app de verdad. Es dueño de la tab bar y la navegación; cada pestaña es un remote independiente, construido y desplegado por su cuenta, cargado en runtime."
+description: "El host pasa de una pantalla a cáscara de la app: es dueño de la tab bar y la navegación, y cada pestaña es un remote construido, desplegado y cargado aparte."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "the host shell"
@@ -33,7 +33,7 @@ flowchart TB
     t2 -.->|"React.lazy · se carga al abrirla por primera vez"| profile
 ```
 
-Retomamos donde lo dejó el post 3. Si seguiste el tutorial, quédate con tu propio código. Si no, parte del estado final del post 3:
+El punto de partida es el estado final del post 3. Si seguiste el tutorial, ese es el código que ya tienes. Si no:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

@@ -4,7 +4,7 @@ description: "Tests automatizados de accesibilidad en React Native: touch target
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: es
 heroImage: "/images/blog/accessibility-testing-rn.webp"
-heroAlt: "Testing de accesibilidad en React Native"
+heroAlt: "Un pie de rey y una muestra de contraste claro-oscuro midiendo el botón de un teléfono, con un tick de checklist y una onda de sonido de screen reader"
 campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -570,7 +570,7 @@ src/
 
 ## El coste del setup
 
-El archivo de utilidades tiene unas 200 líneas. Cada archivo de test de accesibilidad por pantalla tiene entre 100 y 500 líneas. El setup es una tarde.
+El archivo de utilidades tiene unas 200 líneas. Cada archivo de test de accesibilidad por pantalla tiene entre 100 y 500 líneas.
 
 Lo que obtienes: testing de regresión automatizado para cada requisito WCAG que se pueda expresar como una aserción de Jest. Touch targets, ratios de contraste, orden de foco, roles, labels, anuncios. Todo corriendo en cada PR, detectando regresiones que nadie notaría hasta que un usuario de screen reader lo reporte.
 

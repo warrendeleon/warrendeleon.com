@@ -1,11 +1,11 @@
 ---
 title: "Construir una integració de Supabase a React Native sense el SDK"
-description: "Introducció a la sèrie: per què vaig construir una integració personalitzada de Supabase a React Native sense el SDK. Auth, renovació de tokens, storage, pinning, emmascarament i RLS."
+description: "Intro de la sèrie: per què construir una integració de Supabase a React Native sense el SDK. Auth, renovació de tokens, storage, pinning, emmascarament i RLS."
 draft: true
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: ca
 heroImage: "/images/blog/supabase-rest-client.webp"
-heroAlt: "Construir una integració de Supabase a React Native sense el SDK"
+heroAlt: "Un cub segellat obert per una frontissa que mostra els engranatges i les canonades funcionant a dins, amb una lupa al costat"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -44,7 +44,7 @@ Aquesta visibilitat és la raó de la reconstrucció. Les raons tècniques se'n 
 Sis tutorials, cadascun sobre una peça de l'stack:
 
 1. **Construir un client d'auth de Supabase basat en Axios.** El client base, l'interceptor de petició per adjuntar el token, sign-in/up/out, mapeig d'errors tipat amb `AuthError`, handlers de test amb MSW.
-2. **Condicions de carrera en la renovació de tokens.** Què passa quan cinc peticions reben un 401 simultàniament, i el patró de cua de subscriptors que evita múltiples crides de renovació. Amb un test que demostra que la cua funciona.
+2. **Condicions de carrera en la renovació de tokens.** La finestra de fallada quan peticions en paral·lel reben totes un 401 amb el mateix token expirat, i la cua de subscriptors que fa que hi hagi exactament una renovació. Amb un test que ho demostra.
 3. **Construir un client de storage de Supabase amb reintent.** Pujades de fitxers amb backoff exponencial, gestió del content-type, patrons de pujada i esborrat d'imatges, tests de reintent.
 4. **Certificate pinning a React Native.** TrustKit a iOS, `network_security_config.xml` a Android, extracció de pins, estratègia de rotació sense deixar fora els usuaris en binaris ja desplegats.
 5. **Interceptors d'emmascarament de PII.** Registre de breadcrumbs a Sentry que no filtra tokens, correus ni números de telèfon. Patrons regex i un logger personalitzat.

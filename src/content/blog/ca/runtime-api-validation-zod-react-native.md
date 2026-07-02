@@ -1,10 +1,10 @@
 ---
 title: "Validació de respostes d'API en temps d'execució amb Zod a React Native"
-description: "Els teus tipus de TypeScript no et protegeixen en temps d'execució. Com detectar canvis de contracte del backend abans que l'app peti usant esquemes Zod que també serveixen com a definicions de tipus."
+description: "Els tipus de TypeScript no protegeixen en temps d'execució. Detecta canvis de contracte del backend abans que l'app peti amb esquemes Zod que fan de tipus."
 tags: ["react-native", "typescript", "api-validation", "zod"]
 locale: ca
 heroImage: "/images/blog/zod-runtime-validation.webp"
-heroAlt: "Validació de respostes d'API en temps d'execució amb Zod a React Native"
+heroAlt: "Una porta amb ranures que deixa passar els blocs que encaixen mentre un bloc estrany rebota enrere, amb un escut darrere la porta"
 campaign: "zod-runtime-validation"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]
 ---
@@ -439,12 +439,10 @@ El test `validates real fixture data` és el canari: si algun cop falla, els teu
 
 ## El que costa, el que atrapa
 
-El setup és una feina d'un matí. Un esquema per resposta d'API, dues funcions auxiliars, un test per esquema.
+El cost és un esquema per resposta d'API, dues funcions auxiliars i un test per esquema.
 
 Què obtens: cada resposta d'API es valida abans que l'app la toqui. Quan el backend canvia, la validació llança una excepció al límit amb el camp exacte que s'ha trencat. Prou de depurar pantalles en blanc causades per un camp reanomenat tres crides d'API enrere.
 
-Al meu projecte, els esquemes Zod van detectar dos canvis de backend durant el desenvolupament que haurien sortit com a bugs silenciosos. Un era un camp nullable que va passar a ser obligatori. L'altre era un camp d'URL que va començar a retornar paths relatius en comptes d'URLs absolutes. La validació els va detectar tots dos abans que arribessin a cap component.
-
-> Atrapa-ho al límit de l'API o depura-ho en un informe de crash. Tu tries.
+Al meu projecte, els esquemes Zod van detectar dos canvis de backend durant el desenvolupament que haurien sortit com a bugs silenciosos. Un era un camp nullable que va passar a ser obligatori. L'altre era un camp d'URL que va començar a retornar paths relatius en comptes d'URLs absolutes. La validació els va detectar tots dos abans que arribessin a cap component. Aquest és tot el tracte: atrapa-ho al límit de l'API o depura-ho des d'un informe de crash.
 
 *Els exemples de codi d'aquest post són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. Les definicions completes d'esquemes Zod, les funcions auxiliars de validació i els tests són al repo.*

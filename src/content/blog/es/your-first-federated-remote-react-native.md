@@ -1,6 +1,6 @@
 ---
 title: "Tu primer remote federado en React Native"
-description: "Constrúyelo desde cero: dos apps de React Native, una cargando la pantalla de la otra en runtime con Module Federation 2.0 y Re.Pack. Cada paso, para copiar y pegar, terminando en una app funcionando."
+description: "Dos apps de React Native, una carga la pantalla de la otra en runtime con Module Federation 2.0 y Re.Pack. Cada paso se copia y pega, hasta una app en marcha."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "your first federated remote"

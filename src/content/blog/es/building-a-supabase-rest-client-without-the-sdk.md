@@ -1,11 +1,11 @@
 ---
 title: "Construir una integración con Supabase en React Native sin el SDK"
-description: "Intro de la serie: por qué construí una integración propia con Supabase en React Native sin el SDK. Auth, refresco de tokens, storage, pinning, enmascarado y RLS."
+description: "Intro de la serie: por qué construí una integración con Supabase en React Native sin el SDK. Auth, refresco de tokens, storage, pinning, enmascarado y RLS."
 draft: true
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: es
 heroImage: "/images/blog/supabase-rest-client.webp"
-heroAlt: "Construir una integración con Supabase en React Native sin el SDK"
+heroAlt: "Un cubo sellado abierto por una bisagra que muestra los engranajes y tuberías funcionando dentro, con una lupa al lado"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -44,7 +44,7 @@ Esa visibilidad es la razón de la reconstrucción. Las razones técnicas vienen
 Seis tutoriales, cada uno sobre una pieza del stack:
 
 1. **Construir un cliente de auth para Supabase basado en Axios.** El cliente base, el interceptor de petición para adjuntar el token, sign-in/up/out, mapeo de errores tipado con `AuthError`, handlers de test con MSW.
-2. **Race conditions en el refresco de tokens.** Qué pasa cuando cinco peticiones reciben un 401 a la vez, y el patrón de cola de suscriptores que evita varias llamadas de refresco. Con un test que demuestra que la cola funciona.
+2. **Race conditions en el refresco de tokens.** La ventana de fallo cuando varias peticiones en paralelo reciben un 401 con el mismo token caducado, y la cola de suscriptores que hace que ocurra exactamente un refresco. Con un test que lo demuestra.
 3. **Construir un cliente de storage para Supabase con reintentos.** Subidas de archivos con backoff exponencial, gestión del content-type, patrones de subida y borrado de imágenes, tests de reintento.
 4. **Certificate pinning en React Native.** TrustKit en iOS, `network_security_config.xml` en Android, extracción de pins, estrategia de rotación sin dejar fuera a los usuarios con binarios ya desplegados.
 5. **Interceptores que enmascaran PII.** Logging de breadcrumbs en Sentry que no filtra tokens, emails ni números de teléfono. Patrones regex y un logger personalizado.

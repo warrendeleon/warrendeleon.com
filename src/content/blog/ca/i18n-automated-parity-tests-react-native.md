@@ -4,7 +4,7 @@ description: "Configura i18n amb tipus a React Native, amb detecció del locale 
 tags: ["react-native", "i18n", "testing", "localisation"]
 locale: ca
 heroImage: "/images/blog/i18n-parity-tests.webp"
-heroAlt: "i18n amb tests automatitzats de paritat a React Native"
+heroAlt: "Files de rajoles alineades contra una columna de referència amb una casella buida, al costat d'un globus terraqüi i una lupa"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -467,10 +467,8 @@ src/
 
 ## Un matí, un test, zero traduccions perdudes
 
-La configuració és un matí. Configuració d'i18next, cinc fitxers JSON, una declaració de tipus, un test de paritat. Després d'això, afegir un idioma nou és: copiar `en.json`, traduir-lo, afegir-lo a `resources.ts`, afegir-lo al test de paritat. El test detecta qualsevol clau que falti immediatament.
+Tot el setup són quatre peces: configuració d'i18next, cinc fitxers JSON, una declaració de tipus, un test de paritat. Després d'això, afegir un idioma nou és: copiar `en.json`, traduir-lo, afegir-lo a `resources.ts`, afegir-lo al test de paritat. El test detecta qualsevol clau que falti immediatament.
 
-Al meu projecte, el test de paritat ha detectat claus que faltaven diverses vegades durant el desenvolupament. Cadascuna hauria estat una cadena en anglès silenciosa dins d'una interfície en un altre idioma. El test s'executa en menys d'un segon i no costa res de mantenir.
-
-> L'únic error multilingüe pitjor que una mala traducció és una traducció que falta.
+Al meu projecte, el test de paritat ha detectat claus que faltaven diverses vegades durant el desenvolupament. Cadascuna hauria estat una cadena en anglès silenciosa dins d'una interfície en un altre idioma, l'únic error multilingüe pitjor que una mala traducció, perquè ningú no reporta una cadena que no ha vist mai. El test s'executa en menys d'un segon i no costa res de mantenir.
 
 *Els exemples de codi d'aquest article són de [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), el meu projecte personal de React Native. La configuració completa d'i18n, els fitxers de locale, les declaracions de tipus i els tests de paritat són tots al repositori.*

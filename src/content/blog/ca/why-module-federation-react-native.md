@@ -1,8 +1,8 @@
 ---
 title: "Per què Module Federation a React Native"
-description: "Què aporten les micro-apps en temps d'execució a una app de React Native, què costen i quan val la pena el canvi. La introducció a una sèrie que construeix un setup federat des de zero."
+description: "Què aporten les micro-apps en temps d'execució a una app React Native, què costen i quan val la pena. Intro a la sèrie que construeix un setup federat de zero."
 series: "React Native Module Federation"
-tags: ["react-native", "module-federation", "re-pack", "architecture", "opinion"]
+tags: ["react-native", "module-federation", "re-pack", "rspack", "architecture", "opinion"]
 locale: ca
 heroImage: "/images/blog/module-federation-react-native.webp"
 heroAlt: "Module Federation a React Native"

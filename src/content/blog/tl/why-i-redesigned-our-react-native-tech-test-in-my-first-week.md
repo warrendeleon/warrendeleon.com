@@ -1,6 +1,6 @@
 ---
 title: "Bakit ko ni-redesign ang React Native tech test namin sa unang linggo ko"
-description: "Pumasok ako bilang Engineering Manager at isa sa mga unang project ko ang pag-rethink ng hiring process para sa platform roles. Ang pag-iisip sa likod ng redesign."
+description: "Pumasok ako bilang Engineering Manager at isa sa mga unang project ko ang pag-rethink ng hiring para sa platform roles. Ang pag-iisip sa likod ng redesign."
 tags: ["engineering-management", "hiring", "tech-interviews"]
 locale: tl
 heroImage: "/images/blog/redesigning-react-native-tech-test.webp"

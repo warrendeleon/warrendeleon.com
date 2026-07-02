@@ -1,10 +1,10 @@
 ---
 title: "Testing d'accessibilitat a React Native"
-description: "Tests automatitzats d'accessibilitat per React Native: touch targets, ràtios de contrast, ordre de focus, anuncis del lector. I on el testing manual encara guanya."
+description: "Tests automatitzats d'accessibilitat per React Native: touch targets, contrast, ordre de focus, anuncis del lector. I on el testing manual encara guanya."
 tags: ["react-native", "accessibility", "wcag", "testing"]
 locale: ca
 heroImage: "/images/blog/accessibility-testing-rn.webp"
-heroAlt: "Testing d'accessibilitat a React Native"
+heroAlt: "Un peu de rei i una mostra de contrast clar-fosc mesurant un botó de telèfon, amb un tic de checklist i una ona de so de lector de pantalla"
 campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -570,7 +570,7 @@ src/
 
 ## El cost del setup
 
-El fitxer d'utilitats són unes 200 línies. Cada fitxer de test d'accessibilitat per pantalla són 100-500 línies. El setup és una tarda.
+El fitxer d'utilitats són unes 200 línies. Cada fitxer de test d'accessibilitat per pantalla són 100-500 línies.
 
 El que obtens: testing de regressió automatitzat per a cada requisit WCAG que es pot expressar com una asserció de Jest. Touch targets, ràtios de contrast, ordre de focus, rols, etiquetes, anuncis. Tot executant-se a cada PR, detectant regressions que ningú notaria fins que un usuari de lector de pantalla les reportés.
 

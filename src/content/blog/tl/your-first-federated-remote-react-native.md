@@ -1,6 +1,6 @@
 ---
 title: "Ang iyong unang federated remote sa React Native"
-description: "Buuin ito mula sa simula: dalawang React Native app, ang isa nag-lo-load ng screen ng isa pa sa runtime gamit ang Module Federation 2.0 at Re.Pack. Bawat hakbang, copy-paste, nagtatapos sa isang tumatakbong app."
+description: "Dalawang React Native app, isa naglo-load ng screen ng isa pa sa runtime sa Module Federation 2.0 at Re.Pack. Bawat hakbang copy-paste, tapos tumatakbong app."
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "ang unang federated remote mo"
