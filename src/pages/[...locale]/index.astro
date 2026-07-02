@@ -23,6 +23,7 @@ const i18n = t(locale);
 const workxp = workxpByLocale[locale] as typeof workxpEn;
 const currentRole = workxp[0];
 const latestPosition = currentRole.positions[0];
+const roleIsCurrent = latestPosition.endDate == null;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -84,7 +85,7 @@ const jsonLd = {
 
   <section class="section">
     <div class="container">
-      <h2 class="section-heading">{i18n.home.currentRole}</h2>
+      <h2 class="section-heading">{roleIsCurrent ? i18n.home.currentRole : i18n.home.latestRole}</h2>
       <div class="card current-role">
         <div class="current-role-inner">
           <div class="current-role-logo-col">
