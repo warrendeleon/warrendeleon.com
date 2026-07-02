@@ -14,7 +14,7 @@ campaign: "certificate-pinning-rn"
 relatedPosts: ["building-an-axios-based-supabase-auth-client", "building-a-supabase-storage-client-with-retry", "building-a-supabase-rest-client-without-the-sdk"]
 ---
 
-This is part 5 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). The previous posts covered the [auth client](/blog/building-an-axios-based-supabase-auth-client/), [token refresh](/blog/token-refresh-race-condition-react-native/), and [storage client](/blog/building-a-supabase-storage-client-with-retry/). They all assume the network layer is trustworthy. This post is what makes that assumption hold.
+The [auth client](/blog/building-an-axios-based-supabase-auth-client/), [token refresh](/blog/token-refresh-race-condition-react-native/) and the [storage client](/blog/building-a-supabase-storage-client-with-retry/) all assume the network layer is trustworthy. Part 5 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/) is what makes that assumption hold.
 
 Certificate pinning locks the HTTPS connection to specific public-key hashes. The app refuses to talk to any host whose certificate doesn't match one of the configured pins, even if a system-trusted certificate authority signed it. That defends against rogue CAs, MITM proxies on hostile Wi-Fi, and corporate root certificates installed on managed devices.
 

@@ -9,7 +9,7 @@ heroImage: "/images/blog/supabase-auth-client.webp"
 heroImgPrompt: "A single upright gate stamping a small round badge onto one passing arrow, beside a row of differently shaped plain blocks funnelling down a chute into one identical block at the bottom"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#E4DCF2"
-heroAlt: "Building an Axios-based Supabase auth client in React Native"
+heroAlt: "A gate stamping a badge onto a passing arrow while differently shaped blocks funnel into one identical block"
 campaign: "supabase-auth-client"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "token-refresh-race-condition-react-native", "tiered-secure-storage-react-native"]
 ---

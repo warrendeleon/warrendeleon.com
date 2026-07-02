@@ -1,6 +1,6 @@
 ---
 title: "How I designed a tech test scorecard that works from Graduate to Senior"
-description: "How a checklist-based scorecard made our React Native take-home test work for every level, from Graduate to Senior. The design choices behind a fair hiring scorecard."
+description: "How a checklist-based scorecard made our React Native take-home test work for every level, and the design choices that kept it fair from Graduate to Senior."
 publishDate: 2026-04-13
 series: "Hiring"
 tags: ["engineering-management", "hiring", "tech-interviews"]
@@ -158,5 +158,3 @@ I've used this scorecard for our first round of React Native hiring, and my peer
 If you're building a hiring process and your interviewers keep disagreeing on scores, try replacing your rubric with a checklist. You might be surprised how much agreement you get when you stop asking *"how good is this?"* and start asking *"is this here?"*
 
 *If you want the candidate's view on what this scorecard measures, I wrote a companion post: [How to pass a React Native tech test](/blog/how-to-pass-a-react-native-tech-test/).*
-
-> The best scoring systems don't measure how you feel about the code. They measure what's in the code.

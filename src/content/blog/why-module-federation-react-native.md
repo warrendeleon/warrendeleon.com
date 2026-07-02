@@ -1,11 +1,11 @@
 ---
 title: "Why Module Federation in React Native"
-description: "What runtime micro-apps buy a React Native app, what they cost, and when the trade is worth making. The intro to a series that builds a federated setup from scratch."
+description: "What runtime micro-apps buy a React Native app, what they cost, and when the trade is worth it. Intro to a series that builds a federated setup from scratch."
 publishDate: 2026-06-01
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "why Module Federation"
-tags: ["react-native", "module-federation", "re-pack", "architecture", "opinion"]
+tags: ["react-native", "module-federation", "re-pack", "rspack", "architecture", "opinion"]
 locale: en
 heroImage: "/images/blog/module-federation-react-native.webp"
 heroAlt: "Module Federation in React Native"

@@ -3,14 +3,14 @@ title: "Building a Supabase integration in React Native without the SDK"
 description: "Series intro: why I built a custom Supabase integration in React Native without the SDK. Auth, token refresh, storage, pinning, masking, RLS."
 publishDate: 2026-10-26
 draft: true
-series: "React Native Foundations"
+series: "Supabase Security"
 tags: ["react-native", "architecture", "http", "authentication", "supabase"]
 locale: en
 heroImage: "/images/blog/supabase-rest-client.webp"
 heroImgPrompt: "A plain sealed cube with one face opened on a hinge to reveal interlocking gears and pipes working inside, a magnifying glass beside it"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#D9E8D0"
-heroAlt: "Building a Supabase integration in React Native without the SDK"
+heroAlt: "A sealed cube opened on a hinge to show the gears and pipes working inside, with a magnifying glass beside it"
 campaign: "supabase-rest-client"
 relatedPosts: ["token-refresh-race-condition-react-native", "tiered-secure-storage-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -49,7 +49,7 @@ That visibility is the reason for the rebuild. The technical reasons follow from
 Six tutorials, each on one piece of the stack:
 
 1. **Building an Axios-based Supabase auth client.** The base client, request interceptor for token attachment, sign-in/up/out, typed error mapping with `AuthError`, MSW test handlers.
-2. **Token refresh race conditions.** What happens when five requests get a 401 simultaneously, and the subscriber queue pattern that prevents multiple refresh calls. With a test that proves the queue works.
+2. **Token refresh race conditions.** The failure window when parallel requests all hit a 401 with the same expired token, and the subscriber queue that makes exactly one refresh happen. With a test that proves it.
 3. **Building a Supabase storage client with retry.** File uploads with exponential backoff, content-type handling, image upload + delete patterns, retry tests.
 4. **Certificate pinning in React Native.** TrustKit on iOS, `network_security_config.xml` on Android, pin extraction, rotation strategy without locking out users on already-deployed binaries.
 5. **PII-masking interceptors.** Sentry breadcrumb logging that doesn't leak tokens, emails, or phone numbers. Regex patterns and a custom logger.

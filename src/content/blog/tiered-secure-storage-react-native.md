@@ -6,7 +6,7 @@ series: "React Native Foundations"
 tags: ["react-native", "security", "storage", "mobile-security"]
 locale: en
 heroImage: "/images/blog/tiered-secure-storage.webp"
-heroAlt: "Tiered secure storage in React Native"
+heroAlt: "Three descending steps holding a locked cube, a safe and an open tray, with a sorting arrow"
 heroImgPrompt: "Three plain platforms stacked as descending steps, a thick locked cube on the top step, a rounded safe on the middle step, an open shallow tray on the bottom, a sorting arrow"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#D9E8D0"
@@ -463,7 +463,7 @@ The rule is short: if it grants access, Tier 1. If it identifies a person, Tier 
 
 ## So why three libraries
 
-One library (AsyncStorage) leaves tokens in plain text. One library (react-native-keychain) is too slow for non-sensitive reads. Three libraries, three wrappers, three enums. Each wrapper sits under 50 lines. Setup takes an afternoon.
+One library (AsyncStorage) leaves tokens in plain text. One library (react-native-keychain) is too slow for non-sensitive reads. Three libraries, three wrappers, three enums. Each wrapper sits under 50 lines.
 
 What you walk away with: tokens that can't be read without biometric authentication, PII that's encrypted at rest, and preferences that load on the first frame. Each piece of data is protected at the level it actually needs.
 

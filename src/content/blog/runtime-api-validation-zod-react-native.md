@@ -9,7 +9,7 @@ heroImage: "/images/blog/zod-runtime-validation.webp"
 heroImgPrompt: "A slotted gate on a boundary line with three plain blocks passing through matching slots, one oddly shaped block bounced back and rejected to the side, a plain shield standing behind the gate"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#D3E7EE"
-heroAlt: "Runtime API response validation with Zod in React Native"
+heroAlt: "A slotted gate passing matching blocks through while one odd block is bounced back, with a shield behind the gate"
 campaign: "zod-runtime-validation"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "metro-runtime-mocking-react-native-e2e", "setting-up-msw-v2-in-react-native"]
 ---
@@ -446,12 +446,10 @@ The `validates real fixture data` test is the canary: if it ever fails, your fix
 
 ## What it costs, what it catches
 
-The setup is a morning's work. One schema per API response, two helper functions, a test per schema.
+The cost is one schema per API response, two helper functions, and a test per schema.
 
 What you get: every API response is validated before your app touches it. When the backend changes, the validation throws at the boundary with the exact field that broke. No more debugging blank screens caused by a renamed field three API calls deep.
 
-In my project, Zod schemas caught two backend changes during development that would have shipped as silent bugs. One was a nullable field that became required. The other was a URL field that started returning relative paths instead of absolute URLs. Both were caught by validation before reaching a component.
-
-> Catch it at the API boundary or debug it in a crash report. Your choice.
+In my project, Zod schemas caught two backend changes during development that would have shipped as silent bugs. One was a nullable field that became required. The other was a URL field that started returning relative paths instead of absolute URLs. Both were caught by validation before reaching a component. That is the whole trade: catch it at the API boundary, or debug it from a crash report.
 
 *The code examples in this post are from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), my personal React Native project. The full Zod schema definitions, validation helpers, and tests are all in the repo.*

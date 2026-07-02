@@ -1,6 +1,6 @@
 ---
 title: "The shared-singleton contract in React Native Module Federation"
-description: "Share react, react-native, and a native library across a host and its remote the right way, and see why getting it wrong crashes the app on launch instead of failing quietly."
+description: "Share react, react-native and a native library across a host and its remote the right way; getting it wrong crashes the app on launch, not quietly."
 publishDate: 2026-06-15
 series: "React Native Module Federation"
 seriesShort: "Module Federation"

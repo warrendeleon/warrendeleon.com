@@ -5,7 +5,7 @@ heroImage: "/images/blog/rag-watcher-indexer.webp"
 heroImgPrompt: "A flat conveyor belt carrying plain file shapes past a single large eye into a drum, then gears stamping them into a grid of small squares, a circular arrow and a small valve"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F6DCE2"
-heroAlt: "The watcher and indexer behind a local RAG"
+heroAlt: "A conveyor belt carrying files past a watching eye into a drum where gears stamp them into a grid of squares"
 publishDate: 2027-01-25
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "python", "chromadb", "sqlite", "launchd"]
@@ -14,7 +14,7 @@ campaign: "claude-rag-watcher-indexer"
 relatedPosts: ["giving-claude-a-memory-with-a-local-rag", "building-an-mcp-server-for-claude-code", "pairing-claude-rag-with-a-curated-wiki"]
 ---
 
-This is part 3 of the series on giving Claude Code persistent memory. Part 1 covered [the design](/blog/giving-claude-a-memory-with-a-local-rag/), part 2 [the MCP server](/blog/building-an-mcp-server-for-claude-code/). This part is the pipeline that fills the vector store: a watcher that notices new conversation files, a queue that holds work, and an indexer that embeds turns into ChromaDB.
+[Part 1](/blog/giving-claude-a-memory-with-a-local-rag/) of this series designed the memory; [part 2](/blog/building-an-mcp-server-for-claude-code/) gave Claude the tools to read it. This third part is the pipeline that fills the vector store: a watcher that notices new conversation files, a queue that holds work, and an indexer that embeds turns into ChromaDB.
 
 Source: [`rag/src/watcher.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/watcher.py), [`rag/src/queue_db.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/queue_db.py), [`rag/src/indexer.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/indexer.py), [`rag/src/store.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/store.py), [`rag/src/parsers/jsonl.py`](https://github.com/warrendeleon/dotfiles/blob/main/rag/src/parsers/jsonl.py).
 

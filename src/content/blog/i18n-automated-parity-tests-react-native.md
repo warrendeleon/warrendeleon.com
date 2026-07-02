@@ -9,7 +9,7 @@ heroImage: "/images/blog/i18n-parity-tests.webp"
 heroImgPrompt: "Several plain tiles aligned in matching rows against a taller reference column, one slot in the grid left empty, a small globe and a magnifying lens"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#D3E7EE"
-heroAlt: "i18n with automated parity tests in React Native"
+heroAlt: "Rows of tiles aligned against a reference column with one slot left empty, beside a globe and a magnifying lens"
 campaign: "i18n-parity-tests"
 relatedPosts: ["accessibility-testing-react-native", "setting-up-msw-v2-in-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -483,10 +483,8 @@ src/
 
 ## One morning, one test, zero missed translations
 
-The setup is a morning. i18next configuration, five JSON files, one type declaration, one parity test. After that, adding a new language is: copy `en.json`, translate it, add it to `resources.ts`, add it to the parity test. The test catches any missed keys immediately.
+The whole setup is four moving parts: i18next configuration, five JSON files, one type declaration, one parity test. After that, adding a new language is: copy `en.json`, translate it, add it to `resources.ts`, add it to the parity test. The test catches any missed keys immediately.
 
-In my project, the parity test has caught missing keys multiple times during development. Every one of them would have been a silent English string in a non-English interface. The test runs in under a second and costs nothing to maintain.
-
-> The only multilingual bug worse than a bad translation is a missing one.
+In my project, the parity test has caught missing keys multiple times during development. Every one of them would have been a silent English string in a non-English interface, the one multilingual bug worse than a bad translation, because nobody reports a string they never saw. The test runs in under a second and costs nothing to maintain.
 
 *The code examples in this post are from [rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon), my personal React Native project. The full i18n configuration, locale files, type declarations, and parity tests are all in the repo.*

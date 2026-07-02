@@ -14,7 +14,7 @@ campaign: "supabase-backend-security"
 relatedPosts: ["pii-masking-interceptors-react-native", "certificate-pinning-in-react-native", "building-a-supabase-rest-client-without-the-sdk"]
 ---
 
-This is part 7, the closer of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). The previous six posts hardened the client: typed clients, token refresh, certificate pinning, PII masking. None of that protects you if the backend trusts whoever has the anon key.
+Six posts into the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/), the client is hardened: typed clients, token refresh, certificate pinning, PII masking. None of it protects you if the backend trusts whoever has the anon key. This closer moves to the backend.
 
 This post is about what you do on the Supabase side: Row Level Security policies that survive contact with attackers, storage bucket rules that constrain users to their own folders, function-level hardening that prevents privilege escalation, and the rate limits that make credential stuffing pointlessly slow.
 

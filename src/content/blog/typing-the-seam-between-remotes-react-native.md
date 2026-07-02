@@ -1,11 +1,11 @@
 ---
 title: "The contract package: a versioned seam between federated remotes in React Native"
-description: "A remote is built and shipped on its own, so the host can't see what it exposes. A shared contract package, published to a registry and installed by version, gives both sides one definition. Then semver governs what happens when they drift."
+description: "The host can't see what a remote exposes. A contract package, published and installed by version, gives both sides one definition and lets semver govern drift."
 publishDate: 2026-06-29
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
 shortTitle: "the contract package"
-tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
+tags: ["react-native", "module-federation", "re-pack", "rspack", "typescript", "verdaccio", "tutorial"]
 locale: en
 draft: false
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
@@ -47,7 +47,7 @@ flowchart TB
     registry -->|"npm install"| l
 ```
 
-We pick up where post 4 left off. If you built along, stay on your own code. If not, start from post 4's finished state:
+Carry on from your own post 4 code if you built along. Otherwise, check out its finished state:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

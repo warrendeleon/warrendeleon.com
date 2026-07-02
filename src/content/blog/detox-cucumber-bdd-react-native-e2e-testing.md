@@ -619,11 +619,9 @@ The setup is a morning's work. The first feature file is an afternoon. After tha
 
 What you've built by the end:
 
-1. Tests that anyone on the team can read. Product, QA, designers. The Gherkin file is the spec and the test in one place.
+1. Tests that anyone on the team can read. Product, QA, designers. The Gherkin file is the spec and the test in one place, and when a scenario fails, the report names the step that broke rather than a line of test code.
 2. Parallel execution that works with Detox. Three simulators, three workers, three times faster on CI.
 3. Accessibility regression coverage. Around 50 scenarios verifying labels, roles, and traits. Not a swap for manual screen reader testing, but a net that stops the obvious regressions from reaching QA.
-
-> When an E2E test fails, you should know what broke without reading the test code.
 
 *This post covers E2E testing. For unit and integration tests I use [MSW v2 to mock the network layer](/blog/setting-up-msw-v2-in-react-native/) instead of `jest.fn()`. The two pair well: MSW for fast, focused tests against real HTTP calls; Detox + Cucumber for full user flows on a real device.*
 

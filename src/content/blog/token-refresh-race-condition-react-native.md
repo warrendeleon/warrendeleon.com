@@ -9,7 +9,7 @@ heroImage: "/images/blog/token-refresh-race.webp"
 heroImgPrompt: "Five plain arrows on the left all converging into one narrow gate, a short queue of identical plain markers waiting behind the gate, one plain key resting beside it"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#E4DCF2"
-heroAlt: "Token refresh race condition prevention in React Native"
+heroAlt: "Five arrows converging on one narrow gate with a queue of markers waiting behind it and a key resting beside it"
 campaign: "token-refresh-race"
 relatedPosts: ["building-a-supabase-rest-client-without-the-sdk", "tiered-secure-storage-react-native", "runtime-api-validation-zod-react-native"]
 ---
@@ -32,7 +32,7 @@ The user opens the app, sees a loading screen for half a second, and gets thrown
 
 This is a race condition. It only happens when multiple requests fire concurrently with an expired token. In development, you're usually testing one screen at a time. In production, the home screen loads everything at once.
 
-This is part 3 of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/). Part 2 built [the auth client](/blog/building-an-axios-based-supabase-auth-client/); this post adds the response interceptor that stops the race above.
+The [auth client from part 2](/blog/building-an-axios-based-supabase-auth-client/) of the [Supabase-without-the-SDK series](/blog/building-a-supabase-rest-client-without-the-sdk/) is where that race lives. This post, part 3, adds the response interceptor that stops it.
 
 ## Assumptions
 

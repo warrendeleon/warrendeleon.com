@@ -5,7 +5,7 @@ heroImage: "/images/blog/local-rag-memory.webp"
 heroImgPrompt: "A flat geometric brain built from plain stacked square blocks resting on a flat circuit board, a simple battery shape beside it, a plain magnifying lens outline over one block, strictly flat 2D shapes only"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F6DCE2"
-heroAlt: "Giving Claude a memory with a local RAG"
+heroAlt: "A geometric brain built from stacked blocks resting on a circuit board, with a battery and a magnifying lens"
 publishDate: 2027-01-11
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "mcp", "local-llm", "ai-tooling"]

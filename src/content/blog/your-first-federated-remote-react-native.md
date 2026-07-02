@@ -1,6 +1,6 @@
 ---
 title: "Your first federated remote in React Native"
-description: "Build it from zero: two React Native apps, one loading the other's screen at runtime over Module Federation 2.0 with Re.Pack. Every step, copy-paste, ending in a running app."
+description: "Two React Native apps, one loading the other's screen at runtime over Module Federation 2.0 with Re.Pack. Every step copy-paste, ending in a running app."
 publishDate: 2026-06-08
 series: "React Native Module Federation"
 seriesShort: "Module Federation"

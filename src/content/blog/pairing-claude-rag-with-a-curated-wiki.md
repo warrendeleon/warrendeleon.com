@@ -5,7 +5,7 @@ heroImage: "/images/blog/rag-curated-wiki.webp"
 heroImgPrompt: "Two stacked flat shelves, a small tidy block on the upper shelf and a tall messy stack of plain sheets on the lower shelf, a branching arrow choosing between them"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#F6DCE2"
-heroAlt: "Pairing Claude's RAG with a curated wiki"
+heroAlt: "Two shelves holding a tidy block above a messy stack of sheets, with a branching arrow choosing between them"
 publishDate: 2027-02-01
 series: "Claude RAG + Tooling"
 tags: ["claude-code", "rag", "knowledge-management", "obsidian", "ai-tooling"]
@@ -14,7 +14,7 @@ campaign: "claude-rag-wiki"
 relatedPosts: ["giving-claude-a-memory-with-a-local-rag", "building-an-mcp-server-for-claude-code", "the-watcher-and-indexer-behind-a-local-rag"]
 ---
 
-This is part 4, the last in the series on giving Claude Code persistent memory. Part 1 covered [the design](/blog/giving-claude-a-memory-with-a-local-rag/), part 2 [the MCP server](/blog/building-an-mcp-server-for-claude-code/), and part 3 [the watcher and indexer](/blog/the-watcher-and-indexer-behind-a-local-rag/). This one pairs the RAG with a curated wiki: a separate, human-curated knowledge base for the things that need to be *current* rather than just *findable*.
+The series so far built the machine: [the design](/blog/giving-claude-a-memory-with-a-local-rag/), [the MCP server](/blog/building-an-mcp-server-for-claude-code/), [the watcher and indexer](/blog/the-watcher-and-indexer-behind-a-local-rag/). This last part is about what the machine cannot do on its own. It pairs the RAG with a curated wiki: a separate, human-curated knowledge base for the things that need to be *current* rather than just *findable*.
 
 ## Search recalls. A wiki answers.
 

@@ -1,6 +1,6 @@
 ---
 title: "Tags vs query keys: a small API difference that changes how teams coordinate"
-description: "RTK Query and TanStack Query both handle cache invalidation. The shapes look similar in single-team code. At multi-team scale, the difference between declarative tags and string-based keys changes what fails when teams drift out of sync."
+description: "RTK Query tags and TanStack Query keys look interchangeable in single-team code. At multi-team scale they change what fails when teams drift out of sync."
 publishDate: 2026-07-13
 series: "State Management"
 tags: ["react-native", "state-management", "rtk-query", "tanstack-query", "cache-invalidation"]

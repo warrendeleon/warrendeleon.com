@@ -1,6 +1,6 @@
 ---
 title: "The host shell: federated remotes as tabs in React Native"
-description: "Turn the host from a single screen into a real app shell. It owns the tab bar and navigation; each tab is a separate remote, built and shipped on its own, loaded at runtime."
+description: "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own."
 publishDate: 2026-06-22
 series: "React Native Module Federation"
 seriesShort: "Module Federation"
@@ -39,7 +39,7 @@ flowchart TB
     t2 -.->|"React.lazy · loaded on first open"| profile
 ```
 
-We pick up where post 3 left off. If you built along, stay on your own code. If not, start from post 3's finished state:
+The starting point is post 3's finished state. If you built along, that is the code you already have. If not:
 
 ```sh
 git clone https://github.com/warrendeleon/react-native-module-federation

@@ -9,7 +9,7 @@ heroImage: "/images/blog/accessibility-testing-rn.webp"
 heroImgPrompt: "Callipers and a split light-dark contrast swatch inspecting a phone button and labels, a checklist tick and a sound-wave announcement icon"
 heroPalette: ["#6DC402", "#1F2D4D", "#E9664B", "#2A9D8F", "#7A4E8C", "#E8A93C", "#F3B4C1", "#A9D3EF", "#2C2C34", "#EBD9B4"]
 heroBgColor: "#D3E7EE"
-heroAlt: "Accessibility testing in React Native"
+heroAlt: "Callipers and a light-dark contrast swatch measuring a phone button, with a checklist tick and a screen-reader sound wave"
 campaign: "accessibility-testing"
 relatedPosts: ["detox-cucumber-bdd-react-native-e2e-testing", "i18n-automated-parity-tests-react-native", "feature-first-project-structure-react-native"]
 ---
@@ -575,7 +575,7 @@ src/
 
 ## The setup cost
 
-The utility file as shown here is about 200 lines; the toolkit in the repo has since grown well beyond this core set. Each screen's accessibility test file is 100-500 lines. The setup is an afternoon.
+The utility file as shown here is about 200 lines; the toolkit in the repo has since grown well beyond this core set. Each screen's accessibility test file is 100-500 lines.
 
 What you get: automated regression testing for every WCAG requirement that can be expressed as a Jest assertion. Touch targets, contrast ratios, focus order, roles, labels, announcements. All running on every PR, catching regressions that no one would notice until a screen reader user reports them.
 
