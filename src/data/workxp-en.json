@@ -322,7 +322,7 @@
         "title": "Software Engineer",
         "startDate": "2017-12",
         "endDate": "2018-11",
-        "description": "I was part of the application team where we developed the React Web App and the React Native Mobile App. Also, I developed integration tests for all the React Native projects that I've been involved on.\n\n**Projects that I've been involved:**\n- **Tab Navigator**: The app changed the designs from a burger menu navigator to a tab navigator.\n- **Timeline screen**: One of the changes going along with the tab navigator, was to replace the Dashboard for a Timeline.\n- **Virtual Machines**: I improved our build process by creating VMs that ran our integration tests, built the iOS release candidate app and pushed it to iTunes Connect for releasing to production.\n- **Deals Screen v1**: First version of a new screen in the app.\n- **Deals Screen v2**: Second version of deals screen which gave the user and total saving that they could have if they switched from one provider to another.\n- **Your deals screen**: This was a screen that displayed a set of personalised deals for a specific user.",
+        "description": "I worked in the application team building WonderBill's React web app and React Native mobile app, and owned the integration-test suites for the React Native projects I worked on.\n\n**Projects I worked on:**\n- **Tab navigation**: moved the app from a burger-menu layout to a tab navigator.\n- **Timeline screen**: replaced the Dashboard with a Timeline as part of the navigation redesign.\n- **Build automation**: set up virtual machines that ran the integration tests, built the iOS release candidate, and pushed it to iTunes Connect for production release.\n- **Deals screens**: built three iterations — the first Deals screen, a second version showing the total a user could save by switching provider, and a personalised Your Deals screen.",
         "responsibilities": null,
         "technologies": {
           "languages": ["JavaScript"],
@@ -345,7 +345,7 @@
         "title": "Frontend Developer",
         "startDate": "2017-07",
         "endDate": "2017-11",
-        "description": "I was developing frontend applications with Angular 4\n\n**Projects:**\n- **Informed Patients**: I migrated a web application originally developed in Angular JS 1.x to Angular 4. This webapp was meant to be a way to search the most suitable hospital given certain filters like a type of cancer, treatment, etc.\n",
+        "description": "I built frontend applications with Angular 4.\n\n**Projects:**\n- **Informed Patients**: migrated a web application from AngularJS 1.x to Angular 4 — a search tool for finding the most suitable hospital by filters such as cancer type and treatment.",
         "responsibilities": null,
         "technologies": {
           "languages": ["TypeScript"],
@@ -368,7 +368,7 @@
         "title": "Multiplatform Developer",
         "startDate": "2016-09",
         "endDate": "2017-06",
-        "description": "I was developing web applications with Angular 4 and Android mobile applications. \n\n**Projects**:\n\n - **Dimble Android App**: I developed an Android App for selling clothes and complements. I used Retrofit 2 for the REST API calls. I used Glide for images management. I used MVC and managers to encapsulate the communication with the backend. I used inheritance and polymorphism to achieve a high level of modularisation and reusability in the code. I used Crashlytics for the analysis and diagnostic of errors.\n - **Dimble Angular JS WebApp**: I developed a control management system in Angular 4 to analyse sales, manage products, etc. The architecture used for this project was MVP and RxJS for commutation between components.\n - **This Is Me Angular JS WebApp**: I developed a control management system in Angular 4 to manage admins and users. Also, with the web app the administrator could ban user that had a bad behaviour using the iOS app. The architecture used for this project was MVP and RxJS for commutation between components.\n - **Project Cost Calculator Angular JS WebApp and JHipster Backend**: I developed a web app where the client answered some questions. After the questionnaire the possible client got a quote for the project. The architecture used for the Angular 4 project was MVP and RxJS for commutation between components. Using JHipster for the backend.\n",
+        "description": "I built web applications with Angular 4 and native Android apps.\n\n**Projects:**\n- **Dimble Android app**: a shopping app for clothes and accessories — Retrofit 2 for REST calls, Glide for image handling, Crashlytics for error diagnostics, and an MVC structure with manager classes to keep backend communication modular and reusable.\n- **Dimble web app**: a management console in Angular 4 for analysing sales and managing products, built on MVP with RxJS for communication between components.\n- **This Is Me web app**: an admin console in Angular 4 for managing users and admins, including banning users who misused the iOS app; same MVP and RxJS architecture.\n- **Project cost calculator**: a questionnaire web app that produced a project quote for prospective clients — Angular 4 (MVP + RxJS) with a JHipster backend.",
         "responsibilities": null,
         "technologies": {
           "languages": ["TypeScript", "Java"],
@@ -424,7 +424,7 @@
         "title": "Full Stack Developer & Teacher",
         "startDate": "2015-12",
         "endDate": "2016-03",
-        "description": "I created and configured REST webservices with OAuth2 security and performed CRUD operations from an Angular JS 1.X frontend.\n\n In addition, they gave me the opportunity to teach in a 20h Javascript course called \"Javascript from beginner to advanced\". The course requirements were that the student should have basic knowledge of HTML, CSS and javascript. The aim was, that from the knowledge imparted, the student have the tools and resources that allow them to be self sufficient to progress his career as a developer. From this course, the student was able to learn after Angular JS frameworks like, or Node.js and / or attend training MEAN",
+        "description": "I built and configured REST web services secured with OAuth2, consumed from an AngularJS 1.x frontend with full CRUD operations.\n\nAltran also gave me the opportunity to teach a 20-hour course, \"JavaScript from beginner to advanced\". Starting from basic HTML, CSS and JavaScript, the aim was to give students the tools to keep progressing on their own — ready to move on to frameworks like AngularJS or Node.js, or to full MEAN-stack training.",
         "responsibilities": null,
         "technologies": {
           "languages": ["TypeScript", "Java"],

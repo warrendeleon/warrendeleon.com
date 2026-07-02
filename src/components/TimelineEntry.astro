@@ -1,5 +1,6 @@
 ---
 import { slugify, getLocalePath, formatDateRange, type Locale } from '../i18n/index';
+import { stripSimpleMarkdown, truncateAtWord } from '../utils/text';
 
 interface Props {
   company: string;
@@ -44,7 +45,7 @@ const hasDescription = latestPosition.description && latestPosition.description.
         </div>
         <p class="timeline-title">{latestPosition.title}</p>
         {hasDescription && (
-          <p class="timeline-desc">{latestPosition.description.substring(0, 160)}...</p>
+          <p class="timeline-desc">{truncateAtWord(stripSimpleMarkdown(latestPosition.description), 160)}</p>
         )}
       </div>
     </div>
