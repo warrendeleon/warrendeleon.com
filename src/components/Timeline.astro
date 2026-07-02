@@ -18,10 +18,11 @@ interface Props {
 
 const { companies, locale } = Astro.props;
 const i18n = t(locale);
+const hasCurrentRole = companies[0]?.positions[0]?.endDate == null;
 ---
 
 <div class="timeline">
-  <span class="timeline-present-tag">{i18n.workExperience.present}</span>
+  {hasCurrentRole && <span class="timeline-present-tag">{i18n.workExperience.present}</span>}
   {companies.map((co) => (
     <TimelineEntry
       company={co.company}
