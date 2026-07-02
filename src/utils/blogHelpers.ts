@@ -117,6 +117,30 @@ export async function getSeriesPosts(locale: Locale, seriesSlug: string): Promis
 }
 
 /**
+ * A feed entry that may be an English master standing in for a missing
+ * translation. Locale feeds render these with an "In English" marker and
+ * link to the English URL, instead of silently dropping the post.
+ */
+export type FeedPost = ScheduledPost & { enFallback?: boolean };
+
+/**
+ * Published posts for a locale's blog feed: the locale's own posts plus
+ * English masters that have no translation in that locale, newest first.
+ */
+export async function getFeedPostsForLocale(locale: Locale, includeFuture = import.meta.env.DEV): Promise<FeedPost[]> {
+  const own = await getPostsForLocale(locale, includeFuture);
+  if (locale === 'en') return own;
+  const en = await getPostsForLocale('en', includeFuture);
+  const ownSlugs = new Set(own.map(p => getPostSlug(p.id)));
+  const fallbacks: FeedPost[] = en
+    .filter(p => !ownSlugs.has(getPostSlug(p.id)))
+    .map(p => ({ ...p, enFallback: true }));
+  return [...own, ...fallbacks].sort(
+    (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+  );
+}
+
+/**
  * The locales a given post is actually available in (English master plus any
  * translation that exists). Used to emit hreflang only for pages that exist,
  * so an untranslated post does not advertise alternates that 404.

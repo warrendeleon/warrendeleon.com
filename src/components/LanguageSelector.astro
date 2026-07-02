@@ -4,12 +4,19 @@ import { locales, localeNames, getLocalePath, t, type Locale } from '../i18n/ind
 interface Props {
   locale: Locale;
   currentPath: string;
+  availableLocales?: Locale[];
 }
 
-const { locale, currentPath } = Astro.props;
+const { locale, currentPath, availableLocales = locales } = Astro.props;
 const i18n = t(locale);
 
 function getPathForLocale(targetLocale: Locale, path: string): string {
+  // This page has no version in the target locale (e.g. an untranslated blog
+  // post); switching straight across would 404. Land on the locale's blog
+  // index instead, matching the tag-page fallback below.
+  if (!availableLocales.includes(targetLocale)) {
+    return getLocalePath(targetLocale, '/blog/');
+  }
   let cleanPath = path;
   for (const loc of locales) {
     if (loc !== 'en' && cleanPath.startsWith(`/${loc}/`)) {
