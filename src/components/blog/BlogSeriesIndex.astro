@@ -63,6 +63,11 @@ const series = await Promise.all(seriesBase.map(async (s) => {
 </BaseLayout>
 
 <style is:global>
+  /* Header pattern duplicated per component, matching BlogTagsIndex/BlogSeriesPage */
+  .tag-page-header { margin-bottom: 2rem; }
+  .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
+  .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
+
   .series-index-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
