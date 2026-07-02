@@ -85,14 +85,14 @@ export default defineConfig({
     '/tl/blog/tag/[tag]': '/tl/blog/tags/[tag]',
     // /cv/ and /education/ folded into /work-experience/ (2026-07). The PDF
     // download and the qualifications section live there now.
-    '/cv': '/work-experience',
-    '/es/cv': '/es/work-experience',
-    '/ca/cv': '/ca/work-experience',
-    '/tl/cv': '/tl/work-experience',
-    '/education': '/work-experience',
-    '/es/education': '/es/work-experience',
-    '/ca/education': '/ca/work-experience',
-    '/tl/education': '/tl/work-experience',
+    '/cv': '/work-experience/',
+    '/es/cv': '/es/work-experience/',
+    '/ca/cv': '/ca/work-experience/',
+    '/tl/cv': '/tl/work-experience/',
+    '/education': '/work-experience/',
+    '/es/education': '/es/work-experience/',
+    '/ca/education': '/ca/work-experience/',
+    '/tl/education': '/tl/work-experience/',
     ...workRedirects,
   },
   markdown: {

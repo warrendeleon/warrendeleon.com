@@ -4,11 +4,14 @@ import { getFeedPostsForLocale, getPostsForLocale } from '../../../utils/blogHel
 
 export async function getStaticPaths({ paginate }: any) {
   const posts = await getFeedPostsForLocale('ca');
-  // Match the hero card's series (newest own-locale post) and keep its parts
-  // out of the feed - the hero already lists them.
+  // Match the hero card's series (newest own-locale post) and demote (never
+  // remove) its parts to the end of the feed - the hero already lists them,
+  // and removing them would shrink pagination and 404 indexed page URLs.
   const own = await getPostsForLocale('ca');
   const currentSeries = own[0]?.data.series ?? null;
-  const feed = currentSeries ? posts.filter(p => p.data.series !== currentSeries) : posts;
+  const feed = currentSeries
+    ? [...posts.filter(p => p.data.series !== currentSeries), ...posts.filter(p => p.data.series === currentSeries)]
+    : posts;
   return paginate(feed, { pageSize: 12 });
 }
 
