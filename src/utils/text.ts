@@ -30,11 +30,13 @@ export function renderSimpleMarkdown(text: string): string {
       const listStart = lines.findIndex((l) => l.startsWith('- '));
       const items = (ls: string[]) =>
         `<ul>${ls.map((l) => `<li>${bold(l.replace(/^-\s+/, ''))}</li>`).join('')}</ul>`;
-      if (listStart === 0) return items(lines);
-      if (listStart > 0) {
-        return `<p>${bold(lines.slice(0, listStart).join(' '))}</p>${items(lines.slice(listStart))}`;
-      }
-      return `<p>${bold(lines.join(' '))}</p>`;
+      if (listStart === -1) return `<p>${bold(lines.join(' '))}</p>`;
+      // A block may end with prose after the list; keep those lines out of the <ul>.
+      const listLines = lines.slice(listStart).filter((l) => l.startsWith('- '));
+      const trailing = lines.slice(listStart).filter((l) => !l.startsWith('- '));
+      const intro = listStart > 0 ? `<p>${bold(lines.slice(0, listStart).join(' '))}</p>` : '';
+      const outro = trailing.length > 0 ? `<p>${bold(trailing.join(' '))}</p>` : '';
+      return `${intro}${items(listLines)}${outro}`;
     })
     .join('');
 }

@@ -23,7 +23,8 @@ const i18n = t(locale);
 const workxp = workxpByLocale[locale] as typeof workxpEn;
 const currentRole = workxp[0];
 const latestPosition = currentRole.positions[0];
-const roleIsCurrent = latestPosition.endDate == null;
+// Same "current" semantics as formatDateRange: null, missing or blank endDate.
+const roleIsCurrent = !latestPosition.endDate?.trim();
 
 const jsonLd = {
   "@context": "https://schema.org",
