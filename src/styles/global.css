@@ -187,6 +187,25 @@ h4 { font-size: 1.25rem; }
 .feed-post-series { color: var(--color-green-text); }
 .feed-post-part { color: var(--color-green-text); font-weight: 700; }
 .feed-post-lang { background: var(--badge-bg); color: var(--badge-text); border-radius: 999px; padding: 0.1rem 0.6rem; font-size: 0.78rem; }
+
+/* Code blocks with a file path (```lang title="src/file.ts") get a header bar */
+.prose pre[data-filename] {
+  position: relative;
+  padding-top: 2.6rem;
+}
+
+.prose pre[data-filename]::before {
+  content: attr(data-filename);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.45rem 1rem;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border-color);
+}
 .feed-post-title { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; color: var(--text-primary); transition: color 0.15s ease; }
 .feed-post:hover .feed-post-title { color: var(--color-green-text); }
 .feed-post-desc {

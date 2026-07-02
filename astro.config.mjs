@@ -22,6 +22,17 @@ const workRedirects = Object.fromEntries(
   ),
 );
 
+// ```ts title="src/file.ts" — surfaces the file path as a bar above the code
+// block (styled from global.css via pre[data-filename]).
+const codeFilename = {
+  name: 'code-filename',
+  pre(node) {
+    const raw = this.options.meta?.__raw || '';
+    const m = /title="([^"]+)"/.exec(raw);
+    if (m) node.properties['data-filename'] = m[1];
+  },
+};
+
 export default defineConfig({
   site: 'https://warrendeleon.com',
   integrations: [
@@ -93,6 +104,7 @@ export default defineConfig({
         light: 'github-light',
         dark: 'github-dark',
       },
+      transformers: [codeFilename],
     },
     // Mermaid diagrams are pre-rendered to SVG at authoring time
     // (scripts/render-mermaid.mjs); the rehype plugin inlines them at build,
