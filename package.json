@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "mermaid": "node scripts/render-mermaid.mjs"
+    "mermaid": "node scripts/render-mermaid.mjs",
+    "prepublish-checks": "node scripts/prepublish-checks.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
