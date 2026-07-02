@@ -35,6 +35,8 @@ The setup below was written against:
 
 If you're on Expo, swap `react-native-localize` for `expo-localization`. The resolution logic is the same shape.
 
+One note on structure: the setup comes first and the parity test itself is in the second half. If your i18n already works, skip ahead to it.
+
 ## The setup
 
 Five pieces. The locale JSONs, the i18next config, a resources file, a TypeScript declaration, and the parity test.
@@ -46,7 +48,7 @@ yarn add i18next react-i18next react-native-localize
 cd ios && pod install && cd ..
 ```
 
-`react-native-localize` is a native module, so iOS needs a pod install. Without it, `getLocales()` returns `undefined` at runtime and the language resolver falls straight to English regardless of the device setting.
+`react-native-localize` is a native module, so iOS needs a pod install. Skip it and the app errors on import with a missing-native-module message; there's no silent fallback.
 
 | Library | What it does |
 |---|---|
@@ -208,7 +210,7 @@ The function takes a `LocalizeModule` parameter instead of calling `getLocales` 
 
 `escapeValue: false` is important for React Native. i18next escapes HTML by default (for web). React Native doesn't render HTML, so escaping is unnecessary and can corrupt strings with special characters.
 
-`compatibilityJSON: 'v4'` enables proper plural handling. Without it, plural keys like `_one`/`_other` don't work correctly.
+`compatibilityJSON: 'v4'` is a leftover from the v3 to v4 migration. In current i18next it's the default and the only accepted value, so it changes nothing; the `_one`/`_other` plural keys work with or without it.
 
 ### The resources file
 
@@ -311,6 +313,8 @@ Received: [..., "auth.forgotPassword.successTitle", ...]
 
 No guessing. No manual comparison. One test, run on every PR.
 
+What it doesn't catch: empty string values, or English text copy-pasted into `es.json` untranslated. Key parity is structural, not semantic; a human still has to read the translations.
+
 ## Running it
 
 ```bash
@@ -407,8 +411,12 @@ The `useTranslation` hook provides the `t()` function for reading translations a
 ```typescript
 import { useTranslation } from 'react-i18next';
 
+import { useAppDispatch } from '@app/store';
+import { setLanguage } from '@app/store/settingsSlice';
+
 export const LanguageScreen: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const dispatch = useAppDispatch();
 
   const languages = [
     { code: 'en', label: t('language.english') },
@@ -443,9 +451,9 @@ useEffect(() => {
 
 ## Common pitfalls
 
-Don't concatenate translated text. `t('hello') + ' ' + name` breaks in languages where word order differs. Use interpolation: `t('greeting', { name })` with `"greeting": "Hello, {{name}}"` in English and `"greeting": "{{name}}, merhaba"` in Turkish.
+Don't concatenate translated text. `t('hello') + ' ' + name` breaks in languages where the grammar around a name changes the sentence. Polish declines names, and possessive constructions differ across the locales in this post, so the sentence has to be written as a whole. Use interpolation: `t('greeting', { name })`, and let each locale place `{{name}}` where its grammar needs it.
 
-Don't assume pluralisation is just "add an s". English has two forms (one/other). Polish has four. Arabic has six. i18next's `_one`/`_other`/`_few`/`_many` suffixes handle this, but only with `compatibilityJSON: 'v4'`.
+Don't assume pluralisation is just "add an s". English has two forms (one/other). Polish has four. Arabic has six. i18next's `_one`/`_other`/`_few`/`_many` suffixes handle this on the v4 JSON format, which is the default in current i18next.
 
 Don't ship without the parity test. It takes five minutes to write. It catches every missing key. The alternative is finding out from users in production.
 

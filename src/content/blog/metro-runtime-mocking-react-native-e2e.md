@@ -74,7 +74,7 @@ The setup below was written against:
 
 - React Native 0.74+ (bare workflow, not Expo)
 - TypeScript with the standard RN Babel config
-- `react-native-config` installed for the build-time flag (`Config.E2E_MOCK`)
+- `babel-plugin-transform-inline-environment-variables` for the bundle-time flag (`process.env.E2E_MOCK`; react-native-config works too, see step 1)
 - `react-native-launch-arguments` for runtime per-test arguments
 - Detox already wired up for E2E tests
 - A custom HTTP client where you control the request layer (an Axios instance, a hand-rolled REST client), not the Supabase or Firebase SDK directly
@@ -83,20 +83,17 @@ If your only path to the backend is a vendor SDK, this approach can't reach in. 
 
 ## How it works
 
-At build time, bake a flag into the native build. At runtime, every API function checks the flag. If mocking is on, return fixture data wrapped in the same response shape; if not, hit the real network. The choice happens inside the function, so callers (Redux, screens, hooks) stay identical.
+At build time, bake a flag into the build. At runtime, every API function checks the flag. If mocking is on, return fixture data wrapped in the same response shape; if not, hit the real network. The choice happens inside the function, so callers (Redux, screens, hooks) stay identical.
 
 ### Step 1: pick how the flag gets in
 
-Two practical options. They're not mutually exclusive, but you usually want one of them.
+Two practical options. The rest of this post uses the first, because it does the swap where the title says: in the bundle.
 
-`react-native-config` reads from a `.env` file at native build time and exposes values through `Config.E2E_MOCK`. The value is set when Xcode or Gradle builds the binary, so you'd run `E2E_MOCK=true yarn detox:ios:build` to produce a mocked build.
+The Babel plugin `babel-plugin-transform-inline-environment-variables` rewrites `process.env.E2E_MOCK` in your source to a literal string when Metro bundles the app. Export the variable in the shell that runs the build and the value is baked in:
 
 ```bash
-yarn add react-native-config
-cd ios && pod install && cd ..
+yarn add --dev babel-plugin-transform-inline-environment-variables
 ```
-
-The Babel plugin `babel-plugin-transform-inline-environment-variables` is the JS-side alternative. It rewrites `process.env.E2E_MOCK` in your source to the literal string at bundle time. If you go that route, you read the flag directly:
 
 ```javascript
 // babel.config.js
@@ -106,7 +103,25 @@ module.exports = {
 };
 ```
 
-Either approach gives you the same property: the flag is a constant in the shipped binary, not a runtime lookup. The rest of this post uses `react-native-config`, which is what the [rn-warrendeleon repo](https://github.com/warrendeleon/rn-warrendeleon) uses in production.
+One gotcha: Metro caches Babel output and the cache key ignores environment variables, so reset the Metro cache when you flip the flag between builds (`yarn start --reset-cache`, or wipe the cache directory in CI).
+
+The alternative is `react-native-config`, which writes the flag into the native binary when Xcode or Gradle builds it and exposes it through `Config.E2E_MOCK`. This is the route the [rn-warrendeleon repo](https://github.com/warrendeleon/rn-warrendeleon) takes. Note that it reads only `.env` files, never shell variables, so a mocked build needs a dedicated file and `ENVFILE` pointing at it:
+
+```bash
+yarn add react-native-config
+cd ios && pod install && cd ..
+```
+
+```text
+# .env.e2e
+E2E_MOCK=true
+```
+
+```bash
+ENVFILE=.env.e2e yarn detox:ios:build
+```
+
+Either way the flag is fixed before the app ships. The Babel plugin inlines it as a literal in the JS bundle; react-native-config compiles it into the native binary as a constant the JS reads back at runtime.
 
 ### Step 2: the configuration module
 
@@ -114,9 +129,7 @@ A single module reads the flag and exposes it. The reference implementation also
 
 ```typescript
 // src/config/e2e.ts
-import Config from 'react-native-config';
-
-const envE2EMockEnabled = Config.E2E_MOCK === 'true';
+const envE2EMockEnabled = process.env.E2E_MOCK === 'true';
 let runtimeOverride: boolean | null = null;
 
 export const isE2EMockEnabled = (): boolean => {
@@ -128,7 +141,7 @@ export const setE2EMockOverride = (value: boolean | null): void => {
 };
 ```
 
-In the real codebase the override persists to `AsyncStorage` so it survives a reload; that's an extension, not the core idea.
+On the react-native-config route, the first line becomes `Config.E2E_MOCK === 'true'` with `import Config from 'react-native-config';` at the top. In the real codebase the override persists to `AsyncStorage` so it survives a reload; that's an extension, not the core idea.
 
 ### Step 3: the fixture files
 
@@ -238,6 +251,26 @@ interface E2EErrorConfig {
 }
 ```
 
+The app reads those arguments through `react-native-launch-arguments`, and two small helpers turn them into failures. Sketched here; the repo's versions build a typed error per mode:
+
+```typescript
+import { LaunchArguments } from 'react-native-launch-arguments';
+
+const args = LaunchArguments.value<Partial<E2EErrorConfig>>();
+
+export const shouldEndpointFail = (
+  endpoint: E2EErrorConfig['errorEndpoint']
+): boolean =>
+  !!args.errorMode &&
+  args.errorMode !== 'none' &&
+  (args.errorEndpoint === 'all' || args.errorEndpoint === endpoint);
+
+export const createE2EError = (): Error | null =>
+  args.errorMode && args.errorMode !== 'none'
+    ? new Error(`E2E simulated ${args.errorMode} error`)
+    : null;
+```
+
 Check for error simulation before returning fixture data:
 
 ```typescript
@@ -263,7 +296,7 @@ await device.launchApp({
 
 Every error state becomes a launch argument: network failures, 500s, 404s, timeouts. None of them need a broken server.
 
-`launchArgs` and `E2E_MOCK` do different jobs. `E2E_MOCK` is baked into the binary at native build time and switches the API layer between real calls and fixtures. `launchArgs` is read at runtime via `react-native-launch-arguments` and tells the already-mocked API which scenario to play for this specific test. One binary, many scenarios.
+`launchArgs` and `E2E_MOCK` do different jobs. `E2E_MOCK` is baked into the bundle at build time and switches the API layer between real calls and fixtures. `launchArgs` is read at runtime via `react-native-launch-arguments` and tells the already-mocked API which scenario to play for this specific test. One binary, many scenarios.
 
 ## Authentication mocking
 
@@ -299,12 +332,13 @@ E2E_MOCK=true yarn detox:ios:build
 # Run E2E tests against the mocked binary
 yarn detox:ios:test
 
-# Build and run smoke tests against the real backend (separate binary)
+# Build and run smoke tests against the real backend
+# (separate binary; reset the Metro cache between the two builds, see step 1)
 yarn detox:ios:build
 yarn detox:ios:test --tags @smoke
 ```
 
-Two binaries, two suites. Mocked for the full PR run, real for the smoke set.
+Two binaries, two suites. Mocked for the full PR run, real for the smoke set. On the react-native-config route, the first build is `ENVFILE=.env.e2e yarn detox:ios:build` instead.
 
 ## Common pitfalls
 
@@ -314,7 +348,7 @@ Two binaries, two suites. Mocked for the full PR run, real for the smoke set.
 
 **Forgetting the real integration.** Mocked E2E tests catch UI regressions. They don't catch contract changes. Keep a small real-backend smoke suite on a schedule, even if it's five critical paths.
 
-**Leaking state between scenarios.** Each Detox scenario should start clean. Call `device.reloadReactNative()` (or relaunch the app) in the `Before` hook so a mock written by one test doesn't bleed into the next.
+**Leaking state between scenarios.** Each Detox scenario should start clean, and `device.reloadReactNative()` doesn't get you there. A reload keeps the previous launch's `launchArgs`, so an error scenario bleeds into the next test, and it clears nothing the mock auth wrote to storage. Relaunch instead: `device.launchApp({ newInstance: true })` in the `Before` hook, with `delete: true` added when an earlier scenario's mock auth wrote to encrypted storage.
 
 ## Where this leaves you
 

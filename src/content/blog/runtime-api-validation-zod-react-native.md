@@ -24,13 +24,14 @@ TypeScript can't catch any of this. It checks types at compile time. API respons
 
 The result: your app crashes on a property access, shows blank fields, or silently stores corrupted data. The error message gives you nothing useful because the failure is three layers away from the cause.
 
-TypeScript validates the shape of your code. Zod validates the shape of your data. You want both, and the cost of bolting Zod on is small: a library that ships at roughly 50KB minified, parsing work done once per API call, and a schema file per response.
+TypeScript validates the shape of your code. Zod validates the shape of your data. You want both, and the cost of bolting Zod on is small: a library that ships at roughly 50KB minified (Zod 3), parsing work done once per API call, and a schema file per response.
 
 ## Assumptions
 
 The setup below was written against:
 
 - React Native 0.74+ (bare or Expo, both work; Zod has no native modules)
+- Zod 3.x. Everything here still works on Zod 4, but v4 renames some idioms (`z.email()` replaces `z.string().email()`, `z.looseObject()` replaces `.passthrough()`), so expect deprecation strikethroughs if you install v4.
 - TypeScript with the standard RN Babel config
 - An HTTP client where responses come back as `unknown` (or where you can wrap them)
 - Jest configured for unit tests (see [Setting up MSW v2 in React Native](/blog/setting-up-msw-v2-in-react-native/) if you don't have one yet)
@@ -184,14 +185,14 @@ export const SupabaseIdentityDataSchema = z.object({
 
 ## The validation layer
 
-Two helper functions sit between your API client and your app code. One for critical data, one for optional data.
+Two helper functions sit between your API client and your app code. One for critical data, one for optional data. Both are shown slightly simplified; the repo versions differ in small error-handling details.
 
 ### Strict validation (throws on failure)
 
 ```typescript
 // src/utils/validation/validateResponse.ts
 import { z, ZodError } from 'zod';
-import { logError } from '../logger';
+import { logError, logWarning } from '../logger';
 
 export function validateResponse<T>(
   schema: z.ZodSchema<T>,
@@ -249,6 +250,7 @@ Every API function follows the same pattern: fetch unknown data, validate it, re
 
 ```typescript
 // src/features/Profile/api/api.ts
+import { type AxiosResponse } from 'axios';
 import { ProfileSchema, type Profile } from '@app/schemas';
 import { GithubApiClient } from '@app/httpClients/GithubApiClient';
 
@@ -337,12 +339,12 @@ The fixture validation test (`validates real fixture data`) is the most importan
 
 ```typescript
 // src/utils/validation/__tests__/validateResponse.rntl.ts
-describe('validateResponse', () => {
-  const schema = z.object({
-    name: z.string(),
-    age: z.number(),
-  });
+const schema = z.object({
+  name: z.string(),
+  age: z.number(),
+});
 
+describe('validateResponse', () => {
   it('returns validated data for valid input', () => {
     const result = validateResponse(schema, { name: 'Warren', age: 30 }, 'test');
     expect(result).toEqual({ name: 'Warren', age: 30 });

@@ -26,7 +26,7 @@ Touch target size is a number. Contrast ratio is a calculation. Live regions and
 
 | What | WCAG criterion | How I test it |
 |---|---|---|
-| Touch target size | 2.5.5 | Check `minWidth`/`minHeight` >= 44pt (iOS) or 48dp (Android) |
+| Touch target size | 2.5.5 (AAA, but the platform HIG minimum) | Check `minWidth`/`minHeight` >= 44pt (iOS) or 48dp (Android) |
 | Colour contrast | 1.4.3 | Calculate luminance ratio >= 4.5:1 for text, 3:1 for large text |
 | Focus order | 2.4.3 | Smoke-check each element is focusable; reading order itself needs Detox |
 | Accessibility roles | 4.1.2 | Assert `accessibilityRole` is set on interactive elements |
@@ -41,7 +41,7 @@ The setup below was written against:
 - React Native 0.74+ (bare or Expo)
 - TypeScript with the standard RN Babel config
 - Jest configured (see [Setting up MSW v2 in React Native](/blog/setting-up-msw-v2-in-react-native/) for the polyfills, config, and `renderWithProviders`)
-- Numeric or string-with-units dimensions on touchables (the helper parses both via `parseFloat`)
+- Numeric or string-with-units dimensions on touchables (the helper parses both via `parseFloat`; note that a percentage like `'50%'` parses as 50 points, so percentage-sized targets pass regardless of rendered size)
 
 Style libraries that hand dimensions to components as theme tokens (`h="$12"`, `className="h-12"`) need to either resolve to a numeric value in the rendered tree or be replaced with numeric values in the components under test. The helper reads through `StyleSheet.flatten`, not through a theme resolver.
 
@@ -272,7 +272,7 @@ export function expectScreenReaderAnnouncement(
 
 ### Focus order verification
 
-Screen reader users navigate sequentially. The check below is a smoke test, not a real focus-order verifier: it confirms each element in the array is focusable, and the *order you pass them in* documents the expected sequence. The actual reading order is determined at runtime by the screen reader and the layout tree, which Jest can't fully simulate. For real reading-order checks, use the Detox + VoiceOver feature files in [the BDD post](/blog/detox-cucumber-bdd-react-native-e2e-testing/).
+Screen reader users navigate sequentially. The check below is a smoke test, not a real focus-order verifier: it confirms each element in the array is focusable, and the *order you pass them in* documents the expected sequence. The actual reading order is determined at runtime by the screen reader and the layout tree, which Jest can't fully simulate. For real reading-order checks, use the Detox + VoiceOver feature files in [the BDD post](/blog/detox-cucumber-bdd-react-native-e2e-testing/). Both helpers below are simplified versions of the repo's, which check more focus-related props.
 
 ```typescript
 export function expectFocusOrder(elements: ReactTestInstance[]): void {
@@ -514,10 +514,10 @@ If someone changes a colour variable, the contrast test fails before it ships. N
 
 ## Running accessibility tests separately
 
-The `*.accessibility.rntl.tsx` naming convention lets you run them as a suite:
+The `*.accessibility.rntl.tsx` naming convention lets you run them as a suite. The contrast files don't carry the word in their names, so the pattern needs both:
 
 ```bash
-yarn jest --testPathPattern='accessibility'
+yarn jest --testPathPattern='accessibility|Contrast'
 ```
 
 ```text
@@ -575,7 +575,7 @@ src/
 
 ## The setup cost
 
-The utility file is about 200 lines. Each screen's accessibility test file is 100-500 lines. The setup is an afternoon.
+The utility file as shown here is about 200 lines; the toolkit in the repo has since grown well beyond this core set. Each screen's accessibility test file is 100-500 lines. The setup is an afternoon.
 
 What you get: automated regression testing for every WCAG requirement that can be expressed as a Jest assertion. Touch targets, contrast ratios, focus order, roles, labels, announcements. All running on every PR, catching regressions that no one would notice until a screen reader user reports them.
 
