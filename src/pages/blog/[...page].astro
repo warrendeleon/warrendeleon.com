@@ -4,7 +4,11 @@ import { getPostsForLocale } from '../../utils/blogHelpers';
 
 export async function getStaticPaths({ paginate }: any) {
   const posts = await getPostsForLocale('en');
-  return paginate(posts, { pageSize: 12 });
+  // The newest post's series leads page one as the hero card, which already
+  // lists every part - keep those posts out of the feed to avoid duplication.
+  const currentSeries = posts[0]?.data.series ?? null;
+  const feed = currentSeries ? posts.filter(p => p.data.series !== currentSeries) : posts;
+  return paginate(feed, { pageSize: 12 });
 }
 
 const { page } = Astro.props;

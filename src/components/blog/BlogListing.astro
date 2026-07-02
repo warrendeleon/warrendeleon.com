@@ -62,8 +62,6 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
     </div>
   </section>
 
-  {hasCurrentSeries && <SubscribeForm locale={locale} />}
-
   <section class="section blog-after">
     <div class="container">
       {moreSeries.length > 0 && (
@@ -99,7 +97,13 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
           </div>
         </div>
       )}
+    </div>
+  </section>
 
+  {hasCurrentSeries && <SubscribeForm locale={locale} />}
+
+  <section class="section blog-feed-section">
+    <div class="container">
       {feedPosts.length > 0 && (
         <div class="blog-feed-block">
           <h2 class="blog-section-heading">{i18n.blog.allPosts}</h2>

@@ -128,7 +128,8 @@
       "searching": "Searching for [SEARCH_TERM]…",
       "zero_results": "No results for [SEARCH_TERM]",
       "one_result": "[COUNT] result for [SEARCH_TERM]",
-      "many_results": "[COUNT] results for [SEARCH_TERM]"
+      "many_results": "[COUNT] results for [SEARCH_TERM]",
+      "trigger": "Search"
     },
     "authorBio": "Software Engineering Manager. Most recently led the Mobile Platform team at Hargreaves Lansdown. Writing about engineering leadership, React Native, and building great teams.",
     "clientProjects": "Client projects",
