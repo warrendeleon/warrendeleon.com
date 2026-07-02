@@ -1,9 +1,9 @@
 ---
 import BlogListing from '../../../components/blog/BlogListing.astro';
-import { getPostsForLocale } from '../../../utils/blogHelpers';
+import { getFeedPostsForLocale } from '../../../utils/blogHelpers';
 
 export async function getStaticPaths({ paginate }: any) {
-  const posts = await getPostsForLocale('es');
+  const posts = await getFeedPostsForLocale('es');
   return paginate(posts, { pageSize: 12 });
 }
 

@@ -134,7 +134,7 @@ const cleanPath = getCleanPath(currentPath);
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
-    <Nav locale={locale} currentPath={currentPath} />
+    <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} />
     <main id="main-content">
       <slot />
     </main>

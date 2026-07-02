@@ -6,9 +6,10 @@ import { t, getLocalePath, type Locale } from '../i18n/index';
 interface Props {
   locale: Locale;
   currentPath: string;
+  availableLocales?: Locale[];
 }
 
-const { locale, currentPath } = Astro.props;
+const { locale, currentPath, availableLocales } = Astro.props;
 const i18n = t(locale);
 
 // Search only covers blog content, so the trigger appears across the blog
@@ -48,7 +49,7 @@ const navLinks = [
           </button>
         )}
         <ThemeToggle locale={locale} />
-        <LanguageSelector locale={locale} currentPath={currentPath} />
+        <LanguageSelector locale={locale} currentPath={currentPath} availableLocales={availableLocales} />
       </div>
       <button class="hamburger" id="hamburger" type="button" aria-label={i18n.a11y.toggleMenu} aria-expanded="false">
         <span></span>

@@ -6,13 +6,13 @@ import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, shortenSeriesName, type ScheduledPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, shortenSeriesName, type FeedPost } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
 import type { Page } from 'astro';
 
 interface Props {
   locale: Locale;
-  page: Page<ScheduledPost>;
+  page: Page<FeedPost>;
 }
 
 const { locale, page } = Astro.props;
@@ -107,9 +107,10 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
           <div class="blog-feed">
             {feedPosts.map(post => (
               <a
-                href={getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)}
+                href={post.enFallback ? `/blog/${getPostSlug(post.id)}/` : getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)}
                 class="feed-post"
                 data-publish-date={toDateString(post.data.publishDate)}
+                hreflang={post.enFallback ? 'en' : undefined}
               >
                 {post.data.heroImage && (
                   <div class="feed-post-thumb">
@@ -120,9 +121,10 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
                   <div class="feed-post-meta blog-mono">
                     <span>{formatBlogDate(post.data.publishDate, locale)} &middot; {getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>
                     {post.data.series && <span class="feed-post-series">{shortenSeriesName(post.data.series)}</span>}
+                    {post.enFallback && <span class="feed-post-lang">{i18n.blog.inEnglish}</span>}
                   </div>
-                  <h3 class="feed-post-title">{post.data.title}</h3>
-                  {post.data.description && <p class="feed-post-desc">{post.data.description}</p>}
+                  <h3 class="feed-post-title" lang={post.enFallback ? 'en' : undefined}>{post.data.title}</h3>
+                  {post.data.description && <p class="feed-post-desc" lang={post.enFallback ? 'en' : undefined}>{post.data.description}</p>}
                 </div>
               </a>
             ))}
