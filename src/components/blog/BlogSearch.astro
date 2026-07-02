@@ -412,9 +412,13 @@ const tryChips = [...tagCounts.entries()]
       if (!currentMatches.length) return;
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(activeIndex + 1); }
       else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(activeIndex - 1); }
-      else if (e.key === 'Enter' && activeIndex >= 0) {
+      else if (e.key === 'Enter') {
+        // No explicit selection means the first result: typing a query and
+        // pressing Enter should always go somewhere.
         e.preventDefault();
-        var link = results.querySelectorAll('.bso-result')[activeIndex].querySelector('a');
+        var idx = activeIndex >= 0 ? activeIndex : 0;
+        var row = results.querySelectorAll('.bso-result')[idx];
+        var link = row && row.querySelector('a');
         if (link) window.location.href = link.href;
       }
     }

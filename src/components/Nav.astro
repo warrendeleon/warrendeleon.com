@@ -45,6 +45,8 @@ const navLinks = [
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
+            <span class="nav-search-text">{i18n.blog.search.trigger}</span>
+            <kbd class="nav-search-kbd" data-search-kbd aria-hidden="true">⌘K</kbd>
           </button>
         )}
         <ThemeToggle locale={locale} />
@@ -73,6 +75,16 @@ const navLinks = [
     </div>
   </div>
 </nav>
+
+{isBlog && (
+  <script is:inline>
+    // Non-Mac platforms open the palette with Ctrl+K, not ⌘K.
+    (function () {
+      var kbd = document.querySelector('[data-search-kbd]');
+      if (kbd && !/Mac|iPhone|iPad/.test(navigator.platform)) kbd.textContent = 'Ctrl K';
+    })();
+  </script>
+)}
 
 <style>
   .nav {
@@ -174,13 +186,15 @@ const navLinks = [
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: none;
+    gap: 0.45rem;
+    min-height: 34px;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     background: none;
     color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
     cursor: pointer;
     transition: color 0.2s ease, background 0.2s ease;
   }
@@ -188,6 +202,28 @@ const navLinks = [
   .nav-search:hover {
     color: var(--color-green-text);
     background: var(--bg-secondary);
+  }
+
+  .nav-search-kbd {
+    font-size: 0.72rem;
+    font-family: inherit;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
+  }
+
+  @media (max-width: 1024px) {
+    .nav-search {
+      width: 34px;
+      padding: 0;
+      border: none;
+    }
+
+    .nav-search-text,
+    .nav-search-kbd {
+      display: none;
+    }
   }
 
   .hamburger {

@@ -128,7 +128,8 @@
       "searching": "Cercant [SEARCH_TERM]…",
       "zero_results": "Cap resultat per a [SEARCH_TERM]",
       "one_result": "[COUNT] resultat per a [SEARCH_TERM]",
-      "many_results": "[COUNT] resultats per a [SEARCH_TERM]"
+      "many_results": "[COUNT] resultats per a [SEARCH_TERM]",
+      "trigger": "Cerca"
     },
     "authorBio": "Software Engineering Manager. Recentment he liderat l'equip de Mobile Platform a Hargreaves Lansdown. Escric sobre lideratge tècnic, React Native i com construir bons equips.",
     "clientProjects": "Projectes per a clients",
