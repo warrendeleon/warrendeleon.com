@@ -8,6 +8,7 @@ import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug, getPostsForLocale } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
+import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 
 interface Props {
   locale: Locale;
@@ -66,6 +67,12 @@ const itemListJsonLd = {
   jsonLd={itemListJsonLd}
 >
   <BlogSearch locale={locale} />
+  <BreadcrumbsJsonLd items={[
+    { name: 'Warren de Leon', url: getLocalePath(locale, '/') },
+    { name: 'Blog', url: blogPath },
+    { name: i18n.blog.browseBySeries, url: getLocalePath(locale, '/blog/series/') },
+    { name: seriesName },
+  ]} />
 
   <section class="section">
     <div class="container">

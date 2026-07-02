@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import TechBadge from '../../../components/TechBadge.astro';
 import { t, slugify, formatDateRange, getLocalePath, locales, type Locale } from '../../../i18n/index';
 import { renderSimpleMarkdown, stripSimpleMarkdown, truncateAtWord } from '../../../utils/text';
+import BreadcrumbsJsonLd from '../../../components/BreadcrumbsJsonLd.astro';
 import workxpEn from '../../../data/workxp-en.json';
 import workxpEs from '../../../data/workxp-es.json';
 import workxpCa from '../../../data/workxp-ca.json';
@@ -84,6 +85,13 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
   locale={locale}
   currentPath={getLocalePath(locale, `/work-experience/${slugify(displayName)}/`)}
 >
+  <BreadcrumbsJsonLd items={[
+    { name: 'Warren de Leon', url: getLocalePath(locale, '/') },
+    { name: i18n.workExperience.title, url: getLocalePath(locale, '/work-experience/') },
+    ...(isClientPage ? [{ name: company.company, url: getLocalePath(locale, `/work-experience/${slugify(company.company)}/`) }] : []),
+    { name: displayName },
+  ]} />
+
   <!-- Hero header -->
   <section class="work-hero section-alt" aria-label={i18n.workExperience.companyHeader}>
     <div class="container">

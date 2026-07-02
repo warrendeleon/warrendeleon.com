@@ -7,6 +7,7 @@ import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug } from '../../utils/blogHelpers';
+import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 
 interface Props {
   locale: Locale;
@@ -32,6 +33,12 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
   currentPath={getLocalePath(locale, `/blog/tags/${tag}/`)}
 >
   <BlogSearch locale={locale} />
+  <BreadcrumbsJsonLd items={[
+    { name: 'Warren de Leon', url: getLocalePath(locale, '/') },
+    { name: 'Blog', url: blogPath },
+    { name: i18n.blog.browseByTag, url: getLocalePath(locale, '/blog/tags/') },
+    { name: tagLabel },
+  ]} />
 
   <section class="section">
     <div class="container">
