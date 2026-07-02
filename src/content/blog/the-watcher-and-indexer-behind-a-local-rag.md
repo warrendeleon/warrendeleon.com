@@ -29,10 +29,10 @@ This is the bit between "Claude wrote a JSONL" and "the MCP server can search it
 Three processes, decoupled by a SQLite queue:
 
 ```text
-fswatch  →  watcher.py  →  queue.db  →  indexer.py  →  ChromaDB
+fswatch  →  watcher.py  →  queue.db  →  indexer.py  →  ChromaDB + FTS
                                               ↓
                                        embedding model
-                                       (sentence-transformers / Ollama)
+                                       (Ollama / sentence-transformers)
 ```
 
 The watcher only enqueues. The indexer only dequeues. Either can crash, restart, or fall behind, and the other doesn't care. The queue is the contract.
@@ -64,10 +64,13 @@ from .queue_db import JobQueue, JobType
 logger = logging.getLogger(__name__)
 CLAUDE_PROJECTS_DIR = Path.home() / ".claude" / "projects"
 
-EXCLUDED_PROJECT_SUFFIXES = ["-dotfiles-rag"]
+EXCLUDED_PROJECT_SUFFIXES = [
+    "-dotfiles-rag",
+    "summariser-workdir",
+]
 ```
 
-The exclusion is important. The dotfiles repo has its own Claude Code project, which means *this* code's development sessions are JSONLs in the same directory. Indexing them creates a feedback loop: writing to the audit log triggers the watcher, which queues a job, which embeds the action of writing to the audit log, which writes to the audit log again. Skip the project that contains the indexer.
+The first exclusion is important. The dotfiles repo has its own Claude Code project, which means *this* code's development sessions are JSONLs in the same directory. Indexing them creates a feedback loop: writing to the audit log triggers the watcher, which queues a job, which embeds the action of writing to the audit log, which writes to the audit log again. Skip the project that contains the indexer. The second entry guards a different loop of the same shape: a session summariser elsewhere in the system (it appears in [the last post](/blog/pairing-claude-rag-with-a-curated-wiki/)) runs its own headless Claude, and its transcripts would otherwise feed straight back into the index.
 
 ```python
 class Watcher:
@@ -90,7 +93,7 @@ class Watcher:
         ]
 ```
 
-`--exclude '.*'` then `--include '\.jsonl$'` is a fswatch pattern: exclude everything, then add back JSONL files. fswatch evaluates excludes first; the order of flags matters less than the order of evaluation.
+`--exclude '.*'` then `--include '\.jsonl$'` is a fswatch pattern: exclude everything, then the include adds JSONL files back.
 
 ```python
     def _handle_event(self, path_str: str) -> None:
@@ -249,7 +252,7 @@ def enqueue(self, file_path, job_type, priority=0) -> int | None:
             (file_path,),
         ).fetchone()
 
-        if completed and completed["file_hash"] == fhash:
+        if completed and completed["file_hash"] and fhash and completed["file_hash"] == fhash:
             return None
 
         cursor = conn.execute(
@@ -266,6 +269,8 @@ Three deduplication rules:
 1. If there's already a pending/processing job for this path with the same content hash, drop the new event entirely.
 2. If there's a pending/processing job for this path but the hash is different, *update* the existing job to point at the new content. The watcher just signalled the file changed again before the indexer got to it.
 3. If the most recent completed job had the same hash, the file hasn't actually changed since we last indexed. Drop it.
+
+The explicit null checks on both hashes matter more than they look. `_file_hash` returns `None` when a file can't be read, and without the guards two unreadable files compare equal (`None == None`) and a legitimate job gets silently dropped. A file that can't be hashed is never "unchanged".
 
 Three cheap rules turn an event firehose into a small backlog of real work.
 
@@ -389,7 +394,87 @@ The output is a list of "turns": one user message paired with the corresponding 
 
 ## The store
 
-ChromaDB does the actual vector work. Two embedding backends because I run on different hardware:
+ChromaDB does the actual vector work. There are two embedding backends, and their roles swapped mid-project: production today is Ollama running a quantised `qwen3-embedding:8b` out of process, and the original in-process sentence-transformers path survives as a fallback. Both are worth reading, one for what it does and one for what it taught.
+
+### The Ollama backend
+
+The wrapper looks like it should be ten lines: POST the inputs to `/api/embed`, read back the vectors. The real one is longer because that version doesn't work:
+
+```python
+OLLAMA_KEEP_ALIVE = "60s"   # unload the model 60s after the last embed
+OLLAMA_CHUNK_SIZE = 1800    # chars; the qwen3-embedding runner EOFs on long single inputs
+OLLAMA_CHUNK_OVERLAP = 200
+OLLAMA_EMBED_RETRIES = 2
+OLLAMA_RETRY_DELAY = 3.0    # seconds between retries, lets a crashed runner respawn
+
+
+def _chunk_text(text: str, size: int = OLLAMA_CHUNK_SIZE, overlap: int = OLLAMA_CHUNK_OVERLAP) -> list[str]:
+    """Split text into overlapping chunks. Most turns fit in a single chunk."""
+    if len(text) <= size:
+        return [text]
+    chunks, start = [], 0
+    while start < len(text):
+        chunks.append(text[start:start + size])
+        start += size - overlap
+    return chunks
+
+
+class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
+    def _embed_chunk(self, text: str) -> list[float] | None:
+        """Embed one chunk via a single Ollama request, with retry on crashes."""
+        url = f"{self.base_url}/api/embed"
+        payload = json.dumps({
+            "model": self.model,
+            "input": text,
+            "keep_alive": self.keep_alive,
+        }).encode()
+
+        for attempt in range(OLLAMA_EMBED_RETRIES + 1):
+            try:
+                req = urllib.request.Request(
+                    url, data=payload,
+                    headers={"Content-Type": "application/json"}, method="POST",
+                )
+                with urllib.request.urlopen(req, timeout=120) as resp:
+                    return json.loads(resp.read())["embeddings"][0]
+            except (urllib.error.URLError, OSError, KeyError, IndexError) as e:
+                if attempt < OLLAMA_EMBED_RETRIES:
+                    time.sleep(OLLAMA_RETRY_DELAY)
+                    continue
+                logger.error("Ollama embed failed after %d retries: %s", OLLAMA_EMBED_RETRIES, e)
+                return None
+        return None
+
+    def __call__(self, input: Documents) -> Embeddings:
+        """One vector per input. Long inputs are chunked and mean-pooled."""
+        import numpy as np
+
+        out: Embeddings = []
+        for text in input:
+            text = text or ""
+            vecs = [v for v in (self._embed_chunk(c) for c in _chunk_text(text)) if v is not None]
+            if not vecs:
+                raise RuntimeError(
+                    f"Ollama embedding failed for every chunk of a {len(text)}-char input"
+                )
+            mean = np.asarray(vecs, dtype=np.float32).mean(axis=0)
+            norm = float(np.linalg.norm(mean)) or 1.0
+            out.append((mean / norm).tolist())
+        return out
+```
+
+Every awkward line maps to a failure the obvious version hit:
+
+- Ollama's embed endpoint 400s on a batched input array, so it's one POST per item.
+- The qwen3-embedding runner crashes (EOF) on long single inputs, so anything over 1,800 characters is split into overlapping chunks, and the chunk vectors are mean-pooled then L2-normalised into one vector per turn. Most turns never need it.
+- The runner also dies intermittently on requests it normally handles, and respawns on the next request, so a failed chunk waits three seconds and retries before giving up.
+- `keep_alive: "60s"` unloads the model a minute after the last embed, so several gigabytes of weights don't sit in RAM between jobs.
+
+Quantised and out of process, the model costs 6-10GB inside Ollama only while embedding, and the Python indexer stays small. That, plus Ollama owning the model lifecycle, is why this backend holds the production slot.
+
+### The sentence-transformers fallback, and what it taught
+
+The original production backend ran the full fp16 model in-process on MPS (Apple's Metal GPU backend):
 
 ```python
 class SentenceTransformersEmbeddingFunction(EmbeddingFunction[Documents]):
@@ -448,34 +533,18 @@ def unload(self) -> None:
 
 Per-batch empty stops the pool from growing within a job. Idle unload returns the model weights themselves. You need both. One without the other and either each job leaks, or the model sits in GPU memory for hours after the last job.
 
-For machines without sentence-transformers, an Ollama HTTP wrapper:
+All that leak management is what the Ollama migration made someone else's problem. The code stays: it guards the fallback path, and it's the documented answer if this system ever runs on a machine without Ollama.
 
-```python
-class OllamaEmbeddingFunction(EmbeddingFunction[Documents]):
-    def __call__(self, input: Documents) -> Embeddings:
-        payload = json.dumps({
-            "model": self.model,
-            "input": input,
-            "keep_alive": "5m",
-        }).encode()
-        req = urllib.request.Request(
-            f"{self.base_url}/api/embed",
-            data=payload,
-            headers={"Content-Type": "application/json"},
-            method="POST",
-        )
-        with urllib.request.urlopen(req, timeout=120) as resp:
-            return json.loads(resp.read())["embeddings"]
-```
+### Picking a backend
 
-The store picks the backend based on whether the configured model name looks like a HuggingFace path:
+The store picks by whether the configured model name looks like a HuggingFace path:
 
 ```python
 if "/" in model_name:
     # e.g. "Qwen/Qwen3-Embedding-4B" - sentence-transformers
     embedding_fn = SentenceTransformersEmbeddingFunction(model=model_name)
 else:
-    # e.g. "mxbai-embed-large" - Ollama
+    # e.g. "qwen3-embedding:8b" - Ollama
     embedding_fn = OllamaEmbeddingFunction(model=model_name)
 ```
 
@@ -490,6 +559,10 @@ self._collections[name] = self._client.get_or_create_collection(
 ```
 
 Cosine distance. Higher = less similar. The MCP server converts to a relevance percentage for display.
+
+### The keyword mirror
+
+Vectors alone miss a class of query this system exists for: exact strings. An error message, a ticket id, a function name. Semantic similarity gets close; a keyword match is exact. So every upsert also mirrors the chunk into a SQLite FTS5 table (`~/.rag/fts.db`, built in `fts.py`), best-effort by design: a keyword-index failure never blocks the vector upsert, and if FTS5 is unavailable the leg disables itself and search falls back to vectors alone. At query time the store over-fetches both legs and merges them with reciprocal-rank fusion, so exact-identifier hits and semantic hits surface in one ranked list. It's a second index over the same documents for one SQLite file's worth of overhead.
 
 ## The indexer loop
 
@@ -630,7 +703,7 @@ def _process_conversation(self, path: Path) -> None:
 
 ## Running them as services
 
-Two launchd plists in `~/Library/LaunchAgents/`. Watcher:
+Two launchd plists run this part of the system, both in `~/Library/LaunchAgents/` (the wiki sync and the summariser from the next post get their own). Watcher:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -642,20 +715,20 @@ Two launchd plists in `~/Library/LaunchAgents/`. Watcher:
     <string>com.dotfiles.rag-watcher</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/me/.rag/venv/bin/python</string>
+        <string>/Users/warrendeleon/.rag/venv/bin/python</string>
         <string>-m</string>
         <string>src.watcher</string>
     </array>
     <key>WorkingDirectory</key>
-    <string>/Users/me/Developer/dotfiles/rag</string>
+    <string>/Users/warrendeleon/Developer/dotfiles/rag</string>
     <key>RunAtLoad</key>
     <true/>
     <key>KeepAlive</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/Users/me/.rag/logs/watcher.log</string>
+    <string>/Users/warrendeleon/.rag/logs/watcher.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/me/.rag/logs/watcher.err</string>
+    <string>/Users/warrendeleon/.rag/logs/watcher.err</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
@@ -682,7 +755,7 @@ Both run on every login. `launchctl list | grep rag` confirms.
 
 The watcher uses single-digit MB of RAM and 0% CPU when idle. The indexer is small at rest and burns the GPU when there's a job, but on day-to-day work the queue is empty most of the time. A long Claude Code session might queue one or two files; each takes 5-15 seconds to embed and the system goes back to idle.
 
-The exception was the initial backlog: ~30,000 conversation files, ~570,000 turns. That's the scenario where I learned macOS Low Power mode caps the GPU clock at the hardware level and lets the indexer chew through the queue without exceeding the laptop's 100W power-delivery budget. Once the backlog cleared, the system has been invisible.
+The exception was the initial backlog: every conversation on the machine, ~35,000 turns across ~1,500 sessions. That's the bulk import behind the battery lesson in [part 1](/blog/giving-claude-a-memory-with-a-local-rag/): run it on Low Power energy mode, and check what your battery manager is quietly doing before you blame the workload. Once the backlog cleared, the system has been invisible.
 
 ## What's next
 

@@ -39,7 +39,7 @@ The rule that decides what's worth a page: *would I want to read this in six mon
 - **Roadmap and product state.** What's shipped, what's in flight, what's planned, what got cut and why. Easier to keep current than a Jira board because Claude can update it from a transcript or a status doc on demand.
 - **Architecture decisions and the reasoning behind them.** Why we chose Postgres over Mongo. Why the auth flow uses signed cookies and not JWTs. Decisions you'll be asked about again.
 - **End-to-end process pages.** The publishing pipeline, the deploy flow, the indexing loop. The kind of thing you'd send to a new hire instead of giving them a tour.
-- **Debugging recipes for non-obvious bugs.** A page per gnarly bug: symptom, root cause, fix. Future-you will hit it again.
+- **Debugging recipes for non-obvious bugs.** A page per bug: symptom, root cause, fix. Future-you will hit it again.
 - **Third-party API quirks.** Stripe's pagination behaviour. The undocumented rate limit on a vendor's webhook. Things that aren't in the docs but will bite you twice.
 
 ### In a personal setting
@@ -96,10 +96,11 @@ The whole stack is git, markdown, and a launchd job. Five steps to a working wik
 gh repo create my-wiki --private --description "Personal wiki"
 git clone git@github.com:me/my-wiki.git ~/.wiki
 cd ~/.wiki
-mkdir -p wiki
 ```
 
 Private because some pages will reference projects, vendors, or codebases that aren't anyone else's business. The wiki is a working notebook, not a publication.
+
+Pages live at the top of the vault, grouped into folders as themes emerge. Mine grew a `personal/` folder, a `sessions/` folder (more on that below), and a `raw/` area for unprocessed source material. Don't design the tree up front; the folders appear on their own once the wiki passes a couple of dozen pages.
 
 ### 2. Install Obsidian and point it at the vault
 
@@ -192,7 +193,7 @@ That file is the *whole* configuration. No tooling, no plugins. By writing the r
 ### 4. Create the index page
 
 ```bash
-cat > wiki/index.md <<'EOF'
+cat > index.md <<'EOF'
 # Index
 
 > Top-level entry point into the wiki.
@@ -219,10 +220,10 @@ Add a section to your global `~/.claude/CLAUDE.md` so every Claude Code session 
 ### Wiki (`~/.wiki`)
 
 A personal knowledge base of structured markdown pages under
-`~/.wiki/wiki/`. Full rules are in `~/.wiki/CLAUDE.md`.
+`~/.wiki/`. Full rules are in `~/.wiki/CLAUDE.md`.
 
 **When answering questions**, check the wiki first:
-1. Read relevant pages from `~/.wiki/wiki/` before answering.
+1. Read relevant pages from `~/.wiki/` before answering.
 2. Cite specific wiki pages in your answer.
 3. If the wiki doesn't cover the topic, say so clearly.
 
@@ -240,9 +241,11 @@ In practice it plays out like this:
 
 > *"How did I configure the embedding model for the M5 Max?"*
 
-Claude reads `wiki/rag-sync-plan.md` first. The page has a config block, a date, and a link to the section explaining why MPS was the answer. Done in one read. Without the wiki, the same question hits the RAG and returns four conversation turns from different days, with no indication that three of them are obsolete.
+Claude reads `personal/rag-sync-plan.md` first. The page has a config block, a date, and the reasoning behind the choice. Done in one read. Without the wiki, the same question hits the RAG and returns four conversation turns from different days, with no indication that three of them are obsolete.
 
-The split is simple. Wiki for what's true. RAG for how we got here. Codebase for what the code does. Each handles the question the other two are bad at.
+That very question is also the best demonstration of drift I own. For months the recorded answer was an fp16 model running in-process on Apple's MPS backend, with a whole page of reasoning behind it. Then the system migrated to a quantised model served by Ollama, and the page got a dated supersession note: the new answer with a pointer to it, the old reasoning kept below as history. The wiki page is right in one read. The transcripts still contain both eras arguing with each other, and always will. That's the whole case for the split.
+
+Wiki for what's true. RAG for how we got here. Codebase for what the code does. Each handles the question the other two are bad at.
 
 ## Filling the wiki
 
@@ -251,7 +254,7 @@ Two workflows. Both produce real git commits I can review.
 **Targeted update.** When something interesting happens, a debugging session ends with a real lesson, a project hits a milestone, an architectural call:
 
 ```text
-"Update wiki/rag-sync-plan.md with what we just learned about Low Power
+"Update personal/rag-sync-plan.md with what we just learned about Low Power
 energy mode and the 100W power-delivery cap."
 ```
 
@@ -276,6 +279,7 @@ Multiple machines, same wiki. Git handles it. A `sync.sh` script:
 ```bash
 #!/bin/bash
 # Wiki sync: commit local changes, pull remote, push.
+# If rebase conflicts, invoke AI to resolve.
 set -uo pipefail
 WIKI_DIR="$HOME/.wiki"
 cd "$WIKI_DIR" || exit 1
@@ -298,13 +302,23 @@ fi
 if git pull --rebase origin main --quiet 2>/dev/null; then
   git push origin main --quiet 2>/dev/null
 else
-  echo "[wiki-sync] Rebase conflict. Manual resolution needed."
+  # Rebase failed. Abort, then hand the conflict to a headless Claude.
+  echo "[wiki-sync] Rebase conflict detected. Attempting AI resolution..."
   git rebase --abort 2>/dev/null
-  exit 1
+
+  if command -v claude &>/dev/null; then
+    claude -p "The wiki repo at $WIKI_DIR has a git conflict. Run: git pull \
+--rebase origin main. If there are conflicts, resolve them by keeping both \
+versions of the content (don't delete either side), then git add the resolved \
+files, git rebase --continue, and git push origin main." 2>/dev/null
+  else
+    echo "[wiki-sync] No AI available to resolve conflict. Manual resolution needed."
+    exit 1
+  fi
 fi
 ```
 
-A launchd agent runs it every ten minutes. There's only one of you, on one machine at a time. The conflict rate is effectively zero. On the rare conflict, rebase fails loudly and you resolve it by hand.
+A launchd agent runs it every ten minutes. There's only one of you, on one machine at a time, so the conflict rate is close to zero: it takes an unpushed commit on one machine and a fresh commit on another to manufacture one. When it does happen, the script aborts the rebase and hands the job to a headless `claude -p` with one instruction that matters: keep both sides. A wiki page is prose, both versions of a conflicting paragraph carry information, and a human can tidy later. It's a fitting wrinkle: the knowledge base that exists to serve an AI gets its merge conflicts resolved by one. If no `claude` binary is on the PATH, it says so and leaves the conflict for you (my copy tries a second agent CLI before giving up; the shape is the same).
 
 `~/Library/LaunchAgents/com.dotfiles.wiki-sync.plist`:
 
@@ -319,22 +333,22 @@ A launchd agent runs it every ten minutes. There's only one of you, on one machi
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/me/.wiki/sync.sh</string>
+        <string>/Users/warrendeleon/.wiki/sync.sh</string>
     </array>
     <key>StartInterval</key>
     <integer>600</integer>
     <key>RunAtLoad</key>
     <true/>
     <key>StandardOutPath</key>
-    <string>/Users/me/.wiki/sync.log</string>
+    <string>/Users/warrendeleon/.wiki/sync.log</string>
     <key>StandardErrorPath</key>
-    <string>/Users/me/.wiki/sync.err</string>
+    <string>/Users/warrendeleon/.wiki/sync.err</string>
     <key>EnvironmentVariables</key>
     <dict>
         <key>PATH</key>
         <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
         <key>HOME</key>
-        <string>/Users/me</string>
+        <string>/Users/warrendeleon</string>
     </dict>
 </dict>
 </plist>
@@ -346,7 +360,17 @@ launchctl load ~/Library/LaunchAgents/com.dotfiles.wiki-sync.plist
 
 That's the entire sync system. Markdown in git, pulled on a timer.
 
-## Where the pair beats either alone
+## The boundary blurs, on purpose
+
+The clean split this post opened with (RAG for transcripts, wiki for curated pages read straight from disk) is where the system started. It's not quite where it ended up, and the two ways it moved are worth naming, because both made the pairing stronger.
+
+First, the wiki is indexed *into* the RAG. The indexer from [part 3](/blog/the-watcher-and-indexer-behind-a-local-rag/) embeds every curated page, section by section, into its own `wiki` collection, and each `mcp__rag__search` call searches both collections and fuses the ranking. A search for an error message can surface the conversation where it was hit and the curated page that recorded the fix in the same result list, each hit labelled with its source. Reading pages from disk still happens when Claude knows which page it wants; the index covers the times it doesn't.
+
+Second, the wiki is no longer purely human-written. A resume loop watches for finished Claude Code sessions and runs a summariser (a headless `claude -p` with its tools stripped, so it can take no action) that writes a short session page into `sessions/`: what was asked, what was learned, what's next. A fresh session starts by reading the newest of those instead of starting cold. The machine-written pages are fenced off by convention: they live in their own folder, a lint pass flags any that break the writing rules for human review, and the curated pages elsewhere stay the ones a human signed off.
+
+The rule that survives the blurring: curation decides what's *true*, indexing decides what's *findable*. The wiki earns both. Transcripts only earn the second.
+
+## Where the pieces beat any one alone
 
 Pure RAG is enough for plenty of workflows. Search the past, find the turn, done. If you mostly ask "where did we discuss X?" rather than "what did we decide about X?", a wiki is overhead you don't need.
 
@@ -356,6 +380,6 @@ A pure wiki gives you structure but no recall. Anything you forgot to write down
 
 The combination splits the load. The RAG remembers everything you do. The wiki remembers what you decided. Claude knows which to ask first, in what order, and when to admit it doesn't know.
 
-The interesting part is that the wiki *itself* is built using the RAG. When you ask Claude to "extract the concepts from this folder into wiki pages", it can search past conversations to enrich the synthesis. The two systems compose. Neither is interesting alone. Together they make Claude actually useful as a long-running collaborator instead of a fresh intern every morning.
+The interesting part is how much the pieces feed each other. The wiki is written with the RAG's help: ask Claude to distil a folder into pages and it searches past conversations to enrich the synthesis. The RAG searches the wiki's pages alongside the transcripts. The resume loop turns finished sessions into wiki pages the next session reads on startup. No single piece is impressive on its own. Composed, they make Claude a long-running collaborator instead of a fresh intern every morning.
 
-That's the whole pitch. A search index for the unstructured stuff. A curated wiki for the structured stuff. A strict lookup order so Claude knows which to reach for. Each piece is small. The value is in the way they fit.
+That's the whole pitch. A search index for the unstructured stuff. A curated wiki for the structured stuff. A resume loop to carry one session into the next. A lookup order so Claude knows which to reach for. Each piece is small. The value is in the way they fit.

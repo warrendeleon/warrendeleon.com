@@ -56,71 +56,39 @@ A file watcher (`fswatch`) tails `~/.claude/projects/`. When a JSONL changes, wh
 A background indexer dequeues jobs, opens the file, and pairs each user message with the assistant's reply into a "turn". Each turn becomes one record:
 
 - The raw text (user prompt + assistant response, joined)
-- Metadata: session ID, project, turn number, timestamp, file path, machine hostname
+- Metadata: session ID, project, turn number, timestamp, file path
 - A vector from the embedding model
 
 That's it. No summarisation, no tagging, no LLM inference in the indexing path. The raw text is what gets embedded and what comes back from search.
 
 ## Why no summarisation
 
-A more elaborate pipeline is the obvious design: run a 27B model to summarise long turns, a 4B model to extract topic tags, and an 8B model to embed the result. The reasoning is plausible. A summary gives the embedding model cleaner signal, and tags let you filter results.
+The first version of this pipeline was the more elaborate design: a 27B model to summarise long turns, a 4B model to extract topic tags, and an 8B model to embed the result. The reasoning is plausible. A summary gives the embedding model cleaner signal, and tags let you filter results.
 
-Neither earns its place once you measure.
+What forced the change was power, not principle. Three models per turn held the GPU at roughly 60W of sustained draw, and the first bulk import drained the battery overnight on a plugged-in laptop (the full story is below). The pipeline had to get lighter.
 
-The embedding model already captures enough semantic signal to retrieve a turn from a vague query. A summary is a lossy paraphrase, and on technical conversations where specific function names and error messages are the thing you're searching for, summarisation makes retrieval *worse*. The tags never get used either: semantic search retrieves the right turn without filtering, and a tag system you never query is overhead with no payoff.
+It could get lighter because the extra models added nothing retrieval needed. The embedding model already captures enough semantic signal to retrieve a turn from a vague query. A summary is a lossy paraphrase, and on technical conversations where specific function names and error messages are the thing you're searching for, summarisation makes retrieval *worse*. The tags never got used either: semantic search retrieves the right turn without filtering, and a tag system you never query is overhead with no payoff.
 
-So the production pipeline runs a single model (the embedder) over raw text. No summariser. No tagger. Retrieval quality is at least as good, the indexing throughput is higher, and the failure surface is smaller.
+So the indexing path runs a single model (the embedder) over raw text. Nothing between a JSONL landing on disk and its vector is an LLM call. Retrieval quality is at least as good, the indexing throughput is higher, and the failure surface is smaller. The wider system did later grow a summariser (a separate loop that writes session resume notes, covered in [the wiki post](/blog/pairing-claude-rag-with-a-curated-wiki/)), but it sits outside this path entirely.
 
 The wider point: when a model is doing the right job, adding other models around it on principle is a regression. Measure before composing.
 
 ## The MCP server
 
-A small Python server using FastMCP. Seven tools the model can call:
+A small Python server using FastMCP. Eight tools the model can call:
 
-- `search(query, n_results)`: vector similarity over conversation turns
-- `get_context(topic)`: same as search, lighter wrapper
+- `search(query, n_results)`: hybrid search (vector plus keyword) over conversation turns and wiki pages, returning a compact index of hits
+- `get_chunks(ids)`: fetch the full text of chosen hits from that index
+- `get_context(topic)`: full text of the top few hits in one call, for quick background
 - `log_action(description, files_affected?)`: write to a separate audit log
 - `get_audit_log(since?, limit)`: read recent audit entries back
 - `index_file(path)`: manually queue a JSONL
 - `get_indexing_status()`: check if the queue is idle, processing, or backed up
 - `get_failed_jobs()`: pull errors and retry counts when something breaks
 
-Registration goes in the user-level `~/.claude.json` under `mcpServers`:
+The search deliberately returns an index rather than documents: one line per hit with an id, a snippet, and a token estimate. The model scans the index and opens only the hits it needs via `get_chunks`. Ten full turns inline would swamp the context window; ten snippets cost almost nothing.
 
-```json
-{
-  "mcpServers": {
-    "rag": {
-      "type": "stdio",
-      "command": "/Users/me/.rag/start-server.sh",
-      "args": [],
-      "env": {
-        "ANONYMIZED_TELEMETRY": "false",
-        "CHROMA_TELEMETRY": "false"
-      }
-    }
-  }
-}
-```
-
-The wrapper script activates the Python venv and runs the server over stdio. Claude Code spawns it on session start. From the model's side, the tools just appear in its tool list.
-
-## Telling Claude to use it
-
-Tools the model never calls are dead weight. The other half of the work was a paragraph in `~/.claude/CLAUDE.md` telling Claude *when* to reach for them:
-
-```text
-**Never say "I don't remember" or "I don't have access to previous
-conversations".** A local RAG system indexes all past conversations.
-
-When I reference a past discussion ("we talked about X", "remember when",
-"like before"), call `mcp__rag__search` first.
-
-After completing significant work (commits, refactors, decisions), call
-`log_action` to keep an audit trail.
-```
-
-Without that, Claude defaults to "I don't have access to previous sessions". That's the trained-in behaviour, true for the API but no longer true on this laptop. With the instruction in place, the search becomes the first move on any "remember when" question, and the audit log fills up on its own. MCP gives the model new capabilities; CLAUDE.md tells it when to use them. You need both.
+Registration is a JSON block in the user-level `~/.claude.json`, plus a paragraph in `~/.claude/CLAUDE.md` telling Claude *when* to reach for the tools, because a registered tool the model never calls is dead weight. MCP gives the model new capabilities; CLAUDE.md tells it when to use them. You need both, and both are walked through step by step in [the MCP server post](/blog/building-an-mcp-server-for-claude-code/).
 
 ## The architecture matters here
 
@@ -138,36 +106,32 @@ Put it together and the model-selection question collapses. "Will it fit in RAM?
 
 The question that's left is the one nobody talks about: *can the chassis sustain the power draw of running the model on the GPU at the workload you're actually going to run?*
 
-## The power constraint that shows up at scale
+## The battery lesson
 
-A bulk import of ~30,000 unprocessed conversation files puts the GPU under sustained load: 100% utilisation, 78°C, ~95W system draw. The 14" MacBook Pro ships with a 96W USB-C power adapter, and that's the cap on what the laptop will pull through the USB-C PD negotiation. With ~95W of GPU draw and roughly a watt of headroom, there's no power budget left to charge the battery. ~570K turns of backlog later, the battery drains from 100% to 7% overnight while plugged in.
+The first battery incident was real and self-inflicted. The original three-model pipeline held the GPU at ~60W for hours at a stretch, and the battery drained from 100% to 7% overnight while plugged in. That incident is why the indexing path is a single embedder today.
 
-Which mitigations work, and which don't:
+Then the drain came back. During the bulk import of the backlog (~35,000 turns across ~1,500 sessions), with only the one embedding model running, the battery kept discharging on AC. The GPU sat at 100% utilisation and 78°C, and the power monitor reported ~95W of system draw. The 14" MacBook Pro negotiates at most 100W through USB-C Power Delivery, a chassis cap that holds whatever charger you plug in (mine is 160W; the laptop won't ask it for more than 100). ~95W of draw against a 100W ceiling looks like a complete diagnosis: the model is eating the charge budget.
+
+I blamed the model, and treated that diagnosis thoroughly:
 
 | Approach | Result |
 |---|---|
 | Move the model to CPU | Power drops to ~32W; embedding speed collapses (>25 min per file vs ~10s on GPU). Unusable, as the architecture section already established. |
 | Sleep between jobs (`job_delay_seconds`) | Works at 10s, fails at 5s. The load pattern is bursty, so there's no clean delay value, and the right value depends on workload. Fragile. |
 | Energy Mode → Automatic | Still draws ~100W or more under sustained load. Still drains. |
-| Energy Mode → Low Power on AC | Caps GPU clock at the hardware level. Same model, same MPS path, no software changes. Embedding goes from ~9s to ~23s per file, but GPU never spikes and power stays well below the adapter's 96W ceiling. Battery charges while indexing continuously. |
+| Energy Mode → Low Power on AC | Caps GPU clock at the hardware level. Same model, same code path, no software changes. Embedding goes from ~9s to ~23s per file, but the GPU never spikes and power stays well under the 100W ceiling. Battery charges while indexing continuously. |
 
-Low Power mode is the right answer for backlog clearing. After the queue drains, the energy mode goes back to High Performance on AC and Automatic on battery. Steady-state indexing is sparse: one or two files in flight when an active session is touching JSONLs every few seconds, and the GPU spikes are too brief to move the battery more than a percent. The fix is two-shaped: bulk import on Low Power, day-to-day on whatever default the OS picks.
+Low Power mode worked, and those throughput numbers are real measurements. Bulk import on Low Power, day-to-day on whatever default the OS picks: that became the routine, and the queue drained with the battery charging.
 
-The principle worth extracting: **on Apple Silicon, "does it fit in RAM" is the wrong selection criterion.** Anything that fits at all fits on either compute unit at zero copy cost, and on anything serious you're using the GPU regardless. The real ceiling is the chassis power envelope, and that ceiling moves with the workload. A trickle of incremental jobs is invisible to it. A sustained 100% GPU draw isn't, no matter how much memory is technically available.
+The actual cause surfaced months later, while I was migrating the embedder and watching the power figures closely. AlDente, the battery manager I run, has a Heat Protection feature that stops charging when the battery crosses a temperature threshold. Mine was set to 35°C. A laptop battery idles at 30 to 33°C, so any sustained warmth pushed it over the line, and AlDente quietly throttled a healthy charger for as long as the import ran. Measured properly, one embedding stream draws about 20W; the power budget was never the constraint. With Heat Protection off (or set to a sane ~45°C), the battery holds its charge under the same load. Low Power mode almost certainly "worked" by keeping the machine cool enough to stay under the threshold, not by rescuing a saturated power budget.
 
-For day-to-day operation:
+The principle worth extracting: **when a laptop misbehaves under sustained load, audit the software that manages the hardware before blaming the workload.** A battery manager, an energy mode, a thermal daemon: each one throttles silently, and its threshold composes with your workload in ways no UI will show you. I spent weeks treating a power-envelope problem that was one slider in a menu bar app.
 
-```yaml
-embedding_model: Qwen/Qwen3-Embedding-8B
-embedding_device: mps
-job_delay_seconds: 0
-```
-
-For bulk reindexing, set System Settings → Battery → Energy Mode → On Power Adapter → Low Power until the queue drains. The OS manages the power envelope at the hardware level; application-level sleep hacks can't.
+Low Power mode is still worth using for bulk reindexing (System Settings → Battery → Energy Mode → On Power Adapter → Low Power): it keeps the fans quiet and the chassis cool, and the OS manages the clock at the hardware level rather than through application-side sleep hacks. Just don't mistake it for the fix if your battery is draining on AC. Check the battery manager first.
 
 ## What it actually changed
 
-Quantitatively: ~30,000 conversation files, ~570,000 turns indexed, retrieval in under a second on cold cache. Qualitatively, three things:
+Quantitatively: ~1,500 sessions, ~35,000 conversation turns indexed, retrieval in under a second on cold cache. Qualitatively, three things:
 
 **No more re-explaining.** I can reference a decision from three weeks ago and Claude pulls the actual conversation, not a hallucinated summary of what it thinks I might have said.
 
@@ -175,7 +139,7 @@ Quantitatively: ~30,000 conversation files, ~570,000 turns indexed, retrieval in
 
 **A safety net on memory loss.** If a session ends abruptly or I switch machines, the next session can search what the last one was doing. The transcripts were always there. Now they're searchable.
 
-The architecture itself is small: a watcher, an indexer, a server, a queue. Most of the value came from refusing to add things. No summariser, no tagger, no remote embedding API, no merged vector store across machines. The boring version is the version that works.
+The architecture itself is small: a watcher, an indexer, a server, a queue. Most of the value came from refusing to add things. No summariser or tagger in the indexing path, no remote embedding API, no merged vector store across machines. The boring version is the version that works.
 
 The architecture is the design post. The next three are the build:
 
