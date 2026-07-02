@@ -52,7 +52,8 @@ const cleanPath = getCleanPath(currentPath);
       // Theme must resolve before first paint: at the end of <body> it gave
       // dark-theme visitors a white flash on every navigation.
       (function () {
-        var stored = localStorage.getItem('theme');
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) { /* storage blocked */ }
         var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
         var meta = document.createElement('meta');

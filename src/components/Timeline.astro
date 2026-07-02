@@ -18,7 +18,8 @@ interface Props {
 
 const { companies, locale } = Astro.props;
 const i18n = t(locale);
-const hasCurrentRole = companies[0]?.positions[0]?.endDate == null;
+// Same "current" semantics as formatDateRange: null, missing or blank endDate.
+const hasCurrentRole = !companies[0]?.positions[0]?.endDate?.trim();
 ---
 
 <div class="timeline">
