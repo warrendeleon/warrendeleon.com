@@ -2,6 +2,9 @@
 title: "Tu primer remote federado en React Native"
 description: "Constrúyelo desde cero: dos apps de React Native, una cargando la pantalla de la otra en runtime con Module Federation 2.0 y Re.Pack. Cada paso, para copiar y pegar, terminando en una app funcionando."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "your first federated remote"
+companionTag: "post-02-first-remote"
 tags: ["react-native", "module-federation", "re-pack", "rspack", "tutorial"]
 locale: es
 heroImage: "/images/blog/your-first-federated-remote-react-native.webp"
@@ -31,9 +34,11 @@ Una federation necesita un host y al menos un remote. Crea dos apps de React Nat
 
 ```sh
 mkdir react-native-module-federation && cd react-native-module-federation
-npx @react-native-community/cli@latest init Host --directory apps/host
-npx @react-native-community/cli@latest init List --directory apps/list
+npx @react-native-community/cli@20.1.0 init Host --directory apps/host --version 0.85.3
+npx @react-native-community/cli@20.1.0 init List --directory apps/list --version 0.85.3
 ```
+
+Las versiones están fijadas a propósito: esta serie está construida y verificada sobre RN 0.85.3 con Re.Pack 5.2.5, en el simulador de iOS. Un scaffold de RN más nuevo probablemente funcione, pero serías el primero en descubrirlo. (Android corre con las mismas configs, con un matiz: las URLs de manifiesto en `localhost` necesitan `adb reverse`, o `10.0.2.2` en su lugar.)
 
 `host` es el caparazón que lanza el usuario. `list` es una feature que se cargará en él en runtime.
 
@@ -45,7 +50,7 @@ Instala el bundler y los paquetes de federation en cada app:
 
 ```sh
 npm install -D @callstack/repack @rspack/core \
-  @module-federation/enhanced @module-federation/runtime @swc/helpers
+  @module-federation/enhanced @swc/helpers
 ```
 
 `@swc/helpers` es el fácil de olvidar. Re.Pack compila tu código con SWC (el Speedy Web Compiler, una alternativa a Babel basada en Rust que usa por debajo). Cuando SWC compila sintaxis moderna hacia abajo, emite llamadas `require("@swc/helpers/…")` a una pequeña librería de helpers compartida en vez de inyectar el mismo boilerplate por todas partes. Olvida el paquete y el build falla con una pantalla de errores "can't resolve" que no dan ninguna pista de la causa real.
@@ -312,6 +317,8 @@ Re.Pack rellena ese hueco con **ScriptManager**: la pieza que convierte una peti
 
 La buena noticia para este post: en dev no escribes nada de eso. El plugin de Module Federation que ya añadiste cablea automáticamente ScriptManager y un resolver por defecto que sabe cómo llegar al dev server del remote. Así que el bucle completo es solo:
 
+<div id="scriptmanager-flow"></div>
+
 ```mermaid
 sequenceDiagram
     participant Host as App host
@@ -331,7 +338,7 @@ Cuando pasas a producción, ScriptManager es donde está el trabajo de verdad: r
 
 ## Ponlo en marcha
 
-El host tiene el proyecto nativo de iOS, el remote es solo JS. Así que los pods se instalan solo para el host:
+El host es la única app cuyo proyecto nativo se compila; el remote conserva su carpeta `ios/` del scaffold, pero nada la compila nunca. Así que los pods se instalan solo para el host:
 
 ```sh
 cd apps/host/ios && bundle install && bundle exec pod install

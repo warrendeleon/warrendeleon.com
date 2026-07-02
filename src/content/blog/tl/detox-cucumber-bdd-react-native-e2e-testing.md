@@ -57,7 +57,7 @@ Ang walkthrough na ito ay isinulat para sa:
 - React Native 0.74+ (bare workflow, hindi Expo)
 - TypeScript na may standard na RN Babel config
 - macOS host (iOS simulator at Android emulator)
-- Xcode 15+ na may Command Line Tools, kasama ang isang iOS simulator na nagawa na (halimbawa iPhone 17 Pro)
+- Xcode 16+ na may Command Line Tools, kasama ang isang iOS simulator na nagawa na (halimbawa iPhone 16)
 - Android Studio na may kahit isang AVD na nagawa na (halimbawa Pixel 7 API 35)
 - Node 18 o mas bago
 
@@ -82,20 +82,16 @@ brew install applesimutils
 
 ## Step 2. Ang tatlong config files
 
-Tatlong file ang nag-uugnay sa lahat: `.detoxrc.js` (o `.detox.config.js`. Tinatanggap ng Detox ang dalawa), `.cucumber.js`, at isang slim na `tsconfig.cucumber.json`.
+Tatlong file ang nag-uugnay sa lahat: `.detoxrc.js` (o `.detox.config.js`. Tinatanggap ng Detox ang dalawa), `cucumber.js`, at isang slim na `tsconfig.cucumber.json`. Dapat pangalanang `cucumber.js` (o `.cjs`/`.mjs`/`.json`) ang Cucumber config: iyon ang filename na nilo-load ng cucumber-js by default, at walang nagpapasa ng explicit na `--config` sa setup na ito.
 
 ### .detoxrc.js
 
 Ang Detox configuration ang nagde-define ng app builds at device targets:
 
+Isang bagay na HINDI ginagawa ng `.detoxrc.js` dito: ang pag-connect ng Detox sa Cucumber. Kapag Cucumber ang runner, direktang tinatawag mo ang `cucumber-js` at hindi kailanman kino-consult ang sariling `testRunner` config ng Detox; ang support file sa step 3 ang tanging tulay. Inilalarawan lang ng `.detoxrc.js` ang apps at devices:
+
 ```typescript
 module.exports = {
-  testRunner: {
-    args: {
-      config: '.cucumber.js',
-    },
-    forwardEnv: true,
-  },
   apps: {
     'ios.debug': {
       type: 'ios.app',
@@ -111,7 +107,7 @@ module.exports = {
   devices: {
     simulator: {
       type: 'ios.simulator',
-      device: { type: 'iPhone 17 Pro' },
+      device: { type: 'iPhone 16' },
     },
     emulator: {
       type: 'android.emulator',
@@ -131,7 +127,7 @@ module.exports = {
 };
 ```
 
-### .cucumber.js
+### cucumber.js
 
 Ang Cucumber configuration ang nagsasabi kung saan hahanapin ang feature files, step definitions, at kung paano i-format ang output:
 
@@ -143,7 +139,7 @@ require('ts-node').register({
 
 module.exports = {
   default: {
-    paths: ['src/features/**/__tests__/*.feature'],
+    paths: ['src/features/**/__tests__/*.feature', 'e2e/**/*.feature'],
     require: [
       'src/test-utils/cucumber/support/**/*.ts',
       'src/test-utils/cucumber/step-definitions/**/*.{ts,tsx}',
@@ -355,7 +351,7 @@ Feature: VoiceOver Gestures
 Tapos sa test command:
 
 ```bash
-yarn detox test --tags "@accessibility and @ios"
+yarn detox:ios:test --tags "@accessibility and @ios"
 ```
 
 ## Step 5. Pagsusulat ng step definitions
@@ -369,7 +365,7 @@ import { Given, When, Then } from '@cucumber/cucumber';
 
 Given('the app is launched', async function () {
   await device.terminateApp();
-  await device.clearKeychain();
+  await device.clearKeychain(); // iOS only: silent no-op sa Android
   await device.launchApp({ newInstance: true });
   await new Promise(r => setTimeout(r, 500));
 });
@@ -412,7 +408,7 @@ Then('I should see text {string}', async function (text: string) {
 
 Tatlong pattern na dapat tandaan dito. Una, isang consistent na testID convention: ang screen names ay nagiging kebab-case na may `-screen` o `-button` suffix. Ang "Login" ay tumutugma sa `login-screen`, ang "Home" sa `home-screen`, ang "Submit" sa `submit-button`. Pangalawa, dumadaan sa `waitFor` na may timeout ang bawat assertion, hindi raw `expect`. Kailangan ng settling time ng mga animations at network calls at hindi ito ibinibigay ng `expect`. Pangatlo, `replaceText` kaysa `typeText`. Nag-a-append ang `typeText` sa kung anuman ang nandoon na. Nag-c-clear muna ang `replaceText`. Para sa form inputs, gusto mo ang pangalawa.
 
-I-save ang file bilang `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` at kukunin ito ng Cucumber sa pamamagitan ng glob sa iyong `.cucumber.js`.
+I-save ang file bilang `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` at kukunin ito ng Cucumber sa pamamagitan ng glob sa iyong `cucumber.js`.
 
 ### Mga strategy sa paghahanap ng elements
 
@@ -434,6 +430,10 @@ When('I tap the text {string}', async function (text: string) {
 ```
 
 Subukan muna ang `by.text()` (nakikitang text), bumalik sa `by.label()` (accessibility label), tapos `by.id()` (testID). Hina-handle nito ang mga buttons na magkaiba ang pag-render ng text sa iba't ibang platform.
+
+## Ano ang kausap ng app habang tumatakbo ang mga test na ito
+
+Ang mga scenario sa itaas ay nagta-type ng credentials at umaasa ng Home screen, na nagbubukas ng tanong na kailangang sagutin ng bawat E2E setup: anong backend ang tinatamaan ng app? Patakbuhin ito laban sa totoong backend at babagsak ang suite mo tuwing nagkaka-hiccup ang staging. Ang deterministic na sagot ay ang pag-mock sa bundle level gamit ang isang E2E build flag, na may sarili nitong post: [Metro runtime mocking para sa deterministic React Native E2E tests](/tl/blog/metro-runtime-mocking-react-native-e2e/). Hangga't wala ka pang layer na iyon, ituro ang E2E build sa isang stable na test environment at ituring ang network flakes bilang suite failures, hindi test failures.
 
 ## Isang custom formatter
 
@@ -459,38 +459,7 @@ Maingay ang default output ng Cucumber. Nagbibigay ang custom formatter ng malin
 12 steps (11 passed, 1 failed)
 ```
 
-Ang formatter ay isang class na nakikinig sa Cucumber events:
-
-```javascript
-const { Formatter } = require('@cucumber/cucumber');
-
-class CheckmarkFormatter extends Formatter {
-  constructor(options) {
-    super(options);
-
-    options.eventBroadcaster.on('envelope', (envelope) => {
-      if (envelope.testStepFinished) {
-        this.onTestStepFinished(envelope.testStepFinished);
-      }
-      if (envelope.testCaseFinished) {
-        this.onTestCaseFinished(envelope.testCaseFinished);
-      }
-    });
-  }
-
-  onTestStepFinished(event) {
-    const { testStepResult } = event;
-    const icon = testStepResult.status === 'PASSED' ? '✓' :
-                 testStepResult.status === 'FAILED' ? '✗' :
-                 testStepResult.status === 'SKIPPED' ? '○' : '?';
-    const color = testStepResult.status === 'PASSED' ? '\x1b[32m' :
-                  testStepResult.status === 'FAILED' ? '\x1b[31m' : '\x1b[33m';
-    this.log(`${color}  ${icon}\x1b[0m ${this.getStepText(event)}\n`);
-  }
-}
-
-module.exports = CheckmarkFormatter;
-```
+Ang formatter ay isang maliit na class na nagsu-subscribe sa `envelope` events ng Cucumber (`testStepFinished`, `testCaseFinished`), nagma-map ng status ng bawat step sa isang icon at kulay, at nagpi-print ng linya. Mga 80 lines lahat-lahat.
 
 Ang buong bersyon sa aking repo ay nagta-track ng pickles, nagma-map ng test steps pabalik sa kanilang Gherkin text, nagti-time ng bawat step, at nag-iimprenta ng summary na may pass at fail counts. Ang sketch sa itaas ay ang hugis; ang buong file ay nasa `src/test-utils/cucumber/formatters/CheckmarkFormatter.js` sa repo na naka-link sa dulo.
 
@@ -570,7 +539,7 @@ Ang mga script na ginagamit ko ay nasa `package.json` nang ganito:
   "scripts": {
     "detox:ios:build": "detox build -c ios.sim.debug",
     "detox:ios:test": "DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js",
-    "detox:ios:test:parallel": "DETOX_WORKERS=2 yarn detox:ios:test --parallel 2 --retry 1",
+    "detox:ios:test:parallel": "yarn detox:ios:test --parallel ${DETOX_WORKERS:-2} --retry 1",
     "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test"
   }
 }
@@ -598,7 +567,7 @@ $ cucumber-js
 12 steps (12 passed)
 ```
 
-Kung mag-fail ang `xcodebuild` sa unang run, i-check na talagang umiiral ang simulator na nakapangalan sa `.detoxrc.js` (`xcrun simctl list devices`). Ang pinakakaraniwang first-run trip ay isang hardcoded na `iPhone 17 Pro` na hindi mo kailanman ginawa sa Xcode.
+Kung mag-fail ang `xcodebuild` sa unang run, i-check na talagang umiiral ang simulator na nakapangalan sa `.detoxrc.js` (`xcrun simctl list devices`). Ang pinakakaraniwang first-run trip ay isang hardcoded na `iPhone 16` na hindi mo kailanman ginawa sa Xcode.
 
 ## Mga karaniwang pagkakamali
 

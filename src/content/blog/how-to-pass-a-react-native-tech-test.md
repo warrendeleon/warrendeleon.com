@@ -74,7 +74,7 @@ Using TypeScript isn't the bar. Using it well is:
 
 The one `any` I'll forgive: a third-party library type that would take an hour to model properly. Acknowledge it in a comment. `// TODO: type this properly, ran out of time` reads better than pretending it isn't there.
 
-Red flag: `any` scattered throughout the codebase with no acknowledgment.
+Red flag: `any` scattered throughout the codebase with no acknowledgement.
 
 ## State management: pick something and own it
 
@@ -90,12 +90,17 @@ If you go with Redux, use Redux Toolkit. Not the old `switch/case` reducer patte
 
 What actually matters:
 
-- ✅ State logic separated from the UI
-- ✅ Actions, reducers, and selectors in their own files
-- ✅ Business rules (like max party size) enforced in the state layer
-- ✅ Updates are predictable
-- ❌ Business logic living inside components
-- ❌ State scattered across `useState` calls with no pattern
+Do:
+
+- State logic separated from the UI
+- Actions, reducers, and selectors in their own files
+- Business rules (like a max list size) enforced in the state layer
+- Updates are predictable
+
+Don't:
+
+- Business logic living inside components
+- State scattered across `useState` calls with no pattern
 
 Don't dispatch a fetch every time a screen mounts. If I navigate to a detail screen, go back, and return to the same detail screen, I shouldn't see a loading spinner again. A simple `if (!data[id])` check before your `dispatch(fetchDetails(id))` is enough.
 
@@ -114,9 +119,9 @@ What I want to see:
 
 What I don't want to see:
 
-- ❌ Snapshot tests everywhere. They break on every UI change and prove nothing about behaviour.
-- ❌ Tests that mock everything. If your test mocks the function it's testing, it's testing the mock.
-- ❌ No tests at all. Hard to recover from in the walkthrough.
+- Snapshot tests everywhere. They break on every UI change and prove nothing about behaviour.
+- Tests that mock everything. If your test mocks the function it's testing, it's testing the mock.
+- No tests at all. Hard to recover from in the walkthrough.
 
 Aim for 5 to 10 focused tests covering the critical paths. Reducers, selectors, key interactions. That's enough.
 
@@ -134,15 +139,15 @@ Red flag: the app crashes on a slow network. No loading state, no error handling
 
 ## The API call matters
 
-**GraphQL vs REST.** If the brief offers both, the choice matters less than the execution. A well-implemented REST client beats a messy GraphQL setup. Pick the one you can do cleanly, and be ready to explain why.
+**GraphQL vs REST.** If the brief offers both, execution comes first: a well-implemented REST client beats a messy GraphQL setup. But GraphQL done well scores higher on our rubric, so if you're equally comfortable with both, it's the stronger pick. Be ready to explain why either way.
 
 **Use FlatList or FlashList. Never ScrollView for lists.** `ScrollView` renders every item at once. With 100+ items, you'll see frame drops, memory spikes, and eventual crashes. `FlatList` virtualises the list, only rendering what's on screen. A `ScrollView` wrapping a `.map()` over a data list suggests a gap in understanding RN's rendering model.
 
 Other things that get noticed:
 
-- ✅ Caching: don't refetch data you already have
-- ✅ Pagination: don't fetch 1000 items on first load
-- ✅ ErrorBoundary: catches JavaScript errors and shows a fallback instead of a white screen
+- Caching: don't refetch data you already have
+- Pagination: don't fetch 1000 items on first load
+- ErrorBoundary: catches JavaScript errors and shows a fallback instead of a white screen
 
 ## Edge cases are where you stand out
 

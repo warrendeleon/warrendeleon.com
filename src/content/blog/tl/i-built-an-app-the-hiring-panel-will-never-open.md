@@ -49,7 +49,7 @@ Ang buong layunin ay tumigil sa pakikipaglaban sa tool habang tumatakbo ang inte
 
 ## Ang bug na nag-score nang pareho sa lahat
 
-Ang stack ay React 19, TypeScript, Vite, Tailwind v4. Walang state management library. Isang custom `useLocalStorage` hook at React Router.
+Ang stack noon ay React 19, TypeScript, Vite, Tailwind v4. Walang state management library ang unang bersyon: isang custom `useLocalStorage` hook at React Router.
 
 Habang nag-tetest, in-score ko ang walkthrough ng isang kandidato mula umpisa hanggang dulo. Bawat section, bawat tanong, kumpletong notes. Pinindot ko ang "Next" para makarating sa summary screen at nakita kong lahat ng section ay may parehong score: kung anuman ang inilagay ko sa huling hakbang.
 
@@ -65,7 +65,7 @@ function freshCandidate(id: string): Candidate | undefined {
 }
 ```
 
-Ang parehong pattern ay umuulit sa tatlong hooks: `useWalkthrough`, `useBehavioural`, `useCodeReview`. Ang bawat isa ay nagbabasa nang fresh, nagsusulat nang fresh, at nagpapadala ng custom event (`ls-sync`) para makuha ng iba pang hook instances ang pagbabago. Dalawampung linya ng persistence code. Walang Redux, walang context providers, walang middleware.
+Ang parehong pattern ay umuulit sa tatlong hooks: `useWalkthrough`, `useBehavioural`, `useCodeReview`. Ang bawat isa ay nagbabasa nang fresh, nagsusulat nang fresh, at nagpapadala ng custom event (`ls-sync`) para makuha ng iba pang hook instances ang pagbabago. Dalawampung linya ng persistence code. Walang Redux, walang context providers, walang middleware. Ang dalawampung linyang iyon ang nagpatakbo sa mga unang totoong interview; ang store ay pinormal kalaunan sa Redux Toolkit habang lumalaki ang app, pero ibang post na iyon.
 
 ## Ang PDF na walang nakakakitang ginagawa ko
 
@@ -73,7 +73,7 @@ Pagkatapos ng interview, pinipindot ko ang "Print / PDF" at ang browser ay bumub
 
 Ang Page 1 ay ang summary: isang score table, ang recommended level band, ang hire/reject decision, at ang offer level. Ang Pages 2 at 3 ay nagpapakita ng strengths at growth areas mula sa lahat ng tatlong assessment, na grupado ayon sa pinanggalingan. Tapos apat na appendix: code review breakdown, walkthrough scores na may bawat tanong at note, behavioural scores ayon sa value, at isang level bands reference table na may band ng kandidato na naka-highlight sa navy.
 
-Ang level bands table na iyon ay nagma-map ng combined score sa isa sa 12 tiers: mula Graduate 1 hanggang Senior 2+. Ang **2+** tier ay sadyang mahirap abutin. Tumutukoy ito sa isang taong nasa pinakatuktok ng kategorya niya, papunta sa susunod. Kapag nakita ng isang panel member ang "Associate 2+" sa PDF, agad ang basa: malakas na Associate, hindi pa SE. Ang isang label na iyon ay nagdadala ng mas maraming signal kaysa sa isang talata ng paliwanag.
+Ang level bands table na iyon ay nagma-map ng combined score sa isa sa 12 tiers: mula Graduate 1 hanggang Senior 2+. (Ang apat na bands mula sa [post tungkol sa scorecard](/tl/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) ay hinati sa tig-tatlong tiers nang magsimulang pumatak sa pagitan ng mga ito ang mga totoong kandidato.) Ang **2+** tier ay sadyang mahirap abutin. Tumutukoy ito sa isang taong nasa pinakatuktok ng kategorya niya, papunta sa susunod. Kapag nakita ng isang panel member ang "Associate 2+" sa PDF, agad ang basa: malakas na Associate, hindi pa SE. Ang isang label na iyon ay nagdadala ng mas maraming signal kaysa sa isang talata ng paliwanag.
 
 Ang behavioural gate ay nagdadagdag ng pangalawang check. Ang isang kandidato na may score na mas mababa sa 10/25 sa values ay hindi nagpapatuloy, kahit anuman ang kanyang technical score. Ang 10 hanggang 14 ay nagti-trigger ng panel discussion. Ang 15 pataas ay pumapasa sa gate. Maaaring ituro ang technical skills. Ang mga values mismatch ay nagpapalaki ng problema sa paglipas ng panahon.
 

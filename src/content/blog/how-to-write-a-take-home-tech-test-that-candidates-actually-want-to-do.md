@@ -24,7 +24,7 @@ The best candidates, the ones you actually want to hire, are the most likely to 
 
 The classic version of the take-home does have a logic to it. A prescriptive brief with a fixed stack gives you comparable submissions across candidates, and the rough edges in setup do filter for grit. If you're hiring high volumes for one narrow role, that signal is useful. For a small team hiring across levels, where two senior engineers will probably reach for different state libraries on day one, you're filtering on the wrong thing.
 
-Our first take-home candidate made the point for me. Two hours fighting Ruby versions before any application code was written. System Ruby too old, the version manager and the vendored bundler at odds at every step. Back-and-forth messages all the way through. Zero lines of code at the end of it.
+Our first take-home candidate made the point for me. Two hours fighting Ruby versions before any application code was written. The wrong Ruby at every step: system Ruby too old, the brew Ruby too new for the vendored bundler. Back-and-forth messages all the way through. Zero lines of code at the end of it.
 
 The questions were fine. The developer experience was the problem.
 
@@ -58,12 +58,14 @@ The single biggest improvement was a `setup.sh` that handles everything.
 
 One command. It:
 
-- Checks Node version (installs via nvm if needed)
+- Checks Node version (offers to install via nvm)
 - Checks Ruby version (supports rbenv, rvm, and asdf)
 - Checks for Xcode CLI tools and CocoaPods
 - Runs `yarn install`
 - Runs `bundle install` and `pod install`
 - Tells you exactly what to fix if something is wrong
+
+One honest caveat: this flow assumes a Mac, because the brief asks for an iOS run. A candidate without one needs the Android path spelled out, so the README documents `yarn android` as a first-class alternative and no requirement mentions a simulator by name.
 
 The key design choice: the script asks before installing anything. It detects what the candidate already has and works with it. Someone using rbenv gets rbenv. Someone using rvm gets rvm. Their environment is respected, not overwritten.
 
@@ -181,4 +183,4 @@ The structure is right though. Setup script. Starter project. Clear brief. Hones
 
 If you're designing a tech test and candidates keep dropping out, don't look at the questions first. Look at the developer experience. **The best tech test is one where the candidate spends 100% of their time on the thing you're actually evaluating, and 0% on everything else.**
 
-*This is the last in a series about building a hiring process from scratch. The earlier posts cover [why I redesigned the test](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [advice for candidates taking one](/blog/how-to-pass-a-react-native-tech-test/), and [how the scoring works](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*
+*This is the last of the take-home posts in a series about building a hiring process from scratch. The earlier posts cover [why I redesigned the test](/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [advice for candidates taking one](/blog/how-to-pass-a-react-native-tech-test/), and [how the scoring works](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*

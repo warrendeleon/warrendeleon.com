@@ -34,7 +34,7 @@ La prueba existente estaba diseñada para preguntas distintas. Necesitaba constr
 
 El live coding te dice si alguien programa cómodo mientras lo observan. Para algunos roles, eso importa. Para el nuestro, necesitaba ver otra cosa.
 
-Estuve de ambos lados. A principios de este año hice un ejercicio de live coding para un puesto para el que estaba cualificado y me quedé en blanco. El problema era simple, sabía cómo resolverlo, y con alguien observando cada tecla perdí el hilo. Como entrevistador, he visto lo mismo pasarle a candidatos: ingenieros capaces que se bloquean en problemas que resolverían en cinco minutos sentados en su escritorio.
+Estuve de ambos lados. A principios de este año, entrevistándome en otra empresa, hice un ejercicio de live coding para un puesto para el que estaba cualificado y me quedé en blanco. El problema era simple, sabía cómo resolverlo, y con alguien observando cada tecla todo se vino abajo. Como entrevistador, he visto lo mismo pasarle a candidatos: ingenieros capaces que se bloquean en problemas que resolverían en cinco minutos sentados en su escritorio.
 
 El live coding mide la compostura bajo observación. Es una señal útil para algunos roles. No era la que yo necesitaba.
 

@@ -19,7 +19,7 @@ Los mejores candidatos, los que realmente quieres contratar, son los que más pr
 
 La versión clásica del take-home tiene su lógica. Un brief prescriptivo con un stack fijo te da entregas comparables entre candidatos, y la fricción del setup filtra por aguante. Si contratas en volumen para un rol estrecho, esa señal sirve. Para un equipo pequeño que contrata a varios niveles, donde dos seniors van a tirar por librerías de estado distintas el día uno, estás filtrando por lo que no toca.
 
-Nuestro primer candidato con la prueba vieja lo dejó claro. Dos horas peleando con versiones de Ruby antes de escribir una línea de código de aplicación. El Ruby del sistema, muy viejo. Subir a Ruby 4, se rompe el bundler. Bajar a 3.3, el bundler vendorizado no es compatible. Mensajes de ida y vuelta todo el rato. Cero líneas de código al final.
+Nuestro primer candidato con la prueba vieja lo dejó claro. Dos horas peleando con versiones de Ruby antes de escribir una línea de código de aplicación. El Ruby equivocado en cada paso: el del sistema, demasiado viejo; el de brew, demasiado nuevo para el bundler vendorizado. Mensajes de ida y vuelta todo el rato. Cero líneas de código al final.
 
 Las preguntas estaban bien. La experiencia de desarrollo era el problema.
 
@@ -53,12 +53,14 @@ La mejora más grande fue un `setup.sh` que se encarga de todo.
 
 Un solo comando. Lo que hace:
 
-- Comprueba la versión de Node (instala via nvm si hace falta)
+- Comprueba la versión de Node (ofrece instalarla via nvm)
 - Comprueba la versión de Ruby (soporta rbenv, rvm y asdf)
 - Comprueba Xcode CLI tools y CocoaPods
 - Ejecuta `yarn install`
 - Ejecuta `bundle install` y `pod install`
 - Te dice exactamente qué arreglar si algo falla
+
+Una salvedad honesta: este flujo asume un Mac, porque el brief pide ejecutar en iOS. Un candidato sin Mac necesita el camino de Android bien explicado, así que el README documenta `yarn android` como alternativa de primera clase y ningún requisito menciona un simulador por su nombre.
 
 La decisión de diseño clave: el script pregunta antes de instalar cualquier cosa. Detecta lo que el candidato ya tiene y trabaja con eso. Quien usa rbenv recibe rbenv. Quien usa rvm recibe rvm. Su entorno se respeta, no se sobreescribe.
 
@@ -176,4 +178,4 @@ La estructura está bien igualmente. Script de setup. Proyecto starter. Brief cl
 
 Si estás diseñando una prueba técnica y los candidatos siguen abandonando, no mires las preguntas primero. Mira la experiencia de desarrollo. **La mejor prueba técnica es una donde el candidato pasa el 100% de su tiempo en lo que realmente estás evaluando, y 0% en todo lo demás.**
 
-*Este es el último post de una serie sobre construir un proceso de contratación desde cero. Los posts anteriores cubren [por qué rediseñé la prueba](/es/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [consejos para candidatos que la hacen](/es/blog/how-to-pass-a-react-native-tech-test/) y [cómo funciona la puntuación](/es/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*
+*Este es el último de los posts sobre el take-home dentro de una serie sobre construir un proceso de contratación desde cero. Los posts anteriores cubren [por qué rediseñé la prueba](/es/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [consejos para candidatos que la hacen](/es/blog/how-to-pass-a-react-native-tech-test/) y [cómo funciona la puntuación](/es/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*

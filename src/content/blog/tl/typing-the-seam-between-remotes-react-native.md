@@ -2,6 +2,8 @@
 title: "Ang contract package: isang versioned na tahi sa pagitan ng mga federated remote sa React Native"
 description: "Binuo at na-ship ang isang remote nang mag-isa, kaya hindi nakikita ng host kung ano ang inilalantad nito. Isang shared contract package, na-publish sa isang registry at na-install ayon sa bersyon, ang nagbibigay sa dalawang panig ng iisang depinisyon. Pagkatapos, pinamamahalaan ng semver kung ano ang nangyayari kapag nag-iiba sila."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "ang contract package"
 tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
 locale: tl
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
@@ -303,7 +305,7 @@ declare module 'profileApp/ProfileScreen' {
 }
 ```
 
-I-typecheck ang host at ang list. Pareho silang pumapasa, bawat isa laban sa parehong na-publish na `1.0.0`. Ang producer at ang consumer ay nagkakasundo na ngayon sa tahi sa pamamagitan ng isang artifact, hindi ng isang hula. Sa ngayon, mukha itong walang saysay. Ginagawa itong higit pa rito ng bersyon.
+I-typecheck ang host at ang list (`npx tsc --noEmit`, patakbuhin sa loob ng bawat app). Pareho silang pumapasa, bawat isa laban sa parehong na-publish na `1.0.0`. Ang producer at ang consumer ay nagkakasundo na ngayon sa tahi sa pamamagitan ng isang artifact, hindi ng isang hula. Sa ngayon, mukha itong walang saysay. Ginagawa itong higit pa rito ng bersyon.
 
 ## Ang tunay na pagsubok: kapag nag-iiba ang mga bersyon
 

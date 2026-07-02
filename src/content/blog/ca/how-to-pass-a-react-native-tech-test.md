@@ -85,12 +85,17 @@ Si tries Redux, fes servir Redux Toolkit. No el vell patró de reducer amb `swit
 
 El que realment importa:
 
-- ✅ Lògica d'estat separada de la UI
-- ✅ Actions, reducers i selectors en els seus propis fitxers
-- ✅ Regles de negoci (com la mida màxima del grup) aplicades a la capa d'estat
-- ✅ Actualitzacions predictibles
-- ❌ Lògica de negoci vivint dins dels components
-- ❌ Estat escampat entre crides a `useState` sense cap patró clar
+Fes:
+
+- Lògica d'estat separada de la UI
+- Actions, reducers i selectors en els seus propis fitxers
+- Regles de negoci (com una mida màxima de llista) aplicades a la capa d'estat
+- Actualitzacions predictibles
+
+No facis:
+
+- Lògica de negoci vivint dins dels components
+- Estat escampat entre crides a `useState` sense cap patró clar
 
 No facis dispatch d'un fetch cada vegada que es munta una pantalla. Si navego a una pantalla de detall, torno enrere, i torno a la mateixa pantalla de detall, no hauria de veure un spinner de càrrega una altra vegada. Un simple `if (!data[id])` abans del teu `dispatch(fetchDetails(id))` és suficient.
 
@@ -109,9 +114,9 @@ El que vull veure:
 
 El que no vull veure:
 
-- ❌ Snapshot tests a tot arreu. Es trenquen amb cada canvi de UI i no demostren res sobre el comportament.
-- ❌ Tests que ho simulen tot. Si el teu test simula la funció que està provant, està provant el mock.
-- ❌ Cap test. És difícil recuperar-se d'això al walkthrough.
+- Snapshot tests a tot arreu. Es trenquen amb cada canvi de UI i no demostren res sobre el comportament.
+- Tests que ho simulen tot. Si el teu test simula la funció que està provant, està provant el mock.
+- Cap test. És difícil recuperar-se d'això al walkthrough.
 
 Apunta a 5 a 10 tests enfocats que cobreixin els camins crítics. Reducers, selectors, interaccions clau. Amb això n'hi ha prou.
 
@@ -129,15 +134,15 @@ Red flag: l'app peta amb una xarxa lenta. Sense estat de càrrega, sense gestió
 
 ## La crida a l'API importa
 
-**GraphQL vs REST.** Si el brief ofereix tots dos, GraphQL és l'opció més forta. Mostra que pots treballar amb patrons d'API actuals. Un client REST ben implementat guanya a un setup de GraphQL desordenat.
+**GraphQL vs REST.** Si el brief ofereix tots dos, l'execució va primer: un client REST ben implementat guanya a un setup de GraphQL desordenat. Però un GraphQL ben fet puntua més alt a la nostra rúbrica, així que si et sents igual de còmode amb tots dos, és l'opció més forta. Estigues preparat per explicar el perquè en qualsevol dels dos casos.
 
 **Fes servir FlatList o FlashList. Mai ScrollView per a llistes.** `ScrollView` renderitza cada item de cop. Amb més de 100 items, veuràs caigudes de frames, pics de memòria i crashes eventuals. `FlatList` virtualitza la llista, renderitzant només el que és a la pantalla. Un `ScrollView` embolcallant un `.map()` sobre una llista de dades suggereix una bretxa en la comprensió del model de renderitzat de RN.
 
 Altres coses que es noten:
 
-- ✅ Caching: no tornis a fer fetch de dades que ja tens
-- ✅ Paginació: no facis fetch de 1000 items a la primera càrrega
-- ✅ ErrorBoundary: captura errors de JavaScript i mostra un fallback en lloc d'una pantalla blanca
+- Caching: no tornis a fer fetch de dades que ja tens
+- Paginació: no facis fetch de 1000 items a la primera càrrega
+- ErrorBoundary: captura errors de JavaScript i mostra un fallback en lloc d'una pantalla blanca
 
 ## Els edge cases són on destaquis
 

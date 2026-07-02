@@ -75,18 +75,27 @@ export enum SecureStoreKey {
   ACCESS_TOKEN = 'accessToken',
   REFRESH_TOKEN = 'refreshToken',
   USER_ID = 'userId',
-  BIOMETRIC_PREFERENCE = 'biometricPreference',
   HASHED_PIN = 'hashedPIN',
   ENCRYPTION_KEY = 'encryptionKey',
 }
 
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
+// Claus que l'usuari hauria de reautenticar per llegir. Els tokens queden sense
+// passarel·la perquè l'interceptor de refresh i el check de sessió en arrencar
+// en fred no disparin mai cap prompt.
+const BIOMETRIC_GATED: SecureStoreKey[] = [
+  SecureStoreKey.HASHED_PIN,
+  SecureStoreKey.ENCRYPTION_KEY,
+];
+
 export const SecureStore = {
   async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
-      accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+      ...(BIOMETRIC_GATED.includes(key) && {
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+      }),
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
     return true;
@@ -120,7 +129,7 @@ export const SecureStore = {
 Quatre decisions del wrapper val la pena destacar:
 
 - Un servei per clau. Keychain emmagatzema una sola credencial per identificador de servei. Usar `com.warrendeleon.portfolio.accessToken` i `com.warrendeleon.portfolio.refreshToken` com a serveis separats evita que se sobreescriguin mútuament.
-- Biomètric o codi del dispositiu. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` vol dir que l'usuari necessita Face ID, Touch ID o el PIN del dispositiu per llegir el valor. Si el dispositiu no té seguretat configurada, el sistema operatiu segueix protegint les dades.
+- La passarel·la biomètrica és per clau, no general. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` vol dir que llegir el valor pot fer aparèixer un prompt de Face ID / Touch ID / codi, en el moment que sigui que passi la lectura. Posa passarel·la a les claus que un humà hauria de desbloquejar conscientment (el PIN amb hash, la clau de xifratge) i deixa els tokens sense, o el teu refresh de token en segon pla i el check de sessió en arrencar en fred demanaran a l'usuari en moments que semblen bugs.
 - Només aquest dispositiu. `WHEN_UNLOCKED_THIS_DEVICE_ONLY` manté les dades fora de les còpies de seguretat d'iCloud Keychain. Els tokens no han de viatjar.
 - Claus amb enum tipat. No pots passar una string per accident. El compilador assegura que només dades de nivell token van a SecureStore.
 
@@ -228,7 +237,6 @@ const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
   whitelist: ['biometricEnabled'],
-  blacklist: ['user', 'error', 'isLoading'],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
@@ -374,6 +382,9 @@ La seqüència de tancament de sessió és deliberada. El Nivell 1 i el Nivell 2
 L'interceptor d'Axios gestiona la [renovació de tokens](/blog/token-refresh-race-condition-react-native/) en segon pla. Llegeix i escriu a SecureStore sense tocar els altres nivells:
 
 ```typescript
+import axios from 'axios';
+import Config from 'react-native-config';
+
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
@@ -382,10 +393,13 @@ axiosInstance.interceptors.response.use(
       error.config._retry = true;
       try {
         const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-        const { data } = await axios.post('/auth/v1/token', {
-          grant_type: 'refresh_token',
-          refresh_token: refreshToken,
-        });
+        // El GoTrue de Supabase vol grant_type com a paràmetre de query, i una
+        // crida axios a pèl necessita la URL absoluta (aquí no hi ha baseURL).
+        const { data } = await axios.post(
+          `${Config.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
+          { refresh_token: refreshToken },
+          { headers: { apikey: Config.SUPABASE_ANON_KEY } }
+        );
 
         // Actualitzar tokens a SecureStore
         await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
@@ -421,12 +435,15 @@ Cada peça de dades emmagatzemades té un lloc clar:
 | Nom | 2 (EncryptedStore) | Dada personal. Es mostra a pantalles de perfil. |
 | Telèfon | 2 (EncryptedStore) | Dada personal. Es mostra a configuració. |
 | Proveïdor d'auth | 2 (EncryptedStore) | No és sensible però està relacionat amb la sessió d'auth. |
+| Preferència biomètrica | 3 (AsyncStorage via Redux Persist) | Una preferència, no un secret. Regula la UX, no l'accés. |
 | Tema | 3 (AsyncStorage) | Preferència no sensible. Sobreviu al tancament de sessió. |
 | Idioma | 3 (AsyncStorage) | Preferència no sensible. Sobreviu al tancament de sessió. |
 
 La regla és curta: si dona accés, Nivell 1. Si identifica una persona, Nivell 2. Si és una preferència, Nivell 3. Aquesta classificació també dóna forma a l'estructura del projecte. Els wrappers d'emmagatzematge viuen a una carpeta compartida `utils/storage/`, i el flux d'autenticació que els orquestra viu dins de la feature Auth. Tot lligat amb una [estructura de projecte feature-first](/blog/feature-first-project-structure-react-native/).
 
 ## Errors freqüents
+
+**No oblidis que els valors del Keychain d'iOS sobreviuen a una desinstal·lació.** Esborra l'app, reinstal·la-la, i el Nivell 1 encara guarda els tokens antics mentre que el Nivell 2 i el Nivell 3 tornen buits. El teu check de sessió llavors restaura un login que l'usuari creia haver destruït, sense cap dada de perfil al darrere. Detecta la primera execució (un sentinella a AsyncStorage funciona, perquè AsyncStorage sí que s'esborra) i neteja SecureStore abans de llegir-ne res.
 
 **No emmagatzemis tokens a Redux.** L'estat de Redux pot ser serialitzat, registrat, persistit a AsyncStorage via Redux Persist, i inspeccionat amb DevTools. Fins i tot amb el slice d'auth a la blacklist, una sola mala configuració exposa els tokens. Guarda els tokens a SecureStore, i punt.
 

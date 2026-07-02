@@ -107,7 +107,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transformIgnorePatterns: [
     // Ini-ignore ng default RN preset ang halos lahat ng node_modules; kailangang ma-transform ang MSW.
-    'node_modules/(?!(react-native|@react-native|msw|until-async)/)',
+    'node_modules/(?!(react-native|@react-native|msw|until-async|rettime|@mswjs|@open-draft|@bundled-es-modules|headers-polyfill|strict-event-emitter|outvariant)/)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
@@ -120,7 +120,7 @@ Dalawang key ang gumagawa ng trabaho:
 | `setupFiles` | Bago ma-install ang Jest framework | Polyfills, global variables, anumang hindi nangangailangan ng `jest`/`expect` |
 | `setupFilesAfterEnv` | Pagkatapos ng Jest framework, bago bawat test file | `beforeAll`/`afterEach` hooks, MSW server lifecycle, custom matchers |
 
-Ang linya ng `transformIgnorePatterns` ang isa pang gotcha: nilalaktawan ng default RN preset ang pag-transform ng `node_modules`, pero may modern syntax ang MSW na hindi kayang patakbuhin ng Jest nang ganoon na lang. Idagdag ang `msw|until-async` sa allow-list o makikita mo ang `SyntaxError: Cannot use import statement outside a module` mula sa loob ng `node_modules/msw/`.
+Ang linya ng `transformIgnorePatterns` ang isa pang gotcha: nilalaktawan ng default RN preset ang pag-transform ng `node_modules`, pero may modern syntax ang MSW na hindi kayang patakbuhin ng Jest nang ganoon na lang. Idagdag ang MSW at ang mga untranspiled na dependency nito (`msw|until-async|rettime|@mswjs|@open-draft|@bundled-es-modules|headers-polyfill|strict-event-emitter|outvariant`) sa allow-list o makikita mo ang `SyntaxError: Cannot use import statement outside a module` mula sa loob ng `node_modules/msw/`. Mas marami nito ang ipinapadala ng mas bagong MSW versions; kung may pangalan ng package sa error na wala pa sa list mo, idagdag ito sa parehong group.
 
 ## Ang server
 
@@ -144,7 +144,7 @@ Kinukuha ng server ang iyong default handlers (success responses) at nag-iinterc
 Sa `jest.setup.ts` (na iniload ng Jest sa pamamagitan ng `setupFilesAfterEnv`), simulan ang server bago ang tests, i-reset sa pagitan ng tests, isara pagkatapos:
 
 ```typescript
-import '@testing-library/jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect'; // built-in na sa RNTL >=12.4 ang mga matcher na ito; para lang sa mas lumang RNTL ang import na ito
 import { server } from './src/test-utils/msw/server';
 
 // MSW server lifecycle
@@ -398,23 +398,7 @@ export function renderWithProviders(
 }
 ```
 
-Nasaklaw niyan ang Redux. Karaniwang mas marami pang kailangan ang tunay na apps: i18n, navigation, theming, toast/notification context. Ang wrapper ang tamang lugar para i-compose silang lahat. Magdagdag ng providers sa paligid ng `{children}`:
-
-```tsx
-const Wrapper = ({ children }: { children: React.ReactNode }) => (
-  <Provider store={createdStore}>
-    <I18nextProvider i18n={i18n}>
-      <ThemeProvider>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
-      </ThemeProvider>
-    </I18nextProvider>
-  </Provider>
-);
-```
-
-Kung gumagamit ang isang screen ng `react-navigation`, balutin ito sa `NavigationContainer` at isang in-memory navigator para sa test. Pareho lang ang prinsipyo: bawat provider na bumabalot sa iyong app sa `App.tsx` ay dapat bumalot sa iyong component sa `renderWithProviders`. Anuman ang nakalimutan mo ay isang pagkakaiba sa pagitan ng test environment at runtime, at sa mga pagkakaibang iyon nakatira ang flaky tests.
+Nasaklaw niyan ang Redux. Karaniwang mas marami pang kailangan ang tunay na apps: i18n, navigation, theming, toast context. Ang wrapper ang tamang lugar para i-compose silang lahat: i-nest ang bawat provider sa paligid ng `{children}` nang eksaktong gaya ng ginagawa ng `App.tsx`, at balutin ang mga screen na umaasa sa navigation sa isang `NavigationContainer` na may in-memory navigator. Ang prinsipyo: bawat provider na bumabalot sa iyong app sa runtime ay dapat bumalot sa iyong component sa `renderWithProviders`. Anuman ang nakalimutan mo ay isang pagkakaiba sa pagitan ng test environment at runtime, at sa mga pagkakaibang iyon nakatira ang flaky tests.
 
 Ngayon ang iyong tests ay nagre-render na may tunay na store, nagdi-dispatch ng tunay na thunks, at ang MSW ang nagha-handle ng network:
 
@@ -495,9 +479,9 @@ Kung ang iyong handler ay nagbabasa ng request body sa pamamagitan ng `request.j
 
 Ang error na `Response is not defined` o `TextEncoder is not defined` ay nangangahulugang hindi nila-load ang polyfills file. I-check na nasa Jest config ang `setupFiles: ['<rootDir>/jest.polyfills.cjs']`, na `.cjs` ang file extension at hindi `.ts`, at na tama ang path relative sa `rootDir`.
 
-Ang `SyntaxError: Cannot use import statement outside a module` na itinapon mula sa `node_modules/msw/` ay nangangahulugang hindi nata-transform ang MSW. Idagdag ang `msw|until-async` sa allow-list sa loob ng `transformIgnorePatterns`.
+Ang `SyntaxError: Cannot use import statement outside a module` na itinapon mula sa `node_modules/msw/` (o mula sa isa sa mga dependency nito) ay nangangahulugang hindi nata-transform ang package na iyon. Idagdag ito sa allow-list sa loob ng `transformIgnorePatterns`; dala ng config sa itaas ang buong set para sa MSW 2.14.
 
-Mahalaga ang trailing slashes: hindi tutugma ang `http.get('/api/items')` sa isang request papuntang `/api/items/`. Itugma nang eksakto kung ano ang ipinapadala ng iyong code, o gumamit ng path pattern tulad ng `http.get('/api/items*', ...)`.
+Hindi kasali ang query strings sa path matching: tumutugma rin ang `http.get('/api/items')` sa `/api/items?page=2`, at binabasa ng handler ang mga parameter mula sa `request.url`. Kung parang binabalewala ng isang test ang iyong query-specific na handler, iyon ang dahilan.
 
 Ang **pumapasa ang tests nang lokal pero nag-fa-fail sa CI** ay karaniwang ang `onUnhandledRequest: 'error'` na humuhuli ng isang request na hindi mo namalayang ginagawa ng iyong code sa CI environment, madalas ay analytics o crash reporting. Magdagdag ng handler para rito, o tanggalin ang mga call na iyon sa test mode.
 
@@ -529,7 +513,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 Mga 30 minuto lang ang setup. Pagkatapos niyan, bawat bagong test ay mas simple kaysa sa manual mock equivalent. Nagsusulat ka ng `server.use(...errorHandlers)` sa halip na `jest.fn().mockRejectedValue(new Error('Network error'))`. Reusable ang handlers sa bawat test file. At tine-test mo ang tunay na integration behaviour, hindi mock behaviour.
 
-Sinasaklaw ng 11 handler sets sa aking project ang bawat error path na hina-handle ng app. Kapag nagdagdag ako ng bagong API endpoint, nagdadagdag ako ng handlers isang beses, at bawat test na gumagamit ng endpoint na iyon ay nakakakuha ng tamang mocking nang libre. Ang parehong handler-set approach ay bumabagay rin sa [E2E tests na nakasulat sa Gherkin gamit ang Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/), kung saan dinadala ng Detox + Cucumber ang user flows at isang hiwalay na [runtime mocking sa Metro level](/blog/metro-runtime-mocking-react-native-e2e/) ang kumokontrol sa API responses, pero mga paksa iyon para sa susunod na mga post.
+Sinasaklaw ng 11 handler sets sa aking project ang bawat error path na hina-handle ng app. Kapag nagdagdag ako ng bagong API endpoint, nagdadagdag ako ng handlers isang beses, at bawat test na gumagamit ng endpoint na iyon ay nakakakuha ng tamang mocking nang libre. Ang parehong handler-set approach ay bumabagay rin sa E2E tests, kung saan dinadala ng [Detox + Cucumber](/tl/blog/detox-cucumber-bdd-react-native-e2e-testing/) ang user flows at isang hiwalay na runtime-mocking layer ang kumokontrol sa API responses.
 
 > Kung mas mahirap sumulat ng susunod na test kaysa sa pag-skip nito, ang test infrastructure mo ang problema.
 

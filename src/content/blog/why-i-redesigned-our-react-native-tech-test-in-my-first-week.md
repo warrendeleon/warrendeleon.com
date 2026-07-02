@@ -39,7 +39,7 @@ The existing test was designed for different questions. I needed to build someth
 
 Live coding can tell you whether someone codes comfortably under observation. For some roles, that matters. For ours, I needed to see something different.
 
-I've been on both sides. Earlier this year I sat a live coding exercise for a role I was qualified for and blanked. The problem was simple, I knew how to solve it, and with someone watching every keystroke I lost the thread. As an interviewer, I've watched the same thing happen to candidates: strong engineers who freeze on problems they'd solve in five minutes at their own desk.
+I've been on both sides. Earlier this year, interviewing at another company, I sat a live coding exercise for a role I was qualified for and blanked. The problem was simple, I knew how to solve it, and with someone watching every keystroke it fell apart. As an interviewer, I've watched the same thing happen to candidates: strong engineers who freeze on problems they'd solve in five minutes at their own desk.
 
 Live coding measures composure under observation. That's a useful signal for some roles. It wasn't the one I needed.
 

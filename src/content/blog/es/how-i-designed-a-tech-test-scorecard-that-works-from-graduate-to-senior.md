@@ -103,7 +103,7 @@ La puntuación total se mapea directamente a un nivel:
 | Software Engineer | 65 a 88 |
 | Senior | 89 a 100 |
 
-La puntuación del code review no es todo el panorama. La llamada de walkthrough añade más señal. El code review es la base.
+Por debajo de 20 es un rechazo: la entrega no superó los checks de línea base. Por encima de eso, la puntuación del code review no es todo el panorama. La llamada de walkthrough añade más señal. El code review es la base.
 
 
 ## Respetar la limitación de tiempo
@@ -128,7 +128,7 @@ Los stretch goals se suman a los 100 puntos como bonificaciones: búsqueda, modo
 
 El code review me da un número. El walkthrough me da contexto.
 
-Un candidato que saca 65 en el code review podría subir a 85 después del walkthrough si puede explicar cada trade-off, decir qué cambiaría con más tiempo y navegar su codebase de memoria. El número mide lo que construyeron. La conversación mide cómo piensan.
+Un candidato que saca 65 en el code review podría subir a 85 después del walkthrough si puede explicar cada trade-off, decir qué cambiaría con más tiempo y navegar su codebase de memoria. También funciona en el otro sentido: una entrega de buena pinta que el candidato no sabe explicar baja un rango. El número mide lo que construyeron. La conversación mide cómo piensan.
 
 Diseñé el walkthrough como un conjunto de tablas de preguntas. Cada pregunta tiene cinco descripciones de señal, desde "no encuentra el código" hasta "lo explica de memoria con edge cases." El entrevistador marca una fila por pregunta. Se acabó el "¿ese walkthrough fue un 3 o un 4?"
 
@@ -148,19 +148,7 @@ Separa lo que puedes ver de lo que necesitas preguntar. El scorecard del code re
 Respeta la limitación de tiempo. Si un check necesitaría más de 6 horas de trabajo de un Software Engineer competente, pertenece a la mitad superior del checklist, no a la línea base. Me pillé varias veces escribiendo checks de línea base que en realidad eran expectativas de Senior. La pregunta que me hacía todo el tiempo: *"¿Esperaría esto de alguien haciendo esta prueba después del trabajo un miércoles por la noche?"* Si la respuesta era no, lo subía.
 
 
-## Sigue evolucionando
-
-Usé este scorecard para nuestra primera ronda de contratación de React Native. Mi par EM lo revisó y lo adoptó para las contrataciones de su equipo también. Esa es la prueba de un buen sistema: otra persona puede cogerlo y usarlo sin que estés en la sala.
-
-No pretendo que sea perfecto. Los rangos podrían necesitar recalibración después de que pasen más candidatos. Algunos checks podrían resultar demasiado fáciles o demasiado difíciles. Los stretch goals podrían necesitar rebalanceo.
-
-La estructura está bien, eso sí:
-
-- Checklists, no rúbricas
-- Hechos observables, no opiniones
-- Ordenados por inversión
-- La misma prueba para todos
-- Distinto techo para distintos niveles
+Usé este scorecard para nuestra primera ronda de contratación de React Native, y mi par EM lo revisó y lo adoptó para las contrataciones de su equipo también. Esa es la prueba de un buen sistema: otra persona puede cogerlo y usarlo sin que estés en la sala. No pretendo que sea perfecto (los rangos podrían necesitar recalibración después de que pasen más candidatos), pero la estructura aguanta: checklists antes que rúbricas, hechos observables antes que opiniones, orden por inversión, la misma prueba para todos con un techo distinto por nivel.
 
 Si estás montando un proceso de contratación y tus entrevistadores siguen sin ponerse de acuerdo en las puntuaciones, prueba a reemplazar tu rúbrica con un checklist. Te vas a sorprender de cuánto acuerdo consigues cuando dejas de preguntar *"¿qué tan bueno es esto?"* y empiezas a preguntar *"¿esto está aquí?"*
 

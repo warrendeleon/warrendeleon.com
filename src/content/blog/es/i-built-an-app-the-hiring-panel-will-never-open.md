@@ -49,7 +49,7 @@ El objetivo era dejar de pelearme con la herramienta durante la entrevista. Tres
 
 ## El bug que puntuaba todo igual
 
-La pila es React 19, TypeScript, Vite, Tailwind v4. Sin librería de gestión de estado. Un hook personalizado `useLocalStorage` y React Router.
+La pila era React 19, TypeScript, Vite, Tailwind v4. La primera versión no tenía librería de gestión de estado: un hook personalizado `useLocalStorage` y React Router.
 
 Durante las pruebas, puntué el walkthrough de un candidato de principio a fin. Cada sección, cada pregunta, notas completas. Pulsé "Siguiente" para llegar a la pantalla de resumen y vi que todas las secciones tenían la misma puntuación: la que había metido en el último paso.
 
@@ -65,7 +65,7 @@ function freshCandidate(id: string): Candidate | undefined {
 }
 ```
 
-El mismo patrón se repite en tres hooks: `useWalkthrough`, `useBehavioural`, `useCodeReview`. Cada uno lee fresco, escribe fresco, y dispara un evento personalizado (`ls-sync`) para que las otras instancias del hook detecten el cambio. Veinte líneas de código de persistencia. Sin Redux, sin context providers, sin middleware.
+El mismo patrón se repite en tres hooks: `useWalkthrough`, `useBehavioural`, `useCodeReview`. Cada uno lee fresco, escribe fresco, y dispara un evento personalizado (`ls-sync`) para que las otras instancias del hook detecten el cambio. Veinte líneas de código de persistencia. Sin Redux, sin context providers, sin middleware. Esas veinte líneas sostuvieron las primeras entrevistas reales; el store se formalizó más tarde sobre Redux Toolkit cuando la app creció, pero eso es otro post.
 
 ## El PDF que nadie me ve construir
 
@@ -73,7 +73,7 @@ Después de la entrevista, pulso "Imprimir / PDF" y el navegador genera un Candi
 
 La página 1 es el resumen: una tabla de puntuaciones, el nivel recomendado, la decisión de contratar o no, y el nivel de la oferta. Las páginas 2 y 3 muestran fortalezas y áreas de mejora extraídas de las tres evaluaciones, agrupadas por origen. Después, cuatro apéndices: desglose de la revisión de código, puntuaciones del walkthrough con cada pregunta y nota, puntuaciones conductuales por valor, y una tabla de referencia de los niveles con el del candidato resaltado en azul marino.
 
-Esa tabla de niveles mapea la puntuación combinada a uno de los 12 escalones: desde Graduate 1 hasta Senior 2+. El escalón **2+** es deliberadamente difícil de alcanzar. Marca a alguien en la cima de su categoría, empujando hacia la siguiente. Cuando un miembro del comité ve "Associate 2+" en el PDF, lo lee al instante: fuerte para Associate, no del todo SE. Esa única etiqueta lleva más señal que un párrafo de justificación.
+Esa tabla de niveles mapea la puntuación combinada a uno de los 12 escalones: desde Graduate 1 hasta Senior 2+. (Los cuatro rangos de [el post del scorecard](/es/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) se subdividieron en tres escalones cada uno cuando los candidatos reales empezaron a caer entre medias.) El escalón **2+** es deliberadamente difícil de alcanzar. Marca a alguien en la cima de su categoría, empujando hacia la siguiente. Cuando un miembro del comité ve "Associate 2+" en el PDF, lo lee al instante: fuerte para Associate, no del todo SE. Esa única etiqueta lleva más señal que un párrafo de justificación.
 
 El filtro conductual añade un segundo control. Un candidato que puntúe por debajo de 10/25 en alineación con los valores no avanza, independientemente de su puntuación técnica. Entre 10 y 14 dispara una discusión del comité. 15 o más pasa el filtro. Las habilidades técnicas se pueden enseñar. La falta de alineación con los valores crea problemas que crecen con el tiempo.
 

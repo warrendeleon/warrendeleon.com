@@ -85,12 +85,17 @@ Si vas con Redux, usa Redux Toolkit. No el viejo patrón de reducer con `switch/
 
 Lo que realmente importa:
 
-- ✅ Lógica de estado separada de la UI
-- ✅ Actions, reducers y selectors en sus propios archivos
-- ✅ Reglas de negocio (como tamaño máximo del grupo) aplicadas en la capa de estado
-- ✅ Actualizaciones predecibles
-- ❌ Lógica de negocio viviendo dentro de los componentes
-- ❌ Estado disperso entre llamadas a `useState` sin un patrón claro
+Haz esto:
+
+- Lógica de estado separada de la UI
+- Actions, reducers y selectors en sus propios archivos
+- Reglas de negocio (como un tamaño máximo de lista) aplicadas en la capa de estado
+- Actualizaciones predecibles
+
+Evita esto:
+
+- Lógica de negocio viviendo dentro de los componentes
+- Estado disperso entre llamadas a `useState` sin un patrón claro
 
 No hagas dispatch de un fetch cada vez que se monta una pantalla. Si navego a una pantalla de detalle, vuelvo y regreso a la misma pantalla de detalle, no debería ver un spinner de carga otra vez. Un simple chequeo `if (!data[id])` antes de tu `dispatch(fetchDetails(id))` basta.
 
@@ -109,9 +114,9 @@ Lo que quiero ver:
 
 Lo que no quiero ver:
 
-- ❌ Snapshot tests por todos lados. Se rompen con cada cambio de UI y no prueban nada sobre el comportamiento.
-- ❌ Tests que mockean todo. Si tu test mockea la función que está testeando, está testeando el mock.
-- ❌ Ningún test. Difícil de recuperar en el walkthrough.
+- Snapshot tests por todos lados. Se rompen con cada cambio de UI y no prueban nada sobre el comportamiento.
+- Tests que mockean todo. Si tu test mockea la función que está testeando, está testeando el mock.
+- Ningún test. Difícil de recuperar en el walkthrough.
 
 Apunta a 5 a 10 tests enfocados que cubran los caminos críticos. Reducers, selectors, interacciones clave. Con eso basta.
 
@@ -129,15 +134,15 @@ Red flag: la app se cae con una red lenta. Sin estado de carga, sin manejo de er
 
 ## La llamada a la API importa
 
-**GraphQL vs REST.** Si el brief ofrece ambos, GraphQL es la opción más fuerte. Muestra que puedes trabajar con patrones de API actuales. Un cliente REST bien implementado le gana a un setup de GraphQL desordenado.
+**GraphQL vs REST.** Si el brief ofrece ambos, la ejecución va primero: un cliente REST bien implementado le gana a un setup de GraphQL desordenado. Pero un GraphQL bien hecho puntúa más alto en nuestra rúbrica, así que si te manejas igual de bien con los dos, es la opción más fuerte. Prepárate para explicar el porqué en cualquiera de los casos.
 
 **Usa FlatList o FlashList. Nunca ScrollView para listas.** `ScrollView` renderiza cada item de una vez. Con más de 100 items, vas a ver caídas de frames, picos de memoria y crashes eventuales. `FlatList` virtualiza la lista, renderizando solo lo que está en pantalla. Un `ScrollView` envolviendo un `.map()` sobre una lista de datos sugiere una brecha en la comprensión del modelo de renderizado de RN.
 
 Otras cosas que se notan:
 
-- ✅ Caching: no vuelvas a hacer fetch de datos que ya tienes
-- ✅ Paginación: no hagas fetch de 1000 items en la primera carga
-- ✅ ErrorBoundary: captura errores de JavaScript y muestra un fallback en vez de una pantalla blanca
+- Caching: no vuelvas a hacer fetch de datos que ya tienes
+- Paginación: no hagas fetch de 1000 items en la primera carga
+- ErrorBoundary: captura errores de JavaScript y muestra un fallback en vez de una pantalla blanca
 
 ## Los edge cases son donde te destacas
 

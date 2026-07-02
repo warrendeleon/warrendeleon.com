@@ -19,7 +19,7 @@ Ang pinakamahuhusay na kandidato, yung mga gusto mo talagang i-hire, sila pa ang
 
 May logic naman ang classic na version ng take-home. Ang prescriptive brief na may fixed stack ay nagbibigay sa iyo ng magkakatulad na submissions sa lahat ng kandidato, at ang rough edges sa setup ay nagfi-filter para sa grit. Kung nagha-hire ka ng malalaking volume para sa isang makitid na role, useful ang signal na yun. Para sa maliit na team na nagha-hire across levels, kung saan dalawang senior engineers ay malamang na magpipili ng magkaibang state libraries sa unang araw, mali ang pinifilter mo.
 
-Ang unang kandidato namin sa lumang test ang nag-prove sa puntong yun. Dalawang oras nakipag-laban sa Ruby versions bago nakasulat ng kahit isang linya ng application code. Masyadong luma ang system Ruby. Nag-upgrade sa Ruby 4, nasira ang bundler. Nag-downgrade sa 3.3, pero incompatible ang vendored bundler. Back-and-forth na messages sa buong proseso. Zero linya ng code sa dulo.
+Ang unang kandidato namin sa lumang test ang nag-prove sa puntong yun. Dalawang oras nakipag-laban sa Ruby versions bago nakasulat ng kahit isang linya ng application code. Ang maling Ruby sa bawat hakbang: masyadong luma ang system Ruby, masyadong bago ang brew Ruby para sa vendored bundler. Back-and-forth na messages sa buong proseso. Zero linya ng code sa dulo.
 
 Okay naman ang mga tanong. Ang developer experience ang problema.
 
@@ -53,12 +53,14 @@ Ang pinaka-malaking improvement ay isang `setup.sh` na nag-hahandle ng lahat.
 
 Isang command lang. Ginagawa nito:
 
-- Chine-check ang Node version (ini-install via nvm kung kailangan)
+- Chine-check ang Node version (nag-o-offer na mag-install via nvm)
 - Chine-check ang Ruby version (suportado ang rbenv, rvm at asdf)
 - Chine-check ang Xcode CLI tools at CocoaPods
 - Niru-run ang `yarn install`
 - Niru-run ang `bundle install` at `pod install`
 - Sinasabi sa iyo kung ano exactly ang kailangang i-fix kung may mali
+
+Isang tapat na caveat: inaasahan ng flow na ito na Mac ang gamit, dahil iOS run ang hinihingi ng brief. Ang kandidatong walang Mac ay kailangang malinaw na nakasulat ang Android path, kaya dinodokumento ng README ang `yarn android` bilang first-class na alternatibo at walang requirement na nagbabanggit ng simulator by name.
 
 Ang key design choice: nagta-tanong muna ang script bago mag-install ng kahit ano. Dine-detect nito kung ano ang meron na ang kandidato at doon nagta-trabaho. Kung gumagamit ng rbenv ang kandidato, rbenv ang binibigay. Kung gumagamit ng rvm, rvm. Nire-respeto ang environment nila, hindi o-overwrite.
 
@@ -176,4 +178,4 @@ Pero tama naman ang structure. Setup script. Starter project. Malinaw na brief. 
 
 Kung nagde-design ka ng tech test at patuloy na nag-drop out ang mga kandidato, huwag mo munang tingnan ang mga tanong. Tingnan mo ang developer experience. **Ang pinakamahusay na tech test ay yung ginugugol ng kandidato ang 100% ng oras niya sa bagay na tine-test mo talaga, at 0% sa lahat ng iba pa.**
 
-*Ito ang huling post sa isang serye tungkol sa pagbuo ng hiring process mula sa simula. Ang mga naunang post ay tungkol sa [bakit ko ni-redesign ang test](/tl/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [mga payo para sa mga kandidatong kukuha nito](/tl/blog/how-to-pass-a-react-native-tech-test/), at [paano gumagana ang scoring](/tl/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*
+*Ito ang huli sa mga take-home post sa isang serye tungkol sa pagbuo ng hiring process mula sa simula. Ang mga naunang post ay tungkol sa [bakit ko ni-redesign ang test](/tl/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [mga payo para sa mga kandidatong kukuha nito](/tl/blog/how-to-pass-a-react-native-tech-test/), at [paano gumagana ang scoring](/tl/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*

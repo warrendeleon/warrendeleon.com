@@ -2,6 +2,9 @@
 title: "Ang iyong unang federated remote sa React Native"
 description: "Buuin ito mula sa simula: dalawang React Native app, ang isa nag-lo-load ng screen ng isa pa sa runtime gamit ang Module Federation 2.0 at Re.Pack. Bawat hakbang, copy-paste, nagtatapos sa isang tumatakbong app."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "ang unang federated remote mo"
+companionTag: "post-02-first-remote"
 tags: ["react-native", "module-federation", "re-pack", "rspack", "tutorial"]
 locale: tl
 heroImage: "/images/blog/your-first-federated-remote-react-native.webp"
@@ -31,9 +34,11 @@ Kailangan ng isang federation ng isang host at hindi bababa sa isang remote. Gum
 
 ```sh
 mkdir react-native-module-federation && cd react-native-module-federation
-npx @react-native-community/cli@latest init Host --directory apps/host
-npx @react-native-community/cli@latest init List --directory apps/list
+npx @react-native-community/cli@20.1.0 init Host --directory apps/host --version 0.85.3
+npx @react-native-community/cli@20.1.0 init List --directory apps/list --version 0.85.3
 ```
+
+Sadyang naka-pin ang mga bersyon: binuo at na-verify ang series na ito sa RN 0.85.3 na may Re.Pack 5.2.5, sa iOS simulator. Malamang na gagana ang mas bagong RN scaffold, pero ikaw ang unang makakaalam. (Tumatakbo ang Android sa parehong configs, na may isang wrinkle: kailangan ng `localhost` manifest URLs ang `adb reverse`, o `10.0.2.2` bilang kapalit.)
 
 Ang `host` ang shell na lina-launch ng user. Ang `list` ay isang feature na ilo-load papasok dito sa runtime.
 
@@ -45,7 +50,7 @@ I-install ang bundler at ang federation packages sa bawat app:
 
 ```sh
 npm install -D @callstack/repack @rspack/core \
-  @module-federation/enhanced @module-federation/runtime @swc/helpers
+  @module-federation/enhanced @swc/helpers
 ```
 
 Ang `@swc/helpers` ang madaling makaligtaan. Kino-compile ng Re.Pack ang code mo gamit ang SWC (ang Speedy Web Compiler, isang Rust-based na alternatibo sa Babel na ginagamit nito sa ilalim). Kapag kino-compile pababa ng SWC ang modernong syntax, naglalabas ito ng mga `require("@swc/helpers/…")` na tawag sa isang maliit na shared helper library sa halip na i-inline ang parehong boilerplate sa lahat ng dako. Makaligtaan ang package at mabibigo ang build na may isang screen ng "can't resolve" na error na walang hint sa tunay na dahilan.
@@ -312,6 +317,8 @@ Pinupunan ng Re.Pack ang gap na iyon gamit ang **ScriptManager**: ang bahaging g
 
 Ang magandang balita para sa post na ito: sa dev, wala kang isusulat na anuman dito. Ang Module Federation plugin na idinagdag mo na ang awtomatikong nag-wi-wire sa ScriptManager at sa isang default resolver na nakakaalam kung paano aabutin ang dev server ng remote. Kaya ang buong loop ay:
 
+<div id="scriptmanager-flow"></div>
+
 ```mermaid
 sequenceDiagram
     participant Host as Host app
@@ -331,7 +338,7 @@ Kapag lumipat ka sa production, ang ScriptManager ang kung saan nasa tunay na tr
 
 ## Patakbuhin ito
 
-May native iOS project ang host, JS-only ang remote. Kaya nai-install ang pods para sa host lang:
+Ang host lang ang app na binibuo ang native project nito; pinapanatili ng remote ang `ios/` folder nito mula sa scaffold, pero walang kailanman nagko-compile nito. Kaya nai-install ang pods para sa host lang:
 
 ```sh
 cd apps/host/ios && bundle install && bundle exec pod install

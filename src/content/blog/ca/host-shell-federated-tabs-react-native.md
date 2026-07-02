@@ -2,6 +2,8 @@
 title: "La closca del host: remotes federats com a pestanyes a React Native"
 description: "Converteix el host d'una sola pantalla en una closca d'app de debò. És propietari de la tab bar i la navegació; cada pestanya és un remote independent, construït i desplegat pel seu compte, carregat en temps d'execució."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "la closca del host"
 tags: ["react-native", "module-federation", "re-pack", "rspack", "navigation", "tutorial"]
 locale: ca
 heroImage: "/images/blog/host-shell-federated-tabs-react-native.webp"
@@ -13,6 +15,8 @@ relatedPosts: ["shared-singleton-contract-react-native", "your-first-federated-r
 Fins ara el host ha carregat una pantalla d'un remote. Una app de debò és més que una pantalla: té una closca, una tab bar, un lloc on posar les features. Aquest post converteix el host en aquesta closca. És propietari de la navegació i de la tab bar, i cada pestanya és un remote separat, construït i desplegat pel seu compte, carregat en temps d'execució.
 
 La forma que construirem, abans de tocar codi: el host és propietari de la tab bar, i cada pestanya és un remote separat, que es descarrega i s'executa en temps d'execució el primer cop que l'obres.
+
+<div id="tab-architecture"></div>
 
 ```mermaid
 flowchart TB
@@ -38,7 +42,7 @@ git checkout post-03-shared-singleton
 
 ## Un segon remote per omplir una segona pestanya
 
-Una pestanya no és una tab bar. Així que afegim un segon remote, `profile`, igual que el post 2 va construir el remote `list`: una app de React Native nova sobre Re.Pack, sense `AppRegistry.registerComponent`, exposant una pantalla. Crea'l al costat dels altres i instal·la les seves dependències igual que vas fer amb `list`.
+Una pestanya no és una tab bar. Així que afegim un segon remote, `profile`, igual que el post 2 va construir el remote `list`: una app de React Native nova sobre Re.Pack, sense `AppRegistry.registerComponent`, exposant una pantalla. Crea'l al costat dels altres, instal·la les seves dependències igual que vas fer amb `list` i copia-hi el `rspack.config.mjs` de `list`. Canvien quatre camps, i els quatre importen: el `name` del plugin (`profileApp`), el `filename` del contenidor (`profileApp.container.js.bundle`), la pantalla exposada (`./ProfileScreen`) i `output.uniqueName` (`'ProfileApp'`). Aquest últim és el fàcil de passar per alt: `uniqueName` delimita els globals de càrrega de chunks de webpack, així que dos remotes que portin el mateix valor xoquen dins del runtime del host exactament de la manera que aquesta sèrie no para d'advertir.
 
 La pantalla que exposa, `apps/profile/src/ProfileScreen.tsx`. Llegeix l'inset del safe area del provider del host, el mateix singleton compartit del post 3:
 
@@ -87,7 +91,7 @@ La seva entry de contenidor, `apps/profile/src/index.js`, es queda buida, perqu�
 export {};
 ```
 
-El seu `apps/profile/rspack.config.mjs` és el config de `list` amb un altre nom, una altra pantalla exposada i els mateixos singletons compartits:
+El seu `apps/profile/rspack.config.mjs` manté els mateixos singletons compartits; el bloc de federació després dels quatre canvis:
 
 ```js
 new Repack.plugins.ModuleFederationPluginV2({

@@ -3,6 +3,8 @@ title: "The contract package: a versioned seam between federated remotes in Reac
 description: "A remote is built and shipped on its own, so the host can't see what it exposes. A shared contract package, published to a registry and installed by version, gives both sides one definition. Then semver governs what happens when they drift."
 publishDate: 2026-06-29
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "the contract package"
 tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
 locale: en
 draft: false
@@ -309,7 +311,7 @@ declare module 'profileApp/ProfileScreen' {
 }
 ```
 
-Typecheck the host and the list. Both pass, each against the same published `1.0.0`. Producer and consumer now agree on the seam through one artifact, not a guess. So far this looks like busywork. The version makes it more than that.
+Typecheck the host and the list (`npx tsc --noEmit`, run inside each app). Both pass, each against the same published `1.0.0`. Producer and consumer now agree on the seam through one artifact, not a guess. So far this looks like busywork. The version makes it more than that.
 
 ## The real test: versions drift
 

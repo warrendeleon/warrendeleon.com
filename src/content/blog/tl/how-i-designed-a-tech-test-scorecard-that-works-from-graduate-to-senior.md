@@ -103,7 +103,7 @@ Ang total score ay dire-diretso ang mapping sa level:
 | Software Engineer | 65 hanggang 88 |
 | Senior | 89 hanggang 100 |
 
-Hindi kumpleto ang picture sa code review score lang. Ang walkthrough call ay nagdadagdag ng dagdag na signal. Ang code review ang pundasyon.
+Ang mas mababa sa 20 ay reject: hindi naipasa ng submission ang baseline checks. Sa itaas niyan, hindi kumpleto ang picture sa code review score lang. Ang walkthrough call ay nagdadagdag ng dagdag na signal. Ang code review ang pundasyon.
 
 
 ## Pag-respeto sa time constraint
@@ -128,7 +128,7 @@ Ang stretch goals ay naka-stack sa ibabaw ng 100 points bilang bonuses: search, 
 
 Ang code review ay nagbibigay sa akin ng number. Ang walkthrough ay nagbibigay sa akin ng context.
 
-Ang candidate na may 65 sa code review ay pwedeng tumalon sa 85 pagkatapos ng walkthrough kung kaya nilang i-explain ang bawat trade-off, sabihin kung ano ang babaguhin nila kung may mas maraming oras, at i-navigate ang codebase nila mula sa memory. Ang number ay sumusukat ng kung ano ang ginawa nila. Ang conversation ay sumusukat ng kung paano sila mag-isip.
+Ang candidate na may 65 sa code review ay pwedeng tumalon sa 85 pagkatapos ng walkthrough kung kaya nilang i-explain ang bawat trade-off, sabihin kung ano ang babaguhin nila kung may mas maraming oras, at i-navigate ang codebase nila mula sa memory. Gumagana rin ito pabaliktad: ang submission na mukhang malakas pero hindi ma-explain ng candidate ay bumababa ng isang band. Ang number ay sumusukat ng kung ano ang ginawa nila. Ang conversation ay sumusukat ng kung paano sila mag-isip.
 
 Dinisenyuhan ko ang walkthrough bilang isang set ng question tables. Bawat tanong ay may limang signal description, mula "hindi mahanap ang code" hanggang "ine-explain mula sa memory kasama ng edge cases." Ang interviewer ay nagchi-check ng isang row per tanong. Wala nang "3 ba o 4 yung walkthrough na yun?"
 
@@ -148,19 +148,7 @@ I-separate ang nakikita mo sa kailangan mong itanong. Ang code review scorecard 
 I-respeto ang time constraint. Kung ang isang check ay mangangailangan ng mahigit 6 na oras ng trabaho mula sa isang competent na Software Engineer, nasa upper half siya ng checklist, hindi sa baseline. Nahuli ko ang sarili ko ng ilang beses na nagsusulat ng baseline checks na talagang Senior expectations pala. Ang tanong na palagi kong ginagamit: *"Aasahan ko ba ito mula sa isang taong ginagawa ang test na ito pagkatapos ng trabaho isang Miyerkules ng gabi?"* Kung hindi, pataas.
 
 
-## Nag-e-evolve pa rin
-
-Ginamit ko ang scorecard na ito para sa unang round ng React Native hiring namin. Ni-review ito ng kapwa ko na EM at in-adopt niya rin para sa mga hire ng team niya. Iyan ang test ng magandang system: kaya itong kunin ng iba at gamitin nang wala ka sa kwarto.
-
-Hindi ko sinasabing perpekto ito. Pwedeng kailanganin ng recalibration ang mga bands pagkatapos dumaan ng mas maraming candidates. Baka lumabas na masyadong madali o masyadong mahirap ang ibang checks. Baka kailanganin ng rebalancing ang stretch goals.
-
-Tama ang structure:
-
-- Checklists, hindi rubrics
-- Observable facts, hindi opinions
-- Nakaayos ayon sa investment
-- Iisang test para sa lahat
-- Ibang ceiling para sa ibang levels
+Ginamit ko ang scorecard na ito para sa unang round ng React Native hiring namin, at ni-review ito ng kapwa ko na EM at in-adopt niya rin para sa mga hire ng team niya. Iyan ang test ng magandang system: kaya itong kunin ng iba at gamitin nang wala ka sa kwarto. Hindi ko sinasabing perpekto ito (pwedeng kailanganin ng recalibration ang mga bands pagkatapos dumaan ng mas maraming candidates), pero tumatatag ang structure: checklists kaysa rubrics, observable facts kaysa opinions, nakaayos ayon sa investment, iisang test para sa lahat na may ibang ceiling bawat level.
 
 Kung gumagawa ka ng hiring process at palaging hindi nagkaka-agree ang mga interviewer mo sa scores, subukan mong palitan ang rubric mo ng checklist. Magugulat ka sa dami ng agreement na makukuha mo kapag tumigil ka sa pagtatanong ng *"gaano kaganda ito?"* at nagsimula kang magtanong ng *"nandito ba ito?"*
 

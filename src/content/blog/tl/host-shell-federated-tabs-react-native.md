@@ -2,6 +2,8 @@
 title: "Ang host shell: mga federated remote bilang tabs sa React Native"
 description: "Gawing tunay na app shell ang host mula sa iisang screen. Ito ang may-ari ng tab bar at navigation; bawat tab ay hiwalay na remote, binuo at na-deploy nang mag-isa, nilo-load sa runtime."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "ang host shell"
 tags: ["react-native", "module-federation", "re-pack", "rspack", "navigation", "tutorial"]
 locale: tl
 heroImage: "/images/blog/host-shell-federated-tabs-react-native.webp"
@@ -13,6 +15,8 @@ relatedPosts: ["shared-singleton-contract-react-native", "your-first-federated-r
 Hanggang ngayon, isang screen mula sa isang remote ang nilo-load ng host. Higit pa sa isang screen ang tunay na app: may shell ito, may tab bar, may lugar para sa mga feature. Ginagawang shell na iyon ang host sa post na ito. Ito ang may-ari ng navigation at ng tab bar, at bawat tab ay hiwalay na remote, binuo at na-deploy nang mag-isa, nilo-load sa runtime.
 
 Ang hugis na bubuuin natin, bago ang anumang code: ang host ang may-ari ng tab bar, at bawat tab ay hiwalay na remote, na kinukuha at pinapatakbo sa runtime sa unang pagbukas mo nito.
+
+<div id="tab-architecture"></div>
 
 ```mermaid
 flowchart TB
@@ -38,7 +42,7 @@ git checkout post-03-shared-singleton
 
 ## Pangalawang remote para punan ang pangalawang tab
 
-Hindi tab bar ang isang tab. Kaya nagdadagdag tayo ng pangalawang remote, `profile`, gaya ng pagbuo ng post 2 sa remote na `list`: isang bagong React Native app sa Re.Pack, walang `AppRegistry.registerComponent`, naglalantad ng isang screen. Gawin ito katabi ng iba at i-install ang mga dependency nito gaya ng ginawa mo sa `list`.
+Hindi tab bar ang isang tab. Kaya nagdadagdag tayo ng pangalawang remote, `profile`, gaya ng pagbuo ng post 2 sa remote na `list`: isang bagong React Native app sa Re.Pack, walang `AppRegistry.registerComponent`, naglalantad ng isang screen. Gawin ito katabi ng iba, i-install ang mga dependency nito gaya ng ginawa mo sa `list`, at kopyahin ang `rspack.config.mjs` ng `list` papunta rito. Apat na field ang nagbabago, at mahalaga lahat ng apat: ang plugin `name` (`profileApp`), ang container `filename` (`profileApp.container.js.bundle`), ang inilalantad na screen (`./ProfileScreen`), at ang `output.uniqueName` (`'ProfileApp'`). Ang huli ang pinakamadaling makaligtaan: ang `uniqueName` ang nagsa-scope sa chunk-loading globals ng webpack, kaya ang dalawang remote na nagpapadala ng parehong value ay nagbabanggaan sa loob ng runtime ng host sa eksaktong paraan na paulit-ulit na binabalaan ng series na ito.
 
 Ang screen na inilalantad nito, `apps/profile/src/ProfileScreen.tsx`. Binabasa nito ang safe-area inset mula sa provider ng host, ang parehong shared singleton mula sa post 3:
 
@@ -87,7 +91,7 @@ Ang container entry nito, `apps/profile/src/index.js`, ay nananatiling walang la
 export {};
 ```
 
-Ang `apps/profile/rspack.config.mjs` nito ay ang config ng `list` na may ibang pangalan, ibang inilantad na screen, at parehong shared singletons:
+Ang `apps/profile/rspack.config.mjs` nito ay nagpapanatili ng parehong shared singletons; ganito ang federation block pagkatapos ng apat na pagbabago:
 
 ```js
 new Repack.plugins.ModuleFederationPluginV2({

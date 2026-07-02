@@ -107,7 +107,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transformIgnorePatterns: [
     // El preset de RN por defecto ignora casi todo node_modules; MSW necesita transformarse.
-    'node_modules/(?!(react-native|@react-native|msw|until-async)/)',
+    'node_modules/(?!(react-native|@react-native|msw|until-async|rettime|@mswjs|@open-draft|@bundled-es-modules|headers-polyfill|strict-event-emitter|outvariant)/)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
@@ -120,7 +120,7 @@ Dos claves hacen el trabajo:
 | `setupFiles` | Antes de que se instale el framework de Jest | Polyfills, variables globales, cualquier cosa que no necesite `jest`/`expect` |
 | `setupFilesAfterEnv` | Después del framework de Jest, antes de cada archivo de test | Hooks `beforeAll`/`afterEach`, ciclo de vida del servidor de MSW, matchers personalizados |
 
-La línea de `transformIgnorePatterns` es el otro gotcha: el preset de RN por defecto se salta la transformación de `node_modules`, pero MSW trae sintaxis moderna que Jest no puede correr tal cual. Agrega `msw|until-async` a la allow-list o verás `SyntaxError: Cannot use import statement outside a module` desde dentro de `node_modules/msw/`.
+La línea de `transformIgnorePatterns` es el otro gotcha: el preset de RN por defecto se salta la transformación de `node_modules`, pero MSW trae sintaxis moderna que Jest no puede correr tal cual. Agrega MSW y sus dependencias sin transpilar (`msw|until-async|rettime|@mswjs|@open-draft|@bundled-es-modules|headers-polyfill|strict-event-emitter|outvariant`) a la allow-list o verás `SyntaxError: Cannot use import statement outside a module` desde dentro de `node_modules/msw/`. Las versiones más nuevas de MSW traen más de estas; si el error nombra un paquete que todavía no está en tu lista, agrégalo al mismo grupo.
 
 ## El servidor
 
@@ -144,7 +144,7 @@ El servidor toma tus handlers por defecto (respuestas exitosas) e intercepta las
 En `jest.setup.ts` (que Jest carga vía `setupFilesAfterEnv`), inicia el servidor antes de los tests, resetéalo entre tests, ciérralo al final:
 
 ```typescript
-import '@testing-library/jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect'; // RNTL >=12.4 trae estos matchers de serie; este import es solo para RNTL más antiguas
 import { server } from './src/test-utils/msw/server';
 
 // Ciclo de vida del servidor de MSW
@@ -398,23 +398,7 @@ export function renderWithProviders(
 }
 ```
 
-Eso cubre Redux. Las apps reales suelen necesitar más: i18n, navegación, theming, contexto de toast/notificaciones. El wrapper es el lugar correcto para componerlos todos. Agrega los providers alrededor de `{children}`:
-
-```tsx
-const Wrapper = ({ children }: { children: React.ReactNode }) => (
-  <Provider store={createdStore}>
-    <I18nextProvider i18n={i18n}>
-      <ThemeProvider>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
-      </ThemeProvider>
-    </I18nextProvider>
-  </Provider>
-);
-```
-
-Si una pantalla usa `react-navigation`, envuélvela en `NavigationContainer` y un navegador en memoria para el test. El principio es el mismo: cada provider que envuelve tu app en `App.tsx` debería envolver tu componente en `renderWithProviders`. Cualquier cosa que olvides es una diferencia entre el entorno de test y el runtime, y esas diferencias son donde viven los tests flaky.
+Eso cubre Redux. Las apps reales suelen necesitar más: i18n, navegación, theming, contexto de toast. El wrapper es el lugar correcto para componerlos todos: anida cada provider alrededor de `{children}` exactamente como lo hace `App.tsx`, y envuelve las pantallas que dependen de navegación en un `NavigationContainer` con un navegador en memoria. El principio: cada provider que envuelve tu app en runtime debería envolver tu componente en `renderWithProviders`. Cualquier cosa que olvides es una diferencia entre el entorno de test y el runtime, y esas diferencias son donde viven los tests flaky.
 
 Ahora tus tests renderizan con un store real, despachan thunks reales, y MSW maneja la red:
 
@@ -495,9 +479,9 @@ Si tu handler lee el body del request vía `request.json()`, la función tiene q
 
 Un error `Response is not defined` o `TextEncoder is not defined` significa que el archivo de polyfills no está cargando. Revisa que `setupFiles: ['<rootDir>/jest.polyfills.cjs']` esté en la config de Jest, que la extensión del archivo sea `.cjs` y no `.ts`, y que el path sea correcto respecto a `rootDir`.
 
-Un `SyntaxError: Cannot use import statement outside a module` lanzado desde `node_modules/msw/` significa que MSW no se está transformando. Agrega `msw|until-async` a la allow-list dentro de `transformIgnorePatterns`.
+Un `SyntaxError: Cannot use import statement outside a module` lanzado desde `node_modules/msw/` (o desde una de sus dependencias) significa que ese paquete no se está transformando. Agrégalo a la allow-list dentro de `transformIgnorePatterns`; la config de arriba lleva el set completo para MSW 2.14.
 
-Las barras al final importan: `http.get('/api/items')` no matcheará una petición a `/api/items/`. Matchea exactamente lo que tu código envía, o usa un patrón de path como `http.get('/api/items*', ...)`.
+Los query strings no participan en el matching de paths: `http.get('/api/items')` también matchea `/api/items?page=2`, y el handler lee los parámetros de `request.url`. Si un test parece ignorar tu handler específico para una query, ese es el motivo.
 
 **Los tests pasan en local y fallan en CI** suele ser `onUnhandledRequest: 'error'` atrapando una petición que no sabías que tu código hacía en el entorno de CI, a menudo analytics o crash reporting. O agregas un handler para ella, o quitas esas llamadas en modo test.
 
@@ -529,7 +513,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 El setup lleva unos treinta minutos. Después de eso, cada test nuevo es más simple que el equivalente con mocks manuales. Escribes `server.use(...errorHandlers)` en vez de `jest.fn().mockRejectedValue(new Error('Network error'))`. Los handlers son reutilizables en cada archivo de test. Y el test ejercita comportamiento de integración real, no comportamiento de mocks.
 
-Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando añado un nuevo endpoint de API, añado handlers para él una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis. El mismo enfoque de handler sets también combina bien con [tests E2E escritos en Gherkin con Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/), donde Detox + Cucumber maneja los flujos de usuario y una capa aparte de [mocking en runtime a nivel de Metro](/blog/metro-runtime-mocking-react-native-e2e/) controla las respuestas de la API, pero esos son temas para próximos posts.
+Los 11 handler sets de mi proyecto cubren cada path de error que la app maneja. Cuando añado un nuevo endpoint de API, añado handlers para él una vez, y cada test que toca ese endpoint obtiene mocking correcto gratis. El mismo enfoque de handler sets también combina bien con tests E2E, donde [Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) maneja los flujos de usuario y una capa aparte de mocking en runtime controla las respuestas de la API.
 
 > Si escribir el próximo test es más difícil que saltártelo, tu infraestructura de test es el problema.
 

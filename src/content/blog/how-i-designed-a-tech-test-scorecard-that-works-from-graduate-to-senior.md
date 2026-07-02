@@ -108,7 +108,7 @@ The total score maps directly to a level:
 | Software Engineer | 65 to 88 |
 | Senior | 89 to 100 |
 
-The code review score isn't the whole picture. The walkthrough call adds more signal. The code review is the foundation.
+Below 20 is a reject: the submission didn't clear the baseline checks. Above that, the code review score isn't the whole picture. The walkthrough call adds more signal. The code review is the foundation.
 
 
 ## Respecting the time constraint
@@ -133,7 +133,7 @@ The stretch goals sit on top of the 100 points as bonuses: search, dark mode, ac
 
 The code review gives me a number. The walkthrough gives me context.
 
-A candidate who scores 65 on the code review might jump to 85 after the walkthrough if they can explain every trade-off, say what they'd change with more time, and navigate their codebase from memory. The number measures what they built. The conversation measures how they think.
+A candidate who scores 65 on the code review might jump to 85 after the walkthrough if they can explain every trade-off, say what they'd change with more time, and navigate their codebase from memory. It moves the other way too: a strong-looking submission that the candidate can't explain drops a band. The number measures what they built. The conversation measures how they think.
 
 I designed the walkthrough as a set of question tables. Each question has five signal descriptions, from "can't find the code" to "explains it from memory with edge cases." The interviewer ticks one row per question. No more "was that walkthrough a 3 or a 4?"
 
@@ -153,19 +153,7 @@ Separate what you can see from what you need to ask. The code review scorecard i
 Respect the time constraint. If a check would need more than 6 hours of work from a competent Software Engineer, it belongs in the upper half of the checklist, not the baseline. I kept catching myself writing baseline checks that were really Senior expectations. The question I kept asking: *"Would I expect this from someone doing this test after work on a Wednesday evening?"* If the answer was no, it moved up.
 
 
-## It's still evolving
-
-I've used this scorecard for our first round of React Native hiring. My peer EM reviewed it and adopted it for his team's hires too. That's the test of a good system: someone else can pick it up and use it without you in the room.
-
-I'm not pretending it's perfect. The bands might need recalibrating after more candidates go through. Some checks might turn out to be too easy or too hard. The stretch goals might need rebalancing.
-
-The structure is right though:
-
-- Checklists, not rubrics
-- Observable facts, not opinions
-- Ordered by investment
-- Same test for everyone
-- Different ceiling for different levels
+I've used this scorecard for our first round of React Native hiring, and my peer EM reviewed it and adopted it for his team's hires too. That's the test of a good system: someone else can pick it up and use it without you in the room. I'm not pretending it's perfect (the bands might need recalibrating after more candidates go through), but the structure holds: checklists over rubrics, observable facts over opinions, ordered by investment, same test for everyone with a different ceiling per level.
 
 If you're building a hiring process and your interviewers keep disagreeing on scores, try replacing your rubric with a checklist. You might be surprised how much agreement you get when you stop asking *"how good is this?"* and start asking *"is this here?"*
 

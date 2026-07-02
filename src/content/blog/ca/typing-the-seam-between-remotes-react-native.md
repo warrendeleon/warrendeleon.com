@@ -2,6 +2,8 @@
 title: "El paquet de contractes: una costura versionada entre remotes federats a React Native"
 description: "Un remote es construeix i es desplega pel seu compte, així que el host no pot veure el que exposa. Un paquet de contractes compartit, publicat en un registre i instal·lat per versió, dona als dos costats una sola definició. Després semver governa el que passa quan divergeixen."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "el paquet de contractes"
 tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
 locale: ca
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
@@ -303,7 +305,7 @@ declare module 'profileApp/ProfileScreen' {
 }
 ```
 
-Fes el typecheck del host i del list. Tots dos passen, cadascun contra el mateix `1.0.0` publicat. Productor i consumidor ara coincideixen en la costura a través d'un artefacte, no d'una suposició. Per ara això sembla un simple tràmit. La versió ho converteix en una cosa més.
+Fes el typecheck del host i del list (`npx tsc --noEmit`, executat dins de cada app). Tots dos passen, cadascun contra el mateix `1.0.0` publicat. Productor i consumidor ara coincideixen en la costura a través d'un artefacte, no d'una suposició. Per ara això sembla un simple tràmit. La versió ho converteix en una cosa més.
 
 ## La prova de debò: quan les versions divergeixen
 

@@ -80,18 +80,26 @@ export enum SecureStoreKey {
   ACCESS_TOKEN = 'accessToken',
   REFRESH_TOKEN = 'refreshToken',
   USER_ID = 'userId',
-  BIOMETRIC_PREFERENCE = 'biometricPreference',
   HASHED_PIN = 'hashedPIN',
   ENCRYPTION_KEY = 'encryptionKey',
 }
 
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
+// Keys the user should re-authenticate to read. Tokens stay un-gated so the
+// refresh interceptor and cold-start session check never trigger a prompt.
+const BIOMETRIC_GATED: SecureStoreKey[] = [
+  SecureStoreKey.HASHED_PIN,
+  SecureStoreKey.ENCRYPTION_KEY,
+];
+
 export const SecureStore = {
   async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
-      accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+      ...(BIOMETRIC_GATED.includes(key) && {
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+      }),
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
     return true;
@@ -125,7 +133,7 @@ export const SecureStore = {
 Four decisions in that wrapper are worth flagging:
 
 - One service per key. Keychain stores a single credential per service identifier. Using `com.warrendeleon.portfolio.accessToken` and `com.warrendeleon.portfolio.refreshToken` as separate services keeps them from overwriting each other.
-- Biometric or device passcode. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` means the user needs Face ID, Touch ID, or their device PIN to read the value. If the device has no security set up, the OS still protects the data.
+- Biometric gating is per key, not blanket. `BIOMETRY_ANY_OR_DEVICE_PASSCODE` means reading the value can surface a Face ID / Touch ID / passcode prompt, at whatever moment the read happens. Gate the keys a human should consciously unlock (the hashed PIN, the encryption key) and leave the tokens un-gated, or your background token refresh and cold-start session check will prompt the user at times that look like bugs.
 - This device only. `WHEN_UNLOCKED_THIS_DEVICE_ONLY` keeps the data off iCloud Keychain backups. Tokens shouldn't roam.
 - Typed enum keys. You can't accidentally pass a string. The compiler enforces that only token-level data goes into SecureStore.
 
@@ -233,7 +241,6 @@ const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
   whitelist: ['biometricEnabled'],
-  blacklist: ['user', 'error', 'isLoading'],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
@@ -379,6 +386,9 @@ The logout sequence is deliberate. Tier 1 and Tier 2 clear because tokens and PI
 The Axios interceptor handles token refresh in the background. It reads from and writes to SecureStore without touching the other tiers:
 
 ```typescript
+import axios from 'axios';
+import Config from 'react-native-config';
+
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
@@ -387,10 +397,13 @@ axiosInstance.interceptors.response.use(
       error.config._retry = true;
       try {
         const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-        const { data } = await axios.post('/auth/v1/token', {
-          grant_type: 'refresh_token',
-          refresh_token: refreshToken,
-        });
+        // Supabase's GoTrue wants grant_type as a query parameter, and a bare
+        // axios call needs the absolute URL (there is no baseURL here).
+        const { data } = await axios.post(
+          `${Config.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
+          { refresh_token: refreshToken },
+          { headers: { apikey: Config.SUPABASE_ANON_KEY } }
+        );
 
         // Update tokens in SecureStore
         await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
@@ -428,12 +441,15 @@ Every piece of stored data has a clear home:
 | Name | 2 (EncryptedStore) | PII. Shown on profile screens. |
 | Phone number | 2 (EncryptedStore) | PII. Shown in settings. |
 | Auth provider | 2 (EncryptedStore) | Not sensitive but related to auth session. |
+| Biometric preference | 3 (AsyncStorage via Redux Persist) | A preference, not a secret. It gates UX, not access. |
 | Theme | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 | Language | 3 (AsyncStorage) | Non-sensitive preference. Survives logout. |
 
 The rule is short: if it grants access, Tier 1. If it identifies a person, Tier 2. If it's a preference, Tier 3. The classification shapes the project layout too. Storage wrappers sit in a shared `utils/storage/` folder, and the auth flow that orchestrates them lives inside the Auth feature.
 
 ## Common pitfalls
+
+**Don't forget that iOS Keychain values survive an uninstall.** Delete the app, reinstall it, and Tier 1 still holds the old tokens while Tier 2 and Tier 3 came back empty. Your session check then restores a login the user thought they'd destroyed, with no profile data behind it. Detect first run (an AsyncStorage sentinel works, since AsyncStorage does get wiped) and clear SecureStore before reading anything from it.
 
 **Don't store tokens in Redux.** Redux state can be serialised, logged, persisted to AsyncStorage via Redux Persist, and inspected with DevTools. Even with a blacklisted auth slice, one misconfiguration exposes tokens. Keep tokens in SecureStore, full stop.
 

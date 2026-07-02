@@ -19,7 +19,7 @@ Els millors candidats, els que realment vols contractar, són els que més proba
 
 La versió clàssica de la prova també té la seva lògica. Un enunciat prescriptiu amb un stack fix et dona entregues comparables entre candidats, i les arestes en el setup filtren per resiliència. Si contractes en volum per a un rol estret, aquest senyal és útil. Per a un equip petit que contracta en diferents nivells, on dos enginyers sèniors probablement triarien llibreries de state diferents el primer dia, estàs filtrant per allò que no toca.
 
-El nostre primer candidat amb la prova antiga ho va deixar clar. Dues hores barallant-se amb versions de Ruby abans d'escriure cap línia de codi d'aplicació. Ruby del sistema massa vell. Actualització a Ruby 4, bundler trencat. Baixada a 3.3, bundler vendoritzat incompatible. Intercanvi de missatges tot el camí. Zero línies de codi al final.
+El nostre primer candidat amb la prova antiga ho va deixar clar. Dues hores barallant-se amb versions de Ruby abans d'escriure cap línia de codi d'aplicació. El Ruby equivocat a cada pas: el Ruby del sistema massa vell, el Ruby de brew massa nou per al bundler vendoritzat. Intercanvi de missatges tot el camí. Zero línies de codi al final.
 
 Les preguntes estaven bé. L'experiència de desenvolupament era el problema.
 
@@ -53,12 +53,14 @@ La millora més gran va ser un `setup.sh` que s'encarrega de tot.
 
 Una sola comanda. El que fa:
 
-- Comprova la versió de Node (instal·la via nvm si cal)
+- Comprova la versió de Node (ofereix instal·lar-la via nvm)
 - Comprova la versió de Ruby (suporta rbenv, rvm i asdf)
 - Comprova les Xcode CLI tools i CocoaPods
 - Executa `yarn install`
 - Executa `bundle install` i `pod install`
 - Et diu exactament què has d'arreglar si alguna cosa va malament
+
+Una advertència honesta: aquest flux assumeix un Mac, perquè el brief demana una execució a iOS. Un candidat que no en tingui necessita el camí d'Android ben detallat, així que el README documenta `yarn android` com a alternativa de primera classe i cap requisit menciona un simulador pel nom.
 
 La decisió de disseny clau: l'script pregunta abans d'instal·lar res. Detecta el que el candidat ja té i treballa amb allò. Qui fa servir rbenv rep rbenv. Qui fa servir rvm rep rvm. El seu entorn es respecta, no se sobreescriu.
 
@@ -176,4 +178,4 @@ L'estructura està bé igualment. Script de setup. Projecte starter. Brief clar.
 
 Si estàs dissenyant una prova tècnica i els candidats segueixen abandonant, no miris les preguntes primer. Mira l'experiència de desenvolupament. **La millor prova tècnica és una on el candidat passa el 100% del seu temps en allò que realment estàs avaluant, i el 0% en tot el resta.**
 
-*Aquest és l'últim post d'una sèrie sobre construir un procés de contractació des de zero. Els posts anteriors cobreixen [per què vaig redissenyar la prova](/ca/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [consells per a candidats que la fan](/ca/blog/how-to-pass-a-react-native-tech-test/) i [com funciona la puntuació](/ca/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*
+*Aquest és l'últim dels posts sobre la prova take-home d'una sèrie sobre construir un procés de contractació des de zero. Els posts anteriors cobreixen [per què vaig redissenyar la prova](/ca/blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/), [consells per a candidats que la fan](/ca/blog/how-to-pass-a-react-native-tech-test/) i [com funciona la puntuació](/ca/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/).*

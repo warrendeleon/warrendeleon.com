@@ -49,7 +49,7 @@ L'objectiu era deixar de barallar-me amb l'eina durant l'entrevista. Tres coses 
 
 ## El bug que puntuava tot igual
 
-L'stack és React 19, TypeScript, Vite i Tailwind v4. Sense llibreria de gestió d'estat. Un hook personalitzat `useLocalStorage` i React Router.
+L'stack era React 19, TypeScript, Vite i Tailwind v4. La primera versió no tenia llibreria de gestió d'estat: un hook personalitzat `useLocalStorage` i React Router.
 
 Durant les proves, vaig puntuar el walkthrough d'un candidat de principi a fi. Cada secció, cada pregunta, notes completes. Vaig prémer "Següent" per arribar a la pantalla de resum i vaig veure que totes les seccions tenien la mateixa puntuació: la que havia introduït a l'últim pas.
 
@@ -65,7 +65,7 @@ function freshCandidate(id: string): Candidate | undefined {
 }
 ```
 
-El mateix patró es repeteix en tres hooks: `useWalkthrough`, `useBehavioural` i `useCodeReview`. Cadascun llegeix fresc, escriu fresc, i dispara un esdeveniment personalitzat (`ls-sync`) perquè les altres instàncies del hook detectin el canvi. Vint línies de codi de persistència. Sense Redux, sense context providers, sense middleware.
+El mateix patró es repeteix en tres hooks: `useWalkthrough`, `useBehavioural` i `useCodeReview`. Cadascun llegeix fresc, escriu fresc, i dispara un esdeveniment personalitzat (`ls-sync`) perquè les altres instàncies del hook detectin el canvi. Vint línies de codi de persistència. Sense Redux, sense context providers, sense middleware. Aquelles vint línies van fer anar les primeres entrevistes reals; el store es va formalitzar més tard amb Redux Toolkit a mesura que l'app creixia, però això és un altre post.
 
 ## El PDF que ningú em veu construir
 
@@ -73,7 +73,7 @@ Després de l'entrevista, premo "Imprimir / PDF" i el navegador genera un Candid
 
 La pàgina 1 és el resum: una taula de puntuacions, el nivell recomanat, la decisió de contractar o no, i el nivell de l'oferta. Les pàgines 2 i 3 mostren fortaleses i àrees de millora extretes de les tres avaluacions, agrupades per origen. Després, quatre apèndixs: desglossament de la revisió de codi, puntuacions del walkthrough amb cada pregunta i nota, puntuacions conductuals per valor, i una taula de referència dels nivells amb el del candidat ressaltat en blau marí.
 
-Aquesta taula de nivells mapeja la puntuació combinada a un dels 12 graons: des de Graduate 1 fins a Senior 2+. El graó **2+** és deliberadament difícil d'assolir. Marca algú al cim de la seva categoria, empenyent cap a la següent. Quan un membre del comitè veu "Associate 2+" al PDF, la lectura és immediata: Associate fort, no del tot SE. Aquesta sola etiqueta porta més senyal que un paràgraf de justificació.
+Aquesta taula de nivells mapeja la puntuació combinada a un dels 12 graons: des de Graduate 1 fins a Senior 2+. (Els quatre nivells del [post del scorecard](/ca/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) es van subdividir en tres graons cadascun quan els candidats reals van començar a caure entremig.) El graó **2+** és deliberadament difícil d'assolir. Marca algú al cim de la seva categoria, empenyent cap a la següent. Quan un membre del comitè veu "Associate 2+" al PDF, la lectura és immediata: Associate fort, no del tot SE. Aquesta sola etiqueta porta més senyal que un paràgraf de justificació.
 
 El filtre conductual afegeix un segon control. Un candidat que puntuï per sota de 10/25 en valors no avança, independentment de la seva puntuació tècnica. Entre 10 i 14 dispara una discussió del comitè. 15 o més passa el filtre. Les habilitats tècniques es poden ensenyar. Els desajustos de valors creen problemes que creixen amb el temps.
 

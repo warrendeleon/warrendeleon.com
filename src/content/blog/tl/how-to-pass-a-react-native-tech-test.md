@@ -69,7 +69,7 @@ Hindi sapat ang paggamit lang ng TypeScript. Ang gamitin ito nang maayos ang bar
 
 Ang isang `any` na patatawarin ko: isang third-party library type na aabutin ng isang oras para i-model nang maayos. Aminin mo ito sa isang comment. `// TODO: i-type ito nang maayos, naubusan ng oras` ay mas mabasa kaysa magkunwaring wala itong problema.
 
-Red flag: `any` na nakakalat sa buong codebase na walang acknowledgment.
+Red flag: `any` na nakakalat sa buong codebase na walang acknowledgement.
 
 ## State management: pumili ka at panindigan mo
 
@@ -85,12 +85,17 @@ Kung pipiliin mo ang Redux, gamitin mo ang Redux Toolkit. Hindi yung lumang `swi
 
 Ang talagang mahalaga:
 
-- ✅ State logic na hiwalay sa UI
-- ✅ Actions, reducers, at selectors sa sarili nilang files
-- ✅ Business rules (tulad ng max party size) na enforced sa state layer
-- ✅ Predictable ang mga updates
-- ❌ Business logic na nakatira sa loob ng mga components
-- ❌ State na nakakalat sa mga `useState` calls na walang malinaw na pattern
+Gawin:
+
+- State logic na hiwalay sa UI
+- Actions, reducers, at selectors sa sarili nilang files
+- Business rules (tulad ng max list size) na enforced sa state layer
+- Predictable ang mga updates
+
+Huwag:
+
+- Business logic na nakatira sa loob ng mga components
+- State na nakakalat sa mga `useState` calls na walang malinaw na pattern
 
 Huwag mag-dispatch ng fetch tuwing magmo-mount ang screen. Kung nag-navigate ako sa detail screen, bumalik, at bumalik sa parehong detail screen, hindi ko dapat makitang loading spinner ulit. Isang simpleng `if (!data[id])` check bago ang `dispatch(fetchDetails(id))` mo ay sapat na.
 
@@ -109,9 +114,9 @@ Ang gusto kong makita:
 
 Ang ayaw kong makita:
 
-- ❌ Snapshot tests sa lahat ng dako. Nasisira sa bawat UI change at walang pinapatunayan tungkol sa behaviour.
-- ❌ Tests na mino-mock ang lahat. Kung nimo-mock ng test mo ang function na tini-test nito, tini-test nito ang mock.
-- ❌ Walang tests. Mahirap mag-recover dito sa walkthrough.
+- Snapshot tests sa lahat ng dako. Nasisira sa bawat UI change at walang pinapatunayan tungkol sa behaviour.
+- Tests na mino-mock ang lahat. Kung nimo-mock ng test mo ang function na tini-test nito, tini-test nito ang mock.
+- Walang tests. Mahirap mag-recover dito sa walkthrough.
 
 Mag-aim ng 5 hanggang 10 focused tests na nagco-cover ng critical paths. Reducers, selectors, key interactions. Sapat na iyon.
 
@@ -129,15 +134,15 @@ Red flag: nag-crash ang app sa mabagal na network. Walang loading state, walang 
 
 ## Mahalaga ang API call
 
-**GraphQL vs REST.** Kung pareho ang ini-offer ng brief, mas malakas na option ang GraphQL. Nagpapakita na kaya mong magtrabaho sa current API patterns. Ang well-implemented na REST client ay nananalo laban sa magulo na GraphQL setup.
+**GraphQL vs REST.** Kung pareho ang ini-offer ng brief, execution ang una: ang well-implemented na REST client ay nananalo laban sa magulong GraphQL setup. Pero ang GraphQL na ginawa nang maayos ay mas mataas ang score sa rubric namin, kaya kung pareho kang komportable sa dalawa, ito ang mas malakas na pili. Maging handa kang i-explain kung bakit, alinman ang piliin mo.
 
 **Gamitin ang FlatList o FlashList. Huwag kailanman ScrollView para sa mga lista.** Nire-render ng `ScrollView` ang lahat ng items nang sabay-sabay. Sa mahigit 100 items, makikita mo ang frame drops, memory spikes, at eventual crashes. Vine-virtualise ng `FlatList` ang list, nire-render lang ang nasa screen. Ang `ScrollView` na nagba-wrap ng `.map()` sa isang data list ay nagsu-suggest ng gap sa pag-unawa ng rendering model ng RN.
 
 Ibang mga bagay na napapansin:
 
-- ✅ Caching: huwag mag-refetch ng data na meron ka na
-- ✅ Pagination: huwag mag-fetch ng 1000 items sa unang load
-- ✅ ErrorBoundary: nag-catch ng JavaScript errors at nagpapakita ng fallback sa halip na puting screen
+- Caching: huwag mag-refetch ng data na meron ka na
+- Pagination: huwag mag-fetch ng 1000 items sa unang load
+- ErrorBoundary: nag-catch ng JavaScript errors at nagpapakita ng fallback sa halip na puting screen
 
 ## Sa edge cases ka mag-sta-stand out
 

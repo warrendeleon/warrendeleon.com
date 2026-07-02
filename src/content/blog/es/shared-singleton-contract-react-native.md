@@ -2,6 +2,8 @@
 title: "El contrato de singletons compartidos en React Native Module Federation"
 description: "Comparte react, react-native y una librería nativa entre un host y su remote de la forma correcta, y descubre por qué hacerlo mal hace que la app falle al arrancar en lugar de romperse en silencio."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "the shared-singleton contract"
 tags: ["react-native", "module-federation", "re-pack", "rspack", "tutorial"]
 locale: es
 heroImage: "/images/blog/shared-singleton-contract-react-native.webp"
@@ -175,6 +177,8 @@ Uncaught Error: Tried to register two views with the same name RNCSafeAreaProvid
 </div>
 
 Y aquí está el porqué es ruidoso y no silencioso. `react-native-safe-area-context` no es JavaScript puro. Trae una vista nativa, `RNCSafeAreaProvider`, que registra en el registro de vistas de React Native al arrancar. La copia del host la registra una vez. Cuando el remote suelta el share, empaqueta su propia copia, y esa copia intenta registrar el mismo nombre nativo una segunda vez. React Native mantiene un único registro por app y rechaza el duplicado. El crash salta antes de que un solo Pokémon llegue a la pantalla.
+
+<div id="crash-flow"></div>
 
 ```mermaid
 flowchart TB

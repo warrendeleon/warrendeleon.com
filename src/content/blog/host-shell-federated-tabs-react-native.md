@@ -3,6 +3,8 @@ title: "The host shell: federated remotes as tabs in React Native"
 description: "Turn the host from a single screen into a real app shell. It owns the tab bar and navigation; each tab is a separate remote, built and shipped on its own, loaded at runtime."
 publishDate: 2026-06-22
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "the host shell"
 tags: ["react-native", "module-federation", "re-pack", "rspack", "navigation", "tutorial"]
 locale: en
 draft: false
@@ -19,6 +21,8 @@ relatedPosts: ["shared-singleton-contract-react-native", "your-first-federated-r
 So far the host has loaded one screen from one remote. A real app is more than a screen: it has a shell, a tab bar, somewhere to put the features. This post makes the host that shell. It owns the navigation and the tab bar, and each tab is a separate remote, built and deployed on its own, loaded at runtime.
 
 The shape we're building, before any code: the host owns the tab bar, and each tab is a separate remote app, fetched and run at runtime the first time you open it.
+
+<div id="tab-architecture"></div>
 
 ```mermaid
 flowchart TB
@@ -44,7 +48,7 @@ git checkout post-03-shared-singleton
 
 ## A second remote to fill a second tab
 
-One tab is not a tab bar. So we add a second remote, `profile`, the same way post 2 built the `list` remote: a fresh React Native app on Re.Pack, with no `AppRegistry.registerComponent`, exposing one screen. Create it next to the others and install its dependencies exactly as you did for `list`.
+One tab is not a tab bar. So we add a second remote, `profile`, the same way post 2 built the `list` remote: a fresh React Native app on Re.Pack, with no `AppRegistry.registerComponent`, exposing one screen. Create it next to the others, install its dependencies exactly as you did for `list`, and copy `list`'s `rspack.config.mjs` across. Four fields change, and all four matter: the plugin `name` (`profileApp`), the container `filename` (`profileApp.container.js.bundle`), the exposed screen (`./ProfileScreen`), and `output.uniqueName` (`'ProfileApp'`). That last one is the easy one to miss: `uniqueName` scopes webpack's chunk-loading globals, so two remotes shipping the same value collide inside the host's runtime in exactly the way this series keeps warning about.
 
 The screen it exposes, `apps/profile/src/ProfileScreen.tsx`. It reads the safe-area inset from the host's provider, the same shared singleton from post 3:
 
@@ -93,7 +97,7 @@ Its container entry, `apps/profile/src/index.js`, stays empty, because a remote 
 export {};
 ```
 
-Its `apps/profile/rspack.config.mjs` is the `list` config with a different name, exposed screen, and the same shared singletons:
+Its `apps/profile/rspack.config.mjs` keeps the same shared singletons; the federation block after the four changes:
 
 ```js
 new Repack.plugins.ModuleFederationPluginV2({

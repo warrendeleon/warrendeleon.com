@@ -62,7 +62,7 @@ This walkthrough is written against:
 - React Native 0.74+ (bare workflow, not Expo)
 - TypeScript with the standard RN Babel config
 - macOS host (iOS simulator and Android emulator)
-- Xcode 15+ with Command Line Tools, plus an iOS simulator created (e.g. iPhone 17 Pro)
+- Xcode 16+ with Command Line Tools, plus an iOS simulator created (e.g. iPhone 16)
 - Android Studio with at least one AVD created (e.g. Pixel 7 API 35)
 - Node 18 or later
 
@@ -88,24 +88,20 @@ brew tap wix/brew
 brew install applesimutils
 ```
 
-`applesimutils` is what Detox uses to drive the iOS simulator. For Android, you need a working emulator with USB debugging on. Detox's CLI is invoked via `npx detox`, so no global install is needed.
+`applesimutils` is what Detox uses to drive the iOS simulator. For Android, you need a working emulator. Detox's CLI is invoked via `npx detox`, so no global install is needed.
 
 ## Step 2. The three config files
 
-Three files wire everything together: `.detoxrc.js` (or `detox.config.js`. Detox accepts both), `.cucumber.js`, and a slim `tsconfig.cucumber.json`.
+Three files wire everything together: `.detoxrc.js` (or `detox.config.js`. Detox accepts both), `cucumber.js`, and a slim `tsconfig.cucumber.json`. The Cucumber config must be named `cucumber.js` (or `.cjs`/`.mjs`/`.json`): that's the filename cucumber-js loads by default, and nothing in this setup passes an explicit `--config`.
 
 ### .detoxrc.js
 
 The Detox configuration defines your app builds and device targets:
 
+One thing `.detoxrc.js` does NOT do here: connect Detox to Cucumber. When Cucumber is the runner, you invoke `cucumber-js` directly and Detox's own `testRunner` config is never consulted; the support file in step 3 is the only bridge. `.detoxrc.js` just describes apps and devices:
+
 ```typescript
 module.exports = {
-  testRunner: {
-    args: {
-      config: '.cucumber.js',
-    },
-    forwardEnv: true,
-  },
   apps: {
     'ios.debug': {
       type: 'ios.app',
@@ -121,7 +117,7 @@ module.exports = {
   devices: {
     simulator: {
       type: 'ios.simulator',
-      device: { type: 'iPhone 17 Pro' },
+      device: { type: 'iPhone 16' },
     },
     emulator: {
       type: 'android.emulator',
@@ -141,7 +137,7 @@ module.exports = {
 };
 ```
 
-### .cucumber.js
+### cucumber.js
 
 The Cucumber configuration says where feature files live, where step definitions live, and how to format output:
 
@@ -153,7 +149,7 @@ require('ts-node').register({
 
 module.exports = {
   default: {
-    paths: ['src/features/**/__tests__/*.feature'],
+    paths: ['src/features/**/__tests__/*.feature', 'e2e/**/*.feature'],
     require: [
       'src/test-utils/cucumber/support/**/*.ts',
       'src/test-utils/cucumber/step-definitions/**/*.{ts,tsx}',
@@ -365,14 +361,14 @@ Feature: VoiceOver Gestures
 Then in your test command:
 
 ```bash
-yarn detox test --tags "@accessibility and @ios"
+yarn detox:ios:test --tags "@accessibility and @ios"
 ```
 
 ## Step 5. Writing step definitions
 
 Each Gherkin step maps to a function. The step definitions are the bits you'll reuse across every feature file once they exist.
 
-A note on Detox globals before we go further. `device`, `element`, `by`, and `waitFor` are exposed as globals at runtime, but TypeScript needs to be told they exist. Add `"types": ["detox", "node"]` to your `tsconfig.cucumber.json` (we did this in step 2), or import them explicitly with `import { device, element, by, waitFor } from 'detox'`. Skip both and every step definition shows red squigglies on `device.launchApp`.
+A note on Detox globals before we go further: `device`, `element`, `by`, and `waitFor` exist at compile time because step 2's `tsconfig.cucumber.json` declared them (`"types": ["detox", "node"]`). Skip that and every step definition shows red squigglies on `device.launchApp`.
 
 ### Common steps
 
@@ -381,7 +377,7 @@ import { Given, When, Then } from '@cucumber/cucumber';
 
 Given('the app is launched', async function () {
   await device.terminateApp();
-  await device.clearKeychain();
+  await device.clearKeychain(); // iOS only: a silent no-op on Android
   await device.launchApp({ newInstance: true });
   await new Promise(r => setTimeout(r, 500));
 });
@@ -424,7 +420,7 @@ Then('I should see text {string}', async function (text: string) {
 
 Three patterns to lock in here. First, a consistent testID convention: screen names become kebab-case with a `-screen` or `-button` suffix. "Login" maps to `login-screen`, "Home" to `home-screen`, "Submit" to `submit-button`. Second, every assertion goes through `waitFor` with a timeout, not raw `expect`. Animations and network calls need settling time and `expect` doesn't give it to them. Third, `replaceText` over `typeText`. `typeText` appends to whatever's already there. `replaceText` clears first. For form inputs you want the second.
 
-Save the file as `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` and Cucumber picks it up via the glob in your `.cucumber.js`.
+Save the file as `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` and Cucumber picks it up via the glob in your `cucumber.js`.
 
 ### Element finding strategies
 
@@ -446,6 +442,10 @@ When('I tap the text {string}', async function (text: string) {
 ```
 
 Try `by.text()` first (visible text), fall back to `by.label()` (accessibility label), then `by.id()` (testID). This handles buttons that render text differently across platforms.
+
+## What the app talks to during these tests
+
+The scenarios above type credentials and expect a Home screen, which raises the question every E2E setup has to answer: what backend is the app hitting? Run it against a real one and your suite fails whenever staging hiccups. The deterministic answer is to mock at the bundle level with an E2E build flag, which is its own post: [Metro runtime mocking for deterministic React Native E2E tests](/blog/metro-runtime-mocking-react-native-e2e/). Until you have that layer, point the E2E build at a stable test environment and treat network flakes as suite failures, not test failures.
 
 ## A custom formatter
 
@@ -471,38 +471,7 @@ Cucumber's default output is noisy. A custom formatter gives you clean results t
 12 steps (11 passed, 1 failed)
 ```
 
-The formatter is a class that listens to Cucumber events:
-
-```javascript
-const { Formatter } = require('@cucumber/cucumber');
-
-class CheckmarkFormatter extends Formatter {
-  constructor(options) {
-    super(options);
-
-    options.eventBroadcaster.on('envelope', (envelope) => {
-      if (envelope.testStepFinished) {
-        this.onTestStepFinished(envelope.testStepFinished);
-      }
-      if (envelope.testCaseFinished) {
-        this.onTestCaseFinished(envelope.testCaseFinished);
-      }
-    });
-  }
-
-  onTestStepFinished(event) {
-    const { testStepResult } = event;
-    const icon = testStepResult.status === 'PASSED' ? '✓' :
-                 testStepResult.status === 'FAILED' ? '✗' :
-                 testStepResult.status === 'SKIPPED' ? '○' : '?';
-    const color = testStepResult.status === 'PASSED' ? '\x1b[32m' :
-                  testStepResult.status === 'FAILED' ? '\x1b[31m' : '\x1b[33m';
-    this.log(`${color}  ${icon}\x1b[0m ${this.getStepText(event)}\n`);
-  }
-}
-
-module.exports = CheckmarkFormatter;
-```
+The formatter is a small class that subscribes to Cucumber's `envelope` events (`testStepFinished`, `testCaseFinished`), maps each step's status to an icon and colour, and prints the line. About 80 lines all in.
 
 The full version in my repo tracks pickles, maps test steps back to their Gherkin text, times each step, and prints a summary with pass and fail counts. The sketch above is the shape; the full file is `src/test-utils/cucumber/formatters/CheckmarkFormatter.js` in the repo linked at the end.
 
@@ -582,7 +551,7 @@ The scripts I use sit in `package.json` like this:
   "scripts": {
     "detox:ios:build": "detox build -c ios.sim.debug",
     "detox:ios:test": "DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js",
-    "detox:ios:test:parallel": "DETOX_WORKERS=2 yarn detox:ios:test --parallel 2 --retry 1",
+    "detox:ios:test:parallel": "yarn detox:ios:test --parallel ${DETOX_WORKERS:-2} --retry 1",
     "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test"
   }
 }
@@ -610,7 +579,7 @@ $ cucumber-js
 12 steps (12 passed)
 ```
 
-If `xcodebuild` fails on the first run, check that the simulator named in `.detoxrc.js` actually exists (`xcrun simctl list devices`). The most common first-run trip is a hard-coded `iPhone 17 Pro` that you never created in Xcode.
+If `xcodebuild` fails on the first run, check that the simulator named in `.detoxrc.js` actually exists (`xcrun simctl list devices`). The most common first-run trip is a hard-coded `iPhone 16` that you never created in Xcode.
 
 ## Common pitfalls
 

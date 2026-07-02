@@ -18,9 +18,9 @@ The short version: below roughly five features with their own state, type-first 
 
 ## 85 files for one feature
 
-That's how many TypeScript files my Auth feature has. Six screens, a Redux store, a React context, a custom hook, PIN components with Storybook stories, form validation schemas against a **common password blacklist**, rate limiting, a lockout service, and tests at every level.
+That's how many TypeScript files my Auth feature has. Six screens, a Redux store, a React context, a custom hook, PIN components with Storybook stories, form validation schemas against a common password blacklist, rate limiting, a lockout service, and tests at every level.
 
-In most React Native projects, those 85 files would be scattered across **seven different folders**. Screens in one place, hooks in another, the store slice somewhere else, validation in yet another. To understand how authentication works, you'd open seven folders and mentally reconstruct the relationships between files that sit nowhere near each other.
+In most React Native projects, those 85 files would be scattered across seven different folders. Screens in one place, hooks in another, the store slice somewhere else, validation in yet another. To understand how authentication works, you'd open seven folders and mentally reconstruct the relationships between files that sit nowhere near each other.
 
 That layout looks tidy at three or four screens. Past that, the relationships go invisible. The hook for a feature lives nowhere near the screen that uses it. The validation rules sit in a separate folder from the form they validate. Reviewing a feature means scanning multiple alphabetised lists looking for the pieces.
 
@@ -53,7 +53,7 @@ Files grouped by kind. **Type-first.** Most React Native tutorials lay things ou
 
 The shape holds while the app is small. Then you add authentication with PIN setup, email verification, password recovery. You add profile management with picture uploads, account editing, password changes. Suddenly `screens/` has 25 files, and finding the hook that belongs to the profile picture upload means scanning an alphabetical list of *every hook in the app*.
 
-Now try to **delete a feature**. Remove the screen from `screens/`. Find its hook in `hooks/`. Its service in `services/`. Its store slice. Its components. Its validation schema. Its tests, sitting in a separate `__tests__/` tree. Miss one file and you've got dead code that'll sit there for months.
+Now try to delete a feature. Remove the screen from `screens/`. Find its hook in `hooks/`. Its service in `services/`. Its store slice. Its components. Its validation schema. Its tests, sitting in a separate `__tests__/` tree. Miss one file and you've got dead code that'll sit there for months.
 
 That's the test. If removing a feature takes longer than building one, the structure is working against you.
 
@@ -80,7 +80,7 @@ src/features/
 
 Everything else sits outside features: `shared/` for reusable components and hooks, `store/` for the Redux config, `navigation/`, `httpClients/`, `utils/`, `i18n/`.
 
-The simplest feature is two files. The most complex is 85. **Each one only has the folders it actually needs.** No empty `services/` directory because a template said it should be there.
+The simplest feature is two files. The most complex is 85. Each one only has the folders it actually needs. No empty `services/` directory because a template said it should be there.
 
 ## What 85 files look like when they're co-located
 
@@ -106,6 +106,7 @@ src/features/Auth/
 ├── store/
 │   ├── __tests__/
 │   ├── actions.ts
+│   ├── index.ts
 │   ├── reducer.ts
 │   └── selectors.ts
 ├── utils/
@@ -139,7 +140,7 @@ The acid test from earlier. What does it actually look like for each layout?
 
 **Type-first:** delete files from `screens/`, `components/`, `hooks/`, `services/`, `store/`, `utils/`, `validation/`, and `__tests__/`. Miss a file and you've got an orphan. Miss an import and the app crashes at boot.
 
-**Feature-first:** delete `src/features/Auth/`, remove `authReducer` from the store config, remove the navigation routes. **Three steps.** The compiler tells me if I missed a reference.
+**Feature-first:** delete `src/features/Auth/`, remove `authReducer` from the store config, remove the navigation routes. Three steps. The compiler tells me if I missed a reference.
 
 I've done this. Removing a feature that touched 40+ files took less than a minute. Most of that minute was the navigation config.
 
@@ -206,9 +207,9 @@ Break the no-cross-import rule once and you'll end up with circular dependencies
 
 ## Shared code earns its place
 
-If a component is used by **one feature**, it stays in that feature. If two or more features need it, it moves to `src/shared/`. The bar is high.
+If a component is used by one feature, it stays in that feature. If two or more features need it, it moves to `src/shared/`. The bar is high.
 
-Every shared abstraction is a **coupling point**. The moment `AlertBox` lives in `shared/`, five features depend on its interface. Changing it means checking all five. I'd rather duplicate three lines in two features than create a shared utility that makes both harder to change on their own.
+Every shared abstraction is a coupling point. The moment `AlertBox` lives in `shared/`, five features depend on its interface. Changing it means checking all five. I'd rather duplicate three lines in two features than create a shared utility that makes both harder to change on their own.
 
 The hooks that end up in `shared/` are the genuinely cross-cutting ones: `useAppColorScheme`, `useHapticFeedback`, `useReducedMotion`, `useCameraPermission`, `usePhotoLibraryPermission`. Things any screen might need. Not things that *two screens* happen to need right now.
 
@@ -216,7 +217,7 @@ The hooks that end up in `shared/` are the genuinely cross-cutting ones: `useApp
 
 Tests live next to the code they test. Auth store tests are in `Auth/store/__tests__/`. Auth validation tests are in `Auth/validation/__tests__/`. No separate test tree at the project root.
 
-The one exception: **cross-feature integration tests**. Login flowing into profile loading. Settings changes propagating to the UI. Background tasks running across features. These span multiple features, so they sit in `src/features/__tests__/`, outside any single feature.
+The one exception: cross-feature integration tests. Login flowing into profile loading. Settings changes propagating to the UI. Background tasks running across features. These span multiple features, so they sit in `src/features/__tests__/`, outside any single feature.
 
 ```
 src/features/__tests__/
@@ -233,7 +234,7 @@ When a test breaks, the location tells me where to look. If it's in `Auth/store/
 
 If your app has three screens and no state management, *don't do this*. A flat list of screens and a couple of shared hooks is fine. Feature-first adds overhead that small projects don't need.
 
-The crossover sits around **five features with their own state**. Below that, the structure costs more than it saves. Above that, type-first becomes the thing slowing you down.
+The crossover sits around five features with their own state. Below that, the structure costs more than it saves. Above that, type-first becomes the thing slowing you down.
 
 Open your `screens/` folder right now. Count the files. If you can't tell which ones belong together just by looking at the list, the structure has already stopped helping you.
 
@@ -290,7 +291,7 @@ export default [
       'no-restricted-imports': ['error', {
         patterns: [
           {
-            group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+            group: ['@app/features/*/*', '@app/features/*/*/**'],
             message: 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
           },
         ],
@@ -305,8 +306,10 @@ export default [
 ];
 ```
 
-The pattern blocks any import that reaches into another feature's internals. Within a feature you use relative imports (`./store`, `../components`), which never match the alias pattern, so a feature can always reach its own code. The one exemption is tests, which often need to reach inside a feature to set up state.
+The first pattern blocks anything one level inside a feature (`@app/features/Auth/store`), the second anything deeper; the bare `@app/features/Auth` index import matches neither, so the public surface stays open. One trap worth knowing: these patterns use gitignore-style matching, not extglob, so a tempting `!(index)` exclusion silently matches nothing. Within a feature you use relative imports (`./store`, `../components`), which never match the alias pattern, so a feature can always reach its own code. The one exemption is tests, which often need to reach inside a feature to set up state.
 
 That's it. Path aliases, one ESLint rule, and the discipline to keep each feature's internals private. The architecture survives because the tooling enforces what the convention asks for.
 
 The full project source is at [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).
+
+And if you want the one-line version of this whole post: open your `screens/` folder, count the files, and ask how long deleting one feature would take you today.

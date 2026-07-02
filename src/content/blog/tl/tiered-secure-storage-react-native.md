@@ -71,18 +71,27 @@ export enum SecureStoreKey {
   ACCESS_TOKEN = 'accessToken',
   REFRESH_TOKEN = 'refreshToken',
   USER_ID = 'userId',
-  BIOMETRIC_PREFERENCE = 'biometricPreference',
   HASHED_PIN = 'hashedPIN',
   ENCRYPTION_KEY = 'encryptionKey',
 }
 
 const SERVICE_PREFIX = 'com.warrendeleon.portfolio';
 
+// Mga key na dapat i-re-authenticate ng user para mabasa. Nananatiling un-gated ang
+// tokens para hindi kailanman mag-trigger ng prompt ang refresh interceptor at
+// cold-start session check.
+const BIOMETRIC_GATED: SecureStoreKey[] = [
+  SecureStoreKey.HASHED_PIN,
+  SecureStoreKey.ENCRYPTION_KEY,
+];
+
 export const SecureStore = {
   async set(key: SecureStoreKey, value: string): Promise<boolean> {
     await Keychain.setGenericPassword(key, value, {
       service: `${SERVICE_PREFIX}.${key}`,
-      accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+      ...(BIOMETRIC_GATED.includes(key) && {
+        accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
+      }),
       accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
     });
     return true;
@@ -116,7 +125,7 @@ export const SecureStore = {
 Apat na desisyon sa wrapper na iyan ang dapat banggitin:
 
 - Isang service bawat key. Iisang credential lang ang nasi-store ng Keychain bawat service identifier. Ang paggamit ng `com.warrendeleon.portfolio.accessToken` at `com.warrendeleon.portfolio.refreshToken` bilang magkahiwalay na services ang pumipigil sa pag-overwrite sa isa't isa.
-- Biometric o device passcode. Ang `BIOMETRY_ANY_OR_DEVICE_PASSCODE` ay nangangahulugang kailangan ng user ang Face ID, Touch ID, o device PIN para mabasa ang value. Kung walang security na naka-setup sa device, protektado pa rin ng OS ang data.
+- Biometric gating na per key, hindi blanket. Ang `BIOMETRY_ANY_OR_DEVICE_PASSCODE` ay nangangahulugang ang pagbasa ng value ay puwedeng magpalabas ng Face ID / Touch ID / passcode prompt, sa kung anong sandali man mangyari ang read. I-gate ang mga key na dapat sadyang i-unlock ng tao (ang hashed PIN, ang encryption key) at iwanang un-gated ang tokens, o magpo-prompt sa user ang iyong background token refresh at cold-start session check sa mga sandaling mukhang bugs.
 - Sa device na ito lamang. Pinapanatili ng `WHEN_UNLOCKED_THIS_DEVICE_ONLY` na hindi pumapasok ang data sa iCloud Keychain backups. Hindi dapat gumagala ang tokens.
 - Typed enum keys. Hindi ka puwedeng mag-pass ng raw string nang hindi sinasadya. Ine-enforce ng compiler na token-level data lang ang pumapasok sa SecureStore.
 
@@ -224,7 +233,6 @@ const authPersistConfig = {
   key: 'auth',
   storage: AsyncStorage,
   whitelist: ['biometricEnabled'],
-  blacklist: ['user', 'error', 'isLoading'],
 };
 
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
@@ -370,6 +378,9 @@ Sinadya ang logout sequence. Kini-clear ang Tier 1 at Tier 2 dahil ang tokens at
 Ang Axios interceptor ang nagha-handle ng [awtomatikong token refresh](/blog/token-refresh-race-condition-react-native/) nang transparent. Nagbabasa at nagsusulat ito sa SecureStore nang hindi ginagalaw ang ibang tiers:
 
 ```typescript
+import axios from 'axios';
+import Config from 'react-native-config';
+
 axiosInstance.interceptors.response.use(
   response => response,
   async error => {
@@ -378,10 +389,13 @@ axiosInstance.interceptors.response.use(
       error.config._retry = true;
       try {
         const refreshToken = await SecureStore.get(SecureStoreKey.REFRESH_TOKEN);
-        const { data } = await axios.post('/auth/v1/token', {
-          grant_type: 'refresh_token',
-          refresh_token: refreshToken,
-        });
+        // Gusto ng GoTrue ng Supabase ang grant_type bilang query parameter, at ang
+        // bare na axios call ay nangangailangan ng absolute URL (walang baseURL dito).
+        const { data } = await axios.post(
+          `${Config.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
+          { refresh_token: refreshToken },
+          { headers: { apikey: Config.SUPABASE_ANON_KEY } }
+        );
 
         // I-update ang tokens sa SecureStore
         await SecureStore.set(SecureStoreKey.ACCESS_TOKEN, data.access_token);
@@ -417,12 +431,15 @@ Bawat piraso ng naka-store na data ay may malinaw na lugar:
 | Pangalan | 2 (EncryptedStore) | PII. Ipinapakita sa profile screens. |
 | Phone number | 2 (EncryptedStore) | PII. Ipinapakita sa settings. |
 | Auth provider | 2 (EncryptedStore) | Hindi sensitive pero konektado sa auth session. |
+| Biometric preference | 3 (AsyncStorage sa pamamagitan ng Redux Persist) | Isang preference, hindi sikreto. UX ang ginagate nito, hindi access. |
 | Theme | 3 (AsyncStorage) | Hindi sensitive na preference. Nananatili pagkatapos mag-logout. |
 | Language | 3 (AsyncStorage) | Hindi sensitive na preference. Nananatili pagkatapos mag-logout. |
 
 Simple lang ang patakaran: kung nagbibigay ito ng access, Tier 1. Kung nagpapakilala ito ng tao, Tier 2. Kung preference lang, Tier 3. Maganda ang pagkakatugnay ng classification na ito sa isang [feature-first project structure](/blog/feature-first-project-structure-react-native/) kung saan bawat feature ang nagma-manage ng sarili nitong storage.
 
 ## Mga karaniwang pagkakamali
+
+**Huwag kalimutang nananatili ang iOS Keychain values pagkatapos ng uninstall.** I-delete ang app, i-reinstall ito, at hawak pa rin ng Tier 1 ang mga lumang token habang bumalik na walang laman ang Tier 2 at Tier 3. Ire-restore ng iyong session check ang isang login na akala ng user ay sinira na nila, nang walang profile data sa likod nito. I-detect ang first run (gumagana ang isang AsyncStorage sentinel, dahil nawi-wipe naman ang AsyncStorage) at i-clear ang SecureStore bago magbasa ng kahit ano mula rito.
 
 **Huwag mag-store ng tokens sa Redux.** Ang Redux state ay puwedeng i-serialise, i-log, i-persist sa AsyncStorage ng Redux Persist, at i-inspect gamit ang DevTools. Kahit i-blacklist mo ang auth slice mula sa persistence, isang misconfiguration lang at nalantad na ang tokens. Panatilihin ang tokens sa SecureStore, walang ibang paraan.
 

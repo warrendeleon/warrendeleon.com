@@ -57,7 +57,7 @@ Aquesta guia està escrita per a:
 - React Native 0.74+ (bare workflow, no Expo)
 - TypeScript amb la configuració estàndard de Babel de RN
 - Host macOS (simulador iOS i emulador Android)
-- Xcode 15+ amb les Command Line Tools, més un simulador iOS creat (per exemple iPhone 17 Pro)
+- Xcode 16+ amb les Command Line Tools, més un simulador iOS creat (per exemple iPhone 16)
 - Android Studio amb almenys un AVD creat (per exemple Pixel 7 API 35)
 - Node 18 o posterior
 
@@ -83,24 +83,20 @@ brew tap wix/brew
 brew install applesimutils
 ```
 
-`applesimutils` és el que fa servir Detox per controlar el simulador iOS. Per a Android necessites un emulador funcional amb la depuració per USB activada. El CLI de Detox s'invoca via `npx detox`, així que no cal cap instal·lació global.
+`applesimutils` és el que fa servir Detox per controlar el simulador iOS. Per a Android necessites un emulador funcional. El CLI de Detox s'invoca via `npx detox`, així que no cal cap instal·lació global.
 
 ## Pas 2. Els tres fitxers de configuració
 
-Tres fitxers connecten tot el conjunt: `.detoxrc.js` (o `detox.config.js`. Detox accepta tots dos), `.cucumber.js` i un `tsconfig.cucumber.json` reduït.
+Tres fitxers connecten tot el conjunt: `.detoxrc.js` (o `detox.config.js`. Detox accepta tots dos), `cucumber.js` i un `tsconfig.cucumber.json` reduït. La configuració de Cucumber s'ha de dir `cucumber.js` (o `.cjs`/`.mjs`/`.json`): és el nom de fitxer que cucumber-js carrega per defecte, i res en aquest setup passa cap `--config` explícit.
 
 ### .detoxrc.js
 
 La configuració de Detox defineix les compilacions de l'app i els dispositius objectiu:
 
+Una cosa que `.detoxrc.js` NO fa aquí: connectar Detox amb Cucumber. Quan Cucumber és el runner, invoques `cucumber-js` directament i la configuració `testRunner` de Detox no es consulta mai; el fitxer de suport del pas 3 és l'únic pont. `.detoxrc.js` només descriu apps i dispositius:
+
 ```typescript
 module.exports = {
-  testRunner: {
-    args: {
-      config: '.cucumber.js',
-    },
-    forwardEnv: true,
-  },
   apps: {
     'ios.debug': {
       type: 'ios.app',
@@ -116,7 +112,7 @@ module.exports = {
   devices: {
     simulator: {
       type: 'ios.simulator',
-      device: { type: 'iPhone 17 Pro' },
+      device: { type: 'iPhone 16' },
     },
     emulator: {
       type: 'android.emulator',
@@ -136,7 +132,7 @@ module.exports = {
 };
 ```
 
-### .cucumber.js
+### cucumber.js
 
 La configuració de Cucumber diu on viuen els fitxers feature, on viuen les definicions de passos i com formatar la sortida:
 
@@ -148,7 +144,7 @@ require('ts-node').register({
 
 module.exports = {
   default: {
-    paths: ['src/features/**/__tests__/*.feature'],
+    paths: ['src/features/**/__tests__/*.feature', 'e2e/**/*.feature'],
     require: [
       'src/test-utils/cucumber/support/**/*.ts',
       'src/test-utils/cucumber/step-definitions/**/*.{ts,tsx}',
@@ -360,12 +356,14 @@ Feature: VoiceOver Gestures
 Després, a la comanda de test:
 
 ```bash
-yarn detox test --tags "@accessibility and @ios"
+yarn detox:ios:test --tags "@accessibility and @ios"
 ```
 
 ## Pas 5. Escrivint definicions de passos
 
 Cada pas de Gherkin es mapeja a una funció. Les definicions de passos són les peces que reutilitzaràs entre tots els fitxers feature un cop existeixen.
+
+Una nota sobre els globals de Detox abans de continuar: `device`, `element`, `by` i `waitFor` existeixen en temps de compilació perquè el `tsconfig.cucumber.json` del pas 2 els va declarar (`"types": ["detox", "node"]`). Salta-t'ho i cada definició de pas s'encén en vermell sobre `device.launchApp`.
 
 ### Passos comuns
 
@@ -374,7 +372,7 @@ import { Given, When, Then } from '@cucumber/cucumber';
 
 Given('the app is launched', async function () {
   await device.terminateApp();
-  await device.clearKeychain();
+  await device.clearKeychain(); // Només iOS: a Android és un no-op silenciós
   await device.launchApp({ newInstance: true });
   await new Promise(r => setTimeout(r, 500));
 });
@@ -417,7 +415,7 @@ Then('I should see text {string}', async function (text: string) {
 
 Tres patrons per fixar aquí. Primer, una convenció consistent de testID: els noms de pantalla esdevenen kebab-case amb un sufix `-screen` o `-button`. "Login" es mapeja a `login-screen`, "Home" a `home-screen`, "Submit" a `submit-button`. Segon, cada asserció passa per `waitFor` amb timeout, no per un `expect` directe. Les animacions i les crides de xarxa necessiten temps per estabilitzar-se i `expect` no els el dona. Tercer, `replaceText` en lloc de `typeText`. `typeText` afegeix al que ja hi ha. `replaceText` ho esborra primer. Per a camps de formulari vols el segon.
 
-Desa el fitxer com a `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` i Cucumber el recull via el glob del teu `.cucumber.js`.
+Desa el fitxer com a `src/test-utils/cucumber/step-definitions/common.cucumber.tsx` i Cucumber el recull via el glob del teu `cucumber.js`.
 
 ### Estratègies de cerca d'elements
 
@@ -439,6 +437,10 @@ When('I tap the text {string}', async function (text: string) {
 ```
 
 Prova `by.text()` primer (text visible), recorre a `by.label()` (etiqueta d'accessibilitat), i després a `by.id()` (testID). Això gestiona botons que renderitzen text diferent entre plataformes.
+
+## Amb què parla l'app durant aquests tests
+
+Els escenaris de sobre escriuen credencials i esperen una pantalla Home, cosa que planteja la pregunta que tot setup E2E ha de respondre: contra quin backend està picant l'app? Executa'ls contra un de real i la suite falla cada cop que staging ensopega. La resposta determinista és mockejar a nivell de bundle amb un flag de build E2E, que és un post per si sol: [Mocking en temps d'execució amb Metro per a tests E2E deterministes a React Native](/ca/blog/metro-runtime-mocking-react-native-e2e/). Fins que tinguis aquesta capa, apunta la build E2E a un entorn de test estable i tracta els flakes de xarxa com a fallades de la suite, no dels tests.
 
 ## Un formatter personalitzat
 
@@ -464,38 +466,7 @@ La sortida per defecte de Cucumber és sorollosa. Un formatter personalitzat et 
 12 steps (11 passed, 1 failed)
 ```
 
-El formatter és una classe que escolta els esdeveniments de Cucumber:
-
-```javascript
-const { Formatter } = require('@cucumber/cucumber');
-
-class CheckmarkFormatter extends Formatter {
-  constructor(options) {
-    super(options);
-
-    options.eventBroadcaster.on('envelope', (envelope) => {
-      if (envelope.testStepFinished) {
-        this.onTestStepFinished(envelope.testStepFinished);
-      }
-      if (envelope.testCaseFinished) {
-        this.onTestCaseFinished(envelope.testCaseFinished);
-      }
-    });
-  }
-
-  onTestStepFinished(event) {
-    const { testStepResult } = event;
-    const icon = testStepResult.status === 'PASSED' ? '✓' :
-                 testStepResult.status === 'FAILED' ? '✗' :
-                 testStepResult.status === 'SKIPPED' ? '○' : '?';
-    const color = testStepResult.status === 'PASSED' ? '\x1b[32m' :
-                  testStepResult.status === 'FAILED' ? '\x1b[31m' : '\x1b[33m';
-    this.log(`${color}  ${icon}\x1b[0m ${this.getStepText(event)}\n`);
-  }
-}
-
-module.exports = CheckmarkFormatter;
-```
+El formatter és una classe petita que se subscriu als esdeveniments `envelope` de Cucumber (`testStepFinished`, `testCaseFinished`), mapeja l'estat de cada pas a una icona i un color, i imprimeix la línia. Unes 80 línies en total.
 
 La versió completa del meu repo fa seguiment dels pickles, mapeja els passos de test al seu text Gherkin, mesura el temps de cada pas i imprimeix un resum amb recompte de passes i fallades. El que tens a sobre és la forma; el fitxer complet és `src/test-utils/cucumber/formatters/CheckmarkFormatter.js` al repo enllaçat al final.
 
@@ -575,7 +546,7 @@ Els scripts que uso viuen a `package.json` així:
   "scripts": {
     "detox:ios:build": "detox build -c ios.sim.debug",
     "detox:ios:test": "DETOX_CONFIGURATION=ios.sim.debug TS_NODE_PROJECT=tsconfig.cucumber.json cucumber-js",
-    "detox:ios:test:parallel": "DETOX_WORKERS=2 yarn detox:ios:test --parallel 2 --retry 1",
+    "detox:ios:test:parallel": "yarn detox:ios:test --parallel ${DETOX_WORKERS:-2} --retry 1",
     "e2e:ios": "yarn detox:ios:build && yarn detox:ios:test"
   }
 }
@@ -603,7 +574,7 @@ $ cucumber-js
 12 steps (12 passed)
 ```
 
-Si `xcodebuild` falla en la primera execució, comprova que el simulador anomenat a `.detoxrc.js` existeix realment (`xcrun simctl list devices`). El ensopec més habitual de la primera execució és un `iPhone 17 Pro` hardcodejat que mai vas crear a Xcode.
+Si `xcodebuild` falla en la primera execució, comprova que el simulador anomenat a `.detoxrc.js` existeix realment (`xcrun simctl list devices`). El ensopec més habitual de la primera execució és un `iPhone 16` hardcodejat que mai vas crear a Xcode.
 
 ## Errors comuns
 

@@ -32,7 +32,7 @@ La prova existent estava dissenyada per a preguntes diferents. Necessitava const
 
 El live coding et diu si algú programa còmodament mentre l'observen. Per a alguns rols, això importa. Per al nostre, necessitava veure una altra cosa.
 
-He estat als dos costats. A principis d'aquest any vaig fer un exercici de live coding per a un lloc per al qual estava qualificat i em vaig quedar en blanc. El problema era senzill, sabia com resoldre'l, i amb algú observant cada tecla vaig perdre el fil. Com a entrevistador, he vist el mateix passar-li a candidats: enginyers capaços que es bloquegen en problemes que resoldrien en cinc minuts asseguts al seu escriptori.
+He estat als dos costats. A principis d'aquest any, entrevistant-me a una altra empresa, vaig fer un exercici de live coding per a un lloc per al qual estava qualificat i em vaig quedar en blanc. El problema era senzill, sabia com resoldre'l, i amb algú observant cada tecla tot se'n va anar en orris. Com a entrevistador, he vist el mateix passar-li a candidats: enginyers capaços que es bloquegen en problemes que resoldrien en cinc minuts asseguts al seu escriptori.
 
 El live coding mesura la compostura sota observació. És un senyal útil per a alguns rols. No era el que jo necessitava.
 

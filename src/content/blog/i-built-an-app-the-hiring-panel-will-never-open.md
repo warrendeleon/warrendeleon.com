@@ -54,7 +54,7 @@ The whole point was to stop fighting the tool during the interview. Three things
 
 ## The bug that scored everyone the same
 
-The stack is React 19, TypeScript, Vite, Tailwind v4. No state management library. A custom `useLocalStorage` hook and React Router.
+The stack was React 19, TypeScript, Vite, Tailwind v4. The first version had no state management library: a custom `useLocalStorage` hook and React Router.
 
 During testing, I scored a candidate's walkthrough end to end. Every section, every question, full notes. I pressed "Next" to the summary screen and saw every section had the same score: whatever I'd entered on the last step.
 
@@ -70,7 +70,7 @@ function freshCandidate(id: string): Candidate | undefined {
 }
 ```
 
-The same pattern repeats across three hooks: `useWalkthrough`, `useBehavioural`, `useCodeReview`. Each one reads fresh, writes fresh, and dispatches a custom event (`ls-sync`) so other hook instances pick up the change. Twenty lines of persistence code. No Redux, no context providers, no middleware.
+The same pattern repeats across three hooks: `useWalkthrough`, `useBehavioural`, `useCodeReview`. Each one reads fresh, writes fresh, and dispatches a custom event (`ls-sync`) so other hook instances pick up the change. Twenty lines of persistence code. No Redux, no context providers, no middleware. Those twenty lines ran the first real interviews; the store was later formalised on Redux Toolkit as the app grew, but that's a different post.
 
 ## The PDF nobody sees me build
 
@@ -78,7 +78,7 @@ After the interview, I press "Print / PDF" and the browser generates a Candidate
 
 Page 1 is the summary: a score table, the recommended level band, the hire/reject decision, and the offer level. Pages 2 and 3 show strengths and growth areas pulled from all three assessments, grouped by source. Then four appendices: code review breakdown, walkthrough scores with every question and note, behavioural scores by value, and a level bands reference table with the candidate's band highlighted in navy.
 
-That level bands table maps the combined score to one of 12 tiers: Graduate 1 through Senior 2+. The **2+** tier is deliberately hard to reach. It marks someone at the very top of their category, pushing into the next. When a panel member sees "Associate 2+" on the PDF, the read is immediate: strong Associate, not quite SE. That single label carries more signal than a paragraph of justification.
+That level bands table maps the combined score to one of 12 tiers: Graduate 1 through Senior 2+. (The four bands from [the scorecard post](/blog/how-i-designed-a-tech-test-scorecard-that-works-from-graduate-to-senior/) got subdivided into three tiers each once real candidates started landing between them.) The **2+** tier is deliberately hard to reach. It marks someone at the very top of their category, pushing into the next. When a panel member sees "Associate 2+" on the PDF, the read is immediate: strong Associate, not quite SE. That single label carries more signal than a paragraph of justification.
 
 The behavioural gate adds a second check. A candidate scoring below 10/25 on values doesn't proceed, regardless of their technical score. Between 10 and 14 triggers a panel discussion. 15 or above clears the gate. Technical skills can be taught. Values mismatches create problems that grow over time.
 

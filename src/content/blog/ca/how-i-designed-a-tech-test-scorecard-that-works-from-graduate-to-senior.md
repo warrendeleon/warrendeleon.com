@@ -103,7 +103,7 @@ La puntuació total es mapeja directament a un nivell:
 | Software Engineer | 65 a 88 |
 | Senior | 89 a 100 |
 
-La puntuació del code review no és tot el panorama. La trucada de walkthrough afegeix més senyal. El code review és la base.
+Per sota de 20 és un rebuig: l'entrega no va superar els checks de línia base. Per sobre d'això, la puntuació del code review no és tot el panorama. La trucada de walkthrough afegeix més senyal. El code review és la base.
 
 
 ## Respectar la limitació de temps
@@ -128,7 +128,7 @@ Els stretch goals se sumen als 100 punts com a bonificacions: cerca, mode fosc, 
 
 El code review em dona un número. El walkthrough em dona context.
 
-Un candidat que treu 65 al code review podria pujar a 85 després del walkthrough si pot explicar cada trade-off, dir què canviaria amb més temps i navegar el seu codebase de memòria. El número mesura el que van construir. La conversa mesura com pensen.
+Un candidat que treu 65 al code review podria pujar a 85 després del walkthrough si pot explicar cada trade-off, dir què canviaria amb més temps i navegar el seu codebase de memòria. També es mou en sentit contrari: una entrega que fa bona pinta però que el candidat no sap explicar baixa un nivell. El número mesura el que van construir. La conversa mesura com pensen.
 
 Vaig dissenyar el walkthrough com un conjunt de taules de preguntes. Cada pregunta té cinc descripcions de senyal, des de "no troba el codi" fins a "ho explica de memòria amb edge cases." L'entrevistador marca una fila per pregunta. S'ha acabat el "aquell walkthrough va ser un 3 o un 4?"
 
@@ -148,19 +148,7 @@ Separa el que pots veure del que necessites preguntar. El scorecard del code rev
 Respecta la limitació de temps. Si un check requereix més de 6 hores de feina d'un Software Engineer competent, pertany a la meitat superior del checklist, no a la línia base. Em vaig enxampar diverses vegades escrivint checks de línia base que en realitat eren expectatives de Senior. La pregunta que em feia tot el temps: *"Esperaria això d'algú fent aquesta prova després de la feina un dimecres al vespre?"* Si la resposta era no, pujava.
 
 
-## Segueix evolucionant
-
-He fet servir aquest scorecard per a la nostra primera ronda de contractació de React Native. El meu company EM el va revisar i el va adoptar per a les contractacions del seu equip també. Aquesta és la prova d'un bon sistema: algú altre pot agafar-lo i fer-lo servir sense que tu siguis a la sala.
-
-No pretenc que sigui perfecte. Els nivells podrien necessitar recalibració després que passin més candidats. Alguns checks podrien resultar massa fàcils o massa difícils. Els stretch goals podrien necessitar reequilibri.
-
-L'estructura és correcta, això sí:
-
-- Checklists, no rúbriques
-- Fets observables, no opinions
-- Ordenats per inversió
-- La mateixa prova per a tothom
-- Diferent sostre per a diferents nivells
+He fet servir aquest scorecard per a la nostra primera ronda de contractació de React Native, i el meu company EM el va revisar i el va adoptar per a les contractacions del seu equip també. Aquesta és la prova d'un bon sistema: algú altre pot agafar-lo i fer-lo servir sense que tu siguis a la sala. No pretenc que sigui perfecte (els nivells podrien necessitar recalibració després que passin més candidats), però l'estructura aguanta: checklists abans que rúbriques, fets observables abans que opinions, ordenats per inversió, la mateixa prova per a tothom amb un sostre diferent per nivell.
 
 Si estàs muntant un procés de contractació i els teus entrevistadors segueixen sense posar-se d'acord en les puntuacions, prova de substituir la teva rúbrica per un checklist. Et sorprendrà quant d'acord aconsegueixes quan deixes de preguntar *"com de bo és això?"* i comences a preguntar *"això hi és?"*
 

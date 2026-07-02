@@ -13,9 +13,9 @@ Versión corta: por debajo de unas cinco features con su propio estado, las carp
 
 ## 85 ficheros para una sola feature
 
-Esos son los ficheros TypeScript que tiene mi feature de Auth. Seis pantallas, un store de Redux, un contexto de React, un custom hook, componentes de PIN con stories de Storybook, schemas de validación de formularios contra una **blacklist de contraseñas comunes**, rate limiting, un servicio de lockout, y tests a todos los niveles.
+Esos son los ficheros TypeScript que tiene mi feature de Auth. Seis pantallas, un store de Redux, un contexto de React, un custom hook, componentes de PIN con stories de Storybook, schemas de validación de formularios contra una blacklist de contraseñas comunes, rate limiting, un servicio de lockout, y tests a todos los niveles.
 
-En la mayoría de proyectos React Native, esos 85 ficheros estarían repartidos entre **siete carpetas diferentes**. Las pantallas en un sitio, los hooks en otro, el store slice en otro, la validación en otro más. Para entender cómo funciona la autenticación, abrirías siete carpetas y reconstruirías mentalmente las relaciones entre ficheros que no están cerca unos de otros.
+En la mayoría de proyectos React Native, esos 85 ficheros estarían repartidos entre siete carpetas diferentes. Las pantallas en un sitio, los hooks en otro, el store slice en otro, la validación en otro más. Para entender cómo funciona la autenticación, abrirías siete carpetas y reconstruirías mentalmente las relaciones entre ficheros que no están cerca unos de otros.
 
 Ese layout queda ordenado con tres o cuatro pantallas. Pasado ese punto, las relaciones se vuelven invisibles. El hook de una feature vive lejos de la pantalla que lo usa. Las reglas de validación están en una carpeta separada del formulario que validan. Revisar una feature implica escanear varias listas alfabéticas buscando las piezas.
 
@@ -48,7 +48,7 @@ Ficheros agrupados por tipo. **Type-first.** La mayoría de tutoriales de React 
 
 La forma aguanta mientras la app es pequeña. Luego añades autenticación con configuración de PIN, verificación de email, recuperación de contraseña. Añades gestión de perfil con subida de fotos, edición de cuenta, cambio de contraseña. De repente `screens/` tiene 25 ficheros, y encontrar el hook que pertenece a la subida de foto de perfil implica escanear una lista alfabética de *todos los hooks de la app*.
 
-Ahora intenta **eliminar una feature**. Borra la pantalla de `screens/`. Busca su hook en `hooks/`. Su servicio en `services/`. Su store slice. Sus componentes. Su schema de validación. Sus tests, en un árbol `__tests__/` separado. Si te dejas un fichero, tienes código muerto que va a quedarse ahí meses.
+Ahora intenta eliminar una feature. Borra la pantalla de `screens/`. Busca su hook en `hooks/`. Su servicio en `services/`. Su store slice. Sus componentes. Su schema de validación. Sus tests, en un árbol `__tests__/` separado. Si te dejas un fichero, tienes código muerto que va a quedarse ahí meses.
 
 Esa es la prueba. Si eliminar una feature lleva más tiempo que construirla, la estructura está jugando en tu contra.
 
@@ -75,7 +75,7 @@ src/features/
 
 Todo lo demás vive fuera de features: `shared/` para componentes y hooks reutilizables, `store/` para la configuración de Redux, `navigation/`, `httpClients/`, `utils/`, `i18n/`.
 
-La feature más simple tiene dos ficheros. La más compleja, 85. **Cada una solo tiene las carpetas que realmente necesita.** Ningún directorio `services/` vacío porque una plantilla decía que debería estar ahí.
+La feature más simple tiene dos ficheros. La más compleja, 85. Cada una solo tiene las carpetas que realmente necesita. Ningún directorio `services/` vacío porque una plantilla decía que debería estar ahí.
 
 ## Cómo se ven 85 ficheros cuando están co-localizados
 
@@ -101,6 +101,7 @@ src/features/Auth/
 ├── store/
 │   ├── __tests__/
 │   ├── actions.ts
+│   ├── index.ts
 │   ├── reducer.ts
 │   └── selectors.ts
 ├── utils/
@@ -134,7 +135,7 @@ La prueba de fuego de antes. ¿Cómo se ve en realidad para cada layout?
 
 **Type-first:** borrar ficheros de `screens/`, `components/`, `hooks/`, `services/`, `store/`, `utils/`, `validation/` y `__tests__/`. Si te dejas un fichero, tienes un huérfano. Si te dejas un import, la app falla al arrancar.
 
-**Feature-first:** borrar `src/features/Auth/`, quitar `authReducer` de la configuración del store, eliminar las rutas de navegación. **Tres pasos.** El compilador me dice si me dejé alguna referencia.
+**Feature-first:** borrar `src/features/Auth/`, quitar `authReducer` de la configuración del store, eliminar las rutas de navegación. Tres pasos. El compilador me dice si me dejé alguna referencia.
 
 Lo he hecho. Eliminar una feature que tocaba más de 40 ficheros me llevó menos de un minuto. La mayor parte de ese minuto fue la configuración de navegación.
 
@@ -201,9 +202,9 @@ Rompe la regla de no importar entre features una sola vez y acabarás con depend
 
 ## El código compartido se gana su sitio
 
-Si un componente lo usa **una sola feature**, se queda en esa feature. Si dos o más features lo necesitan, se mueve a `src/shared/`. El listón es alto.
+Si un componente lo usa una sola feature, se queda en esa feature. Si dos o más features lo necesitan, se mueve a `src/shared/`. El listón es alto.
 
-Cada abstracción compartida es un **punto de acoplamiento**. En el momento en que `AlertBox` vive en `shared/`, cinco features dependen de su interfaz. Cambiarlo implica revisar las cinco. Prefiero duplicar tres líneas en dos features que crear una utilidad compartida que haga a ambas más difíciles de cambiar por separado.
+Cada abstracción compartida es un punto de acoplamiento. En el momento en que `AlertBox` vive en `shared/`, cinco features dependen de su interfaz. Cambiarlo implica revisar las cinco. Prefiero duplicar tres líneas en dos features que crear una utilidad compartida que haga a ambas más difíciles de cambiar por separado.
 
 Los hooks que acaban en `shared/` son los genuinamente transversales: `useAppColorScheme`, `useHapticFeedback`, `useReducedMotion`, `useCameraPermission`, `usePhotoLibraryPermission`. Cosas que cualquier pantalla puede necesitar. No cosas que *dos pantallas* resulta que necesitan ahora mismo.
 
@@ -211,7 +212,7 @@ Los hooks que acaban en `shared/` son los genuinamente transversales: `useAppCol
 
 Los tests viven al lado del código que testean. Los tests del store de Auth están en `Auth/store/__tests__/`. Los tests de validación de Auth están en `Auth/validation/__tests__/`. No hay un árbol de tests separado en la raíz del proyecto.
 
-La única excepción: **tests de integración entre features**. El login fluyendo hacia la carga del perfil. Cambios en Settings propagándose a la UI. Tareas en segundo plano corriendo entre features. Estos abarcan múltiples features, así que viven en `src/features/__tests__/`, fuera de cualquier feature individual.
+La única excepción: tests de integración entre features. El login fluyendo hacia la carga del perfil. Cambios en Settings propagándose a la UI. Tareas en segundo plano corriendo entre features. Estos abarcan múltiples features, así que viven en `src/features/__tests__/`, fuera de cualquier feature individual.
 
 ```
 src/features/__tests__/
@@ -228,7 +229,7 @@ Cuando un test falla, la ubicación me dice dónde mirar. Si está en `Auth/stor
 
 Si tu app tiene tres pantallas y ninguna gestión de estado, *no hagas esto*. Una lista plana de pantallas y un par de hooks compartidos es suficiente. Feature-first añade una sobrecarga que los proyectos pequeños no necesitan.
 
-El punto de inflexión está en torno a las **cinco features con su propio estado**. Por debajo, la estructura cuesta más de lo que ahorra. Por encima, type-first se convierte en lo que te frena.
+El punto de inflexión está en torno a las cinco features con su propio estado. Por debajo, la estructura cuesta más de lo que ahorra. Por encima, type-first se convierte en lo que te frena.
 
 Abre tu carpeta `screens/` ahora mismo. Cuenta los ficheros. Si no puedes decir cuáles van juntos solo mirando la lista, la estructura ya ha dejado de ayudarte.
 
@@ -285,7 +286,7 @@ export default [
       'no-restricted-imports': ['error', {
         patterns: [
           {
-            group: ['@app/features/*/!(index)', '@app/features/*/*/**'],
+            group: ['@app/features/*/*', '@app/features/*/*/**'],
             message: 'Import another feature through its public index (@app/features/X), not its internals. Within a feature, use relative imports.',
           },
         ],
@@ -300,8 +301,10 @@ export default [
 ];
 ```
 
-El patrón bloquea cualquier import que acceda a los internos de otra feature. Dentro de una feature usas imports relativos (`./store`, `../components`), que nunca coinciden con el patrón del alias, así que una feature siempre puede acceder a su propio código. La única exención son los tests, que a menudo necesitan acceder al interior de una feature para preparar estado.
+El primer patrón bloquea cualquier cosa que esté un nivel por dentro de una feature (`@app/features/Auth/store`); el segundo, cualquier cosa más profunda. El import del index a secas, `@app/features/Auth`, no coincide con ninguno de los dos, así que la superficie pública queda abierta. Una trampa que conviene conocer: estos patrones usan matching estilo gitignore, no extglob, así que una exclusión tentadora como `!(index)` no coincide con nada y falla en silencio. Dentro de una feature usas imports relativos (`./store`, `../components`), que nunca coinciden con el patrón del alias, así que una feature siempre puede acceder a su propio código. La única exención son los tests, que a menudo necesitan acceder al interior de una feature para preparar estado.
 
 Eso es todo. Path aliases, una regla de ESLint, y la disciplina de mantener privados los internos de cada feature. La arquitectura sobrevive porque el tooling hace cumplir lo que la convención pide.
 
 El código fuente completo del proyecto está en [github.com/warrendeleon/rn-warrendeleon](https://github.com/warrendeleon/rn-warrendeleon).
+
+Y si quieres la versión de una línea de todo este post: abre tu carpeta `screens/`, cuenta los ficheros y pregúntate cuánto te llevaría hoy eliminar una feature.

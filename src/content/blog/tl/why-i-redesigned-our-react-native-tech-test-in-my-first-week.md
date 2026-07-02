@@ -32,7 +32,7 @@ Ang existing test ay designed para sa ibang mga tanong. Kailangan kong gumawa ng
 
 Ang live coding, sinasabi nito sa iyo kung komportable ba mag-code ang isang tao habang pinapanood. Para sa ibang roles, mahalaga iyon. Para sa amin, ibang bagay ang kailangan kong makita.
 
-Naranasan ko sa dalawang panig. Kamakailan lang noong Enero ngayong taon, na-bomb ko ang isang live coding exercise para sa role na sobrang qualified ako. Simple ang problem. Alam ko kung paano solusyunan. Pero dahil may nanonood sa bawat keystroke ko, nag-blangko ang utak ko. *Hindi ako pumasa.*
+Naranasan ko sa dalawang panig. Kamakailan lang noong Enero ngayong taon, habang nag-i-interview sa ibang kompanya, na-bomb ko ang isang live coding exercise para sa role na sobrang qualified ako. Simple ang problem. Alam ko kung paano solusyunan. Pero dahil may nanonood sa bawat keystroke ko, bumagsak ang lahat. *Hindi ako pumasa.*
 
 Bilang interviewer, nakita ko ring nangyari ang ganoon sa mga candidate. Mga capable na engineer na nag-freeze sa mga problem na kayang-kaya nilang i-solve sa limang minuto kung nasa sarili nilang desk sila. Sinusukat ng live coding ang composure habang pinapanood ka. Valid na signal iyon para sa ibang roles, pero hindi iyon ang signal na kailangan ko.
 

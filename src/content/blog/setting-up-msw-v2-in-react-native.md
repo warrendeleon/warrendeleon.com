@@ -112,7 +112,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   transformIgnorePatterns: [
     // The default RN preset ignores most of node_modules; MSW needs to be transformed.
-    'node_modules/(?!(react-native|@react-native|msw|until-async)/)',
+    'node_modules/(?!(react-native|@react-native|msw|until-async|rettime|@mswjs|@open-draft|@bundled-es-modules|headers-polyfill|strict-event-emitter|outvariant)/)',
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 };
@@ -125,7 +125,7 @@ Two keys do the work:
 | `setupFiles` | Before the Jest framework is installed | Polyfills, global variables, anything that doesn't need `jest`/`expect` |
 | `setupFilesAfterEnv` | After Jest framework, before each test file | `beforeAll`/`afterEach` hooks, MSW server lifecycle, custom matchers |
 
-The `transformIgnorePatterns` line is the other gotcha: the default RN preset skips transforming `node_modules`, but MSW ships modern syntax that Jest can't run as-is. Add `msw|until-async` to the allow-list or you'll see `SyntaxError: Cannot use import statement outside a module` from inside `node_modules/msw/`.
+The `transformIgnorePatterns` line is the other gotcha: the default RN preset skips transforming `node_modules`, but MSW ships modern syntax that Jest can't run as-is. Add MSW and its untranspiled dependencies (`msw|until-async|rettime|@mswjs|@open-draft|@bundled-es-modules|headers-polyfill|strict-event-emitter|outvariant`) to the allow-list or you'll see `SyntaxError: Cannot use import statement outside a module` from inside `node_modules/msw/`. Newer MSW versions ship more of these; if the error names a package that isn't in your list yet, add it to the same group.
 
 ## The server
 
@@ -149,7 +149,7 @@ The server takes your default handlers (success responses) and intercepts matchi
 In `jest.setup.ts` (which Jest loads via `setupFilesAfterEnv`), start the server before tests, reset between tests, close after:
 
 ```typescript
-import '@testing-library/jest-native/extend-expect';
+import '@testing-library/jest-native/extend-expect'; // RNTL >=12.4 has these matchers built in; this import is only for older RNTL
 import { server } from './src/test-utils/msw/server';
 
 // MSW server lifecycle
@@ -403,23 +403,7 @@ export function renderWithProviders(
 }
 ```
 
-That covers Redux. Real apps usually need more: i18n, navigation, theming, toast/notification context. The wrapper is the right place to compose all of them. Add providers around `{children}`:
-
-```tsx
-const Wrapper = ({ children }: { children: React.ReactNode }) => (
-  <Provider store={createdStore}>
-    <I18nextProvider i18n={i18n}>
-      <ThemeProvider>
-        <ToastProvider>
-          {children}
-        </ToastProvider>
-      </ThemeProvider>
-    </I18nextProvider>
-  </Provider>
-);
-```
-
-If a screen uses `react-navigation`, wrap it in `NavigationContainer` and an in-memory navigator for the test. The principle is the same: every provider that wraps your app in `App.tsx` should wrap your component in `renderWithProviders`. Anything you forget is a difference between test environment and runtime, and those differences are where flaky tests live.
+That covers Redux. Real apps usually need more: i18n, navigation, theming, toast context. The wrapper is the right place to compose them all: nest each provider around `{children}` exactly as `App.tsx` does, and wrap navigation-dependent screens in a `NavigationContainer` with an in-memory navigator. The principle: every provider that wraps your app at runtime should wrap your component in `renderWithProviders`. Anything you forget is a difference between test environment and runtime, and those differences are where flaky tests live.
 
 Now your tests render with a real store, dispatch real thunks, and MSW handles the network:
 
@@ -500,9 +484,9 @@ If your handler reads the request body via `request.json()`, the handler functio
 
 A `Response is not defined` or `TextEncoder is not defined` error means the polyfills file isn't loading. Check that `setupFiles: ['<rootDir>/jest.polyfills.cjs']` is in the Jest config, that the file extension is `.cjs` rather than `.ts`, and that the path is correct relative to `rootDir`.
 
-A `SyntaxError: Cannot use import statement outside a module` thrown from `node_modules/msw/` means MSW isn't being transformed. Add `msw|until-async` to the allow-list inside `transformIgnorePatterns`.
+A `SyntaxError: Cannot use import statement outside a module` thrown from `node_modules/msw/` (or one of its dependencies) means that package isn't being transformed. Add it to the allow-list inside `transformIgnorePatterns`; the config above carries the full set for MSW 2.14.
 
-Trailing slashes matter: `http.get('/api/items')` won't match a request to `/api/items/`. Match exactly what your code sends, or use a path pattern like `http.get('/api/items*', ...)`.
+Query strings don't participate in path matching: `http.get('/api/items')` matches `/api/items?page=2` too, and the handler reads the parameters from `request.url`. If a test seems to ignore your query-specific handler, that's why.
 
 **Tests pass locally and fail in CI** is usually `onUnhandledRequest: 'error'` catching a request you didn't realise your code was making in the CI environment, often analytics or crash reporting. Either add a handler for it, or strip those calls in test mode.
 
@@ -534,7 +518,7 @@ import { errorHandlers, unauthorizedHandlers } from '@app/test-utils/msw/handler
 
 The setup costs about thirty minutes. After that, every new test is simpler than the manual-mock equivalent. You write `server.use(...errorHandlers)` instead of `jest.fn().mockRejectedValue(new Error('Network error'))`. The handlers are reusable across every test file. And the test is exercising integration behaviour, not mock behaviour.
 
-The 11 handler sets in my project cover every error path the app handles. When I add a new API endpoint, I add handlers for it once, and every test that touches that endpoint gets correct mocking for free. The same handler-set approach also pairs well with E2E tests, where Detox + Cucumber drives the user flows and a separate runtime-mocking layer controls the API responses, but those are topics for later posts.
+The 11 handler sets in my project cover every error path the app handles. When I add a new API endpoint, I add handlers for it once, and every test that touches that endpoint gets correct mocking for free. The same handler-set approach also pairs well with E2E tests, where [Detox + Cucumber](/blog/detox-cucumber-bdd-react-native-e2e-testing/) drives the user flows and a separate runtime-mocking layer controls the API responses.
 
 > If writing the next test is harder than skipping it, your test infrastructure is the problem.
 

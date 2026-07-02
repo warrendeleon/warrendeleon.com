@@ -2,6 +2,8 @@
 title: "El paquete de contratos: una costura versionada entre remotes federados en React Native"
 description: "Un remote se construye y se publica por su cuenta, así que el host no puede ver lo que expone. Un paquete de contratos compartido, publicado en un registro e instalado por versión, da a los dos lados una sola definición. Después semver gobierna lo que pasa cuando divergen."
 series: "React Native Module Federation"
+seriesShort: "Module Federation"
+shortTitle: "the contract package"
 tags: ["react-native", "module-federation", "re-pack", "typescript", "verdaccio", "tutorial"]
 locale: es
 heroImage: "/images/blog/typing-the-seam-between-remotes-react-native.webp"
@@ -303,7 +305,7 @@ declare module 'profileApp/ProfileScreen' {
 }
 ```
 
-Haz typecheck del host y del list. Los dos pasan, cada uno contra el mismo `1.0.0` publicado. Productor y consumidor ahora coinciden en la costura a través de un artefacto, no de una conjetura. Por ahora esto parece un mero trámite. La versión lo convierte en algo más.
+Haz typecheck del host y del list (`npx tsc --noEmit`, ejecutado dentro de cada app). Los dos pasan, cada uno contra el mismo `1.0.0` publicado. Productor y consumidor ahora coinciden en la costura a través de un artefacto, no de una conjetura. Por ahora esto parece un mero trámite. La versión lo convierte en algo más.
 
 ## La prueba de verdad: cuando las versiones divergen
 
