@@ -39,12 +39,19 @@ export const localeNames: Record<Locale, string> = {
   tl: 'Tagalog',
 };
 
+const intlLocale: Record<Locale, string> = {
+  en: 'en-GB',
+  es: 'es-ES',
+  ca: 'ca-ES',
+  tl: 'tl-PH',
+};
+
 export function formatDateRange(startDate: string, endDate: string | null, locale: Locale): string {
   const i18n = t(locale);
   const formatMonth = (dateStr: string) => {
     const [year, month] = dateStr.split('-');
     const date = new Date(parseInt(year), parseInt(month) - 1);
-    const monthName = date.toLocaleDateString('en-GB', { month: 'short' });
+    const monthName = date.toLocaleDateString(intlLocale[locale], { month: 'short' });
     return `${monthName} ${year}`;
   };
   const start = formatMonth(startDate);

@@ -42,7 +42,7 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
 ---
 
 <BaseLayout
-  title={page.currentPage === 1 ? i18n.seo.blogTitle : `Blog - Page ${page.currentPage} | Warren de Leon`}
+  title={page.currentPage === 1 ? i18n.seo.blogTitle : i18n.blog.pageTitle.replace('{n}', String(page.currentPage))}
   description={i18n.seo.blogDescription}
   locale={locale}
   currentPath={getLocalePath(locale, page.url.current.replace(/^\/(?:es|ca|tl)/, ''))}

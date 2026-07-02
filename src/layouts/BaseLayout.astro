@@ -2,7 +2,7 @@
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
-import { locales, getLocalePath, type Locale } from '../i18n/index';
+import { locales, getLocalePath, t, type Locale } from '../i18n/index';
 import '../styles/global.css';
 
 interface Props {
@@ -133,7 +133,7 @@ const cleanPath = getCleanPath(currentPath);
     </script>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <a href="#main-content" class="skip-link">{t(locale).a11y.skipToContent}</a>
     <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} />
     <main id="main-content">
       <slot />

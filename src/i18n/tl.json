@@ -131,7 +131,8 @@
       "many_results": "[COUNT] na resulta para sa [SEARCH_TERM]"
     },
     "authorBio": "Software Engineering Manager. Pinakahuling pinamunuan ang Mobile Platform team sa Hargreaves Lansdown. Sumusulat tungkol sa engineering leadership, React Native, at pagbuo ng magagandang team.",
-    "clientProjects": "Mga proyekto sa kliyente"
+    "clientProjects": "Mga proyekto sa kliyente",
+    "pageTitle": "Blog — Pahina {n} | Warren de Leon"
   },
   "education": {
     "heading": "Edukasyon",
@@ -250,6 +251,11 @@
     "openDiagram": "Buksan ang diagram sa full screen",
     "diagram": "Diagram",
     "image": "Larawan",
-    "opensInNewTab": "(bubukas sa bagong tab)"
+    "opensInNewTab": "(bubukas sa bagong tab)",
+    "skipToContent": "Lumaktaw sa nilalaman"
+  },
+  "notFound": {
+    "title": "Hindi natagpuan ang pahina",
+    "message": "Ang pahinang hinahanap mo ay hindi umiiral o inilipat na. Subukan ang isa sa mga ito:"
   }
 }
