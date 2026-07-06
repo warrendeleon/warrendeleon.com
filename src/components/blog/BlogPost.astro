@@ -6,7 +6,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, getSeriesSlug, type ScheduledPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, getSeriesSlug, publishSlot, type ScheduledPost } from '../../utils/blogHelpers';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import type { MarkdownHeading } from 'astro';
 import popularity from '../../data/popularity.json';
@@ -30,19 +30,17 @@ const postPath = getLocalePath(locale, `/blog/${postSlug}/`);
 const blogPath = getLocalePath(locale, '/blog/');
 const hreflangLocales = await getAvailableLocales(postSlug);
 
-// Match the published-cutoff used by getPostsForLocale / getStaticPaths exactly
-// (end-of-day UTC). A local-midnight cutoff is timezone-shifted, so on a post's
-// own publish day it can drop the current post from its series nav (PART 0 OF n).
+// Match getPostsForLocale's cutoff: a post is live at its 08:30 slot (publishSlot),
+// so the prev/next series nav only links siblings that are actually published.
 const now = new Date();
-now.setUTCHours(23, 59, 59, 999);
 const allPosts = await getPostsForLocale(locale, true);
 const sortedAsc = [...allPosts].sort((a, b) => a.data.publishDate.valueOf() - b.data.publishDate.valueOf());
 
 const currentIndex = sortedAsc.findIndex(p => getPostSlug(p.id) === postSlug);
 const prevCandidate = currentIndex > 0 ? sortedAsc[currentIndex - 1] : null;
 const nextCandidate = currentIndex < sortedAsc.length - 1 ? sortedAsc[currentIndex + 1] : null;
-const prevPost = prevCandidate && prevCandidate.data.publishDate <= now ? prevCandidate : null;
-const nextPost = nextCandidate && nextCandidate.data.publishDate <= now ? nextCandidate : null;
+const prevPost = prevCandidate && publishSlot(prevCandidate.data.publishDate) <= now ? prevCandidate : null;
+const nextPost = nextCandidate && publishSlot(nextCandidate.data.publishDate) <= now ? nextCandidate : null;
 
 const blogPostingJsonLd = {
   '@context': 'https://schema.org',

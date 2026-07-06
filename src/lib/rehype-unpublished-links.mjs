@@ -11,18 +11,17 @@ let publishedCache = null;
 // The English master is the single source of truth for scheduling, so we only
 // read the top-level posts (locale subdirectories inherit their master's date).
 // Mirrors getPostsForLocale: a post is published when it is not a draft and its
-// publishDate is at or before the end of today, UTC.
+// 08:30 London publish slot has passed (the build runs in that timezone).
 function publishedSlugs() {
   if (publishedCache) return publishedCache;
-  const cutoff = new Date();
-  cutoff.setUTCHours(23, 59, 59, 999);
+  const now = new Date();
   const set = new Set();
   for (const file of readdirSync(CONTENT_DIR)) {
     if (!file.endsWith('.md')) continue;
     const fm = readFileSync(join(CONTENT_DIR, file), 'utf-8').split('---')[1] || '';
     if (/^\s*draft:\s*true\s*$/m.test(fm)) continue;
     const date = fm.match(/^\s*publishDate:\s*(.+?)\s*$/m);
-    if (date && new Date(date[1]) <= cutoff) set.add(file.replace(/\.md$/, ''));
+    if (date && new Date(`${date[1].trim().slice(0, 10)}T08:30:00`) <= now) set.add(file.replace(/\.md$/, ''));
   }
   publishedCache = set;
   return set;
