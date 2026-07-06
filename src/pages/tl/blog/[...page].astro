@@ -1,14 +1,14 @@
 ---
 import BlogListing from '../../../components/blog/BlogListing.astro';
-import { getFeedPostsForLocale, getPostsForLocale } from '../../../utils/blogHelpers';
+import { getFeedPostsForLocale, getCurrentSeriesName } from '../../../utils/blogHelpers';
 
 export async function getStaticPaths({ paginate }: any) {
   const posts = await getFeedPostsForLocale('tl');
-  // Match the hero card's series (newest own-locale post) and demote (never
-  // remove) its parts to the end of the feed - the hero already lists them,
-  // and removing them would shrink pagination and 404 indexed page URLs.
-  const own = await getPostsForLocale('tl');
-  const currentSeries = own[0]?.data.series ?? null;
+  // Demote the current-series hero's parts to the end of the feed (never remove:
+  // that shrank pagination and 404'd indexed page URLs). getCurrentSeriesName
+  // matches the hero (most recent series with 2+ parts); the newest post's series
+  // alone would drop that post from the feed during a mini-series break.
+  const currentSeries = await getCurrentSeriesName('tl');
   const feed = currentSeries
     ? [...posts.filter(p => p.data.series !== currentSeries), ...posts.filter(p => p.data.series === currentSeries)]
     : posts;

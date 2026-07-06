@@ -6,7 +6,7 @@ import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, shortenSeriesName, type FeedPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, getCurrentSeriesName, shortenSeriesName, type FeedPost } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
 import type { Page } from 'astro';
 
@@ -22,29 +22,13 @@ const allPosts = await getPostsForLocale(locale);
 const allSeries = await getAllSeries(locale);
 const isFirstPage = page.currentPage === 1;
 
-// Current series = the most recent series with at least two published posts, shown
-// on page one as the lead with its parts in reading order. Walking newest-first,
-// rather than taking only the newest post's series, means a mid-run break (a
-// mini-series with only its first part live) falls back to the flagship series
-// instead of blanking the hero.
-let currentSeriesName: string | null = null;
-let currentSeriesSlug: string | null = null;
-let currentParts: Awaited<ReturnType<typeof getSeriesPosts>> = [];
-if (isFirstPage) {
-  const seenSeries = new Set<string>();
-  for (const post of allPosts) {
-    const name = post.data.series;
-    if (!name || seenSeries.has(name)) continue;
-    seenSeries.add(name);
-    const parts = await getSeriesPosts(locale, getSeriesSlug(name));
-    if (parts.length >= 2) {
-      currentSeriesName = name;
-      currentSeriesSlug = getSeriesSlug(name);
-      currentParts = parts;
-      break;
-    }
-  }
-}
+// Current series = the most recent series with at least two published posts (see
+// getCurrentSeriesName). Shown on page one as the lead with its parts in reading
+// order. The feed route uses the same helper to demote this series' parts, so a
+// mid-run break falls back to the flagship and no post is dropped from the feed.
+const currentSeriesName = isFirstPage ? await getCurrentSeriesName(locale) : null;
+const currentSeriesSlug = currentSeriesName ? getSeriesSlug(currentSeriesName) : null;
+const currentParts = currentSeriesSlug ? await getSeriesPosts(locale, currentSeriesSlug) : [];
 const hasCurrentSeries = currentParts.length >= 2 && !!currentSeriesName && !!currentSeriesSlug;
 
 // More series = every other series, each with its intro post for art + a description.

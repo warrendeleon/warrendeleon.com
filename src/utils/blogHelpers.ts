@@ -117,6 +117,25 @@ export async function getSeriesPosts(locale: Locale, seriesSlug: string): Promis
 }
 
 /**
+ * The series that leads page one as the current-series hero: the most recent
+ * series with at least two published posts. A mid-run break (a mini-series with
+ * only its first part live) falls back to the flagship series. The blog index
+ * hero and the feed's demote-the-hero-series logic both use this, so they agree
+ * on which series leads and no post is dropped from the feed.
+ */
+export async function getCurrentSeriesName(locale: Locale): Promise<string | null> {
+  const posts = await getPostsForLocale(locale);
+  const seen = new Set<string>();
+  for (const post of posts) {
+    const name = post.data.series;
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    if (posts.filter(p => p.data.series === name).length >= 2) return name;
+  }
+  return null;
+}
+
+/**
  * A feed entry that may be an English master standing in for a missing
  * translation. Locale feeds render these with an "In English" marker and
  * link to the English URL, instead of silently dropping the post.
