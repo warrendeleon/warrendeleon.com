@@ -21,12 +21,21 @@ const dateLocaleMap: Record<Locale, string> = {
 };
 
 /**
+ * The moment a post goes live: 08:30 Europe/London on its publish date, matching the
+ * blog-publisher's 08:30 deploy and newsletter schedule. Gating visibility on this
+ * (not midnight) means no off-schedule deploy can publish a post before its slot. The
+ * site builds in the Europe/London container, so the local T08:30 is 08:30 London.
+ */
+export function publishSlot(date: Date): Date {
+  return new Date(`${date.toISOString().slice(0, 10)}T08:30:00`);
+}
+
+/**
  * Returns all published (non-draft) blog posts for a given locale,
  * sorted by publish date descending (newest first).
  */
 export async function getPostsForLocale(locale: Locale, includeFuture = import.meta.env.DEV): Promise<ScheduledPost[]> {
   const now = new Date();
-  now.setUTCHours(23, 59, 59, 999);
   const all = await getCollection('blog');
 
   // English is the single source of truth for scheduling. Build a slug -> date map
@@ -67,7 +76,7 @@ export async function getPostsForLocale(locale: Locale, includeFuture = import.m
       post.data.publishDate instanceof Date &&
       !post.data.draft &&
       (post.data.locale || 'en') === locale &&
-      (includeFuture || post.data.publishDate <= now))
+      (includeFuture || publishSlot(post.data.publishDate) <= now))
     .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 }
 
