@@ -34,8 +34,11 @@ export function hashDiagram(source) {
 }
 
 const blocks = new Map(); // hash -> source
-for (const file of readdirSync(contentDir).filter((f) => f.endsWith('.md'))) {
-  const text = readFileSync(join(contentDir, file), 'utf8');
+// Recursive: translated posts live in locale subdirectories (es/, ca/, tl/)
+// and their diagrams hash differently (translated labels), so a flat scan
+// left them without SVGs and every locale post with a diagram failed to build.
+for (const file of readdirSync(contentDir, { recursive: true }).filter((f) => String(f).endsWith('.md'))) {
+  const text = readFileSync(join(contentDir, String(file)), 'utf8');
   for (const m of text.matchAll(/^```mermaid[ \t]*\r?\n([\s\S]*?)^```/gm)) {
     const source = m[1].replace(/\r\n/g, '\n');
     blocks.set(hashDiagram(source), source);
