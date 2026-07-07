@@ -107,9 +107,11 @@ const cleanPath = getCleanPath(currentPath);
 
     <link rel="alternate" type="application/rss+xml" title="Warren de Leon" href="/rss.xml" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    {/* Inter is self-hosted (see @font-face in global.css). Preload the two
+        display-critical weights — body (400) and headings (800) — so the
+        above-the-fold text swaps in fast without a third-party request. */}
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-400-normal.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-800-normal.woff2" crossorigin />
 
     {jsonLd && (
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
