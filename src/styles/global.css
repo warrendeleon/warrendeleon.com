@@ -38,11 +38,46 @@
   --device-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.12);
+  /* Redesign elevation set. Dark mode swaps these for faint light shadows —
+     a dark shadow on a dark page reads as nothing (same convention as
+     --device-shadow). */
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lift: 0 8px 32px rgba(0, 0, 0, 0.14);
+  --shadow-dock: 0 10px 34px rgba(0, 0, 0, 0.22);
+  --sheet-shadow: 0 -12px 40px rgba(0, 0, 0, 0.18);
   --badge-bg: #f0f0f0;
   --badge-text: #333;
   --timeline-line: #d0d0d0;
   --timeline-dot: #6dc402;
   --code-bg: #f5f5f5;
+  /* Code syntax tokens (Design System §1). */
+  --code-kw: #d73a49;
+  --code-str: #22863a;
+  --code-fn: #6f42c1;
+  --code-num: #005cc5;
+  --code-com: #6a737d;
+  /* iOS safe-area insets (0 elsewhere); requires viewport-fit=cover in the
+     viewport meta. Fixed bars and sheets pad with these so controls never sit
+     under the home indicator. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  /* Type scale (DS §2): one set of role sizes, stepped down per band by the
+     media overrides below the container rules. Components override only
+     where their artboard genuinely differs. */
+  --fs-h1: 34px;        /* page title + green bar */
+  --bar-h1: 52px;       /* the bar under the page title */
+  --fs-h2: 26px;        /* section heading + green bar */
+  --fs-h3: 20px;        /* detail sub-heading / browline */
+  --fs-h4: 18px;        /* minor labels (multi-role pages) */
+  --fs-body: 17px;      /* long-form copy outside articles */
+  --lh-body: 1.6;
+  --fs-prose: 17px;     /* article reading size */
+  --fs-prose-h2: 24px;  /* article section heading */
+  /* Section rhythm (DS §3): sections separated by 44px mobile/tablet,
+     48–60px desktop; tinted bands carry their own inner padding. */
+  --sp-section: 28px;
+  --sp-band: 56px;
+  --sp-heading: 24px;   /* section heading → content */
 }
 
 /* Dark theme */
@@ -62,17 +97,20 @@
   --device-shadow: 0 16px 40px rgba(255, 255, 255, 0.08); /* faint light lift on the dark page */
   --shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
   --shadow-hover: 0 6px 22px rgba(255, 255, 255, 0.1);
+  --shadow-card: 0 2px 10px rgba(255, 255, 255, 0.07);
+  --shadow-lift: 0 8px 32px rgba(255, 255, 255, 0.1);
+  --shadow-dock: 0 10px 34px rgba(255, 255, 255, 0.16);
+  --sheet-shadow: 0 -12px 40px rgba(255, 255, 255, 0.1);
   --badge-bg: #2a2a2a;
   --badge-text: #d0d0d0;
   --timeline-line: #333333;
   --timeline-dot: #6dc402;
   --code-bg: #1a1a1a;
-}
-
-@media (max-width: 1024px) {
-  [data-theme="dark"] .nav-menu.open {
-    background: #111111 !important;
-  }
+  --code-kw: #ff7b72;
+  --code-str: #7ee787;
+  --code-fn: #d2a8ff;
+  --code-num: #79c0ff;
+  --code-com: #8b949e;
 }
 
 /* Base */
@@ -116,12 +154,15 @@ h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: 5rem;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
+h1 { font-size: var(--fs-h1); letter-spacing: -0.02em; font-weight: 800; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
 
-/* Layout */
+/* Layout (Design System §3): three fixed content columns.
+   Mobile ≤699px: 430px centred app column, 20px gutter.
+   Tablet 700–1279px: 960px centred column, 24px gutter.
+   Desktop ≥1280px: 1100px shell. */
 .container {
   width: 100%;
   max-width: 1100px;
@@ -129,12 +170,61 @@ h4 { font-size: 1.25rem; }
   padding: 0 1.5rem;
 }
 
-.section {
-  padding: 4rem 0;
+@media (max-width: 1279px) {
+  :root {
+    --fs-h1: 32px;
+    --bar-h1: 48px;
+    --fs-h2: 20px;
+    --fs-h3: 18px;
+    --fs-h4: 16px;
+    --fs-body: 15px;
+    --fs-prose: 16px;
+    --fs-prose-h2: 21px;
+    --sp-section: 22px;
+    --sp-band: 32px;
+    --sp-heading: 18px;
+  }
+
+  .container {
+    max-width: 1008px; /* 960px column + 2 × 24px gutter */
+    padding: 0 24px;
+  }
 }
 
+@media (max-width: 699px) {
+  :root {
+    --fs-h1: 30px;
+    --bar-h1: 44px;
+    --fs-h2: 18px;
+    --fs-h3: 17px;
+    --fs-h4: 14px;
+    --fs-body: 14px;
+    --lh-body: 1.7;
+    /* Articles read slightly larger on phones than tablets (artboards). */
+    --fs-prose: 16.5px;
+    --sp-band: 24px;
+    --sp-heading: 14px;
+  }
+
+  .container {
+    max-width: 430px; /* app column; the gutter is all that flexes below it */
+    padding: 0 20px;
+  }
+}
+
+.section {
+  padding: var(--sp-section) 0;
+}
+
+/* Tinted bands: fuller inner padding + hairline frame (design). */
 .section-alt {
   background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section.section-alt {
+  padding: var(--sp-band) 0;
 }
 
 /* Blog landing: the lead and content sections sit either side of the full-width
@@ -145,8 +235,8 @@ h4 { font-size: 1.25rem; }
 .blog-after { padding-top: 2rem; }
 
 .section-heading {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+  font-size: var(--fs-h2);
+  margin-bottom: var(--sp-heading);
   position: relative;
   display: inline-block;
 }
@@ -162,6 +252,27 @@ h4 { font-size: 1.25rem; }
 
 /* Blog list cards — shared across the index, series and tag listing pages */
 .blog-mono { font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; }
+
+/* Tag chip (design): badge pill shared by post heroes, tag pages and the
+   blog sidebar. */
+.post-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.post-tag {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  border: 1px solid var(--border-color);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.post-tag:hover { border-color: var(--color-green); color: var(--color-green-text); }
+
+@media (max-width: 699px) {
+  .post-tag { padding: 4px 10px; font-size: 11.5px; }
+}
 
 .blog-feed { display: flex; flex-direction: column; gap: 1.25rem; }
 
@@ -225,6 +336,67 @@ h4 { font-size: 1.25rem; }
   .feed-post-title { font-size: 1.08rem; }
 }
 
+/* Tablet (design): the home hero becomes text + 340px photo, and blog feeds
+   run as a two-column grid of compact rows. Placed after the ≤768px blocks
+   so it wins the 700–768px overlap. */
+@media (min-width: 700px) and (max-width: 1023px) {
+  .blog-feed {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* The Home Tablet artboard is 1024px wide — its 1fr/340px hero only fits
+     from ~1024 up. Below that the stacked mobile hero applies (a 2-col grid
+     in this band crushed the text column and wrapped the CTA pills). */
+
+}
+
+/* Mobile + tablet: feed posts are compact thumbnail rows (design). Blog
+   Home's lead card overrides :first-child in BlogListing. */
+@media (max-width: 1023px) {
+  .feed-post {
+    display: flex;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+  /* Design row meta: one small mono line — "8 Jun 2026 · 10 min · Series". */
+  .feed-post-meta {
+    font-size: 0.68rem;
+    gap: 0.4rem;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  /* The artboard is 390px; on narrower phones the series name is the part
+     that runs out of room — ellipsise it rather than clip mid-glyph. */
+  .feed-post-meta .feed-post-series {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .feed-post-thumb {
+    width: 96px;
+    height: 76px;
+    min-height: 0;
+    aspect-ratio: auto;
+    flex-shrink: 0;
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .feed-post-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .feed-post-body { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 3px; padding: 0; }
+  .feed-post-desc { display: none; }
+  .feed-post-title {
+    font-size: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
 /* Buttons */
 .btn {
   display: inline-flex;
@@ -273,6 +445,66 @@ h4 { font-size: 1.25rem; }
 
 .card:hover {
   box-shadow: var(--shadow-hover);
+}
+
+/* Section title with the redesign's short green underline. The bar is an
+   ::after so existing headings adopt it with a class, no markup change. */
+.section-title {
+  font-size: var(--fs-h1);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin: 0 0 1.5rem;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: var(--bar-h1);
+  height: 3px;
+  border-radius: 2px;
+  background: var(--color-green);
+  margin-top: 0.5rem;
+}
+
+/* Pill CTAs from the redesign (48px, solid green / outlined green). */
+.hero-ctas {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.hero-cta-solid {
+  background: var(--color-green);
+  color: #fff;
+}
+
+.hero-cta-solid:hover {
+  background: var(--color-green-dark);
+  color: #fff;
+}
+
+.hero-cta-outline {
+  border: 2px solid var(--color-green);
+  color: var(--color-green-text);
+}
+
+.hero-cta-outline:hover {
+  background: rgba(109, 196, 2, 0.1);
 }
 
 /* Badges */
@@ -382,14 +614,14 @@ h4 { font-size: 1.25rem; }
 /* Work experience header: title with the CV download beside it */
 .wx-header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
 }
 
-.wx-header .section-heading {
+.wx-header .section-heading,
+.wx-header .section-title {
   margin-bottom: 0;
 }
 
@@ -448,6 +680,98 @@ h4 { font-size: 1.25rem; }
 .current-role-content h3 {
   color: var(--color-green-text);
   font-size: 1.25rem;
+}
+
+/* Mobile (design "Home Mobile" latest-role card): compact — 48px round logo
+   beside company + role, two-line description, no date, small outlined pill. */
+@media (max-width: 699px) {
+  .card.current-role {
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: none;
+  }
+
+  .current-role-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .current-role-logo-col {
+    justify-content: flex-start;
+  }
+
+  .current-role-logo {
+    width: 48px;
+    height: 48px;
+    aspect-ratio: auto;
+    background: #ffffff;
+    border-width: 1.5px;
+  }
+
+  /* Pull company + role up beside the logo. */
+  .current-role-inner {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    column-gap: 12px;
+    row-gap: 10px;
+    align-items: center;
+  }
+
+  .current-role-content {
+    display: contents;
+  }
+
+  .current-role-content h3 {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 0.95rem;
+    align-self: end;
+    margin: 0;
+  }
+
+  .current-role-content .role-title {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: start;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .current-role-logo-col {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .current-role-content .role-date {
+    display: none;
+  }
+
+  .current-role-content .role-desc {
+    grid-column: 1 / -1;
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .current-role-content .btn {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin: 0;
+    min-height: 38px;
+    padding: 0 16px;
+    border-radius: 19px;
+    border-width: 1.5px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
 }
 
 .role-title {
@@ -527,9 +851,11 @@ h4 { font-size: 1.25rem; }
 }
 
 /* About section */
+/* Body-copy role from the type scale (design: 14/15/17 per band, all
+   paragraphs the same size; the first carries the colour emphasis). */
 .about-text {
-  font-size: 1.05rem;
-  line-height: 1.8;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--text-secondary);
 }
 
@@ -538,17 +864,12 @@ h4 { font-size: 1.25rem; }
 }
 
 .about-text p:first-child {
-  font-size: 1.15rem;
   color: var(--text-primary);
   font-weight: 500;
 }
 
 .about-text p:last-child {
   margin-bottom: 0;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--border-color);
-  font-style: italic;
-  color: var(--text-muted);
 }
 
 /* Page fade-in */
@@ -601,7 +922,7 @@ main {
 
 /* Blog prose */
 .prose {
-  font-size: 1.05rem;
+  font-size: var(--fs-prose);
   line-height: 1.8;
   color: var(--text-secondary);
 }
@@ -614,7 +935,7 @@ main {
   color: var(--text-primary);
   margin-top: 2.5rem;
   margin-bottom: 1rem;
-  font-size: 1.5rem;
+  font-size: var(--fs-prose-h2);
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--color-green);
   display: inline-block;
@@ -747,37 +1068,53 @@ main {
   background: var(--code-bg);
 }
 
+/* DS §9: language label takes the slack; Wrap · Copy · Expand sit together
+   on the right. Header on --badge-bg (desktop/tablet card). */
 .code-block-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  background: var(--border-color);
+  gap: 8px;
+  padding: 8px 12px 8px 16px;
+  background: var(--badge-bg);
   border-bottom: 1px solid var(--border-color);
 }
 
 .code-block-lang {
-  font-size: 0.8rem;
-  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.69rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
   font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
 .code-copy-btn {
-  padding: 0.2rem 0.55rem;
+  padding: 4px 8px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   background: transparent;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   transition: color 0.2s ease, background 0.2s ease;
   display: flex;
   align-items: center;
   gap: 0.35rem;
+  flex-shrink: 0;
+}
+
+/* DS §9: Wrap is a mobile affordance — Copy + Expand only from 700px up. */
+@media (min-width: 700px) {
+  .code-wrap-btn {
+    display: none;
+  }
 }
 
 .code-copy-btn:hover {
@@ -806,6 +1143,50 @@ main {
   overflow-x: auto;
   margin: 1.5rem 0;
   border: 1px solid var(--border-color);
+}
+
+/* Right-edge fade signals a horizontally scrollable block; the injector sets
+   data-scrollable when the code overflows and data-at-end at the far edge. */
+.code-block-wrapper[data-scrollable]::after {
+  content: '';
+  position: absolute;
+  top: 37px;
+  right: 0;
+  bottom: 0;
+  width: 28px;
+  background: linear-gradient(to right, transparent, var(--code-bg));
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.code-block-wrapper[data-at-end]::after {
+  opacity: 0;
+}
+
+@media (max-width: 699px) {
+  /* Full-bleed: cancel the container's 1rem side padding so code gets the
+     whole screen width. Squared edges read as intentional at the bleed. */
+  .prose .code-block-wrapper {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+
+  /* DS §9 mobile strip: the header sits directly on --code-bg. */
+  .code-block-header {
+    background: transparent;
+    padding: 8px 14px 8px 16px;
+  }
+}
+
+@media (max-width: 599px) {
+  /* The line-number gutter costs ~4ch per line on a ~45ch screen. */
+  .prose pre code .line::before {
+    display: none;
+  }
 }
 
 /* Shiki dual theme: map data-theme to Shiki colour scheme */
@@ -903,6 +1284,22 @@ main {
   fill: #8a8f98 !important;
   stroke: #8a8f98 !important;
 }
+/* Sequence diagrams (design: green actors, neutral grey lifelines/messages). */
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .actor {
+  fill: var(--bg-card) !important;
+  stroke: var(--color-green) !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) .actor-line {
+  stroke: #8a8f98 !important;
+  stroke-width: 1.5px !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) :is(.messageLine0, .messageLine1) {
+  stroke: #8a8f98 !important;
+}
+:is(.prose pre.mermaid svg, .media-lightbox-inner svg) :is(.activation0, .activation1, .activation2) {
+  fill: var(--bg-secondary) !important;
+  stroke: var(--border-color) !important;
+}
 
 /* Tall phone screenshots: half width, centred, so they don't dominate the column. */
 .prose img.screenshot {
@@ -984,80 +1381,203 @@ main {
   width: 60px;
 }
 
-/* Series navigation box at the top of a post that belongs to a series. */
+/* Series navigation: a horizontal shelf of numbered part cards (current part
+   outlined green). Replaces the old vertical list box. */
 .series-nav {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 1.25rem 1.5rem;
   margin-bottom: 2rem;
 }
 
+.series-nav-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.7rem;
+}
+
+/* DS stepper head: series name and part share the row. Mobile/tablet push
+   the part label to the right edge; desktop groups them left (gap 12) with
+   the shelf arrows on the right. */
 .series-nav-heading {
-  margin: 0 0 0.75rem;
-  font-size: 0.8rem;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  font-size: 0.69rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.07em;
   color: var(--text-muted);
+  font-weight: 700;
 }
 
 .series-nav-part {
   color: var(--color-green-text);
-  font-weight: 600;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .series-nav-heading strong {
-  color: var(--text-primary);
-  font-weight: 600;
+  color: var(--text-muted);
+  font-weight: 700;
 }
 
-.series-nav-sep {
-  margin: 0 0.5rem;
-  color: var(--text-muted);
+.series-nav-arrows {
+  display: none;
+  gap: 8px;
+}
+
+/* Arrows are a desktop affordance (design: mobile/tablet scroll freely). */
+@media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+  .series-nav-heading {
+    justify-content: flex-start;
+  }
+
+  .series-nav-arrows {
+    display: flex;
+  }
+}
+
+/* The JS hides them again while the shelf has nothing to scroll. */
+.series-nav-arrows[hidden] {
+  display: none;
+}
+
+.series-nav-arrow {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.series-nav-arrow:hover {
+  border-color: var(--color-green);
+}
+
+.series-nav-arrow[disabled] {
+  opacity: 0.35;
+  cursor: default;
 }
 
 .series-nav-list {
   margin: 0;
-  padding-left: 1.4rem;
+  padding: 2px;
   display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  gap: 8px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+/* Mobile: the shelf bleeds to the screen edges and scrolls under the
+   20px gutters (design: row padding 2px 20px 12px on an unpadded strip). */
+@media (max-width: 699px) {
+  .series-nav-list {
+    margin-inline: -20px;
+    padding: 2px 20px 12px;
+  }
+}
+
+.series-nav-list::-webkit-scrollbar {
+  display: none;
 }
 
 .series-nav-list li {
   margin: 0;
-  color: var(--text-secondary);
+  flex-shrink: 0;
+  display: flex;
 }
 
-.series-nav-list li::marker {
+/* Card widths per band (design): 132px mobile, 180px tablet, 220px desktop.
+   height:100% keeps every card the height of the tallest in the row. */
+.series-card-inner {
+  width: 132px;
+  height: 100%;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 11px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+/* Long real titles would make 132px cards very tall — cap at three lines. */
+.series-card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+a.series-card-inner:hover {
+  border-color: var(--color-green);
+  color: var(--text-primary);
+}
+
+.series-card-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
   color: var(--text-muted);
 }
 
-.series-nav-list a {
-  color: var(--text-primary);
-  text-decoration: none;
-}
-
-.series-nav-list a:hover {
-  color: var(--color-green-text);
-  text-decoration: underline;
-}
-
-.series-nav-list li.series-current {
+.series-current .series-card-inner {
+  border: 1.5px solid var(--color-green);
   color: var(--text-primary);
   font-weight: 700;
 }
 
-.series-nav-list li.series-current::marker {
+.series-current .series-card-num {
   color: var(--color-green-text);
+}
+
+@media (min-width: 700px) {
+  .series-card-inner {
+    width: 180px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .series-nav-list {
+    gap: 10px;
+  }
+
+  .series-card-inner {
+    width: 220px;
+    padding: 13px 14px;
+    font-size: 0.85rem;
+  }
 }
 
 /* Wide tables scroll inside this wrapper instead of stretching the page.
    overflow-x: auto only works on a block container, never on the table element
    itself, so the rehype-table-wrapper plugin wraps each table in one. */
+/* DS §8 classic table card: rounded bordered container, mono uppercase
+   header strip on --badge-bg, hairline row dividers. Wide tables scroll
+   inside the wrapper with a sticky first column (pattern 4). */
 .prose .table-wrapper {
   overflow-x: auto;
   margin: 1.5rem 0;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
 }
 
 .prose table {
@@ -1065,42 +1585,177 @@ main {
   min-width: 100%;
   border-collapse: collapse;
   margin: 0;
-  font-size: 0.95rem;
   display: table;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-}
-
-.prose thead {
-  background: var(--bg-secondary);
 }
 
 .prose th {
   text-align: left;
-  padding: 0.75rem 1rem;
+  padding: 10px 14px;
+  font-size: 0.72rem;
   font-weight: 700;
-  color: var(--text-primary);
-  border-bottom: 2px solid var(--color-green);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  color: var(--text-muted);
+  background: var(--badge-bg);
+  border-bottom: 1px solid var(--border-color);
   white-space: nowrap;
 }
 
 .prose td {
-  padding: 0.75rem 1rem;
+  padding: 10px 14px;
+  font-size: 0.85rem;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-secondary);
   vertical-align: top;
 }
 
-.prose tbody tr:nth-child(even) {
-  background: var(--bg-secondary);
+/* Sticky first column so wide tables keep their row labels while scrolling
+   (DS §8 pattern 4). Opaque backgrounds are required for the overlap. */
+.prose th:first-child,
+.prose td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  border-right: 1px solid var(--border-color);
 }
-
-.prose tbody tr:hover {
+.prose td:first-child {
   background: var(--bg-card);
+  font-weight: 600;
+  color: var(--text-primary);
 }
+.prose th:first-child { z-index: 2; }
 
 .prose tbody tr:last-child td {
   border-bottom: none;
+}
+
+/* DS §8 bespoke table cards (scoring-rubric post): stacked score rows,
+   observable checklist, level range bands. Shared card shell + head strip. */
+.prose .dt-card {
+  margin: 20px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+.prose .dt-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--badge-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+.prose .dt-head-between { justify-content: space-between; }
+.prose .dt-kicker {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.prose .dt-kicker-green { color: var(--color-green-text); }
+.prose .dt-title { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); }
+.prose .dt-cols { display: flex; gap: 12px; padding: 8px 14px; border-bottom: 1px solid var(--border-color); }
+.prose .dt-col {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.prose .dt-col-num { width: 30px; flex-shrink: 0; text-align: center; }
+.prose .dt-rows { display: flex; flex-direction: column; }
+.prose .dt-score-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+.prose .dt-score-row:last-child { border-bottom: none; }
+.prose .dt-score-num {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border-color);
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  color: var(--text-primary);
+}
+.prose .dt-score-desc { font-size: 0.84rem; line-height: 1.6; color: var(--text-secondary); }
+.prose .dt-checklist { display: flex; flex-direction: column; padding: 6px 0; }
+.prose .dt-check-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 42px;
+  padding: 6px 14px;
+}
+.prose .dt-check-row svg { flex-shrink: 0; }
+.prose .dt-check-row > span { font-size: 0.84rem; line-height: 1.55; color: var(--text-primary); }
+.prose .dt-check-unchecked > span { color: var(--text-secondary); }
+.prose .dt-check-divider { height: 1px; background: var(--border-color); margin: 6px 14px; }
+.prose .dt-foot {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.prose .dt-range-row {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+.prose .dt-range-row:last-child { border-bottom: none; }
+.prose .dt-range-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.prose .dt-range-name { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); }
+.prose .dt-range-val {
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  color: var(--text-muted);
+}
+.prose .dt-range-track { position: relative; height: 6px; border-radius: 3px; background: var(--badge-bg); }
+.prose .dt-range-fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; background: var(--color-green); }
+
+/* Criterion rows with WCAG chips (accessibility-testing post). */
+.prose .dt-crit-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--border-color);
+}
+.prose .dt-crit-row:last-child { border-bottom: none; }
+.prose .dt-crit-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.prose .dt-crit-name { font-size: 0.88rem; font-weight: 700; color: var(--text-primary); }
+.prose .dt-wcag {
+  flex-shrink: 0;
+  font-size: 0.66rem;
+  font-weight: 700;
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  color: var(--color-green-text);
+  background: rgba(109, 196, 2, 0.12);
+  border: 1px solid var(--color-green);
+  border-radius: 6px;
+  padding: 2px 7px;
+}
+.prose .dt-crit-desc { font-size: 0.81rem; line-height: 1.6; color: var(--text-secondary); }
+
+/* The design bleeds these cards 6px past the text column on mobile. */
+@media (max-width: 699px) {
+  .prose .dt-card { margin-inline: -6px; }
 }
 
 .prose strong {
@@ -1122,43 +1777,14 @@ main {
 
 /* Responsive */
 @media (max-width: 768px) {
-  h1 { font-size: 1.8rem; }
-  h2 { font-size: 1.5rem; }
-  h3 { font-size: 1.25rem; }
-
-  .section {
-    padding: 2.5rem 0;
-  }
-
-  .container {
-    padding: 0 1rem;
-  }
-
-  .hero-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .hero-text h1 {
-    text-align: center;
-  }
-
+  /* Redesign: mobile stays left-aligned (the old centred-hero rules fought
+     the design's stacked layout). Socials centre per the mobile artboard. */
   .hero-social {
     justify-content: center;
   }
 
-  .current-role-inner {
-    grid-template-columns: 60px 1fr;
-  }
-
   .latest-posts-grid {
     grid-template-columns: 1fr;
-  }
-
-  .about-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
   }
 }
 
@@ -1187,3 +1813,57 @@ main {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ===== Bottom sheets (Design System §13) — shared primitive used by the
+   article TOC/share sheets and the language picker. ===== */
+/* ===== Bottom sheets ===== */
+.post-sheet { position: fixed; inset: 0; z-index: 80; }
+.post-sheet[hidden] { display: none; }
+.post-sheet-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.post-sheet.is-open .post-sheet-backdrop { opacity: 1; }
+.post-sheet-panel {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 430px;
+  max-height: 72dvh;
+  overflow-y: auto;
+  background: var(--bg-card);
+  border-radius: 20px 20px 0 0;
+  box-shadow: var(--sheet-shadow);
+  padding-bottom: calc(16px + var(--safe-bottom));
+  transform: translateX(-50%) translateY(105%);
+  transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.post-sheet.is-open .post-sheet-panel { transform: translateX(-50%) translateY(0); }
+.post-sheet-grabber { width: 36px; height: 4px; border-radius: 2px; background: var(--border-color); margin: 10px auto 12px; }
+.post-sheet-head { display: flex; align-items: center; justify-content: space-between; padding: 0 20px 12px; border-bottom: 1px solid var(--border-color); }
+.post-sheet-title { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); }
+.post-sheet-meta { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); }
+.post-sheet-list { list-style: none; margin: 0; padding: 8px 8px 12px; display: flex; flex-direction: column; }
+.post-sheet-list a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+.post-sheet-list a:hover { background: var(--bg-secondary); }
+.post-sheet-list .sheet-active a { background: rgba(109, 196, 2, 0.13); color: var(--text-primary); font-weight: 700; }
+.sheet-num { width: 20px; flex-shrink: 0; font-size: 0.72rem; font-weight: 700; font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; color: var(--text-muted); }
+.sheet-active .sheet-num { color: var(--color-green-text); }
+.sheet-depth-3 a { padding-left: 2.2rem; }
+.post-sheet-share-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 16px 20px 8px; }
+.post-sheet-share-grid .share-btn { justify-content: center; min-height: 48px; }
+
