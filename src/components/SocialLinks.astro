@@ -69,20 +69,6 @@ const links = [
     align-items: center;
   }
 
-  /* Below 480px a full row of 44px icons overflows the column. Wrap into
-     balanced, centred rows by capping the row at four icons, rather than
-     letting one icon strand on its own line. */
-  @media (max-width: 480px) {
-    .social-links {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.75rem;
-      max-width: 15rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
   .social-link {
     color: var(--text-secondary);
     transition: color 0.2s ease, transform 0.2s ease;

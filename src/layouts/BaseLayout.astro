@@ -1,5 +1,6 @@
 ---
 import Nav from '../components/Nav.astro';
+import TabBar from '../components/TabBar.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { locales, getLocalePath, t, type Locale } from '../i18n/index';
@@ -16,9 +17,13 @@ interface Props {
   ogType?: string;
   preloadImage?: string;
   hreflangLocales?: Locale[];
+  /* Mobile top-bar variant for content pages: a back chevron replaces the
+     logo and a two-line title (eyebrow + title) fades in once the reader
+     scrolls past the hero. Desktop nav is unaffected. */
+  mobileBack?: { href: string; title: string; eyebrow?: string };
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType, preloadImage, hreflangLocales } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType, preloadImage, hreflangLocales, mobileBack } = Astro.props;
 
 // Default to every locale; pages that only exist in some locales (e.g. an
 // untranslated blog post) pass the subset that actually exists, so we never
@@ -47,7 +52,9 @@ const cleanPath = getCleanPath(currentPath);
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- viewport-fit=cover lets env(safe-area-inset-*) resolve on iOS, which the
+     fixed tab bar and bottom sheets need to clear the home indicator. -->
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <script is:inline>
       // Theme must resolve before first paint: at the end of <body> it gave
       // dark-theme visitors a white flash on every navigation.
@@ -151,11 +158,12 @@ const cleanPath = getCleanPath(currentPath);
   </head>
   <body>
     <a href="#main-content" class="skip-link">{t(locale).a11y.skipToContent}</a>
-    <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} />
+    <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} mobileBack={mobileBack} />
     <main id="main-content">
       <slot />
     </main>
     <Footer locale={locale} />
+    <TabBar locale={locale} currentPath={currentPath} />
     <CookieConsent locale={locale} />
 
     <script is:inline>

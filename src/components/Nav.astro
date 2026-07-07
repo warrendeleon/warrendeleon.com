@@ -7,9 +7,10 @@ interface Props {
   locale: Locale;
   currentPath: string;
   availableLocales?: Locale[];
+  mobileBack?: { href: string; title: string; eyebrow?: string };
 }
 
-const { locale, currentPath, availableLocales } = Astro.props;
+const { locale, currentPath, availableLocales, mobileBack } = Astro.props;
 const i18n = t(locale);
 
 // Search only covers blog content, so the trigger appears across the blog
@@ -23,57 +24,60 @@ const navLinks = [
 ];
 ---
 
-<nav class="nav" aria-label={i18n.a11y.mainNavigation}>
-  <div class="nav-inner container">
+<nav class:list={['nav', { 'nav-has-back': !!mobileBack }]} aria-label={i18n.a11y.mainNavigation}>
+  <div class="nav-inner">
+    {mobileBack && (
+      <a href={mobileBack.href} class="nav-back" aria-label={i18n.blog.backToBlog}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </a>
+    )}
+    {mobileBack && (
+      <div class="nav-back-title" data-nav-back-title aria-hidden="true">
+        {mobileBack.eyebrow && <div class="nav-back-eyebrow">{mobileBack.eyebrow}</div>}
+        <div class="nav-back-heading">{mobileBack.title}</div>
+      </div>
+    )}
     <a href={getLocalePath(locale, '/')} class="nav-logo" aria-label="Warren de Leon — home">
       <img src="/images/logo.gif" alt="Warren de Leon" class="nav-logo-img" />
-      <span class="nav-logo-mark" aria-hidden="true"><span class="nav-logo-accent">&lt;</span>w<span class="nav-logo-accent">/&gt;</span></span>
     </a>
 
-    <div class="nav-right">
-      <div class="nav-actions">
-        {isBlog && (
-          <button
-            type="button"
-            class="nav-search"
-            data-bs-open
-            aria-haspopup="dialog"
-            aria-keyshortcuts="Meta+K Control+K"
-            aria-label={i18n.blog.search.triggerLabel}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <span class="nav-search-text">{i18n.blog.search.trigger}</span>
-            <kbd class="nav-search-kbd" data-search-kbd aria-hidden="true">⌘K</kbd>
-          </button>
-        )}
-        <ThemeToggle locale={locale} />
-        <LanguageSelector locale={locale} currentPath={currentPath} availableLocales={availableLocales} />
-      </div>
-      <button class="hamburger" id="hamburger" type="button" aria-label={i18n.a11y.toggleMenu} aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
+    <div class="nav-spacer" aria-hidden="true"></div>
 
-    <div class="nav-menu" id="nav-menu">
-      <ul class="nav-links">
-        {navLinks.map(link => (
-          <li>
-            <a
-              href={link.href}
-              class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
-              aria-current={currentPath === link.href ? 'page' : undefined}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
+    {isBlog && (
+      <button
+        type="button"
+        class="nav-search"
+        data-bs-open
+        aria-haspopup="dialog"
+        aria-keyshortcuts="Meta+K Control+K"
+        aria-label={i18n.blog.search.triggerLabel}
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <span class="nav-search-text">{i18n.blog.search.trigger}</span>
+        <kbd class="nav-search-kbd" data-search-kbd aria-hidden="true">⌘K</kbd>
+      </button>
+    )}
+
+    <!-- Desktop section links; below 1024px the bottom tab bar navigates. -->
+    <ul class="nav-links">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['nav-link', { active: currentPath.startsWith(link.href) }]}
+            aria-current={currentPath === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <LanguageSelector locale={locale} currentPath={currentPath} availableLocales={availableLocales} />
+    <ThemeToggle locale={locale} />
   </div>
 </nav>
 
@@ -91,267 +95,266 @@ const navLinks = [
   .nav {
     position: sticky;
     top: 0;
-    z-index: 50;
+    z-index: 60;
     background: var(--bg-nav);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--border-color);
   }
 
   .nav-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 2rem;
-    gap: 1.5rem;
+    gap: 26px;
+    height: 64px;
+    padding: 0 40px;
     max-width: 100%;
+  }
+
+  .nav-spacer {
+    flex: 1;
   }
 
   .nav-logo {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
   }
 
   .nav-logo-img {
-    height: 24px;
+    height: 30px;
     width: auto;
     display: block;
-  }
-
-  /* Compact monogram replaces the full wordmark where it cannot fit. */
-  .nav-logo-mark {
-    display: none;
-    font-weight: 700;
-    font-size: 1.25rem;
-    letter-spacing: 0.02em;
-    color: var(--text-primary);
-  }
-
-  .nav-logo-accent {
-    color: var(--color-green-text);
-  }
-
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    order: 3;
-  }
-
-  .nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    flex: 1;
-    justify-content: flex-end;
-    order: 2;
   }
 
   .nav-links {
     display: flex;
     list-style: none;
-    gap: 1.5rem;
+    gap: 26px;
+    margin: 0;
+    padding: 0;
   }
 
   .nav-link {
-    color: var(--text-primary);
+    color: var(--text-secondary);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     padding: 0.25rem 0;
-    position: relative;
     transition: color 0.2s ease;
   }
 
-  .nav-link:hover,
+  .nav-link:hover {
+    color: var(--text-primary);
+  }
+
   .nav-link.active {
     color: var(--color-green-text);
+    font-weight: 600;
   }
 
-  .nav-link.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--color-green);
-    border-radius: 1px;
-  }
-
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
+  /* Design: pill search trigger — 36px, radius 18, bg-secondary, ⌘K kbd. */
   .nav-search {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.45rem;
-    min-height: 34px;
-    padding: 0.3rem 0.7rem;
+    gap: 8px;
+    height: 36px;
+    padding: 0 14px;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: none;
-    color: var(--text-primary);
-    font-size: 0.9rem;
+    border-radius: 18px;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    font-size: 13px;
     font-family: inherit;
     cursor: pointer;
-    transition: color 0.2s ease, background 0.2s ease;
+    flex-shrink: 0;
+    transition: color 0.2s ease, border-color 0.2s ease;
   }
 
   .nav-search:hover {
-    color: var(--color-green-text);
-    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--color-green);
   }
 
   .nav-search-kbd {
-    font-size: 0.72rem;
-    font-family: inherit;
-    color: var(--text-muted);
+    font-size: 10.5px;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    padding: 0.05rem 0.3rem;
+    padding: 1px 5px;
   }
 
-  @media (max-width: 1024px) {
+  /* Content-page variant: back chevron + collapsing title (mobile only). */
+  .nav-back,
+  .nav-back-title {
+    display: none;
+  }
+
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .nav-inner { height: 60px; padding: 0 24px; }
+    .nav-has-back .nav-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      margin-left: -8px;
+      border-radius: 22px;
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    .nav-has-back .nav-back-title {
+      display: block;
+      flex: 1;
+      min-width: 0;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav[data-past-hero] .nav-back-title {
+      opacity: 1;
+      transform: none;
+    }
+
+    .nav-back-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-green-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-back-heading {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-has-back .nav-logo {
+      display: none;
+    }
+  }
+
+  /* Mobile + tablet top bar (<1280px): logo + actions only — section links
+     live in the tab bar/dock. Border starts transparent over page tops and
+     fades in after the first few pixels of scroll. Search is a round icon
+     button here (DS §12); the ⌘K pill is desktop-only. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .nav {
+      border-bottom-color: transparent;
+      transition: border-color 0.25s ease;
+    }
+
+    .nav[data-scrolled] {
+      border-bottom-color: var(--border-color);
+    }
+
+    .nav-logo-img {
+      height: 26px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
     .nav-search {
-      width: 34px;
+      width: 38px;
+      height: 38px;
       padding: 0;
+      justify-content: center;
+      gap: 0;
       border: none;
+      border-radius: 19px;
+      background: transparent;
+      color: var(--text-primary);
+    }
+
+    .nav-search svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .nav-search:hover {
+      background: var(--bg-secondary);
     }
 
     .nav-search-text,
     .nav-search-kbd {
       display: none;
     }
-  }
 
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    z-index: 60;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: var(--text-primary);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  @media (max-width: 1024px) {
-    .nav-right {
-      order: unset;
-    }
-
-    .hamburger {
-      display: flex;
-    }
-
-    .nav-menu {
+    /* The collapsing title takes the middle on content pages; the spacer
+       would fight it for the space. */
+    .nav-has-back .nav-spacer {
       display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: var(--bg-primary);
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 2rem;
-      z-index: 55;
-    }
-
-    .nav-menu.open {
-      display: flex;
-    }
-
-    .nav-links {
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-link {
-      font-size: 1.2rem;
     }
   }
 
-  @media (max-width: 600px) {
+  /* Band heights (DS §3): 56px mobile, 60px tablet, 64px desktop. */
+  @media (max-width: 699px) {
     .nav-inner {
-      padding: 0.75rem 1rem;
-      gap: 0.75rem;
+      height: 56px;
+      max-width: 430px;
+      margin: 0 auto;
+      padding: 0 16px 0 20px;
+      gap: 8px;
+    }
+
+    /* The 26px logo is drawn on a 430px artboard; on narrower phones the
+       full row (logo + 3 icon buttons) overflows and, with a sticky nav,
+       horizontal scroll drags the bar. Let the logo scale down instead. */
+    .nav-logo {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* The logo carries the slack on mobile (design: logo span is flex:1). */
+    .nav-spacer {
+      display: none;
     }
 
     .nav-logo-img {
-      display: none;
-    }
-
-    .nav-logo-mark {
-      display: block;
+      max-width: 100%;
+      object-fit: contain;
+      object-position: left center;
     }
   }
-
-  .hamburger.open span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  .hamburger.open span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger.open span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
 </style>
 
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('nav-menu');
-
-  hamburger?.addEventListener('click', () => {
-    const isOpen = hamburger.classList.toggle('open');
-    navMenu?.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
-
-  const langToggle = document.getElementById('lang-toggle');
-  const langDropdown = document.getElementById('lang-dropdown');
-
-  langToggle?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    langDropdown?.classList.toggle('open');
-    const isOpen = langDropdown?.classList.contains('open');
-    langToggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  document.addEventListener('click', () => {
-    langDropdown?.classList.remove('open');
-    langToggle?.setAttribute('aria-expanded', 'false');
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (navMenu?.classList.contains('open')) {
-        hamburger?.classList.remove('open');
-        navMenu?.classList.remove('open');
-        hamburger?.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-        hamburger?.focus();
-      }
-      langDropdown?.classList.remove('open');
-    }
-  });
+  // Mobile top-bar border fades in once the page scrolls (design: border
+  // transparent at rest, solid after ~8px). Desktop keeps a constant border
+  // via CSS, so the attribute is inert there.
+  const nav = document.querySelector('.nav');
+  let ticking = false;
+  function updateScrolled() {
+    ticking = false;
+    if (!nav) return;
+    if (window.scrollY > 8) nav.setAttribute('data-scrolled', '');
+    else nav.removeAttribute('data-scrolled');
+    // Collapsing title appears once the hero has scrolled away.
+    if (window.scrollY > 240) nav.setAttribute('data-past-hero', '');
+    else nav.removeAttribute('data-past-hero');
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateScrolled);
+    },
+    { passive: true }
+  );
+  updateScrolled();
 
   // Swap nav logo based on theme
   function updateNavLogo() {
@@ -369,5 +372,4 @@ const navLinks = [
     }
   });
   logoObserver.observe(document.documentElement, { attributes: true });
-
 </script>

@@ -10,6 +10,14 @@ interface Props {
 const { locale, currentPath, availableLocales = locales } = Astro.props;
 const i18n = t(locale);
 
+// English reference names for the sheet's secondary line (Design System §13).
+const englishNames: Record<Locale, string> = {
+  en: 'English',
+  es: 'Spanish',
+  ca: 'Catalan',
+  tl: 'Tagalog',
+};
+
 function getPathForLocale(targetLocale: Locale, path: string): string {
   // This page has no version in the target locale (e.g. an untranslated blog
   // post); switching straight across would 404. Land on the locale's blog
@@ -44,94 +52,224 @@ function getPathForLocale(targetLocale: Locale, path: string): string {
 }
 ---
 
-<div class="language-selector">
-  <button class="lang-btn" id="lang-toggle" type="button" aria-label={i18n.a11y.selectLanguage} aria-expanded="false">
-    {locale.toUpperCase()}
-    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="6 9 12 15 18 9"></polyline>
-    </svg>
-  </button>
-  <div class="lang-dropdown" id="lang-dropdown" role="menu">
-    {locales.map((loc) => (
-      <a
-        href={getPathForLocale(loc, currentPath)}
-        class:list={['lang-option', { active: loc === locale }]}
-        role="menuitem"
-      >
-        {localeNames[loc]}
-      </a>
-    ))}
+<!-- Desktop (≥1280px): native select styled as the design's pill. -->
+<select class="lang-select" id="lang-select" aria-label={i18n.a11y.selectLanguage}>
+  {locales.map((loc) => (
+    <option value={getPathForLocale(loc, currentPath)} selected={loc === locale} data-name={localeNames[loc]}>
+      {loc.toUpperCase()}
+    </option>
+  ))}
+</select>
+
+<!-- Mobile/tablet (<1280px): globe button opening a bottom sheet (DS §12/§13). -->
+<button
+  type="button"
+  class="lang-globe"
+  data-lang-open
+  aria-haspopup="dialog"
+  aria-expanded="false"
+  aria-label={i18n.a11y.selectLanguage}
+>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="2" y1="12" x2="22" y2="12"></line>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+  </svg>
+</button>
+
+<div class="post-sheet lang-sheet" id="lang-sheet" role="dialog" aria-modal="true" aria-label={i18n.a11y.selectLanguage} hidden>
+  <div class="post-sheet-backdrop" data-overlay-close></div>
+  <div class="post-sheet-panel">
+    <div class="post-sheet-grabber" aria-hidden="true"></div>
+    <div class="post-sheet-head">
+      <span class="post-sheet-title">{i18n.a11y.selectLanguage}</span>
+      <button type="button" class="lang-sheet-close" data-overlay-close aria-label={i18n.a11y.close}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="lang-sheet-list">
+      {locales.map((loc) => (
+        <a
+          href={getPathForLocale(loc, currentPath)}
+          class:list={['lang-sheet-row', { 'is-active': loc === locale }]}
+          data-lang-pick
+          data-name={localeNames[loc]}
+          aria-current={loc === locale ? 'true' : undefined}
+        >
+          <span class="lang-sheet-code blog-mono" aria-hidden="true">{loc}</span>
+          <span class="lang-sheet-names">
+            <span class="lang-sheet-native">{localeNames[loc]}</span>
+            <span class="lang-sheet-english">{englishNames[loc]}</span>
+          </span>
+          {loc === locale && (
+            <svg class="lang-sheet-check" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-green-text)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          )}
+        </a>
+      ))}
+    </div>
   </div>
 </div>
 
 <style>
-  .language-selector {
-    position: relative;
+  .lang-select {
+    height: 34px;
+    padding: 0 28px 0 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 17px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2024%2024%27%20fill%3D%27none%27%20stroke%3D%27%23999999%27%20stroke-width%3D%272.4%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpolyline%20points%3D%276%209%2012%2015%2018%209%27%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 11px 11px;
+    transition: border-color 0.2s ease;
   }
 
-  .lang-btn {
-    background: none;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 0.5rem 0.75rem;
-    cursor: pointer;
+  .lang-select:hover {
+    border-color: var(--color-green);
+  }
+
+  .lang-globe {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 19px;
+    background: transparent;
     color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+
+  .lang-globe:hover {
+    background: var(--bg-secondary);
+  }
+
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .lang-select { display: none; }
+    .lang-globe { display: flex; }
+  }
+
+  .lang-sheet-list {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 8px 26px;
+  }
+
+  .lang-sheet-row {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    transition: background 0.2s ease;
-    font-family: inherit;
+    gap: 14px;
+    min-height: 52px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
   }
 
-  .lang-btn:hover {
-    background: var(--bg-secondary);
-  }
+  .lang-sheet-row:hover { background: var(--bg-secondary); }
+  .lang-sheet-row.is-active { background: rgba(109, 196, 2, 0.12); }
 
-  .lang-dropdown {
-    display: none;
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    right: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: var(--shadow-hover);
-    min-width: 140px;
-    z-index: 100;
-    overflow: hidden;
+  .lang-sheet-code {
+    width: 34px;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text-muted);
   }
+  .lang-sheet-row.is-active .lang-sheet-code { color: var(--color-green-text); }
 
-  .lang-dropdown.open {
-    display: block;
-  }
+  .lang-sheet-names { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .lang-sheet-native { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .lang-sheet-row.is-active .lang-sheet-native { font-weight: 700; }
+  .lang-sheet-english { font-size: 11.5px; color: var(--text-muted); }
+  .lang-sheet-check { flex-shrink: 0; }
 
-  .lang-option {
-    display: block;
-    padding: 0.75rem 1rem;
-    min-height: 44px;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    transition: background 0.15s ease;
-  }
+  /* Mobile: bottom sheet (grabber, no close). */
+  .lang-sheet-close { display: none; }
 
-  .lang-option:hover {
-    background: var(--bg-secondary);
-  }
-
-  .lang-option.active {
-    color: var(--color-green-text);
-    font-weight: 600;
+  /* Tablet band (700–1279): the design renders the picker as a centred
+     340px modal card with a close X, not a bottom sheet. */
+  @media (min-width: 700px) {
+    .lang-sheet { display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .lang-sheet[hidden] { display: none; }
+    .lang-sheet .post-sheet-panel {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      width: 340px;
+      max-width: 100%;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-lift);
+      transform: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .lang-sheet.is-open .post-sheet-panel { transform: none; opacity: 1; }
+    .lang-sheet .post-sheet-grabber { display: none; }
+    .lang-sheet .post-sheet-head { padding: 14px 18px; }
+    .lang-sheet-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 16px;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .lang-sheet-close:hover { color: var(--text-primary); }
+    .lang-sheet-list { padding: 8px; }
   }
 </style>
 
 <script>
-  document.querySelectorAll('.lang-option').forEach(function(link) {
-    link.addEventListener('click', function() {
-      localStorage.setItem('lang-detected', '1');
-      var lang = link.textContent.trim();
-      t('language_change', { language: lang });
-    });
+  import { createOverlay } from '../scripts/overlay';
+
+  // t() is the global analytics helper defined inline in BaseLayout.
+  declare function t(event: string, data?: Record<string, unknown>): void;
+
+  const select = document.getElementById('lang-select') as HTMLSelectElement | null;
+  select?.addEventListener('change', () => {
+    const option = select.options[select.selectedIndex];
+    localStorage.setItem('lang-detected', '1');
+    t('language_change', { language: option.dataset.name || option.textContent });
+    window.location.href = option.value;
   });
+
+  const sheet = document.getElementById('lang-sheet');
+  const openBtn = document.querySelector('[data-lang-open]');
+  if (sheet && openBtn) {
+    // The nav's backdrop-filter makes it the containing block for
+    // position:fixed descendants, so the sheet's inset:0 would resolve
+    // against the 60px nav bar. Portal it to <body>.
+    document.body.appendChild(sheet);
+    const overlay = createOverlay({
+      root: sheet,
+      panel: sheet.querySelector('.post-sheet-panel') as HTMLElement,
+      onOpen: () => openBtn.setAttribute('aria-expanded', 'true'),
+      onClose: () => openBtn.setAttribute('aria-expanded', 'false'),
+    });
+    openBtn.addEventListener('click', () => overlay.open());
+    sheet.querySelectorAll('[data-lang-pick]').forEach((row) => {
+      row.addEventListener('click', () => {
+        localStorage.setItem('lang-detected', '1');
+        t('language_change', { language: (row as HTMLElement).dataset.name });
+        // Plain <a> navigation does the rest.
+      });
+    });
+  }
 </script>

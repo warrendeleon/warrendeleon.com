@@ -11,11 +11,13 @@ const i18n = t(locale);
 const year = new Date().getFullYear();
 ---
 
+<!-- Finalised design: a single centred column on every viewport — links row,
+     one flat row of social icons (RSS included), copyright. Only the sizes
+     change per band. -->
 <footer class="footer">
-  <div class="container footer-inner">
+  <div class="footer-inner">
     <nav class="footer-nav" aria-label={i18n.a11y.footerNavigation}>
       <ul>
-        <li><a href={getLocalePath(locale, '/')}>{i18n.nav.home}</a></li>
         <li><a href={getLocalePath(locale, '/work-experience/')}>{i18n.nav.workExperience}</a></li>
         <li><a href={getLocalePath(locale, '/blog/')}>{i18n.nav.blog}</a></li>
         <li><a href={getLocalePath(locale, '/book-a-call/')}>{i18n.nav.bookACall}</a></li>
@@ -32,13 +34,6 @@ const year = new Date().getFullYear();
         </svg>
       </a>
     </div>
-    <a href="#" class="back-to-top">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="12" y1="19" x2="12" y2="5"></line>
-        <polyline points="5 12 12 5 19 12"></polyline>
-      </svg>
-      {i18n.footer.backToTop}
-    </a>
     <p class="footer-copy">&copy; {year} Warren de Leon. {i18n.footer.copyright}</p>
   </div>
 </footer>
@@ -46,15 +41,21 @@ const year = new Date().getFullYear();
 <style is:global>
   .footer {
     border-top: 1px solid var(--border-color);
-    padding: 2rem 0;
-    margin-top: 2rem;
+    background: var(--bg-secondary);
+    margin-top: 32px;
+    /* Clearance so the fixed tab bar / floating dock never covers the last
+       line. Removed at ≥1280px where neither exists. */
+    padding-bottom: calc(84px + var(--safe-bottom));
   }
 
   .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 16px;
     text-align: center;
   }
 
@@ -62,19 +63,18 @@ const year = new Date().getFullYear();
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1.5rem;
+    gap: 24px;
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
   .footer-nav a {
-    font-size: 0.95rem;
+    font-size: 0.82rem;
     font-weight: 500;
     color: var(--text-secondary);
     transition: color 0.2s ease;
-    padding: 0.5rem 0.25rem;
-    min-height: 44px;
+    padding: 0.35rem 0;
     display: inline-flex;
     align-items: center;
   }
@@ -83,61 +83,100 @@ const year = new Date().getFullYear();
     color: var(--color-green-text);
   }
 
+  /* One flat row: plain icon hit-areas, no borders, RSS included. */
   .footer-social-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 2px;
   }
 
-  /* Flatten the inner .social-links so its icons and the RSS link become equal
-     siblings of this row. They then wrap together as one set instead of the RSS
-     stranding on its own line. */
   .footer .social-links {
     display: contents;
   }
 
-  @media (max-width: 480px) {
-    .footer-social-row {
-      flex-wrap: wrap;
-      max-width: 15rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
-  }
-
+  .footer .social-links a,
   .footer-rss {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem;
-    min-width: 44px;
-    min-height: 44px;
-    color: var(--text-muted);
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: none;
+    color: var(--text-secondary);
     transition: color 0.2s ease;
   }
 
+  .footer .social-links a:hover,
   .footer-rss:hover {
     color: var(--color-green-text);
   }
 
-  .back-to-top {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.9rem;
-    padding: 0.5rem;
-    font-weight: 500;
-    color: var(--text-muted);
-    transition: color 0.2s ease;
-  }
-
-  .back-to-top:hover {
-    color: var(--color-green-text);
-  }
-
   .footer-copy {
-    font-size: 0.9rem;
+    font-size: 0.72rem;
     color: var(--text-muted);
+    padding-bottom: 30px;
+  }
+
+  /* Tablet band: 960px column, slightly tighter spacing (design). */
+  @media (max-width: 1279px) {
+    .footer-inner {
+      max-width: 1008px;
+      padding: 28px 24px 0;
+      gap: 14px;
+    }
+
+    .footer-nav ul {
+      gap: 22px;
+    }
+  }
+
+  /* Mobile band: 430px column, larger 44px hit areas, tighter link row. */
+  @media (max-width: 699px) {
+    .footer-inner {
+      max-width: 430px;
+      padding: 22px 20px 0;
+      gap: 12px;
+    }
+
+    .footer-nav ul {
+      gap: 16px;
+    }
+
+    .footer-nav a {
+      font-size: 0.75rem;
+    }
+
+    .footer .social-links a,
+    .footer-rss {
+      width: 44px;
+      height: 44px;
+    }
+
+    .footer-copy {
+      font-size: 0.68rem;
+    }
+  }
+
+  /* Below the 390px artboard content width the eight 44px hits can't share
+     a row; 40px keeps the design's single line. */
+  @media (max-width: 389px) {
+    .footer-social-row {
+      flex-wrap: nowrap;
+    }
+
+    .footer .social-links a,
+    .footer-rss {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  @media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+    .footer {
+      padding-bottom: 0;
+    }
   }
 </style>
