@@ -157,7 +157,9 @@ const jsonLd = {
 
   .hero-text { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
   .hero-text .hero-title { margin: 0; }
-  .hero-tagline { margin: 0; max-width: 30rem; text-wrap: balance; }
+  /* Tagline size comes from the theme scale (14/15/17 per band = design). */
+  .hero-tagline { margin: 0; max-width: 30rem; text-wrap: balance; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-secondary); }
+  .hero-carousel { display: flex; justify-content: center; }
 
   /* Socials as 42px bordered circles (design), both viewports. */
   .hero-social .social-links { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -180,8 +182,11 @@ const jsonLd = {
   .hero-social .social-links a:hover { color: var(--color-green-text); border-color: var(--color-green); }
 
   @media (min-width: 1024px) {
-    /* Design tablet artboard (1024): 1fr text + 340px photo. */
+    /* Design tablet artboard (1024): 1fr text + 340px photo. Below this the
+       hero is a stacked flex column (max-width: 1023px below); grid only
+       from 1024 up, so no unmedia'd base can override the mobile stack. */
     .hero-grid {
+      display: grid;
       grid-template-columns: 1fr 340px;
       gap: 40px;
       align-items: center;
@@ -247,7 +252,6 @@ const jsonLd = {
     }
     /* The overlay already shows the role + name on the photo. */
     .hero-eyebrow { display: none; }
-    .hero-tagline { margin: 0; font-size: 0.9rem; line-height: 1.65; color: var(--text-secondary); }
     /* align-items:flex-start on .hero-text shrinks children to content
        width; the CTA row must span the column (design: two equal pills).
        The design pills carry no side padding — the flex centring is the
