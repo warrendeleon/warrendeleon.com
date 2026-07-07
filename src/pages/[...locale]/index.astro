@@ -55,18 +55,30 @@ const jsonLd = {
   <section class="hero section">
     <div class="container hero-grid">
       <div class="hero-text">
-        <h1>{i18n.home.title}</h1>
-        <p class="hero-subtitle">{i18n.home.subtitle}</p>
+        <!-- Design order: role eyebrow → name → bio → socials → CTAs. -->
+        <p class="hero-eyebrow">{i18n.home.subtitle}</p>
+        <h1 class="hero-title">{i18n.home.title}</h1>
         <p class="hero-tagline">{i18n.home.tagline}</p>
-        <div class="hero-social mt-3">
+        <div class="hero-ctas">
+          <a href={getLocalePath(locale, '/work-experience/')} class="hero-cta hero-cta-solid">
+            {i18n.home.viewWorkExperience}
+          </a>
+          <a href={getLocalePath(locale, '/book-a-call/')} class="hero-cta hero-cta-outline">
+            {i18n.nav.bookACall}
+          </a>
+        </div>
+        <div class="hero-social">
           <SocialLinks locale={locale} />
         </div>
-        <a href={getLocalePath(locale, '/work-experience/')} class="btn btn-primary mt-2">
-          {i18n.home.viewWorkExperience}
-        </a>
       </div>
       <div class="hero-carousel">
-        <HeroCarousel locale={locale} />
+        <HeroCarousel locale={locale}>
+          <!-- Decorative: the page h1 above stays the real heading. -->
+          <div class="hero-overlay-text" slot="overlay" aria-hidden="true">
+            <span class="hero-overlay-eyebrow">{i18n.home.subtitle}</span>
+            <span class="hero-overlay-name">{i18n.home.title}</span>
+          </div>
+        </HeroCarousel>
       </div>
     </div>
   </section>
@@ -76,17 +88,29 @@ const jsonLd = {
       <h2 class="section-heading">{i18n.home.aboutHeading}</h2>
       <div class="about-content">
         <div class="about-text">
-          {i18n.home.aboutText.split('\n\n').map((paragraph: string) => (
-            <p set:html={paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
+          {i18n.home.aboutText.split('\n\n').map((paragraph: string, i: number) => (
+            <p class:list={{ 'about-extra': i >= 2 }} set:html={paragraph.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
           ))}
         </div>
+        <button
+          type="button"
+          class="about-toggle"
+          data-about-toggle
+          data-more={i18n.home.readMore}
+          data-less={i18n.home.showLess}
+          aria-expanded="false"
+          hidden
+        >{i18n.home.readMore}</button>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="section-heading">{roleIsCurrent ? i18n.home.currentRole : i18n.home.latestRole}</h2>
+      <div class="home-head-row">
+        <h2 class="section-heading">{roleIsCurrent ? i18n.home.currentRole : i18n.home.latestRole}</h2>
+        <a class="blog-eyebrow-link" href={getLocalePath(locale, '/work-experience/')}>{i18n.home.allExperience} <span aria-hidden="true">&rarr;</span></a>
+      </div>
       <div class="card current-role">
         <div class="current-role-inner">
           <div class="current-role-logo-col">
@@ -116,3 +140,162 @@ const jsonLd = {
 
   <HomeBlog locale={locale} />
 </BaseLayout>
+
+<style is:global>
+  /* ===== Hero per design ===== */
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-green-text);
+    margin: 0;
+  }
+
+  .hero-text { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .hero-text .hero-title { margin: 0; }
+  .hero-tagline { margin: 0; max-width: 30rem; text-wrap: balance; }
+
+  /* Socials as 42px bordered circles (design), both viewports. */
+  .hero-social .social-links { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hero-social .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-* beat SocialLinks' 44px floor: the design's 42px circles are the
+       hit area here — seven of them only share a row at 42px + 8px gaps. */
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 21px;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .hero-social .social-links a:hover { color: var(--color-green-text); border-color: var(--color-green); }
+
+  @media (min-width: 1024px) {
+    /* Design tablet artboard (1024): 1fr text + 340px photo. */
+    .hero-grid {
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-text .hero-title { font-size: 44px; letter-spacing: -0.025em; line-height: 1.05; white-space: nowrap; }
+    /* Desktop/tablet order flips: bio → socials → CTAs (mobile is CTAs first). */
+    .hero-ctas { order: 1; }
+  }
+
+  @media (min-width: 1280px) {
+    /* Design desktop (1440): 1fr text + 420px photo, 56px gap; 52px name. */
+    .hero-grid {
+      grid-template-columns: 1fr 420px;
+      gap: 56px;
+    }
+    .hero-text .hero-title { font-size: 52px; }
+  }
+
+  /* About type comes from the theme scale in global.css. */
+
+  .home-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .home-head-row .blog-eyebrow-link {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-green-text);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .about-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.5rem;
+    border: none;
+    background: transparent;
+    padding: 8px 0;
+    color: var(--color-green-text);
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .about-toggle[hidden] { display: none; }
+
+  /* Stacked hero runs to 1023px: the design's 2-col tablet hero is drawn on
+     a 1024px artboard and crushes the text column below that. */
+  @media (max-width: 1023px) {
+    /* Design order: photo (with overlay name) first, then bio, CTAs, socials.
+       The real h1 stays in the DOM for SEO/AT; the overlay shows the name. */
+    .hero-grid { display: flex; flex-direction: column; gap: 16px; text-align: left; }
+    .hero-carousel { order: -1; }
+    .hero-title {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    /* The overlay already shows the role + name on the photo. */
+    .hero-eyebrow { display: none; }
+    .hero-tagline { margin: 0; font-size: 0.9rem; line-height: 1.65; color: var(--text-secondary); }
+    /* align-items:flex-start on .hero-text shrinks children to content
+       width; the CTA row must span the column (design: two equal pills).
+       The design pills carry no side padding — the flex centring is the
+       spacing — which is what lets the long label fit on a 375px phone. */
+    .hero-ctas { align-self: stretch; }
+    /* Design says 14px, but its artboard is 390px wide — at 375px the long
+       label wraps at that size. 0.82rem is the largest verified single-line
+       fit across real phone widths. */
+    .hero-ctas .hero-cta { flex: 1; padding: 0 4px; font-size: 0.82rem; }
+    .hero-social { display: flex; justify-content: center; align-self: stretch; }
+
+    /* About: first two paragraphs visible, the rest behind Read more. */
+    .about-content:not(.about-open) .about-extra { display: none; }
+  }
+
+  /* Very narrow phones: the two pills can't share a row — stack them. */
+  @media (max-width: 359px) {
+    .hero-ctas { flex-direction: column; }
+  }
+
+  /* The artboard's one-row social maths assumes 390px of content; tighten
+     the gap below that so the seven circles keep to a single row. */
+  @media (max-width: 389px) {
+    .hero-social .social-links { gap: 5px; flex-wrap: nowrap; }
+    .hero-social .social-links a { width: 40px; height: 40px; min-width: 40px; min-height: 40px; }
+  }
+</style>
+
+<script>
+  // About expander (mobile only — the button stays hidden ≥700px where all
+  // paragraphs show).
+  declare function t(event: string, data?: Record<string, unknown>): void;
+
+  const toggle = document.querySelector('[data-about-toggle]') as HTMLButtonElement | null;
+  const content = document.querySelector('.about-content');
+  const mobile = window.matchMedia('(max-width: 699px)');
+
+  function syncToggle() {
+    if (toggle) toggle.hidden = !mobile.matches;
+  }
+
+  toggle?.addEventListener('click', () => {
+    const open = content?.classList.toggle('about-open') ?? false;
+    toggle.textContent = open ? (toggle.dataset.less || 'Show less') : (toggle.dataset.more || 'Read more');
+    toggle.setAttribute('aria-expanded', String(open));
+    t('about_toggle', { open });
+  });
+
+  mobile.addEventListener('change', syncToggle);
+  syncToggle();
+</script>

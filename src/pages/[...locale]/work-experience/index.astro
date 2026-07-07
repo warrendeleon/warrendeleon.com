@@ -47,9 +47,16 @@ const pdfHref =
   <section class="section">
     <div class="container">
       <div class="wx-header">
-        <h1 class="section-heading">{i18n.workExperience.title}</h1>
-        <a href={pdfHref} class="btn btn-outline" download>{i18n.workExperience.downloadCV}</a>
+        <h1 class="section-title">{i18n.workExperience.title}</h1>
+        <a href={pdfHref} class="wx-cv-pill" download aria-label={i18n.workExperience.downloadCV}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span class="wx-cv-label-full">{i18n.workExperience.downloadCV}</span>
+          <span class="wx-cv-label-short" aria-hidden="true">CV</span>
+        </a>
       </div>
+      {i18n.seo.workExperienceDescription && (
+        <p class="wx-intro">{i18n.seo.workExperienceDescription}</p>
+      )}
       <Timeline companies={workxp} locale={locale} />
     </div>
   </section>
@@ -83,10 +90,69 @@ const pdfHref =
       <div class="wx-cta">
         <p class="wx-cta-heading">{i18n.workExperience.ctaHeading}</p>
         <div class="wx-cta-actions">
-          <a href={getLocalePath(locale, '/book-a-call/')} class="btn btn-primary">{i18n.nav.bookACall}</a>
-          <a href={pdfHref} class="btn btn-outline" download>{i18n.workExperience.downloadCV}</a>
+          <a href={pdfHref} class="hero-cta hero-cta-solid" download>{i18n.workExperience.downloadCV}</a>
+          <a href={getLocalePath(locale, '/book-a-call/')} class="hero-cta hero-cta-outline">{i18n.nav.bookACall}</a>
         </div>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<style is:global>
+  /* CV pill (design): 44px/2px-border desktop, 42px tablet, 38px "CV" mobile. */
+  .wx-cv-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 22px;
+    border-radius: 22px;
+    border: 2px solid var(--color-green);
+    color: var(--color-green-text);
+    font-size: 13.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+  .wx-cv-pill:hover { background: rgba(109, 196, 2, 0.1); }
+  .wx-cv-label-short { display: none; }
+
+  .wx-intro { margin: 0.75rem 0 0; font-size: 15px; line-height: 1.65; color: var(--text-secondary); max-width: 70ch; }
+
+  /* CTA card per design: bordered rounded band with two pills. */
+  .wx-cta {
+    padding: 28px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .wx-cta-heading { margin: 0; font-size: 17px; font-weight: 700; color: var(--text-primary); }
+  .wx-cta-actions { display: flex; gap: 12px; justify-content: center; }
+
+  @media (max-width: 1279px) {
+    .wx-cv-pill { height: 42px; padding: 0 20px; font-size: 13px; }
+    .wx-intro { font-size: 14px; }
+    .wx-cta { padding: 24px; gap: 14px; max-width: 600px; }
+    .wx-cta-heading { font-size: 16px; }
+    .wx-cta-actions { gap: 10px; }
+  }
+
+  @media (max-width: 699px) {
+    .wx-cv-pill { height: 38px; padding: 0 14px; gap: 6px; border-width: 1.5px; font-size: 12.5px; }
+    .wx-cv-label-full { display: none; }
+    .wx-cv-label-short { display: inline; }
+    .wx-intro { font-size: 13.5px; line-height: 1.6; }
+    .wx-cta { padding: 20px 18px; gap: 12px; }
+    .wx-cta-heading { font-size: 15px; }
+    .wx-cta-actions { width: 100%; }
+    .wx-cta-actions .hero-cta { flex: 1; }
+  }
+</style>

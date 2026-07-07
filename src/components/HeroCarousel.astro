@@ -18,6 +18,7 @@ const photos = [
 ---
 
 <div class="carousel" id="hero-carousel" role="region" aria-label={i18n.a11y.photoCarousel} aria-roledescription="carousel">
+  <div class="carousel-frame">
   {/* The photos are presentational; the region label describes the widget and
       the controls stay in the accessibility tree. Hiding the track spares
       screen-reader users 15 near-identical stops. */}
@@ -41,6 +42,14 @@ const photos = [
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6" /></svg>
   </button>
   <span class="carousel-counter" id="carousel-counter" aria-hidden="true">1 / 15</span>
+  <!-- Mobile design: gradient + name/role over the photo. The slot content
+       is decorative (the page keeps its real h1); shown <700px only. -->
+  <div class="carousel-overlay">
+    <div class="carousel-overlay-gradient" aria-hidden="true"></div>
+    <slot name="overlay" />
+  </div>
+  </div>
+  <!-- Design: dot indicators sit BELOW the photo frame (≥700px). -->
   <div class="carousel-controls">
     <div class="carousel-dots" id="carousel-dots">
       {photos.map((_, i) => (
@@ -69,10 +78,24 @@ const photos = [
   .carousel {
     position: relative;
     width: 100%;
+  }
+
+  /* The frame holds the photo visuals; the dot row lives below it. */
+  .carousel-frame {
+    position: relative;
+    width: 100%;
     max-height: 500px;
     overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    border-radius: 20px;
+    background: var(--bg-secondary);
+    box-shadow: var(--shadow-lift);
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-frame {
+      aspect-ratio: 4 / 4.4;
+      max-height: none;
+    }
   }
 
   .carousel-track {
@@ -136,31 +159,33 @@ const photos = [
     z-index: 2;
   }
 
+  /* Design: dot row below the photo — 6px pills, the active one widens to
+     20px. Pause stays for a11y, restyled to match the quiet row. */
   .carousel-controls {
-    position: absolute;
-    bottom: 12px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 8px;
-    z-index: 2;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
   }
 
   .carousel-dots {
     display: flex;
-    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
   }
 
   .carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
     border: none;
-    background: rgba(255, 255, 255, 0.5);
+    background: var(--border-color);
     cursor: pointer;
     padding: 0;
-    transition: background 0.2s ease;
+    transition: width 0.25s ease, background 0.25s ease;
     position: relative;
   }
 
@@ -168,38 +193,86 @@ const photos = [
     content: '';
     position: absolute;
     top: -10px;
-    left: -10px;
-    right: -10px;
+    left: -6px;
+    right: -6px;
     bottom: -10px;
   }
 
   .carousel-dot.active {
+    width: 20px;
     background: var(--color-green);
   }
 
   .carousel-pause {
-    background: rgba(0, 0, 0, 0.4);
-    color: white;
+    background: transparent;
+    color: var(--text-muted);
     border: none;
     border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.2s ease;
+    margin-left: 4px;
+    transition: color 0.2s ease;
   }
 
   .carousel-pause:hover {
-    background: rgba(0, 0, 0, 0.7);
+    color: var(--text-primary);
   }
 
-  @media (max-width: 768px) {
-    .carousel {
-      max-width: 100%;
-      border-radius: 12px;
+  /* Overlay title block: mobile only (design). Desktop keeps the photo clean
+     and the title lives in the hero's left column. */
+  .carousel-overlay { display: none; }
+
+  /* Stacked-hero band (matches the hero's 1023px boundary): counter +
+     arrows only, no dot row, name overlaid on the photo. */
+  @media (max-width: 1023px) {
+    .carousel-controls { display: none; }
+    .carousel-frame { border-radius: 20px; aspect-ratio: 4 / 3.4; }
+    .carousel-slide img { height: 100%; object-fit: cover; object-position: center top; }
+
+    .carousel-overlay {
+      display: block;
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
     }
+    .carousel-overlay-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(10, 10, 12, 0.45) 65%, rgba(10, 10, 12, 0.92) 100%);
+    }
+    .carousel-overlay :global(.hero-overlay-text) {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 0 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .carousel-overlay :global(.hero-overlay-eyebrow) {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-green);
+    }
+    .carousel-overlay :global(.hero-overlay-name) {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: #ffffff;
+    }
+
+    /* Controls move up clear of the overlay text; counter matches design. */
+    .carousel-btn { top: 42%; transform: translateY(-50%); width: 34px; height: 34px; }
+    .carousel-counter { top: 10px; bottom: auto; right: 12px; }
   }
 </style>
 

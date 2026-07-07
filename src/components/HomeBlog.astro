@@ -1,9 +1,10 @@
 ---
 import { t, getLocalePath } from '../i18n/index';
 import type { Locale } from '../i18n/index';
-import { getPostsForLocale, getPostSlug, getSeriesSlug, getSeriesPosts, formatBlogDate } from '../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, getSeriesSlug, getSeriesPosts, getCurrentSeriesName, formatBlogDate, shortenSeriesName, publishSlot } from '../utils/blogHelpers';
+import { getSeriesDescription } from '../i18n/seriesDescriptions';
+import { getSeriesPlan } from '../data/seriesPlans';
 import { getReadingTime } from '../utils/readingTime';
-import SeriesHeroCard from './blog/SeriesHeroCard.astro';
 
 interface Props {
   locale: Locale;
@@ -12,53 +13,149 @@ interface Props {
 const { locale } = Astro.props;
 const i18n = t(locale);
 
-const posts = await getPostsForLocale(locale);
+// Date-gated here (publishSlot), not just helper-gated: in dev the helpers
+// include future posts, which made the preview show unpublished content as
+// live (wrong latest post, wrong progress counts).
+const nowTs = new Date();
+const posts = (await getPostsForLocale(locale)).filter(p => publishSlot(p.data.publishDate) <= nowTs);
 
-// Feature the series the newest post belongs to, so the homepage tracks whatever
-// series is currently being published. A one-off post with no series falls back
-// to the latest-posts grid alone, so the section is never empty.
-const newest = posts[0];
-const featuredSeriesName = newest?.data.series ?? null;
-const featuredSeriesSlug = featuredSeriesName ? getSeriesSlug(featuredSeriesName) : null;
-const seriesPosts = featuredSeriesSlug ? await getSeriesPosts(locale, featuredSeriesSlug) : [];
-const intro = seriesPosts[0];
-const hasSeries = seriesPosts.length >= 2 && featuredSeriesName && featuredSeriesSlug && intro;
+// Design "From the blog": desktop shows two cards side by side — the current
+// series (with publication progress) and the latest post. Mobile shows the
+// two newest posts as compact rows.
+const currentSeriesName = await getCurrentSeriesName(locale);
+const currentSeriesSlug = currentSeriesName ? getSeriesSlug(currentSeriesName) : null;
+const seriesParts = (currentSeriesSlug ? await getSeriesPosts(locale, currentSeriesSlug) : [])
+  .filter(p => publishSlot(p.data.publishDate) <= nowTs);
+const seriesIntro = seriesParts[0];
+const hasSeries = seriesParts.length >= 2 && !!currentSeriesName && !!currentSeriesSlug && !!seriesIntro;
+const seriesDesc = currentSeriesName ? (getSeriesDescription(currentSeriesName, locale) || seriesIntro?.data.description || '') : '';
 
-const latestPosts = posts.slice(0, 2);
-const heading = hasSeries ? i18n.home.fromTheBlog : i18n.home.latestPosts;
+// Published vs total, same maths as the series page: scheduled posts with
+// files plus planned-but-unwritten parts from data/seriesPlans.ts (deduped
+// against real titles).
+const allSeriesPosts = currentSeriesName
+  ? (await getPostsForLocale(locale, true)).filter(p => p.data.series === currentSeriesName)
+  : [];
+const scheduledCount = allSeriesPosts.filter(p => publishSlot(p.data.publishDate) > nowTs).length;
+const normalise = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 32);
+const realTitleKeys = new Set(allSeriesPosts.map(p => normalise(p.data.title)));
+const planCount = currentSeriesName
+  ? getSeriesPlan(currentSeriesName).filter(pl => !realTitleKeys.has(normalise(pl.title))).length
+  : 0;
+const totalParts = seriesParts.length + scheduledCount + planCount;
+const progressPct = totalParts > 0 ? Math.round((seriesParts.length / totalParts) * 100) : 0;
+
+const latestPost = posts[0];
+const mobilePosts = posts.slice(0, 2);
 ---
 
-{(hasSeries || latestPosts.length > 0) && (
-  <section class="section section-alt">
+{latestPost && (
+  <section class="section home-blog">
     <div class="container">
-      <h2 class="section-heading">{heading}</h2>
+      <div class="home-head-row">
+        <h2 class="section-heading">{i18n.home.fromTheBlog}</h2>
+        <a class="blog-eyebrow-link" href={getLocalePath(locale, '/blog/')}>{i18n.home.viewAllPosts} <span aria-hidden="true">&rarr;</span></a>
+      </div>
 
-      {hasSeries && featuredSeriesName ? (
-        <SeriesHeroCard locale={locale} seriesName={featuredSeriesName} />
-      ) : (
-        latestPosts.length > 0 && (
-          <div class="latest-posts-grid">
-            {latestPosts.map(post => (
-              <a href={getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)} class="latest-post-card">
-                {post.data.heroImage && (
-                  <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} class="latest-post-image" loading="lazy" />
-                )}
-                <div class="latest-post-content">
-                  <h3 class="latest-post-title">{post.data.title}</h3>
-                  <p class="latest-post-desc">{post.data.description}</p>
-                  <span class="latest-post-meta">
-                    {formatBlogDate(post.data.publishDate, locale)} · {getReadingTime(post.body ?? '')} {i18n.blog.minRead}
-                  </span>
+      <!-- Desktop/tablet: series card + latest-post card. -->
+      <div class="home-blog-grid">
+        {hasSeries && currentSeriesName && currentSeriesSlug && (
+          <a class="home-blog-card" href={getLocalePath(locale, `/blog/series/${currentSeriesSlug}/`)}>
+            {seriesIntro.data.heroImage && (
+              <div class="home-blog-card-art"><img src={seriesIntro.data.heroImage} alt={seriesIntro.data.heroAlt || currentSeriesName} loading="lazy" /></div>
+            )}
+            <div class="home-blog-card-body">
+              <span class="home-blog-card-kicker blog-mono">{i18n.blog.currentSeries} &middot; {totalParts} {i18n.blog.parts}</span>
+              <span class="home-blog-card-title">{shortenSeriesName(currentSeriesName)}</span>
+              {seriesDesc && <span class="home-blog-card-desc">{seriesDesc}</span>}
+              <div class="home-blog-card-foot">
+                <div class="home-blog-card-footrow">
+                  <span>{i18n.blog.publishedOfTotal.replace('{x}', String(seriesParts.length)).replace('{y}', String(totalParts))}</span>
+                  <span class="home-blog-card-cta">{i18n.home.readTheSeries} <span aria-hidden="true">&rarr;</span></span>
                 </div>
-              </a>
-            ))}
+                <div class="home-blog-progress"><div class="home-blog-progress-fill" style={`width: ${progressPct}%`}></div></div>
+              </div>
+            </div>
+          </a>
+        )}
+        <a class="home-blog-card" href={getLocalePath(locale, `/blog/${getPostSlug(latestPost.id)}/`)}>
+          {latestPost.data.heroImage && (
+            <div class="home-blog-card-art"><img src={latestPost.data.heroImage} alt={latestPost.data.heroAlt || latestPost.data.title} loading="lazy" /></div>
+          )}
+          <div class="home-blog-card-body">
+            <span class="home-blog-card-kicker blog-mono muted">{i18n.blog.latestPost} &middot; {formatBlogDate(latestPost.data.publishDate, locale)} &middot; {getReadingTime(latestPost.body ?? '')} {i18n.blog.minRead}</span>
+            <span class="home-blog-card-title">{latestPost.data.title}</span>
+            {latestPost.data.description && <span class="home-blog-card-desc">{latestPost.data.description}</span>}
+            <span class="home-blog-card-foot home-blog-card-cta">{i18n.home.readPost} <span aria-hidden="true">&rarr;</span></span>
           </div>
-        )
-      )}
+        </a>
+      </div>
 
-      <a href={getLocalePath(locale, '/blog/')} class="btn btn-outline mt-3">
-        {i18n.home.viewAllPosts}
-      </a>
+      <!-- Mobile: the two newest posts as compact rows. -->
+      <div class="home-blog-rows">
+        {mobilePosts.map(post => (
+          <a href={getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)} class="feed-post">
+            {post.data.heroImage && (
+              <div class="feed-post-thumb"><img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} loading="lazy" /></div>
+            )}
+            <div class="feed-post-body">
+              <div class="feed-post-meta blog-mono">
+                <span>{formatBlogDate(post.data.publishDate, locale)} &middot; {getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>
+                {post.data.series && <span class="feed-post-series">{shortenSeriesName(post.data.series)}</span>}
+              </div>
+              <h3 class="feed-post-title">{post.data.title}</h3>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 )}
+
+<style is:global>
+  .home-blog-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .home-blog-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-card);
+    color: inherit;
+    text-decoration: none;
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.2s ease;
+  }
+
+  .home-blog-card:hover { border-color: var(--color-green); }
+  .home-blog-card-art { aspect-ratio: 21 / 9; background: var(--bg-secondary); overflow: hidden; }
+  .home-blog-card-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .home-blog-card-body { padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .home-blog-card-kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-green-text);
+  }
+  .home-blog-card-kicker.muted { color: var(--text-muted); }
+  .home-blog-card-title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
+  .home-blog-card-desc { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+  .home-blog-card-foot { margin-top: auto; display: flex; flex-direction: column; gap: 6px; padding-top: 10px; }
+  .home-blog-card-footrow { display: flex; justify-content: space-between; gap: 1rem; font-size: 11.5px; font-weight: 600; color: var(--text-muted); }
+  .home-blog-card-cta { font-size: 12.5px; font-weight: 700; color: var(--color-green-text); }
+  .home-blog-progress { height: 6px; border-radius: 3px; background: var(--badge-bg); overflow: hidden; }
+  .home-blog-progress-fill { height: 100%; border-radius: 3px; background: var(--color-green); }
+
+  .home-blog-rows { display: none; }
+
+  @media (max-width: 699px) {
+    .home-blog-grid { display: none; }
+    .home-blog-rows { display: flex; flex-direction: column; gap: 10px; }
+  }
+</style>

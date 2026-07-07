@@ -10,6 +10,10 @@ interface Props {
     startDate: string;
     endDate: string | null;
     description: string;
+    technologies?: {
+      languages?: string[];
+      frameworks?: string[];
+    };
   }>;
   locale: Locale;
 }
@@ -23,94 +27,90 @@ const dateRange = formatDateRange(
   locale
 );
 const hasDescription = latestPosition.description && latestPosition.description.trim().length > 0;
+// Design: a short row of tech chips on tablet/desktop cards.
+const tech = latestPosition.technologies;
+const chips = tech ? [...(tech.languages ?? []), ...(tech.frameworks ?? [])].slice(0, 4) : [];
 ---
 
 <div class="timeline-entry">
-  <div class="timeline-dot"></div>
-  <a href={getLocalePath(locale, `/work-experience/${slug}/`)} class="timeline-card card">
-    <div class="timeline-card-inner">
-      <div class="timeline-logo-col">
-        <div class="timeline-logo">
-          {logo ? (
-            <img src={logo} alt={company} width="40" height="40" />
-          ) : (
-            <span class="timeline-logo-fallback">{company.charAt(0)}</span>
-          )}
-        </div>
-      </div>
-      <div class="timeline-content-col">
-        <div class="timeline-card-header">
-          <h2>{company}</h2>
-          <span class="timeline-date">{dateRange}</span>
-        </div>
-        <p class="timeline-title">{latestPosition.title}</p>
-        {hasDescription && (
-          <p class="timeline-desc">{truncateAtWord(stripSimpleMarkdown(latestPosition.description), 160)}</p>
+  <a href={getLocalePath(locale, `/work-experience/${slug}/`)} class="timeline-card">
+    <div class="timeline-logo-col">
+      <div class="timeline-logo">
+        {logo ? (
+          <img src={logo} alt={company} width="40" height="40" />
+        ) : (
+          <span class="timeline-logo-fallback">{company.charAt(0)}</span>
         )}
       </div>
     </div>
+    <div class="timeline-content-col">
+      <div class="timeline-card-header">
+        <h2>{company}</h2>
+        <span class="timeline-date">{dateRange}</span>
+      </div>
+      <p class="timeline-title">{latestPosition.title}</p>
+      {hasDescription && (
+        <p class="timeline-desc">{truncateAtWord(stripSimpleMarkdown(latestPosition.description), 160)}</p>
+      )}
+      {chips.length > 0 && (
+        <span class="timeline-chips">
+          {chips.map((c) => <span class="timeline-chip">{c}</span>)}
+        </span>
+      )}
+    </div>
+    <svg class="timeline-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
   </a>
 </div>
 
 <style is:global>
   .timeline-entry {
     position: relative;
-    margin-bottom: 2rem;
   }
 
-  .timeline-dot {
-    position: absolute;
-    left: -47px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--timeline-dot);
-    border: 3px solid var(--bg-primary);
-    box-shadow: 0 0 0 2px var(--timeline-dot);
-    z-index: 2;
-  }
-
+  /* Card per design: flex row of content + chevron; the logo circle rides
+     the rail (absolute, outside the card box but inside the link). */
   .timeline-card {
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 22px 26px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-card);
     color: var(--text-primary);
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease;
   }
 
   .timeline-card:hover {
-    transform: translateX(4px);
+    border-color: var(--color-green);
     color: var(--text-primary);
   }
 
-  .timeline-card-inner {
-    display: grid;
-    grid-template-columns: 15% 1fr;
-    gap: 1.5rem;
-    align-items: center;
-  }
-
   .timeline-logo-col {
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    left: -152px;
+    top: 8px;
+    z-index: 2;
   }
 
   .timeline-logo {
-    width: 100%;
+    width: 120px;
+    height: 120px;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: #f5f5f7;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border: 2px solid var(--border-color);
+    border: 1.5px solid var(--color-green);
   }
 
   .timeline-logo img {
-    width: 60%;
-    height: 60%;
+    width: 66%;
+    height: 66%;
     object-fit: contain;
   }
 
@@ -120,41 +120,98 @@ const hasDescription = latestPosition.description && latestPosition.description.
     color: var(--color-green-text);
   }
 
+  .timeline-content-col {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .timeline-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
+    align-items: baseline;
+    gap: 16px;
     flex-wrap: wrap;
   }
 
   .timeline-card-header h2 {
-    font-size: 1.25rem;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     color: var(--color-green-text);
   }
 
   .timeline-date {
-    font-size: 0.9rem;
+    font-size: 12px;
     color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
     white-space: nowrap;
   }
 
   .timeline-title {
     font-weight: 600;
-    margin-top: 0.25rem;
-    font-size: 1rem;
+    font-size: 14.5px;
+    line-height: 1.4;
   }
 
   .timeline-desc {
-    margin-top: 0.5rem;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 13.5px;
+    line-height: 1.65;
   }
 
-  @media (max-width: 768px) {
-    .timeline-card-inner {
-      grid-template-columns: 60px 1fr;
-    }
+  .timeline-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    padding-top: 6px;
+  }
+
+  .timeline-chip {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--badge-text);
+    background: var(--badge-bg);
+    border: 1px solid var(--border-color);
+    padding: 3px 9px;
+    border-radius: 6px;
+  }
+
+  .timeline-chevron {
+    flex-shrink: 0;
+    margin-top: 6px;
+    color: var(--text-muted);
+  }
+
+  /* Tablet band (design): 92px dots, tighter card. */
+  @media (max-width: 1279px) {
+    .timeline-card { gap: 18px; padding: 18px 22px; }
+    .timeline-logo-col { left: -122px; }
+    .timeline-logo { width: 92px; height: 92px; }
+    .timeline-card-header h2 { font-size: 16.5px; }
+    .timeline-date { font-size: 11.5px; }
+    .timeline-title { font-size: 13.5px; }
+    .timeline-desc { font-size: 12.5px; line-height: 1.6; }
+    .timeline-chips { gap: 5px; padding-top: 5px; }
+    .timeline-chip { font-size: 10.5px; padding: 3px 8px; }
+    .timeline-chevron { margin-top: 4px; }
+  }
+
+  /* Mobile band (design): 48px dots, compact row — company, headline, range
+     stacked (the date drops below the title), no description or chips. */
+  @media (max-width: 699px) {
+    .timeline-card { align-items: center; gap: 10px; padding: 14px; box-shadow: none; }
+    .timeline-logo-col { left: -66px; top: 6px; }
+    .timeline-logo { width: 48px; height: 48px; border-width: 2px; }
+    .timeline-content-col { gap: 2px; }
+    .timeline-card-header { display: contents; }
+    .timeline-card-header h2 { order: 1; font-size: 14.5px; }
+    .timeline-title { order: 2; font-size: 12.5px; line-height: 1.35; }
+    .timeline-date { order: 3; font-size: 11px; }
+    .timeline-desc,
+    .timeline-chips { display: none; }
+    .timeline-chevron { width: 15px; height: 15px; margin-top: 0; }
   }
 </style>

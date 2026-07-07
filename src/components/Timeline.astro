@@ -33,18 +33,27 @@ const i18n = t(locale);
 </div>
 
 <style is:global>
+  /* Design: the company logo circles sit ON the rail (they replace the old
+     small dots), with the "Latest" tag centred on the rail above them.
+     Bands: dots 120px desktop (rail x 67) · 92px tablet (rail x 53) ·
+     48px mobile (rail x 39). */
   .timeline {
     position: relative;
-    padding-left: 70px;
-    padding-top: 2rem;
+    /* Design: 36/30/22px of air between the intro copy and the Latest tag. */
+    margin-top: 36px;
+    padding-left: 160px;
+    padding-top: 2.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
   }
 
   .timeline::before {
     content: '';
     position: absolute;
-    left: 30px;
-    top: 0;
-    bottom: 0;
+    left: 67px;
+    top: 6px;
+    bottom: 10px;
     width: 2px;
     background: var(--timeline-line);
   }
@@ -52,16 +61,29 @@ const i18n = t(locale);
   .timeline-present-tag {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 68px;
+    transform: translateX(-50%);
     background: var(--color-green);
     color: white;
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.69rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 5px;
     white-space: nowrap;
     z-index: 3;
+  }
+
+  @media (max-width: 1279px) {
+    .timeline { margin-top: 30px; padding-left: 130px; gap: 16px; }
+    .timeline::before { left: 53px; }
+    .timeline-present-tag { left: 54px; }
+  }
+
+  @media (max-width: 699px) {
+    .timeline { margin-top: 22px; padding-left: 82px; gap: 14px; }
+    .timeline::before { left: 39px; }
+    .timeline-present-tag { left: 40px; font-size: 0.66rem; padding: 3px 9px; }
   }
 </style>

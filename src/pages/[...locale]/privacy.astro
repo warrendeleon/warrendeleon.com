@@ -24,7 +24,7 @@ const paras = (s: string) => s.split('\n\n');
   <section class="section">
     <div class="container">
       <article class="privacy">
-        <h1 class="section-heading">{p.heading}</h1>
+        <h1 class="section-title">{p.heading}</h1>
         <p class="privacy-updated">{p.updated}</p>
 
         {paras(p.intro).map((par) => <p set:html={md(par)} />)}
