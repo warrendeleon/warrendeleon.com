@@ -31,6 +31,7 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
   description={`${i18n.blog.postsTagged} ${tagLabel}`}
   locale={locale}
   currentPath={getLocalePath(locale, `/blog/tags/${tag}/`)}
+  mobileBack={{ href: getLocalePath(locale, '/blog/tags/'), title: tagLabel, eyebrow: i18n.blog.browseByTag }}
 >
   <BlogSearch locale={locale} />
   <BreadcrumbsJsonLd items={[
@@ -50,7 +51,8 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
           </svg>
           {i18n.blog.backToBlog}
         </a>
-        <h1 class="section-heading">{i18n.blog.postsTagged} {tagLabel}</h1>
+        <!-- Design: the tag name renders in the mono face. -->
+        <h1 class="section-title tag-page-title">{i18n.blog.postsTagged} <span class="blog-mono">{tagLabel}</span></h1>
         <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
         {relatedSeries.length > 0 && (
           <p class="tag-page-series">
@@ -126,7 +128,19 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
   .tag-page-header { margin-bottom: 2rem; }
   .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
   .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
+
+  /* Design: the in-body back link is desktop-only — mobile/tablet use the
+     top bar chevron. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .tag-page-header .blog-back-link { display: none; }
+  }
   .tag-page-count { font-size: 1rem; color: var(--text-muted); margin-top: 0.75rem; }
+
+  /* Detail-page title (design): 26px mobile, 30px from tablet up. */
+  .tag-page-title { font-size: 30px; }
+  @media (max-width: 699px) {
+    .tag-page-title { font-size: 26px; }
+  }
   .tag-page-series { margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: baseline; color: var(--text-muted); font-size: 0.95rem; }
   /* Post list reuses the shared .feed-post row card (global.css) */
   .blog-empty { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 2rem; }

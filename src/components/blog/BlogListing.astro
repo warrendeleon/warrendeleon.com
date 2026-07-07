@@ -6,8 +6,9 @@ import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, getCurrentSeriesName, shortenSeriesName, type FeedPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, getCurrentSeriesName, shortenSeriesName, publishSlot, type FeedPost } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
+import { getTagLabel } from '../../i18n/tagLabels';
 import type { Page } from 'astro';
 
 interface Props {
@@ -26,9 +27,13 @@ const isFirstPage = page.currentPage === 1;
 // getCurrentSeriesName). Shown on page one as the lead with its parts in reading
 // order. The feed route uses the same helper to demote this series' parts, so a
 // mid-run break falls back to the flagship and no post is dropped from the feed.
+const nowTs = new Date();
 const currentSeriesName = isFirstPage ? await getCurrentSeriesName(locale) : null;
 const currentSeriesSlug = currentSeriesName ? getSeriesSlug(currentSeriesName) : null;
-const currentParts = currentSeriesSlug ? await getSeriesPosts(locale, currentSeriesSlug) : [];
+// Date-gated to match SeriesHeroCard, which only renders date-published
+// parts — an ungated count here can promise a card that never appears.
+const currentParts = (currentSeriesSlug ? await getSeriesPosts(locale, currentSeriesSlug) : [])
+  .filter(p => publishSlot(p.data.publishDate) <= nowTs);
 const hasCurrentSeries = currentParts.length >= 2 && !!currentSeriesName && !!currentSeriesSlug;
 
 // More series = every other series, each with its intro post for art + a description.
@@ -40,6 +45,12 @@ const moreSeries = await Promise.all(moreSeriesBase.map(async s => {
 const feedPosts = page.data;
 const blogBase = getLocalePath(locale, '/blog/');
 const tagsPath = getLocalePath(locale, '/blog/tags/');
+
+// Top tags for the desktop sidebar card, most-used first (same derivation as
+// BlogSearch's "Try" chips: counted across all published posts).
+const tagCounts = new Map<string, number>();
+for (const p of allPosts) for (const tag of p.data.tags) tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1);
+const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([tag]) => tag);
 ---
 
 <BaseLayout
@@ -50,13 +61,16 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
 >
   <section class="section blog-lead">
     <div class="container">
-      <h1 class="section-heading">Blog</h1>
+      <h1 class="section-title blog-title">Blog</h1>
 
       <BlogSearch locale={locale} />
 
       {hasCurrentSeries && currentSeriesName && (
         <div class="series-hero">
-          <h2 class="blog-section-heading">{i18n.blog.currentSeries}</h2>
+          <div class="blog-eyebrow-row">
+            <h2 class="blog-section-heading">{i18n.blog.currentSeries}</h2>
+            <a class="blog-eyebrow-link" href={getLocalePath(locale, '/blog/series/')}>{i18n.blog.allSeries} <span aria-hidden="true">&rarr;</span></a>
+          </div>
           <SeriesHeroCard locale={locale} seriesName={currentSeriesName} />
         </div>
       )}
@@ -101,16 +115,19 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
     </div>
   </section>
 
-  {hasCurrentSeries && <SubscribeForm locale={locale} />}
-
   <section class="section blog-feed-section">
-    <div class="container">
+    <div class="container blog-feed-grid">
+      <div class="blog-feed-main">
       {feedPosts.length > 0 && (
         <div class="blog-feed-block">
-          <h2 class="blog-section-heading">{i18n.blog.allPosts}</h2>
-          <a class="blog-tag-link" href={getLocalePath(locale, '/blog/series/')}>{i18n.blog.browseBySeries} <span aria-hidden="true">&rarr;</span></a>
-          <a class="blog-tag-link" href={tagsPath}>{i18n.blog.browseByTag} <span aria-hidden="true">&rarr;</span></a>
-          <div class="blog-feed">
+          <div class="blog-eyebrow-row">
+            <h2 class="blog-section-heading">{i18n.blog.allPosts}</h2>
+            <span class="blog-eyebrow-links">
+              <a class="blog-eyebrow-link blog-link-series" href={getLocalePath(locale, '/blog/series/')}>{i18n.blog.browseBySeries} <span aria-hidden="true">&rarr;</span></a>
+              <a class="blog-eyebrow-link blog-link-tags" href={tagsPath}>{i18n.blog.browseByTag} <span aria-hidden="true">&rarr;</span></a>
+            </span>
+          </div>
+          <div class="blog-feed" data-feed>
             {feedPosts.map(post => (
               <a
                 href={post.enFallback ? `/blog/${getPostSlug(post.id)}/` : getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)}
@@ -136,6 +153,15 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
             ))}
           </div>
         </div>
+      )}
+
+      {page.url.next && (
+        <a
+          class="blog-load-more"
+          href={page.url.next}
+          data-load-more
+          data-loading-label={i18n.blog.loading}
+        >{i18n.blog.loadMore}</a>
       )}
 
       {page.lastPage > 1 && (
@@ -175,10 +201,29 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
       )}
 
       <p id="blog-empty" class="blog-empty" style="display: none;" data-is-dev={import.meta.env.DEV ? 'true' : undefined}>{i18n.blog.noPostsYet}</p>
+
+      <!-- Mobile/tablet: subscribe card at the end of the feed (design
+           "Blog Home Mobile"); the desktop sidebar carries its own copy. -->
+      <div class="blog-subscribe-inline">
+        <SubscribeForm locale={locale} variant="inline" />
+      </div>
+      </div>
+
+      <!-- Desktop sidebar: newsletter card + top tags (design: sticky 300px). -->
+      <aside class="blog-sidebar">
+        <SubscribeForm locale={locale} />
+        <div class="blog-sidebar-tags">
+          <span class="blog-sidebar-tags-head">{i18n.blog.browseByTag}</span>
+          <div class="blog-sidebar-tags-cloud">
+            {topTags.map(tag => (
+              <a class="post-tag" href={getLocalePath(locale, `/blog/tags/${tag}/`)}>{getTagLabel(tag, locale)}</a>
+            ))}
+          </div>
+          <a class="blog-eyebrow-link" href={tagsPath}>{i18n.blog.browseByTag} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </aside>
     </div>
   </section>
-
-  {!hasCurrentSeries && <SubscribeForm locale={locale} />}
 </BaseLayout>
 
 <script is:inline>
@@ -240,6 +285,54 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
   } else {
     init();
   }
+})();
+</script>
+
+<script is:inline>
+/* "Load more posts": fetches the next paginated page (real /blog/N/ route),
+   appends its feed cards, and re-points the button at the page after that.
+   The link itself is a plain <a href> to the next page, so crawlers and
+   no-JS visitors keep working pagination. */
+(function () {
+  var btn = document.querySelector('[data-load-more]');
+  var feed = document.querySelector('[data-feed]');
+  if (!btn || !feed) return;
+
+  var label = btn.textContent;
+  var busy = false;
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (busy) return;
+    busy = true;
+    btn.textContent = btn.getAttribute('data-loading-label') || label;
+    btn.setAttribute('aria-busy', 'true');
+
+    fetch(btn.href)
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var posts = doc.querySelectorAll('[data-feed] .feed-post');
+        posts.forEach(function (p) { feed.appendChild(p); });
+        t('blog_load_more', { page: btn.href });
+        var nextBtn = doc.querySelector('[data-load-more]');
+        if (nextBtn) {
+          btn.href = nextBtn.getAttribute('href');
+          btn.textContent = label;
+          btn.removeAttribute('aria-busy');
+          busy = false;
+        } else {
+          btn.remove();
+        }
+      })
+      .catch(function () {
+        // Fetch failed: fall back to plain navigation to the next page.
+        window.location.href = btn.href;
+      });
+  });
 })();
 </script>
 
@@ -395,9 +488,194 @@ const tagsPath = getLocalePath(locale, '/blog/tags/');
   .blog-pagination-current { background: var(--color-green); color: white; border-color: var(--color-green); }
   .blog-pagination-current:hover { background: var(--color-green-dark); border-color: var(--color-green-dark); color: white; }
 
+  /* ===== Redesign: page head, eyebrow rows, load-more, sidebar ===== */
+  .blog-title { font-size: var(--fs-h1); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 1rem; }
+
+  .blog-eyebrow-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .blog-eyebrow-row .blog-section-heading { margin-bottom: 0; }
+  .blog-eyebrow-links { display: inline-flex; gap: 1.1rem; }
+  .blog-eyebrow-link {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-green-text);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .blog-load-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    margin-top: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+  }
+  .blog-load-more:hover { border-color: var(--color-green); }
+  .blog-load-more[aria-busy="true"] { opacity: 0.6; }
+
+  /* Sidebar: single column by default; design's sticky 300px aside ≥1024. */
+  .blog-sidebar { display: none; }
+
+  /* End-of-feed subscribe card (design mobile artboard): left-aligned,
+     stacked inputs, full-width button. Hidden ≥1024 where the sidebar
+     carries the form. */
+  .blog-subscribe-inline .subscribe {
+    margin: 24px 0 8px;
+    padding: 0;
+    background: none;
+    border: none;
+  }
+  .blog-subscribe-inline .subscribe .container {
+    max-width: none;
+    padding: 20px 18px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+  }
+  .blog-subscribe-inline .subscribe-main { max-width: none; text-align: left; }
+  .blog-subscribe-inline .subscribe-copy h3 { font-size: 15.5px; }
+  .blog-subscribe-inline .subscribe-copy p { font-size: 12.5px; line-height: 1.5; margin-bottom: 0.75rem; }
+  .blog-subscribe-inline .subscribe-form { max-width: none; }
+  .blog-subscribe-inline .subscribe-row { flex-direction: column; }
+  .blog-subscribe-inline .subscribe-btn { width: 100%; }
+  .blog-subscribe-inline .subscribe-note { font-size: 0.72rem; }
+
+  @media (min-width: 1024px) {
+    .blog-subscribe-inline { display: none; }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-load-more { display: none; }
+
+    .blog-feed-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .blog-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: 84px;
+    }
+
+    /* Compact the full-width subscribe band into a sidebar card. */
+    .blog-sidebar .subscribe { padding: 0; margin: 0; background: none; }
+    .blog-sidebar .subscribe .container { padding: 22px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 14px; }
+    .blog-sidebar .subscribe-form { flex-direction: column; align-items: stretch; }
+    .blog-sidebar .subscribe-row { flex-direction: column; }
+    .blog-sidebar .subscribe-btn { width: 100%; }
+
+    .blog-sidebar-tags {
+      padding: 22px;
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .blog-sidebar-tags-head {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .blog-sidebar-tags-cloud { display: flex; gap: 6px; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 1023px) {
+    .blog-pagination { display: none; }
+    .blog-link-series { display: none; }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-link-tags { display: none; }
+  }
+
+  /* Tablet: the lead post spans both feed columns as a 300px|text card
+     (design "Blog Home Tablet"). */
+  @media (min-width: 700px) and (max-width: 1023px) {
+    [data-feed] .feed-post:first-child {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      padding: 0;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    [data-feed] .feed-post:first-child .feed-post-thumb {
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+    [data-feed] .feed-post:first-child .feed-post-body {
+      padding: 16px 18px;
+    }
+    [data-feed] .feed-post:first-child .feed-post-desc {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 0.8rem;
+    }
+    [data-feed] .feed-post:first-child .feed-post-title {
+      font-size: 1rem;
+      -webkit-line-clamp: unset;
+      display: block;
+    }
+  }
+
+  /* Blog Home only: the newest post leads as a big card (the shared compact
+     mobile row style lives in global.css). */
+  @media (max-width: 699px) {
+    [data-feed] .feed-post:first-child { display: block; padding: 0; overflow: hidden; border-radius: 16px; }
+    [data-feed] .feed-post:first-child .feed-post-thumb { width: 100%; height: auto; aspect-ratio: 16 / 8; border-radius: 0; }
+    [data-feed] .feed-post:first-child .feed-post-body { padding: 13px 16px 15px; gap: 5px; }
+    [data-feed] .feed-post:first-child .feed-post-title { font-size: 1rem; -webkit-line-clamp: unset; display: block; }
+    [data-feed] .feed-post:first-child .feed-post-desc {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 0.78rem;
+    }
+  }
+
   @media (max-width: 760px) {
-    .series-card { width: 260px; }
+    .series-card { width: 200px; }
     .blog-pagination-link { padding: 0.4rem 0.75rem; }
     .blog-pagination-num { width: 36px; height: 36px; }
+  }
+
+  /* Tablet: more-series is a static 3-up grid, no scroll or arrows
+     (design "Blog Home Tablet"). */
+  @media (min-width: 700px) and (max-width: 1023px) {
+    .series-shelf { overflow: visible; }
+    .series-shelf-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: auto;
+    }
+    .series-shelf-track .series-card { width: auto; }
+    .series-shelf-nav { display: none; }
   }
 </style>

@@ -32,6 +32,7 @@ const tags = [...tagCounts.entries()]
   description={i18n.seo.blogDescription}
   locale={locale}
   currentPath={getLocalePath(locale, '/blog/tags/')}
+  mobileBack={{ href: blogPath, title: i18n.blog.browseByTag, eyebrow: 'Blog' }}
 >
   <BlogSearch locale={locale} />
 
@@ -45,7 +46,8 @@ const tags = [...tagCounts.entries()]
           </svg>
           {i18n.blog.backToBlog}
         </a>
-        <h1 class="section-heading">{i18n.blog.browseByTag}</h1>
+        <h1 class="section-title">{i18n.blog.browseByTag}</h1>
+        <p class="tags-subtitle">{i18n.blog.tagsSubtitle.replace('{t}', String(tags.length)).replace('{p}', String(posts.length))}</p>
       </div>
 
       <ul class="tag-cloud">
@@ -67,21 +69,45 @@ const tags = [...tagCounts.entries()]
   .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
   .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
 
-  .tag-cloud { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  /* Design: the in-body back link is desktop-only — mobile/tablet use the
+     top bar chevron. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .tag-page-header .blog-back-link { display: none; }
+  }
+
+  .tags-subtitle { margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); }
+
+  .tag-cloud { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .tag-cloud-item {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 999px;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 22px;
     background: var(--bg-card);
     border: 1px solid var(--border-color);
     color: var(--text-primary);
     text-decoration: none;
-    font-size: 1rem;
-    box-shadow: var(--shadow);
-    transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
-  .tag-cloud-item:hover { color: var(--color-green-text); border-color: var(--color-green); transform: translateY(-2px); }
-  .tag-cloud-count { font-size: 0.9rem; color: var(--text-muted); }
+  .tag-cloud-item:hover { color: var(--color-green-text); border-color: var(--color-green); }
+  .tag-cloud-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  }
+  .tag-cloud-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    border-radius: 11px;
+    background: rgba(109, 196, 2, 0.14);
+    color: var(--color-green-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
 </style>

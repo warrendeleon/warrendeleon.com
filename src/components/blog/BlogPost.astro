@@ -140,6 +140,11 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
   ogImage={post.data.heroImage}
   ogType="article"
   jsonLd={blogPostingJsonLd}
+  mobileBack={{
+    href: blogPath,
+    title: post.data.title,
+    eyebrow: post.data.series ? `${post.data.series} · ${seriesPartLabel}` : undefined,
+  }}
 >
   <BlogSearch locale={locale} />
   <BreadcrumbsJsonLd items={[
@@ -161,6 +166,28 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
       <div class="post-hero-image-overlay"></div>
     </div>
   )}
+
+  <!-- Mobile reading bar: progress ring + current section + TOC trigger,
+       share and back-to-top. Hidden ≥1024px where the sidebar TOC exists. -->
+  <div class="post-reading-bar" hidden>
+    <button type="button" class="prb-toc" data-toc-open aria-haspopup="dialog" aria-expanded="false" aria-label={i18n.blog.contents}>
+      <svg class="prb-ring" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <circle cx="15" cy="15" r="12" fill="none" stroke="var(--border-color)" stroke-width="3"></circle>
+        <circle class="prb-ring-fill" cx="15" cy="15" r="12" fill="none" stroke="var(--color-green)" stroke-width="3" stroke-linecap="round" stroke-dasharray="75.4" stroke-dashoffset="75.4" transform="rotate(-90 15 15)"></circle>
+      </svg>
+      <span class="prb-labels">
+        <span class="prb-section" data-prb-section>{post.data.title}</span>
+        <span class="prb-progress" data-prb-progress></span>
+      </span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 15 12 9 18 15"></polyline></svg>
+    </button>
+    <button type="button" class="prb-btn" data-share-open aria-haspopup="dialog" aria-label={i18n.blog.sharePost}>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+    </button>
+    <button type="button" class="prb-btn" data-prb-top aria-label={i18n.footer.backToTop}>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+    </button>
+  </div>
 
   <section class="post-hero section-alt" aria-label={i18n.a11y.postHeader}>
     <div class="container">
@@ -205,20 +232,38 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
     <div class="container">
       {seriesPosts.length > 1 && (
         <aside class="series-nav" aria-label={post.data.series}>
-          <p class="series-nav-heading">
-            <span class="series-nav-part">{seriesPartLabel}</span>
-            <span class="series-nav-sep" aria-hidden="true">&middot;</span>
-            <strong>{post.data.series}</strong>
-          </p>
-          <ol class="series-nav-list">
-            {seriesPosts.map(sp => {
+          <div class="series-nav-head">
+            <p class="series-nav-heading">
+              <strong>{post.data.series}</strong>
+              <span class="series-nav-part">{seriesPartLabel}</span>
+            </p>
+            <div class="series-nav-arrows" hidden>
+              <button type="button" class="series-nav-arrow" data-series-prev aria-label={i18n.blog.previous}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button type="button" class="series-nav-arrow" data-series-next aria-label={i18n.blog.next}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+          <ol class="series-nav-list" data-series-shelf>
+            {seriesPosts.map((sp, i) => {
               const sSlug = getPostSlug(sp.id);
               const isCurrent = sSlug === postSlug;
+              const num = String(i + 1).padStart(2, '0');
               return (
                 <li class={isCurrent ? 'series-current' : ''} aria-current={isCurrent ? 'step' : undefined}>
-                  {isCurrent
-                    ? <span>{sp.data.title}</span>
-                    : <a href={getLocalePath(locale, `/blog/${sSlug}/`)}>{sp.data.title}</a>}
+                  {isCurrent ? (
+                    <span class="series-card-inner">
+                      <span class="series-card-num" aria-hidden="true">{num}</span>
+                      <span class="series-card-title">{sp.data.title}</span>
+                    </span>
+                  ) : (
+                    <a class="series-card-inner" href={getLocalePath(locale, `/blog/${sSlug}/`)}>
+                      <span class="series-card-num" aria-hidden="true">{num}</span>
+                      <span class="series-card-title">{sp.data.title}</span>
+                    </a>
+                  )}
                 </li>
               );
             })}
@@ -347,6 +392,61 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
 
   <MediaZoom locale={locale} />
 
+  <!-- TOC bottom sheet (mobile). Same headings as the sidebar TOC. -->
+  {showToc && (
+    <div class="post-sheet" id="toc-sheet" role="dialog" aria-modal="true" aria-label={i18n.blog.contents} hidden>
+      <div class="post-sheet-backdrop" data-overlay-close></div>
+      <div class="post-sheet-panel">
+        <div class="post-sheet-grabber" aria-hidden="true"></div>
+        <div class="post-sheet-head">
+          <span class="post-sheet-title">{i18n.blog.contents}</span>
+          <span class="post-sheet-meta" data-sheet-progress></span>
+        </div>
+        <ol class="post-sheet-list">
+          {headings.filter(h => h.depth <= 3).map((h, i) => (
+            <li class={`sheet-depth-${h.depth}`}>
+              <a href={`#${h.slug}`} data-sheet-toc-link>
+                <span class="sheet-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                <span>{h.text}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  )}
+
+  <!-- Share bottom sheet: fallback when navigator.share is unavailable.
+       Same UTM-tagged URLs and tracking as the inline share row. -->
+  <div class="post-sheet" id="share-sheet" role="dialog" aria-modal="true" aria-label={i18n.blog.sharePost} hidden>
+    <div class="post-sheet-backdrop" data-overlay-close></div>
+    <div class="post-sheet-panel">
+      <div class="post-sheet-grabber" aria-hidden="true"></div>
+      <div class="post-sheet-head">
+        <span class="post-sheet-title">{i18n.blog.sharePost}</span>
+      </div>
+      <div class="post-sheet-share-grid">
+        <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrlLinkedIn)}`} target="_blank" rel="noopener noreferrer" class="share-btn" aria-label={i18n.a11y.shareOn.replace('{n}', 'LinkedIn')}>LinkedIn</a>
+        <a href={`https://x.com/intent/tweet?url=${encodeURIComponent(shareUrlX)}&text=${encodeURIComponent(post.data.title)}`} target="_blank" rel="noopener noreferrer" class="share-btn" aria-label={i18n.a11y.shareOn.replace('{n}', 'X')}>X</a>
+        <a href={`https://wa.me/?text=${encodeURIComponent(post.data.title + ' ' + shareUrlWhatsApp)}`} target="_blank" rel="noopener noreferrer" class="share-btn" aria-label={i18n.a11y.shareOn.replace('{n}', 'WhatsApp')}>WhatsApp</a>
+        <button type="button" class="copy-link-btn share-btn" data-url={shareUrlCopy} aria-label={i18n.blog.copyLink}><span>{i18n.blog.copyLink}</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen code viewer: filled and opened by the code-block script. -->
+  <div class="code-viewer" id="code-viewer" role="dialog" aria-modal="true" aria-label="Code" hidden>
+    <div class="code-viewer-head">
+      <span class="code-viewer-title" data-viewer-title></span>
+      <button type="button" class="code-viewer-btn" data-viewer-wrap aria-pressed="false">Wrap</button>
+      <button type="button" class="code-viewer-btn" data-viewer-copy>{i18n.blog.copyCode}</button>
+      <button type="button" class="code-viewer-close" data-overlay-close aria-label={i18n.a11y.close}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <pre class="code-viewer-pre" data-viewer-pre tabindex="0"></pre>
+  </div>
+
   <!-- Scroll to top button -->
   <button class="scroll-to-top" aria-label={i18n.footer.backToTop} hidden>
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -361,6 +461,13 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
     data-copied={i18n.blog.codeCopied}
     data-copy-link={i18n.blog.copyLink}
     data-link-copied={i18n.blog.copied}
+    data-wrap={i18n.blog.wrap}
+    data-expand={i18n.blog.expand}
+    data-min-left={i18n.blog.minLeft}
+    data-done={i18n.blog.done}
+    data-reading-minutes={String(readingTime)}
+    data-share-url={shareUrlCopy}
+    data-share-title={post.data.title}
     hidden
   />
 <script is:inline>
@@ -368,14 +475,8 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
 var i18nEl = document.getElementById('blog-i18n');
 var i18nData = i18nEl ? i18nEl.dataset : {};
 
-/* Below the two-column breakpoint the TOC sits above the article, so it
-   starts collapsed there instead of pushing the content down. */
-(function () {
-  var toc = document.querySelector('[data-toc-details]');
-  if (toc && window.matchMedia('(max-width: 1200px)').matches) {
-    toc.removeAttribute('open');
-  }
-})();
+/* The sidebar TOC only renders ≥1024px now (the bottom sheet covers mobile),
+   so it always starts open. */
 
 /* Callout blockquotes */
 var calloutMap = {
@@ -460,10 +561,9 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   var langLabel = document.createElement('span');
   langLabel.className = 'code-block-lang';
   langLabel.textContent = lang || 'code';
-  var copyIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
   var btn = document.createElement('button');
   btn.className = 'code-copy-btn';
-  btn.innerHTML = copyIcon + '<span>' + (i18nData.copy || 'Copy') + '</span>';
+  btn.innerHTML = '<span>' + (i18nData.copy || 'Copy') + '</span>';
   btn.setAttribute('aria-label', i18nData.copy || 'Copy');
   btn.addEventListener('click', function() {
     var text = code ? code.textContent : pre.textContent;
@@ -472,47 +572,144 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
     btn.querySelector('span').textContent = i18nData.copied || 'Copied!';
     setTimeout(function() { btn.querySelector('span').textContent = i18nData.copy || 'Copy'; }, 2000);
   });
+
+  // Wrap: soft-wrap long lines in place instead of horizontal scrolling.
+  var wrapBtn = document.createElement('button');
+  wrapBtn.className = 'code-copy-btn code-wrap-btn';
+  wrapBtn.textContent = i18nData.wrap || 'Wrap';
+  wrapBtn.setAttribute('aria-pressed', 'false');
+  wrapBtn.addEventListener('click', function() {
+    var wrapped = pre.style.whiteSpace === 'pre-wrap';
+    pre.style.whiteSpace = wrapped ? '' : 'pre-wrap';
+    pre.style.overflowWrap = wrapped ? '' : 'break-word';
+    wrapBtn.setAttribute('aria-pressed', String(!wrapped));
+    t('code_wrap', { language: lang, wrapped: !wrapped });
+    syncScrollable();
+  });
+
+  // Expand: hand the block to the fullscreen viewer (wired in the module
+  // script below via this custom event).
+  var expandBtn = document.createElement('button');
+  expandBtn.className = 'code-copy-btn code-expand-btn';
+  expandBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+  expandBtn.setAttribute('aria-label', i18nData.expand || 'Expand');
+  expandBtn.addEventListener('click', function() {
+    document.dispatchEvent(new CustomEvent('post:code-expand', {
+      detail: { code: code ? code.textContent : pre.textContent, title: pre.getAttribute('data-filename') || lang || 'code' }
+    }));
+    t('code_expand', { language: lang });
+  });
+
   header.appendChild(langLabel);
+  header.appendChild(wrapBtn);
   header.appendChild(btn);
+  header.appendChild(expandBtn);
   pre.parentNode.insertBefore(wrapper, pre);
   wrapper.appendChild(header);
   wrapper.appendChild(pre);
+
+  // Fade cue: only when the block actually overflows, gone at the far edge.
+  function syncScrollable() {
+    var scrollable = pre.scrollWidth > pre.clientWidth + 1;
+    if (scrollable) wrapper.setAttribute('data-scrollable', '');
+    else wrapper.removeAttribute('data-scrollable');
+    syncAtEnd();
+  }
+  function syncAtEnd() {
+    var atEnd = pre.scrollLeft + pre.clientWidth >= pre.scrollWidth - 2;
+    if (atEnd) wrapper.setAttribute('data-at-end', '');
+    else wrapper.removeAttribute('data-at-end');
+  }
+  pre.addEventListener('scroll', syncAtEnd, { passive: true });
+  window.addEventListener('resize', syncScrollable, { passive: true });
+  syncScrollable();
 });
 
-/* Reading progress bar */
+/* Consolidated scroll controller: one rAF-throttled listener drives the
+   reading-progress bar, the mobile reading-bar ring/labels, the active
+   section (sidebar TOC, bottom sheet, reading bar) and the scroll-depth
+   analytics milestones. */
 (function() {
   var bar = document.querySelector('.reading-progress-bar');
   var progressEl = document.querySelector('.reading-progress');
-  if (!bar || !progressEl) return;
+  var ring = document.querySelector('.prb-ring-fill');
+  var prbSection = document.querySelector('[data-prb-section]');
+  var prbProgress = document.querySelector('[data-prb-progress]');
+  var sheetProgress = document.querySelector('[data-sheet-progress]');
+  var readingBar = document.querySelector('.post-reading-bar');
+  var totalMinutes = parseInt(i18nData.readingMinutes || '0', 10);
+  var postTitle = prbSection ? prbSection.textContent : '';
+  var RING_C = 75.4;
+
+  if (readingBar && window.matchMedia('(max-width: 1279px), (hover: none) and (pointer: coarse)').matches) {
+    readingBar.hidden = false;
+  }
+
+  var tocLinks = document.querySelectorAll('[data-toc-link]');
+  var sheetLinks = document.querySelectorAll('[data-sheet-toc-link]');
+  var headingEls = [];
+  tocLinks.forEach(function(link, i) {
+    var id = link.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if (el) headingEls.push({ el: el, link: link, sheetLi: sheetLinks[i] ? sheetLinks[i].parentNode : null, text: link.textContent });
+    link.addEventListener('click', function() { t('toc_click', { section: link.textContent }); });
+  });
+
+  var milestones = [25, 50, 75, 100];
+  var fired = {};
+  var ticking = false;
+
   function update() {
+    ticking = false;
     var scrollTop = window.scrollY;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     var pct = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
-    bar.style.width = pct + '%';
-    progressEl.setAttribute('aria-valuenow', Math.round(pct));
-  }
-  window.addEventListener('scroll', update, { passive: true });
-  update();
-})();
 
-/* Scroll depth tracking */
-(function() {
-  var milestones = [25, 50, 75, 100];
-  var fired = {};
-  function checkDepth() {
-    var scrollTop = window.scrollY;
-    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight <= 0) return;
-    var pct = Math.min((scrollTop / docHeight) * 100, 100);
-    for (var i = 0; i < milestones.length; i++) {
-      var m = milestones[i];
+    if (bar) bar.style.width = pct + '%';
+    if (progressEl) progressEl.setAttribute('aria-valuenow', String(Math.round(pct)));
+    if (ring) ring.style.strokeDashoffset = String(RING_C * (1 - pct / 100));
+
+    if (prbProgress && totalMinutes > 0) {
+      var minsLeft = Math.max(0, Math.ceil(totalMinutes * (1 - pct / 100)));
+      var label = Math.round(pct) + '% · ' + (minsLeft > 0
+        ? (i18nData.minLeft || '{n} min left').replace('{n}', String(minsLeft))
+        : (i18nData.done || 'Done'));
+      prbProgress.textContent = label;
+      if (sheetProgress) sheetProgress.textContent = label;
+    }
+
+    var current = null;
+    var scrollPos = scrollTop + 100;
+    for (var i = 0; i < headingEls.length; i++) {
+      if (headingEls[i].el.offsetTop <= scrollPos) current = headingEls[i];
+    }
+    headingEls.forEach(function(h) {
+      h.link.classList.remove('toc-active');
+      h.link.removeAttribute('aria-current');
+      if (h.sheetLi) h.sheetLi.classList.remove('sheet-active');
+    });
+    if (current) {
+      current.link.classList.add('toc-active');
+      current.link.setAttribute('aria-current', 'true');
+      if (current.sheetLi) current.sheetLi.classList.add('sheet-active');
+    }
+    if (prbSection) prbSection.textContent = current ? current.text : postTitle;
+
+    for (var j = 0; j < milestones.length; j++) {
+      var m = milestones[j];
       if (pct >= m && !fired[m]) {
         fired[m] = true;
         t('scroll_depth', { depth: m });
       }
     }
   }
-  window.addEventListener('scroll', checkDepth, { passive: true });
+
+  window.addEventListener('scroll', function() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(update);
+  }, { passive: true });
+  update();
 })();
 
 /* Time on page */
@@ -540,36 +737,6 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   });
 })();
 
-/* TOC active state */
-(function() {
-  var tocLinks = document.querySelectorAll('[data-toc-link]');
-  if (!tocLinks.length) return;
-  var headingEls = [];
-  tocLinks.forEach(function(link) {
-    var id = link.getAttribute('href').slice(1);
-    var el = document.getElementById(id);
-    if (el) headingEls.push({ el: el, link: link });
-    link.addEventListener('click', function() { t('toc_click', { section: link.textContent }); });
-  });
-  function updateActive() {
-    var scrollPos = window.scrollY + 100;
-    var current = null;
-    for (var i = 0; i < headingEls.length; i++) {
-      if (headingEls[i].el.offsetTop <= scrollPos) current = headingEls[i];
-    }
-    tocLinks.forEach(function(link) {
-      link.classList.remove('toc-active');
-      link.removeAttribute('aria-current');
-    });
-    if (current) {
-      current.link.classList.add('toc-active');
-      current.link.setAttribute('aria-current', 'true');
-    }
-  }
-  window.addEventListener('scroll', updateActive, { passive: true });
-  updateActive();
-})();
-
 /* Scroll to top */
 (function() {
   var btn = document.querySelector('.scroll-to-top');
@@ -584,6 +751,136 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   toggle();
 })();
 </script>
+
+<script>
+  import { createOverlay } from '../../scripts/overlay';
+
+  declare function t(event: string, data?: Record<string, unknown>): void;
+
+  const i18nEl = document.getElementById('blog-i18n');
+  const D = i18nEl ? (i18nEl as HTMLElement).dataset : ({} as DOMStringMap);
+  const reduce = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ----- TOC bottom sheet -----
+  const tocSheet = document.getElementById('toc-sheet');
+  const tocOpenBtn = document.querySelector('[data-toc-open]');
+  if (tocSheet && tocOpenBtn) {
+    const tocOverlay = createOverlay({
+      root: tocSheet,
+      panel: tocSheet.querySelector('.post-sheet-panel') as HTMLElement,
+      onOpen: () => tocOpenBtn.setAttribute('aria-expanded', 'true'),
+      onClose: () => tocOpenBtn.setAttribute('aria-expanded', 'false'),
+    });
+    // ≥1024px the sidebar TOC covers navigation, so the pill stops being a
+    // sheet trigger. Reactive: iPad rotation crosses this boundary live.
+    const sidebarBand = window.matchMedia('(min-width: 1024px)');
+    const syncTocTrigger = () => {
+      if (sidebarBand.matches) tocOpenBtn.setAttribute('disabled', '');
+      else tocOpenBtn.removeAttribute('disabled');
+    };
+    sidebarBand.addEventListener('change', syncTocTrigger);
+    syncTocTrigger();
+    tocOpenBtn.addEventListener('click', () => {
+      tocOverlay.open();
+      t('toc_sheet_open');
+    });
+    tocSheet.querySelectorAll('[data-sheet-toc-link]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const id = (link.getAttribute('href') || '').slice(1);
+        const el = document.getElementById(id);
+        tocOverlay.close();
+        if (el) {
+          window.setTimeout(() => {
+            el.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth', block: 'start' });
+          }, 120);
+        }
+        t('toc_click', { section: link.textContent?.trim() });
+      });
+    });
+  }
+
+  // ----- Share: native sheet first, custom sheet as fallback -----
+  const shareSheet = document.getElementById('share-sheet');
+  const shareOpenBtn = document.querySelector('[data-share-open]');
+  if (shareSheet && shareOpenBtn) {
+    const shareOverlay = createOverlay({
+      root: shareSheet,
+      panel: shareSheet.querySelector('.post-sheet-panel') as HTMLElement,
+    });
+    shareOpenBtn.addEventListener('click', async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: D.shareTitle, url: D.shareUrl });
+          t('blog_share', { platform: 'native' });
+          return;
+        } catch (err) {
+          // Cancelled or unsupported payload: fall through to the sheet.
+          if ((err as DOMException).name === 'AbortError') return;
+        }
+      }
+      shareOverlay.open();
+    });
+  }
+
+  // ----- Fullscreen code viewer -----
+  const viewer = document.getElementById('code-viewer');
+  if (viewer) {
+    const titleEl = viewer.querySelector('[data-viewer-title]') as HTMLElement;
+    const preEl = viewer.querySelector('[data-viewer-pre]') as HTMLElement;
+    const wrapBtn = viewer.querySelector('[data-viewer-wrap]') as HTMLButtonElement;
+    const copyBtn = viewer.querySelector('[data-viewer-copy]') as HTMLButtonElement;
+    const copyLabel = copyBtn.textContent || 'Copy';
+    const viewerOverlay = createOverlay({
+      root: viewer,
+      initialFocus: () => preEl,
+    });
+    document.addEventListener('post:code-expand', (e) => {
+      const detail = (e as CustomEvent).detail || {};
+      titleEl.textContent = detail.title || 'code';
+      preEl.textContent = detail.code || '';
+      preEl.removeAttribute('data-wrap');
+      wrapBtn.setAttribute('aria-pressed', 'false');
+      viewerOverlay.open();
+    });
+    wrapBtn.addEventListener('click', () => {
+      const wrapped = preEl.hasAttribute('data-wrap');
+      if (wrapped) preEl.removeAttribute('data-wrap');
+      else preEl.setAttribute('data-wrap', '');
+      wrapBtn.setAttribute('aria-pressed', String(!wrapped));
+    });
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(preEl.textContent || '');
+      copyBtn.textContent = D.copied || 'Copied!';
+      window.setTimeout(() => { copyBtn.textContent = copyLabel; }, 2000);
+    });
+  }
+
+  // ----- Reading-bar back to top -----
+  document.querySelector('[data-prb-top]')?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduce() ? 'auto' : 'smooth' });
+  });
+
+  // ----- Series shelf arrows (desktop band; CSS hides them below 1280) -----
+  const shelf = document.querySelector('[data-series-shelf]') as HTMLElement | null;
+  const arrows = document.querySelector('.series-nav-arrows') as HTMLElement | null;
+  if (shelf && arrows) {
+    const prev = arrows.querySelector('[data-series-prev]') as HTMLButtonElement;
+    const next = arrows.querySelector('[data-series-next]') as HTMLButtonElement;
+    const sync = () => {
+      const overflows = shelf.scrollWidth > shelf.clientWidth + 1;
+      arrows.hidden = !overflows;
+      prev.disabled = shelf.scrollLeft <= 0;
+      next.disabled = shelf.scrollLeft + shelf.clientWidth >= shelf.scrollWidth - 2;
+    };
+    const step = () => Math.max(shelf.clientWidth * 0.8, 230);
+    prev.addEventListener('click', () => shelf.scrollBy({ left: -step(), behavior: reduce() ? 'auto' : 'smooth' }));
+    next.addEventListener('click', () => shelf.scrollBy({ left: step(), behavior: reduce() ? 'auto' : 'smooth' }));
+    shelf.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync, { passive: true });
+    sync();
+  }
+</script>
 </BaseLayout>
 
 <style is:global>
@@ -597,14 +894,13 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .post-hero-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 100%; background: linear-gradient(to bottom, transparent 90%, var(--bg-secondary)); pointer-events: none; z-index: 2; }
   .post-hero { padding: 2rem 0 1.5rem; background: var(--bg-secondary); margin-bottom: 0; }
   .post-content-section { padding-top: 1.5rem; }
-  .post-hero h1 { font-size: 2.4rem; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+  /* Post title (design): 26px mobile · 30px tablet · 38px desktop. */
+  .post-hero h1 { font-size: 38px; line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
   .post-meta { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; font-size: 0.9rem; color: var(--text-muted); }
   .post-meta-separator { color: var(--text-muted); opacity: 0.4; }
   .post-meta-reading { display: inline-flex; align-items: center; gap: 0.35rem; }
   .post-meta-reading svg { opacity: 0.6; }
-  .post-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-  .post-tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.9rem; font-weight: 600; background: var(--badge-bg); color: var(--badge-text); border: 1px solid var(--border-color); text-decoration: none; transition: border-color 0.2s ease, color 0.2s ease; }
-  .post-tag:hover { border-color: var(--color-green); color: var(--color-green-text); }
+  /* Tag chips: shared .post-tag primitive in global.css. */
   .post-layout { display: grid; grid-template-columns: 1fr 280px; gap: 2rem; align-items: start; }
   .post-layout > .toc { grid-column: 2; grid-row: 1; align-self: start; }
   /* min-width: 0 lets the 1fr track shrink below the content's intrinsic width.
@@ -625,6 +921,12 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .toc-depth-3 a { padding-left: 2rem; }
   .blog-back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
   .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
+
+  /* Design: the in-body back link is desktop-only — mobile/tablet use the
+     top bar chevron, so both showing doubles the affordance. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .blog-back-link { display: none; }
+  }
   .author-card { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; background: var(--bg-secondary); border-radius: 16px; margin-top: 3rem; border: 1px solid var(--border-color); }
   .author-avatar { width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0; border: 3px solid var(--border-color); }
   .author-info strong { display: block; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.35rem; }
@@ -660,25 +962,161 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .scroll-to-top:hover { border-color: var(--color-green); color: var(--color-green-text); transform: translateY(-2px); }
   .scroll-to-top[hidden] { display: none; }
 
-  @media (max-width: 1200px) {
-    .post-hero h1 { font-size: 1.8rem; }
+  /* ===== Mobile reading bar =====
+     On post pages it REPLACES the tab bar (per the design): reading room
+     beats section switching mid-article, and back is one tap away.
+     nav.tab-bar[aria-label] out-specifies TabBar's Astro-scoped selector
+     (.tab-bar[data-astro-cid-*]), which a bare .tab-bar loses to. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    nav.tab-bar[aria-label] { display: none; }
+  }
+  .post-reading-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px calc(8px + var(--safe-bottom));
+    background: var(--bg-nav);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border-color);
+  }
+  .post-reading-bar[hidden] { display: none; }
+  .prb-toc {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+  }
+  .prb-ring { flex-shrink: 0; }
+  .prb-ring-fill { transition: stroke-dashoffset 0.15s linear; }
+  .prb-labels { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .prb-section { font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prb-progress { font-size: 0.66rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prb-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* ===== Fullscreen code viewer ===== */
+  .code-viewer { position: fixed; inset: 0; z-index: 90; background: var(--bg-primary); display: flex; flex-direction: column; opacity: 0; transition: opacity 0.2s ease; }
+  .code-viewer[hidden] { display: none; }
+  .code-viewer.is-open { opacity: 1; }
+  .code-viewer-head { display: flex; align-items: center; gap: 8px; min-height: 54px; padding: calc(var(--safe-top) + 4px) 8px 4px 16px; border-bottom: 1px solid var(--border-color); background: var(--bg-secondary); }
+  .code-viewer-title { flex: 1; min-width: 0; font-size: 0.78rem; font-weight: 600; font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .code-viewer-btn { border: 1px solid var(--border-color); background: transparent; color: var(--text-secondary); font-size: 0.74rem; font-weight: 700; font-family: inherit; cursor: pointer; padding: 6px 12px; border-radius: 14px; min-height: 34px; }
+  .code-viewer-btn[aria-pressed="true"] { border-color: var(--color-green); color: var(--color-green-text); }
+  .code-viewer-close { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; border-radius: 22px; background: transparent; color: var(--text-primary); cursor: pointer; }
+  .code-viewer-pre { flex: 1; margin: 0; padding: 16px 16px calc(16px + var(--safe-bottom)); overflow: auto; font-size: 0.74rem; line-height: 1.75; font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace; color: var(--text-primary); background: var(--code-bg); white-space: pre; }
+  .code-viewer-pre[data-wrap] { white-space: pre-wrap; overflow-wrap: break-word; }
+
+  /* ===== Layout: sidebar TOC ≥1024, sheet below ===== */
+  @media (max-width: 1279px) {
+    .post-hero h1 { font-size: 30px; }
+  }
+
+  @media (max-width: 699px) {
+    .post-hero h1 { font-size: 26px; }
+  }
+
+  @media (max-width: 1023px) {
     .post-layout { grid-template-columns: 1fr; }
     .post-layout .prose { max-width: none; }
-    .post-layout > .toc { grid-column: 1; grid-row: auto; }
+    .post-layout > .toc { display: none; }
     .post-layout > .prose { grid-column: 1; grid-row: auto; }
-    .toc { position: static; margin-bottom: 1rem; }
+  }
+
+  /* The action bar runs to 1279px (DS §10); the language sheet is global,
+     so only the article's own sheets switch off with the sidebar TOC. */
+  @media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+    .post-reading-bar { display: none; }
+  }
+
+  @media (min-width: 1024px) {
+    #toc-sheet,
+    #share-sheet { display: none; }
+    /* Sidebar TOC covers navigation here: the pill keeps ring + label but
+       stops being a sheet trigger (chevron off; button disabled by JS). */
+    .prb-toc > svg:last-child { display: none; }
+    .prb-toc { pointer-events: none; }
+  }
+
+  /* Tablet band (DS §10): the same bar floats as a centred pill. */
+  @media (min-width: 700px) and (max-width: 1279px), (min-width: 700px) and (hover: none) and (pointer: coarse) {
+    .post-reading-bar {
+      left: 50%;
+      right: auto;
+      bottom: calc(16px + var(--safe-bottom));
+      transform: translateX(-50%);
+      width: auto;
+      max-width: none;
+      border: 1px solid var(--border-color);
+      border-top: 1px solid var(--border-color);
+      border-radius: 32px;
+      box-shadow: var(--shadow-dock);
+      padding: 7px 8px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .prb-toc {
+      flex: none;
+      height: 44px;
+      border: none;
+      background: transparent;
+      padding: 0 14px 0 6px;
+    }
+
+    .prb-labels { width: 280px; flex: none; }
+
+    .prb-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 22px;
+    }
   }
 
   @media (max-width: 768px) {
-    .post-hero h1 { font-size: 1.6rem; }
-    .post-hero-image { max-height: 260px; }
-    .post-hero-image img { height: 260px; }
     .author-card { flex-direction: column; text-align: center; padding: 1.5rem; }
     .author-avatar { width: 72px; height: 72px; }
     .blog-nav { grid-template-columns: 1fr; }
     .blog-nav-next { text-align: left; }
     .blog-nav-next .blog-nav-label { justify-content: flex-start; }
     .share-links { gap: 0.5rem; }
-    .scroll-to-top { bottom: 1.25rem; right: 1.25rem; }
+    .scroll-to-top { display: none; }
+  }
+
+  @media (max-width: 699px) {
+    /* Design mobile hero: plain 230px image, no blur backdrop; title and
+       meta sit below on the page background. */
+    .post-hero-image { height: 230px; }
+    .post-hero-image img { height: 230px; max-width: none; }
+    .post-hero-image-bg { display: none; }
+    .post-hero-image::after { display: none; }
+    .post-hero { background: var(--bg-primary); }
+    .post-content-section { padding-top: 0.5rem; }
   }
 </style>

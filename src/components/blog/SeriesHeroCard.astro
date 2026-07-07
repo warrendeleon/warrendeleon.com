@@ -1,7 +1,7 @@
 ---
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
-import { getPostSlug, getSeriesSlug, getSeriesPosts, toDateString } from '../../utils/blogHelpers';
+import { getSeriesSlug, getSeriesPosts, getSeriesProgress, publishSlot } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
 
 interface Props {
@@ -13,123 +13,206 @@ const { locale, seriesName } = Astro.props;
 const i18n = t(locale);
 
 const seriesSlug = getSeriesSlug(seriesName);
-const parts = await getSeriesPosts(locale, seriesSlug);
+// Date-gated so the dev preview (which includes future posts) matches prod.
+const nowTs = new Date();
+const parts = (await getSeriesPosts(locale, seriesSlug)).filter(p => publishSlot(p.data.publishDate) <= nowTs);
 const intro = parts[0];
 // Prefer the curated, translated series description; fall back to the intro post's.
 const desc = getSeriesDescription(seriesName, locale) || intro?.data.description || '';
-const HERO_PART_LIMIT = 5;
-const visibleParts = parts.slice(0, HERO_PART_LIMIT);
 const hubPath = getLocalePath(locale, `/blog/series/${seriesSlug}/`);
+
+// Design: eyebrow carries the whole arc ("19 parts · Ongoing — next part
+// 29 Jun" on tablet/desktop, "19 parts · In progress" on mobile) and the
+// progress block shows published-of-total.
+const progress = await getSeriesProgress(locale, seriesName);
+const progressPct = progress.total > 0 ? Math.round((progress.published / progress.total) * 100) : 0;
+const nextLabel = progress.nextDate
+  ? progress.nextDate.toLocaleDateString(locale === 'en' ? 'en-GB' : locale, { day: 'numeric', month: 'short' })
+  : null;
 ---
 
 {intro && parts.length >= 2 && (
   <div class="series-hero-card">
-    <div class="series-hero-head">
+    <div class="series-hero-art" aria-hidden="true">
+      {intro.data.heroImage && (
+        <img src={intro.data.heroImage} alt="" loading="lazy" />
+      )}
+    </div>
+    <div class="series-hero-body">
+      <span class="series-hero-eyebrow blog-mono">
+        {`${progress.total} ${i18n.blog.parts}`} &middot;{' '}
+        {nextLabel ? (
+          <>
+            <span class="series-hero-eyebrow-full">{i18n.blog.seriesOngoing.replace('{date}', nextLabel)}</span>
+            <span class="series-hero-eyebrow-short">{i18n.blog.inProgress}</span>
+          </>
+        ) : (
+          i18n.blog.inProgress
+        )}
+      </span>
       <h3 class="series-hero-title">
-        <a href={hubPath}>{seriesName}</a>
+        <a class="series-hero-link" href={hubPath}>{seriesName}</a>
       </h3>
       <p class="series-hero-desc">{desc}</p>
-    </div>
-    <div class="series-hero-grid">
-      <a class="series-hero-art" href={hubPath} tabindex="-1" aria-hidden="true">
-        {intro.data.heroImage && (
-          <img src={intro.data.heroImage} alt={intro.data.heroAlt || seriesName} loading="lazy" />
-        )}
-      </a>
-      <div class="series-hero-parts">
-        <ol class="series-parts">
-          {visibleParts.map((p, i) => (
-            <li data-publish-date={toDateString(p.data.publishDate)}>
-              <a href={getLocalePath(locale, `/blog/${getPostSlug(p.id)}/`)}>
-                <span class="series-part-n blog-mono">{String(i + 1).padStart(2, '0')}</span>
-                <span class="series-part-title">{p.data.title}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-        <a class="series-hero-cta" href={hubPath}>
-          {i18n.blog.viewAllParts.replace('{n}', String(parts.length))} <span aria-hidden="true">&rarr;</span>
-        </a>
+      <div class="series-hero-progress">
+        <div class="series-hero-progress-row">
+          <span>{i18n.blog.publishedOfTotal.replace('{x}', String(progress.published)).replace('{y}', String(progress.total))}</span>
+          <span class="series-hero-hint">{i18n.blog.startSeries} <span aria-hidden="true">&rarr;</span></span>
+          {nextLabel && <span class="series-hero-next">{i18n.blog.nextPart} &middot; {nextLabel}</span>}
+        </div>
+        <div class="series-hero-progress-track">
+          <div class="series-hero-progress-fill" style={`width: ${progressPct}%`}></div>
+        </div>
       </div>
+      <span class="series-hero-view" aria-hidden="true">{i18n.blog.viewSeries}</span>
     </div>
   </div>
 )}
 
 <style>
+  /* Design "Blog Home Desktop/Tablet": one compact clickable card — image
+     column | text column. The title link stretches over the whole card. */
   .series-hero-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    padding: 2.6rem 2.8rem;
-  }
-
-  .series-hero-head { margin-bottom: 2.2rem; }
-
-  .series-hero-grid {
+    position: relative;
     display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 2.8rem;
-    align-items: center;
+    grid-template-columns: 440px 1fr;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-card);
   }
+
+  .series-hero-link { color: inherit; text-decoration: none; }
+  .series-hero-link::after { content: ''; position: absolute; inset: 0; }
+  .series-hero-card:hover { border-color: var(--color-green); }
 
   .series-hero-art {
-    display: block;
-    aspect-ratio: 4 / 3;
-    border-radius: 16px;
-    overflow: hidden;
+    position: relative;
     background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
+    min-height: 250px;
   }
 
-  .series-hero-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .series-hero-art img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .series-hero-body {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    justify-content: center;
+  }
+
+  .series-hero-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-green-text);
+  }
+
+  /* Mobile swaps the long eyebrow tail for "In progress". */
+  .series-hero-eyebrow-short { display: none; }
 
   .series-hero-title {
-    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    font-size: 22px;
     font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.07;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin: 0;
   }
-
-  .series-hero-title a { color: var(--text-primary); text-decoration: none; transition: color 0.2s ease; }
-  .series-hero-title a:hover { color: var(--color-green-text); }
 
   .series-hero-desc {
-    margin: 1rem 0 0;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
+    margin: 0;
+    font-size: 14.5px;
     line-height: 1.6;
+    color: var(--text-secondary);
   }
 
-  .series-parts { list-style: none; margin: 0 0 1.6rem; padding: 0; }
-
-  .series-parts li a {
+  .series-hero-progress {
     display: flex;
-    gap: 1rem;
-    align-items: baseline;
-    padding: 0.7rem 0;
-    border-top: 1px solid var(--border-color);
-    text-decoration: none;
-    color: inherit;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 6px;
   }
 
-  .series-parts li:first-child a { border-top: none; }
-  .series-part-n { flex: none; width: 1.8rem; font-size: 0.9rem; color: var(--color-green-text); }
-  .series-part-title { font-size: 1.2rem; font-weight: 700; color: var(--text-primary); line-height: 1.3; transition: color 0.15s ease; }
-  .series-parts li a:hover .series-part-title { color: var(--color-green-text); }
-
-  .series-hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 700;
-    font-size: 0.98rem;
-    color: var(--color-green-text);
-    text-decoration: none;
+  .series-hero-progress-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
   }
 
-  @media (max-width: 760px) {
-    .series-hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-    .series-hero-art { order: -1; aspect-ratio: 16 / 10; }
+  .series-hero-hint { color: var(--color-green-text); font-weight: 700; }
+  .series-hero-next { display: none; }
+
+  .series-hero-progress-track {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--badge-bg);
+    overflow: hidden;
+  }
+
+  .series-hero-progress-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--color-green);
+  }
+
+  /* The View series button is the mobile artboard's affordance. */
+  .series-hero-view { display: none; }
+
+  /* Tablet band (design): 360px image, tighter column, no shadow. */
+  @media (max-width: 1279px) {
+    .series-hero-card {
+      grid-template-columns: 360px 1fr;
+      border-radius: 16px;
+      box-shadow: none;
+    }
+    .series-hero-art { min-height: 200px; }
+    .series-hero-body { padding: 20px 24px; gap: 9px; }
+    .series-hero-eyebrow { font-size: 11px; letter-spacing: 0.07em; }
+    .series-hero-title { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+    .series-hero-desc { font-size: 13.5px; line-height: 1.55; }
+    .series-hero-progress { max-width: 420px; margin-top: 0; }
+  }
+
+  /* Mobile (design): stacked card — image, copy, progress with next-part
+     date, solid View series button. */
+  @media (max-width: 699px) {
+    .series-hero-card { display: flex; flex-direction: column; }
+    .series-hero-art { min-height: 0; aspect-ratio: 21 / 10; }
+    .series-hero-art img { position: static; display: block; }
+    .series-hero-body { padding: 14px 16px 16px; gap: 6px; }
+    .series-hero-eyebrow { font-size: 10.5px; }
+    .series-hero-eyebrow-full { display: none; }
+    .series-hero-eyebrow-short { display: inline; }
+    .series-hero-title { font-size: 18.4px; }
+    .series-hero-desc { font-size: 13px; }
+    .series-hero-progress { max-width: none; margin-top: 6px; }
+    .series-hero-hint { display: none; }
+    .series-hero-next { display: inline; }
+
+    .series-hero-view {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 44px;
+      margin-top: 4px;
+      border-radius: 22px;
+      background: var(--color-green);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 700;
+    }
   }
 </style>

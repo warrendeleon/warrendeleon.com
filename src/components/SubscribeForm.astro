@@ -3,9 +3,12 @@ import { t, getLocalePath, type Locale } from '../i18n/index';
 
 interface Props {
   locale: Locale;
+  /* Distinguishes ids when the form mounts twice on a page (sidebar + inline). */
+  variant?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, variant = "" } = Astro.props;
+const idSuffix = variant ? `-${variant}` : "";
 const i18n = t(locale);
 const s = i18n.subscribe;
 
@@ -25,11 +28,11 @@ const LIST_UUID = LIST_UUIDS[locale];
 const privacyHref = getLocalePath(locale, '/privacy/');
 ---
 
-<section class="subscribe section section-alt" aria-labelledby="subscribe-heading">
+<section class="subscribe section section-alt" aria-labelledby={`subscribe-heading${idSuffix}`}>
   <div class="container">
     <div class="subscribe-main">
       <div class="subscribe-copy">
-        <h3 id="subscribe-heading">{s.heading}</h3>
+        <h3 id={`subscribe-heading${idSuffix}`}>{s.heading}</h3>
         <p>{s.body}</p>
       </div>
 
@@ -39,9 +42,9 @@ const privacyHref = getLocalePath(locale, '/privacy/');
             from people and off the tab order; bots fill it, humans never see it. */}
         <input type="text" name="nonce" value="" class="subscribe-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-        <label class="subscribe-sr" for="subscribe-name">{s.nameLabel}</label>
+        <label class="subscribe-sr" for={`subscribe-name${idSuffix}`}>{s.nameLabel}</label>
         <input
-          id="subscribe-name"
+          id={`subscribe-name${idSuffix}`}
           class="subscribe-input"
           type="text"
           name="name"
@@ -50,9 +53,9 @@ const privacyHref = getLocalePath(locale, '/privacy/');
         />
 
         <div class="subscribe-row">
-          <label class="subscribe-sr" for="subscribe-email">{s.emailLabel}</label>
+          <label class="subscribe-sr" for={`subscribe-email${idSuffix}`}>{s.emailLabel}</label>
           <input
-            id="subscribe-email"
+            id={`subscribe-email${idSuffix}`}
             class="subscribe-input"
             type="email"
             name="email"
@@ -80,11 +83,14 @@ const privacyHref = getLocalePath(locale, '/privacy/');
 
 <script is:inline>
   (function () {
-    var form = document.querySelector('.subscribe-form');
-    if (!form) return;
-    var main = document.querySelector('.subscribe-main');
-    var success = document.querySelector('.subscribe-success');
-    var errorEl = document.querySelector('.subscribe-error');
+    document.querySelectorAll('.subscribe-form').forEach(wire);
+    function wire(form) {
+    if (form.dataset.wired) return;
+    form.dataset.wired = '1';
+    var root = form.closest('.subscribe');
+    var main = root.querySelector('.subscribe-main');
+    var success = root.querySelector('.subscribe-success');
+    var errorEl = root.querySelector('.subscribe-error');
     var email = form.querySelector('input[name="email"]');
     var nameInput = form.querySelector('input[name="name"]');
     var honeypot = form.querySelector('input[name="nonce"]');
@@ -128,6 +134,7 @@ const privacyHref = getLocalePath(locale, '/privacy/');
           btn.disabled = false;
         });
     });
+    }
   })();
 </script>
 
