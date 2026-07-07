@@ -2,7 +2,6 @@
   "nav": {
     "home": "Inici",
     "workExperience": "Experiència Laboral",
-    "cv": "CV",
     "bookACall": "Reservar Trucada",
     "blog": "Blog",
     "education": "Formació"
@@ -17,7 +16,6 @@
     "latestRole": "Darrer Lloc",
     "viewWorkExperience": "Veure experiència laboral",
     "viewFullDetails": "Veure tots els detalls",
-    "latestPosts": "El més recent del blog",
     "readPost": "Llegir post",
     "viewAllPosts": "Veure tots els posts",
     "currentSeries": "Sèrie en curs",
@@ -40,24 +38,10 @@
     "ciCd": "CI/CD",
     "agileMethodology": "Metodologia Àgil",
     "present": "Actual",
-    "clients": "Clients",
     "ctaHeading": "Vols que parlem o prefereixes descarregar la versió d'una pàgina?",
     "downloadCV": "Descarregar CV",
     "companyHeader": "Capçalera de l'empresa",
     "prevNextNav": "Empreses anterior i següent"
-  },
-  "cv": {
-    "title": "Curriculum Vitae",
-    "description": "Veure o descarregar el meu CV.",
-    "download": "Descarregar CV",
-    "downloadPdf": "Descarregar PDF",
-    "previewOnDesktop": "Vista prèvia disponible a l'escriptori",
-    "profile": "Perfil",
-    "experience": "Experiència",
-    "earlierCareer": "Trajectòria anterior",
-    "skills": "Competències",
-    "education": "Formació",
-    "languages": "Idiomes"
   },
   "bookACall": {
     "title": "Reservar Trucada",
@@ -96,7 +80,6 @@
     "moreSeries": "Més sèries",
     "allPosts": "Tots els articles",
     "parts": "parts",
-    "viewAllParts": "Veure les {n} parts",
     "minRead": "min de lectura",
     "backToBlog": "Tornar al blog",
     "contents": "Continguts",
@@ -119,7 +102,6 @@
     "postsTagged": "Etiqueta:",
     "post": "article",
     "posts": "articles",
-    "filterByTag": "Filtrar per etiqueta",
     "search": {
       "heading": "Cerca al blog",
       "triggerLabel": "Cerca o explora el blog",
@@ -128,8 +110,6 @@
       "tryLabel": "Prova:",
       "placeholder": "Cerca articles…",
       "clear_search": "Esborra",
-      "load_more": "Carrega més resultats",
-      "searching": "Cercant [SEARCH_TERM]…",
       "zero_results": "Cap resultat per a [SEARCH_TERM]",
       "one_result": "[COUNT] resultat per a [SEARCH_TERM]",
       "many_results": "[COUNT] resultats per a [SEARCH_TERM]",
@@ -146,10 +126,8 @@
     "minLeft": "queden {n} min",
     "done": "Fi",
     "loadMore": "Carrega més articles",
-    "searchField": "Cerca articles, sèries, etiquetes…",
     "allSeries": "Totes les sèries",
     "inProgress": "En curs",
-    "continueTo": "Continua",
     "loading": "Carregant…",
     "publishedOfTotal": "{x} de {y} publicats",
     "nextPart": "Propera part",
@@ -160,8 +138,6 @@
   },
   "education": {
     "heading": "Formació",
-    "qualifications": "Titulacions",
-    "certifications": "Certificacions i Cursos",
     "viewCertificate": "Veure certificat"
   },
   "privacy": {
@@ -241,14 +217,10 @@
   "seo": {
     "privacyTitle": "Privacitat | Warren de Leon",
     "privacyDescription": "Com tracta les teves dades warrendeleon.com: analítica respectuosa amb la privacitat, la newsletter, les galetes i com desactivar-ho.",
-    "educationTitle": "Formació | Warren de Leon",
-    "educationDescription": "Formació, titulacions i certificacions de Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
     "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager amb més d'una dècada d'experiència en desenvolupament de software i lideratge d'equips.",
     "workExperienceTitle": "Experiència Laboral | Warren de Leon",
     "workExperienceDescription": "Cronologia professional de la carrera de Warren de Leon en enginyeria de software i gestió.",
-    "cvTitle": "CV | Warren de Leon",
-    "cvDescription": "Descarrega o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Reservar Trucada | Warren de Leon",
     "bookACallDescription": "Programa una trucada telefònica/videotrucada de 30 minuts amb Warren de Leon per discutir oportunitats o col·laboració.",
     "blogTitle": "Blog | Warren de Leon",
@@ -256,7 +228,6 @@
   },
   "a11y": {
     "mainNavigation": "Navegació principal",
-    "toggleMenu": "Obrir o tancar el menú",
     "selectLanguage": "Seleccionar idioma",
     "footerNavigation": "Navegació del peu de pàgina",
     "rssFeed": "Canal RSS",

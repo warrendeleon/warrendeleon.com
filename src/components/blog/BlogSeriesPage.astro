@@ -4,7 +4,6 @@ import BlogSearch from './BlogSearch.astro';
 import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
-import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug, getPostsForLocale, publishSlot } from '../../utils/blogHelpers';
 import { getSeriesDescription, getSeriesRepo } from '../../i18n/seriesDescriptions';
@@ -419,10 +418,14 @@ const itemListJsonLd = {
       margin-top: 8px;
     }
 
-    /* Compact the subscribe band into a sidebar card (same as blog home). */
-    .series-sidebar .subscribe-section { padding: 0; margin: 0; background: none; }
-    .series-sidebar .subscribe-section .container { padding: 22px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 14px; }
+    /* Compact the subscribe band into a sidebar card (same as blog home).
+       The form's root class is .subscribe, not .subscribe-section — the old
+       selector matched nothing, so the band never compacted here. */
+    .series-sidebar .subscribe { padding: 0; margin: 0; background: none; }
+    .series-sidebar .subscribe .container { padding: 22px; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 14px; }
     .series-sidebar .subscribe-form { flex-direction: column; align-items: stretch; }
+    .series-sidebar .subscribe-row { flex-direction: column; }
+    .series-sidebar .subscribe-btn { width: 100%; }
   }
 
   .blog-empty { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 2rem; }

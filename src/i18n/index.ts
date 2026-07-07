@@ -11,16 +11,6 @@ export function t(locale: Locale) {
   return translations[locale] ?? translations.en;
 }
 
-export function getWorkExperience(locale: Locale) {
-  const files: Record<Locale, () => Promise<unknown>> = {
-    en: () => import('../data/workxp-en.json'),
-    es: () => import('../data/workxp-es.json'),
-    ca: () => import('../data/workxp-ca.json'),
-    tl: () => import('../data/workxp-tl.json'),
-  };
-  return files[locale]();
-}
-
 export function slugify(name: string): string {
   return name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 }

@@ -2,7 +2,6 @@
   "nav": {
     "home": "Home",
     "workExperience": "Work Experience",
-    "cv": "CV",
     "bookACall": "Book a Call",
     "blog": "Blog",
     "education": "Education"
@@ -17,7 +16,6 @@
     "latestRole": "Latest Role",
     "viewWorkExperience": "View work experience",
     "viewFullDetails": "View full details",
-    "latestPosts": "Latest from the blog",
     "readPost": "Read post",
     "viewAllPosts": "View all posts",
     "currentSeries": "Current series",
@@ -40,24 +38,10 @@
     "ciCd": "CI/CD",
     "agileMethodology": "Agile Methodology",
     "present": "Present",
-    "clients": "Clients",
     "ctaHeading": "Want to talk, or download the one-page version?",
     "downloadCV": "Download CV",
     "companyHeader": "Company header",
     "prevNextNav": "Previous and next companies"
-  },
-  "cv": {
-    "title": "Curriculum Vitae",
-    "description": "View or download my CV.",
-    "download": "Download CV",
-    "downloadPdf": "Download PDF",
-    "previewOnDesktop": "Preview available on desktop",
-    "profile": "Profile",
-    "experience": "Experience",
-    "earlierCareer": "Earlier career",
-    "skills": "Skills",
-    "education": "Education",
-    "languages": "Languages"
   },
   "bookACall": {
     "title": "Book a Call",
@@ -96,7 +80,6 @@
     "moreSeries": "More series",
     "allPosts": "All posts",
     "parts": "parts",
-    "viewAllParts": "View all {n} parts",
     "minRead": "min read",
     "backToBlog": "Back to blog",
     "contents": "Contents",
@@ -119,7 +102,6 @@
     "postsTagged": "Posts tagged:",
     "post": "post",
     "posts": "posts",
-    "filterByTag": "Filter by tag",
     "search": {
       "heading": "Search the blog",
       "triggerLabel": "Search or explore the blog",
@@ -128,8 +110,6 @@
       "tryLabel": "Try:",
       "placeholder": "Search posts…",
       "clear_search": "Clear",
-      "load_more": "Load more results",
-      "searching": "Searching for [SEARCH_TERM]…",
       "zero_results": "No results for [SEARCH_TERM]",
       "one_result": "[COUNT] result for [SEARCH_TERM]",
       "many_results": "[COUNT] results for [SEARCH_TERM]",
@@ -146,10 +126,8 @@
     "minLeft": "{n} min left",
     "done": "Done",
     "loadMore": "Load more posts",
-    "searchField": "Search posts, series, tags…",
     "allSeries": "All series",
     "inProgress": "In progress",
-    "continueTo": "Continue",
     "loading": "Loading…",
     "publishedOfTotal": "{x} of {y} published",
     "nextPart": "Next part",
@@ -160,8 +138,6 @@
   },
   "education": {
     "heading": "Education",
-    "qualifications": "Qualifications",
-    "certifications": "Certifications & Courses",
     "viewCertificate": "View certificate"
   },
   "privacy": {
@@ -241,14 +217,10 @@
   "seo": {
     "privacyTitle": "Privacy | Warren de Leon",
     "privacyDescription": "How warrendeleon.com handles your data: privacy-friendly analytics, the newsletter, cookies, and how to opt out.",
-    "educationTitle": "Education & Certifications | Warren de Leon",
-    "educationDescription": "Qualifications in software development from Stucom Barcelona. Oracle Java certification and CI/CD courses. Warren de Leon's technical education background.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
     "homeDescription": "Warren de Leon is a Software Engineering Manager specialising in React Native, team leadership, and mobile architecture. Most recently led the Mobile Platform team at Hargreaves Lansdown; previously at Sky.",
     "workExperienceTitle": "Work Experience | Warren de Leon",
     "workExperienceDescription": "10+ years in software engineering across Sky, Shell, BP, and Hargreaves Lansdown. From React Native developer to Engineering Manager leading mobile platform teams.",
-    "cvTitle": "CV | Warren de Leon",
-    "cvDescription": "CV of Warren de Leon, Software Engineering Manager at Hargreaves Lansdown. React Native, TypeScript, mobile architecture, and engineering leadership.",
     "bookACallTitle": "Book a Call | Warren de Leon",
     "bookACallDescription": "Schedule a 30-minute phone/video call with Warren de Leon to discuss engineering leadership, React Native, or career opportunities.",
     "blogTitle": "Blog | Warren de Leon",
@@ -256,7 +228,6 @@
   },
   "a11y": {
     "mainNavigation": "Main navigation",
-    "toggleMenu": "Toggle menu",
     "selectLanguage": "Select language",
     "footerNavigation": "Footer navigation",
     "rssFeed": "RSS feed",

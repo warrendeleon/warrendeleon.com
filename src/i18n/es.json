@@ -2,7 +2,6 @@
   "nav": {
     "home": "Inicio",
     "workExperience": "Experiencia Laboral",
-    "cv": "CV",
     "bookACall": "Reservar Llamada",
     "blog": "Blog",
     "education": "Formación"
@@ -17,7 +16,6 @@
     "latestRole": "Último Puesto",
     "viewWorkExperience": "Ver experiencia laboral",
     "viewFullDetails": "Ver detalles completos",
-    "latestPosts": "Lo último del blog",
     "readPost": "Leer post",
     "viewAllPosts": "Ver todos los posts",
     "currentSeries": "Serie actual",
@@ -40,24 +38,10 @@
     "ciCd": "CI/CD",
     "agileMethodology": "Metodología Ágil",
     "present": "Presente",
-    "clients": "Clientes",
     "ctaHeading": "¿Quieres que hablemos o prefieres descargar la versión de una página?",
     "downloadCV": "Descargar CV",
     "companyHeader": "Encabezado de la empresa",
     "prevNextNav": "Empresas anterior y siguiente"
-  },
-  "cv": {
-    "title": "Curriculum Vitae",
-    "description": "Ver o descargar mi CV.",
-    "download": "Descargar CV",
-    "downloadPdf": "Descargar PDF",
-    "previewOnDesktop": "Vista previa disponible en escritorio",
-    "profile": "Perfil",
-    "experience": "Experiencia",
-    "earlierCareer": "Trayectoria anterior",
-    "skills": "Competencias",
-    "education": "Formación",
-    "languages": "Idiomas"
   },
   "bookACall": {
     "title": "Reservar Llamada",
@@ -96,7 +80,6 @@
     "moreSeries": "Más series",
     "allPosts": "Todos los artículos",
     "parts": "partes",
-    "viewAllParts": "Ver las {n} partes",
     "minRead": "min de lectura",
     "backToBlog": "Volver al blog",
     "contents": "Contenidos",
@@ -119,7 +102,6 @@
     "postsTagged": "Etiqueta:",
     "post": "artículo",
     "posts": "artículos",
-    "filterByTag": "Filtrar por etiqueta",
     "search": {
       "heading": "Busca en el blog",
       "triggerLabel": "Busca o explora el blog",
@@ -128,8 +110,6 @@
       "tryLabel": "Prueba:",
       "placeholder": "Busca artículos…",
       "clear_search": "Borrar",
-      "load_more": "Cargar más resultados",
-      "searching": "Buscando [SEARCH_TERM]…",
       "zero_results": "Sin resultados para [SEARCH_TERM]",
       "one_result": "[COUNT] resultado para [SEARCH_TERM]",
       "many_results": "[COUNT] resultados para [SEARCH_TERM]",
@@ -146,10 +126,8 @@
     "minLeft": "quedan {n} min",
     "done": "Fin",
     "loadMore": "Cargar más artículos",
-    "searchField": "Busca artículos, series, etiquetas…",
     "allSeries": "Todas las series",
     "inProgress": "En curso",
-    "continueTo": "Continuar",
     "loading": "Cargando…",
     "publishedOfTotal": "{x} de {y} publicados",
     "nextPart": "Próxima parte",
@@ -160,8 +138,6 @@
   },
   "education": {
     "heading": "Formación",
-    "qualifications": "Titulaciones",
-    "certifications": "Certificaciones y Cursos",
     "viewCertificate": "Ver certificado"
   },
   "privacy": {
@@ -241,14 +217,10 @@
   "seo": {
     "privacyTitle": "Privacidad | Warren de Leon",
     "privacyDescription": "Cómo trata tus datos warrendeleon.com: analítica respetuosa con la privacidad, la newsletter, las cookies y cómo desactivarlo.",
-    "educationTitle": "Formación | Warren de Leon",
-    "educationDescription": "Formación, titulaciones y certificaciones de Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
     "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager con más de una década de experiencia en desarrollo de software y liderazgo de equipos.",
     "workExperienceTitle": "Experiencia Laboral | Warren de Leon",
     "workExperienceDescription": "Cronología profesional de la carrera de Warren de Leon en ingeniería de software y gestión.",
-    "cvTitle": "CV | Warren de Leon",
-    "cvDescription": "Descarga o consulta el curriculum vitae de Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Reservar Llamada | Warren de Leon",
     "bookACallDescription": "Programa una llamada telefónica/videollamada de 30 minutos con Warren de Leon para discutir oportunidades o colaboración.",
     "blogTitle": "Blog | Warren de Leon",
@@ -256,7 +228,6 @@
   },
   "a11y": {
     "mainNavigation": "Navegación principal",
-    "toggleMenu": "Abrir o cerrar el menú",
     "selectLanguage": "Seleccionar idioma",
     "footerNavigation": "Navegación del pie de página",
     "rssFeed": "Fuente RSS",

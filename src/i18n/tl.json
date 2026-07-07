@@ -2,7 +2,6 @@
   "nav": {
     "home": "Bahay",
     "workExperience": "Karanasan sa Trabaho",
-    "cv": "CV",
     "bookACall": "Mag-book ng Tawag",
     "blog": "Blog",
     "education": "Edukasyon"
@@ -17,7 +16,6 @@
     "latestRole": "Pinakahuling Posisyon",
     "viewWorkExperience": "Tingnan ang karanasan sa trabaho",
     "viewFullDetails": "Tingnan ang buong detalye",
-    "latestPosts": "Pinakabago sa blog",
     "readPost": "Basahin ang post",
     "viewAllPosts": "Tingnan lahat ng posts",
     "currentSeries": "Kasalukuyang serye",
@@ -40,24 +38,10 @@
     "ciCd": "CI/CD",
     "agileMethodology": "Agile Methodology",
     "present": "Kasalukuyan",
-    "clients": "Mga Kliyente",
     "ctaHeading": "Gusto mo bang mag-usap, o i-download ang one-page na bersyon?",
     "downloadCV": "I-download ang CV",
     "companyHeader": "Header ng kompanya",
     "prevNextNav": "Nakaraan at susunod na kompanya"
-  },
-  "cv": {
-    "title": "Curriculum Vitae",
-    "description": "Tingnan o i-download ang aking CV.",
-    "download": "I-download ang CV",
-    "downloadPdf": "I-download ang PDF",
-    "previewOnDesktop": "Available ang preview sa desktop",
-    "profile": "Profile",
-    "experience": "Karanasan",
-    "earlierCareer": "Mga nakaraang trabaho",
-    "skills": "Mga Kasanayan",
-    "education": "Edukasyon",
-    "languages": "Mga Wika"
   },
   "bookACall": {
     "title": "Mag-book ng Tawag",
@@ -96,7 +80,6 @@
     "moreSeries": "Iba pang serye",
     "allPosts": "Lahat ng artikulo",
     "parts": "bahagi",
-    "viewAllParts": "Tingnan lahat ng {n} bahagi",
     "minRead": "min basahin",
     "backToBlog": "Bumalik sa blog",
     "contents": "Nilalaman",
@@ -119,7 +102,6 @@
     "postsTagged": "May tag na:",
     "post": "artikulo",
     "posts": "mga artikulo",
-    "filterByTag": "I-filter ayon sa tag",
     "search": {
       "heading": "Maghanap sa blog",
       "triggerLabel": "Maghanap o mag-explore sa blog",
@@ -128,8 +110,6 @@
       "tryLabel": "Subukan:",
       "placeholder": "Maghanap ng mga artikulo…",
       "clear_search": "I-clear",
-      "load_more": "Mag-load pa ng mga resulta",
-      "searching": "Naghahanap ng [SEARCH_TERM]…",
       "zero_results": "Walang resulta para sa [SEARCH_TERM]",
       "one_result": "[COUNT] resulta para sa [SEARCH_TERM]",
       "many_results": "[COUNT] na resulta para sa [SEARCH_TERM]",
@@ -146,10 +126,8 @@
     "minLeft": "{n} min na lang",
     "done": "Tapos",
     "loadMore": "Mag-load pa ng mga post",
-    "searchField": "Maghanap ng mga post, series, tag…",
     "allSeries": "Lahat ng series",
     "inProgress": "Isinusulat pa",
-    "continueTo": "Ituloy",
     "loading": "Naglo-load…",
     "publishedOfTotal": "{x} sa {y} nai-publish na",
     "nextPart": "Susunod na part",
@@ -160,8 +138,6 @@
   },
   "education": {
     "heading": "Edukasyon",
-    "qualifications": "Mga Kwalipikasyon",
-    "certifications": "Mga Sertipikasyon at Kurso",
     "viewCertificate": "Tingnan ang sertipiko"
   },
   "privacy": {
@@ -241,14 +217,10 @@
   "seo": {
     "privacyTitle": "Privacy | Warren de Leon",
     "privacyDescription": "Kung paano hinahawakan ng warrendeleon.com ang data mo: analytics na may respeto sa privacy, ang newsletter, cookies, at paano mag-opt out.",
-    "educationTitle": "Edukasyon | Warren de Leon",
-    "educationDescription": "Edukasyon, mga kwalipikasyon, at mga sertipikasyon ni Warren de Leon.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
     "homeDescription": "Personal portfolio ni Warren de Leon, isang Software Engineering Manager na may mahigit isang dekada ng karanasan sa software development at team leadership.",
     "workExperienceTitle": "Karanasan sa Trabaho | Warren de Leon",
     "workExperienceDescription": "Propesyonal na timeline ng karera ni Warren de Leon sa software engineering at management.",
-    "cvTitle": "CV | Warren de Leon",
-    "cvDescription": "I-download o tingnan ang curriculum vitae ni Warren de Leon, Software Engineering Manager.",
     "bookACallTitle": "Mag-book ng Tawag | Warren de Leon",
     "bookACallDescription": "Mag-iskedyul ng 30-minutong phone/video call kay Warren de Leon para sa mga oportunidad o kolaborasyon.",
     "blogTitle": "Blog | Warren de Leon",
@@ -256,7 +228,6 @@
   },
   "a11y": {
     "mainNavigation": "Pangunahing nabigasyon",
-    "toggleMenu": "Buksan o isara ang menu",
     "selectLanguage": "Pumili ng wika",
     "footerNavigation": "Nabigasyon ng footer",
     "rssFeed": "RSS feed",
