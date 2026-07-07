@@ -22,12 +22,16 @@
     "viewAllPosts": "Tingnan lahat ng posts",
     "currentSeries": "Kasalukuyang serye",
     "readTheSeries": "Basahin ang serye",
-    "fromTheBlog": "Mula sa blog"
+    "fromTheBlog": "Mula sa blog",
+    "readMore": "Magbasa pa",
+    "showLess": "Bawasan",
+    "allExperience": "Lahat ng karanasan"
   },
   "workExperience": {
     "title": "Karanasan sa Trabaho",
     "description": "Deskripsyon",
     "keyResponsibilities": "Mga Pangunahing Responsibilidad",
+    "techStack": "Tech stack",
     "programmingLanguages": "Mga Programming Language",
     "technologyStack": "Technology Stack",
     "unitTesting": "Unit Testing",
@@ -136,7 +140,23 @@
     "pageTitle": "Blog — Pahina {n} | Warren de Leon",
     "seriesComplete": "Kumpleto ang serye",
     "seriesOngoing": "Patuloy — susunod na bahagi: {date}",
-    "startSeries": "Magsimula sa unang bahagi"
+    "startSeries": "Magsimula sa unang bahagi",
+    "wrap": "I-wrap",
+    "expand": "Palakihin",
+    "minLeft": "{n} min na lang",
+    "done": "Tapos",
+    "loadMore": "Mag-load pa ng mga post",
+    "searchField": "Maghanap ng mga post, series, tag…",
+    "allSeries": "Lahat ng series",
+    "inProgress": "Isinusulat pa",
+    "continueTo": "Ituloy",
+    "loading": "Naglo-load…",
+    "publishedOfTotal": "{x} sa {y} nai-publish na",
+    "nextPart": "Susunod na part",
+    "planned": "Nakaplano",
+    "tagsSubtitle": "{t} tag sa {p} post. I-tap ang isang tag para makita ang lahat ng post nito.",
+    "companionCode": "Kasamang code",
+    "viewSeries": "Tingnan ang series"
   },
   "education": {
     "heading": "Edukasyon",
@@ -256,10 +276,17 @@
     "diagram": "Diagram",
     "image": "Larawan",
     "opensInNewTab": "(bubukas sa bagong tab)",
-    "skipToContent": "Lumaktaw sa nilalaman"
+    "skipToContent": "Lumaktaw sa nilalaman",
+    "close": "Isara"
   },
   "notFound": {
     "title": "Hindi natagpuan ang pahina",
     "message": "Ang pahinang hinahanap mo ay hindi umiiral o inilipat na. Subukan ang isa sa mga ito:"
+  },
+  "tabs": {
+    "home": "Bahay",
+    "blog": "Blog",
+    "work": "Trabaho",
+    "book": "Tawag"
   }
 }

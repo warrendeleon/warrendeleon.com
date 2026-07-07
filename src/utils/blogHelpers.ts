@@ -133,7 +133,11 @@ export async function getSeriesPosts(locale: Locale, seriesSlug: string): Promis
  * on which series leads and no post is dropped from the feed.
  */
 export async function getCurrentSeriesName(locale: Locale): Promise<string | null> {
-  const posts = await getPostsForLocale(locale);
+  // Date-gated (publishSlot): in dev getPostsForLocale includes future posts,
+  // and an ungated count here can pick a series whose card then renders
+  // nothing because the card only shows date-published parts.
+  const now = new Date();
+  const posts = (await getPostsForLocale(locale)).filter(p => publishSlot(p.data.publishDate) <= now);
   const seen = new Set<string>();
   for (const post of posts) {
     const name = post.data.series;
@@ -217,4 +221,38 @@ export function toDateString(date: Date): string {
 export function getPostSlug(id: string): string {
   const parts = id.split('/');
   return parts[parts.length - 1];
+}
+
+/**
+ * Publication progress for a series (design: "4 of 19 published · Next part
+ * · 29 Jun" + progress bar). Total = published posts + scheduled posts with
+ * files + planned-but-unwritten parts from seriesPlans (title-deduped, same
+ * maths as the series hub). nextDate is the earliest upcoming slot, from a
+ * scheduled file or the plan.
+ */
+export async function getSeriesProgress(locale: Locale, seriesName: string): Promise<{
+  published: number;
+  total: number;
+  nextDate: Date | null;
+}> {
+  const { getSeriesPlan } = await import('../data/seriesPlans');
+  const now = new Date();
+  const all = (await getPostsForLocale(locale, true)).filter(p => p.data.series === seriesName);
+  const published = all.filter(p => publishSlot(p.data.publishDate) <= now);
+  const scheduled = all.filter(p => publishSlot(p.data.publishDate) > now);
+
+  const normalise = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 32);
+  const realTitleKeys = new Set(all.map(p => normalise(p.data.title)));
+  const plan = getSeriesPlan(seriesName).filter(pl => !realTitleKeys.has(normalise(pl.title)));
+
+  const upcoming = [
+    ...scheduled.map(p => publishSlot(p.data.publishDate)),
+    ...plan.map(pl => publishSlot(new Date(`${pl.date}T00:00:00Z`))),
+  ].sort((a, b) => +a - +b);
+
+  return {
+    published: published.length,
+    total: published.length + scheduled.length + plan.length,
+    nextDate: upcoming[0] ?? null,
+  };
 }

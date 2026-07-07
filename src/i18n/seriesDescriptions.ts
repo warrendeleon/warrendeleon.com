@@ -49,6 +49,15 @@ const seriesDescriptions: Record<string, Record<Locale, string>> = {
   },
 };
 
+// Companion repositories, where a series has one (drives the sidebar card on
+// the series hub page — design "Series Tablet/Desktop"). Only list repos that
+// actually exist and are public.
+const seriesRepos: Record<string, string> = {
+  'React Native Module Federation': 'https://github.com/warrendeleon/react-native-module-federation',
+};
+
+export const getSeriesRepo = (series: string): string | null => seriesRepos[series] ?? null;
+
 export const getSeriesDescription = (series: string, locale: Locale): string => {
   return seriesDescriptions[series]?.[locale] ?? seriesDescriptions[series]?.en ?? '';
 };

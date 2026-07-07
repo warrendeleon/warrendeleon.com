@@ -22,12 +22,16 @@
     "viewAllPosts": "Ver todos los posts",
     "currentSeries": "Serie actual",
     "readTheSeries": "Leer la serie",
-    "fromTheBlog": "Del blog"
+    "fromTheBlog": "Del blog",
+    "readMore": "Leer más",
+    "showLess": "Mostrar menos",
+    "allExperience": "Toda la experiencia"
   },
   "workExperience": {
     "title": "Experiencia Laboral",
     "description": "Descripción",
     "keyResponsibilities": "Responsabilidades Clave",
+    "techStack": "Stack tecnológico",
     "programmingLanguages": "Lenguajes de Programación",
     "technologyStack": "Stack Tecnológico",
     "unitTesting": "Testing Unitario",
@@ -136,7 +140,23 @@
     "pageTitle": "Blog — Página {n} | Warren de Leon",
     "seriesComplete": "Serie completa",
     "seriesOngoing": "En curso — próxima parte: {date}",
-    "startSeries": "Empieza por la parte 1"
+    "startSeries": "Empieza por la parte 1",
+    "wrap": "Ajustar",
+    "expand": "Ampliar",
+    "minLeft": "quedan {n} min",
+    "done": "Fin",
+    "loadMore": "Cargar más artículos",
+    "searchField": "Busca artículos, series, etiquetas…",
+    "allSeries": "Todas las series",
+    "inProgress": "En curso",
+    "continueTo": "Continuar",
+    "loading": "Cargando…",
+    "publishedOfTotal": "{x} de {y} publicados",
+    "nextPart": "Próxima parte",
+    "planned": "Programado",
+    "tagsSubtitle": "{t} etiquetas en {p} artículos. Toca una etiqueta para ver todos sus artículos.",
+    "companionCode": "Código del proyecto",
+    "viewSeries": "Ver la serie"
   },
   "education": {
     "heading": "Formación",
@@ -256,10 +276,17 @@
     "diagram": "Diagrama",
     "image": "Imagen",
     "opensInNewTab": "(se abre en una pestaña nueva)",
-    "skipToContent": "Saltar al contenido"
+    "skipToContent": "Saltar al contenido",
+    "close": "Cerrar"
   },
   "notFound": {
     "title": "Página no encontrada",
     "message": "La página que buscas no existe o se ha movido. Prueba una de estas:"
+  },
+  "tabs": {
+    "home": "Inicio",
+    "blog": "Blog",
+    "work": "Trabajo",
+    "book": "Llamada"
   }
 }

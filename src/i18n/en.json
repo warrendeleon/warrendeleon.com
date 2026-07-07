@@ -22,12 +22,16 @@
     "viewAllPosts": "View all posts",
     "currentSeries": "Current series",
     "readTheSeries": "Read the series",
-    "fromTheBlog": "From the blog"
+    "fromTheBlog": "From the blog",
+    "readMore": "Read more",
+    "showLess": "Show less",
+    "allExperience": "All experience"
   },
   "workExperience": {
     "title": "Work Experience",
     "description": "Description",
     "keyResponsibilities": "Key Responsibilities",
+    "techStack": "Tech stack",
     "programmingLanguages": "Programming Languages",
     "technologyStack": "Technology Stack",
     "unitTesting": "Unit Testing",
@@ -136,7 +140,23 @@
     "pageTitle": "Blog — Page {n} | Warren de Leon",
     "seriesComplete": "Series complete",
     "seriesOngoing": "Ongoing — next part {date}",
-    "startSeries": "Start with part 1"
+    "startSeries": "Start with part 1",
+    "wrap": "Wrap",
+    "expand": "Expand",
+    "minLeft": "{n} min left",
+    "done": "Done",
+    "loadMore": "Load more posts",
+    "searchField": "Search posts, series, tags…",
+    "allSeries": "All series",
+    "inProgress": "In progress",
+    "continueTo": "Continue",
+    "loading": "Loading…",
+    "publishedOfTotal": "{x} of {y} published",
+    "nextPart": "Next part",
+    "planned": "Planned",
+    "tagsSubtitle": "{t} tags across {p} posts. Tap a tag to see every post that carries it.",
+    "companionCode": "Companion code",
+    "viewSeries": "View series"
   },
   "education": {
     "heading": "Education",
@@ -256,10 +276,17 @@
     "diagram": "Diagram",
     "image": "Image",
     "opensInNewTab": "(opens in new tab)",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "close": "Close"
   },
   "notFound": {
     "title": "Page not found",
     "message": "The page you're looking for doesn't exist or has moved. Try one of these instead:"
+  },
+  "tabs": {
+    "home": "Home",
+    "blog": "Blog",
+    "work": "Work",
+    "book": "Book a call"
   }
 }

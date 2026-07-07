@@ -22,12 +22,16 @@
     "viewAllPosts": "Veure tots els posts",
     "currentSeries": "Sèrie en curs",
     "readTheSeries": "Llegir la sèrie",
-    "fromTheBlog": "Del blog"
+    "fromTheBlog": "Del blog",
+    "readMore": "Llegeix més",
+    "showLess": "Mostra menys",
+    "allExperience": "Tota l’experiència"
   },
   "workExperience": {
     "title": "Experiència Laboral",
     "description": "Descripció",
     "keyResponsibilities": "Responsabilitats Clau",
+    "techStack": "Stack tecnològic",
     "programmingLanguages": "Llenguatges de Programació",
     "technologyStack": "Stack Tecnològic",
     "unitTesting": "Testing Unitari",
@@ -136,7 +140,23 @@
     "pageTitle": "Blog — Pàgina {n} | Warren de Leon",
     "seriesComplete": "Sèrie completa",
     "seriesOngoing": "En curs — propera part: {date}",
-    "startSeries": "Comença per la part 1"
+    "startSeries": "Comença per la part 1",
+    "wrap": "Ajustar",
+    "expand": "Ampliar",
+    "minLeft": "queden {n} min",
+    "done": "Fi",
+    "loadMore": "Carrega més articles",
+    "searchField": "Cerca articles, sèries, etiquetes…",
+    "allSeries": "Totes les sèries",
+    "inProgress": "En curs",
+    "continueTo": "Continua",
+    "loading": "Carregant…",
+    "publishedOfTotal": "{x} de {y} publicats",
+    "nextPart": "Propera part",
+    "planned": "Programat",
+    "tagsSubtitle": "{t} etiquetes en {p} articles. Toca una etiqueta per veure tots els seus articles.",
+    "companionCode": "Codi del projecte",
+    "viewSeries": "Veure la sèrie"
   },
   "education": {
     "heading": "Formació",
@@ -256,10 +276,17 @@
     "diagram": "Diagrama",
     "image": "Imatge",
     "opensInNewTab": "(s'obre en una pestanya nova)",
-    "skipToContent": "Salta al contingut"
+    "skipToContent": "Salta al contingut",
+    "close": "Tancar"
   },
   "notFound": {
     "title": "Pàgina no trobada",
     "message": "La pàgina que busques no existeix o s'ha mogut. Prova una d'aquestes:"
+  },
+  "tabs": {
+    "home": "Inici",
+    "blog": "Blog",
+    "work": "Feina",
+    "book": "Trucada"
   }
 }
