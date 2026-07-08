@@ -1,18 +1,13 @@
 ---
 import BlogListing from '../../../components/blog/BlogListing.astro';
-import { getFeedPostsForLocale, getCurrentSeriesName } from '../../../utils/blogHelpers';
+import { getFeedPostsForLocale } from '../../../utils/blogHelpers';
 
 export async function getStaticPaths({ paginate }: any) {
+  // All posts in strict newest-to-oldest order. The current series is also
+  // featured in its own hero card above the feed, but the design lists All
+  // posts by date, so its parts stay inline here rather than demoted.
   const posts = await getFeedPostsForLocale('es');
-  // Demote the current-series hero's parts to the end of the feed (never remove:
-  // that shrank pagination and 404'd indexed page URLs). getCurrentSeriesName
-  // matches the hero (most recent series with 2+ parts); the newest post's series
-  // alone would drop that post from the feed during a mini-series break.
-  const currentSeries = await getCurrentSeriesName('es');
-  const feed = currentSeries
-    ? [...posts.filter(p => p.data.series !== currentSeries), ...posts.filter(p => p.data.series === currentSeries)]
-    : posts;
-  return paginate(feed, { pageSize: 12 });
+  return paginate(posts, { pageSize: 12 });
 }
 
 const { page } = Astro.props;
