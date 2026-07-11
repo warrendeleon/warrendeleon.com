@@ -799,7 +799,7 @@
       "Put a logo in the footer; the top bar owns it."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, the reading bar in BlogPost.astro, and Footer.astro (.footer). Their styles are scoped to each component, so the anatomy is documented here rather than re-rendered."
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro and Footer.astro (.footer). The dock and reading bar above are those components rendered live; the frames show the top bar in place."
   },
   "sheetsOverlays": {
     "seoTitle": "Sheets & overlays | Design system | Warren de Leon",

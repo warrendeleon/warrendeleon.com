@@ -10,15 +10,19 @@ interface Props {
   src: string;
   /** The simulated device width in CSS pixels. */
   width: number;
-  /** Visible (unscaled) height of the simulated viewport. */
+  /** The simulated viewport height (what media/fixed positioning sees). */
   height?: number;
+  /** Visible (unscaled) crop — show only the top N px of the viewport.
+      Lets a frame show just the top bar without bottom-fixed chrome (the
+      dock sits at the VIEWPORT bottom) sliding into the picture. */
+  crop?: number;
   /** Shrink factor so the frame fits the column. */
   scale?: number;
   label: string;
 }
-const { src, width, height = 780, scale = 0.5, label } = Astro.props;
+const { src, width, height = 780, crop, scale = 0.5, label } = Astro.props;
 const outerW = Math.round(width * scale);
-const outerH = Math.round(height * scale);
+const outerH = Math.round((crop ?? height) * scale);
 ---
 
 <figure class="ds-viewport">

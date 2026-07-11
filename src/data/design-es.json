@@ -793,7 +793,7 @@
       "Poner un logotipo en el pie de página; le pertenece a la barra superior."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, la barra de lectura en BlogPost.astro y Footer.astro (.footer). Sus estilos están limitados al ámbito de cada componente, por lo que la anatomía se documenta aquí en lugar de volver a renderizarse.",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro y Footer.astro (.footer). El dock y la barra de lectura de arriba son esos componentes renderizados en vivo; los marcos muestran la barra superior en su sitio.",
     "viewportsHeading": "Un mismo chrome, tres viewports",
     "viewportsBody": "Ninguna otra parte del sistema depende tanto del viewport como la navegación. Los marcos de abajo son la portada real renderizada al ancho de cada banda, sea cual sea el dispositivo desde el que lees: el dock ocupa todo el ancho en un teléfono, flota como una píldora en una tableta y da paso a los enlaces de la barra superior en escritorio.",
     "actionProgressText": "Quedan 12 min · 45%",

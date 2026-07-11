@@ -793,7 +793,7 @@
       "Maglagay ng logo sa footer; pag-aari ito ng top bar."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, ang reading bar sa BlogPost.astro, at Footer.astro (.footer). Ang kanilang mga istilo ay naka-scope sa bawat component, kaya ang anatomya ay naidokumento rito sa halip na i-render muli.",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro at Footer.astro (.footer). Ang dock at reading bar sa itaas ay ang mismong mga component na naka-render nang live; ipinapakita ng mga frame ang top bar sa lugar nito.",
     "viewportsHeading": "Isang chrome set, tatlong viewport",
     "viewportsBody": "Ang nabigasyon ang bahagi ng system na pinakahinuhubog ng viewport. Ang mga frame sa ibaba ay ang totoong home page na ni-render sa lapad ng bawat band, anuman ang device na ginagamit mo sa pagbabasa nito: ang dock ay umaabot edge-to-edge sa phone, lumulutang bilang pill sa tablet, at napapalitan ng mga top nav link sa desktop.",
     "actionProgressText": "12 min na lang · 45%",

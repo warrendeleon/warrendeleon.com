@@ -793,7 +793,7 @@
       "Posa un logotip al peu de pàgina; és la barra superior qui el porta."
     ],
     "whereHeading": "On es troba",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, la barra de lectura a BlogPost.astro i Footer.astro (.footer). Els seus estils estan limitats a cada component, de manera que l'anatomia es documenta aquí en comptes de tornar-se a renderitzar.",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro i Footer.astro (.footer). El dock i la barra de lectura de dalt són aquests components renderitzats en viu; els marcs mostren la barra superior al seu lloc.",
     "viewportsHeading": "Un sol conjunt de chrome, tres viewports",
     "viewportsBody": "El viewport dona forma a la navegació més que a cap altra part del sistema. Els marcs de sota són la pàgina d'inici real renderitzada a l'amplada de cada banda, sigui quin sigui el dispositiu des d'on llegeixis això: el dock ocupa tot l'ample en un mòbil, flota com una píndola en una tauleta i deixa pas als enllaços de navegació superiors a escriptori.",
     "actionProgressText": "Queden 12 min · 45%",

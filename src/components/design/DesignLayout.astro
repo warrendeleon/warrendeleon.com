@@ -431,6 +431,13 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
     border-radius: 16px;
     border: 1px solid var(--border-color);
   }
+  /* The dock and the reading bar hide themselves at ≥1280 (correct on the
+     site, wrong in a specimen): keep the demos visible on desktop, where the
+     dock renders in its ≥700 pill form. */
+  @media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+    .ds-fixed-demo .tab-bar { display: flex !important; }
+    .ds-fixed-demo .post-reading-bar { display: flex !important; }
+  }
   .ds-static-demo .toc {
     position: static;
     max-height: none;
