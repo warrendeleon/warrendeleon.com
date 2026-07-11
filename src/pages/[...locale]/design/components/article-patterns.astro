@@ -1,7 +1,8 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import SubscribeForm from '../../../../components/SubscribeForm.astro';
-import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import Toc from '../../../../components/blog/Toc.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
 export const getStaticPaths = localeStaticPaths;
@@ -9,9 +10,13 @@ export const getStaticPaths = localeStaticPaths;
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const a = d.articlePatterns;
+const i18n = t(locale);
 const currentPath = getLocalePath(locale, '/design/components/article-patterns/');
 const cs = a.calloutSamples;
-const table = a.tableSample;
+
+// The Toc specimen's headings point back at this page's own Contents section,
+// so a tap goes somewhere real.
+const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, depth: 2 }));
 ---
 
 <DesignLayout
@@ -61,13 +66,64 @@ const table = a.tableSample;
     <h2>{a.tablesHeading}</h2>
     <p>{a.tablesBody}</p>
     <div class="prose ds-prose-demo">
+      <!-- 1. Classic table card: sticky first column, mono header strip. -->
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>{a.tableClassic.headers.map((h) => <th>{h}</th>)}</tr>
+          </thead>
+          <tbody>
+            {a.tableClassic.rows.map((row) => (
+              <tr>{row.map((cell) => <td>{cell}</td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 2. Score rows. -->
       <div class="dt-card">
         <div class="dt-head dt-head-between">
-          <span class="dt-kicker dt-kicker-green">{table.kicker}</span>
-          <span class="dt-title">{table.title}</span>
+          <span class="dt-kicker dt-kicker-green">{a.tableScore.kicker}</span>
+          <span class="dt-title">{a.tableScore.title}</span>
         </div>
         <div class="dt-rows">
-          {table.rows.map((r) => (
+          {a.tableScore.rows.map((r) => (
+            <div class="dt-score-row">
+              <span class="dt-score-num">{r.num}</span>
+              <span class="dt-score-desc">{r.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 3. Observable checklist. -->
+      <div class="dt-card">
+        <div class="dt-head dt-head-between">
+          <span class="dt-kicker dt-kicker-green">{a.tableChecklist.kicker}</span>
+          <span class="dt-title">{a.tableChecklist.title}</span>
+        </div>
+        <div class="dt-checklist">
+          {a.tableChecklist.items.map((item) => (
+            <div class:list={['dt-check-row', { 'dt-check-unchecked': !item.checked }]}>
+              {item.checked ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-green)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle></svg>
+              )}
+              <span>{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- 4. Range bands. -->
+      <div class="dt-card">
+        <div class="dt-head dt-head-between">
+          <span class="dt-kicker dt-kicker-green">{a.tableSample.kicker}</span>
+          <span class="dt-title">{a.tableSample.title}</span>
+        </div>
+        <div class="dt-rows">
+          {a.tableSample.rows.map((r) => (
             <div class="dt-range-row">
               <div class="dt-range-top">
                 <span class="dt-range-name">{r.name}</span>
@@ -78,7 +134,68 @@ const table = a.tableSample;
           ))}
         </div>
       </div>
+
+      <!-- 5. Criterion rows with WCAG chips. -->
+      <div class="dt-card">
+        <div class="dt-head dt-head-between">
+          <span class="dt-kicker dt-kicker-green">{a.tableCrit.kicker}</span>
+          <span class="dt-title">{a.tableCrit.title}</span>
+        </div>
+        <div class="dt-rows">
+          {a.tableCrit.rows.map((r) => (
+            <div class="dt-crit-row">
+              <div class="dt-crit-top">
+                <span class="dt-crit-name">{r.name}</span>
+                <span class="dt-wcag">{r.chip}</span>
+              </div>
+              <span class="dt-crit-desc">{r.desc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
+  </section>
+
+  <section id="contents">
+    <h2>{a.contentsHeading}</h2>
+    <p>{a.contentsBody}</p>
+    <div class="ds-static-demo ds-toc-demo">
+      <Toc label={i18n.blog.contents} headings={tocHeadings} />
+    </div>
+  </section>
+
+  <section id="series-nav">
+    <h2>{a.seriesNavHeading}</h2>
+    <p>{a.seriesNavBody}</p>
+    <aside class="series-nav" aria-label={a.seriesNavSeries}>
+      <div class="series-nav-head">
+        <p class="series-nav-heading">
+          <strong>{a.seriesNavSeries}</strong>
+          <span class="series-nav-part">{a.seriesNavPart}</span>
+        </p>
+      </div>
+      <ol class="series-nav-list">
+        {a.seriesNavTitles.map((title, i) => {
+          const isCurrent = i === 2;
+          const num = String(i + 1).padStart(2, '0');
+          return (
+            <li class={isCurrent ? 'series-current' : ''} aria-current={isCurrent ? 'step' : undefined}>
+              {isCurrent ? (
+                <span class="series-card-inner">
+                  <span class="series-card-num" aria-hidden="true">{num}</span>
+                  <span class="series-card-title">{title}</span>
+                </span>
+              ) : (
+                <a class="series-card-inner" href="#series-nav">
+                  <span class="series-card-num" aria-hidden="true">{num}</span>
+                  <span class="series-card-title">{title}</span>
+                </a>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </aside>
   </section>
 
   <section id="subscribe">
@@ -96,6 +213,7 @@ const table = a.tableSample;
   /* Let the demo prose blocks size to the content column, not the 720px reading
      measure (that only applies inside .post-layout). */
   .ds-prose-demo { max-width: none; }
+  .ds-toc-demo { max-width: 320px; margin: 0 0 1rem; }
   /* Round off the subscribe band's full-bleed edges inside the docs column. */
   .ds-subscribe-demo {
     border-radius: 14px;

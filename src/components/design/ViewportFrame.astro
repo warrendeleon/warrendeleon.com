@@ -1,0 +1,71 @@
+---
+// A real page rendered at a real viewport width, scaled to fit the docs
+// column. The iframe is sandboxed with scripts OFF (allow-same-origin only:
+// a fully opaque origin breaks image rendering in Chromium), so media queries
+// do the work the way they would on that device: the dock is edge-to-edge at
+// 390, a floating pill at 768, and gone at 1280 — whatever screen YOU are
+// reading this on. No scripts also means no consent banner and no analytics
+// inside the frame; the page renders in the light theme (the switch is JS).
+interface Props {
+  src: string;
+  /** The simulated device width in CSS pixels. */
+  width: number;
+  /** Visible (unscaled) height of the simulated viewport. */
+  height?: number;
+  /** Shrink factor so the frame fits the column. */
+  scale?: number;
+  label: string;
+}
+const { src, width, height = 780, scale = 0.5, label } = Astro.props;
+const outerW = Math.round(width * scale);
+const outerH = Math.round(height * scale);
+---
+
+<figure class="ds-viewport">
+  <figcaption class="ds-viewport-label">{label} · {width}px</figcaption>
+  <div class="ds-viewport-clip" style={`width:${outerW}px;height:${outerH}px;`}>
+    <iframe
+      src={src}
+      title={`${label} — ${width}px`}
+      loading="lazy"
+      sandbox="allow-same-origin"
+      style={`width:${width}px;height:${height}px;transform:scale(${scale});`}
+    ></iframe>
+  </div>
+</figure>
+
+<style>
+  .ds-viewport {
+    margin: 0;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 100%;
+  }
+  .ds-viewport-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  }
+  .ds-viewport-clip {
+    max-width: 100%;
+    /* A frame wider than the column (the desktop one on a phone) pans
+       sideways instead of being cut off. */
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: var(--shadow-card);
+  }
+  .ds-viewport iframe { flex-shrink: 0; }
+  .ds-viewport iframe {
+    display: block;
+    border: 0;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+</style>

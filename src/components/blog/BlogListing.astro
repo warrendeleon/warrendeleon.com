@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
+import FeedPostCard from './FeedPostCard.astro';
 import SeriesHeroCard from './SeriesHeroCard.astro';
 import Shelf from './Shelf.astro';
 import SubscribeForm from '../SubscribeForm.astro';
@@ -115,27 +116,18 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
           </div>
           <div class="blog-feed" data-feed>
             {feedPosts.map(post => (
-              <a
+              <FeedPostCard
                 href={post.enFallback ? `/blog/${getPostSlug(post.id)}/` : getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`)}
-                class="feed-post"
-                data-publish-date={toDateString(post.data.publishDate)}
+                publishDate={toDateString(post.data.publishDate)}
                 hreflang={post.enFallback ? 'en' : undefined}
-              >
-                {post.data.heroImage && (
-                  <div class="feed-post-thumb">
-                    <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} loading="lazy" />
-                  </div>
-                )}
-                <div class="feed-post-body">
-                  <div class="feed-post-meta blog-mono">
-                    <span>{formatBlogDate(post.data.publishDate, locale)} &middot; {getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>
-                    {post.data.series && <span class="feed-post-series">{shortenSeriesName(post.data.series)}</span>}
-                    {post.enFallback && <span class="feed-post-lang">{i18n.blog.inEnglish}</span>}
-                  </div>
-                  <h3 class="feed-post-title" lang={post.enFallback ? 'en' : undefined}>{post.data.title}</h3>
-                  {post.data.description && <p class="feed-post-desc" lang={post.enFallback ? 'en' : undefined}>{post.data.description}</p>}
-                </div>
-              </a>
+                textLang={post.enFallback ? 'en' : undefined}
+                thumb={post.data.heroImage ? { src: post.data.heroImage, alt: post.data.heroAlt || post.data.title } : undefined}
+                metaText={`${formatBlogDate(post.data.publishDate, locale)} · ${getReadingTime(post.body ?? '')} ${i18n.blog.minRead}`}
+                series={post.data.series ? shortenSeriesName(post.data.series) : undefined}
+                langLabel={post.enFallback ? i18n.blog.inEnglish : undefined}
+                title={post.data.title}
+                desc={post.data.description || undefined}
+              />
             ))}
           </div>
         </div>

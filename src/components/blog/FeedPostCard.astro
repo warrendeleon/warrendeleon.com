@@ -1,0 +1,40 @@
+---
+// The blog feed card (.feed-post), extracted from BlogListing so the listing
+// and the design-system docs render the SAME component. Styles live in
+// global.css (.feed-post family) plus the listing's lead-card overrides.
+interface Props {
+  href: string;
+  /** ISO date for the listing's publish-date gating; omit outside the feed. */
+  publishDate?: string;
+  hreflang?: string;
+  /** lang attribute for title/description when showing an EN fallback. */
+  textLang?: string;
+  thumb?: { src: string; alt: string };
+  /** Pre-formatted "8 Jun 2026 · 10 min read" line. */
+  metaText: string;
+  series?: string;
+  /** "In English" badge label for locale fallbacks. */
+  langLabel?: string;
+  title: string;
+  desc?: string;
+}
+const { href, publishDate, hreflang, textLang, thumb, metaText, series, langLabel, title, desc } = Astro.props;
+const hasThumbSlot = Astro.slots.has('thumb');
+---
+
+<a href={href} class="feed-post" data-publish-date={publishDate} hreflang={hreflang}>
+  {(hasThumbSlot || thumb) && (
+    <div class="feed-post-thumb">
+      {hasThumbSlot ? <slot name="thumb" /> : <img src={thumb!.src} alt={thumb!.alt} loading="lazy" />}
+    </div>
+  )}
+  <div class="feed-post-body">
+    <div class="feed-post-meta blog-mono">
+      <span>{metaText}</span>
+      {series && <span class="feed-post-series">{series}</span>}
+      {langLabel && <span class="feed-post-lang">{langLabel}</span>}
+    </div>
+    <h3 class="feed-post-title" lang={textLang}>{title}</h3>
+    {desc && <p class="feed-post-desc" lang={textLang}>{desc}</p>}
+  </div>
+</a>

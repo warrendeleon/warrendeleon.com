@@ -41,6 +41,7 @@ export const DESIGN_GROUPS: DesignGroup[] = [
       { slug: 'sheets-overlays', path: '/design/components/sheets-overlays/', built: true },
       { slug: 'article-patterns', path: '/design/components/article-patterns/', built: true },
       { slug: 'timeline', path: '/design/components/timeline/', built: true },
+      { slug: 'media', path: '/design/components/media/', built: true },
     ],
   },
   {

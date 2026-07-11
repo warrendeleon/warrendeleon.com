@@ -1,7 +1,7 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
-import DoDont from '../../../../components/design/DoDont.astro';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
@@ -52,10 +52,61 @@ const sample = s.sheetSample;
 
   <section id="rules">
     <h2>{s.rulesHeading}</h2>
-    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{s.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{s.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={s.dos[0]}>
+        <div class="ds-sheet ds-sheet-mini">
+          <div class="post-sheet-grabber"></div>
+          <div class="post-sheet-list">
+            {sample.rows.slice(0, 3).map((row, i) => (
+              <div class:list={['ds-sheet-item', { 'sheet-active': i === 1 }]}>
+                <a href="#rules"><span class="sheet-num">{i + 1}</span>{row}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={s.donts[0]}>
+        <div class="ds-sheet ds-sheet-mini">
+          <div class="post-sheet-grabber"></div>
+          <div class="post-sheet-list">
+            <div class="ds-sheet-item"><a href="#rules"><span class="sheet-num">1</span>OK</a></div>
+            <div class="ds-sheet-item"><a href="#rules"><span class="sheet-num">2</span>Cancel</a></div>
+          </div>
+        </div>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={s.dos[1]}>
+        <div class="ds-sheet ds-sheet-mini">
+          <div class="post-sheet-list">
+            <div class="ds-sheet-item"><a href="#rules"><span class="sheet-num">1</span>{sample.rows[0]}</a></div>
+          </div>
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={s.donts[1]}>
+        <div class="ds-sheet ds-sheet-mini">
+          <div class="post-sheet-list">
+            <div class="ds-sheet-item ds-cramped"><a href="#rules"><span class="sheet-num">1</span>{sample.rows[0]}</a></div>
+            <div class="ds-sheet-item ds-cramped"><a href="#rules"><span class="sheet-num">2</span>{sample.rows[1]}</a></div>
+          </div>
+        </div>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={s.dos[2]}>
+        <div class="ds-backdrop-mock">
+          <span class="ds-backdrop-tap" aria-hidden="true">✕</span>
+          <div class="ds-sheet ds-sheet-mini ds-sheet-low">
+            <div class="post-sheet-grabber"></div>
+          </div>
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={s.donts[2]}>
+        <div class="ds-backdrop-mock ds-backdrop-locked">
+          <div class="ds-sheet ds-sheet-mini ds-sheet-low">
+            <div class="post-sheet-grabber"></div>
+          </div>
+        </div>
+      </GuidanceCard>
+    </div>
     <h3>{s.whereHeading}</h3>
     <p>{s.whereBody}</p>
   </section>
@@ -74,4 +125,31 @@ const sample = s.sheetSample;
     border-radius: 20px 20px 12px 12px;
     box-shadow: var(--sheet-shadow);
   }
+  .ds-sheet-mini { max-width: 260px; }
+  .ds-sheet-low { min-height: 44px; }
+  /* The DON'T: rows squeezed under the 48px floor. */
+  .ds-cramped a { min-height: 30px; padding-top: 3px; padding-bottom: 3px; }
+  /* Backdrop mock: a dimmed stage with the panel at the bottom; the ✕ marks
+     the tap-outside-to-close affordance. */
+  .ds-backdrop-mock {
+    position: relative;
+    width: 100%;
+    max-width: 260px;
+    height: 120px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-end;
+    padding: 8px;
+  }
+  .ds-backdrop-tap {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  .ds-backdrop-locked { outline: 2px dashed #e53e3e; outline-offset: 2px; }
 </style>

@@ -24,6 +24,7 @@
     "sheets-overlays": "Sheets & overlays",
     "article-patterns": "Article patterns",
     "timeline": "Timeline",
+    "media": "Media",
     "writing": "Writing",
     "translation": "Translation",
     "accessibility": "Accessibility"
@@ -57,8 +58,19 @@
       "iconography": "Feather-style line icons and solid brand marks.",
       "motion": "Short, quiet transitions, and the reduced-motion switch."
     },
+    "componentsHeading": "Components",
+    "componentBlurbs": {
+      "buttons": "Two tiers, real states, and what to write on them.",
+      "tags-chips": "Badges that state a fact, tags that go somewhere.",
+      "cards": "From the base card to the blog's lead and series cards.",
+      "navigation": "One chrome set reshaping across three viewports.",
+      "sheets-overlays": "The bottom-sheet primitive behind every picker.",
+      "article-patterns": "Callouts, code, tables, contents — the long-form kit.",
+      "timeline": "The work-experience rail, logo dots and all.",
+      "media": "The photo carousel, the device frame, and placeholders."
+    },
     "moreHeading": "More to come",
-    "moreBody": "Components, content guidelines and accessibility standards are being written up next, in the same shape as the foundations here.",
+    "moreBody": "Content guidelines and accessibility standards are being written up next, in the same shape as the pages here.",
     "livingHeading": "A living document",
     "livingBody": "The colour, type and spacing tables on these pages are generated from the site's stylesheet at build time. Change a token in the CSS and the tables here change with it. If the parser can no longer read the stylesheet, the build fails rather than showing an empty table."
   },
@@ -393,6 +405,12 @@
   },
   "doLabel": "Do",
   "dontLabel": "Don’t",
+  "bandLabels": {
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop"
+  },
+  "frameThemeNote": "The frames below are the real pages rendered at real widths, scripts off — so they always show the light theme and no analytics run inside them.",
   "buttons": {
     "seoTitle": "Buttons | Design system | Warren de Leon",
     "seoDescription": "The two button tiers on warrendeleon.com: inline buttons for forms and actions, and pill CTAs for page-level calls to action, with states and content rules.",
@@ -410,7 +428,14 @@
     "pillHeading": "Pill CTAs",
     "pillBody": "Taller 48-pixel pills for the page-level calls to action — the ones a visitor should see from across the room, like “Download CV” or “Book a call”. Solid and outline, same green pair.",
     "statesHeading": "States",
-    "statesBody": "Hover deepens the green — try it on the buttons above. Focus draws the shared 2-pixel green ring. A true disabled button is rare, since most buttons on the site are links; where a control is disabled, like the series arrows, it drops to a low opacity without changing hue, so it still reads as the same control.",
+    "statesBody": "Every state, rendered. Hover deepens the green; focus draws the shared 2-pixel green ring; a disabled control drops to a low opacity without changing hue, so it still reads as the same control. The hover and focus columns show those states applied, since a static page cannot hold a cursor over itself.",
+    "states": {
+      "default": "Default",
+      "hover": "Hover",
+      "focus": "Focus",
+      "disabled": "Disabled"
+    },
+    "statesDisabledNote": "Most buttons on the site are links, so a true disabled state is rare; the series arrows are the live example of this convention.",
     "contentHeading": "Content",
     "contentBody": "Labels are a verb and a noun, in sentence case, on one line. Say what happens, from the reader's side, without “my” or “your”.",
     "rulesHeading": "When to use",
@@ -463,13 +488,19 @@
     "toc": [
       { "id": "base", "label": "Base card" },
       { "id": "feed", "label": "Feed post" },
+      { "id": "series-hero", "label": "Series hero card" },
+      { "id": "lead", "label": "The lead post & viewports" },
       { "id": "rules", "label": "When to use" }
     ],
     "baseHeading": "Base card",
     "baseBody": "A rounded 12-pixel surface on the card background, framed by a hairline and lifted by a soft shadow. On hover it lifts a little more. It is the shell almost every other card is built on.",
     "feedHeading": "Feed post",
-    "feedBody": "The blog listing card. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row. The whole surface is one link, and the newest post gets a larger lead treatment so the eye lands there first.",
+    "feedBody": "The blog listing card — the real FeedPostCard component, here with a placeholder where the hero image goes. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row.",
     "wholeLinkNote": "The entire card is a single link, not a title link with a separate “read more”. Hover lifts the card and greens the title together.",
+    "seriesHeroHeading": "Series hero card",
+    "seriesHeroBody": "The blog home's current-series card, rendered live: hero art beside the series pitch, with the published-of-total progress bar. On phones it stacks and gains a solid View series button.",
+    "leadHeading": "The lead post & viewports",
+    "leadBody": "The newest post gets a larger lead treatment, and the whole feed reshapes per band — a big lead card over compact rows on a phone, a two-column grid on a tablet, thumbnail rows with a sidebar on desktop. The frames below are the real blog page at each width.",
     "rulesHeading": "When to use",
     "dos": [
       "Make the whole card one link when it points at one place.",
@@ -490,20 +521,28 @@
     "title": "Navigation",
     "intro": "Getting around the site uses one chrome set that reshapes per screen rather than several separate ones. The same dock is edge-to-edge on a phone, a floating pill on a tablet, and gone on desktop, where the top nav takes over.",
     "toc": [
+      { "id": "viewports", "label": "One chrome set, three viewports" },
       { "id": "bar", "label": "Top bar" },
       { "id": "dock", "label": "Tab dock" },
-      { "id": "action", "label": "Action bar" },
+      { "id": "action", "label": "Reading action bar" },
       { "id": "footer", "label": "Footer" },
+      { "id": "rail", "label": "Docs navigation" },
       { "id": "rules", "label": "When to use" }
     ],
+    "viewportsHeading": "One chrome set, three viewports",
+    "viewportsBody": "Navigation is shaped by the viewport more than any other part of the system. The frames below are the real home page rendered at each band's width, whatever device you are reading this on: the dock runs edge-to-edge on a phone, floats as a pill on a tablet, and gives way to the top nav links on desktop.",
     "barHeading": "Top bar",
     "barBody": "A sticky bar carrying the logo and the utility controls (language, theme, and blog search). It stands 64 pixels tall on desktop, 60 on tablet and 56 on a phone. On desktop it also holds the three section links; below 1280 those move to the dock.",
     "dockHeading": "Tab dock",
-    "dockBody": "The primary section navigation on phone and tablet: four tabs — Home, Blog, Work, Book a call. It is a single element with one breakpoint, not two components: edge-to-edge along the bottom on a phone, a floating rounded pill on a tablet, and hidden entirely on desktop. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
-    "actionHeading": "Action bar",
-    "actionBody": "On a reading or detail page the dock is replaced, not joined, by a contextual action bar carrying reading progress and the page's own actions (contents, share). One bar at a time: browse chrome or read chrome, never both.",
+    "dockBody": "The primary section navigation on phone and tablet: four tabs — Home, Blog, Work, Book a call. It is a single element with one breakpoint, not two components. Below is the real TabBar component, held static; the frames above show it in place at each width. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
+    "actionHeading": "Reading action bar",
+    "actionBody": "On a reading page the dock is replaced, not joined, by a contextual action bar: a progress ring with the current section opens the contents sheet, then share and back-to-top. This is the real ReadingBar component, shown mid-article. One bar at a time: browse chrome or read chrome, never both.",
+    "actionProgressText": "12 min left · 45%",
+    "actionDemoTitle": "One shared store across remotes",
     "footerHeading": "Footer",
-    "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever — the top bar already carries it.",
+    "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever — the top bar already carries it. The live footer is at the bottom of this very page.",
+    "railHeading": "Docs navigation",
+    "railBody": "This section's own navigation is part of the system too: a grouped rail on desktop (Foundations, Components and so on as labelled blocks), a collapsible section menu above the page title below 1280 pixels, plus the breadcrumb and the On-this-page card.",
     "rulesHeading": "When to use",
     "dos": [
       "Keep the dock to four tabs; put anything else in the footer.",
@@ -563,6 +602,8 @@
       { "id": "quote", "label": "Blockquote" },
       { "id": "code", "label": "Code" },
       { "id": "tables", "label": "Tables" },
+      { "id": "contents", "label": "Contents" },
+      { "id": "series-nav", "label": "Series navigation" },
       { "id": "subscribe", "label": "Subscribe" }
     ],
     "calloutsHeading": "Callouts",
@@ -582,19 +623,84 @@
     "codeSampleLang": "TypeScript",
     "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
     "tablesHeading": "Tables",
-    "tablesBody": "An article never uses a bare HTML table. Wide tables scroll inside a bordered card with a sticky first column and a monospace header strip; some data becomes a bespoke card instead — a score row, a checklist, a range band. The point is that data always arrives in a frame, never as naked rows.",
-    "tableSample": {
-      "kicker": "Example",
-      "title": "Range band",
+    "tablesBody": "An article never uses a bare HTML table. A classic table ships inside a bordered card with a sticky first column and a monospace header strip; and where rows would fight the phone column, the data becomes a bespoke card instead. All five patterns, rendered from the real classes:",
+    "tableClassic": {
+      "label": "Classic table card",
+      "headers": ["Pattern", "Shape", "Reach for it when"],
       "rows": [
-        { "name": "Foundations", "val": "6 pages", "fill": 60 },
-        { "name": "Components", "val": "7 pages", "fill": 70 }
+        ["Classic", "Rows in a scrollable card", "The data really is tabular"],
+        ["Score rows", "Numbered circles + descriptions", "A rubric or scale"],
+        ["Checklist", "Ticked and unticked rows", "Observable criteria"]
       ]
     },
+    "tableScore": {
+      "kicker": "Score rows",
+      "title": "Rubric scale",
+      "rows": [
+        { "num": "1", "desc": "Meets the bar with gaps a reviewer would flag." },
+        { "num": "2", "desc": "Meets the bar cleanly; nothing to flag." }
+      ]
+    },
+    "tableChecklist": {
+      "kicker": "Checklist",
+      "title": "Observable criteria",
+      "items": [
+        { "text": "States rendered, not described", "checked": true },
+        { "text": "Every value from the live stylesheet", "checked": true },
+        { "text": "A lookalike rebuilt with new CSS", "checked": false }
+      ]
+    },
+    "tableSample": {
+      "kicker": "Range bands",
+      "title": "Level ranges",
+      "rows": [
+        { "name": "Foundations", "val": "6 pages", "fill": 60 },
+        { "name": "Components", "val": "8 pages", "fill": 80 }
+      ]
+    },
+    "tableCrit": {
+      "kicker": "Criterion rows",
+      "title": "With WCAG chips",
+      "rows": [
+        { "name": "Focus visible", "chip": "2.4.7 AA", "desc": "Every interactive control draws the shared green ring." },
+        { "name": "Target size", "chip": "2.5.8 AA", "desc": "Hit areas stay at 44 pixels or better." }
+      ]
+    },
+    "contentsHeading": "Contents",
+    "contentsBody": "A long article carries its table of contents: the real Toc component renders as a sticky sidebar card from 1024 pixels, and the same headings feed the contents sheet behind the reading bar's progress ring below that.",
+    "contentsRows": ["Overview", "The two tiers", "States", "Content"],
+    "seriesNavHeading": "Series navigation",
+    "seriesNavBody": "A post that belongs to a series opens with a horizontal shelf of numbered part cards — the current part outlined green, the rest linking across the series. Mobile scrolls the shelf freely; desktop adds arrow controls.",
+    "seriesNavSeries": "Module Federation in React Native",
+    "seriesNavPart": "Part 3 of 8",
+    "seriesNavTitles": ["Why Module Federation", "Your first federated remote", "Host shell & federated tabs", "Typing the seam between remotes"],
     "subscribeHeading": "Subscribe",
     "subscribeBody": "The newsletter band that closes a post: a short pitch, one email field, and a note about double opt-in. This is the real component, rendered live.",
     "whereHeading": "Where it lives",
     "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro."
+  },
+  "media": {
+    "seoTitle": "Media | Design system | Warren de Leon",
+    "seoDescription": "The media patterns on warrendeleon.com: the photo carousel, the flat device frame for app screenshots, full-screen zoom, and image placeholders.",
+    "title": "Media",
+    "intro": "How photos and screenshots are carried: a carousel on the home hero, a flat green-railed phone frame for app screenshots, a full-screen zoom for diagrams and images, and a placeholder for specimens.",
+    "toc": [
+      { "id": "carousel", "label": "Carousel" },
+      { "id": "device", "label": "Device frame" },
+      { "id": "zoom", "label": "Full-screen zoom" },
+      { "id": "placeholder", "label": "Placeholder" }
+    ],
+    "carouselHeading": "Carousel",
+    "carouselBody": "The home hero's photo carousel, rendered live: arrows and a counter on the frame, a dot row beneath it from 700 pixels (the active dot stretches to a pill), swipe on touch, and autoplay that respects reduced motion and pauses from the control beside the dots. On a phone the dots give way to an overlay title on the photo.",
+    "carouselCaption": "The real HeroCarousel component.",
+    "deviceHeading": "Device frame",
+    "deviceBody": "App screenshots in articles sit inside a flat phone frame drawn in CSS: a brand-green rail, a thin black bezel, side buttons drawn just outside the rail, and a theme-aware shadow. It holds to the blog's flat aesthetic rather than a photoreal render.",
+    "deviceCaption": "The .device-frame pattern, here with a placeholder where the screenshot goes.",
+    "zoomHeading": "Full-screen zoom",
+    "zoomBody": "Images and pre-rendered diagrams in articles open in a full-screen lightbox on tap — the one overlay that behaves the same on every device. Diagrams re-theme inside it, so a dark-mode reader zooms into a dark-mode diagram.",
+    "placeholderHeading": "Placeholder",
+    "placeholderBody": "Specimens on these docs that would carry a photo use a neutral placeholder rather than a borrowed image, so the layout is honest about what is content and what is chrome.",
+    "placeholderCaption": "The placeholder at card-thumbnail and hero ratios."
   },
   "timeline": {
     "seoTitle": "Timeline | Design system | Warren de Leon",

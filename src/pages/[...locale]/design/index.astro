@@ -20,9 +20,19 @@ const cards = foundations.pages
     href: getLocalePath(locale, p.path),
   }));
 
+const components = DESIGN_GROUPS.find((g) => g.key === 'components')!;
+const componentCards = components.pages
+  .filter((p) => p.built)
+  .map((p) => ({
+    label: d.nav[p.slug as keyof typeof d.nav],
+    blurb: L.componentBlurbs[p.slug as keyof typeof L.componentBlurbs],
+    href: getLocalePath(locale, p.path),
+  }));
+
 const toc = [
   { id: 'principles', label: L.principlesHeading },
   { id: 'foundations', label: L.foundationsHeading },
+  { id: 'components', label: L.componentsHeading },
   { id: 'living', label: L.livingHeading },
 ];
 ---
@@ -52,6 +62,18 @@ const toc = [
     <h2>{L.foundationsHeading}</h2>
     <div class="ds-cards">
       {cards.map((c) => (
+        <a href={c.href} class="ds-card-link">
+          <span class="ds-card-title">{c.label}</span>
+          <span class="ds-card-blurb">{c.blurb}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section id="components">
+    <h2>{L.componentsHeading}</h2>
+    <div class="ds-cards">
+      {componentCards.map((c) => (
         <a href={c.href} class="ds-card-link">
           <span class="ds-card-title">{c.label}</span>
           <span class="ds-card-blurb">{c.blurb}</span>

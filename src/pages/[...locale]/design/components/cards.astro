@@ -1,16 +1,30 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
-import DoDont from '../../../../components/design/DoDont.astro';
-import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
+import ViewportFrame from '../../../../components/design/ViewportFrame.astro';
+import Placeholder from '../../../../components/design/Placeholder.astro';
+import FeedPostCard from '../../../../components/blog/FeedPostCard.astro';
+import SeriesHeroCard from '../../../../components/blog/SeriesHeroCard.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
+import { getCurrentSeriesName } from '../../../../utils/blogHelpers';
 
 export const getStaticPaths = localeStaticPaths;
 
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const c = d.cards;
+const i18n = t(locale);
 const currentPath = getLocalePath(locale, '/design/components/cards/');
+const blogPath = getLocalePath(locale, '/blog/');
+// The real current series, so the hero card renders exactly what Blog home shows.
+const currentSeries = await getCurrentSeriesName(locale);
+
+const demoMeta = `8 Jun 2026 · 10 ${i18n.blog.minRead}`;
+const demoTitle = 'One shared store across remotes';
+const demoDesc =
+  'How a single Redux store survives the seam between federated micro-frontends, and what breaks when it does not.';
 ---
 
 <DesignLayout
@@ -38,29 +52,85 @@ const currentPath = getLocalePath(locale, '/design/components/cards/');
     <h2>{c.feedHeading}</h2>
     <p>{c.feedBody}</p>
     <SpecimenCard plain>
-      <a class="feed-post ds-feed-demo" href="#feed">
-        <div class="feed-post-thumb"></div>
-        <div class="feed-post-body">
-          <div class="feed-post-meta blog-mono">
-            <span>8 Jun 2026</span>
-            <span>·</span>
-            <span>10 min</span>
-            <span class="feed-post-series">Module Federation</span>
-          </div>
-          <div class="feed-post-title">One shared store across remotes</div>
-          <div class="feed-post-desc">How a single Redux store survives the seam between federated micro-frontends, and what breaks when it does not.</div>
-        </div>
-      </a>
+      <div class="ds-feed-demo">
+        <FeedPostCard
+          href="#feed"
+          metaText={demoMeta}
+          series="Module Federation"
+          title={demoTitle}
+          desc={demoDesc}
+        >
+          <Placeholder slot="thumb" />
+        </FeedPostCard>
+      </div>
     </SpecimenCard>
     <p>{c.wholeLinkNote}</p>
   </section>
 
+  <section id="series-hero">
+    <h2>{c.seriesHeroHeading}</h2>
+    <p>{c.seriesHeroBody}</p>
+    {currentSeries && (
+      <div class="ds-series-hero-demo">
+        <SeriesHeroCard locale={locale} seriesName={currentSeries} />
+      </div>
+    )}
+  </section>
+
+  <section id="lead">
+    <h2>{c.leadHeading}</h2>
+    <p>{c.leadBody}</p>
+    <p>{d.frameThemeNote}</p>
+    <div class="ds-frames">
+      <ViewportFrame src={blogPath} width={390} height={840} scale={0.58} label={d.bandLabels.mobile} />
+      <ViewportFrame src={blogPath} width={768} height={900} scale={0.42} label={d.bandLabels.tablet} />
+      <ViewportFrame src={blogPath} width={1280} height={900} scale={0.42} label={d.bandLabels.desktop} />
+    </div>
+  </section>
+
   <section id="rules">
     <h2>{c.rulesHeading}</h2>
-    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{c.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{c.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[0]}>
+        <div class="ds-feed-demo">
+          <FeedPostCard href="#rules" metaText={demoMeta} title={demoTitle}>
+            <Placeholder slot="thumb" />
+          </FeedPostCard>
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[0]}>
+        <div class="card ds-card-demo">
+          <strong>{demoTitle}</strong>
+          <p>{demoDesc}</p>
+          <span class="ds-btn-row">
+            <button type="button" class="btn btn-primary">{i18n.home.readPost}</button>
+            <button type="button" class="btn btn-outline">{i18n.blog.copyLink}</button>
+            <button type="button" class="btn btn-outline">{i18n.blog.viewSeries}</button>
+          </span>
+        </div>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[1]}>
+        <div class="ds-lead-mock" aria-hidden="true">
+          <span class="ds-lead-big"></span>
+          <span class="ds-lead-row"></span>
+          <span class="ds-lead-row"></span>
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[1]}>
+        <div class="ds-lead-mock" aria-hidden="true">
+          <span class="ds-lead-big"></span>
+          <span class="ds-lead-big"></span>
+        </div>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[2]}>
+        <div class="card ds-card-demo"><strong>Hover me</strong><p>Border and lift move together.</p></div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[2]}>
+        <div class="card ds-card-demo" style="border: none;"><strong>No border</strong><p>On a tinted band this edge disappears.</p></div>
+      </GuidanceCard>
+    </div>
     <h3>{c.whereHeading}</h3>
     <p>{c.whereBody}</p>
   </section>
@@ -70,6 +140,34 @@ const currentPath = getLocalePath(locale, '/design/components/cards/');
   .ds-card-demo { max-width: 360px; }
   .ds-card-demo strong { display: block; margin-bottom: 0.4rem; color: var(--text-primary); }
   .ds-card-demo p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
-  /* Give the demo feed post a real width so its desktop grid shows. */
+  .ds-btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
   .ds-feed-demo { width: 100%; max-width: 560px; }
+  .ds-series-hero-demo { margin: 0 0 1rem; }
+  .ds-frames {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin: 0 0 1rem;
+  }
+  /* Lead-treatment mock: proportions only, deliberately abstract. */
+  .ds-lead-mock {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 220px;
+  }
+  .ds-lead-big {
+    height: 64px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--badge-bg);
+  }
+  .ds-lead-row {
+    height: 26px;
+    border-radius: 7px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+  }
 </style>

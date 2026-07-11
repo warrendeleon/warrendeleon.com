@@ -26,7 +26,8 @@
     "timeline": "Cronología",
     "writing": "Redacción",
     "translation": "Traducción",
-    "accessibility": "Accesibilidad"
+    "accessibility": "Accesibilidad",
+    "media": "Medios"
   },
   "landing": {
     "seoTitle": "Sistema de diseño | Warren de Leon",
@@ -58,9 +59,20 @@
       "motion": "Transiciones breves y discretas, y el interruptor de movimiento reducido."
     },
     "moreHeading": "Más por venir",
-    "moreBody": "Los componentes, las pautas de contenido y los estándares de accesibilidad se documentarán a continuación, con la misma forma que los fundamentos de aquí.",
+    "moreBody": "Las guías de contenido y las normas de accesibilidad son lo siguiente en escribirse, con la misma forma que las páginas de aquí.",
     "livingHeading": "Un documento vivo",
-    "livingBody": "Las tablas de color, tipografía y espaciado de estas páginas se generan a partir de la hoja de estilos del sitio en el momento de la compilación. Cambia un token en el CSS y las tablas de aquí cambian con él. Si el analizador ya no puede leer la hoja de estilos, la compilación falla en lugar de mostrar una tabla vacía."
+    "livingBody": "Las tablas de color, tipografía y espaciado de estas páginas se generan a partir de la hoja de estilos del sitio en el momento de la compilación. Cambia un token en el CSS y las tablas de aquí cambian con él. Si el analizador ya no puede leer la hoja de estilos, la compilación falla en lugar de mostrar una tabla vacía.",
+    "componentsHeading": "Componentes",
+    "componentBlurbs": {
+      "buttons": "Dos niveles, estados reales y qué escribir en ellos.",
+      "tags-chips": "Insignias que enuncian un hecho, etiquetas que llevan a algún sitio.",
+      "cards": "De la tarjeta base a las tarjetas de destacado y de serie del blog.",
+      "navigation": "Un mismo chrome que cambia de forma en tres viewports.",
+      "sheets-overlays": "La primitiva de bottom sheet que hay detrás de cada selector.",
+      "article-patterns": "Avisos, código, tablas, índice: el kit de los artículos largos.",
+      "timeline": "El raíl de la experiencia laboral, con sus puntos de logo incluidos.",
+      "media": "El carrusel de fotos, el marco de dispositivo y los marcadores de posición."
+    }
   },
   "colour": {
     "seoTitle": "Color | Sistema de diseño | Warren de Leon",
@@ -546,6 +558,12 @@
   },
   "doLabel": "Sí",
   "dontLabel": "No",
+  "bandLabels": {
+    "mobile": "Móvil",
+    "tablet": "Tableta",
+    "desktop": "Escritorio"
+  },
+  "frameThemeNote": "Los marcos de abajo son las páginas reales renderizadas a anchos reales y con los scripts desactivados, así que siempre muestran el tema claro y dentro de ellos no se ejecuta ninguna analítica.",
   "buttons": {
     "seoTitle": "Botones | Sistema de diseño | Warren de Leon",
     "seoDescription": "Los dos niveles de botones en warrendeleon.com: botones en línea para formularios y acciones, y CTA en forma de píldora para las llamadas a la acción a nivel de página, con estados y reglas de contenido.",
@@ -575,7 +593,7 @@
     "pillHeading": "CTA en forma de píldora",
     "pillBody": "Píldoras más altas, de 48 píxeles, para las llamadas a la acción a nivel de página: las que un visitante debería ver desde el otro lado de la sala, como «Descargar CV» o «Reservar una llamada». Sólida y con contorno, el mismo par de verdes.",
     "statesHeading": "Estados",
-    "statesBody": "El hover intensifica el verde; pruébalo en los botones de arriba. El foco dibuja el anillo verde compartido de 2 píxeles. Un botón realmente deshabilitado es poco común, ya que la mayoría de los botones del sitio son enlaces; donde un control está deshabilitado, como las flechas de la serie, baja a una opacidad reducida sin cambiar de tono, de modo que sigue leyéndose como el mismo control.",
+    "statesBody": "Cada estado, renderizado. El hover oscurece el verde; el foco dibuja el anillo verde compartido de 2 píxeles; un control deshabilitado baja a una opacidad reducida sin cambiar de tono, de modo que sigue leyéndose como el mismo control. Las columnas de hover y foco muestran esos estados ya aplicados, porque una página estática no puede mantener un cursor sobre sí misma.",
     "contentHeading": "Contenido",
     "contentBody": "Las etiquetas son un verbo y un sustantivo, en estilo oración, en una sola línea. Di qué ocurre, desde el lado del lector, sin «mi» ni «tu».",
     "rulesHeading": "Cuándo usarlo",
@@ -590,7 +608,14 @@
       "Atenuar tanto un botón deshabilitado que deje de parecer el control."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "En línea: .btn con .btn-primary o .btn-outline. Píldoras: .hero-cta con .hero-cta-solid o .hero-cta-outline, agrupadas en .hero-ctas."
+    "whereBody": "En línea: .btn con .btn-primary o .btn-outline. Píldoras: .hero-cta con .hero-cta-solid o .hero-cta-outline, agrupadas en .hero-ctas.",
+    "states": {
+      "default": "Por defecto",
+      "hover": "Hover",
+      "focus": "Foco",
+      "disabled": "Deshabilitado"
+    },
+    "statesDisabledNote": "La mayoría de los botones del sitio son enlaces, así que un estado deshabilitado real es raro; las flechas de serie son el ejemplo vivo de esta convención."
   },
   "tagsChips": {
     "seoTitle": "Etiquetas y chips | Sistema de diseño | Warren de Leon",
@@ -644,14 +669,22 @@
         "label": "Entrada del feed"
       },
       {
+        "id": "series-hero",
+        "label": "Tarjeta hero de serie"
+      },
+      {
+        "id": "lead",
+        "label": "La entrada destacada y los viewports"
+      },
+      {
         "id": "rules",
-        "label": "Cuándo usarlo"
+        "label": "Cuándo usar cada una"
       }
     ],
     "baseHeading": "Tarjeta base",
     "baseBody": "Una superficie redondeada de 12 píxeles sobre el fondo de la tarjeta, enmarcada por una línea muy fina y elevada por una sombra suave. Al hacer hover se eleva un poco más. Es el armazón sobre el que se construye casi cualquier otra tarjeta.",
     "feedHeading": "Entrada del feed",
-    "feedBody": "La tarjeta del listado del blog. En escritorio es una miniatura junto a un título, una línea de metadatos y un resumen de dos líneas; en el móvil se contrae a una fila compacta. Toda la superficie es un único enlace, y la entrada más reciente recibe un tratamiento destacado más grande para que la mirada se pose ahí primero.",
+    "feedBody": "La tarjeta del listado del blog, el componente FeedPostCard real, aquí con un marcador de posición donde va la imagen hero. En escritorio es una miniatura junto a un título, una línea de metadatos y un resumen de dos líneas; en teléfonos se pliega a una fila compacta.",
     "wholeLinkNote": "Toda la tarjeta es un único enlace, no un enlace en el título con un «leer más» aparte. El hover eleva la tarjeta y vuelve verde el título a la vez.",
     "rulesHeading": "Cuándo usarlo",
     "dos": [
@@ -665,7 +698,11 @@
       "Quitar el borde y confiar solo en la sombra para separar las tarjetas."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "Base: .card. Feed: .feed-post con .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+    "whereBody": "Base: .card. Feed: .feed-post con .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc.",
+    "seriesHeroHeading": "Tarjeta hero de serie",
+    "seriesHeroBody": "La tarjeta de la serie actual de la portada del blog, renderizada en vivo: el arte del hero junto a la presentación de la serie, con la barra de progreso de publicadas sobre el total. En teléfonos se apila y gana un botón sólido de Ver la serie.",
+    "leadHeading": "La entrada destacada y los viewports",
+    "leadBody": "La entrada más reciente recibe un tratamiento destacado más grande, y el feed entero cambia de forma según la banda: una tarjeta destacada grande sobre filas compactas en un teléfono, una cuadrícula de dos columnas en una tableta, filas con miniatura y una barra lateral en escritorio. Los marcos de abajo son la página real del blog a cada ancho."
   },
   "navigation": {
     "seoTitle": "Navegación | Sistema de diseño | Warren de Leon",
@@ -673,6 +710,10 @@
     "title": "Navegación",
     "intro": "Moverse por el sitio usa un único conjunto de controles de navegación que se remodela según la pantalla en lugar de varios por separado. El mismo dock va de borde a borde en el móvil, es una píldora flotante en la tablet y desaparece en escritorio, donde la navegación superior toma el relevo.",
     "toc": [
+      {
+        "id": "viewports",
+        "label": "Un mismo chrome, tres viewports"
+      },
       {
         "id": "bar",
         "label": "Barra superior"
@@ -683,25 +724,29 @@
       },
       {
         "id": "action",
-        "label": "Barra de acciones"
+        "label": "Barra de acciones de lectura"
       },
       {
         "id": "footer",
         "label": "Pie de página"
       },
       {
+        "id": "rail",
+        "label": "Navegación de la documentación"
+      },
+      {
         "id": "rules",
-        "label": "Cuándo usarlo"
+        "label": "Cuándo usar cada una"
       }
     ],
     "barHeading": "Barra superior",
     "barBody": "Una barra fija que lleva el logotipo y los controles de utilidad (idioma, tema y búsqueda del blog). Mide 64 píxeles de alto en escritorio, 60 en tablet y 56 en el móvil. En escritorio también alberga los tres enlaces de sección; por debajo de 1280 estos pasan al dock.",
     "dockHeading": "Dock de pestañas",
-    "dockBody": "La navegación principal de secciones en el móvil y la tablet: cuatro pestañas (Inicio, Blog, Trabajo, Reservar una llamada). Es un único elemento con un solo punto de ruptura, no dos componentes: de borde a borde a lo largo de la parte inferior en el móvil, una píldora flotante y redondeada en la tablet, y oculto por completo en escritorio. Cuatro pestañas es estructural; una quinta no cabría en la cuadrícula, por lo que esta sección del sistema de diseño vive en el pie de página.",
-    "actionHeading": "Barra de acciones",
-    "actionBody": "En una página de lectura o de detalle, el dock queda reemplazado, no acompañado, por una barra de acciones contextual que lleva el progreso de lectura y las acciones propias de la página (índice, compartir). Una barra cada vez: controles de navegación o controles de lectura, nunca ambos.",
+    "dockBody": "La navegación principal de secciones en teléfono y tableta: cuatro pestañas (Inicio, Blog, Trabajo, Reserva una llamada). Es un único elemento con un solo breakpoint, no dos componentes. Abajo está el componente TabBar real, mostrado estático; los marcos de arriba lo enseñan colocado a cada ancho. Que sean cuatro pestañas es estructural; una quinta no cabría en la cuadrícula, y por eso esta sección del sistema de diseño vive en el pie de página.",
+    "actionHeading": "Barra de acciones de lectura",
+    "actionBody": "En una página de lectura, una barra de acciones contextual sustituye al dock, no se le suma: un anillo de progreso con la sección actual abre la hoja del índice, y después compartir y volver arriba. Este es el componente ReadingBar real, mostrado a mitad de artículo. Una barra cada vez: chrome de navegación o chrome de lectura, nunca ambos.",
     "footerHeading": "Pie de página",
-    "footerBody": "Una única columna centrada en todas las pantallas: los enlaces de sección, una fila plana de iconos sociales con RSS, y el copyright. Nunca un logotipo: la barra superior ya lo lleva.",
+    "footerBody": "Una sola columna centrada en todas las pantallas: los enlaces de sección, una fila plana de iconos sociales con RSS y el copyright. Sin logo, nunca: la barra superior ya lo lleva. El pie de página real está al final de esta misma página.",
     "rulesHeading": "Cuándo usarlo",
     "dos": [
       "Mantener el dock en cuatro pestañas; poner cualquier otra cosa en el pie de página.",
@@ -714,7 +759,13 @@
       "Poner un logotipo en el pie de página; le pertenece a la barra superior."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, la barra de lectura en BlogPost.astro y Footer.astro (.footer). Sus estilos están limitados al ámbito de cada componente, por lo que la anatomía se documenta aquí en lugar de volver a renderizarse."
+    "whereBody": "Nav.astro (.nav), TabBar.astro, la barra de lectura en BlogPost.astro y Footer.astro (.footer). Sus estilos están limitados al ámbito de cada componente, por lo que la anatomía se documenta aquí en lugar de volver a renderizarse.",
+    "viewportsHeading": "Un mismo chrome, tres viewports",
+    "viewportsBody": "Ninguna otra parte del sistema depende tanto del viewport como la navegación. Los marcos de abajo son la portada real renderizada al ancho de cada banda, sea cual sea el dispositivo desde el que lees: el dock ocupa todo el ancho en un teléfono, flota como una píldora en una tableta y da paso a los enlaces de la barra superior en escritorio.",
+    "actionProgressText": "Quedan 12 min · 45%",
+    "actionDemoTitle": "Una única store compartida entre remotes",
+    "railHeading": "Navegación de la documentación",
+    "railBody": "La navegación propia de esta sección también forma parte del sistema: un raíl agrupado en escritorio (Fundamentos, Componentes y demás como bloques etiquetados), un menú de sección plegable sobre el título de la página por debajo de 1280 píxeles, más las migas de pan y la tarjeta de En esta página."
   },
   "sheetsOverlays": {
     "seoTitle": "Hojas y superposiciones | Sistema de diseño | Warren de Leon",
@@ -773,11 +824,11 @@
     "toc": [
       {
         "id": "callouts",
-        "label": "Llamadas de atención"
+        "label": "Avisos"
       },
       {
         "id": "quote",
-        "label": "Cita en bloque"
+        "label": "Cita"
       },
       {
         "id": "code",
@@ -786,6 +837,14 @@
       {
         "id": "tables",
         "label": "Tablas"
+      },
+      {
+        "id": "contents",
+        "label": "Índice"
+      },
+      {
+        "id": "series-nav",
+        "label": "Navegación de serie"
       },
       {
         "id": "subscribe",
@@ -809,10 +868,10 @@
     "codeSampleLang": "TypeScript",
     "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
     "tablesHeading": "Tablas",
-    "tablesBody": "Un artículo nunca usa una tabla HTML desnuda. Las tablas anchas se desplazan dentro de una tarjeta con borde, con una primera columna fija y una franja de cabecera monoespaciada; algunos datos se convierten en una tarjeta a medida: una fila de puntuación, una lista de comprobación, una banda de rango. La idea es que los datos siempre lleguen en un marco, nunca como filas desnudas.",
+    "tablesBody": "Un artículo nunca usa una tabla HTML desnuda. Una tabla clásica va dentro de una tarjeta con borde, con la primera columna fija y una franja de cabecera en monoespaciada; y donde las filas pelearían con la columna del teléfono, los datos se convierten en una tarjeta a medida. Los cinco patrones, renderizados desde las clases reales:",
     "tableSample": {
-      "kicker": "Ejemplo",
-      "title": "Banda de rango",
+      "kicker": "Bandas de rango",
+      "title": "Rangos de nivel",
       "rows": [
         {
           "name": "Fundamentos",
@@ -821,15 +880,141 @@
         },
         {
           "name": "Componentes",
-          "val": "7 páginas",
-          "fill": 70
+          "val": "8 páginas",
+          "fill": 80
         }
       ]
     },
     "subscribeHeading": "Suscripción",
     "subscribeBody": "La banda de boletín que cierra una entrada: un breve reclamo, un campo de correo electrónico y una nota sobre la doble confirmación. Este es el componente real, renderizado en vivo.",
     "whereHeading": "Dónde vive",
-    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* y .prose pre, la familia .dt-card, además de SubscribeForm.astro."
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* y .prose pre, la familia .dt-card, además de SubscribeForm.astro.",
+    "tableClassic": {
+      "label": "Tarjeta de tabla clásica",
+      "headers": [
+        "Patrón",
+        "Forma",
+        "Úsalo cuando"
+      ],
+      "rows": [
+        [
+          "Clásica",
+          "Filas en una tarjeta con scroll",
+          "Los datos son realmente tabulares"
+        ],
+        [
+          "Filas de puntuación",
+          "Círculos numerados + descripciones",
+          "Una rúbrica o una escala"
+        ],
+        [
+          "Lista de comprobación",
+          "Filas marcadas y sin marcar",
+          "Criterios observables"
+        ]
+      ]
+    },
+    "tableScore": {
+      "kicker": "Filas de puntuación",
+      "title": "Escala de rúbrica",
+      "rows": [
+        {
+          "num": "1",
+          "desc": "Cumple el listón con carencias que un revisor señalaría."
+        },
+        {
+          "num": "2",
+          "desc": "Cumple el listón con limpieza; nada que señalar."
+        }
+      ]
+    },
+    "tableChecklist": {
+      "kicker": "Lista de comprobación",
+      "title": "Criterios observables",
+      "items": [
+        {
+          "text": "Estados renderizados, no descritos",
+          "checked": true
+        },
+        {
+          "text": "Cada valor sale de la hoja de estilos real",
+          "checked": true
+        },
+        {
+          "text": "Una imitación reconstruida con CSS nuevo",
+          "checked": false
+        }
+      ]
+    },
+    "tableCrit": {
+      "kicker": "Filas de criterio",
+      "title": "Con chips WCAG",
+      "rows": [
+        {
+          "name": "Foco visible",
+          "chip": "2.4.7 AA",
+          "desc": "Todos los controles interactivos dibujan el anillo verde compartido."
+        },
+        {
+          "name": "Tamaño del objetivo",
+          "chip": "2.5.8 AA",
+          "desc": "Las áreas de pulsación se mantienen en 44 píxeles o más."
+        }
+      ]
+    },
+    "contentsHeading": "Índice",
+    "contentsBody": "Un artículo largo lleva su índice: el componente Toc real se renderiza como una tarjeta lateral fija a partir de 1024 píxeles, y por debajo de ese ancho los mismos encabezados alimentan la hoja del índice tras el anillo de progreso de la barra de lectura.",
+    "contentsRows": [
+      "Resumen",
+      "Los dos niveles",
+      "Estados",
+      "Contenido"
+    ],
+    "seriesNavHeading": "Navegación de serie",
+    "seriesNavBody": "Una entrada que pertenece a una serie se abre con una estantería horizontal de tarjetas de parte numeradas: la parte actual con contorno verde, las demás enlazando a lo largo de la serie. En móvil la estantería se desplaza libremente; en escritorio se añaden controles de flecha.",
+    "seriesNavSeries": "Module Federation en React Native",
+    "seriesNavPart": "Parte 3 de 8",
+    "seriesNavTitles": [
+      "Por qué Module Federation",
+      "Tu primer remote federado",
+      "Host shell y pestañas federadas",
+      "Tipar la costura entre remotes"
+    ]
+  },
+  "media": {
+    "seoTitle": "Medios | Sistema de diseño | Warren de Leon",
+    "seoDescription": "Los patrones de medios en warrendeleon.com: el carrusel de fotos, el marco de dispositivo plano para capturas de la app, el zoom a pantalla completa y los marcadores de posición de imagen.",
+    "title": "Medios",
+    "intro": "Cómo se presentan las fotos y las capturas de pantalla: un carrusel en el hero de la portada, un marco de teléfono plano con raíl verde para capturas de la app, un zoom a pantalla completa para diagramas e imágenes, y un marcador de posición para las muestras.",
+    "toc": [
+      {
+        "id": "carousel",
+        "label": "Carrusel"
+      },
+      {
+        "id": "device",
+        "label": "Marco de dispositivo"
+      },
+      {
+        "id": "zoom",
+        "label": "Zoom a pantalla completa"
+      },
+      {
+        "id": "placeholder",
+        "label": "Marcador de posición"
+      }
+    ],
+    "carouselHeading": "Carrusel",
+    "carouselBody": "El carrusel de fotos del hero de la portada, renderizado en vivo: flechas y un contador sobre el marco, una fila de puntos debajo a partir de 700 píxeles (el punto activo se estira hasta formar una píldora), deslizamiento táctil y reproducción automática que respeta la preferencia de movimiento reducido y se pausa desde el control junto a los puntos. En un teléfono los puntos dan paso a un título superpuesto sobre la foto.",
+    "carouselCaption": "El componente HeroCarousel real.",
+    "deviceHeading": "Marco de dispositivo",
+    "deviceBody": "Las capturas de la app en los artículos van dentro de un marco de teléfono plano dibujado en CSS: un raíl verde de marca, un bisel negro fino, botones laterales dibujados justo fuera del raíl y una sombra que se adapta al tema. Mantiene la estética plana del blog en lugar de un render fotorrealista.",
+    "deviceCaption": "El patrón .device-frame, aquí con un marcador de posición donde va la captura.",
+    "zoomHeading": "Zoom a pantalla completa",
+    "zoomBody": "Las imágenes y los diagramas prerrenderizados de los artículos se abren al tocarlos en un lightbox a pantalla completa, el único overlay que se comporta igual en todos los dispositivos. Los diagramas cambian de tema dentro de él, de modo que quien lee en modo oscuro amplía un diagrama en modo oscuro.",
+    "placeholderHeading": "Marcador de posición",
+    "placeholderBody": "Las muestras de esta documentación que llevarían una foto usan un marcador de posición neutro en lugar de una imagen prestada, para que el diseño sea honesto sobre qué es contenido y qué es chrome.",
+    "placeholderCaption": "El marcador de posición en las proporciones de miniatura de tarjeta y de hero."
   },
   "timeline": {
     "seoTitle": "Cronología | Sistema de diseño | Warren de Leon",

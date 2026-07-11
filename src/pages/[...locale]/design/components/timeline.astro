@@ -1,7 +1,7 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import Timeline from '../../../../components/Timeline.astro';
-import DoDont from '../../../../components/design/DoDont.astro';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 import workxpEn from '../../../../data/workxp-en.json';
@@ -52,10 +52,47 @@ const sample = workxpByLocale[locale].slice(0, 2);
 
   <section id="rules">
     <h2>{t.rulesHeading}</h2>
-    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{t.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{t.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={t.dos[0]}>
+        <span class="ds-rail-mock" aria-hidden="true">
+          <span class="ds-rail-dot"></span>
+          <span class="ds-rail-dot"></span>
+          <span class="ds-rail-dot"></span>
+        </span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={t.donts[0]}>
+        <span class="ds-rail-mock ds-rail-scatter" aria-hidden="true">
+          <span class="ds-rail-dot"></span>
+          <span class="ds-rail-dot" style="margin-left: 34px;"></span>
+          <span class="ds-rail-dot" style="margin-left: -18px;"></span>
+        </span>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={t.dos[1]}>
+        <span class="ds-rail-mock" aria-hidden="true">
+          <span class="timeline-present-tag ds-tag-inline">Latest</span>
+          <span class="ds-rail-dot"></span>
+          <span class="ds-rail-dot"></span>
+        </span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={t.donts[1]}>
+        <span class="badge">2 positions</span>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={t.dos[2]}>
+        <span class="ds-card-link-mock">
+          <span class="ds-rail-dot"></span>
+          <span class="ds-card-line"></span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={t.donts[2]}>
+        <span class="ds-doublemark" aria-hidden="true">
+          <span class="ds-rail-dot"></span>
+          <span class="ds-greenbar"></span>
+        </span>
+      </GuidanceCard>
+    </div>
     <h3>{t.whereHeading}</h3>
     <p>{t.whereBody}</p>
   </section>
@@ -65,4 +102,47 @@ const sample = workxpByLocale[locale].slice(0, 2);
   /* The timeline reserves a wide left gutter for the logo rail; keep it from
      touching the content edge on the docs page. */
   .ds-timeline-demo { margin-bottom: 1rem; }
+
+  /* Miniature rail mocks for the guidance pairs (proportions only). */
+  .ds-rail-mock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    position: relative;
+  }
+  .ds-rail-mock::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--timeline-line);
+  }
+  .ds-rail-scatter::before { opacity: 0.4; }
+  .ds-rail-dot {
+    position: relative;
+    z-index: 1;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1.5px solid var(--color-green);
+  }
+  .ds-tag-inline { position: relative; z-index: 1; left: auto; top: auto; transform: none; }
+  .ds-card-link-mock {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    background: var(--bg-card);
+    color: var(--text-muted);
+  }
+  .ds-card-line { width: 90px; height: 8px; border-radius: 4px; background: var(--badge-bg); }
+  .ds-doublemark { display: inline-flex; align-items: center; gap: 10px; }
+  .ds-greenbar { width: 44px; height: 3px; border-radius: 2px; background: var(--color-green); }
 </style>

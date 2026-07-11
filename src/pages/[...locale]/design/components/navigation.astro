@@ -1,6 +1,10 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
-import DoDont from '../../../../components/design/DoDont.astro';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
+import ViewportFrame from '../../../../components/design/ViewportFrame.astro';
+import TabBar from '../../../../components/TabBar.astro';
+import ReadingBar from '../../../../components/blog/ReadingBar.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
@@ -10,6 +14,7 @@ const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const n = d.navigation;
 const currentPath = getLocalePath(locale, '/design/components/navigation/');
+const homePath = getLocalePath(locale, '/');
 ---
 
 <DesignLayout
@@ -22,6 +27,17 @@ const currentPath = getLocalePath(locale, '/design/components/navigation/');
   intro={n.intro}
   toc={n.toc}
 >
+  <section id="viewports">
+    <h2>{n.viewportsHeading}</h2>
+    <p>{n.viewportsBody}</p>
+    <p>{d.frameThemeNote}</p>
+    <div class="ds-frames">
+      <ViewportFrame src={homePath} width={390} height={780} scale={0.58} label={d.bandLabels.mobile} />
+      <ViewportFrame src={homePath} width={768} height={900} scale={0.42} label={d.bandLabels.tablet} />
+      <ViewportFrame src={homePath} width={1280} height={900} scale={0.42} label={d.bandLabels.desktop} />
+    </div>
+  </section>
+
   <section id="bar">
     <h2>{n.barHeading}</h2>
     <p>{n.barBody}</p>
@@ -30,11 +46,27 @@ const currentPath = getLocalePath(locale, '/design/components/navigation/');
   <section id="dock">
     <h2>{n.dockHeading}</h2>
     <p>{n.dockBody}</p>
+    <SpecimenCard>
+      <div class="ds-fixed-demo ds-dock-demo">
+        <TabBar locale={locale} currentPath={homePath} />
+      </div>
+    </SpecimenCard>
   </section>
 
   <section id="action">
     <h2>{n.actionHeading}</h2>
     <p>{n.actionBody}</p>
+    <SpecimenCard>
+      <div class="ds-fixed-demo ds-bar-demo">
+        <ReadingBar
+          locale={locale}
+          title={n.actionDemoTitle}
+          progress={0.45}
+          progressText={n.actionProgressText}
+          hidden={false}
+        />
+      </div>
+    </SpecimenCard>
   </section>
 
   <section id="footer">
@@ -42,13 +74,102 @@ const currentPath = getLocalePath(locale, '/design/components/navigation/');
     <p>{n.footerBody}</p>
   </section>
 
+  <section id="rail">
+    <h2>{n.railHeading}</h2>
+    <p>{n.railBody}</p>
+  </section>
+
   <section id="rules">
     <h2>{n.rulesHeading}</h2>
-    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{n.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{n.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={n.dos[0]}>
+        <div class="ds-fixed-demo ds-dock-demo">
+          <TabBar locale={locale} currentPath={homePath} />
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={n.donts[0]}>
+        <div class="ds-five-mock" aria-hidden="true">
+          {[1, 2, 3, 4, 5].map(() => (
+            <span class="ds-five-tab">
+              <span class="ds-five-dot"></span>
+              <span class="ds-five-line"></span>
+            </span>
+          ))}
+        </div>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={n.dos[1]}>
+        <div class="ds-fixed-demo ds-bar-demo">
+          <ReadingBar locale={locale} title={n.actionDemoTitle} progress={0.45} progressText={n.actionProgressText} hidden={false} />
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={n.donts[1]}>
+        <div class="ds-stack-mock" aria-hidden="true">
+          <div class="ds-fixed-demo ds-bar-demo">
+            <ReadingBar locale={locale} title={n.actionDemoTitle} progress={0.45} progressText={n.actionProgressText} hidden={false} />
+          </div>
+          <div class="ds-fixed-demo ds-dock-demo">
+            <TabBar locale={locale} currentPath={homePath} />
+          </div>
+        </div>
+      </GuidanceCard>
+    </div>
     <h3>{n.whereHeading}</h3>
     <p>{n.whereBody}</p>
   </section>
 </DesignLayout>
+
+<style>
+  .ds-frames {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    align-items: flex-start;
+    margin: 0 0 1rem;
+  }
+  .ds-dock-demo,
+  .ds-bar-demo {
+    width: 100%;
+    max-width: 400px;
+  }
+  /* A deliberately broken five-tab mock (not a real component): the fifth
+     tab has nowhere to go in the 4-up grid. */
+  .ds-five-mock {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    background: var(--bg-nav);
+  }
+  .ds-five-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 0;
+  }
+  .ds-five-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 2px solid var(--text-muted);
+    opacity: 0.7;
+  }
+  .ds-five-line {
+    width: 70%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border-color);
+  }
+  .ds-stack-mock {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+    max-width: 400px;
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+// The mobile reading action bar (progress ring + current section + TOC
+// trigger, share, back-to-top), extracted from BlogPost so post pages and the
+// design-system docs render the same component. BlogPost's JS drives the ring
+// and reveals the bar; the docs render it inline with a fixed progress.
+import { t, type Locale } from '../../i18n/index';
+
+interface Props {
+  locale: Locale;
+  /** Initial section label (the post title until the reader scrolls). */
+  title: string;
+  /** Reading progress 0–1; posts leave it at 0 for the JS to drive. */
+  progress?: number;
+  /** Text for the small progress line; posts leave it empty for the JS. */
+  progressText?: string;
+  /** Posts render the bar hidden until their JS reveals it. */
+  hidden?: boolean;
+}
+const { locale, title, progress = 0, progressText, hidden = true } = Astro.props;
+const i18n = t(locale);
+const RING = 75.4;
+const dashoffset = +(RING * (1 - progress)).toFixed(1);
+---
+
+<div class="post-reading-bar" hidden={hidden}>
+  <button type="button" class="prb-toc" data-toc-open aria-haspopup="dialog" aria-expanded="false" aria-label={i18n.blog.contents}>
+    <svg class="prb-ring" width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+      <circle cx="15" cy="15" r="12" fill="none" stroke="var(--border-color)" stroke-width="3"></circle>
+      <circle class="prb-ring-fill" cx="15" cy="15" r="12" fill="none" stroke="var(--color-green)" stroke-width="3" stroke-linecap="round" stroke-dasharray="75.4" stroke-dashoffset={dashoffset} transform="rotate(-90 15 15)"></circle>
+    </svg>
+    <span class="prb-labels">
+      <span class="prb-section" data-prb-section>{title}</span>
+      <span class="prb-progress" data-prb-progress>{progressText}</span>
+    </span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 15 12 9 18 15"></polyline></svg>
+  </button>
+  <button type="button" class="prb-btn" data-share-open aria-haspopup="dialog" aria-label={i18n.blog.sharePost}>
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+  </button>
+  <button type="button" class="prb-btn" data-prb-top aria-label={i18n.footer.backToTop}>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+  </button>
+</div>
+
+<style is:global>
+  .post-reading-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px calc(8px + var(--safe-bottom));
+    background: var(--bg-nav);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border-color);
+  }
+  .post-reading-bar[hidden] { display: none; }
+  .prb-toc {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+  }
+  .prb-ring { flex-shrink: 0; }
+  .prb-ring-fill { transition: stroke-dashoffset 0.15s linear; }
+  .prb-labels { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .prb-section { font-size: 0.78rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prb-progress { font-size: 0.66rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .prb-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  /* The action bar runs to 1279px (DS §10); the language sheet is global,
+     so only the article's own sheets switch off with the sidebar TOC. */
+  @media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+    .post-reading-bar { display: none; }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
 import SwatchTable from '../../../components/design/SwatchTable.astro';
-import DoDont from '../../../components/design/DoDont.astro';
+import GuidanceCard from '../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
 import { pickColors } from '../../../lib/design-tokens.mjs';
@@ -140,12 +140,63 @@ const calloutRows = [
 
   <section id="using">
     <h2>{c.usingHeading}</h2>
-    <DoDont doLabel={c.doLabel} dontLabel={c.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{c.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{c.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={c.doLabel} caption={c.dos[0]}>
+        <button type="button" class="btn btn-primary">Download CV</button>
+        <span class="ds-plain-text">Body copy stays neutral.</span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={c.dontLabel} caption={c.donts[0]}>
+        <button type="button" class="btn btn-primary">Download CV</button>
+        <button type="button" class="btn" style="background: #3182ce; color: #ffffff;">Book a call</button>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={c.doLabel} caption={c.dos[2]}>
+        <span class="ds-contrast-stage">
+          <span style="color: var(--color-green-text); font-weight: 600;">A readable green link</span>
+        </span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={c.dontLabel} caption={c.donts[1]}>
+        <span class="ds-contrast-stage">
+          <span style="color: #6dc402; font-size: 0.85rem;">Small lime text on white fails the bar</span>
+        </span>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={c.doLabel} caption={c.dos[1]}>
+        <span class="ds-theme-pair" aria-hidden="true">
+          <span class="ds-theme-chip" style="background: #ffffff; color: #0e0c19; border: 1px solid #e0e0e0;">Aa</span>
+          <span class="ds-theme-chip" style="background: #111111; color: #f0f0f0; border: 1px solid #333333;">Aa</span>
+        </span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={c.dontLabel} caption={c.donts[2]}>
+        <button type="button" class="btn" style="background: transparent; border: 2px solid #e53e3e; color: #e53e3e;">Download CV</button>
+      </GuidanceCard>
+    </div>
   </section>
 </DesignLayout>
+
+<style>
+  /* Guidance stages: fixed backgrounds so the contrast examples stay truthful
+     in either theme. */
+  .ds-contrast-stage {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.8rem 1.1rem;
+    border-radius: 8px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+  }
+  .ds-plain-text { font-size: 0.9rem; color: var(--text-secondary); }
+  .ds-theme-pair { display: inline-flex; gap: 0.6rem; }
+  .ds-theme-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+</style>
 
 <style>
   .ds-tablewrap {

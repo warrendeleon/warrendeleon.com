@@ -1,0 +1,73 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
+import Placeholder from '../../../../components/design/Placeholder.astro';
+import HeroCarousel from '../../../../components/HeroCarousel.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const m = d.media;
+const currentPath = getLocalePath(locale, '/design/components/media/');
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={m.seoTitle}
+  seoDescription={m.seoDescription}
+  group="components"
+  title={m.title}
+  intro={m.intro}
+  toc={m.toc}
+>
+  <section id="carousel">
+    <h2>{m.carouselHeading}</h2>
+    <p>{m.carouselBody}</p>
+    <SpecimenCard label={m.carouselCaption}>
+      <div class="ds-carousel-demo">
+        <HeroCarousel locale={locale} />
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="device">
+    <h2>{m.deviceHeading}</h2>
+    <p>{m.deviceBody}</p>
+    <SpecimenCard label={m.deviceCaption}>
+      <!-- .device-frame lives in global.css scoped under .prose. -->
+      <div class="prose ds-device-demo">
+        <div class="device-frame">
+          <Placeholder ratio="9 / 19" />
+        </div>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="zoom">
+    <h2>{m.zoomHeading}</h2>
+    <p>{m.zoomBody}</p>
+  </section>
+
+  <section id="placeholder">
+    <h2>{m.placeholderHeading}</h2>
+    <p>{m.placeholderBody}</p>
+    <SpecimenCard label={m.placeholderCaption}>
+      <div class="ds-ph ds-ph-thumb"><Placeholder /></div>
+      <div class="ds-ph ds-ph-hero"><Placeholder ratio="16 / 9" /></div>
+    </SpecimenCard>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-carousel-demo { width: 100%; max-width: 460px; }
+  .ds-device-demo { max-width: none; width: 100%; display: flex; justify-content: center; }
+  /* .device-frame sizes itself against .prose width; give it a stage width. */
+  .ds-device-demo .device-frame { width: 220px; margin: 0.5rem auto; }
+  .ds-ph { border-radius: 9px; overflow: hidden; border: 1px solid var(--border-color); }
+  .ds-ph-thumb { width: 96px; height: 76px; }
+  .ds-ph-hero { width: 280px; }
+</style>

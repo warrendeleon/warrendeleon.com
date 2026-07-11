@@ -26,7 +26,8 @@
     "timeline": "Timeline",
     "writing": "Pagsusulat",
     "translation": "Pagsasalin",
-    "accessibility": "Accessibility"
+    "accessibility": "Accessibility",
+    "media": "Media"
   },
   "landing": {
     "seoTitle": "Disenyo | Warren de Leon",
@@ -58,9 +59,20 @@
       "motion": "Maiikli, tahimik na mga transition, at ang reduced-motion na switch."
     },
     "moreHeading": "Marami pang darating",
-    "moreBody": "Ang mga component, gabay sa nilalaman at mga pamantayan sa accessibility ay isusulat sunod, sa parehong hugis ng mga pundasyon dito.",
+    "moreBody": "Kasunod na isinusulat ang mga content guideline at accessibility standard, sa parehong hugis ng mga page dito.",
     "livingHeading": "Isang buháy na dokumento",
-    "livingBody": "Ang mga table ng kulay, type at spacing sa mga pahinang ito ay nabubuo mula sa stylesheet ng site sa build time. Baguhin ang isang token sa CSS at magbabago rin ang mga table dito kasabay nito. Kung hindi na mabasa ng parser ang stylesheet, mabibigo ang build sa halip na magpakita ng walang lamang table."
+    "livingBody": "Ang mga table ng kulay, type at spacing sa mga pahinang ito ay nabubuo mula sa stylesheet ng site sa build time. Baguhin ang isang token sa CSS at magbabago rin ang mga table dito kasabay nito. Kung hindi na mabasa ng parser ang stylesheet, mabibigo ang build sa halip na magpakita ng walang lamang table.",
+    "componentsHeading": "Mga Component",
+    "componentBlurbs": {
+      "buttons": "Dalawang tier, totoong mga state, at kung ano ang isusulat sa mga ito.",
+      "tags-chips": "Mga badge na nagsasabi ng katotohanan, mga tag na may pupuntahan.",
+      "cards": "Mula sa base card hanggang sa lead at series card ng blog.",
+      "navigation": "Isang chrome set na nagbabago ng hugis sa tatlong viewport.",
+      "sheets-overlays": "Ang bottom-sheet primitive sa likod ng bawat picker.",
+      "article-patterns": "Mga callout, code, table, contents — ang long-form kit.",
+      "timeline": "Ang rail ng work experience, kasama ang mga logo dot.",
+      "media": "Ang photo carousel, ang device frame, at mga placeholder."
+    }
   },
   "colour": {
     "seoTitle": "Kulay | Disenyo | Warren de Leon",
@@ -546,6 +558,12 @@
   },
   "doLabel": "Gawin",
   "dontLabel": "Huwag",
+  "bandLabels": {
+    "mobile": "Mobile",
+    "tablet": "Tablet",
+    "desktop": "Desktop"
+  },
+  "frameThemeNote": "Ang mga frame sa ibaba ay ang totoong mga page na ni-render sa totoong lapad, naka-off ang scripts — kaya palaging light theme ang ipinapakita nila at walang analytics na tumatakbo sa loob.",
   "buttons": {
     "seoTitle": "Mga Button | Disenyo | Warren de Leon",
     "seoDescription": "Ang dalawang antas ng button sa warrendeleon.com: mga inline na button para sa mga form at aksyon, at mga pill CTA para sa mga panawagan sa antas ng pahina, kasama ang mga estado at mga panuntunan sa nilalaman.",
@@ -575,7 +593,7 @@
     "pillHeading": "Mga pill CTA",
     "pillBody": "Mas matataas na 48-pixel na pill para sa mga panawagan sa antas ng pahina — ang mga dapat makita ng bisita kahit mula sa malayo, tulad ng “Download CV” o “Book a call”. Solido at may-balangkas, parehong pares ng berde.",
     "statesHeading": "Mga estado",
-    "statesBody": "Pinalalalim ng hover ang berde — subukan mo ito sa mga button sa itaas. Ang focus ay gumuguhit ng ibinabahaging 2-pixel na berdeng singsing. Bihira ang isang tunay na disabled na button, dahil karamihan sa mga button sa site ay mga link; kung saan naka-disable ang isang kontrol, tulad ng mga arrow ng serye, bumababa ito sa mababang opacity nang hindi nagbabago ang kulay, kaya nababasa pa rin ito bilang parehong kontrol.",
+    "statesBody": "Bawat state, ni-render. Pinapalalim ng hover ang berde; iginuguhit ng focus ang shared na 2-pixel na berdeng ring; ang disabled na control ay bumababa sa mababang opacity nang hindi nagbabago ang kulay, kaya mababasa pa rin itong parehong control. Ipinapakita ng mga column ng hover at focus ang mga state na iyon nang naka-apply, dahil hindi kayang mag-hover ng cursor ang isang static na page sa sarili nito.",
     "contentHeading": "Nilalaman",
     "contentBody": "Ang mga label ay isang pandiwa at isang pangngalan, sa sentence case, sa isang linya. Sabihin kung ano ang mangyayari, mula sa panig ng mambabasa, nang walang “my” o “your”.",
     "rulesHeading": "Kailan gagamitin",
@@ -590,7 +608,14 @@
       "I-grey out ang isang disabled na button nang labis na hindi na ito mukhang kontrol."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Inline: .btn na may .btn-primary o .btn-outline. Pill: .hero-cta na may .hero-cta-solid o .hero-cta-outline, na nakagrupo sa .hero-ctas."
+    "whereBody": "Inline: .btn na may .btn-primary o .btn-outline. Pill: .hero-cta na may .hero-cta-solid o .hero-cta-outline, na nakagrupo sa .hero-ctas.",
+    "states": {
+      "default": "Default",
+      "hover": "Hover",
+      "focus": "Focus",
+      "disabled": "Disabled"
+    },
+    "statesDisabledNote": "Karamihan ng mga button sa site ay mga link, kaya bihira ang tunay na disabled state; ang mga arrow ng series ang live na halimbawa ng kumbensyong ito."
   },
   "tagsChips": {
     "seoTitle": "Mga tag at chip | Disenyo | Warren de Leon",
@@ -644,6 +669,14 @@
         "label": "Feed post"
       },
       {
+        "id": "series-hero",
+        "label": "Series hero card"
+      },
+      {
+        "id": "lead",
+        "label": "Ang lead post at mga viewport"
+      },
+      {
         "id": "rules",
         "label": "Kailan gagamitin"
       }
@@ -651,7 +684,7 @@
     "baseHeading": "Base card",
     "baseBody": "Isang bilog na 12-pixel na ibabaw sa background ng card, nakabalangkas ng manipis na linya at itinaas ng malambot na anino. Kapag hini-hover, kaunti pa itong itinataas. Ito ang shell na halos lahat ng ibang card ay itinatayo.",
     "feedHeading": "Feed post",
-    "feedBody": "Ang card ng listahan ng blog. Sa desktop ito ay isang thumbnail sa tabi ng isang pamagat, linya ng meta at dalawang-linyang buod; sa telepono ito ay bumabagsak sa isang compact na hanay. Ang buong ibabaw ay isang link, at ang pinakabagong post ay nakakakuha ng mas malaking lead treatment kaya doon unang dumadapo ang mata.",
+    "feedBody": "Ang card ng blog listing — ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row.",
     "wholeLinkNote": "Ang buong card ay isang link, hindi isang title link na may hiwalay na “read more”. Ang hover ay magkasabay na nagtataas ng card at nag-be-berde sa pamagat.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
@@ -665,7 +698,11 @@
       "Alisin ang border at umasa sa anino lamang para paghiwalayin ang mga card."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Base: .card. Feed: .feed-post na may .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+    "whereBody": "Base: .card. Feed: .feed-post na may .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc.",
+    "seriesHeroHeading": "Series hero card",
+    "seriesHeroBody": "Ang card ng kasalukuyang series sa blog home, ni-render nang live: hero art sa tabi ng pitch ng series, kasama ang progress bar ng nailathala-sa-kabuuan. Sa phone, nagpapatong-patong ito at nagkakaroon ng solid na View series na button.",
+    "leadHeading": "Ang lead post at mga viewport",
+    "leadBody": "Ang pinakabagong post ay may mas malaking lead treatment, at ang buong feed ay nagbabago ng hugis bawat band — malaking lead card sa ibabaw ng mga compact na row sa phone, dalawang-column na grid sa tablet, mga thumbnail row na may sidebar sa desktop. Ang mga frame sa ibaba ay ang totoong blog page sa bawat lapad."
   },
   "navigation": {
     "seoTitle": "Nabigasyon | Disenyo | Warren de Leon",
@@ -673,6 +710,10 @@
     "title": "Nabigasyon",
     "intro": "Ang paggalaw sa buong site ay gumagamit ng isang set ng chrome na humuhugis muli bawat screen sa halip na ilang magkakahiwalay. Ang parehong dock ay edge-to-edge sa isang telepono, isang lumulutang na pill sa isang tablet, at wala na sa desktop, kung saan ang top nav ang nangunguna.",
     "toc": [
+      {
+        "id": "viewports",
+        "label": "Isang chrome set, tatlong viewport"
+      },
       {
         "id": "bar",
         "label": "Top bar"
@@ -683,11 +724,15 @@
       },
       {
         "id": "action",
-        "label": "Action bar"
+        "label": "Reading action bar"
       },
       {
         "id": "footer",
         "label": "Footer"
+      },
+      {
+        "id": "rail",
+        "label": "Nabigasyon ng docs"
       },
       {
         "id": "rules",
@@ -697,11 +742,11 @@
     "barHeading": "Top bar",
     "barBody": "Isang sticky bar na nagdadala ng logo at ng mga utility na kontrol (wika, tema, at paghahanap sa blog). Ito ay 64 pixel ang taas sa desktop, 60 sa tablet at 56 sa isang telepono. Sa desktop dinadala rin nito ang tatlong link ng seksyon; sa ibaba ng 1280 lumilipat ang mga iyon sa dock.",
     "dockHeading": "Tab dock",
-    "dockBody": "Ang pangunahing nabigasyon ng seksyon sa telepono at tablet: apat na tab — Home, Blog, Work, Book a call. Ito ay isang elemento lamang na may isang breakpoint, hindi dalawang component: edge-to-edge sa kahabaan ng ibaba sa isang telepono, isang lumulutang na bilog na pill sa isang tablet, at ganap na nakatago sa desktop. Ang apat na tab ay istruktural; ang ikalima ay hindi magkakasya sa grid, kaya ang seksyong ito ng disenyo ay matatagpuan sa footer.",
-    "actionHeading": "Action bar",
-    "actionBody": "Sa isang reading o detail na pahina ang dock ay pinapalitan, hindi sinasabayan, ng isang contextual action bar na nagdadala ng progreso ng pagbabasa at ng sariling mga aksyon ng pahina (nilalaman, share). Isang bar sa isang pagkakataon: browse chrome o read chrome, hindi kailanman pareho.",
+    "dockBody": "Ang pangunahing nabigasyon ng mga seksyon sa phone at tablet: apat na tab — Home, Blog, Work, Book a call. Isa itong elemento na may isang breakpoint, hindi dalawang component. Nasa ibaba ang totoong TabBar component, pinanatiling static; ipinapakita ng mga frame sa itaas kung nasaan ito sa bawat lapad. Structural ang apat na tab; hindi kakasya ang panglima sa grid, kaya nakatira sa footer ang seksyong ito ng design system.",
+    "actionHeading": "Reading action bar",
+    "actionBody": "Sa reading page, ang dock ay pinapalitan, hindi sinasamahan, ng isang contextual action bar: isang progress ring na may kasalukuyang seksyon na nagbubukas ng contents sheet, tapos share at back-to-top. Ito ang totoong ReadingBar component, ipinapakita sa kalagitnaan ng artikulo. Isang bar sa bawat pagkakataon: browse chrome o read chrome, hindi kailanman pareho.",
     "footerHeading": "Footer",
-    "footerBody": "Isang gitnang column sa bawat screen: ang mga link ng seksyon, isang patag na hanay ng mga social mark na may RSS, at ang copyright. Walang logo, kailanman — dala na ito ng top bar.",
+    "footerBody": "Isang nakasentrong column sa bawat screen: ang mga link ng seksyon, isang flat na hilera ng mga social mark kasama ang RSS, at ang copyright. Walang logo, kailanman — dala na ito ng top bar. Ang live na footer ay nasa ibaba mismo ng page na ito.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
       "Panatilihing apat na tab lang ang dock; ilagay ang anupamang iba sa footer.",
@@ -714,7 +759,13 @@
       "Maglagay ng logo sa footer; pag-aari ito ng top bar."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, ang reading bar sa BlogPost.astro, at Footer.astro (.footer). Ang kanilang mga istilo ay naka-scope sa bawat component, kaya ang anatomya ay naidokumento rito sa halip na i-render muli."
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ang reading bar sa BlogPost.astro, at Footer.astro (.footer). Ang kanilang mga istilo ay naka-scope sa bawat component, kaya ang anatomya ay naidokumento rito sa halip na i-render muli.",
+    "viewportsHeading": "Isang chrome set, tatlong viewport",
+    "viewportsBody": "Ang nabigasyon ang bahagi ng system na pinakahinuhubog ng viewport. Ang mga frame sa ibaba ay ang totoong home page na ni-render sa lapad ng bawat band, anuman ang device na ginagamit mo sa pagbabasa nito: ang dock ay umaabot edge-to-edge sa phone, lumulutang bilang pill sa tablet, at napapalitan ng mga top nav link sa desktop.",
+    "actionProgressText": "12 min na lang · 45%",
+    "actionDemoTitle": "Isang shared store sa lahat ng remotes",
+    "railHeading": "Nabigasyon ng docs",
+    "railBody": "Ang sariling nabigasyon ng seksyong ito ay bahagi rin ng system: isang grouped na rail sa desktop (Foundations, Components at iba pa bilang mga naka-label na block), isang collapsible na menu ng seksyon sa itaas ng pamagat ng page sa ilalim ng 1280 pixels, dagdag pa ang breadcrumb at ang On-this-page na card."
   },
   "sheetsOverlays": {
     "seoTitle": "Mga sheet at overlay | Disenyo | Warren de Leon",
@@ -773,7 +824,7 @@
     "toc": [
       {
         "id": "callouts",
-        "label": "Mga callout"
+        "label": "Mga Callout"
       },
       {
         "id": "quote",
@@ -785,7 +836,15 @@
       },
       {
         "id": "tables",
-        "label": "Mga talahanayan"
+        "label": "Mga Table"
+      },
+      {
+        "id": "contents",
+        "label": "Contents"
+      },
+      {
+        "id": "series-nav",
+        "label": "Nabigasyon ng series"
       },
       {
         "id": "subscribe",
@@ -809,27 +868,153 @@
     "codeSampleLang": "TypeScript",
     "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
     "tablesHeading": "Mga talahanayan",
-    "tablesBody": "Hindi kailanman gumagamit ang isang artikulo ng hubad na HTML table. Ang malalapad na talahanayan ay nagsi-scroll sa loob ng isang may-border na card na may sticky na unang column at isang monospace na header strip; ang ilang data ay nagiging isang bespoke na card sa halip — isang score row, isang checklist, isang range band. Ang punto ay ang data ay palaging dumarating sa loob ng isang frame, hindi kailanman bilang mga hubad na hanay.",
+    "tablesBody": "Hindi kailanman gumagamit ang artikulo ng hubad na HTML table. Ang classic na table ay nasa loob ng bordered na card na may sticky na unang column at monospace na header strip; at kung saan mag-aaway ang mga row at ang column ng phone, nagiging bespoke na card ang data. Lahat ng limang pattern, ni-render mula sa totoong mga class:",
     "tableSample": {
-      "kicker": "Halimbawa",
-      "title": "Range band",
+      "kicker": "Range bands",
+      "title": "Mga saklaw ng level",
       "rows": [
         {
-          "name": "Mga pundasyon",
-          "val": "6 na pahina",
+          "name": "Foundations",
+          "val": "6 na page",
           "fill": 60
         },
         {
-          "name": "Mga component",
-          "val": "7 pahina",
-          "fill": 70
+          "name": "Components",
+          "val": "8 na page",
+          "fill": 80
         }
       ]
     },
     "subscribeHeading": "Mag-subscribe",
     "subscribeBody": "Ang newsletter band na nagtatapos sa isang post: isang maikling pitch, isang email field, at isang tala tungkol sa double opt-in. Ito ang tunay na component, na na-render nang live.",
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* at .prose pre, ang pamilyang .dt-card, at ang SubscribeForm.astro."
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* at .prose pre, ang pamilyang .dt-card, at ang SubscribeForm.astro.",
+    "tableClassic": {
+      "label": "Classic na table card",
+      "headers": [
+        "Pattern",
+        "Hugis",
+        "Abutin ito kapag"
+      ],
+      "rows": [
+        [
+          "Classic",
+          "Mga row sa scrollable na card",
+          "Talagang tabular ang data"
+        ],
+        [
+          "Score rows",
+          "Mga bilog na may numero + mga paglalarawan",
+          "Isang rubric o scale"
+        ],
+        [
+          "Checklist",
+          "Mga row na may tsek at walang tsek",
+          "Mga kriteryang naoobserbahan"
+        ]
+      ]
+    },
+    "tableScore": {
+      "kicker": "Score rows",
+      "title": "Rubric scale",
+      "rows": [
+        {
+          "num": "1",
+          "desc": "Umaabot sa pamantayan pero may mga puwang na ipupuna ng reviewer."
+        },
+        {
+          "num": "2",
+          "desc": "Malinis na umaabot sa pamantayan; walang ipupuna."
+        }
+      ]
+    },
+    "tableChecklist": {
+      "kicker": "Checklist",
+      "title": "Mga kriteryang naoobserbahan",
+      "items": [
+        {
+          "text": "Mga state na ni-render, hindi inilarawan",
+          "checked": true
+        },
+        {
+          "text": "Bawat value mula sa live na stylesheet",
+          "checked": true
+        },
+        {
+          "text": "Isang kamukha na muling ginawa gamit ang bagong CSS",
+          "checked": false
+        }
+      ]
+    },
+    "tableCrit": {
+      "kicker": "Mga criterion row",
+      "title": "May mga WCAG chip",
+      "rows": [
+        {
+          "name": "Nakikitang focus",
+          "chip": "2.4.7 AA",
+          "desc": "Bawat interactive na control ay gumuguhit ng shared na berdeng ring."
+        },
+        {
+          "name": "Laki ng target",
+          "chip": "2.5.8 AA",
+          "desc": "Nananatili ang mga hit area sa 44 pixels o mas malaki."
+        }
+      ]
+    },
+    "contentsHeading": "Contents",
+    "contentsBody": "Ang mahabang artikulo ay may dalang table of contents: ang totoong Toc component ay nire-render bilang sticky na sidebar card mula 1024 pixels, at ang parehong mga heading ang nagpapakain sa contents sheet sa likod ng progress ring ng reading bar sa ilalim niyon.",
+    "contentsRows": [
+      "Pangkalahatang-ideya",
+      "Ang dalawang tier",
+      "Mga State",
+      "Content"
+    ],
+    "seriesNavHeading": "Nabigasyon ng series",
+    "seriesNavBody": "Ang post na kabilang sa isang series ay bumubukas na may pahalang na shelf ng mga numerong part card — ang kasalukuyang part ay naka-outline ng berde, ang iba ay nagli-link sa buong series. Malayang nagsi-scroll ang shelf sa mobile; nagdadagdag ng mga arrow control ang desktop.",
+    "seriesNavSeries": "Module Federation sa React Native",
+    "seriesNavPart": "Part 3 ng 8",
+    "seriesNavTitles": [
+      "Bakit Module Federation",
+      "Ang iyong unang federated remote",
+      "Host shell at mga federated tab",
+      "Pag-type ng seam sa pagitan ng mga remote"
+    ]
+  },
+  "media": {
+    "seoTitle": "Media | Disenyo | Warren de Leon",
+    "seoDescription": "Ang mga media pattern sa warrendeleon.com: ang photo carousel, ang flat na device frame para sa mga app screenshot, full-screen zoom, at mga image placeholder.",
+    "title": "Media",
+    "intro": "Kung paano dinadala ang mga larawan at screenshot: isang carousel sa home hero, isang flat na phone frame na may berdeng rail para sa mga app screenshot, isang full-screen zoom para sa mga diagram at larawan, at isang placeholder para sa mga specimen.",
+    "toc": [
+      {
+        "id": "carousel",
+        "label": "Carousel"
+      },
+      {
+        "id": "device",
+        "label": "Device frame"
+      },
+      {
+        "id": "zoom",
+        "label": "Full-screen zoom"
+      },
+      {
+        "id": "placeholder",
+        "label": "Placeholder"
+      }
+    ],
+    "carouselHeading": "Carousel",
+    "carouselBody": "Ang photo carousel ng home hero, ni-render nang live: mga arrow at counter sa frame, isang hilera ng dots sa ilalim nito mula 700 pixels (humahaba ang aktibong dot para maging pill), swipe sa touch, at autoplay na gumagalang sa reduced motion at humihinto gamit ang control sa tabi ng mga dot. Sa phone, napapalitan ang mga dot ng overlay na pamagat sa ibabaw ng larawan.",
+    "carouselCaption": "Ang totoong HeroCarousel component.",
+    "deviceHeading": "Device frame",
+    "deviceBody": "Ang mga app screenshot sa mga artikulo ay nakalagay sa loob ng flat na phone frame na iginuhit sa CSS: isang brand-green na rail, isang manipis na itim na bezel, mga side button na iginuhit sa labas mismo ng rail, at isang shadow na sumusunod sa theme. Nananatili ito sa flat na estetika ng blog sa halip na photoreal na render.",
+    "deviceCaption": "Ang .device-frame pattern, dito may placeholder sa pwesto ng screenshot.",
+    "zoomHeading": "Full-screen zoom",
+    "zoomBody": "Ang mga larawan at pre-rendered na diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap — ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
+    "placeholderHeading": "Placeholder",
+    "placeholderBody": "Ang mga specimen sa docs na ito na dapat sana ay may larawan ay gumagamit ng neutral na placeholder sa halip na hiram na imahe, para tapat ang layout kung alin ang content at alin ang chrome.",
+    "placeholderCaption": "Ang placeholder sa card-thumbnail at hero na mga ratio."
   },
   "timeline": {
     "seoTitle": "Timeline | Disenyo | Warren de Leon",

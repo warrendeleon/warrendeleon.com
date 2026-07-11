@@ -1,8 +1,8 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
-import DoDont from '../../../../components/design/DoDont.astro';
-import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
 export const getStaticPaths = localeStaticPaths;
@@ -10,6 +10,10 @@ export const getStaticPaths = localeStaticPaths;
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const b = d.buttons;
+const i18n = t(locale);
+// Real site labels, in the page's own locale, so demos read like the site.
+const CV = i18n.workExperience.downloadCV;
+const CALL = i18n.nav.bookACall;
 const currentPath = getLocalePath(locale, '/design/components/buttons/');
 ---
 
@@ -27,17 +31,17 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
     <h2>{b.tiersHeading}</h2>
     <h3>{b.inlineHeading}</h3>
     <p>{b.inlineBody}</p>
-    <SpecimenCard code={'<button class="btn btn-primary">Download CV</button>\n<button class="btn btn-outline">Book a call</button>'}>
-      <button type="button" class="btn btn-primary">Download CV</button>
-      <button type="button" class="btn btn-outline">Book a call</button>
+    <SpecimenCard code={'<button class="btn btn-primary">…</button>\n<button class="btn btn-outline">…</button>'}>
+      <button type="button" class="btn btn-primary">{CV}</button>
+      <button type="button" class="btn btn-outline">{CALL}</button>
     </SpecimenCard>
 
     <h3>{b.pillHeading}</h3>
     <p>{b.pillBody}</p>
-    <SpecimenCard code={'<div class="hero-ctas">\n  <a class="hero-cta hero-cta-solid">Download CV</a>\n  <a class="hero-cta hero-cta-outline">Book a call</a>\n</div>'}>
+    <SpecimenCard code={'<div class="hero-ctas">\n  <a class="hero-cta hero-cta-solid">…</a>\n  <a class="hero-cta hero-cta-outline">…</a>\n</div>'}>
       <div class="hero-ctas">
-        <a class="hero-cta hero-cta-solid" href="#tiers">Download CV</a>
-        <a class="hero-cta hero-cta-outline" href="#tiers">Book a call</a>
+        <a class="hero-cta hero-cta-solid" href="#tiers">{CV}</a>
+        <a class="hero-cta hero-cta-outline" href="#tiers">{CALL}</a>
       </div>
     </SpecimenCard>
   </section>
@@ -45,6 +49,31 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
   <section id="states">
     <h2>{b.statesHeading}</h2>
     <p>{b.statesBody}</p>
+    <div class="ds-states">
+      <div class="ds-state">
+        <span class="ds-state-label">{b.states.default}</span>
+        <button type="button" class="btn btn-primary">{CV}</button>
+        <button type="button" class="btn btn-outline">{CALL}</button>
+      </div>
+      <div class="ds-state">
+        <span class="ds-state-label">{b.states.hover}</span>
+        <button type="button" class="btn btn-primary ds-sim-hover-primary">{CV}</button>
+        <button type="button" class="btn btn-outline ds-sim-hover-outline">{CALL}</button>
+      </div>
+      <div class="ds-state">
+        <span class="ds-state-label">{b.states.focus}</span>
+        <button type="button" class="btn btn-primary ds-sim-focus">{CV}</button>
+        <button type="button" class="btn btn-outline ds-sim-focus">{CALL}</button>
+      </div>
+      <div class="ds-state">
+        <span class="ds-state-label">{b.states.disabled}</span>
+        <button type="button" class="btn btn-primary" disabled style="opacity: 0.35; cursor: default;">{CV}</button>
+        <button type="button" class="ds-arrow-demo" disabled aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+    <p>{b.statesDisabledNote}</p>
   </section>
 
   <section id="content">
@@ -54,11 +83,86 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
 
   <section id="rules">
     <h2>{b.rulesHeading}</h2>
-    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{b.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{b.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={b.dos[0]}>
+        <button type="button" class="btn btn-primary">{CV}</button>
+        <button type="button" class="btn btn-outline">{CALL}</button>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={b.donts[0]}>
+        <button type="button" class="btn btn-primary">{CV}</button>
+        <button type="button" class="btn btn-primary">{CALL}</button>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={b.dos[2]}>
+        <button type="button" class="btn btn-primary">{CV}</button>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={b.donts[1]}>
+        <button type="button" class="btn btn-primary">Click here</button>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={b.dos[1]}>
+        <a class="hero-cta hero-cta-solid" href="#rules">{CV}</a>
+        <button type="button" class="btn btn-outline">{CALL}</button>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={b.donts[2]}>
+        <button type="button" class="btn btn-primary" disabled style="opacity: 0.08;">{CV}</button>
+      </GuidanceCard>
+    </div>
     <h3>{b.whereHeading}</h3>
     <p>{b.whereBody}</p>
   </section>
 </DesignLayout>
+
+<style>
+  /* States grid: each column renders the same real buttons with the state's
+     own declarations applied — hover/pressed use the same tokens :hover does. */
+  .ds-states {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin: 0 0 1.25rem;
+  }
+  @media (min-width: 700px) {
+    .ds-states { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1280px) {
+    .ds-states { grid-template-columns: repeat(4, 1fr); }
+  }
+  .ds-state {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-secondary);
+  }
+  .ds-state-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  }
+  /* The same declarations the real :hover rules apply. */
+  .ds-sim-hover-primary { background: var(--color-green-dark); }
+  .ds-sim-hover-outline { background: var(--color-green); color: var(--color-white); }
+  /* The site-wide :focus-visible ring. */
+  .ds-sim-focus { outline: 2px solid var(--color-green); outline-offset: 2px; }
+  /* The live disabled convention (the series/shelf arrows): opacity 0.35. */
+  .ds-arrow-demo {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    opacity: 0.35;
+    cursor: default;
+  }
+</style>

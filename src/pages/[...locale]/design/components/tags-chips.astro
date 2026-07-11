@@ -1,7 +1,8 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
-import DoDont from '../../../../components/design/DoDont.astro';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
+import TechBadge from '../../../../components/TechBadge.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
@@ -28,9 +29,9 @@ const currentPath = getLocalePath(locale, '/design/components/tags-chips/');
     <p>{c.badgeBody}</p>
     <SpecimenCard code={'<span class="badge">React Native</span>'}>
       <div class="badge-group">
-        <span class="badge">React Native</span>
-        <span class="badge">TypeScript</span>
-        <span class="badge">Astro</span>
+        <TechBadge label="React Native" />
+        <TechBadge label="TypeScript" />
+        <TechBadge label="Astro" />
       </div>
     </SpecimenCard>
   </section>
@@ -49,10 +50,36 @@ const currentPath = getLocalePath(locale, '/design/components/tags-chips/');
 
   <section id="rules">
     <h2>{c.rulesHeading}</h2>
-    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
-      <ul slot="do" class="ds-dodont-list">{c.dos.map((x) => <li>{x}</li>)}</ul>
-      <ul slot="dont" class="ds-dodont-list">{c.donts.map((x) => <li>{x}</li>)}</ul>
-    </DoDont>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[0]}>
+        <TechBadge label="React Native" />
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[0]}>
+        <span class="badge" style="text-decoration: underline; cursor: pointer; color: var(--color-green-text);">React Native</span>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[1]}>
+        <a class="post-tag" href="#rules">Testing</a>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[1]}>
+        <span class="post-tag" style="background: var(--color-green); color: var(--color-white); border-color: var(--color-green);">Testing</span>
+      </GuidanceCard>
+
+      <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[2]}>
+        <div class="post-tags">
+          <a class="post-tag" href="#rules">Testing</a>
+          <a class="post-tag" href="#rules">Leadership</a>
+          <a class="post-tag" href="#rules">Hiring</a>
+        </div>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[2]}>
+        <div class="post-tags" style="gap: 1px; max-width: 240px;">
+          {['Testing', 'Leadership', 'Hiring', 'React Native', 'Detox', 'MSW', 'Zod', 'RTK', 'i18n'].map((x) => (
+            <a class="post-tag" href="#rules">{x}</a>
+          ))}
+        </div>
+      </GuidanceCard>
+    </div>
     <h3>{c.whereHeading}</h3>
     <p>{c.whereBody}</p>
   </section>
