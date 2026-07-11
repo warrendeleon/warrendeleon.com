@@ -174,21 +174,23 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
   .ds-rail-home:hover,
   .ds-rail-home.active { color: var(--color-green-text); }
 
-  /* Each group reads as a clear section: bordered block label + indented links. */
-  .ds-rail-group { margin-bottom: 1.5rem; }
+  /* Each group is a sidebar card in the site's existing family (the article
+     ToC, the blog tags card): bordered block, uppercase muted label. */
+  .ds-rail-group {
+    margin-bottom: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-secondary);
+  }
   .ds-rail-group ul { list-style: none; margin: 0; padding: 0; }
   .ds-rail-group-label {
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--text-primary);
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
     margin: 0 0 0.6rem;
-    padding: 0.3rem 0.6rem;
-    background: var(--badge-bg);
-    border-radius: 6px;
-    display: inline-block;
   }
   .ds-rail-link {
     display: block;
@@ -230,12 +232,11 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
   .ds-mnav[open] summary::after { content: '▾'; }
   .ds-mnav-body { padding-top: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem; }
   .ds-mnav-label {
-    font-size: 0.66rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--text-primary);
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
     margin: 0 0 0.4rem;
   }
   .ds-mnav-links { display: flex; flex-wrap: wrap; gap: 6px; }
