@@ -831,7 +831,7 @@
     "actionProgressText": "12 min na lang · 45%",
     "actionDemoTitle": "Isang shared store sa lahat ng remotes",
     "railHeading": "Nabigasyon ng docs",
-    "railBody": "Ang navigation ng section na ito ay sumusunod sa anatomy ng blog post sa halip na mag-imbento ng sarili: sa phone, pinapalitan ng top bar ang logo ng back chevron pabalik sa Design hub na may nagko-collapse na page title, pinangangalanan ng breadcrumb ang grupo, at ang contents card ay ang mismong ToC component ng artikulo — sticky na kanang column sa desktop, inline sa itaas ng content sa mas maliliit na screen. Ang hub page ang index."
+    "railBody": "Ang navigation ng section na ito ay sumusunod sa anatomy ng blog post sa halip na mag-imbento ng sarili: sa phone, pinapalitan ng top bar ang logo ng back chevron pabalik sa Design hub na may nagko-collapse na pamagat, pinapalitan ng reading action bar ang dock at binubuksan ng ring button nito ang contents bilang bottom sheet, at sa desktop naka-pin ang contents sa kanan bilang ToC ng artikulo, na hina-highlight ang section kung nasaan ka. Pinangangalanan ng breadcrumb ang grupo, at ang hub page ang index."
   },
   "sheetsOverlays": {
     "seoTitle": "Mga sheet at overlay | Disenyo | Warren de Leon",

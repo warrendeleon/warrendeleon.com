@@ -818,7 +818,7 @@
     "footerHeading": "Footer",
     "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever — the top bar already carries it. The live footer is at the bottom of this very page.",
     "railHeading": "Docs navigation",
-    "railBody": "This section's own navigation follows the blog post's anatomy rather than inventing its own: on a phone the top bar swaps the logo for a back chevron to the Design hub with a collapsing page title, the breadcrumb names the group, and the contents card is the article ToC component — a sticky right column on desktop, inline above the content on smaller screens. The hub page is the index.",
+    "railBody": "This section's own navigation follows the blog post's anatomy rather than inventing its own: on a phone the top bar swaps the logo for a back chevron to the Design hub with a collapsing page title, the reading action bar replaces the dock and its ring button opens the contents as a bottom sheet, and on desktop the contents pin to the right as the article ToC, highlighting the section you are in. The breadcrumb names the group, and the hub page is the index.",
     "rulesHeading": "When to use",
     "dos": [
       "Keep the dock to four tabs; put anything else in the footer.",
