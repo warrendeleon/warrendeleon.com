@@ -1,0 +1,112 @@
+---
+// Horizontal scroll shelf with arrow controls. The shell (heading, arrows,
+// scroll track) is shared; callers slot in their own cards. Used by the
+// blog home ("More series") and post pages ("More from the blog").
+interface Props {
+  heading: string;
+  labelPrev: string;
+  labelNext: string;
+  class?: string;
+}
+
+const { heading, labelPrev, labelNext, class: className } = Astro.props;
+---
+
+<div class:list={['shelf-block', className]}>
+  <div class="shelf-head">
+    <h2 class="shelf-heading">{heading}</h2>
+    <div class="shelf-nav">
+      <button type="button" class="shelf-arrow" data-dir="prev" aria-label={labelPrev}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </button>
+      <button type="button" class="shelf-arrow" data-dir="next" aria-label={labelNext}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+  </div>
+  <div class="shelf">
+    <div class="shelf-track"><slot /></div>
+  </div>
+</div>
+
+<script>
+  function initShelf(shelf: HTMLElement, nav: HTMLElement, prev: HTMLButtonElement, next: HTMLButtonElement) {
+    const track = shelf.querySelector<HTMLElement>('.shelf-track');
+    function step() {
+      const card = track?.firstElementChild;
+      return card ? card.getBoundingClientRect().width + 22 : 340;
+    }
+    function update() {
+      const max = shelf.scrollWidth - shelf.clientWidth;
+      nav.hidden = max <= 4;
+      prev.disabled = shelf.scrollLeft <= 2;
+      next.disabled = shelf.scrollLeft >= max - 2;
+    }
+
+    prev.addEventListener('click', () => { shelf.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', () => { shelf.scrollBy({ left: step(), behavior: 'smooth' }); });
+    shelf.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  // Module scripts are deduped by Astro, so this runs once per page and
+  // wires every shelf on it.
+  document.querySelectorAll<HTMLElement>('.shelf-block').forEach((block) => {
+    const shelf = block.querySelector<HTMLElement>('.shelf');
+    const nav = block.querySelector<HTMLElement>('.shelf-nav');
+    const prev = block.querySelector<HTMLButtonElement>('[data-dir="prev"]');
+    const next = block.querySelector<HTMLButtonElement>('[data-dir="next"]');
+    if (!shelf || !nav || !prev || !next) return;
+    initShelf(shelf, nav, prev, next);
+  });
+</script>
+
+<style is:global>
+  .shelf-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .shelf-heading {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin: 0;
+  }
+
+  .shelf-nav { display: flex; gap: 0.6rem; flex: none; }
+  .shelf-nav[hidden] { display: none; }
+
+  .shelf-arrow {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .shelf-arrow:hover:not(:disabled) { border-color: var(--color-green); color: var(--color-green-text); }
+  .shelf-arrow:disabled { opacity: 0.35; cursor: default; }
+
+  .shelf {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding: 0.5rem 0;
+  }
+
+  .shelf::-webkit-scrollbar { display: none; }
+  .shelf-track { display: flex; gap: 1.4rem; width: max-content; }
+</style>

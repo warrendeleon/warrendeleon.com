@@ -24,6 +24,7 @@ const workRedirects = Object.fromEntries(
 
 // ```ts title="src/file.ts" — surfaces the file path as a bar above the code
 // block (styled from global.css via pre[data-filename]).
+/** @type {import('shiki').ShikiTransformer} */
 const codeFilename = {
   name: 'code-filename',
   pre(node) {

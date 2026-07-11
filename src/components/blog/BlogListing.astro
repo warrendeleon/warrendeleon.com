@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
 import SeriesHeroCard from './SeriesHeroCard.astro';
+import Shelf from './Shelf.astro';
 import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
@@ -80,37 +81,22 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
   <section class="section blog-after">
     <div class="container">
       {moreSeries.length > 0 && (
-        <div class="series-shelf-block">
-          <div class="series-shelf-head">
-            <h2 class="blog-section-heading">{i18n.blog.moreSeries}</h2>
-            <div class="series-shelf-nav">
-              <button type="button" class="series-shelf-arrow" data-dir="prev" aria-label={i18n.blog.previous}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-              </button>
-              <button type="button" class="series-shelf-arrow" data-dir="next" aria-label={i18n.blog.next}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
-            </div>
-          </div>
-          <div class="series-shelf">
-            <div class="series-shelf-track">
-              {moreSeries.map(s => (
-                <a class="series-card" href={getLocalePath(locale, `/blog/series/${s.slug}/`)}>
-                  {s.intro?.data.heroImage && (
-                    <div class="series-card-art">
-                      <img src={s.intro.data.heroImage} alt={s.intro.data.heroAlt || s.name} loading="lazy" />
-                    </div>
-                  )}
-                  <div class="series-card-body">
-                    <span class="series-card-kicker blog-mono">{s.count} {i18n.blog.parts}</span>
-                    <h3 class="series-card-title">{shortenSeriesName(s.name)}</h3>
-                    {s.desc && <p class="series-card-desc">{s.desc}</p>}
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+        <Shelf class="series-shelf-block" heading={i18n.blog.moreSeries} labelPrev={i18n.blog.previous} labelNext={i18n.blog.next}>
+          {moreSeries.map(s => (
+            <a class="series-card" href={getLocalePath(locale, `/blog/series/${s.slug}/`)}>
+              {s.intro?.data.heroImage && (
+                <div class="series-card-art">
+                  <img src={s.intro.data.heroImage} alt={s.intro.data.heroAlt || s.name} loading="lazy" />
+                </div>
+              )}
+              <div class="series-card-body">
+                <span class="series-card-kicker blog-mono">{s.count} {i18n.blog.parts}</span>
+                <h3 class="series-card-title">{shortenSeriesName(s.name)}</h3>
+                {s.desc && <p class="series-card-desc">{s.desc}</p>}
+              </div>
+            </a>
+          ))}
+        </Shelf>
       )}
     </div>
   </section>
@@ -253,42 +239,6 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
 </script>
 
 <script is:inline>
-(function () {
-  function init() {
-    document.querySelectorAll('.series-shelf-block').forEach(function (block) {
-      var shelf = block.querySelector('.series-shelf');
-      var nav = block.querySelector('.series-shelf-nav');
-      var prev = block.querySelector('[data-dir="prev"]');
-      var next = block.querySelector('[data-dir="next"]');
-      if (!shelf || !nav || !prev || !next) return;
-
-      function step() {
-        var card = shelf.querySelector('.series-card');
-        return card ? card.getBoundingClientRect().width + 22 : 340;
-      }
-      function update() {
-        var max = shelf.scrollWidth - shelf.clientWidth;
-        nav.hidden = max <= 4;
-        prev.disabled = shelf.scrollLeft <= 2;
-        next.disabled = shelf.scrollLeft >= max - 2;
-      }
-
-      prev.addEventListener('click', function () { shelf.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      next.addEventListener('click', function () { shelf.scrollBy({ left: step(), behavior: 'smooth' }); });
-      shelf.addEventListener('scroll', update, { passive: true });
-      window.addEventListener('resize', update);
-      update();
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
-</script>
-
-<script is:inline>
 /* "Load more posts": fetches the next paginated page (real /blog/N/ route),
    appends its feed cards, and re-points the button at the page after that.
    The link itself is a plain <a href> to the next page, so crawlers and
@@ -350,47 +300,9 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
   /* Current series hero — the card itself lives in SeriesHeroCard.astro */
   .series-hero { margin-bottom: 3.6rem; }
 
-  /* More series — manual scroll carousel with arrow controls */
+  /* More series — the carousel shell lives in Shelf.astro; this block only
+     carries the section spacing and the series-card styles. */
   .series-shelf-block { margin-bottom: 3.6rem; }
-
-  .series-shelf-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .series-shelf-head .blog-section-heading { margin-bottom: 0; }
-  .series-shelf-nav { display: flex; gap: 0.6rem; flex: none; }
-  .series-shelf-nav[hidden] { display: none; }
-
-  .series-shelf-arrow {
-    width: 42px;
-    height: 42px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    border: 1px solid var(--border-color);
-    background: var(--bg-card);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
-  }
-
-  .series-shelf-arrow:hover:not(:disabled) { border-color: var(--color-green); color: var(--color-green-text); }
-  .series-shelf-arrow:disabled { opacity: 0.35; cursor: default; }
-
-  .series-shelf {
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    padding: 0.5rem 0;
-  }
-
-  .series-shelf::-webkit-scrollbar { display: none; }
-  .series-shelf-track { display: flex; gap: 1.4rem; width: max-content; }
 
   .series-card {
     width: 320px;
@@ -652,16 +564,17 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
   }
 
   /* Tablet: more-series is a static 3-up grid, no scroll or arrows
-     (design "Blog Home Tablet"). */
+     (design "Blog Home Tablet"). Scoped under .series-shelf-block so the
+     override outweighs Shelf.astro's base rules and stays home-page-only. */
   @media (min-width: 700px) and (max-width: 1023px) {
-    .series-shelf { overflow: visible; }
-    .series-shelf-track {
+    .series-shelf-block .shelf { overflow: visible; }
+    .series-shelf-block .shelf-track {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       width: auto;
     }
-    .series-shelf-track .series-card { width: auto; }
-    .series-shelf-nav { display: none; }
+    .series-shelf-block .shelf-track .series-card { width: auto; }
+    .series-shelf-block .shelf-nav { display: none; }
   }
 </style>

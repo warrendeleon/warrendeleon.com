@@ -11,6 +11,7 @@ import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import type { MarkdownHeading } from 'astro';
 import popularity from '../../data/popularity.json';
 import MediaZoom from '../MediaZoom.astro';
+import Shelf from './Shelf.astro';
 
 interface Props {
   locale: Locale;
@@ -69,10 +70,10 @@ const manualRelated = post.data.relatedPosts || [];
 const relatedPosts = manualRelated.length > 0
   ? manualRelated
       .map(slug => sortedAsc.find(p => getPostSlug(p.id) === slug))
-      .filter((p): p is ScheduledPost => p !== undefined && (import.meta.env.DEV || p.data.publishDate <= now))
+      .filter((p): p is ScheduledPost => p !== undefined && (import.meta.env.DEV || publishSlot(p.data.publishDate) <= now))
       .slice(0, 3)
   : sortedAsc
-      .filter(p => getPostSlug(p.id) !== postSlug && (import.meta.env.DEV || p.data.publishDate <= now))
+      .filter(p => getPostSlug(p.id) !== postSlug && (import.meta.env.DEV || publishSlot(p.data.publishDate) <= now))
       .map(p => ({
         post: p,
         sharedTags: p.data.tags.filter(t => post.data.tags.includes(t)).length,
@@ -92,11 +93,11 @@ const recommendedPosts = sortedAsc
     const slug = getPostSlug(p.id);
     return slug !== postSlug
       && !relatedSlugs.has(slug)
-      && (import.meta.env.DEV || p.data.publishDate <= now);
+      && (import.meta.env.DEV || publishSlot(p.data.publishDate) <= now);
   })
   .map(p => ({ post: p, views: popularityViews[getPostSlug(p.id)] ?? 0 }))
   .sort((a, b) => a.views - b.views || a.post.data.publishDate.valueOf() - b.post.data.publishDate.valueOf())
-  .slice(0, 3)
+  .slice(0, 9 - relatedPosts.length)
   .map(x => x.post);
 
 // Series navigation: the published posts that share this post's `series`, in publish order.
@@ -104,7 +105,7 @@ const recommendedPosts = sortedAsc
 const seriesPosts = post.data.series
   ? sortedAsc.filter(p =>
       p.data.series === post.data.series &&
-      (import.meta.env.DEV || p.data.publishDate <= now))
+      (import.meta.env.DEV || publishSlot(p.data.publishDate) <= now))
   : [];
 const seriesIndex = seriesPosts.findIndex(p => getPostSlug(p.id) === postSlug);
 const seriesPartLabel = i18n.blog.seriesPart
@@ -119,8 +120,9 @@ const seriesNext = seriesIndex >= 0 && seriesIndex < seriesPosts.length - 1 ? se
 const navPrev = seriesPrev ?? prevPost;
 const navNext = seriesNext ?? nextPost;
 
-// One further-reading block: related-by-tag first, popularity-tail fillers after.
-const furtherReading = [...relatedPosts, ...recommendedPosts].slice(0, 3);
+// One further-reading shelf: hand-picked/related-by-tag first, popularity-tail
+// fillers after, capped at 9 so it stays a recommendation rather than an archive.
+const furtherReading = [...relatedPosts, ...recommendedPosts].slice(0, 9);
 
 const shareUrl = `https://warrendeleon.com${postPath}`;
 const campaignParam = `&utm_campaign=${post.data.campaign}`;
@@ -337,8 +339,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
     <div class="container">
       {furtherReading.length > 0 && (
         <section class="related-posts more-from-blog" aria-label={i18n.blog.moreFromBlog}>
-          <h3>{i18n.blog.moreFromBlog}</h3>
-          <div class="related-grid">
+          <Shelf heading={i18n.blog.moreFromBlog} labelPrev={i18n.blog.previous} labelNext={i18n.blog.next}>
             {furtherReading.map(rp => (
               <a href={getLocalePath(locale, `/blog/${getPostSlug(rp.id)}/`)} class="related-card">
                 {rp.data.heroImage && (
@@ -348,16 +349,11 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
                 )}
                 <div class="related-card-content">
                   <time datetime={rp.data.publishDate.toISOString()}>{formatBlogDate(rp.data.publishDate, locale)}</time>
-                  <h4>{rp.data.title}</h4>
-                  <div class="post-tags related-card-tags">
-                    {rp.data.tags.map((tag: string) => (
-                      <span class="post-tag" style="pointer-events: none;">{getTagLabel(tag, locale)}</span>
-                    ))}
-                  </div>
+                  <h3>{rp.data.title}</h3>
                 </div>
               </a>
             ))}
-          </div>
+          </Shelf>
         </section>
       )}
 
@@ -939,18 +935,19 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .share-btn:hover { border-color: var(--color-green); color: var(--color-green-text); transform: translateY(-1px); }
   .share-btn svg { flex-shrink: 0; }
   .related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
-  .related-posts h3 { font-size: 1.15rem; margin-bottom: 1.25rem; color: var(--text-primary); }
-  .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.25rem; }
-  .related-card { border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; color: var(--text-primary); transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; overflow: hidden; }
+  /* Cards ride the shared Shelf (Shelf.astro): fixed width, no shrink. */
+  .related-card { width: 280px; flex: none; border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; color: var(--text-primary); background: var(--bg-card); transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; overflow: hidden; }
   .related-card:hover { border-color: var(--color-green); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
   .related-card-image { width: 100%; height: 140px; overflow: hidden; }
   .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
   .related-card:hover .related-card-image img { transform: scale(1.03); }
   .related-card-content { padding: 1.25rem; }
   .related-card time { font-size: 0.9rem; color: var(--text-muted); }
-  .related-card h4 { font-size: 1rem; margin-top: 0.35rem; line-height: 1.35; transition: color 0.2s ease; }
-  .related-card:hover h4 { color: var(--color-green-text); }
-  .related-card-tags { margin-top: 0.75rem; }
+  .related-card h3 { font-size: 1rem; margin-top: 0.35rem; line-height: 1.35; transition: color 0.2s ease; }
+  .related-card:hover h3 { color: var(--color-green-text); }
+  @media (max-width: 760px) {
+    .related-card { width: 230px; }
+  }
   .blog-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
   .blog-nav-link { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
   .blog-nav-link:hover { border-color: var(--color-green); transform: translateY(-2px); }
