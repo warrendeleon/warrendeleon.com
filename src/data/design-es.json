@@ -386,7 +386,16 @@
     "targetsHeading": "Áreas táctiles",
     "targetsBody": "Todo lo que se puede tocar mide al menos 44 por 44 píxeles, aunque el icono visible sea más pequeño. Las áreas de pulsación se rellenan para llegar a ese mínimo en lugar de reducir el objetivo al tamaño del glifo.",
     "logoHeading": "Logo en un círculo",
-    "logoBody": "La marca se sitúa en un marco circular y ocupa unos dos tercios de él, con un anillo fino en el borde. Aparece a 48 píxeles junto a un rol, a 96 en una tarjeta y a 120 como ancla de la cronología."
+    "logoBody": "La marca se sitúa en un marco circular y ocupa unos dos tercios de él, con un anillo fino en el borde. Aparece a 48 píxeles junto a un rol, a 96 en una tarjeta y a 120 como ancla de la cronología.",
+    "annotatedHeading": "El ritmo, anotado",
+    "annotatedBody": "Las bandas rayadas son el propio espacio medido, no un dibujo de él: su altura la marcan los tokens en vivo, así que se reducen por banda exactamente como el sitio. Las etiquetas se leen escritorio / tableta / móvil.",
+    "annotatedLabels": {
+      "sections": "Dos secciones contiguas: cada una aporta su padding de un solo lado, así que el contenido queda a dos tokens de distancia.",
+      "heading": "De un encabezado de sección a su contenido: un --sp-heading.",
+      "card": "El padding de la tarjeta base: 24px fijos por cada lado.",
+      "buttons": "CTAs de píldora apiladas: un hueco fijo de 10px."
+    },
+    "perBandCaption": "Cada token en su tamaño móvil, tableta y escritorio: los valores extraídos lado a lado, estés en el dispositivo que estés. Las figuras de abajo, en cambio, se redimensionan en vivo con tu pantalla."
   },
   "shapeElevation": {
     "seoTitle": "Forma y elevación | Sistema de diseño | Warren de Leon",
@@ -519,7 +528,13 @@
       "Fijar a mano el color de un icono. Debería seguir al texto.",
       "Mezclar estilos de trazo y de relleno dentro del conjunto de la interfaz.",
       "Reducir el área táctil al tamaño del dibujo."
-    ]
+    ],
+    "hitCaption": "El área de toque, anotada: un glifo de 20px centrado en un cuadrado de 44px — el anillo rayado es el padding pulsable.",
+    "hitLabels": {
+      "area": "Área de toque",
+      "glyph": "Glifo",
+      "pad": "Padding"
+    }
   },
   "motion": {
     "seoTitle": "Movimiento | Sistema de diseño | Warren de Leon",

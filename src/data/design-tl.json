@@ -386,7 +386,16 @@
     "targetsHeading": "Mga touch target",
     "targetsBody": "Ang anumang mata-tap ay hindi bababa sa 44 by 44 pixel, kahit na mas maliit ang nakikitang icon. Ang mga hit area ay dinaragdagan ng padding upang maabot ang minimum na iyon sa halip na paliitin ang target patungo sa glyph.",
     "logoHeading": "Logo sa isang bilog",
-    "logoBody": "Ang mark ay nasa isang bilog na frame, pinupuno ang halos dalawang-katlo nito na may hairline na ring sa paligid ng gilid. Lumilitaw ito sa 48 pixel katabi ng isang role, 96 sa isang card, at 120 bilang isang timeline anchor."
+    "logoBody": "Ang mark ay nasa isang bilog na frame, pinupuno ang halos dalawang-katlo nito na may hairline na ring sa paligid ng gilid. Lumilitaw ito sa 48 pixel katabi ng isang role, 96 sa isang card, at 120 bilang isang timeline anchor.",
+    "annotatedHeading": "Ang ritmo, may anotasyon",
+    "annotatedBody": "Ang mga may-guhit na banda ay ang mismong sinusukat na espasyo, hindi drawing nito: ang taas ng mga ito ay galing sa live na tokens, kaya bumababa ito bawat banda nang eksaktong tulad ng site. Ang mga label ay binabasa nang desktop / tablet / mobile.",
+    "annotatedLabels": {
+      "sections": "Dalawang magkatabing section: bawat isa ay may sariling one-sided padding, kaya dalawang token ang layo ng content.",
+      "heading": "Mula sa section heading papunta sa content nito: isang --sp-heading.",
+      "card": "Ang padding ng base card: fixed na 24px sa bawat gilid.",
+      "buttons": "Nakasalansang pill CTAs: fixed na 10px na pagitan."
+    },
+    "perBandCaption": "Bawat token sa mobile, tablet at desktop na sukat nito — ang mga na-parse na halaga nang magkakatabi, anuman ang device mo. Ang mga figure sa ibaba naman ay live na nagre-resize kasama ng viewport mo."
   },
   "shapeElevation": {
     "seoTitle": "Hugis at elevation | Disenyo | Warren de Leon",
@@ -519,7 +528,13 @@
       "I-hard-code ang kulay ng isang icon. Dapat itong sumunod sa text.",
       "Paghaluin ang stroke at fill na mga style sa loob ng interface set.",
       "Paliitin ang mata-tap na area hanggang sa laki ng drawing."
-    ]
+    ],
+    "hitCaption": "Ang hit area, may anotasyon: 20px na glyph na nakagitna sa 44px na parisukat — ang may-guhit na singsing ang tappable na padding.",
+    "hitLabels": {
+      "area": "Hit area",
+      "glyph": "Glyph",
+      "pad": "Padding"
+    }
   },
   "motion": {
     "seoTitle": "Motion | Disenyo | Warren de Leon",

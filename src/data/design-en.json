@@ -386,7 +386,16 @@
     "targetsHeading": "Touch targets",
     "targetsBody": "Anything tappable is at least 44 by 44 pixels, even when the visible icon is smaller. Hit areas are padded out to reach that floor rather than shrinking the target to the glyph.",
     "logoHeading": "Logo in a circle",
-    "logoBody": "The mark sits in a circular frame, filling roughly two-thirds of it with a hairline ring around the edge. It appears at 48 pixels beside a role, 96 in a card, and 120 as a timeline anchor."
+    "logoBody": "The mark sits in a circular frame, filling roughly two-thirds of it with a hairline ring around the edge. It appears at 48 pixels beside a role, 96 in a card, and 120 as a timeline anchor.",
+    "annotatedHeading": "The rhythm, annotated",
+    "annotatedBody": "The hatched bands are the measured space itself, not drawings of it: their heights are driven by the live tokens, so they step down per band exactly as the site does. Labels read desktop / tablet / mobile.",
+    "annotatedLabels": {
+      "sections": "Two adjacent sections: each brings its own one-sided padding, so the content sits two tokens apart.",
+      "heading": "A section heading to its content: one --sp-heading.",
+      "card": "The base card’s padding: a fixed 24px on every side.",
+      "buttons": "Stacked pill CTAs: a fixed 10px gap."
+    },
+    "perBandCaption": "Each token at its mobile, tablet and desktop size — the parsed values side by side, whatever device you are on. The figures below then resize live with your viewport."
   },
   "shapeElevation": {
     "seoTitle": "Shape & elevation | Design system | Warren de Leon",
@@ -519,7 +528,13 @@
       "Hard-code an icon's colour. It should follow the text.",
       "Mix stroke and fill styles within the interface set.",
       "Shrink the tappable area to the size of the drawing."
-    ]
+    ],
+    "hitCaption": "The hit area, annotated: a 20px glyph centred in a 44px square — the hatched ring is the tappable padding.",
+    "hitLabels": {
+      "area": "Hit area",
+      "glyph": "Glyph",
+      "pad": "Padding"
+    }
   },
   "motion": {
     "seoTitle": "Motion | Design system | Warren de Leon",

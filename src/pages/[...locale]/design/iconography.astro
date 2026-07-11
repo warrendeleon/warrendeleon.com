@@ -60,6 +60,23 @@ const lbl = ic.iconLabels;
         </figure>
       </div>
     </SpecimenCard>
+
+    <!-- Hit area, annotated: the hatched ring is the tappable padding
+         between the glyph and the 44px floor. -->
+    <figure class="ds-annotated">
+      <div class="ds-hitring-row">
+        <span class="ds-hitring">
+          <span class="ds-hatch ds-hitring-pad" aria-hidden="true"></span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </span>
+        <span class="ds-hitring-labels">
+          <span class="ds-gap-label">{ic.hitLabels.area} · 44 × 44px</span>
+          <span class="ds-gap-label">{ic.hitLabels.glyph} · 20px</span>
+          <span class="ds-gap-label">{ic.hitLabels.pad} · 12px</span>
+        </span>
+      </div>
+      <figcaption>{ic.hitCaption}</figcaption>
+    </figure>
   </section>
 
   <section id="brand">
@@ -130,6 +147,24 @@ const lbl = ic.iconLabels;
   }
   .ds-hit-44 { width: 44px; height: 44px; }
   .ds-hit-16 { width: 16px; height: 16px; outline-color: #e53e3e; }
+
+  /* Annotated hit area: 44px square, 20px glyph centred, the hatch ring is
+     the 12px of tappable padding around it. */
+  .ds-hitring-row { display: flex; align-items: center; gap: 1rem; }
+  .ds-hitring {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    color: var(--text-primary);
+    outline: 1px dashed var(--text-muted);
+  }
+  .ds-hitring svg { position: relative; z-index: 1; background: var(--bg-card); }
+  .ds-hitring-pad { position: absolute; inset: 0; border: none; }
+  .ds-hitring-labels { display: flex; flex-direction: column; gap: 2px; }
 </style>
 
 <style>

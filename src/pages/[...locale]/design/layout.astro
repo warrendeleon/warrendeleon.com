@@ -1,7 +1,7 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
 import TokenTable from '../../../components/design/TokenTable.astro';
-import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
 import { getDesignTokens } from '../../../lib/design-tokens.mjs';
 
@@ -11,7 +11,14 @@ const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const ly = d.layout;
 const currentPath = getLocalePath(locale, '/design/layout/');
+const i18n = t(locale);
 const spacing = getDesignTokens().spacing;
+
+// Annotation labels straight from the parser: "--sp-section · 28 / 22 / 22px".
+const bandLabel = (name: string) => {
+  const t = spacing.find((s) => s.name === name)!;
+  return `${name} · ${t.desktop.replace('px', '')} / ${t.tablet.replace('px', '')} / ${t.mobile}`;
+};
 ---
 
 <DesignLayout
@@ -72,6 +79,89 @@ const spacing = getDesignTokens().spacing;
     <h2>{ly.spacingHeading}</h2>
     <p>{ly.spacingBody}</p>
     <TokenTable rows={spacing} headers={ly.spacingHeaders} usage={ly.spacingUsage} />
+
+    <h3>{ly.annotatedHeading}</h3>
+    <p>{ly.annotatedBody}</p>
+
+    <!-- 0. Every spacing token at every band, side by side: heights are the
+         parsed literals from the stylesheet, so all three device sizes are
+         visible at once whatever you are reading this on. -->
+    <figure class="ds-annotated">
+      <div class="ds-band-grid">
+        {spacing.map((tok) => (
+          <div class="ds-band-token">
+            <span class="ds-gap-label ds-band-token-name">{tok.name}</span>
+            <div class="ds-band-cells">
+              {[
+                { label: d.bandLabels.mobile, val: tok.mobile },
+                { label: d.bandLabels.tablet, val: tok.tablet },
+                { label: d.bandLabels.desktop, val: tok.desktop },
+              ].map((cell) => (
+                <div class="ds-band-cell">
+                  <div class="ds-hatch" style={`height: ${cell.val};`}></div>
+                  <span class="ds-gap-label">{cell.label} · {cell.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <figcaption>{ly.perBandCaption}</figcaption>
+    </figure>
+
+    <!-- 1. Section rhythm: two one-sided paddings stack, so adjacent
+         sections sit 2× the token apart. Band heights ARE the live token. -->
+    <figure class="ds-annotated">
+      <div class="ds-content-bar"></div>
+      <div class="ds-gap-row">
+        <div class="ds-hatch" style="height: var(--sp-section);"></div>
+        <span class="ds-gap-label">{bandLabel('--sp-section')}</span>
+      </div>
+      <div class="ds-gap-row">
+        <div class="ds-hatch" style="height: var(--sp-section);"></div>
+        <span class="ds-gap-label">{bandLabel('--sp-section')}</span>
+      </div>
+      <div class="ds-content-bar"></div>
+      <figcaption>{ly.annotatedLabels.sections}</figcaption>
+    </figure>
+
+    <!-- 2. Heading → content gap. -->
+    <figure class="ds-annotated">
+      <p class="section-heading ds-heading-demo" aria-hidden="true">{ly.spacingHeading}</p>
+      <div class="ds-gap-row">
+        <div class="ds-hatch" style="height: var(--sp-heading);"></div>
+        <span class="ds-gap-label">{bandLabel('--sp-heading')}</span>
+      </div>
+      <div class="ds-content-bar"></div>
+      <figcaption>{ly.annotatedLabels.heading}</figcaption>
+    </figure>
+
+    <!-- 3. Card padding: the real .card with its 24px inset hatched. -->
+    <figure class="ds-annotated">
+      <div class="card ds-pad-demo">
+        <span class="ds-hatch ds-pad-top" aria-hidden="true"></span>
+        <span class="ds-hatch ds-pad-bottom" aria-hidden="true"></span>
+        <span class="ds-hatch ds-pad-left" aria-hidden="true"></span>
+        <span class="ds-hatch ds-pad-right" aria-hidden="true"></span>
+        <span class="ds-gap-label ds-pad-label">24px</span>
+        <div class="ds-content-bar"></div>
+      </div>
+      <figcaption>{ly.annotatedLabels.card}</figcaption>
+    </figure>
+
+    <!-- 4. CTA stack gap: the real .hero-ctas gap, annotated. -->
+    <figure class="ds-annotated">
+      <div class="ds-cta-stack">
+        <a class="hero-cta hero-cta-outline" href="#spacing">{i18n.nav.bookACall}</a>
+        <div class="ds-gap-row">
+          <div class="ds-hatch" style="height: 10px;"></div>
+          <span class="ds-gap-label">10px</span>
+        </div>
+        <a class="hero-cta hero-cta-solid" href="#spacing">{i18n.workExperience.downloadCV}</a>
+      </div>
+      <figcaption>{ly.annotatedLabels.buttons}</figcaption>
+    </figure>
+
     <p>{ly.nestingBody}</p>
   </section>
 
@@ -125,4 +215,59 @@ const spacing = getDesignTokens().spacing;
     color: var(--text-primary);
     white-space: nowrap;
   }
+
+  /* Annotated-rhythm demos. The heading specimen drops its own margin so the
+     hatched band below it is the ONLY space in the figure. */
+  .ds-heading-demo { margin-bottom: 0 !important; }
+
+  /* Per-band comparison: each token three times, at its parsed mobile/tablet/
+     desktop heights. Bands hang from a shared top edge so heights compare. */
+  .ds-band-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+  .ds-band-token-name { display: block; margin-bottom: 0.5rem; color: var(--text-primary); }
+  .ds-band-cells {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    align-items: start;
+  }
+  .ds-band-cell { display: flex; flex-direction: column; gap: 0.35rem; }
+  .ds-band-cell .ds-gap-label { white-space: normal; }
+
+  /* Card padding ring: four hatch strips sized by the card's real 1.5rem
+     (24px) padding, drawn over the padding box. */
+  .ds-pad-demo { position: relative; overflow: hidden; }
+  .ds-pad-top, .ds-pad-bottom, .ds-pad-left, .ds-pad-right { position: absolute; }
+  .ds-pad-top { top: 0; left: 0; right: 0; height: 1.5rem; }
+  .ds-pad-bottom { bottom: 0; left: 0; right: 0; height: 1.5rem; }
+  .ds-pad-left {
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 0;
+    width: 1.5rem;
+    border: none;
+    border-left: 1px dashed rgba(229, 62, 62, 0.55);
+    border-right: 1px dashed rgba(229, 62, 62, 0.55);
+  }
+  .ds-pad-right {
+    top: 1.5rem;
+    bottom: 1.5rem;
+    right: 0;
+    width: 1.5rem;
+    border: none;
+    border-left: 1px dashed rgba(229, 62, 62, 0.55);
+    border-right: 1px dashed rgba(229, 62, 62, 0.55);
+  }
+  .ds-pad-label {
+    position: absolute;
+    top: 0.15rem;
+    right: 2rem;
+  }
+
+  .ds-cta-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 300px;
+  }
+  .ds-cta-stack .hero-cta { justify-content: center; }
 </style>

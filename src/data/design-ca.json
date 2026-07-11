@@ -386,7 +386,16 @@
     "targetsHeading": "Àrees tàctils",
     "targetsBody": "Qualsevol cosa tocable fa com a mínim 44 per 44 píxels, encara que la icona visible sigui més petita. Les àrees de contacte s'eixamplen amb farciment per arribar a aquest mínim en comptes d'encongir l'àrea fins al glif.",
     "logoHeading": "Logotip en un cercle",
-    "logoBody": "El símbol s'asseu en un marc circular i n'omple aproximadament dos terços, amb un anell fi a la vora. Apareix a 48 píxels al costat d'un rol, a 96 en una targeta i a 120 com a àncora de la cronologia."
+    "logoBody": "El símbol s'asseu en un marc circular i n'omple aproximadament dos terços, amb un anell fi a la vora. Apareix a 48 píxels al costat d'un rol, a 96 en una targeta i a 120 com a àncora de la cronologia.",
+    "annotatedHeading": "El ritme, anotat",
+    "annotatedBody": "Les bandes ratllades són el mateix espai mesurat, no un dibuix: l'alçada la marquen els tokens en viu, així que es redueixen per banda exactament com el lloc. Les etiquetes es llegeixen escriptori / tauleta / mòbil.",
+    "annotatedLabels": {
+      "sections": "Dues seccions contigües: cadascuna aporta el seu padding d’un sol costat, així que el contingut queda a dos tokens de distància.",
+      "heading": "D'una capçalera de secció al seu contingut: un --sp-heading.",
+      "card": "El padding de la targeta base: 24px fixos per cada costat.",
+      "buttons": "CTAs de píndola apilades: un espai fix de 10px."
+    },
+    "perBandCaption": "Cada token en la seva mida mòbil, tauleta i escriptori: els valors extrets costat a costat, siguis al dispositiu que siguis. Les figures de sota, en canvi, es redimensionen en viu amb la teva pantalla."
   },
   "shapeElevation": {
     "seoTitle": "Forma i elevació | Sistema de disseny | Warren de Leon",
@@ -519,7 +528,13 @@
       "Fixar el color d'una icona al codi. Hauria de seguir el text.",
       "Barrejar estils de traç i d'emplenat dins del conjunt d'interfície.",
       "Encongir l'àrea tocable fins a la mida del dibuix."
-    ]
+    ],
+    "hitCaption": "L'àrea de toc, anotada: un glif de 20px centrat en un quadrat de 44px — l'anell ratllat és el padding tocable.",
+    "hitLabels": {
+      "area": "Àrea de toc",
+      "glyph": "Glif",
+      "pad": "Padding"
+    }
   },
   "motion": {
     "seoTitle": "Moviment | Sistema de disseny | Warren de Leon",

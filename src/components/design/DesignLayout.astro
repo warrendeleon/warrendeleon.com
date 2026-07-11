@@ -372,6 +372,53 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
     .ds-guidance-grid { grid-template-columns: 1fr 1fr; }
   }
 
+  /* Spacing annotations: a hatched band whose size IS the gap being
+     documented (height driven by the live token or literal), with a mono
+     label beside it. The hatch marks "this is measured space, not content". */
+  .ds-hatch {
+    background: rgba(229, 62, 62, 0.07);
+    background-image: repeating-linear-gradient(
+      45deg,
+      rgba(229, 62, 62, 0.22) 0 1px,
+      transparent 1px 7px
+    );
+    border-top: 1px dashed rgba(229, 62, 62, 0.55);
+    border-bottom: 1px dashed rgba(229, 62, 62, 0.55);
+  }
+  .ds-gap-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ds-gap-row .ds-hatch { flex: 1; }
+  .ds-gap-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .ds-annotated {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-card);
+    padding: 1.25rem 1.25rem 1.25rem;
+    margin: 0 0 1rem;
+  }
+  .ds-annotated figcaption {
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  /* A neutral stand-in for "some content" in rhythm demos. */
+  .ds-content-bar {
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--badge-bg);
+  }
+
   /* Demo helpers: neutralise fixed/sticky positioning when a real piece of
      chrome (tab bar, reading bar, sidebar ToC) is shown inline as a specimen. */
   .ds-fixed-demo .tab-bar,
