@@ -4,27 +4,31 @@ import Timeline from '../../../../components/Timeline.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
-import workxpEn from '../../../../data/workxp-en.json';
-import workxpEs from '../../../../data/workxp-es.json';
-import workxpCa from '../../../../data/workxp-ca.json';
-import workxpTl from '../../../../data/workxp-tl.json';
 
 export const getStaticPaths = localeStaticPaths;
-
-const workxpByLocale: Record<Locale, typeof workxpEn> = {
-  en: workxpEn,
-  es: workxpEs as typeof workxpEn,
-  ca: workxpCa as typeof workxpEn,
-  tl: workxpTl as typeof workxpEn,
-};
 
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const t = d.timeline;
 const currentPath = getLocalePath(locale, '/design/components/timeline/');
-// Real entries (already public on /work-experience/), so the specimen is truthful
-// and its card links resolve. Two is enough to show the rail.
-const sample = workxpByLocale[locale].slice(0, 2);
+
+// Placeholder entries through the REAL component — no employer brands in the
+// docs (their crawlers flag logo/name use; the work-experience page remains
+// the employment record). No logo file, so the letter fallback renders, which
+// is itself the component's real no-logo behaviour. Cards link back here.
+const sample = t.sample.map((co, i) => ({
+  company: co.company,
+  href: '#specimen',
+  positions: [
+    {
+      title: co.title,
+      startDate: i === 0 ? '2024-03' : '2022-01',
+      endDate: i === 0 ? null : '2024-02',
+      description: co.desc,
+      technologies: { languages: ['TypeScript'], frameworks: ['React Native'] },
+    },
+  ],
+}));
 ---
 
 <DesignLayout

@@ -196,7 +196,7 @@ const bandLabel = (name: string) => {
         {[48, 96, 120].map((size) => (
           <div class="ds-target">
             <span class="ds-logo-circle" style={`width:${size}px;height:${size}px;`}>
-              <img src="/images/logos/hl.svg" alt="" loading="lazy" />
+              <span class="ds-logo-letter" style={`font-size:${Math.round(size * 0.4)}px;`} aria-hidden="true">W</span>
             </span>
             <span class="ds-gap-label">{size}px</span>
           </div>
@@ -346,9 +346,11 @@ const bandLabel = (name: string) => {
     border: 1.5px solid var(--color-green);
     overflow: hidden;
   }
-  .ds-logo-circle img {
-    width: 66%;
-    height: 66%;
-    object-fit: contain;
+  /* The mark slot uses the component's real letter fallback (what
+     .timeline-logo-fallback renders when a company has no logo file). */
+  .ds-logo-letter {
+    font-weight: 700;
+    color: var(--color-green-text);
+    line-height: 1;
   }
 </style>

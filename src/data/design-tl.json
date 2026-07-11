@@ -1060,7 +1060,7 @@
     "seoTitle": "Timeline | Disenyo | Warren de Leon",
     "seoDescription": "Ang timeline ng karanasan sa trabaho sa warrendeleon.com: isang patayong rail ng mga logo dot at card, na may Latest na tag at isang scale ng dot bawat screen.",
     "title": "Timeline",
-    "intro": "Ang rail ng karanasan sa trabaho: isang patayong linya na may logo ng kompanya na nakasakay dito sa bawat hinto, at isang card sa tabi ng bawat logo. Sa ibaba ang tunay na component na may tunay na mga entry.",
+    "intro": "Ang work-experience rail: patayong linya na may logo ng kumpanya sa bawat hinto, at card sa tabi ng bawat logo. Nasa ibaba ang tunay na component na pinakain ng placeholder na entries — sa live na page, ang tunay na employment record ang dala nito.",
     "toc": [
       {
         "id": "specimen",
@@ -1091,6 +1091,18 @@
       "Panatilihin ang berdeng bar sa isang detail na pahina kung saan nag-aankla na ang logo dot sa pamagat."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Timeline.astro at TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), na pinakakain mula sa data ng karanasan sa trabaho."
+    "whereBody": "Timeline.astro at TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), na pinakakain mula sa data ng karanasan sa trabaho.",
+    "sample": [
+      {
+        "company": "Acme Studios",
+        "title": "Engineering Manager",
+        "desc": "Placeholder na role na nagpapakita ng anatomy ng card: isang linyang buod na napuputol pagkatapos ng ilang salita para manatiling madaling basahin ang row."
+      },
+      {
+        "company": "Northwind Labs",
+        "title": "Senior Engineer",
+        "desc": "Mas naunang placeholder na role, may saradong hanay ng petsa at parehong compact na card."
+      }
+    ]
   }
 }

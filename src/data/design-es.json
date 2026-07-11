@@ -1060,7 +1060,7 @@
     "seoTitle": "Cronología | Sistema de diseño | Warren de Leon",
     "seoDescription": "La cronología de experiencia laboral en warrendeleon.com: un raíl vertical de puntos con logotipos y tarjetas, con una etiqueta «Reciente» y una escala de puntos por pantalla.",
     "title": "Cronología",
-    "intro": "El raíl de experiencia laboral: una línea vertical con el logotipo de una empresa montado en ella en cada parada, y una tarjeta junto a cada logotipo. Debajo está el componente real con entradas reales.",
+    "intro": "El raíl de experiencia laboral: una línea vertical con un logo de empresa en cada parada y una tarjeta junto a cada logo. Abajo está el componente real alimentado con entradas de relleno; en la página real lleva el historial de verdad.",
     "toc": [
       {
         "id": "specimen",
@@ -1091,6 +1091,18 @@
       "Mantener la barra verde en una página de detalle donde el punto del logotipo ya ancla el título."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "Timeline.astro y TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), alimentados desde los datos de experiencia laboral."
+    "whereBody": "Timeline.astro y TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), alimentados desde los datos de experiencia laboral.",
+    "sample": [
+      {
+        "company": "Acme Studios",
+        "title": "Responsable de ingeniería",
+        "desc": "Un puesto de relleno que muestra la anatomía de la tarjeta: un resumen de una línea que se corta a las pocas palabras para que la fila siga siendo legible."
+      },
+      {
+        "company": "Northwind Labs",
+        "title": "Ingeniero sénior",
+        "desc": "Un puesto de relleno anterior, con un rango de fechas cerrado y la misma tarjeta compacta."
+      }
+    ]
   }
 }

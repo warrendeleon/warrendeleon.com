@@ -6,6 +6,7 @@ interface Props {
   companies: Array<{
     company: string;
     logo?: string;
+    href?: string;
     positions: Array<{
       title: string;
       startDate: string;
@@ -26,6 +27,7 @@ const i18n = t(locale);
     <TimelineEntry
       company={co.company}
       logo={co.logo}
+      href={co.href}
       positions={co.positions}
       locale={locale}
     />

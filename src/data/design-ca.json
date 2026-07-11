@@ -1060,7 +1060,7 @@
     "seoTitle": "Cronologia | Sistema de disseny | Warren de Leon",
     "seoDescription": "La cronologia d'experiència laboral de warrendeleon.com: un carril vertical de punts de logotip i targetes, amb una etiqueta de «Recent» i una escala de punts per pantalla.",
     "title": "Cronologia",
-    "intro": "El carril d'experiència laboral: una línia vertical amb el logotip d'una empresa que hi cavalca a cada parada, i una targeta al costat de cada logotip. A sota hi ha el component real amb entrades reals.",
+    "intro": "El rail d'experiència laboral: una línia vertical amb un logo d'empresa a cada parada i una targeta al costat de cada logo. A sota hi ha el component real alimentat amb entrades de mostra; a la pàgina real porta l'historial de veritat.",
     "toc": [
       {
         "id": "specimen",
@@ -1091,6 +1091,18 @@
       "Mantén la barra verda en una pàgina de detall on el punt del logotip ja ancora el títol."
     ],
     "whereHeading": "On es troba",
-    "whereBody": "Timeline.astro i TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), alimentats a partir de les dades d'experiència laboral."
+    "whereBody": "Timeline.astro i TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), alimentats a partir de les dades d'experiència laboral.",
+    "sample": [
+      {
+        "company": "Acme Studios",
+        "title": "Responsable d'enginyeria",
+        "desc": "Un càrrec de mostra que ensenya l'anatomia de la targeta: un resum d'una línia que es talla al cap de poques paraules perquè la fila es pugui escanejar."
+      },
+      {
+        "company": "Northwind Labs",
+        "title": "Enginyer sènior",
+        "desc": "Un càrrec de mostra anterior, amb un rang de dates tancat i la mateixa targeta compacta."
+      }
+    ]
   }
 }

@@ -1060,7 +1060,7 @@
     "seoTitle": "Timeline | Design system | Warren de Leon",
     "seoDescription": "The work-experience timeline on warrendeleon.com: a vertical rail of logo dots and cards, with a Latest tag and a per-screen dot scale.",
     "title": "Timeline",
-    "intro": "The work-experience rail: a vertical line with a company logo riding it at each stop, and a card beside each logo. Below is the real component with real entries.",
+    "intro": "The work-experience rail: a vertical line with a company logo riding it at each stop, and a card beside each logo. Below is the real component fed placeholder entries — on the live page it carries the real employment record.",
     "toc": [
       {
         "id": "specimen",
@@ -1091,6 +1091,18 @@
       "Keep the green bar on a detail page where the logo dot already anchors the title."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Timeline.astro and TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), fed from the work-experience data."
+    "whereBody": "Timeline.astro and TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), fed from the work-experience data.",
+    "sample": [
+      {
+        "company": "Acme Studios",
+        "title": "Engineering Manager",
+        "desc": "A placeholder role showing the card anatomy: a one-line summary that truncates after a few words so the row stays scannable."
+      },
+      {
+        "company": "Northwind Labs",
+        "title": "Senior Engineer",
+        "desc": "An earlier placeholder role, with a closed date range and the same compact card."
+      }
+    ]
   }
 }

@@ -16,10 +16,14 @@ interface Props {
     };
   }>;
   locale: Locale;
+  /** Link target override; defaults to the company's work-experience page.
+      Lets sample data (the design docs) point somewhere real. */
+  href?: string;
 }
 
-const { company, logo, positions, locale } = Astro.props;
+const { company, logo, positions, locale, href } = Astro.props;
 const slug = slugify(company);
+const cardHref = href ?? getLocalePath(locale, `/work-experience/${slug}/`);
 const latestPosition = positions[0];
 const dateRange = formatDateRange(
   positions[positions.length - 1].startDate,
@@ -33,7 +37,7 @@ const chips = tech ? [...(tech.languages ?? []), ...(tech.frameworks ?? [])].sli
 ---
 
 <div class="timeline-entry">
-  <a href={getLocalePath(locale, `/work-experience/${slug}/`)} class="timeline-card">
+  <a href={cardHref} class="timeline-card">
     <div class="timeline-logo-col">
       <div class="timeline-logo">
         {logo ? (
