@@ -68,11 +68,26 @@
     "title": "Color",
     "intro": "Un único verde de marca hace todo el trabajo de acento. Todo lo demás es una escala neutra que cambia entre claro y oscuro. Los valores de abajo se leen de la hoja de estilos en el momento de la compilación.",
     "toc": [
-      { "id": "brand", "label": "Verde de marca" },
-      { "id": "neutrals", "label": "Neutros y superficies" },
-      { "id": "interaction", "label": "Interacción" },
-      { "id": "callouts", "label": "Avisos" },
-      { "id": "using", "label": "Uso del color" }
+      {
+        "id": "brand",
+        "label": "Verde de marca"
+      },
+      {
+        "id": "neutrals",
+        "label": "Neutros y superficies"
+      },
+      {
+        "id": "interaction",
+        "label": "Interacción"
+      },
+      {
+        "id": "callouts",
+        "label": "Avisos"
+      },
+      {
+        "id": "using",
+        "label": "Uso del color"
+      }
     ],
     "swatchHeaders": {
       "swatch": "Claro / oscuro",
@@ -163,11 +178,26 @@
     "title": "Tipografía",
     "intro": "Una tipografía, un puñado de grosores y una escala por roles que baja un escalón en pantallas más pequeñas. Cada tamaño de abajo es una variable CSS leída de la hoja de estilos.",
     "toc": [
-      { "id": "family", "label": "Tipografía" },
-      { "id": "scale", "label": "La escala" },
-      { "id": "specimens", "label": "Muestras" },
-      { "id": "mono", "label": "Monoespaciada" },
-      { "id": "mapping", "label": "En uso" }
+      {
+        "id": "family",
+        "label": "Tipografía"
+      },
+      {
+        "id": "scale",
+        "label": "La escala"
+      },
+      {
+        "id": "specimens",
+        "label": "Muestras"
+      },
+      {
+        "id": "mono",
+        "label": "Monoespaciada"
+      },
+      {
+        "id": "mapping",
+        "label": "En uso"
+      }
     ],
     "familyHeading": "Tipografía",
     "familyBody": "La interfaz usa Inter, alojada en el propio sitio en vez de tomarse de un servicio de fuentes, para que el primer pintado nunca espere a una petición de terceros. No hay fuente de titulares ni de display: el grosor y el tamaño llevan la jerarquía. Los títulos van a 800, los subtítulos y las etiquetas a 700, los botones y el énfasis a 600, y el texto de cuerpo a 400.",
@@ -217,12 +247,30 @@
     "mappingHeading": "En uso",
     "mappingBody": "Dónde aparece cada rol:",
     "mapping": [
-      { "role": "Título de página", "where": "El h1 de cada página de nivel superior, con la barra verde." },
-      { "role": "Encabezado de sección", "where": "Encabezados de banda, con el breve subrayado verde." },
-      { "role": "Encabezado de artículo", "where": "El h2 dentro de una entrada del blog, con el subrayado verde. Solo el h2 de artículo; los subtítulos bajan a un grosor normal." },
-      { "role": "Cuerpo", "where": "Texto de la página sobre mí, introducciones de página, texto de tarjetas." },
-      { "role": "Prosa", "where": "La columna de lectura de un artículo." },
-      { "role": "Metadatos", "where": "Fechas, tiempo de lectura, etiquetas. Monoespaciada." }
+      {
+        "role": "Título de página",
+        "where": "El h1 de cada página de nivel superior, con la barra verde."
+      },
+      {
+        "role": "Encabezado de sección",
+        "where": "Encabezados de banda, con el breve subrayado verde."
+      },
+      {
+        "role": "Encabezado de artículo",
+        "where": "El h2 dentro de una entrada del blog, con el subrayado verde. Solo el h2 de artículo; los subtítulos bajan a un grosor normal."
+      },
+      {
+        "role": "Cuerpo",
+        "where": "Texto de la página sobre mí, introducciones de página, texto de tarjetas."
+      },
+      {
+        "role": "Prosa",
+        "where": "La columna de lectura de un artículo."
+      },
+      {
+        "role": "Metadatos",
+        "where": "Fechas, tiempo de lectura, etiquetas. Monoespaciada."
+      }
     ]
   },
   "layout": {
@@ -231,11 +279,26 @@
     "title": "Maquetación",
     "intro": "Primero el móvil, una columna, contenido centrado mientras el margen flexiona. Tres columnas fijas cubren teléfono, tableta y escritorio. La escala de espaciado de abajo se lee de la hoja de estilos.",
     "toc": [
-      { "id": "columns", "label": "Columnas" },
-      { "id": "breakpoints", "label": "Puntos de ruptura" },
-      { "id": "spacing", "label": "Espaciado" },
-      { "id": "targets", "label": "Áreas táctiles" },
-      { "id": "logo", "label": "Logo en un círculo" }
+      {
+        "id": "columns",
+        "label": "Columnas"
+      },
+      {
+        "id": "breakpoints",
+        "label": "Puntos de ruptura"
+      },
+      {
+        "id": "spacing",
+        "label": "Espaciado"
+      },
+      {
+        "id": "targets",
+        "label": "Áreas táctiles"
+      },
+      {
+        "id": "logo",
+        "label": "Logo en un círculo"
+      }
     ],
     "columnsHeading": "Columnas",
     "columnsBody": "La página es una única columna centrada con un ancho máximo fijo por banda. Por debajo de ese ancho, lo único que flexiona es el margen, así que la medida de lectura se mantiene cómoda en lugar de estirarse de borde a borde en una pantalla ancha. Los artículos se estrechan aún más, hasta una columna de lectura de 720 píxeles; solo los bloques a sangre completa, como el código, se salen de ella.",
@@ -246,16 +309,40 @@
       "bar": "Barra superior"
     },
     "columnsRows": [
-      { "band": "Móvil", "column": "430px", "gutter": "20px", "bar": "56px" },
-      { "band": "Tableta", "column": "960px", "gutter": "24px", "bar": "60px" },
-      { "band": "Escritorio", "column": "1100px", "gutter": "24px", "bar": "64px" }
+      {
+        "band": "Móvil",
+        "column": "430px",
+        "gutter": "20px",
+        "bar": "56px"
+      },
+      {
+        "band": "Tableta",
+        "column": "960px",
+        "gutter": "24px",
+        "bar": "60px"
+      },
+      {
+        "band": "Escritorio",
+        "column": "1100px",
+        "gutter": "24px",
+        "bar": "64px"
+      }
     ],
     "breakpointsHeading": "Puntos de ruptura",
     "breakpointsBody": "Tres bandas, expresadas tal como son de verdad. La banda de tableta llega hasta los 1279 píxeles, así que una ventana de 1024 píxeles recibe el dimensionado de tableta, no el de escritorio. El dock de pestañas es un recurso de teléfono y tableta; la navegación de escritorio toma el relevo a los 1280.",
     "breakpointsRows": [
-      { "band": "Móvil", "range": "≤ 699px" },
-      { "band": "Tableta", "range": "700–1279px" },
-      { "band": "Escritorio", "range": "≥ 1280px" }
+      {
+        "band": "Móvil",
+        "range": "≤ 699px"
+      },
+      {
+        "band": "Tableta",
+        "range": "700–1279px"
+      },
+      {
+        "band": "Escritorio",
+        "range": "≥ 1280px"
+      }
     ],
     "spacingHeading": "Espaciado",
     "spacingBody": "El espacio se construye sobre una base de cuatro píxeles. Los tokens de abajo fijan el ritmo entre secciones y encabezados; como el relleno de sección es de un solo lado, dos secciones contiguas quedan separadas el doble del token.",
@@ -283,9 +370,18 @@
     "title": "Forma y elevación",
     "intro": "Las esquinas se redondean con una escala coherente, las sombras son discretas y sensibles al tema, y casi toda la separación se hace con una sola línea fina en vez de con una sombra.",
     "toc": [
-      { "id": "radius", "label": "Radio de esquina" },
-      { "id": "shadows", "label": "Sombras" },
-      { "id": "borders", "label": "Bordes" }
+      {
+        "id": "radius",
+        "label": "Radio de esquina"
+      },
+      {
+        "id": "shadows",
+        "label": "Sombras"
+      },
+      {
+        "id": "borders",
+        "label": "Bordes"
+      }
     ],
     "radiusHeading": "Radio de esquina",
     "radiusBody": "El radio crece con el tamaño de la superficie: el más pequeño en un chip de código en línea, el más grande en un panel inferior. Son valores literales que se repiten en los estilos de los componentes en vez de tokens, así que aquí se documentan a mano y se cotejan con la hoja de estilos.",
@@ -294,15 +390,42 @@
       "where": "Dónde"
     },
     "radiusRows": [
-      { "radius": "5px", "where": "Chips de código en línea" },
-      { "radius": "7px", "where": "Chips de etiqueta del blog (.post-tag)" },
-      { "radius": "8px", "where": "Botones, insignias (.badge)" },
-      { "radius": "10px", "where": "Bloques de código, citas" },
-      { "radius": "12px", "where": "Tarjetas, publicaciones del feed" },
-      { "radius": "14px", "where": "Superficies compactas, tarjetas de tabla a medida" },
-      { "radius": "16px", "where": "Tarjeta de publicación destacada, tarjeta de rol en móvil" },
-      { "radius": "20px", "where": "Paneles inferiores (esquinas superiores)" },
-      { "radius": "pill", "where": "CTA principales, píldoras de idioma, dock" }
+      {
+        "radius": "5px",
+        "where": "Chips de código en línea"
+      },
+      {
+        "radius": "7px",
+        "where": "Chips de etiqueta del blog (.post-tag)"
+      },
+      {
+        "radius": "8px",
+        "where": "Botones, insignias (.badge)"
+      },
+      {
+        "radius": "10px",
+        "where": "Bloques de código, citas"
+      },
+      {
+        "radius": "12px",
+        "where": "Tarjetas, publicaciones del feed"
+      },
+      {
+        "radius": "14px",
+        "where": "Superficies compactas, tarjetas de tabla a medida"
+      },
+      {
+        "radius": "16px",
+        "where": "Tarjeta de publicación destacada, tarjeta de rol en móvil"
+      },
+      {
+        "radius": "20px",
+        "where": "Paneles inferiores (esquinas superiores)"
+      },
+      {
+        "radius": "pill",
+        "where": "CTA principales, píldoras de idioma, dock"
+      }
     ],
     "radiusNote": "El chip de etiqueta y la insignia están a un píxel de distancia, a 7 y 8 píxeles. Es una pequeña inconsistencia que conviene mantener a propósito o cerrar; por ahora la documentación refleja ambos tal como se publican.",
     "shadowsHeading": "Sombras",
@@ -332,9 +455,18 @@
     "title": "Iconografía",
     "intro": "Dos tipos de icono. Las acciones de la interfaz usan iconos de línea ligeros con el estilo Feather; los enlaces de marca y sociales usan marcas sólidas. Ambos toman su color del texto que los rodea.",
     "toc": [
-      { "id": "line", "label": "Iconos de línea" },
-      { "id": "brand", "label": "Logotipos de marca" },
-      { "id": "rules", "label": "Reglas" }
+      {
+        "id": "line",
+        "label": "Iconos de línea"
+      },
+      {
+        "id": "brand",
+        "label": "Logotipos de marca"
+      },
+      {
+        "id": "rules",
+        "label": "Reglas"
+      }
     ],
     "lineHeading": "Iconos de línea",
     "lineBody": "Los iconos de la interfaz se dibujan sobre una rejilla de 24 unidades con un trazo de dos píxeles, extremos redondeados y uniones redondeadas, con el estilo Feather. Se renderizan de 15 a 20 píxeles dentro de un área de pulsación de al menos 38 y nunca llevan su propio color: heredan currentColor del texto.",
@@ -371,8 +503,14 @@
     "title": "Movimiento",
     "intro": "El movimiento es discreto y rápido. Confirma una acción o suaviza un cambio de estado; nunca es decoración. Y se detiene en cuanto un visitante pide menos.",
     "toc": [
-      { "id": "durations", "label": "Duraciones y curvas" },
-      { "id": "reduced", "label": "Movimiento reducido" }
+      {
+        "id": "durations",
+        "label": "Duraciones y curvas"
+      },
+      {
+        "id": "reduced",
+        "label": "Movimiento reducido"
+      }
     ],
     "durationsHeading": "Duraciones y curvas",
     "durationsBody": "La mayoría de las transiciones duran una quinta parte de segundo sobre una curva ease: un cambio de color al pasar el cursor, un borde que se asienta. El cambio de tema dura un poco más para que el repintado de toda la página no dé un salto brusco. Las páginas aparecen con un desvanecido de unos píxeles al cargar. Los paneles inferiores son el único movimiento expresivo, que entra deslizándose sobre una curva de muelle.",
@@ -381,14 +519,353 @@
       "value": "Valor"
     },
     "durationsRows": [
-      { "move": "Transición por defecto", "value": "0.2s ease" },
-      { "move": "Cambio de tema", "value": "0.3s ease" },
-      { "move": "Desvanecido de entrada de página", "value": "0.3s, up 8px" },
-      { "move": "Elevación al pasar el cursor", "value": "up 2px + shadow" },
-      { "move": "Muelle del panel", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+      {
+        "move": "Transición por defecto",
+        "value": "0.2s ease"
+      },
+      {
+        "move": "Cambio de tema",
+        "value": "0.3s ease"
+      },
+      {
+        "move": "Desvanecido de entrada de página",
+        "value": "0.3s, up 8px"
+      },
+      {
+        "move": "Elevación al pasar el cursor",
+        "value": "up 2px + shadow"
+      },
+      {
+        "move": "Muelle del panel",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)"
+      }
     ],
     "reducedHeading": "Movimiento reducido",
     "reducedBody": "Cuando el sistema de un visitante pide movimiento reducido, el sitio lo respeta sin excepción. Las animaciones y transiciones se reducen a un pelo por encima de cero, y el desplazamiento suave vuelve a ser un salto. Esta es la regla, no un detalle:",
     "reducedCaption": "De la hoja de estilos."
+  },
+  "doLabel": "Sí",
+  "dontLabel": "No",
+  "buttons": {
+    "seoTitle": "Botones | Sistema de diseño | Warren de Leon",
+    "seoDescription": "Los dos niveles de botones en warrendeleon.com: botones en línea para formularios y acciones, y CTA en forma de píldora para las llamadas a la acción a nivel de página, con estados y reglas de contenido.",
+    "title": "Botones",
+    "intro": "Dos niveles. Los botones en línea llevan acciones corrientes dentro de formularios y tarjetas; los CTA en forma de píldora llevan la una o dos llamadas a la acción que anclan una página entera. Saber a qué nivel pertenece un control es la mayor parte de la decisión.",
+    "toc": [
+      {
+        "id": "tiers",
+        "label": "Los dos niveles"
+      },
+      {
+        "id": "states",
+        "label": "Estados"
+      },
+      {
+        "id": "content",
+        "label": "Contenido"
+      },
+      {
+        "id": "rules",
+        "label": "Cuándo usarlo"
+      }
+    ],
+    "tiersHeading": "Los dos niveles",
+    "inlineHeading": "Botones en línea",
+    "inlineBody": "El control por defecto: un botón con radio de 8 píxeles para acciones dentro de formularios, tarjetas y prosa. Verde sólido para la acción principal, verde con contorno para la secundaria. Un único principal por grupo.",
+    "pillHeading": "CTA en forma de píldora",
+    "pillBody": "Píldoras más altas, de 48 píxeles, para las llamadas a la acción a nivel de página: las que un visitante debería ver desde el otro lado de la sala, como «Descargar CV» o «Reservar una llamada». Sólida y con contorno, el mismo par de verdes.",
+    "statesHeading": "Estados",
+    "statesBody": "El hover intensifica el verde; pruébalo en los botones de arriba. El foco dibuja el anillo verde compartido de 2 píxeles. Un botón realmente deshabilitado es poco común, ya que la mayoría de los botones del sitio son enlaces; donde un control está deshabilitado, como las flechas de la serie, baja a una opacidad reducida sin cambiar de tono, de modo que sigue leyéndose como el mismo control.",
+    "contentHeading": "Contenido",
+    "contentBody": "Las etiquetas son un verbo y un sustantivo, en estilo oración, en una sola línea. Di qué ocurre, desde el lado del lector, sin «mi» ni «tu».",
+    "rulesHeading": "Cuándo usarlo",
+    "dos": [
+      "Usar un solo botón principal por grupo; dejar el resto con contorno o sin estilo.",
+      "Reservar los CTA en forma de píldora para las acciones a nivel de página; usar botones en línea en todo lo demás.",
+      "Etiquetar con un verbo y un sustantivo: «Descargar CV», «Reservar una llamada»."
+    ],
+    "donts": [
+      "Apilar dos botones verde sólido uno al lado del otro: nada destaca.",
+      "Escribir «Haz clic aquí» o «Enviar»; decir qué hace el botón.",
+      "Atenuar tanto un botón deshabilitado que deje de parecer el control."
+    ],
+    "whereHeading": "Dónde vive",
+    "whereBody": "En línea: .btn con .btn-primary o .btn-outline. Píldoras: .hero-cta con .hero-cta-solid o .hero-cta-outline, agrupadas en .hero-ctas."
+  },
+  "tagsChips": {
+    "seoTitle": "Etiquetas y chips | Sistema de diseño | Warren de Leon",
+    "seoDescription": "La familia de píldoras pequeñas en warrendeleon.com: insignias para metadatos estáticos y etiquetas de entrada para enlaces de taxonomía, y cuándo recurrir a cada una.",
+    "title": "Etiquetas y chips",
+    "intro": "Píldoras pequeñas y redondeadas que etiquetan cosas. Se parecen a propósito, pero hacen trabajos distintos: una insignia expone un hecho, una etiqueta enlaza a más.",
+    "toc": [
+      {
+        "id": "badge",
+        "label": "Insignia"
+      },
+      {
+        "id": "tag",
+        "label": "Etiqueta de entrada"
+      },
+      {
+        "id": "rules",
+        "label": "Cuándo usarlo"
+      }
+    ],
+    "badgeHeading": "Insignia",
+    "badgeBody": "Metadatos estáticos que no son un enlace: una tecnología en una tarjeta de experiencia laboral, un idioma en una entrada. Relleno neutro, radio de 8 píxeles, sin hover.",
+    "tagHeading": "Etiqueta de entrada",
+    "tagBody": "Un enlace de taxonomía, un píxel más cerrado en las esquinas que una insignia. Vuelve verdes su borde y su texto al hacer hover porque te lleva a algún sitio; una insignia no.",
+    "rulesHeading": "Cuándo usarlo",
+    "dos": [
+      "Usar una insignia para un hecho en el que no se puede hacer clic.",
+      "Usar una etiqueta de entrada cuando la píldora navega a una lista filtrada.",
+      "Agrupar las píldoras relacionadas con un espacio pequeño y uniforme."
+    ],
+    "donts": [
+      "Dar a una insignia un aspecto pulsable cuando al pulsar no ocurre nada.",
+      "Rellenar una píldora con el verde de marca; el relleno neutro es deliberado.",
+      "Saturar una fila con tantas píldoras que ninguna se pueda leer."
+    ],
+    "whereHeading": "Dónde vive",
+    "whereBody": "Insignia: .badge (agrupadas en .badge-group). Etiqueta de entrada: .post-tag (agrupadas en .post-tags). Ambas comparten el par neutro --badge-bg / --badge-text."
+  },
+  "cards": {
+    "seoTitle": "Tarjetas | Sistema de diseño | Warren de Leon",
+    "seoDescription": "La familia de tarjetas en warrendeleon.com: la tarjeta base y la entrada del feed del blog, con las reglas del enlace de superficie completa y la elevación al hacer hover.",
+    "title": "Tarjetas",
+    "intro": "Una tarjeta agrupa una pequeña unidad de contenido tras un borde muy fino y una sombra suave. La entrada del feed del blog es la tarjeta haciendo su trabajo más habitual.",
+    "toc": [
+      {
+        "id": "base",
+        "label": "Tarjeta base"
+      },
+      {
+        "id": "feed",
+        "label": "Entrada del feed"
+      },
+      {
+        "id": "rules",
+        "label": "Cuándo usarlo"
+      }
+    ],
+    "baseHeading": "Tarjeta base",
+    "baseBody": "Una superficie redondeada de 12 píxeles sobre el fondo de la tarjeta, enmarcada por una línea muy fina y elevada por una sombra suave. Al hacer hover se eleva un poco más. Es el armazón sobre el que se construye casi cualquier otra tarjeta.",
+    "feedHeading": "Entrada del feed",
+    "feedBody": "La tarjeta del listado del blog. En escritorio es una miniatura junto a un título, una línea de metadatos y un resumen de dos líneas; en el móvil se contrae a una fila compacta. Toda la superficie es un único enlace, y la entrada más reciente recibe un tratamiento destacado más grande para que la mirada se pose ahí primero.",
+    "wholeLinkNote": "Toda la tarjeta es un único enlace, no un enlace en el título con un «leer más» aparte. El hover eleva la tarjeta y vuelve verde el título a la vez.",
+    "rulesHeading": "Cuándo usarlo",
+    "dos": [
+      "Hacer que toda la tarjeta sea un único enlace cuando apunta a un solo sitio.",
+      "Dar la tarjeta destacada más grande solo a la entrada más reciente.",
+      "Dejar que la elevación al hacer hover y el título verde se muevan juntos."
+    ],
+    "donts": [
+      "Poner varios enlaces que compiten dentro de una misma superficie de tarjeta.",
+      "Dar a cada entrada el tratamiento destacado; entonces nada resalta.",
+      "Quitar el borde y confiar solo en la sombra para separar las tarjetas."
+    ],
+    "whereHeading": "Dónde vive",
+    "whereBody": "Base: .card. Feed: .feed-post con .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+  },
+  "navigation": {
+    "seoTitle": "Navegación | Sistema de diseño | Warren de Leon",
+    "seoDescription": "Cómo te mueves por warrendeleon.com: la barra superior, la navegación de escritorio, el dock de pestañas de un solo elemento, la barra de acciones contextual y el pie de página.",
+    "title": "Navegación",
+    "intro": "Moverse por el sitio usa un único conjunto de controles de navegación que se remodela según la pantalla en lugar de varios por separado. El mismo dock va de borde a borde en el móvil, es una píldora flotante en la tablet y desaparece en escritorio, donde la navegación superior toma el relevo.",
+    "toc": [
+      {
+        "id": "bar",
+        "label": "Barra superior"
+      },
+      {
+        "id": "dock",
+        "label": "Dock de pestañas"
+      },
+      {
+        "id": "action",
+        "label": "Barra de acciones"
+      },
+      {
+        "id": "footer",
+        "label": "Pie de página"
+      },
+      {
+        "id": "rules",
+        "label": "Cuándo usarlo"
+      }
+    ],
+    "barHeading": "Barra superior",
+    "barBody": "Una barra fija que lleva el logotipo y los controles de utilidad (idioma, tema y búsqueda del blog). Mide 64 píxeles de alto en escritorio, 60 en tablet y 56 en el móvil. En escritorio también alberga los tres enlaces de sección; por debajo de 1280 estos pasan al dock.",
+    "dockHeading": "Dock de pestañas",
+    "dockBody": "La navegación principal de secciones en el móvil y la tablet: cuatro pestañas (Inicio, Blog, Trabajo, Reservar una llamada). Es un único elemento con un solo punto de ruptura, no dos componentes: de borde a borde a lo largo de la parte inferior en el móvil, una píldora flotante y redondeada en la tablet, y oculto por completo en escritorio. Cuatro pestañas es estructural; una quinta no cabría en la cuadrícula, por lo que esta sección del sistema de diseño vive en el pie de página.",
+    "actionHeading": "Barra de acciones",
+    "actionBody": "En una página de lectura o de detalle, el dock queda reemplazado, no acompañado, por una barra de acciones contextual que lleva el progreso de lectura y las acciones propias de la página (índice, compartir). Una barra cada vez: controles de navegación o controles de lectura, nunca ambos.",
+    "footerHeading": "Pie de página",
+    "footerBody": "Una única columna centrada en todas las pantallas: los enlaces de sección, una fila plana de iconos sociales con RSS, y el copyright. Nunca un logotipo: la barra superior ya lo lleva.",
+    "rulesHeading": "Cuándo usarlo",
+    "dos": [
+      "Mantener el dock en cuatro pestañas; poner cualquier otra cosa en el pie de página.",
+      "Cambiar el dock por la barra de acciones en las páginas de lectura, no mostrar nunca ambos.",
+      "Dejar que la barra superior albergue las utilidades; dejar que el dock o la navegación alberguen las secciones."
+    ],
+    "donts": [
+      "Añadir una quinta pestaña al dock.",
+      "Apilar el dock y la barra de acciones en la misma pantalla.",
+      "Poner un logotipo en el pie de página; le pertenece a la barra superior."
+    ],
+    "whereHeading": "Dónde vive",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, la barra de lectura en BlogPost.astro y Footer.astro (.footer). Sus estilos están limitados al ámbito de cada componente, por lo que la anatomía se documenta aquí en lugar de volver a renderizarse."
+  },
+  "sheetsOverlays": {
+    "seoTitle": "Hojas y superposiciones | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El patrón de hoja inferior en warrendeleon.com: una primitiva compartida para selectores y menús en dispositivos táctiles, con un equivalente de menú desplegable en escritorio.",
+    "title": "Hojas y superposiciones",
+    "intro": "En dispositivos táctiles, las opciones que en escritorio serían un menú desplegable suben desde abajo como una hoja. Una primitiva respalda el menú de índice, el menú de compartir y el selector de idioma.",
+    "toc": [
+      {
+        "id": "anatomy",
+        "label": "Anatomía"
+      },
+      {
+        "id": "desktop",
+        "label": "En escritorio"
+      },
+      {
+        "id": "rules",
+        "label": "Cuándo usarlo"
+      }
+    ],
+    "anatomyHeading": "Anatomía",
+    "anatomyBody": "Un panel con las esquinas superiores redondeadas a 20 píxeles, rematado por un tirador de 36 por 4, sobre un fondo atenuado. Las filas miden 48 píxeles de alto para un pulgar cómodo; la fila activa lleva un leve tinte verde. Entra deslizándose con una curva de resorte, de modo que llega con algo de peso.",
+    "anatomyCaption": "Las filas y el tirador de la hoja, a partir de las clases reales.",
+    "sheetSample": {
+      "title": "Índice",
+      "meta": "8 secciones",
+      "rows": [
+        "Visión general",
+        "Los dos niveles",
+        "Estados",
+        "Contenido"
+      ],
+      "activeIndex": 1
+    },
+    "desktopHeading": "En escritorio",
+    "desktopBody": "El mismo selector es un menú desplegable en escritorio, no una hoja. La opción es la misma; solo cambia la superficie para adaptarse a un puntero y a una pantalla más grande. El zoom de medios a pantalla completa es la única superposición que se mantiene igual en todos los dispositivos.",
+    "rulesHeading": "Cuándo usarlo",
+    "dos": [
+      "Recurrir a una hoja cuando un usuario táctil elige de una lista corta.",
+      "Mantener las filas en 48 píxeles para que el pulgar acierte con limpieza.",
+      "Renderizar la misma opción como menú desplegable en escritorio."
+    ],
+    "donts": [
+      "Usar una hoja para un simple sí/no; eso es un diálogo.",
+      "Reducir las filas por debajo de un tamaño táctil cómodo.",
+      "Atrapar al lector: un toque en el fondo cierra la hoja."
+    ],
+    "whereHeading": "Dónde vive",
+    "whereBody": "La familia .post-sheet en global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, con .sheet-active en la fila actual."
+  },
+  "articlePatterns": {
+    "seoTitle": "Patrones de artículo | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El kit de formato largo tras el blog en warrendeleon.com: llamadas de atención, bloques de código, la doctrina de tablas y el formulario de suscripción.",
+    "title": "Patrones de artículo",
+    "intro": "El kit con el que se construye una entrada de blog. Son los patrones que convierten un muro de texto en algo que se puede leer, ojear y en lo que confiar.",
+    "toc": [
+      {
+        "id": "callouts",
+        "label": "Llamadas de atención"
+      },
+      {
+        "id": "quote",
+        "label": "Cita en bloque"
+      },
+      {
+        "id": "code",
+        "label": "Código"
+      },
+      {
+        "id": "tables",
+        "label": "Tablas"
+      },
+      {
+        "id": "subscribe",
+        "label": "Suscripción"
+      }
+    ],
+    "calloutsHeading": "Llamadas de atención",
+    "calloutsBody": "Cuatro señales para una trampa, un consejo, una precaución o una nota neutra, cada una con su propio color e icono. Extraen un único punto importante del flujo sin romperlo.",
+    "calloutSamples": {
+      "danger": "Una señal roja te detiene ante un error que conviene evitar.",
+      "tip": "Un consejo ofrece un apunte útil que puedes tomar o dejar.",
+      "warning": "Una advertencia marca algo que hay que hacer con cuidado.",
+      "info": "La información aporta contexto neutro o remite a otro lugar."
+    },
+    "quoteHeading": "Cita en bloque",
+    "quoteBody": "Una cita destacada, resaltada por una línea verde a la izquierda sobre un panel con tinte. Se usa para una cita real, no para enfatizar; para eso está la negrita.",
+    "quoteSample": "Los mejores líderes de ingeniería nunca abandonan del todo el oficio.",
+    "codeHeading": "Código",
+    "codeBody": "El código en línea va en un chip con tinte. Los bloques llevan una cabecera con el lenguaje y los controles Copiar y Expandir, con resaltado de sintaxis mediante Shiki en un tema claro y uno oscuro, y se extienden a sangre hasta los bordes de la pantalla en el móvil para que una línea larga tenga espacio.",
+    "codeInlineNote": "El código en línea tiene este aspecto:",
+    "codeSampleLang": "TypeScript",
+    "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
+    "tablesHeading": "Tablas",
+    "tablesBody": "Un artículo nunca usa una tabla HTML desnuda. Las tablas anchas se desplazan dentro de una tarjeta con borde, con una primera columna fija y una franja de cabecera monoespaciada; algunos datos se convierten en una tarjeta a medida: una fila de puntuación, una lista de comprobación, una banda de rango. La idea es que los datos siempre lleguen en un marco, nunca como filas desnudas.",
+    "tableSample": {
+      "kicker": "Ejemplo",
+      "title": "Banda de rango",
+      "rows": [
+        {
+          "name": "Fundamentos",
+          "val": "6 páginas",
+          "fill": 60
+        },
+        {
+          "name": "Componentes",
+          "val": "7 páginas",
+          "fill": 70
+        }
+      ]
+    },
+    "subscribeHeading": "Suscripción",
+    "subscribeBody": "La banda de boletín que cierra una entrada: un breve reclamo, un campo de correo electrónico y una nota sobre la doble confirmación. Este es el componente real, renderizado en vivo.",
+    "whereHeading": "Dónde vive",
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* y .prose pre, la familia .dt-card, además de SubscribeForm.astro."
+  },
+  "timeline": {
+    "seoTitle": "Cronología | Sistema de diseño | Warren de Leon",
+    "seoDescription": "La cronología de experiencia laboral en warrendeleon.com: un raíl vertical de puntos con logotipos y tarjetas, con una etiqueta «Reciente» y una escala de puntos por pantalla.",
+    "title": "Cronología",
+    "intro": "El raíl de experiencia laboral: una línea vertical con el logotipo de una empresa montado en ella en cada parada, y una tarjeta junto a cada logotipo. Debajo está el componente real con entradas reales.",
+    "toc": [
+      {
+        "id": "specimen",
+        "label": "El raíl"
+      },
+      {
+        "id": "anatomy",
+        "label": "Anatomía"
+      },
+      {
+        "id": "rules",
+        "label": "Cuándo usarlo"
+      }
+    ],
+    "specimenHeading": "El raíl",
+    "anatomyHeading": "Anatomía",
+    "anatomyBody": "Un círculo con el logotipo se asienta sobre el raíl en cada empresa, rodeado de un anillo verde: 120 píxeles en escritorio, 92 en tablet, 48 en el móvil. Una etiqueta verde «Reciente» remata la parte superior. Cada tarjeta lleva la empresa en verde, un rango de fechas en monoespaciado, el puesto, un breve resumen y una fila de chips de tecnología; un chevrón la marca como enlace. En el móvil la tarjeta se compacta a logotipo, empresa, puesto y fecha.",
+    "detailNote": "En la página propia de una empresa, el punto del logotipo ancla directamente el título de la página: el único lugar donde un encabezado de página prescinde de su barra verde, porque el punto ya lo marca.",
+    "rulesHeading": "Cuándo usarlo",
+    "dos": [
+      "Usar la cronología para una secuencia de entradas fechadas en un solo raíl.",
+      "Mantener la más reciente arriba, bajo la etiqueta «Reciente».",
+      "Dejar que cada tarjeta sea un único enlace a la entrada completa."
+    ],
+    "donts": [
+      "Recurrir a la cronología para elementos sin orden; eso es una lista.",
+      "Mostrar la insignia de puestos en una empresa con un solo puesto.",
+      "Mantener la barra verde en una página de detalle donde el punto del logotipo ya ancla el título."
+    ],
+    "whereHeading": "Dónde vive",
+    "whereBody": "Timeline.astro y TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), alimentados desde los datos de experiencia laboral."
   }
 }

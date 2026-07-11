@@ -68,11 +68,26 @@
     "title": "Kulay",
     "intro": "Isang brand green ang gumagawa ng lahat ng accent work. Ang iba pa ay isang neutral scale na naglilipat sa pagitan ng light at dark. Ang mga value sa ibaba ay binabasa mula sa stylesheet sa build time.",
     "toc": [
-      { "id": "brand", "label": "Brand green" },
-      { "id": "neutrals", "label": "Mga neutral at surface" },
-      { "id": "interaction", "label": "Interaksyon" },
-      { "id": "callouts", "label": "Mga callout" },
-      { "id": "using", "label": "Paggamit ng kulay" }
+      {
+        "id": "brand",
+        "label": "Brand green"
+      },
+      {
+        "id": "neutrals",
+        "label": "Mga neutral at surface"
+      },
+      {
+        "id": "interaction",
+        "label": "Interaksyon"
+      },
+      {
+        "id": "callouts",
+        "label": "Mga callout"
+      },
+      {
+        "id": "using",
+        "label": "Paggamit ng kulay"
+      }
     ],
     "swatchHeaders": {
       "swatch": "Light / dark",
@@ -163,11 +178,26 @@
     "title": "Typography",
     "intro": "Isang typeface, ilang weight, at isang role-based na scale na bumababa ng isang baytang sa mas maliliit na screen. Bawat laki sa ibaba ay isang CSS variable na binabasa mula sa stylesheet.",
     "toc": [
-      { "id": "family", "label": "Typeface" },
-      { "id": "scale", "label": "Ang scale" },
-      { "id": "specimens", "label": "Mga specimen" },
-      { "id": "mono", "label": "Monospace" },
-      { "id": "mapping", "label": "Sa paggamit" }
+      {
+        "id": "family",
+        "label": "Typeface"
+      },
+      {
+        "id": "scale",
+        "label": "Ang scale"
+      },
+      {
+        "id": "specimens",
+        "label": "Mga specimen"
+      },
+      {
+        "id": "mono",
+        "label": "Monospace"
+      },
+      {
+        "id": "mapping",
+        "label": "Sa paggamit"
+      }
     ],
     "familyHeading": "Typeface",
     "familyBody": "Ang interface ay nakatakda sa Inter, self-hosted sa halip na kinuha mula sa isang font service kaya hindi kailanman naghihintay ang unang paint sa isang third-party na request. Walang display o heading font: ang weight at laki ang nagdadala ng hierarchy. Ang mga heading ay tumatakbo sa 800, ang mga sub-heading at label sa 700, ang mga button at diin sa 600, at ang body copy sa 400.",
@@ -217,12 +247,30 @@
     "mappingHeading": "Sa paggamit",
     "mappingBody": "Kung saan lumilitaw ang bawat role:",
     "mapping": [
-      { "role": "Title ng pahina", "where": "Ang h1 sa bawat top-level na pahina, kasama ang green bar." },
-      { "role": "Section heading", "where": "Mga band heading, kasama ang maikling green underline." },
-      { "role": "Heading ng artikulo", "where": "Ang h2 sa loob ng isang blog post, kasama ang green underline. Article h2 lamang; ang mga sub-heading ay bumababa sa plain na weight." },
-      { "role": "Body", "where": "About na text, mga intro ng pahina, card copy." },
-      { "role": "Prose", "where": "Ang reading column ng isang artikulo." },
-      { "role": "Meta", "where": "Mga petsa, oras ng pagbabasa, mga tag. Monospace." }
+      {
+        "role": "Title ng pahina",
+        "where": "Ang h1 sa bawat top-level na pahina, kasama ang green bar."
+      },
+      {
+        "role": "Section heading",
+        "where": "Mga band heading, kasama ang maikling green underline."
+      },
+      {
+        "role": "Heading ng artikulo",
+        "where": "Ang h2 sa loob ng isang blog post, kasama ang green underline. Article h2 lamang; ang mga sub-heading ay bumababa sa plain na weight."
+      },
+      {
+        "role": "Body",
+        "where": "About na text, mga intro ng pahina, card copy."
+      },
+      {
+        "role": "Prose",
+        "where": "Ang reading column ng isang artikulo."
+      },
+      {
+        "role": "Meta",
+        "where": "Mga petsa, oras ng pagbabasa, mga tag. Monospace."
+      }
     ]
   },
   "layout": {
@@ -231,11 +279,26 @@
     "title": "Layout",
     "intro": "Mobile first, isang column, nakasentro ang nilalaman habang lumalawak ang gutter. Tatlong fixed na column ang sumasaklaw sa phone, tablet at desktop. Ang spacing ramp sa ibaba ay binabasa mula sa stylesheet.",
     "toc": [
-      { "id": "columns", "label": "Mga column" },
-      { "id": "breakpoints", "label": "Mga breakpoint" },
-      { "id": "spacing", "label": "Spacing" },
-      { "id": "targets", "label": "Mga touch target" },
-      { "id": "logo", "label": "Logo sa isang bilog" }
+      {
+        "id": "columns",
+        "label": "Mga column"
+      },
+      {
+        "id": "breakpoints",
+        "label": "Mga breakpoint"
+      },
+      {
+        "id": "spacing",
+        "label": "Spacing"
+      },
+      {
+        "id": "targets",
+        "label": "Mga touch target"
+      },
+      {
+        "id": "logo",
+        "label": "Logo sa isang bilog"
+      }
     ],
     "columnsHeading": "Mga column",
     "columnsBody": "Ang pahina ay isang nakasentrong column na may fixed na maximum na lapad kada band. Sa ilalim ng lapad na iyon, ang gutter lamang ang lumalawak, kaya nananatiling komportable ang sukat ng pagbabasa sa halip na umunat mula gilid hanggang gilid sa isang malapad na screen. Ang mga artikulo ay mas makitid pa, hanggang sa isang 720-pixel na reading column; ang mga full-bleed na block lamang tulad ng code ang lumalabas dito.",
@@ -246,16 +309,40 @@
       "bar": "Top bar"
     },
     "columnsRows": [
-      { "band": "Mobile", "column": "430px", "gutter": "20px", "bar": "56px" },
-      { "band": "Tablet", "column": "960px", "gutter": "24px", "bar": "60px" },
-      { "band": "Desktop", "column": "1100px", "gutter": "24px", "bar": "64px" }
+      {
+        "band": "Mobile",
+        "column": "430px",
+        "gutter": "20px",
+        "bar": "56px"
+      },
+      {
+        "band": "Tablet",
+        "column": "960px",
+        "gutter": "24px",
+        "bar": "60px"
+      },
+      {
+        "band": "Desktop",
+        "column": "1100px",
+        "gutter": "24px",
+        "bar": "64px"
+      }
     ],
     "breakpointsHeading": "Mga breakpoint",
     "breakpointsBody": "Tatlong band, sinabi kung ano talaga sila. Ang tablet band ay umaabot hanggang 1279 pixel, kaya ang isang 1024-pixel na window ay nakakakuha ng tablet sizing, hindi desktop. Ang tab dock ay isang affordance sa phone at tablet; ang desktop nav ang pumapalit sa 1280.",
     "breakpointsRows": [
-      { "band": "Mobile", "range": "≤ 699px" },
-      { "band": "Tablet", "range": "700–1279px" },
-      { "band": "Desktop", "range": "≥ 1280px" }
+      {
+        "band": "Mobile",
+        "range": "≤ 699px"
+      },
+      {
+        "band": "Tablet",
+        "range": "700–1279px"
+      },
+      {
+        "band": "Desktop",
+        "range": "≥ 1280px"
+      }
     ],
     "spacingHeading": "Spacing",
     "spacingBody": "Ang espasyo ay binuo sa isang four-pixel na base. Ang mga token sa ibaba ang nagtatakda ng ritmo sa pagitan ng mga section at heading; dahil isang-panig ang section padding, ang dalawang magkatabing section ay nasa doble ng token ang layo.",
@@ -283,9 +370,18 @@
     "title": "Hugis at elevation",
     "intro": "Ang mga sulok ay bumibilog sa isang consistent na scale, ang mga shadow ay tahimik at theme-aware, at ang karamihan ng paghihiwalay ay ginagawa gamit ang isang hairline sa halip na isang shadow.",
     "toc": [
-      { "id": "radius", "label": "Corner radius" },
-      { "id": "shadows", "label": "Mga shadow" },
-      { "id": "borders", "label": "Mga border" }
+      {
+        "id": "radius",
+        "label": "Corner radius"
+      },
+      {
+        "id": "shadows",
+        "label": "Mga shadow"
+      },
+      {
+        "id": "borders",
+        "label": "Mga border"
+      }
     ],
     "radiusHeading": "Corner radius",
     "radiusBody": "Ang radius ay umaakyat kasabay ng laki ng surface: ang pinakamaliit sa isang inline code chip, ang pinakamalaki sa isang bottom sheet. Ang mga ito ay paulit-ulit na literal na value sa mga component style sa halip na mga token, kaya nakadokumento ang mga ito rito nang manu-mano at sinusuri laban sa stylesheet.",
@@ -294,15 +390,42 @@
       "where": "Saan"
     },
     "radiusRows": [
-      { "radius": "5px", "where": "Mga inline code chip" },
-      { "radius": "7px", "where": "Mga blog tag chip (.post-tag)" },
-      { "radius": "8px", "where": "Mga button, badge (.badge)" },
-      { "radius": "10px", "where": "Mga code block, blockquote" },
-      { "radius": "12px", "where": "Mga card, feed post" },
-      { "radius": "14px", "where": "Mga compact na surface, bespoke na table card" },
-      { "radius": "16px", "where": "Lead post card, mobile role card" },
-      { "radius": "20px", "where": "Mga bottom sheet (itaas na sulok)" },
-      { "radius": "pill", "where": "Mga hero CTA, language pill, dock" }
+      {
+        "radius": "5px",
+        "where": "Mga inline code chip"
+      },
+      {
+        "radius": "7px",
+        "where": "Mga blog tag chip (.post-tag)"
+      },
+      {
+        "radius": "8px",
+        "where": "Mga button, badge (.badge)"
+      },
+      {
+        "radius": "10px",
+        "where": "Mga code block, blockquote"
+      },
+      {
+        "radius": "12px",
+        "where": "Mga card, feed post"
+      },
+      {
+        "radius": "14px",
+        "where": "Mga compact na surface, bespoke na table card"
+      },
+      {
+        "radius": "16px",
+        "where": "Lead post card, mobile role card"
+      },
+      {
+        "radius": "20px",
+        "where": "Mga bottom sheet (itaas na sulok)"
+      },
+      {
+        "radius": "pill",
+        "where": "Mga hero CTA, language pill, dock"
+      }
     ],
     "radiusNote": "Ang tag chip at ang badge ay may isang pixel na pagitan, sa 7 at 8 pixel. Ito ay isang maliit na hindi pagkakatugma na sulit na panatilihin nang sinasadya o isara; sa ngayon, iniuulat ng mga dokumento ang dalawa ayon sa kung paano sila ipinadala.",
     "shadowsHeading": "Mga shadow",
@@ -332,9 +455,18 @@
     "title": "Iconography",
     "intro": "Dalawang uri ng icon. Ang mga interface action ay gumagamit ng magagaan na line icon sa Feather style; ang mga brand at social link ay gumagamit ng solid na marks. Parehong kinukuha ang kanilang kulay mula sa text na nakapaligid sa kanila.",
     "toc": [
-      { "id": "line", "label": "Mga line icon" },
-      { "id": "brand", "label": "Mga brand mark" },
-      { "id": "rules", "label": "Mga rule" }
+      {
+        "id": "line",
+        "label": "Mga line icon"
+      },
+      {
+        "id": "brand",
+        "label": "Mga brand mark"
+      },
+      {
+        "id": "rules",
+        "label": "Mga rule"
+      }
     ],
     "lineHeading": "Mga line icon",
     "lineBody": "Ang mga interface icon ay iginuguhit sa isang 24-unit na grid na may two-pixel na stroke, round caps at round joins, sa Feather style. Nire-render ang mga ito sa 15 hanggang 20 pixel sa loob ng isang hit area na hindi bababa sa 38, at hindi kailanman may sariling kulay: minamana nila ang currentColor mula sa text.",
@@ -371,8 +503,14 @@
     "title": "Motion",
     "intro": "Ang motion ay tahimik at mabilis. Kinukumpirma nito ang isang action o pinapadali ang isang pagbabago ng state; hindi ito kailanman dekorasyon. At humihinto ito sa sandaling humingi ng mas kaunti ang isang bisita.",
     "toc": [
-      { "id": "durations", "label": "Mga duration at curve" },
-      { "id": "reduced", "label": "Reduced motion" }
+      {
+        "id": "durations",
+        "label": "Mga duration at curve"
+      },
+      {
+        "id": "reduced",
+        "label": "Reduced motion"
+      }
     ],
     "durationsHeading": "Mga duration at curve",
     "durationsBody": "Karamihan ng mga transition ay tumatakbo sa ikalimang bahagi ng isang segundo sa isang ease curve: isang paglipat ng kulay kapag naka-hover, isang border na humuhupa. Ang theme swap ay tumatakbo nang bahagyang mas mahaba upang hindi biglaan ang isang buong-pahinang repaint. Ang mga pahina ay pumapaitaas nang ilang pixel kapag naglo-load. Ang mga bottom sheet ang tanging mapagpahayag na galaw, dumudulas papasok sa isang spring curve.",
@@ -381,14 +519,353 @@
       "value": "Value"
     },
     "durationsRows": [
-      { "move": "Default na transition", "value": "0.2s ease" },
-      { "move": "Theme swap", "value": "0.3s ease" },
-      { "move": "Page fade-in", "value": "0.3s, up 8px" },
-      { "move": "Hover lift", "value": "up 2px + shadow" },
-      { "move": "Sheet spring", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+      {
+        "move": "Default na transition",
+        "value": "0.2s ease"
+      },
+      {
+        "move": "Theme swap",
+        "value": "0.3s ease"
+      },
+      {
+        "move": "Page fade-in",
+        "value": "0.3s, up 8px"
+      },
+      {
+        "move": "Hover lift",
+        "value": "up 2px + shadow"
+      },
+      {
+        "move": "Sheet spring",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)"
+      }
     ],
     "reducedHeading": "Reduced motion",
     "reducedBody": "Kapag humingi ang system ng isang bisita ng reduced motion, iginagalang ito ng site nang walang eksepsiyon. Ang mga animation at transition ay bumabagsak sa halos zero, at ang smooth scrolling ay bumabalik sa isang biglaang lundag. Ito ang rule, hindi isang palamuti:",
     "reducedCaption": "Mula sa stylesheet."
+  },
+  "doLabel": "Gawin",
+  "dontLabel": "Huwag",
+  "buttons": {
+    "seoTitle": "Mga Button | Disenyo | Warren de Leon",
+    "seoDescription": "Ang dalawang antas ng button sa warrendeleon.com: mga inline na button para sa mga form at aksyon, at mga pill CTA para sa mga panawagan sa antas ng pahina, kasama ang mga estado at mga panuntunan sa nilalaman.",
+    "title": "Mga Button",
+    "intro": "Dalawang antas. Ang mga inline na button ang nagdadala ng mga karaniwang aksyon sa loob ng mga form at card; ang mga pill CTA naman ang nagdadala ng isa o dalawang panawagan na siyang nagbibigay-diin sa isang buong pahina. Ang pag-alam kung saang antas nabibilang ang isang kontrol ang pinakamalaking bahagi ng desisyon.",
+    "toc": [
+      {
+        "id": "tiers",
+        "label": "Ang dalawang antas"
+      },
+      {
+        "id": "states",
+        "label": "Mga estado"
+      },
+      {
+        "id": "content",
+        "label": "Nilalaman"
+      },
+      {
+        "id": "rules",
+        "label": "Kailan gagamitin"
+      }
+    ],
+    "tiersHeading": "Ang dalawang antas",
+    "inlineHeading": "Mga inline na button",
+    "inlineBody": "Ang default na kontrol: isang button na may 8-pixel na radius para sa mga aksyon sa loob ng mga form, card at prose. Solidong berde para sa pangunahing aksyon, may-balangkas na berde para sa pangalawa. Isang pangunahin lang bawat grupo.",
+    "pillHeading": "Mga pill CTA",
+    "pillBody": "Mas matataas na 48-pixel na pill para sa mga panawagan sa antas ng pahina — ang mga dapat makita ng bisita kahit mula sa malayo, tulad ng “Download CV” o “Book a call”. Solido at may-balangkas, parehong pares ng berde.",
+    "statesHeading": "Mga estado",
+    "statesBody": "Pinalalalim ng hover ang berde — subukan mo ito sa mga button sa itaas. Ang focus ay gumuguhit ng ibinabahaging 2-pixel na berdeng singsing. Bihira ang isang tunay na disabled na button, dahil karamihan sa mga button sa site ay mga link; kung saan naka-disable ang isang kontrol, tulad ng mga arrow ng serye, bumababa ito sa mababang opacity nang hindi nagbabago ang kulay, kaya nababasa pa rin ito bilang parehong kontrol.",
+    "contentHeading": "Nilalaman",
+    "contentBody": "Ang mga label ay isang pandiwa at isang pangngalan, sa sentence case, sa isang linya. Sabihin kung ano ang mangyayari, mula sa panig ng mambabasa, nang walang “my” o “your”.",
+    "rulesHeading": "Kailan gagamitin",
+    "dos": [
+      "Gumamit ng isang pangunahing button bawat grupo; gawing may-balangkas o payak ang iba.",
+      "Ilaan ang mga pill CTA para sa mga aksyon sa antas ng pahina; gumamit ng mga inline na button sa lahat ng iba pa.",
+      "Lagyan ng label na may pandiwa at pangngalan: “Download CV”, “Book a call”."
+    ],
+    "donts": [
+      "Magsalansan ng dalawang solidong-berdeng button nang magkatabi — walang nangunguna.",
+      "Sumulat ng “Click here” o “Submit”; sabihin kung ano ang ginagawa ng button.",
+      "I-grey out ang isang disabled na button nang labis na hindi na ito mukhang kontrol."
+    ],
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "Inline: .btn na may .btn-primary o .btn-outline. Pill: .hero-cta na may .hero-cta-solid o .hero-cta-outline, na nakagrupo sa .hero-ctas."
+  },
+  "tagsChips": {
+    "seoTitle": "Mga tag at chip | Disenyo | Warren de Leon",
+    "seoDescription": "Ang pamilya ng maliliit na pill sa warrendeleon.com: mga badge para sa static na metadata at mga post tag para sa mga link ng taksonomya, at kung kailan gagamitin ang bawat isa.",
+    "title": "Mga tag at chip",
+    "intro": "Maliliit na bilog na pill na naglalagay ng label sa mga bagay. Magkamukha sila nang sinasadya, ngunit magkaiba ang trabaho nila: ang badge ay nagsasabi ng katotohanan, ang tag ay nagli-link sa iba pa.",
+    "toc": [
+      {
+        "id": "badge",
+        "label": "Badge"
+      },
+      {
+        "id": "tag",
+        "label": "Post tag"
+      },
+      {
+        "id": "rules",
+        "label": "Kailan gagamitin"
+      }
+    ],
+    "badgeHeading": "Badge",
+    "badgeBody": "Static na metadata na hindi isang link: isang teknolohiya sa isang work-experience card, isang wika sa isang post. Neutral na fill, 8-pixel na radius, walang hover.",
+    "tagHeading": "Post tag",
+    "tagBody": "Isang link ng taksonomya, mas masikip nang isang pixel sa mga sulok kaysa sa isang badge. Ginagawa nitong berde ang border at teksto nito kapag hini-hover dahil dinadala ka nito sa ibang lugar; hindi ito ginagawa ng isang badge.",
+    "rulesHeading": "Kailan gagamitin",
+    "dos": [
+      "Gumamit ng badge para sa isang katotohanan na hindi napipindot.",
+      "Gumamit ng post tag kapag ang pill ay nagna-navigate sa isang na-filter na listahan.",
+      "Igrupo ang magkakaugnay na pill na may maliit at pantay na puwang."
+    ],
+    "donts": [
+      "I-istilo ang isang badge para mukhang napipindot kung walang nangyayari sa pagpindot.",
+      "Punuin ang isang pill ng berde ng brand; sinasadya ang neutral na fill.",
+      "Punuin ang isang hanay ng napakaraming pill kaya walang mababasa."
+    ],
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "Badge: .badge (nakagrupo sa .badge-group). Post tag: .post-tag (nakagrupo sa .post-tags). Parehong ginagamit ang neutral na pares na --badge-bg / --badge-text."
+  },
+  "cards": {
+    "seoTitle": "Mga card | Disenyo | Warren de Leon",
+    "seoDescription": "Ang pamilya ng card sa warrendeleon.com: ang base card at ang blog feed post, kasama ang mga panuntunan sa buong-ibabaw na link at hover-lift.",
+    "title": "Mga card",
+    "intro": "Ang isang card ay pinagsasama-sama ang isang maliit na yunit ng nilalaman sa likod ng manipis na border at malambot na anino. Ang blog feed post ang card na ginagawa ang pinakamadalas nitong trabaho.",
+    "toc": [
+      {
+        "id": "base",
+        "label": "Base card"
+      },
+      {
+        "id": "feed",
+        "label": "Feed post"
+      },
+      {
+        "id": "rules",
+        "label": "Kailan gagamitin"
+      }
+    ],
+    "baseHeading": "Base card",
+    "baseBody": "Isang bilog na 12-pixel na ibabaw sa background ng card, nakabalangkas ng manipis na linya at itinaas ng malambot na anino. Kapag hini-hover, kaunti pa itong itinataas. Ito ang shell na halos lahat ng ibang card ay itinatayo.",
+    "feedHeading": "Feed post",
+    "feedBody": "Ang card ng listahan ng blog. Sa desktop ito ay isang thumbnail sa tabi ng isang pamagat, linya ng meta at dalawang-linyang buod; sa telepono ito ay bumabagsak sa isang compact na hanay. Ang buong ibabaw ay isang link, at ang pinakabagong post ay nakakakuha ng mas malaking lead treatment kaya doon unang dumadapo ang mata.",
+    "wholeLinkNote": "Ang buong card ay isang link, hindi isang title link na may hiwalay na “read more”. Ang hover ay magkasabay na nagtataas ng card at nag-be-berde sa pamagat.",
+    "rulesHeading": "Kailan gagamitin",
+    "dos": [
+      "Gawing isang link ang buong card kapag tumuturo ito sa isang lugar.",
+      "Ibigay lang sa pinakabagong post ang mas malaking lead card.",
+      "Hayaang magkasabay na gumalaw ang hover lift at ang berdeng pamagat."
+    ],
+    "donts": [
+      "Maglagay ng ilang nagkukumpitensyang link sa loob ng isang ibabaw ng card.",
+      "Ibigay sa bawat post ang lead treatment; wala nang natatangi kung gayon.",
+      "Alisin ang border at umasa sa anino lamang para paghiwalayin ang mga card."
+    ],
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "Base: .card. Feed: .feed-post na may .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+  },
+  "navigation": {
+    "seoTitle": "Nabigasyon | Disenyo | Warren de Leon",
+    "seoDescription": "Kung paano ka gumagalaw sa warrendeleon.com: ang top bar, ang desktop nav, ang one-element na tab dock, ang contextual action bar, at ang footer.",
+    "title": "Nabigasyon",
+    "intro": "Ang paggalaw sa buong site ay gumagamit ng isang set ng chrome na humuhugis muli bawat screen sa halip na ilang magkakahiwalay. Ang parehong dock ay edge-to-edge sa isang telepono, isang lumulutang na pill sa isang tablet, at wala na sa desktop, kung saan ang top nav ang nangunguna.",
+    "toc": [
+      {
+        "id": "bar",
+        "label": "Top bar"
+      },
+      {
+        "id": "dock",
+        "label": "Tab dock"
+      },
+      {
+        "id": "action",
+        "label": "Action bar"
+      },
+      {
+        "id": "footer",
+        "label": "Footer"
+      },
+      {
+        "id": "rules",
+        "label": "Kailan gagamitin"
+      }
+    ],
+    "barHeading": "Top bar",
+    "barBody": "Isang sticky bar na nagdadala ng logo at ng mga utility na kontrol (wika, tema, at paghahanap sa blog). Ito ay 64 pixel ang taas sa desktop, 60 sa tablet at 56 sa isang telepono. Sa desktop dinadala rin nito ang tatlong link ng seksyon; sa ibaba ng 1280 lumilipat ang mga iyon sa dock.",
+    "dockHeading": "Tab dock",
+    "dockBody": "Ang pangunahing nabigasyon ng seksyon sa telepono at tablet: apat na tab — Home, Blog, Work, Book a call. Ito ay isang elemento lamang na may isang breakpoint, hindi dalawang component: edge-to-edge sa kahabaan ng ibaba sa isang telepono, isang lumulutang na bilog na pill sa isang tablet, at ganap na nakatago sa desktop. Ang apat na tab ay istruktural; ang ikalima ay hindi magkakasya sa grid, kaya ang seksyong ito ng disenyo ay matatagpuan sa footer.",
+    "actionHeading": "Action bar",
+    "actionBody": "Sa isang reading o detail na pahina ang dock ay pinapalitan, hindi sinasabayan, ng isang contextual action bar na nagdadala ng progreso ng pagbabasa at ng sariling mga aksyon ng pahina (nilalaman, share). Isang bar sa isang pagkakataon: browse chrome o read chrome, hindi kailanman pareho.",
+    "footerHeading": "Footer",
+    "footerBody": "Isang gitnang column sa bawat screen: ang mga link ng seksyon, isang patag na hanay ng mga social mark na may RSS, at ang copyright. Walang logo, kailanman — dala na ito ng top bar.",
+    "rulesHeading": "Kailan gagamitin",
+    "dos": [
+      "Panatilihing apat na tab lang ang dock; ilagay ang anupamang iba sa footer.",
+      "Palitan ang dock ng action bar sa mga reading na pahina, huwag ipakita ang pareho.",
+      "Hayaang dalhin ng top bar ang mga utility; hayaang dalhin ng dock o nav ang mga seksyon."
+    ],
+    "donts": [
+      "Magdagdag ng ikalimang tab sa dock.",
+      "Magsalansan ng dock at action bar sa parehong screen.",
+      "Maglagay ng logo sa footer; pag-aari ito ng top bar."
+    ],
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ang reading bar sa BlogPost.astro, at Footer.astro (.footer). Ang kanilang mga istilo ay naka-scope sa bawat component, kaya ang anatomya ay naidokumento rito sa halip na i-render muli."
+  },
+  "sheetsOverlays": {
+    "seoTitle": "Mga sheet at overlay | Disenyo | Warren de Leon",
+    "seoDescription": "Ang bottom-sheet na pattern sa warrendeleon.com: isang ibinabahaging primitive para sa mga picker at menu sa touch, na may katumbas na desktop dropdown.",
+    "title": "Mga sheet at overlay",
+    "intro": "Sa touch, ang mga pagpipiliang magiging dropdown sa desktop ay dumadausdos pataas mula sa ibaba bilang isang sheet. Isang primitive ang bumubuhay sa contents menu, sa share menu at sa language picker.",
+    "toc": [
+      {
+        "id": "anatomy",
+        "label": "Anatomya"
+      },
+      {
+        "id": "desktop",
+        "label": "Sa desktop"
+      },
+      {
+        "id": "rules",
+        "label": "Kailan gagamitin"
+      }
+    ],
+    "anatomyHeading": "Anatomya",
+    "anatomyBody": "Isang panel na bilog nang 20 pixel sa itaas, tinatakan ng isang 36-by-4 na grabber, sa ibabaw ng isang madilim na backdrop. Ang mga hanay ay 48 pixel ang taas para sa komportableng hinlalaki; ang aktibong hanay ay nagdadala ng banayad na berdeng tint. Dumadausdos ito papasok sa isang spring curve, kaya dumarating ito nang may kaunting bigat.",
+    "anatomyCaption": "Ang mga hanay at grabber ng sheet, mula sa mga tunay na klase.",
+    "sheetSample": {
+      "title": "Nilalaman",
+      "meta": "8 seksyon",
+      "rows": [
+        "Pangkalahatang-ideya",
+        "Ang dalawang antas",
+        "Mga estado",
+        "Nilalaman"
+      ],
+      "activeIndex": 1
+    },
+    "desktopHeading": "Sa desktop",
+    "desktopBody": "Ang parehong picker ay isang dropdown sa desktop, hindi isang sheet. Pareho ang pagpipilian; ang ibabaw lamang ang nagbabago para umangkop sa isang pointer at mas malaking screen. Ang full-screen media zoom ang tanging overlay na nananatiling pareho sa bawat device.",
+    "rulesHeading": "Kailan gagamitin",
+    "dos": [
+      "Gumamit ng sheet kapag ang isang touch user ay pumipili mula sa isang maikling listahan.",
+      "Panatilihin ang mga hanay sa 48 pixel para malinis na dumapo ang hinlalaki.",
+      "I-render ang parehong pagpipilian bilang dropdown sa desktop."
+    ],
+    "donts": [
+      "Gumamit ng sheet para sa isang oo/hindi; iyon ay isang dialog.",
+      "Paliitin ang mga hanay sa ibaba ng komportableng laki ng touch.",
+      "Bitagin ang mambabasa: ang pagpindot sa backdrop ay nagsasara ng sheet."
+    ],
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "Ang pamilyang .post-sheet sa global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, na may .sheet-active sa kasalukuyang hanay."
+  },
+  "articlePatterns": {
+    "seoTitle": "Mga pattern ng artikulo | Disenyo | Warren de Leon",
+    "seoDescription": "Ang long-form na kit sa likod ng blog sa warrendeleon.com: mga callout, code block, ang doktrina sa talahanayan, at ang subscribe form.",
+    "title": "Mga pattern ng artikulo",
+    "intro": "Ang kit kung saan itinatayo ang isang blog post. Ito ang mga pattern na ginagawang mababasa, ma-scan at mapagkakatiwalaan ang isang dingding ng teksto.",
+    "toc": [
+      {
+        "id": "callouts",
+        "label": "Mga callout"
+      },
+      {
+        "id": "quote",
+        "label": "Blockquote"
+      },
+      {
+        "id": "code",
+        "label": "Code"
+      },
+      {
+        "id": "tables",
+        "label": "Mga talahanayan"
+      },
+      {
+        "id": "subscribe",
+        "label": "Mag-subscribe"
+      }
+    ],
+    "calloutsHeading": "Mga callout",
+    "calloutsBody": "Apat na bandila para sa isang bitag, isang tip, isang babala o isang neutral na tala, bawat isa ay may sariling kulay at icon. Hinihila nila ang isang mahalagang punto palabas ng daloy nang hindi ito sinisira.",
+    "calloutSamples": {
+      "danger": "Isang pulang bandila ang pumipigil sa iyo sa isang pagkakamaling dapat iwasan.",
+      "tip": "Ang isang tip ay nag-aalok ng kapaki-pakinabang na paalala na maaari mong tanggapin o iwan.",
+      "warning": "Ang isang babala ay nagmamarka ng isang bagay na gagawin nang may ingat.",
+      "info": "Ang info ay nagbibigay ng neutral na konteksto o tumuturo sa ibang lugar."
+    },
+    "quoteHeading": "Blockquote",
+    "quoteBody": "Isang hinugot na sipi, ipinakita sa pamamagitan ng isang berdeng linya sa kaliwa sa isang may-tint na panel. Ginagamit para sa isang tunay na sipi, hindi para sa diin — ang diin ay para sa bold.",
+    "quoteSample": "Ang pinakamahuhusay na engineering leader ay hindi kailanman lubusang umaalis sa craft.",
+    "codeHeading": "Code",
+    "codeBody": "Ang inline code ay nasa isang may-tint na chip. Ang mga block ay may header na may wika at mga kontrol na Copy at Expand, may syntax highlight gamit ang Shiki sa isang light at isang dark na tema, at umaabot sila nang full-bleed sa mga gilid ng screen sa isang telepono kaya may puwang ang isang malapad na linya.",
+    "codeInlineNote": "Ganito ang hitsura ng inline code:",
+    "codeSampleLang": "TypeScript",
+    "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
+    "tablesHeading": "Mga talahanayan",
+    "tablesBody": "Hindi kailanman gumagamit ang isang artikulo ng hubad na HTML table. Ang malalapad na talahanayan ay nagsi-scroll sa loob ng isang may-border na card na may sticky na unang column at isang monospace na header strip; ang ilang data ay nagiging isang bespoke na card sa halip — isang score row, isang checklist, isang range band. Ang punto ay ang data ay palaging dumarating sa loob ng isang frame, hindi kailanman bilang mga hubad na hanay.",
+    "tableSample": {
+      "kicker": "Halimbawa",
+      "title": "Range band",
+      "rows": [
+        {
+          "name": "Mga pundasyon",
+          "val": "6 na pahina",
+          "fill": 60
+        },
+        {
+          "name": "Mga component",
+          "val": "7 pahina",
+          "fill": 70
+        }
+      ]
+    },
+    "subscribeHeading": "Mag-subscribe",
+    "subscribeBody": "Ang newsletter band na nagtatapos sa isang post: isang maikling pitch, isang email field, at isang tala tungkol sa double opt-in. Ito ang tunay na component, na na-render nang live.",
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* at .prose pre, ang pamilyang .dt-card, at ang SubscribeForm.astro."
+  },
+  "timeline": {
+    "seoTitle": "Timeline | Disenyo | Warren de Leon",
+    "seoDescription": "Ang timeline ng karanasan sa trabaho sa warrendeleon.com: isang patayong rail ng mga logo dot at card, na may Latest na tag at isang scale ng dot bawat screen.",
+    "title": "Timeline",
+    "intro": "Ang rail ng karanasan sa trabaho: isang patayong linya na may logo ng kompanya na nakasakay dito sa bawat hinto, at isang card sa tabi ng bawat logo. Sa ibaba ang tunay na component na may tunay na mga entry.",
+    "toc": [
+      {
+        "id": "specimen",
+        "label": "Ang rail"
+      },
+      {
+        "id": "anatomy",
+        "label": "Anatomya"
+      },
+      {
+        "id": "rules",
+        "label": "Kailan gagamitin"
+      }
+    ],
+    "specimenHeading": "Ang rail",
+    "anatomyHeading": "Anatomya",
+    "anatomyBody": "Isang bilog na logo ang nakaupo sa rail sa bawat kompanya, napapalibutan ng berde — 120 pixel sa desktop, 92 sa tablet, 48 sa isang telepono. Isang berdeng “Latest” na tag ang tumatakip sa itaas. Ang bawat card ay nagdadala ng kompanya sa berde, isang monospace na saklaw ng petsa, ang tungkulin, isang maikling buod at isang hanay ng mga tech chip; isang chevron ang nagmamarka rito bilang isang link. Sa isang telepono ang card ay compact sa logo, kompanya, tungkulin at petsa.",
+    "detailNote": "Sa sariling pahina ng isang kompanya ang logo dot ang direktang nag-aankla sa pamagat ng pahina — ang tanging lugar kung saan ang isang page heading ay iniiwan ang berdeng bar nito, dahil minamarkahan na ito ng dot.",
+    "rulesHeading": "Kailan gagamitin",
+    "dos": [
+      "Gamitin ang timeline para sa isang pagkakasunod-sunod ng mga naka-petsang entry sa isang rail.",
+      "Panatilihin ang pinakabago sa itaas, sa ilalim ng Latest na tag.",
+      "Hayaang ang bawat card ay isang link sa buong entry."
+    ],
+    "donts": [
+      "Gamitin ang timeline para sa mga walang-ayos na item; iyon ay isang listahan.",
+      "Ipakita ang positions badge sa isang kompanyang may isang tungkulin lamang.",
+      "Panatilihin ang berdeng bar sa isang detail na pahina kung saan nag-aankla na ang logo dot sa pamagat."
+    ],
+    "whereHeading": "Kung saan ito matatagpuan",
+    "whereBody": "Timeline.astro at TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), na pinakakain mula sa data ng karanasan sa trabaho."
   }
 }

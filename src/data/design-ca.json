@@ -68,11 +68,26 @@
     "title": "Color",
     "intro": "Un sol verd de marca fa tota la feina d'accent. Tota la resta és una escala neutra que canvia entre clar i fosc. Els valors de sota es llegeixen del full d'estils en temps de compilació.",
     "toc": [
-      { "id": "brand", "label": "Verd de marca" },
-      { "id": "neutrals", "label": "Neutres i superfícies" },
-      { "id": "interaction", "label": "Interacció" },
-      { "id": "callouts", "label": "Requadres destacats" },
-      { "id": "using", "label": "Ús del color" }
+      {
+        "id": "brand",
+        "label": "Verd de marca"
+      },
+      {
+        "id": "neutrals",
+        "label": "Neutres i superfícies"
+      },
+      {
+        "id": "interaction",
+        "label": "Interacció"
+      },
+      {
+        "id": "callouts",
+        "label": "Requadres destacats"
+      },
+      {
+        "id": "using",
+        "label": "Ús del color"
+      }
     ],
     "swatchHeaders": {
       "swatch": "Clar / fosc",
@@ -163,11 +178,26 @@
     "title": "Tipografia",
     "intro": "Un tipus de lletra, un grapat de pesos i una escala basada en rols que baixa un graó a les pantalles més petites. Cada mida de sota és una variable de CSS llegida del full d'estils.",
     "toc": [
-      { "id": "family", "label": "Tipus de lletra" },
-      { "id": "scale", "label": "L'escala" },
-      { "id": "specimens", "label": "Mostres" },
-      { "id": "mono", "label": "Monoespai" },
-      { "id": "mapping", "label": "En ús" }
+      {
+        "id": "family",
+        "label": "Tipus de lletra"
+      },
+      {
+        "id": "scale",
+        "label": "L'escala"
+      },
+      {
+        "id": "specimens",
+        "label": "Mostres"
+      },
+      {
+        "id": "mono",
+        "label": "Monoespai"
+      },
+      {
+        "id": "mapping",
+        "label": "En ús"
+      }
     ],
     "familyHeading": "Tipus de lletra",
     "familyBody": "La interfície està composta amb Inter, allotjada de forma pròpia en comptes de carregar-se des d'un servei de fonts perquè el primer pintat no esperi mai una petició de tercers. No hi ha cap tipus de lletra decoratiu ni de títol: el pes i la mida porten la jerarquia. Els títols van a 800, els subtítols i les etiquetes a 700, els botons i l'èmfasi a 600, i el text del cos a 400.",
@@ -217,12 +247,30 @@
     "mappingHeading": "En ús",
     "mappingBody": "On apareix cada rol:",
     "mapping": [
-      { "role": "Títol de pàgina", "where": "L'h1 de cada pàgina de primer nivell, amb la barra verda." },
-      { "role": "Capçalera de secció", "where": "Capçaleres de banda, amb el subratllat verd curt." },
-      { "role": "Capçalera d'article", "where": "L'h2 dins d'una entrada de blog, amb el subratllat verd. Només l'h2 d'article; els subtítols baixen a un pes normal." },
-      { "role": "Cos", "where": "Text de presentació, introduccions de pàgina, text de targetes." },
-      { "role": "Prosa", "where": "La columna de lectura d'un article." },
-      { "role": "Metadades", "where": "Dates, temps de lectura, etiquetes. Monoespaiada." }
+      {
+        "role": "Títol de pàgina",
+        "where": "L'h1 de cada pàgina de primer nivell, amb la barra verda."
+      },
+      {
+        "role": "Capçalera de secció",
+        "where": "Capçaleres de banda, amb el subratllat verd curt."
+      },
+      {
+        "role": "Capçalera d'article",
+        "where": "L'h2 dins d'una entrada de blog, amb el subratllat verd. Només l'h2 d'article; els subtítols baixen a un pes normal."
+      },
+      {
+        "role": "Cos",
+        "where": "Text de presentació, introduccions de pàgina, text de targetes."
+      },
+      {
+        "role": "Prosa",
+        "where": "La columna de lectura d'un article."
+      },
+      {
+        "role": "Metadades",
+        "where": "Dates, temps de lectura, etiquetes. Monoespaiada."
+      }
     ]
   },
   "layout": {
@@ -231,11 +279,26 @@
     "title": "Disposició",
     "intro": "Primer el mòbil, una columna, el contingut centrat mentre el marge s'ajusta. Tres columnes fixes cobreixen telèfon, tauleta i escriptori. L'escala d'espaiat de sota es llegeix del full d'estils.",
     "toc": [
-      { "id": "columns", "label": "Columnes" },
-      { "id": "breakpoints", "label": "Punts de ruptura" },
-      { "id": "spacing", "label": "Espaiat" },
-      { "id": "targets", "label": "Àrees tàctils" },
-      { "id": "logo", "label": "Logotip en un cercle" }
+      {
+        "id": "columns",
+        "label": "Columnes"
+      },
+      {
+        "id": "breakpoints",
+        "label": "Punts de ruptura"
+      },
+      {
+        "id": "spacing",
+        "label": "Espaiat"
+      },
+      {
+        "id": "targets",
+        "label": "Àrees tàctils"
+      },
+      {
+        "id": "logo",
+        "label": "Logotip en un cercle"
+      }
     ],
     "columnsHeading": "Columnes",
     "columnsBody": "La pàgina és una sola columna centrada amb una amplada màxima fixa per banda. Per sota d'aquesta amplada, el marge és l'única cosa que s'ajusta, de manera que la mesura de lectura es manté còmoda en comptes d'estirar-se de banda a banda en una pantalla ampla. Els articles s'estrenyen encara més, fins a una columna de lectura de 720 píxels; només els blocs a sang completa com el codi en surten.",
@@ -246,16 +309,40 @@
       "bar": "Barra superior"
     },
     "columnsRows": [
-      { "band": "Mòbil", "column": "430px", "gutter": "20px", "bar": "56px" },
-      { "band": "Tauleta", "column": "960px", "gutter": "24px", "bar": "60px" },
-      { "band": "Escriptori", "column": "1100px", "gutter": "24px", "bar": "64px" }
+      {
+        "band": "Mòbil",
+        "column": "430px",
+        "gutter": "20px",
+        "bar": "56px"
+      },
+      {
+        "band": "Tauleta",
+        "column": "960px",
+        "gutter": "24px",
+        "bar": "60px"
+      },
+      {
+        "band": "Escriptori",
+        "column": "1100px",
+        "gutter": "24px",
+        "bar": "64px"
+      }
     ],
     "breakpointsHeading": "Punts de ruptura",
     "breakpointsBody": "Tres bandes, indicades tal com són realment. La banda de tauleta arriba fins a 1279 píxels, així que una finestra de 1024 píxels rep la mida de tauleta, no la d'escriptori. El moll de pestanyes és un recurs de telèfon i tauleta; la navegació d'escriptori pren el relleu a 1280.",
     "breakpointsRows": [
-      { "band": "Mòbil", "range": "≤ 699px" },
-      { "band": "Tauleta", "range": "700–1279px" },
-      { "band": "Escriptori", "range": "≥ 1280px" }
+      {
+        "band": "Mòbil",
+        "range": "≤ 699px"
+      },
+      {
+        "band": "Tauleta",
+        "range": "700–1279px"
+      },
+      {
+        "band": "Escriptori",
+        "range": "≥ 1280px"
+      }
     ],
     "spacingHeading": "Espaiat",
     "spacingBody": "L'espai es construeix sobre una base de quatre píxels. Els tokens de sota estableixen el ritme entre seccions i capçaleres; com que el farciment de secció és d'un sol costat, dues seccions adjacents queden separades el doble del token.",
@@ -283,9 +370,18 @@
     "title": "Forma i elevació",
     "intro": "Les cantonades s'arrodoneixen segons una escala coherent, les ombres són discretes i s'adapten al tema, i la major part de la separació es fa amb una sola línia fina en comptes d'una ombra.",
     "toc": [
-      { "id": "radius", "label": "Radi de cantonada" },
-      { "id": "shadows", "label": "Ombres" },
-      { "id": "borders", "label": "Vores" }
+      {
+        "id": "radius",
+        "label": "Radi de cantonada"
+      },
+      {
+        "id": "shadows",
+        "label": "Ombres"
+      },
+      {
+        "id": "borders",
+        "label": "Vores"
+      }
     ],
     "radiusHeading": "Radi de cantonada",
     "radiusBody": "El radi creix amb la mida de la superfície: el més petit en un xip de codi en línia, el més gran en un full inferior. Són valors literals recurrents als estils dels components, no pas tokens, així que aquí es documenten a mà i es contrasten amb el full d'estils.",
@@ -294,15 +390,42 @@
       "where": "On"
     },
     "radiusRows": [
-      { "radius": "5px", "where": "Xips de codi en línia" },
-      { "radius": "7px", "where": "Xips d'etiqueta de blog (.post-tag)" },
-      { "radius": "8px", "where": "Botons, distintius (.badge)" },
-      { "radius": "10px", "where": "Blocs de codi, cites en bloc" },
-      { "radius": "12px", "where": "Targetes, publicacions del feed" },
-      { "radius": "14px", "where": "Superfícies compactes, targetes de taula a mida" },
-      { "radius": "16px", "where": "Targeta de publicació principal, targeta de rol per a mòbil" },
-      { "radius": "20px", "where": "Fulls inferiors (cantonades superiors)" },
-      { "radius": "pill", "where": "CTA de portada, càpsules d'idioma, moll" }
+      {
+        "radius": "5px",
+        "where": "Xips de codi en línia"
+      },
+      {
+        "radius": "7px",
+        "where": "Xips d'etiqueta de blog (.post-tag)"
+      },
+      {
+        "radius": "8px",
+        "where": "Botons, distintius (.badge)"
+      },
+      {
+        "radius": "10px",
+        "where": "Blocs de codi, cites en bloc"
+      },
+      {
+        "radius": "12px",
+        "where": "Targetes, publicacions del feed"
+      },
+      {
+        "radius": "14px",
+        "where": "Superfícies compactes, targetes de taula a mida"
+      },
+      {
+        "radius": "16px",
+        "where": "Targeta de publicació principal, targeta de rol per a mòbil"
+      },
+      {
+        "radius": "20px",
+        "where": "Fulls inferiors (cantonades superiors)"
+      },
+      {
+        "radius": "pill",
+        "where": "CTA de portada, càpsules d'idioma, moll"
+      }
     ],
     "radiusNote": "El xip d'etiqueta i el distintiu queden separats per un píxel, a 7 i 8 píxels. És una petita incoherència que val la pena mantenir a propòsit o bé eliminar; de moment, la documentació informa dels dos tal com són.",
     "shadowsHeading": "Ombres",
@@ -332,9 +455,18 @@
     "title": "Iconografia",
     "intro": "Dos tipus d'icona. Les accions d'interfície usen icones de línia lleugeres a l'estil Feather; els enllaços de marca i socials usen símbols sòlids. Tots dos prenen el color del text del voltant.",
     "toc": [
-      { "id": "line", "label": "Icones de línia" },
-      { "id": "brand", "label": "Símbols de marca" },
-      { "id": "rules", "label": "Regles" }
+      {
+        "id": "line",
+        "label": "Icones de línia"
+      },
+      {
+        "id": "brand",
+        "label": "Símbols de marca"
+      },
+      {
+        "id": "rules",
+        "label": "Regles"
+      }
     ],
     "lineHeading": "Icones de línia",
     "lineBody": "Les icones d'interfície es dibuixen sobre una graella de 24 unitats amb un traç de dos píxels, extrems rodons i unions rodones, a l'estil Feather. Es renderitzen de 15 a 20 píxels dins d'una àrea de contacte de com a mínim 38, i mai no porten color propi: hereten currentColor del text.",
@@ -371,8 +503,14 @@
     "title": "Moviment",
     "intro": "El moviment és discret i ràpid. Confirma una acció o suavitza un canvi d'estat; mai no és decoració. I s'atura en el moment que un visitant en demana menys.",
     "toc": [
-      { "id": "durations", "label": "Durades i corbes" },
-      { "id": "reduced", "label": "Moviment reduït" }
+      {
+        "id": "durations",
+        "label": "Durades i corbes"
+      },
+      {
+        "id": "reduced",
+        "label": "Moviment reduït"
+      }
     ],
     "durationsHeading": "Durades i corbes",
     "durationsBody": "La majoria de transicions duren una cinquena part de segon amb una corba suau: un canvi de color en passar-hi per sobre, una vora que s'assenta. El canvi de tema dura una mica més perquè el repintat de tota la pàgina no sigui brusc. Les pàgines apareixen amb un fos i pugen uns quants píxels en carregar-se. Els fulls inferiors són l'únic moviment expressiu, i llisquen cap endins amb una corba elàstica.",
@@ -381,14 +519,353 @@
       "value": "Valor"
     },
     "durationsRows": [
-      { "move": "Transició per defecte", "value": "0.2s ease" },
-      { "move": "Canvi de tema", "value": "0.3s ease" },
-      { "move": "Fos d'entrada de pàgina", "value": "0.3s, up 8px" },
-      { "move": "Elevació en passar-hi per sobre", "value": "up 2px + shadow" },
-      { "move": "Elasticitat del full", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+      {
+        "move": "Transició per defecte",
+        "value": "0.2s ease"
+      },
+      {
+        "move": "Canvi de tema",
+        "value": "0.3s ease"
+      },
+      {
+        "move": "Fos d'entrada de pàgina",
+        "value": "0.3s, up 8px"
+      },
+      {
+        "move": "Elevació en passar-hi per sobre",
+        "value": "up 2px + shadow"
+      },
+      {
+        "move": "Elasticitat del full",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)"
+      }
     ],
     "reducedHeading": "Moviment reduït",
     "reducedBody": "Quan el sistema d'un visitant demana moviment reduït, el lloc ho respecta sense excepció. Les animacions i les transicions es redueixen a una engruna per sobre de zero, i el desplaçament suau torna a un salt. Aquesta és la regla, no una cortesia:",
     "reducedCaption": "Del full d'estils."
+  },
+  "doLabel": "Fes",
+  "dontLabel": "No facis",
+  "buttons": {
+    "seoTitle": "Botons | Sistema de disseny | Warren de Leon",
+    "seoDescription": "Els dos nivells de botons de warrendeleon.com: botons en línia per a formularis i accions, i CTA de píndola per a les crides a l'acció de tota la pàgina, amb estats i normes de contingut.",
+    "title": "Botons",
+    "intro": "Dos nivells. Els botons en línia porten les accions habituals dins de formularis i targetes; les CTA de píndola porten una o dues crides a l'acció que ancoren tota una pàgina. Saber a quin nivell pertany un control és la major part de la decisió.",
+    "toc": [
+      {
+        "id": "tiers",
+        "label": "Els dos nivells"
+      },
+      {
+        "id": "states",
+        "label": "Estats"
+      },
+      {
+        "id": "content",
+        "label": "Contingut"
+      },
+      {
+        "id": "rules",
+        "label": "Quan utilitzar-ho"
+      }
+    ],
+    "tiersHeading": "Els dos nivells",
+    "inlineHeading": "Botons en línia",
+    "inlineBody": "El control per defecte: un botó amb un radi de 8 píxels per a accions dins de formularis, targetes i text. Verd sòlid per a l'acció primària, verd amb contorn per a la secundària. Un únic primari per grup.",
+    "pillHeading": "CTA de píndola",
+    "pillBody": "Píndoles més altes de 48 píxels per a les crides a l'acció de tota la pàgina, les que un visitant hauria de veure des de l'altra punta de la sala, com ara «Baixa el CV» o «Reserva una trucada». Sòlid i contorn, la mateixa parella de verds.",
+    "statesHeading": "Estats",
+    "statesBody": "En passar-hi el cursor, el verd s'enfosqueix; prova-ho amb els botons de dalt. En rebre el focus, es dibuixa l'anell verd compartit de 2 píxels. Un botó realment desactivat és rar, ja que la majoria de botons del lloc són enllaços; quan un control està desactivat, com ara les fletxes de la sèrie, baixa a una opacitat baixa sense canviar de to, de manera que encara es llegeix com el mateix control.",
+    "contentHeading": "Contingut",
+    "contentBody": "Les etiquetes són un verb i un nom, en majúscula inicial, en una sola línia. Digues què passa, des del punt de vista del lector, sense «el meu» ni «el teu».",
+    "rulesHeading": "Quan utilitzar-ho",
+    "dos": [
+      "Fes servir un únic botó primari per grup; que la resta siguin de contorn o plans.",
+      "Reserva les CTA de píndola per a les accions de tota la pàgina; fes servir botons en línia a tota la resta.",
+      "Etiqueta amb un verb i un nom: «Baixa el CV», «Reserva una trucada»."
+    ],
+    "donts": [
+      "Posa dos botons verds sòlids un al costat de l'altre; res no lidera.",
+      "Escriu «Fes clic aquí» o «Envia»; digues què fa el botó.",
+      "Atenua tant un botó desactivat que deixi de semblar el control."
+    ],
+    "whereHeading": "On es troba",
+    "whereBody": "En línia: .btn amb .btn-primary o .btn-outline. Píndoles: .hero-cta amb .hero-cta-solid o .hero-cta-outline, agrupats a .hero-ctas."
+  },
+  "tagsChips": {
+    "seoTitle": "Etiquetes i xips | Sistema de disseny | Warren de Leon",
+    "seoDescription": "La família de píndoles petites de warrendeleon.com: distintius per a metadades estàtiques i etiquetes d'entrada per a enllaços de taxonomia, i quan fer servir cadascun.",
+    "title": "Etiquetes i xips",
+    "intro": "Píndoles petites i arrodonides que etiqueten coses. S'assemblen expressament, però fan feines diferents: un distintiu indica un fet, una etiqueta enllaça amb més informació.",
+    "toc": [
+      {
+        "id": "badge",
+        "label": "Distintiu"
+      },
+      {
+        "id": "tag",
+        "label": "Etiqueta d'entrada"
+      },
+      {
+        "id": "rules",
+        "label": "Quan utilitzar-ho"
+      }
+    ],
+    "badgeHeading": "Distintiu",
+    "badgeBody": "Metadades estàtiques que no són un enllaç: una tecnologia en una targeta d'experiència laboral, una llengua en una entrada. Fons neutre, radi de 8 píxels, sense efecte en passar-hi el cursor.",
+    "tagHeading": "Etiqueta d'entrada",
+    "tagBody": "Un enllaç de taxonomia, amb les cantonades un píxel més tancades que un distintiu. En passar-hi el cursor, tenyeix de verd la vora i el text perquè et porta a algun lloc; un distintiu no ho fa.",
+    "rulesHeading": "Quan utilitzar-ho",
+    "dos": [
+      "Fes servir un distintiu per a un fet que no es pot clicar.",
+      "Fes servir una etiqueta d'entrada quan la píndola porti a una llista filtrada.",
+      "Agrupa les píndoles relacionades amb una separació petita i uniforme."
+    ],
+    "donts": [
+      "Dissenya un distintiu perquè sembli que es pot tocar quan en tocar-lo no passa res.",
+      "Omple una píndola amb el verd de la marca; el fons neutre és deliberat.",
+      "Amuntega tantes píndoles en una fila que no se'n pugui llegir cap."
+    ],
+    "whereHeading": "On es troba",
+    "whereBody": "Distintiu: .badge (agrupat a .badge-group). Etiqueta d'entrada: .post-tag (agrupat a .post-tags). Tots dos comparteixen la parella neutra --badge-bg / --badge-text."
+  },
+  "cards": {
+    "seoTitle": "Targetes | Sistema de disseny | Warren de Leon",
+    "seoDescription": "La família de targetes de warrendeleon.com: la targeta base i l'entrada del canal del blog, amb les normes d'enllaç de tota la superfície i d'elevació en passar-hi el cursor.",
+    "title": "Targetes",
+    "intro": "Una targeta agrupa una petita unitat de contingut darrere d'una vora fina i una ombra suau. L'entrada del canal del blog és la targeta fent la seva feina més habitual.",
+    "toc": [
+      {
+        "id": "base",
+        "label": "Targeta base"
+      },
+      {
+        "id": "feed",
+        "label": "Entrada del canal"
+      },
+      {
+        "id": "rules",
+        "label": "Quan utilitzar-ho"
+      }
+    ],
+    "baseHeading": "Targeta base",
+    "baseBody": "Una superfície arrodonida de 12 píxels sobre el fons de la targeta, emmarcada per una línia fina i elevada per una ombra suau. En passar-hi el cursor, s'eleva una mica més. És l'estructura sobre la qual es construeix gairebé qualsevol altra targeta.",
+    "feedHeading": "Entrada del canal",
+    "feedBody": "La targeta del llistat del blog. A l'escriptori és una miniatura al costat d'un títol, una línia de metadades i un resum de dues línies; als telèfons es plega en una fila compacta. Tota la superfície és un únic enllaç, i l'entrada més recent rep un tractament destacat més gran perquè l'ull hi aterri primer.",
+    "wholeLinkNote": "Tota la targeta és un únic enllaç, no pas un enllaç al títol amb un «llegeix-ne més» a part. En passar-hi el cursor, s'eleva la targeta i el títol es torna verd alhora.",
+    "rulesHeading": "Quan utilitzar-ho",
+    "dos": [
+      "Fes que tota la targeta sigui un únic enllaç quan apunti a un sol lloc.",
+      "Dona la targeta destacada més gran només a l'entrada més recent.",
+      "Deixa que l'elevació en passar-hi el cursor i el títol verd es moguin alhora."
+    ],
+    "donts": [
+      "Posa diversos enllaços que competeixen dins d'una mateixa superfície de targeta.",
+      "Dona el tractament destacat a totes les entrades; llavors res no destaca.",
+      "Elimina la vora i confia només en l'ombra per separar les targetes."
+    ],
+    "whereHeading": "On es troba",
+    "whereBody": "Base: .card. Canal: .feed-post amb .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+  },
+  "navigation": {
+    "seoTitle": "Navegació | Sistema de disseny | Warren de Leon",
+    "seoDescription": "Com et mous per warrendeleon.com: la barra superior, la navegació d'escriptori, el dock de pestanyes d'un sol element, la barra d'accions contextual i el peu de pàgina.",
+    "title": "Navegació",
+    "intro": "Moure's pel lloc fa servir un únic conjunt d'elements d'interfície que es reconfigura segons la pantalla, en comptes de diversos per separat. El mateix dock ocupa tot l'ample en un telèfon, és una píndola flotant en una tauleta i desapareix a l'escriptori, on pren el relleu la navegació superior.",
+    "toc": [
+      {
+        "id": "bar",
+        "label": "Barra superior"
+      },
+      {
+        "id": "dock",
+        "label": "Dock de pestanyes"
+      },
+      {
+        "id": "action",
+        "label": "Barra d'accions"
+      },
+      {
+        "id": "footer",
+        "label": "Peu de pàgina"
+      },
+      {
+        "id": "rules",
+        "label": "Quan utilitzar-ho"
+      }
+    ],
+    "barHeading": "Barra superior",
+    "barBody": "Una barra fixa que porta el logotip i els controls d'utilitat (llengua, tema i cerca al blog). Fa 64 píxels d'alçada a l'escriptori, 60 en una tauleta i 56 en un telèfon. A l'escriptori també conté els tres enllaços de secció; per sota de 1280 aquests passen al dock.",
+    "dockHeading": "Dock de pestanyes",
+    "dockBody": "La navegació principal de seccions en telèfon i tauleta: quatre pestanyes: Inici, Blog, Feina i Reserva una trucada. És un sol element amb un únic punt de ruptura, no pas dos components: de vora a vora a la part inferior en un telèfon, una píndola arrodonida i flotant en una tauleta, i totalment amagat a l'escriptori. Quatre pestanyes és estructural; una cinquena no cabria a la graella, i per això aquesta secció del sistema de disseny es troba al peu de pàgina.",
+    "actionHeading": "Barra d'accions",
+    "actionBody": "En una pàgina de lectura o de detall, el dock se substitueix, no s'hi afegeix, per una barra d'accions contextual que porta el progrés de lectura i les accions pròpies de la pàgina (continguts, compartir). Una barra alhora: interfície de navegació o interfície de lectura, mai totes dues.",
+    "footerHeading": "Peu de pàgina",
+    "footerBody": "Una única columna centrada a cada pantalla: els enllaços de secció, una fila plana de marques socials amb RSS, i els drets d'autor. Cap logotip, mai; la barra superior ja el porta.",
+    "rulesHeading": "Quan utilitzar-ho",
+    "dos": [
+      "Mantén el dock en quatre pestanyes; posa qualsevol altra cosa al peu de pàgina.",
+      "Canvia el dock per la barra d'accions a les pàgines de lectura, no mostris mai totes dues.",
+      "Deixa que la barra superior contingui les utilitats; deixa que el dock o la navegació continguin les seccions."
+    ],
+    "donts": [
+      "Afegeix una cinquena pestanya al dock.",
+      "Apila el dock i la barra d'accions a la mateixa pantalla.",
+      "Posa un logotip al peu de pàgina; és la barra superior qui el porta."
+    ],
+    "whereHeading": "On es troba",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, la barra de lectura a BlogPost.astro i Footer.astro (.footer). Els seus estils estan limitats a cada component, de manera que l'anatomia es documenta aquí en comptes de tornar-se a renderitzar."
+  },
+  "sheetsOverlays": {
+    "seoTitle": "Fulls i superposicions | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El patró de full inferior de warrendeleon.com: una primitiva compartida per a selectors i menús en pantalles tàctils, amb un equivalent de menú desplegable a l'escriptori.",
+    "title": "Fulls i superposicions",
+    "intro": "En tàctil, les opcions que a l'escriptori serien un menú desplegable pugen des de baix com un full. Una única primitiva dona suport al menú de continguts, al menú de compartir i al selector de llengua.",
+    "toc": [
+      {
+        "id": "anatomy",
+        "label": "Anatomia"
+      },
+      {
+        "id": "desktop",
+        "label": "A l'escriptori"
+      },
+      {
+        "id": "rules",
+        "label": "Quan utilitzar-ho"
+      }
+    ],
+    "anatomyHeading": "Anatomia",
+    "anatomyBody": "Un tauler arrodonit 20 píxels a la part superior, coronat per un tirador de 36 per 4, sobre un teló de fons enfosquit. Les files fan 48 píxels d'alçada per a un polze còmode; la fila activa té un tint verd tènue. Entra lliscant amb una corba elàstica, de manera que arriba amb una mica de pes.",
+    "anatomyCaption": "Les files i el tirador del full, a partir de les classes reals.",
+    "sheetSample": {
+      "title": "Continguts",
+      "meta": "8 seccions",
+      "rows": [
+        "Visió general",
+        "Els dos nivells",
+        "Estats",
+        "Contingut"
+      ],
+      "activeIndex": 1
+    },
+    "desktopHeading": "A l'escriptori",
+    "desktopBody": "El mateix selector és un menú desplegable a l'escriptori, no un full. L'opció és la mateixa; només canvia la superfície per adaptar-se a un punter i una pantalla més gran. L'ampliació de mitjans a pantalla completa és l'única superposició que es manté igual a tots els dispositius.",
+    "rulesHeading": "Quan utilitzar-ho",
+    "dos": [
+      "Recorre a un full quan un usuari tàctil tria d'una llista curta.",
+      "Mantén les files a 48 píxels perquè el polze hi aterri net.",
+      "Renderitza la mateixa opció com un menú desplegable a l'escriptori."
+    ],
+    "donts": [
+      "Fes servir un full per a un sol sí/no; això és un diàleg.",
+      "Redueix les files per sota d'una mida tàctil còmoda.",
+      "Atrapa el lector: un toc al teló de fons tanca el full."
+    ],
+    "whereHeading": "On es troba",
+    "whereBody": "La família .post-sheet a global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, amb .sheet-active a la fila actual."
+  },
+  "articlePatterns": {
+    "seoTitle": "Patrons d'article | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El kit de format llarg que hi ha darrere del blog de warrendeleon.com: crides d'atenció, blocs de codi, la doctrina de taules i el formulari de subscripció.",
+    "title": "Patrons d'article",
+    "intro": "El kit amb què es construeix una entrada de blog. Aquests són els patrons que converteixen un mur de text en una cosa que pots llegir, ullar i en què pots confiar.",
+    "toc": [
+      {
+        "id": "callouts",
+        "label": "Crides d'atenció"
+      },
+      {
+        "id": "quote",
+        "label": "Cita en bloc"
+      },
+      {
+        "id": "code",
+        "label": "Codi"
+      },
+      {
+        "id": "tables",
+        "label": "Taules"
+      },
+      {
+        "id": "subscribe",
+        "label": "Subscripció"
+      }
+    ],
+    "calloutsHeading": "Crides d'atenció",
+    "calloutsBody": "Quatre indicadors per a un parany, un consell, una advertència o una nota neutra, cadascun amb el seu color i la seva icona. Extreuen un únic punt important del flux sense trencar-lo.",
+    "calloutSamples": {
+      "danger": "Un indicador vermell t'atura davant d'un error que val la pena evitar.",
+      "tip": "Un consell ofereix un aclariment útil que pots seguir o no.",
+      "warning": "Una advertència assenyala una cosa que cal fer amb cura.",
+      "info": "La informació dona context neutre o remet a un altre lloc."
+    },
+    "quoteHeading": "Cita en bloc",
+    "quoteBody": "Una cita destacada, separada per una línia verda a l'esquerra sobre un tauler amb tint. S'utilitza per a una citació real, no per emfatitzar; per emfatitzar hi ha la negreta.",
+    "quoteSample": "Els millors líders d'enginyeria mai no abandonen del tot l'ofici.",
+    "codeHeading": "Codi",
+    "codeBody": "El codi en línia va dins d'un xip amb tint. Els blocs tenen una capçalera amb el llenguatge i els controls de Copia i Amplia, amb ressaltat de sintaxi fet amb Shiki en un tema clar i un de fosc, i s'estenen fins a les vores de la pantalla en un telèfon perquè una línia ampla tingui espai.",
+    "codeInlineNote": "El codi en línia té aquest aspecte:",
+    "codeSampleLang": "TypeScript",
+    "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
+    "tablesHeading": "Taules",
+    "tablesBody": "Un article no fa servir mai una taula HTML nua. Les taules amples es desplacen dins d'una targeta amb vora, amb una primera columna fixa i una franja de capçalera monoespaiada; algunes dades es converteixen en una targeta a mida: una fila de puntuació, una llista de comprovació, una banda de rang. La idea és que les dades sempre arriben dins d'un marc, mai com a files nues.",
+    "tableSample": {
+      "kicker": "Exemple",
+      "title": "Banda de rang",
+      "rows": [
+        {
+          "name": "Fonaments",
+          "val": "6 pàgines",
+          "fill": 60
+        },
+        {
+          "name": "Components",
+          "val": "7 pàgines",
+          "fill": 70
+        }
+      ]
+    },
+    "subscribeHeading": "Subscripció",
+    "subscribeBody": "La franja de butlletí que tanca una entrada: un reclam breu, un camp de correu electrònic i una nota sobre la doble confirmació. Aquest és el component real, renderitzat en directe.",
+    "whereHeading": "On es troba",
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* i .prose pre, la família .dt-card, i també SubscribeForm.astro."
+  },
+  "timeline": {
+    "seoTitle": "Cronologia | Sistema de disseny | Warren de Leon",
+    "seoDescription": "La cronologia d'experiència laboral de warrendeleon.com: un carril vertical de punts de logotip i targetes, amb una etiqueta de «Recent» i una escala de punts per pantalla.",
+    "title": "Cronologia",
+    "intro": "El carril d'experiència laboral: una línia vertical amb el logotip d'una empresa que hi cavalca a cada parada, i una targeta al costat de cada logotip. A sota hi ha el component real amb entrades reals.",
+    "toc": [
+      {
+        "id": "specimen",
+        "label": "El carril"
+      },
+      {
+        "id": "anatomy",
+        "label": "Anatomia"
+      },
+      {
+        "id": "rules",
+        "label": "Quan utilitzar-ho"
+      }
+    ],
+    "specimenHeading": "El carril",
+    "anatomyHeading": "Anatomia",
+    "anatomyBody": "Un cercle de logotip se situa al carril a cada empresa, amb un anell verd: 120 píxels a l'escriptori, 92 en una tauleta, 48 en un telèfon. Una etiqueta verda de «Recent» corona la part superior. Cada targeta porta l'empresa en verd, un interval de dates monoespaiat, el càrrec, un breu resum i una fila de xips de tecnologia; una fletxa indica que és un enllaç. En un telèfon, la targeta es compacta a logotip, empresa, càrrec i data.",
+    "detailNote": "A la pàgina pròpia d'una empresa, el punt del logotip ancora el títol de la pàgina directament; és l'únic lloc on una capçalera de pàgina prescindeix de la seva barra verda, perquè el punt ja el marca.",
+    "rulesHeading": "Quan utilitzar-ho",
+    "dos": [
+      "Fes servir la cronologia per a una seqüència d'entrades datades en un sol carril.",
+      "Mantén la més recent a dalt, sota l'etiqueta de «Recent».",
+      "Deixa que cada targeta sigui un únic enllaç a l'entrada completa."
+    ],
+    "donts": [
+      "Recorre a la cronologia per a elements sense ordre; això és una llista.",
+      "Mostra el distintiu de càrrecs en una empresa amb un sol càrrec.",
+      "Mantén la barra verda en una pàgina de detall on el punt del logotip ja ancora el títol."
+    ],
+    "whereHeading": "On es troba",
+    "whereBody": "Timeline.astro i TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), alimentats a partir de les dades d'experiència laboral."
   }
 }

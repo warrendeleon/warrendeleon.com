@@ -1,0 +1,108 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import SubscribeForm from '../../../../components/SubscribeForm.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const a = d.articlePatterns;
+const currentPath = getLocalePath(locale, '/design/components/article-patterns/');
+const cs = a.calloutSamples;
+const table = a.tableSample;
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={a.seoTitle}
+  seoDescription={a.seoDescription}
+  group="components"
+  title={a.title}
+  intro={a.intro}
+  toc={a.toc}
+>
+  <section id="callouts">
+    <h2>{a.calloutsHeading}</h2>
+    <p>{a.calloutsBody}</p>
+    <div class="prose ds-prose-demo">
+      <blockquote class="callout callout-danger"><p>{cs.danger}</p></blockquote>
+      <blockquote class="callout callout-tip"><p>{cs.tip}</p></blockquote>
+      <blockquote class="callout callout-warning"><p>{cs.warning}</p></blockquote>
+      <blockquote class="callout callout-info"><p>{cs.info}</p></blockquote>
+    </div>
+  </section>
+
+  <section id="quote">
+    <h2>{a.quoteHeading}</h2>
+    <p>{a.quoteBody}</p>
+    <div class="prose ds-prose-demo">
+      <blockquote><p>{a.quoteSample}</p></blockquote>
+    </div>
+  </section>
+
+  <section id="code">
+    <h2>{a.codeHeading}</h2>
+    <p>{a.codeBody}</p>
+    <div class="prose ds-prose-demo">
+      <p>{a.codeInlineNote} <code>getDesignTokens()</code>.</p>
+      <div class="code-block-wrapper">
+        <div class="code-block-header">
+          <span class="code-block-lang">{a.codeSampleLang}</span>
+        </div>
+        <pre class="plain-code"><code>{a.codeSample}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="tables">
+    <h2>{a.tablesHeading}</h2>
+    <p>{a.tablesBody}</p>
+    <div class="prose ds-prose-demo">
+      <div class="dt-card">
+        <div class="dt-head dt-head-between">
+          <span class="dt-kicker dt-kicker-green">{table.kicker}</span>
+          <span class="dt-title">{table.title}</span>
+        </div>
+        <div class="dt-rows">
+          {table.rows.map((r) => (
+            <div class="dt-range-row">
+              <div class="dt-range-top">
+                <span class="dt-range-name">{r.name}</span>
+                <span class="dt-range-val">{r.val}</span>
+              </div>
+              <div class="dt-range-track"><div class="dt-range-fill" style={`width:${r.fill}%`}></div></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="subscribe">
+    <h2>{a.subscribeHeading}</h2>
+    <p>{a.subscribeBody}</p>
+    <div class="ds-subscribe-demo">
+      <SubscribeForm locale={locale} variant="design" />
+    </div>
+    <h3>{a.whereHeading}</h3>
+    <p>{a.whereBody}</p>
+  </section>
+</DesignLayout>
+
+<style>
+  /* Let the demo prose blocks size to the content column, not the 720px reading
+     measure (that only applies inside .post-layout). */
+  .ds-prose-demo { max-width: none; }
+  /* Round off the subscribe band's full-bleed edges inside the docs column. */
+  .ds-subscribe-demo {
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .ds-subscribe-demo :global(.subscribe.section) {
+    padding-block: 2rem;
+  }
+</style>

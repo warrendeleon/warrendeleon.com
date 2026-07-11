@@ -1,0 +1,77 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
+import DoDont from '../../../../components/design/DoDont.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const s = d.sheetsOverlays;
+const currentPath = getLocalePath(locale, '/design/components/sheets-overlays/');
+const sample = s.sheetSample;
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={s.seoTitle}
+  seoDescription={s.seoDescription}
+  group="components"
+  title={s.title}
+  intro={s.intro}
+  toc={s.toc}
+>
+  <section id="anatomy">
+    <h2>{s.anatomyHeading}</h2>
+    <p>{s.anatomyBody}</p>
+    <SpecimenCard label={s.anatomyCaption}>
+      <div class="ds-sheet">
+        <div class="post-sheet-grabber"></div>
+        <div class="post-sheet-head">
+          <span class="post-sheet-title">{sample.title}</span>
+          <span class="post-sheet-meta">{sample.meta}</span>
+        </div>
+        <div class="post-sheet-list">
+          {sample.rows.map((row, i) => (
+            <div class:list={['ds-sheet-item', { 'sheet-active': i === sample.activeIndex }]}>
+              <a href="#anatomy"><span class="sheet-num">{i + 1}</span>{row}</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="desktop">
+    <h2>{s.desktopHeading}</h2>
+    <p>{s.desktopBody}</p>
+  </section>
+
+  <section id="rules">
+    <h2>{s.rulesHeading}</h2>
+    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{s.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{s.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+    <h3>{s.whereHeading}</h3>
+    <p>{s.whereBody}</p>
+  </section>
+</DesignLayout>
+
+<style>
+  /* The sheet PANEL is position:fixed and spring-animated in the app; here it
+     sits still so its contents can be read. The row/grabber/head classes are
+     the real ones from global.css. */
+  .ds-sheet {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px 20px 12px 12px;
+    box-shadow: var(--sheet-shadow);
+  }
+</style>

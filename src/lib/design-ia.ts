@@ -34,13 +34,13 @@ export const DESIGN_GROUPS: DesignGroup[] = [
   {
     key: 'components',
     pages: [
-      { slug: 'buttons', path: '/design/components/buttons/', built: false },
-      { slug: 'tags-chips', path: '/design/components/tags-chips/', built: false },
-      { slug: 'cards', path: '/design/components/cards/', built: false },
-      { slug: 'navigation', path: '/design/components/navigation/', built: false },
-      { slug: 'sheets-overlays', path: '/design/components/sheets-overlays/', built: false },
-      { slug: 'article-patterns', path: '/design/components/article-patterns/', built: false },
-      { slug: 'timeline', path: '/design/components/timeline/', built: false },
+      { slug: 'buttons', path: '/design/components/buttons/', built: true },
+      { slug: 'tags-chips', path: '/design/components/tags-chips/', built: true },
+      { slug: 'cards', path: '/design/components/cards/', built: true },
+      { slug: 'navigation', path: '/design/components/navigation/', built: true },
+      { slug: 'sheets-overlays', path: '/design/components/sheets-overlays/', built: true },
+      { slug: 'article-patterns', path: '/design/components/article-patterns/', built: true },
+      { slug: 'timeline', path: '/design/components/timeline/', built: true },
     ],
   },
   {

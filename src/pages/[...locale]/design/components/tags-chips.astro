@@ -1,0 +1,59 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
+import DoDont from '../../../../components/design/DoDont.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const c = d.tagsChips;
+const currentPath = getLocalePath(locale, '/design/components/tags-chips/');
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={c.seoTitle}
+  seoDescription={c.seoDescription}
+  group="components"
+  title={c.title}
+  intro={c.intro}
+  toc={c.toc}
+>
+  <section id="badge">
+    <h2>{c.badgeHeading}</h2>
+    <p>{c.badgeBody}</p>
+    <SpecimenCard code={'<span class="badge">React Native</span>'}>
+      <div class="badge-group">
+        <span class="badge">React Native</span>
+        <span class="badge">TypeScript</span>
+        <span class="badge">Astro</span>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="tag">
+    <h2>{c.tagHeading}</h2>
+    <p>{c.tagBody}</p>
+    <SpecimenCard code={'<a class="post-tag" href="/blog/tags/testing/">Testing</a>'}>
+      <div class="post-tags">
+        <a class="post-tag" href="#tag">Testing</a>
+        <a class="post-tag" href="#tag">Module Federation</a>
+        <a class="post-tag" href="#tag">Leadership</a>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="rules">
+    <h2>{c.rulesHeading}</h2>
+    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{c.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{c.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+    <h3>{c.whereHeading}</h3>
+    <p>{c.whereBody}</p>
+  </section>
+</DesignLayout>

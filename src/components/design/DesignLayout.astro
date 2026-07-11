@@ -284,6 +284,18 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
     color: var(--text-primary);
   }
 
+  /* Shared Do/Don't bullet list, used by every component page. */
+  .ds-body ul.ds-dodont-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    max-width: none;
+  }
+  .ds-body ul.ds-dodont-list li { margin-bottom: 0.45rem; }
+  .ds-body ul.ds-dodont-list li:last-child { margin-bottom: 0; }
+
   .ds-foot {
     margin-top: 3.5rem;
     padding-top: 1.5rem;

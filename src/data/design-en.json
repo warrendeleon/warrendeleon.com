@@ -390,5 +390,238 @@
     "reducedHeading": "Reduced motion",
     "reducedBody": "When a visitor's system asks for reduced motion, the site honours it without exception. Animations and transitions collapse to a hair over zero, and smooth scrolling reverts to a jump. This is the rule, not a nicety:",
     "reducedCaption": "From the stylesheet."
+  },
+  "doLabel": "Do",
+  "dontLabel": "Don’t",
+  "buttons": {
+    "seoTitle": "Buttons | Design system | Warren de Leon",
+    "seoDescription": "The two button tiers on warrendeleon.com: inline buttons for forms and actions, and pill CTAs for page-level calls to action, with states and content rules.",
+    "title": "Buttons",
+    "intro": "Two tiers. Inline buttons carry ordinary actions inside forms and cards; pill CTAs carry the one or two calls to action that anchor a whole page. Knowing which tier a control belongs to is most of the decision.",
+    "toc": [
+      { "id": "tiers", "label": "The two tiers" },
+      { "id": "states", "label": "States" },
+      { "id": "content", "label": "Content" },
+      { "id": "rules", "label": "When to use" }
+    ],
+    "tiersHeading": "The two tiers",
+    "inlineHeading": "Inline buttons",
+    "inlineBody": "The default control: an 8-pixel-radius button for actions inside forms, cards and prose. Solid green for the primary action, outlined green for the secondary. One primary per group.",
+    "pillHeading": "Pill CTAs",
+    "pillBody": "Taller 48-pixel pills for the page-level calls to action — the ones a visitor should see from across the room, like “Download CV” or “Book a call”. Solid and outline, same green pair.",
+    "statesHeading": "States",
+    "statesBody": "Hover deepens the green — try it on the buttons above. Focus draws the shared 2-pixel green ring. A true disabled button is rare, since most buttons on the site are links; where a control is disabled, like the series arrows, it drops to a low opacity without changing hue, so it still reads as the same control.",
+    "contentHeading": "Content",
+    "contentBody": "Labels are a verb and a noun, in sentence case, on one line. Say what happens, from the reader's side, without “my” or “your”.",
+    "rulesHeading": "When to use",
+    "dos": [
+      "Use one primary button per group; make the rest outline or plain.",
+      "Reserve pill CTAs for page-level actions; use inline buttons everywhere else.",
+      "Label with a verb and a noun: “Download CV”, “Book a call”."
+    ],
+    "donts": [
+      "Stack two solid-green buttons side by side — nothing leads.",
+      "Write “Click here” or “Submit”; say what the button does.",
+      "Grey out a disabled button so hard it stops looking like the control."
+    ],
+    "whereHeading": "Where it lives",
+    "whereBody": "Inline: .btn with .btn-primary or .btn-outline. Pills: .hero-cta with .hero-cta-solid or .hero-cta-outline, grouped in .hero-ctas."
+  },
+  "tagsChips": {
+    "seoTitle": "Tags & chips | Design system | Warren de Leon",
+    "seoDescription": "The small pill family on warrendeleon.com: badges for static metadata and post tags for taxonomy links, and when to reach for each.",
+    "title": "Tags & chips",
+    "intro": "Small rounded pills that label things. They look alike on purpose, but they do different jobs: a badge states a fact, a tag links to more.",
+    "toc": [
+      { "id": "badge", "label": "Badge" },
+      { "id": "tag", "label": "Post tag" },
+      { "id": "rules", "label": "When to use" }
+    ],
+    "badgeHeading": "Badge",
+    "badgeBody": "Static metadata that is not a link: a technology on a work-experience card, a language on a post. Neutral fill, 8-pixel radius, no hover.",
+    "tagHeading": "Post tag",
+    "tagBody": "A taxonomy link, one pixel tighter at the corners than a badge. It greens its border and text on hover because it takes you somewhere; a badge does not.",
+    "rulesHeading": "When to use",
+    "dos": [
+      "Use a badge for a fact that is not clickable.",
+      "Use a post tag when the pill navigates to a filtered list.",
+      "Group related pills with a small, even gap."
+    ],
+    "donts": [
+      "Style a badge to look tappable when nothing happens on tap.",
+      "Fill a pill with the brand green; the neutral fill is deliberate.",
+      "Crowd a row with so many pills that none can be read."
+    ],
+    "whereHeading": "Where it lives",
+    "whereBody": "Badge: .badge (grouped in .badge-group). Post tag: .post-tag (grouped in .post-tags). Both share the neutral --badge-bg / --badge-text pair."
+  },
+  "cards": {
+    "seoTitle": "Cards | Design system | Warren de Leon",
+    "seoDescription": "The card family on warrendeleon.com: the base card and the blog feed post, with the whole-surface link and hover-lift rules.",
+    "title": "Cards",
+    "intro": "A card groups a small unit of content behind a hairline border and a soft shadow. The blog feed post is the card doing its most-used job.",
+    "toc": [
+      { "id": "base", "label": "Base card" },
+      { "id": "feed", "label": "Feed post" },
+      { "id": "rules", "label": "When to use" }
+    ],
+    "baseHeading": "Base card",
+    "baseBody": "A rounded 12-pixel surface on the card background, framed by a hairline and lifted by a soft shadow. On hover it lifts a little more. It is the shell almost every other card is built on.",
+    "feedHeading": "Feed post",
+    "feedBody": "The blog listing card. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row. The whole surface is one link, and the newest post gets a larger lead treatment so the eye lands there first.",
+    "wholeLinkNote": "The entire card is a single link, not a title link with a separate “read more”. Hover lifts the card and greens the title together.",
+    "rulesHeading": "When to use",
+    "dos": [
+      "Make the whole card one link when it points at one place.",
+      "Give only the newest post the larger lead card.",
+      "Let the hover lift and the green title move together."
+    ],
+    "donts": [
+      "Put several competing links inside one card surface.",
+      "Give every post the lead treatment; nothing stands out then.",
+      "Drop the border and rely on shadow alone to separate cards."
+    ],
+    "whereHeading": "Where it lives",
+    "whereBody": "Base: .card. Feed: .feed-post with .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+  },
+  "navigation": {
+    "seoTitle": "Navigation | Design system | Warren de Leon",
+    "seoDescription": "How you move around warrendeleon.com: the top bar, the desktop nav, the one-element tab dock, the contextual action bar, and the footer.",
+    "title": "Navigation",
+    "intro": "Getting around the site uses one chrome set that reshapes per screen rather than several separate ones. The same dock is edge-to-edge on a phone, a floating pill on a tablet, and gone on desktop, where the top nav takes over.",
+    "toc": [
+      { "id": "bar", "label": "Top bar" },
+      { "id": "dock", "label": "Tab dock" },
+      { "id": "action", "label": "Action bar" },
+      { "id": "footer", "label": "Footer" },
+      { "id": "rules", "label": "When to use" }
+    ],
+    "barHeading": "Top bar",
+    "barBody": "A sticky bar carrying the logo and the utility controls (language, theme, and blog search). It stands 64 pixels tall on desktop, 60 on tablet and 56 on a phone. On desktop it also holds the three section links; below 1280 those move to the dock.",
+    "dockHeading": "Tab dock",
+    "dockBody": "The primary section navigation on phone and tablet: four tabs — Home, Blog, Work, Book a call. It is a single element with one breakpoint, not two components: edge-to-edge along the bottom on a phone, a floating rounded pill on a tablet, and hidden entirely on desktop. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
+    "actionHeading": "Action bar",
+    "actionBody": "On a reading or detail page the dock is replaced, not joined, by a contextual action bar carrying reading progress and the page's own actions (contents, share). One bar at a time: browse chrome or read chrome, never both.",
+    "footerHeading": "Footer",
+    "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever — the top bar already carries it.",
+    "rulesHeading": "When to use",
+    "dos": [
+      "Keep the dock to four tabs; put anything else in the footer.",
+      "Swap the dock for the action bar on reading pages, never show both.",
+      "Let the top bar hold utilities; let the dock or nav hold sections."
+    ],
+    "donts": [
+      "Add a fifth tab to the dock.",
+      "Stack the dock and the action bar on the same screen.",
+      "Put a logo in the footer; the top bar owns it."
+    ],
+    "whereHeading": "Where it lives",
+    "whereBody": "Nav.astro (.nav), TabBar.astro, the reading bar in BlogPost.astro, and Footer.astro (.footer). Their styles are scoped to each component, so the anatomy is documented here rather than re-rendered."
+  },
+  "sheetsOverlays": {
+    "seoTitle": "Sheets & overlays | Design system | Warren de Leon",
+    "seoDescription": "The bottom-sheet pattern on warrendeleon.com: a shared primitive for pickers and menus on touch, with a desktop dropdown equivalent.",
+    "title": "Sheets & overlays",
+    "intro": "On touch, choices that would be a dropdown on desktop slide up from the bottom as a sheet. One primitive backs the contents menu, the share menu and the language picker.",
+    "toc": [
+      { "id": "anatomy", "label": "Anatomy" },
+      { "id": "desktop", "label": "On desktop" },
+      { "id": "rules", "label": "When to use" }
+    ],
+    "anatomyHeading": "Anatomy",
+    "anatomyBody": "A panel rounded 20 pixels at the top, capped by a 36-by-4 grabber, over a dimmed backdrop. Rows are 48 pixels tall for a comfortable thumb; the active row carries a faint green tint. It slides in on a spring curve, so it arrives with a little weight.",
+    "anatomyCaption": "The sheet's rows and grabber, from the real classes.",
+    "sheetSample": {
+      "title": "Contents",
+      "meta": "8 sections",
+      "rows": ["Overview", "The two tiers", "States", "Content"],
+      "activeIndex": 1
+    },
+    "desktopHeading": "On desktop",
+    "desktopBody": "The same picker is a dropdown on desktop, not a sheet. The choice is the same; only the surface changes to suit a pointer and a bigger screen. Full-screen media zoom is the one overlay that stays the same on every device.",
+    "rulesHeading": "When to use",
+    "dos": [
+      "Reach for a sheet when a touch user picks from a short list.",
+      "Keep rows at 48 pixels so a thumb lands cleanly.",
+      "Render the same choice as a dropdown on desktop."
+    ],
+    "donts": [
+      "Use a sheet for a single yes/no; that is a dialog.",
+      "Shrink the rows below a comfortable touch size.",
+      "Trap the reader: a tap on the backdrop closes the sheet."
+    ],
+    "whereHeading": "Where it lives",
+    "whereBody": "The .post-sheet family in global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, with .sheet-active on the current row."
+  },
+  "articlePatterns": {
+    "seoTitle": "Article patterns | Design system | Warren de Leon",
+    "seoDescription": "The long-form kit behind the blog on warrendeleon.com: callouts, code blocks, the table doctrine, and the subscribe form.",
+    "title": "Article patterns",
+    "intro": "The kit a blog post is built from. These are the patterns that turn a wall of text into something you can read, scan and trust.",
+    "toc": [
+      { "id": "callouts", "label": "Callouts" },
+      { "id": "quote", "label": "Blockquote" },
+      { "id": "code", "label": "Code" },
+      { "id": "tables", "label": "Tables" },
+      { "id": "subscribe", "label": "Subscribe" }
+    ],
+    "calloutsHeading": "Callouts",
+    "calloutsBody": "Four flags for a trap, a tip, a caution or a neutral note, each with its own colour and icon. They pull a single important point out of the flow without breaking it.",
+    "calloutSamples": {
+      "danger": "A red flag stops you on a mistake worth avoiding.",
+      "tip": "A tip offers a helpful aside you can take or leave.",
+      "warning": "A warning marks something to do with care.",
+      "info": "Info gives neutral context or points elsewhere."
+    },
+    "quoteHeading": "Blockquote",
+    "quoteBody": "A pulled quote, set off by a green left rule on a tinted panel. Used for a real quotation, not for emphasis — emphasis is what bold is for.",
+    "quoteSample": "The best engineering leaders never fully leave the craft.",
+    "codeHeading": "Code",
+    "codeBody": "Inline code sits in a tinted chip. Blocks get a header with the language and Copy and Expand controls, syntax-highlighted with Shiki in a light and a dark theme, and they run full-bleed to the screen edges on a phone so a wide line has room.",
+    "codeInlineNote": "Inline code looks like this:",
+    "codeSampleLang": "TypeScript",
+    "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
+    "tablesHeading": "Tables",
+    "tablesBody": "An article never uses a bare HTML table. Wide tables scroll inside a bordered card with a sticky first column and a monospace header strip; some data becomes a bespoke card instead — a score row, a checklist, a range band. The point is that data always arrives in a frame, never as naked rows.",
+    "tableSample": {
+      "kicker": "Example",
+      "title": "Range band",
+      "rows": [
+        { "name": "Foundations", "val": "6 pages", "fill": 60 },
+        { "name": "Components", "val": "7 pages", "fill": 70 }
+      ]
+    },
+    "subscribeHeading": "Subscribe",
+    "subscribeBody": "The newsletter band that closes a post: a short pitch, one email field, and a note about double opt-in. This is the real component, rendered live.",
+    "whereHeading": "Where it lives",
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro."
+  },
+  "timeline": {
+    "seoTitle": "Timeline | Design system | Warren de Leon",
+    "seoDescription": "The work-experience timeline on warrendeleon.com: a vertical rail of logo dots and cards, with a Latest tag and a per-screen dot scale.",
+    "title": "Timeline",
+    "intro": "The work-experience rail: a vertical line with a company logo riding it at each stop, and a card beside each logo. Below is the real component with real entries.",
+    "toc": [
+      { "id": "specimen", "label": "The rail" },
+      { "id": "anatomy", "label": "Anatomy" },
+      { "id": "rules", "label": "When to use" }
+    ],
+    "specimenHeading": "The rail",
+    "anatomyHeading": "Anatomy",
+    "anatomyBody": "A logo circle sits on the rail at each company, ringed in green — 120 pixels on desktop, 92 on tablet, 48 on a phone. A green “Latest” tag caps the top. Each card carries the company in green, a monospace date range, the role, a short summary and a row of tech chips; a chevron marks it as a link. On a phone the card compacts to logo, company, role and date.",
+    "detailNote": "On a company's own page the logo dot anchors the page title directly — the one place a page heading drops its green bar, because the dot already marks it.",
+    "rulesHeading": "When to use",
+    "dos": [
+      "Use the timeline for a sequence of dated entries on one rail.",
+      "Keep the newest at the top, under the Latest tag.",
+      "Let each card be one link to the full entry."
+    ],
+    "donts": [
+      "Reach for the timeline for unordered items; that is a list.",
+      "Show the positions badge on a company with a single role.",
+      "Keep the green bar on a detail page where the logo dot already anchors the title."
+    ],
+    "whereHeading": "Where it lives",
+    "whereBody": "Timeline.astro and TimelineEntry.astro (.timeline, .timeline-card, .timeline-logo), fed from the work-experience data."
   }
 }

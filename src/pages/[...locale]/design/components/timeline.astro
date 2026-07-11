@@ -1,0 +1,68 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import Timeline from '../../../../components/Timeline.astro';
+import DoDont from '../../../../components/design/DoDont.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+import workxpEn from '../../../../data/workxp-en.json';
+import workxpEs from '../../../../data/workxp-es.json';
+import workxpCa from '../../../../data/workxp-ca.json';
+import workxpTl from '../../../../data/workxp-tl.json';
+
+export const getStaticPaths = localeStaticPaths;
+
+const workxpByLocale: Record<Locale, typeof workxpEn> = {
+  en: workxpEn,
+  es: workxpEs as typeof workxpEn,
+  ca: workxpCa as typeof workxpEn,
+  tl: workxpTl as typeof workxpEn,
+};
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const t = d.timeline;
+const currentPath = getLocalePath(locale, '/design/components/timeline/');
+// Real entries (already public on /work-experience/), so the specimen is truthful
+// and its card links resolve. Two is enough to show the rail.
+const sample = workxpByLocale[locale].slice(0, 2);
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={t.seoTitle}
+  seoDescription={t.seoDescription}
+  group="components"
+  title={t.title}
+  intro={t.intro}
+  toc={t.toc}
+>
+  <section id="specimen">
+    <h2>{t.specimenHeading}</h2>
+    <div class="ds-timeline-demo">
+      <Timeline companies={sample} locale={locale} />
+    </div>
+  </section>
+
+  <section id="anatomy">
+    <h2>{t.anatomyHeading}</h2>
+    <p>{t.anatomyBody}</p>
+    <p>{t.detailNote}</p>
+  </section>
+
+  <section id="rules">
+    <h2>{t.rulesHeading}</h2>
+    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{t.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{t.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+    <h3>{t.whereHeading}</h3>
+    <p>{t.whereBody}</p>
+  </section>
+</DesignLayout>
+
+<style>
+  /* The timeline reserves a wide left gutter for the logo rail; keep it from
+     touching the content edge on the docs page. */
+  .ds-timeline-demo { margin-bottom: 1rem; }
+</style>

@@ -1,0 +1,64 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
+import DoDont from '../../../../components/design/DoDont.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const b = d.buttons;
+const currentPath = getLocalePath(locale, '/design/components/buttons/');
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={b.seoTitle}
+  seoDescription={b.seoDescription}
+  group="components"
+  title={b.title}
+  intro={b.intro}
+  toc={b.toc}
+>
+  <section id="tiers">
+    <h2>{b.tiersHeading}</h2>
+    <h3>{b.inlineHeading}</h3>
+    <p>{b.inlineBody}</p>
+    <SpecimenCard code={'<button class="btn btn-primary">Download CV</button>\n<button class="btn btn-outline">Book a call</button>'}>
+      <button type="button" class="btn btn-primary">Download CV</button>
+      <button type="button" class="btn btn-outline">Book a call</button>
+    </SpecimenCard>
+
+    <h3>{b.pillHeading}</h3>
+    <p>{b.pillBody}</p>
+    <SpecimenCard code={'<div class="hero-ctas">\n  <a class="hero-cta hero-cta-solid">Download CV</a>\n  <a class="hero-cta hero-cta-outline">Book a call</a>\n</div>'}>
+      <div class="hero-ctas">
+        <a class="hero-cta hero-cta-solid" href="#tiers">Download CV</a>
+        <a class="hero-cta hero-cta-outline" href="#tiers">Book a call</a>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="states">
+    <h2>{b.statesHeading}</h2>
+    <p>{b.statesBody}</p>
+  </section>
+
+  <section id="content">
+    <h2>{b.contentHeading}</h2>
+    <p>{b.contentBody}</p>
+  </section>
+
+  <section id="rules">
+    <h2>{b.rulesHeading}</h2>
+    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{b.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{b.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+    <h3>{b.whereHeading}</h3>
+    <p>{b.whereBody}</p>
+  </section>
+</DesignLayout>

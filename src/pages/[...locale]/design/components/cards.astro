@@ -1,0 +1,75 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
+import DoDont from '../../../../components/design/DoDont.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const c = d.cards;
+const currentPath = getLocalePath(locale, '/design/components/cards/');
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={c.seoTitle}
+  seoDescription={c.seoDescription}
+  group="components"
+  title={c.title}
+  intro={c.intro}
+  toc={c.toc}
+>
+  <section id="base">
+    <h2>{c.baseHeading}</h2>
+    <p>{c.baseBody}</p>
+    <SpecimenCard plain code={'<div class="card"> … </div>'}>
+      <div class="card ds-card-demo">
+        <strong>A base card</strong>
+        <p>A rounded surface with a hairline border and a soft shadow. Hover it to see the lift.</p>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="feed">
+    <h2>{c.feedHeading}</h2>
+    <p>{c.feedBody}</p>
+    <SpecimenCard plain>
+      <a class="feed-post ds-feed-demo" href="#feed">
+        <div class="feed-post-thumb"></div>
+        <div class="feed-post-body">
+          <div class="feed-post-meta blog-mono">
+            <span>8 Jun 2026</span>
+            <span>·</span>
+            <span>10 min</span>
+            <span class="feed-post-series">Module Federation</span>
+          </div>
+          <div class="feed-post-title">One shared store across remotes</div>
+          <div class="feed-post-desc">How a single Redux store survives the seam between federated micro-frontends, and what breaks when it does not.</div>
+        </div>
+      </a>
+    </SpecimenCard>
+    <p>{c.wholeLinkNote}</p>
+  </section>
+
+  <section id="rules">
+    <h2>{c.rulesHeading}</h2>
+    <DoDont doLabel={d.doLabel} dontLabel={d.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{c.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{c.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+    <h3>{c.whereHeading}</h3>
+    <p>{c.whereBody}</p>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-card-demo { max-width: 360px; }
+  .ds-card-demo strong { display: block; margin-bottom: 0.4rem; color: var(--text-primary); }
+  .ds-card-demo p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+  /* Give the demo feed post a real width so its desktop grid shows. */
+  .ds-feed-demo { width: 100%; max-width: 560px; }
+</style>
