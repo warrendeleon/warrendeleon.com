@@ -830,7 +830,7 @@
     "actionProgressText": "Queden 12 min · 45%",
     "actionDemoTitle": "Una única store compartida entre remotes",
     "railHeading": "Navegació de la documentació",
-    "railBody": "La navegació pròpia d'aquesta secció també forma part del sistema: un rail agrupat a escriptori (Fonaments, Components i la resta com a blocs etiquetats), un menú de secció plegable sobre el títol de la pàgina per sota de 1280 píxels, més el fil d'Ariadna i la targeta d'En aquesta pàgina."
+    "railBody": "La navegació d'aquesta secció segueix l'anatomia de l'article del blog en lloc d'inventar la seva: al mòbil la barra superior canvia el logo per un xebró de tornada a l'inici de Disseny amb un títol de pàgina plegable, el fil d'Ariadna anomena el grup, i la targeta de continguts és el component ToC de l'article — una columna dreta fixa a escriptori, en línia sobre el contingut en pantalles menors. La pàgina d'inici de la secció és l'índex."
   },
   "sheetsOverlays": {
     "seoTitle": "Fulls i superposicions | Sistema de disseny | Warren de Leon",

@@ -830,7 +830,7 @@
     "actionProgressText": "12 min na lang · 45%",
     "actionDemoTitle": "Isang shared store sa lahat ng remotes",
     "railHeading": "Nabigasyon ng docs",
-    "railBody": "Ang sariling nabigasyon ng seksyong ito ay bahagi rin ng system: isang grouped na rail sa desktop (Foundations, Components at iba pa bilang mga naka-label na block), isang collapsible na menu ng seksyon sa itaas ng pamagat ng page sa ilalim ng 1280 pixels, dagdag pa ang breadcrumb at ang On-this-page na card."
+    "railBody": "Ang navigation ng section na ito ay sumusunod sa anatomy ng blog post sa halip na mag-imbento ng sarili: sa phone, pinapalitan ng top bar ang logo ng back chevron pabalik sa Design hub na may nagko-collapse na page title, pinangangalanan ng breadcrumb ang grupo, at ang contents card ay ang mismong ToC component ng artikulo — sticky na kanang column sa desktop, inline sa itaas ng content sa mas maliliit na screen. Ang hub page ang index."
   },
   "sheetsOverlays": {
     "seoTitle": "Mga sheet at overlay | Disenyo | Warren de Leon",

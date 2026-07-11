@@ -817,7 +817,7 @@
     "footerHeading": "Footer",
     "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever — the top bar already carries it. The live footer is at the bottom of this very page.",
     "railHeading": "Docs navigation",
-    "railBody": "This section's own navigation is part of the system too: a grouped rail on desktop (Foundations, Components and so on as labelled blocks), a collapsible section menu above the page title below 1280 pixels, plus the breadcrumb and the On-this-page card.",
+    "railBody": "This section's own navigation follows the blog post's anatomy rather than inventing its own: on a phone the top bar swaps the logo for a back chevron to the Design hub with a collapsing page title, the breadcrumb names the group, and the contents card is the article ToC component — a sticky right column on desktop, inline above the content on smaller screens. The hub page is the index.",
     "rulesHeading": "When to use",
     "dos": [
       "Keep the dock to four tabs; put anything else in the footer.",
@@ -1142,12 +1142,30 @@
     "title": "Writing",
     "intro": "How the words on the site are set. These are the conventions the writing already follows, read back from the site itself — the public output standard, not the process behind it.",
     "toc": [
-      { "id": "spelling", "label": "Spelling" },
-      { "id": "case", "label": "Case" },
-      { "id": "dates", "label": "Dates" },
-      { "id": "punctuation", "label": "Punctuation" },
-      { "id": "links", "label": "Links" },
-      { "id": "brands", "label": "Brand names" }
+      {
+        "id": "spelling",
+        "label": "Spelling"
+      },
+      {
+        "id": "case",
+        "label": "Case"
+      },
+      {
+        "id": "dates",
+        "label": "Dates"
+      },
+      {
+        "id": "punctuation",
+        "label": "Punctuation"
+      },
+      {
+        "id": "links",
+        "label": "Links"
+      },
+      {
+        "id": "brands",
+        "label": "Brand names"
+      }
     ],
     "spellingHeading": "Spelling",
     "spellingBody": "Prose is British English: behaviour, colour, organise, licence. The two exceptions are deliberate and both live in code, not prose. A code identifier keeps whatever spelling its API uses, so a color property stays color. And across the Module Federation writing, artifact is a term of art — a published, versioned module — so it keeps that spelling while ordinary prose still writes artefact.",
@@ -1192,18 +1210,37 @@
     "title": "Translation",
     "intro": "Every page is written to live in four languages. English sits at the root; Spanish, Catalan and Tagalog mirror it, each under its own prefix. This page is the policy that keeps them in step.",
     "toc": [
-      { "id": "locales", "label": "Four locales" },
-      { "id": "scope", "label": "What translates" },
-      { "id": "connect", "label": "How versions connect" },
-      { "id": "posts", "label": "Posts & discovery" }
+      {
+        "id": "locales",
+        "label": "Four locales"
+      },
+      {
+        "id": "scope",
+        "label": "What translates"
+      },
+      {
+        "id": "connect",
+        "label": "How versions connect"
+      },
+      {
+        "id": "posts",
+        "label": "Posts & discovery"
+      }
     ],
     "localesHeading": "Four locales",
     "localesBody": "English is served at the root with no prefix. Spanish, Catalan and Tagalog each live under their own prefix. Dates and month names format per region — British English, European Spanish, Catalan and Filipino.",
-    "localesTableHeaders": { "locale": "Locale", "prefix": "Path", "language": "Language" },
+    "localesTableHeaders": {
+      "locale": "Locale",
+      "prefix": "Path",
+      "language": "Language"
+    },
     "localesRoot": "(root)",
     "scopeHeading": "What translates, and what does not",
     "scopeBody": "Prose, headings, alt text, interface strings and diagram labels are translated. Everything a reader would copy and run is kept exactly: code, terminal commands, file paths, URLs, code identifiers, and brand and product names. A translated post reads in its own language while its git commands and API names stay byte-for-byte the English.",
-    "scopeTableHeaders": { "translated": "Translated", "kept": "Kept verbatim" },
+    "scopeTableHeaders": {
+      "translated": "Translated",
+      "kept": "Kept verbatim"
+    },
     "scopeTranslated": [
       "Prose and headings",
       "Image alt text",
@@ -1228,23 +1265,64 @@
     "title": "Accessibility",
     "intro": "The standards the site is built to, measured against WCAG 2.2 with AA as the target. What follows is what the code actually does — including the one place the brand green forced an honest trade.",
     "toc": [
-      { "id": "standards", "label": "The standards" },
-      { "id": "contrast", "label": "The readable-green trade" },
-      { "id": "scope", "label": "Scope" }
+      {
+        "id": "standards",
+        "label": "The standards"
+      },
+      {
+        "id": "contrast",
+        "label": "The readable-green trade"
+      },
+      {
+        "id": "scope",
+        "label": "Scope"
+      }
     ],
     "standardsHeading": "The standards",
     "standards": [
-      { "title": "Skip link and landmarks", "body": "A keyboard visitor lands first on a Skip to content link that jumps past the chrome to the main region. The page is built from real landmarks: a main, labelled navigation elements, and a footer.", "sc": "2.4.1 Bypass Blocks · A" },
-      { "title": "Visible focus", "body": "Every control focuses to a two-pixel green ring set two pixels off the edge, shown for keyboard focus and not for a mouse click.", "sc": "2.4.7 Focus Visible · AA" },
-      { "title": "Target size", "body": "Primary touch controls — the tab dock, sheet rows, the call-to-action pills — are 44 to 48 pixels; the smallest pointer control still clears 24. So every control meets the AA minimum, and the touch controls meet the stricter AAA size.", "sc": "2.5.8 AA · 2.5.5 AAA" },
-      { "title": "Reduced motion", "body": "When a visitor's system asks for less motion the site collapses every animation and transition to a hair over zero, and turns smooth scrolling into a plain jump.", "sc": "2.3.3 · AAA" },
-      { "title": "Theme parity, no flash", "body": "Light and dark are both first-class: every surface is designed in both, and the theme resolves before the first paint so a dark-mode visitor never gets a white flash.", "sc": "" },
-      { "title": "Colour is not the only signal", "body": "Links in article prose are underlined, so their meaning never rests on green alone.", "sc": "1.4.1 Use of Colour · A" }
+      {
+        "title": "Skip link and landmarks",
+        "body": "A keyboard visitor lands first on a Skip to content link that jumps past the chrome to the main region. The page is built from real landmarks: a main, labelled navigation elements, and a footer.",
+        "sc": "2.4.1 Bypass Blocks · A"
+      },
+      {
+        "title": "Visible focus",
+        "body": "Every control focuses to a two-pixel green ring set two pixels off the edge, shown for keyboard focus and not for a mouse click.",
+        "sc": "2.4.7 Focus Visible · AA"
+      },
+      {
+        "title": "Target size",
+        "body": "Primary touch controls — the tab dock, sheet rows, the call-to-action pills — are 44 to 48 pixels; the smallest pointer control still clears 24. So every control meets the AA minimum, and the touch controls meet the stricter AAA size.",
+        "sc": "2.5.8 AA · 2.5.5 AAA"
+      },
+      {
+        "title": "Reduced motion",
+        "body": "When a visitor's system asks for less motion the site collapses every animation and transition to a hair over zero, and turns smooth scrolling into a plain jump.",
+        "sc": "2.3.3 · AAA"
+      },
+      {
+        "title": "Theme parity, no flash",
+        "body": "Light and dark are both first-class: every surface is designed in both, and the theme resolves before the first paint so a dark-mode visitor never gets a white flash.",
+        "sc": ""
+      },
+      {
+        "title": "Colour is not the only signal",
+        "body": "Links in article prose are underlined, so their meaning never rests on green alone.",
+        "sc": "1.4.1 Use of Colour · A"
+      }
     ],
     "contrastHeading": "The readable-green trade",
     "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1 — below even the 3-to-1 bar for large text. That is why a second token exists: --color-green-text steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
-    "contrastTableHeaders": { "token": "Token", "white": "On white", "dark": "On near-black" },
-    "contrastLegend": { "pass": "Passes AA", "partial": "Large text and UI only", "fail": "Fails the bar" },
+    "contrastTableHeaders": {
+      "token": "Token",
+      "white": "On white",
+      "dark": "On near-black"
+    },
+    "contrastLegend": {
+      "pass": "Passes AA",
+      "partial": "Large text and UI only",
+      "fail": "Fails the bar"
+    },
     "contrastSampleText": "A green link",
     "contrastLimitation": "The honest part: at body reading size on a light background, a green link sits at about 3.2 to 1 — past the large-text bar, short of the 4.5-to-1 bar for normal text. The site accepts that trade to keep its one brand colour, and softens it two ways. Article links are underlined, so colour is never the only signal; and dark mode resolves it outright, where the same lime on near-black reads at about 8.6 to 1. Body copy itself is always neutral, and always passes.",
     "scopeHeading": "Scope",

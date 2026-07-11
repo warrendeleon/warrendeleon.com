@@ -24,6 +24,7 @@ const groupCards = (key: string) => {
   return g.pages
     .filter((p) => p.built)
     .map((p) => ({
+      slug: p.slug,
       label: d.nav[p.slug as keyof typeof d.nav],
       blurb: blurbs[p.slug],
       href: getLocalePath(locale, p.path),
@@ -37,11 +38,32 @@ const sections = [
   { id: 'accessibility', heading: L.accessibilityHeading, cards: groupCards('accessibility') },
 ].filter((s) => s.cards.length > 0);
 
-const toc = [
-  { id: 'principles', label: L.principlesHeading },
-  ...sections.map((s) => ({ id: s.id, label: s.heading })),
-  { id: 'living', label: L.livingHeading },
-];
+// Feather-style line icons (24 grid, 2px stroke, currentColor — the site's
+// own icon language) for foundations, content and accessibility cards.
+const ICONS: Record<string, string> = {
+  colour: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>',
+  typography: '<polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line>',
+  layout: '<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line>',
+  'shape-elevation': '<polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline>',
+  iconography: '<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line>',
+  motion: '<path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>',
+  writing: '<path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>',
+  translation: '<circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>',
+  accessibility: '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>',
+};
+
+// Component cards carry miniature token-drawn vignettes instead of icons —
+// the same abstract-mock language the guidance cards use. Decorative only.
+const VIGNETTES: Record<string, string> = {
+  buttons: '<span class="vg-pill vg-solid"></span><span class="vg-pill vg-outline"></span>',
+  'tags-chips': '<span class="vg-chip"></span><span class="vg-chip vg-chip-wide"></span><span class="vg-chip"></span>',
+  cards: '<span class="vg-minicard"><span class="vg-thumb"></span><span class="vg-lines"><span class="vg-line"></span><span class="vg-line vg-line-short"></span></span></span>',
+  navigation: '<span class="vg-dock">' + '<span class="vg-tab"><span class="vg-dot"></span><span class="vg-line"></span></span>'.repeat(4) + '</span>',
+  'sheets-overlays': '<span class="vg-backdrop"><span class="vg-sheet"><span class="vg-grabber"></span></span></span>',
+  'article-patterns': '<span class="vg-article"><span class="vg-line"></span><span class="vg-callout"></span><span class="vg-line vg-line-short"></span></span>',
+  timeline: '<span class="vg-rail"><span class="vg-ring"></span><span class="vg-ring"></span></span>',
+  media: '<span class="vg-frame"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></span>',
+};
 ---
 
 <DesignLayout
@@ -51,7 +73,6 @@ const toc = [
   seoDescription={L.seoDescription}
   title={L.title}
   intro={L.intro}
-  toc={toc}
 >
   <section id="principles">
     <h2>{L.principlesHeading}</h2>
@@ -71,7 +92,15 @@ const toc = [
       <div class="ds-cards">
         {s.cards.map((c) => (
           <a href={c.href} class="card ds-card-link">
-            <span class="ds-card-title">{c.label}</span>
+            {VIGNETTES[c.slug] && (
+              <span class="ds-card-vig" aria-hidden="true" set:html={VIGNETTES[c.slug]} />
+            )}
+            <span class="ds-card-head">
+              {ICONS[c.slug] && (
+                <svg class="ds-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[c.slug]} />
+              )}
+              <span class="ds-card-title">{c.label}</span>
+            </span>
             <span class="ds-card-blurb">{c.blurb}</span>
           </a>
         ))}
@@ -136,12 +165,61 @@ const toc = [
     transform: translateY(-2px);
     border-color: var(--color-green);
   }
+  .ds-card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .ds-card-icon {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+  .ds-card-link:hover .ds-card-icon { color: var(--color-green-text); }
   .ds-card-title {
     font-size: 1.02rem;
     font-weight: 700;
     color: var(--text-primary);
   }
   .ds-card-link:hover .ds-card-title { color: var(--color-green-text); }
+
+  /* Component-card vignettes: miniature token drawings on a specimen stage —
+     the same abstract-mock language the guidance cards use. */
+  .ds-card-vig {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 72px;
+    margin-bottom: 0.85rem;
+    border-radius: 10px;
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+  }
+  .ds-card-vig :global(.vg-pill) { width: 58px; height: 20px; border-radius: 10px; }
+  .ds-card-vig :global(.vg-solid) { background: var(--color-green); }
+  .ds-card-vig :global(.vg-outline) { border: 2px solid var(--color-green); }
+  .ds-card-vig :global(.vg-chip) { width: 30px; height: 14px; border-radius: 5px; background: var(--badge-bg); border: 1px solid var(--border-color); }
+  .ds-card-vig :global(.vg-chip-wide) { width: 44px; }
+  .ds-card-vig :global(.vg-minicard) { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--bg-card); }
+  .ds-card-vig :global(.vg-thumb) { width: 26px; height: 22px; border-radius: 5px; background: var(--badge-bg); }
+  .ds-card-vig :global(.vg-lines) { display: flex; flex-direction: column; gap: 4px; }
+  .ds-card-vig :global(.vg-line) { width: 56px; height: 6px; border-radius: 3px; background: var(--badge-bg); }
+  .ds-card-vig :global(.vg-line-short) { width: 36px; }
+  .ds-card-vig :global(.vg-dock) { display: flex; gap: 12px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); }
+  .ds-card-vig :global(.vg-tab) { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .ds-card-vig :global(.vg-dot) { width: 12px; height: 12px; border-radius: 4px; border: 1.5px solid var(--text-muted); }
+  .ds-card-vig :global(.vg-tab .vg-line) { width: 16px; height: 4px; }
+  .ds-card-vig :global(.vg-tab:first-child .vg-dot) { border-color: var(--color-green); }
+  .ds-card-vig :global(.vg-backdrop) { display: flex; align-items: flex-end; width: 100px; height: 48px; padding: 4px; border-radius: 8px; background: rgba(0, 0, 0, 0.4); }
+  .ds-card-vig :global(.vg-sheet) { display: flex; justify-content: center; width: 100%; height: 26px; border-radius: 8px 8px 4px 4px; background: var(--bg-card); }
+  .ds-card-vig :global(.vg-grabber) { width: 18px; height: 3px; margin-top: 4px; border-radius: 2px; background: var(--border-color); }
+  .ds-card-vig :global(.vg-article) { display: flex; flex-direction: column; gap: 5px; }
+  .ds-card-vig :global(.vg-callout) { width: 56px; height: 10px; border-radius: 3px; background: var(--badge-bg); border-left: 3px solid var(--color-green); }
+  .ds-card-vig :global(.vg-rail) { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 2px 0; }
+  .ds-card-vig :global(.vg-rail)::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--timeline-line); }
+  .ds-card-vig :global(.vg-ring) { position: relative; z-index: 1; width: 20px; height: 20px; border-radius: 50%; background: var(--bg-card); border: 1.5px solid var(--color-green); }
+  .ds-card-vig :global(.vg-frame) { display: flex; align-items: center; justify-content: center; width: 64px; height: 44px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); }
   .ds-card-blurb {
     font-size: 0.88rem;
     line-height: 1.5;

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Toc from '../blog/Toc.astro';
 import { getLocalePath, type Locale } from '../../i18n/index';
 import { getDesignData } from '../../lib/design-data';
-import { DESIGN_GROUPS, DESIGN_ROOT, type DesignGroup } from '../../lib/design-ia';
+import { DESIGN_ROOT, type DesignGroup } from '../../lib/design-ia';
 
 interface Props {
   locale: Locale;
@@ -13,119 +14,62 @@ interface Props {
   group?: DesignGroup['key'];
   title: string;
   intro: string;
-  /** In-page anchors for the "On this page" card. */
+  /** In-page anchors for the contents card. */
   toc?: { id: string; label: string }[];
 }
 
 const { locale, currentPath, seoTitle, seoDescription, group, title, intro, toc = [] } = Astro.props;
 const d = getDesignData(locale);
 const rootPath = getLocalePath(locale, DESIGN_ROOT);
-
-// Localised nav model: each group with its built pages resolved to labels +
-// hrefs. Drives both the desktop rail and the mobile section menu.
-const nav = DESIGN_GROUPS.map((g) => ({
-  key: g.key,
-  label: d.groups[g.key],
-  pages: g.pages
-    .filter((p) => p.built)
-    .map((p) => ({
-      label: d.nav[p.slug as keyof typeof d.nav],
-      href: getLocalePath(locale, p.path),
-    })),
-})).filter((g) => g.pages.length > 0);
+const isHub = currentPath === rootPath;
 
 const groupLabel = group ? d.groups[group] : null;
 const issueSubject = encodeURIComponent(`Design system: ${title}`);
+
+// Contents via the blog's real Toc component: sticky right column on desktop,
+// inline collapsible on smaller screens — the same anatomy a post has.
+const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription} locale={locale} currentPath={currentPath}>
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  locale={locale}
+  currentPath={currentPath}
+  mobileBack={isHub ? undefined : { href: rootPath, title, eyebrow: groupLabel ? `${d.designLabel} · ${groupLabel}` : d.designLabel }}
+>
   <section class="section">
     <div class="container">
-      <div class="ds-shell">
-        <aside class="ds-rail" aria-label={d.sectionsLabel}>
-          <a href={rootPath} class:list={['ds-rail-home', { active: currentPath === rootPath }]}>{d.designLabel}</a>
-          {nav.map((g) => (
-            <div class="ds-rail-group">
-              <p class="ds-rail-group-label">{g.label}</p>
-              <ul>
-                {g.pages.map((p) => (
-                  <li>
-                    <a
-                      href={p.href}
-                      class:list={['ds-rail-link', { active: currentPath === p.href }]}
-                      aria-current={currentPath === p.href ? 'page' : undefined}
-                    >
-                      {p.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </aside>
-
-        <div class="ds-content">
-          <nav class="ds-breadcrumb" aria-label={d.breadcrumbLabel}>
-            <a href={rootPath}>{d.designLabel}</a>
-            {groupLabel && (
-              <>
-                <span class="ds-crumb-sep" aria-hidden="true">/</span>
-                <span>{groupLabel}</span>
-              </>
-            )}
-          </nav>
-
-          <!-- Mobile/tablet section menu: the rail is desktop-only, so below
-               1280px this collapsible carries the whole section's navigation.
-               Same details/summary pattern as the article ToC. -->
-          <nav class="ds-mobile-nav" aria-label={d.sectionsLabel}>
-            <details class="ds-mnav">
-              <summary>{d.designLabel} — {d.sectionsLabel}</summary>
-              <div class="ds-mnav-body">
-                {nav.map((g) => (
-                  <div class="ds-mnav-group">
-                    <p class="ds-mnav-label">{g.label}</p>
-                    <div class="ds-mnav-links">
-                      {g.pages.map((p) => (
-                        <a
-                          href={p.href}
-                          class:list={['post-tag', { 'ds-mnav-active': currentPath === p.href }]}
-                          aria-current={currentPath === p.href ? 'page' : undefined}
-                        >
-                          {p.label}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </details>
-          </nav>
-
-          <header class="ds-header">
-            <h1 class="section-title">{title}</h1>
-            <p class="ds-intro">{intro}</p>
-          </header>
-
-          {toc.length > 0 && (
-            <nav class="ds-toc" aria-label={d.onThisPage}>
-              <p class="ds-toc-label">{d.onThisPage}</p>
-              <ul>
-                {toc.map((i) => (
-                  <li><a href={`#${i.id}`}>{i.label}</a></li>
-                ))}
-              </ul>
-            </nav>
+      <div class="ds-content">
+        <nav class="ds-breadcrumb" aria-label={d.breadcrumbLabel}>
+          <a href={rootPath}>{d.designLabel}</a>
+          {groupLabel && (
+            <>
+              <span class="ds-crumb-sep" aria-hidden="true">/</span>
+              <span>{groupLabel}</span>
+            </>
           )}
+        </nav>
 
+        <header class="ds-header">
+          <h1 class="section-title">{title}</h1>
+          <p class="ds-intro">{intro}</p>
+        </header>
+
+        <div class:list={['ds-layout', { 'ds-has-toc': toc.length > 0 }]}>
+          {toc.length > 0 && (
+            <div class="ds-contents">
+              <Toc label={d.onThisPage} headings={tocHeadings} />
+            </div>
+          )}
           <div class="ds-body">
             <slot />
           </div>
-
-          <footer class="ds-foot">
-            <a href={`mailto:hi@warrendeleon.com?subject=${issueSubject}`}>{d.spottedIssue}</a>
-          </footer>
         </div>
+
+        <footer class="ds-foot">
+          <a href={`mailto:hi@warrendeleon.com?subject=${issueSubject}`}>{d.spottedIssue}</a>
+        </footer>
       </div>
     </div>
   </section>
@@ -133,120 +77,34 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
 
 <style is:global>
   /* Two-column docs shell: sticky section rail + content. Below 1280px the
-     rail is replaced by the ds-mobile-nav collapsible above the header. */
-  .ds-shell {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
+     pages follow the blog post's own anatomy: back chevron in the mobile top
+     bar, breadcrumb, and the article ToC as the contents card — a sticky
+     right column on desktop, inline above the content below 1024px. */
+  .ds-content { min-width: 0; }
 
-  .ds-rail {
-    display: none;
-  }
+  .ds-layout { display: grid; grid-template-columns: 1fr; }
+  .ds-body { min-width: 0; }
+  /* Inline contents card on small screens (the blog hides its ToC here in
+     favour of the reading-bar sheet; the docs keep it inline instead). */
+  /* This whole block is is:global, so plain selectors reach the Toc. */
+  .ds-contents { margin-bottom: 2rem; }
+  .ds-contents .toc { position: static; max-height: none; }
 
-  @media (min-width: 1280px) {
-    .ds-shell {
-      grid-template-columns: 230px minmax(0, 1fr);
-      gap: 3rem;
+  @media (min-width: 1024px) {
+    .ds-has-toc {
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 40px;
       align-items: start;
     }
-    .ds-rail {
-      display: block;
+    /* Same shape as the post layout: content left, contents right, sticky. */
+    .ds-has-toc .ds-body { grid-column: 1; grid-row: 1; }
+    .ds-has-toc .ds-contents { grid-column: 2; grid-row: 1; margin-bottom: 0; }
+    .ds-has-toc .ds-contents .toc {
       position: sticky;
-      top: 88px;
-      max-height: calc(100vh - 108px);
-      overflow-y: auto;
-      padding-right: 0.5rem;
+      top: 5rem;
+      max-height: calc(100vh - 7rem);
     }
-    .ds-mobile-nav { display: none; }
   }
-
-  .ds-rail-home {
-    display: block;
-    font-size: 1rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    color: var(--text-primary);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-  .ds-rail-home:hover,
-  .ds-rail-home.active { color: var(--color-green-text); }
-
-  /* Each group is a sidebar card in the site's existing family (the article
-     ToC, the blog tags card): bordered block, uppercase muted label. */
-  .ds-rail-group {
-    margin-bottom: 1rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--bg-secondary);
-  }
-  .ds-rail-group ul { list-style: none; margin: 0; padding: 0; }
-  .ds-rail-group-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0 0 0.6rem;
-  }
-  .ds-rail-link {
-    display: block;
-    padding: 0.3rem 0 0.3rem 0.85rem;
-    font-size: 0.88rem;
-    color: var(--text-secondary);
-    border-left: 2px solid var(--border-color);
-    transition: color 0.2s ease, border-color 0.2s ease;
-  }
-  .ds-rail-link:hover { color: var(--text-primary); border-left-color: var(--text-muted); }
-  .ds-rail-link.active {
-    color: var(--color-green-text);
-    font-weight: 700;
-    border-left-color: var(--color-green);
-  }
-
-  /* Mobile section menu (same details pattern as the article ToC). */
-  .ds-mobile-nav { margin-bottom: 1.25rem; }
-  .ds-mnav {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--bg-secondary);
-    padding: 0.85rem 1rem;
-  }
-  .ds-mnav summary {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    cursor: pointer;
-    list-style: none;
-    min-height: 28px;
-    display: flex;
-    align-items: center;
-  }
-  .ds-mnav summary::-webkit-details-marker { display: none; }
-  .ds-mnav summary::after { content: '▸'; margin-left: 0.4rem; font-size: 0.8em; }
-  .ds-mnav[open] summary::after { content: '▾'; }
-  .ds-mnav-body { padding-top: 0.75rem; display: flex; flex-direction: column; gap: 0.85rem; }
-  .ds-mnav-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin: 0 0 0.4rem;
-  }
-  .ds-mnav-links { display: flex; flex-wrap: wrap; gap: 6px; }
-  .ds-mnav-links .ds-mnav-active {
-    border-color: var(--color-green);
-    color: var(--color-green-text);
-    font-weight: 700;
-  }
-
-  .ds-content { max-width: 820px; min-width: 0; }
 
   .ds-breadcrumb {
     display: flex;
@@ -275,37 +133,6 @@ const issueSubject = encodeURIComponent(`Design system: ${title}`);
   @media (max-width: 699px) {
     .ds-intro { font-size: 1.02rem; }
   }
-
-  /* On this page */
-  .ds-toc {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--bg-secondary);
-    padding: 1rem 1.25rem;
-    margin-bottom: 2.5rem;
-  }
-  .ds-toc-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    margin: 0 0 0.6rem;
-  }
-  .ds-toc ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-  .ds-toc a {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-  }
-  .ds-toc a:hover { color: var(--color-green-text); }
 
   /* Body typography — scoped to DIRECT children of a page section, so it can
      never restyle a real component embedded as a specimen (the Timeline's h2,

@@ -830,7 +830,7 @@
     "actionProgressText": "Quedan 12 min · 45%",
     "actionDemoTitle": "Una única store compartida entre remotes",
     "railHeading": "Navegación de la documentación",
-    "railBody": "La navegación propia de esta sección también forma parte del sistema: un raíl agrupado en escritorio (Fundamentos, Componentes y demás como bloques etiquetados), un menú de sección plegable sobre el título de la página por debajo de 1280 píxeles, más las migas de pan y la tarjeta de En esta página."
+    "railBody": "La navegación de esta sección sigue la anatomía del artículo del blog en lugar de inventar la suya: en el móvil la barra superior cambia el logo por un chevron de vuelta al inicio de Diseño con un título de página plegable, la miga de pan nombra el grupo, y la tarjeta de contenidos es el componente ToC del artículo — una columna derecha fija en escritorio, en línea sobre el contenido en pantallas menores. La página de inicio de la sección es el índice."
   },
   "sheetsOverlays": {
     "seoTitle": "Hojas y superposiciones | Sistema de diseño | Warren de Leon",
