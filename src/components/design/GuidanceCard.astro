@@ -6,8 +6,10 @@ interface Props {
   kind: 'do' | 'dont';
   label: string;
   caption: string;
+  /** Page-background stage, for chrome that carries its own surface. */
+  plain?: boolean;
 }
-const { kind, label, caption } = Astro.props;
+const { kind, label, caption, plain = false } = Astro.props;
 ---
 
 <figure class:list={['ds-guidance', `is-${kind}`]}>
@@ -19,7 +21,7 @@ const { kind, label, caption } = Astro.props;
     )}
     {label}
   </p>
-  <div class="ds-guidance-stage">
+  <div class:list={['ds-guidance-stage', { 'is-plain': plain }]}>
     <slot />
   </div>
   <figcaption class="ds-guidance-caption">{caption}</figcaption>
@@ -63,6 +65,7 @@ const { kind, label, caption } = Astro.props;
     border-radius: 10px;
     background: var(--bg-secondary);
   }
+  .ds-guidance-stage.is-plain { background: var(--bg-primary); }
   .ds-guidance-caption {
     padding: 0.7rem 1rem 0.9rem;
     font-size: 0.85rem;

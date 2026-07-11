@@ -65,35 +65,37 @@ const { rows, usage, kind = 'color', headers } = Astro.props;
   }
   .ds-sw-row:last-child { border-bottom: none; }
 
-  /* Fixed light/dark stages so a swatch reads true whatever the page theme. */
+  /* Fixed light/dark stages so a swatch reads true whatever the page theme.
+     NO overflow clipping: the shadow tokens' whole point is the glow around
+     the box, and a clipped stage swallowed it (the faint dark-mode light
+     shadows vanished entirely). */
   .ds-sw-stages {
     display: flex;
     flex-shrink: 0;
-    border-radius: 9px;
-    overflow: hidden;
     border: 1px solid var(--border-color);
+    border-radius: 9px;
     align-self: flex-start;
   }
   .ds-sw-stage {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
   }
-  .ds-sw-light { background: #ffffff; }
-  .ds-sw-dark { background: #111111; }
+  .ds-sw-light { background: #ffffff; border-radius: 8px 0 0 8px; }
+  .ds-sw-dark { background: #111111; border-radius: 0 8px 8px 0; }
   .ds-sw-chip {
     display: block;
-    width: 26px;
-    height: 26px;
+    width: 28px;
+    height: 28px;
     border-radius: 7px;
     border: 1px solid rgba(128, 128, 128, 0.35);
   }
   .ds-sw-shadow {
     display: block;
-    width: 26px;
-    height: 26px;
+    width: 30px;
+    height: 30px;
     border-radius: 7px;
   }
   .ds-sw-light .ds-sw-shadow { background: #ffffff; }
@@ -138,6 +140,6 @@ const { rows, usage, kind = 'color', headers } = Astro.props;
   /* Roomier from tablet up: values sit beside the token instead of under it. */
   @media (min-width: 700px) {
     .ds-sw-row { gap: 1.25rem; align-items: flex-start; }
-    .ds-sw-stage { width: 52px; height: 48px; }
+    .ds-sw-stage { width: 64px; height: 56px; }
   }
 </style>

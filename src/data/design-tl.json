@@ -707,6 +707,22 @@
         "label": "Series hero card"
       },
       {
+        "id": "series-card",
+        "label": "Series card"
+      },
+      {
+        "id": "related",
+        "label": "Related-post card"
+      },
+      {
+        "id": "author",
+        "label": "Author card"
+      },
+      {
+        "id": "role",
+        "label": "Current-role card"
+      },
+      {
         "id": "lead",
         "label": "Ang lead post at mga viewport"
       },
@@ -736,7 +752,15 @@
     "seriesHeroHeading": "Series hero card",
     "seriesHeroBody": "Ang card ng kasalukuyang series sa blog home, ni-render nang live: hero art sa tabi ng pitch ng series, kasama ang progress bar ng nailathala-sa-kabuuan. Sa phone, nagpapatong-patong ito at nagkakaroon ng solid na View series na button.",
     "leadHeading": "Ang lead post at mga viewport",
-    "leadBody": "Ang pinakabagong post ay may mas malaking lead treatment, at ang buong feed ay nagbabago ng hugis bawat band — malaking lead card sa ibabaw ng mga compact na row sa phone, dalawang-column na grid sa tablet, mga thumbnail row na may sidebar sa desktop. Ang mga frame sa ibaba ay ang totoong blog page sa bawat lapad."
+    "leadBody": "Ang pinakabagong post ay may mas malaking lead treatment, at ang buong feed ay nagbabago ng hugis bawat band — malaking lead card sa ibabaw ng mga compact na row sa phone, dalawang-column na grid sa tablet, mga thumbnail row na may sidebar sa desktop. Ang mga frame sa ibaba ay ang totoong blog page sa bawat lapad.",
+    "seriesCardHeading": "Series card",
+    "seriesCardBody": "Ang card ng More-series shelf sa Blog home: art sa ibabaw ng bilang ng parts, pamagat at dalawang-linyang paglalarawan. Ang tunay na SeriesCard component, dito may placeholder sa art.",
+    "relatedHeading": "Related-post card",
+    "relatedBody": "Ang card ng More-from-the-blog shelf na nagsasara ng post: larawan, petsa, pamagat, at ang buong surface ay iisang link. Ang tunay na RelatedCard component.",
+    "authorHeading": "Author card",
+    "authorBody": "Ang bio card sa dulo ng bawat post — avatar, pangalan, bio, link sa profile. Ang tunay na AuthorCard component, naka-render nang live.",
+    "roleHeading": "Current-role card",
+    "roleBody": "Ang latest-role card ng home page: logo disc sa tabi ng kumpanya at role, may paglalarawan sa ibaba. Naka-render mula sa tunay na classes na may placeholder na content."
   },
   "navigation": {
     "seoTitle": "Nabigasyon | Disenyo | Warren de Leon",
@@ -776,7 +800,7 @@
     "barHeading": "Top bar",
     "barBody": "Isang sticky bar na nagdadala ng logo at ng mga utility na kontrol (wika, tema, at paghahanap sa blog). Ito ay 64 pixel ang taas sa desktop, 60 sa tablet at 56 sa isang telepono. Sa desktop dinadala rin nito ang tatlong link ng seksyon; sa ibaba ng 1280 lumilipat ang mga iyon sa dock.",
     "dockHeading": "Tab dock",
-    "dockBody": "Ang pangunahing nabigasyon ng mga seksyon sa phone at tablet: apat na tab — Home, Blog, Work, Book a call. Isa itong elemento na may isang breakpoint, hindi dalawang component. Nasa ibaba ang totoong TabBar component, pinanatiling static; ipinapakita ng mga frame sa itaas kung nasaan ito sa bawat lapad. Structural ang apat na tab; hindi kakasya ang panglima sa grid, kaya nakatira sa footer ang seksyong ito ng design system.",
+    "dockBody": "Ang pangunahing section navigation sa phone at tablet: apat na tab — Home, Blog, Work, Book a call. Iisang element ito na may isang breakpoint, hindi dalawang component. Ang mga frame sa ibaba ay ang tunay na page na naka-crop sa dock: edge-to-edge sa 390 kung saan green na teksto lang ang aktibong tab, at floating pill sa 768 kung saan may tinted na fill ang aktibo. Structural ang apat na tab; hindi kakasya ang panglima sa grid, kaya nasa footer ang design-system section na ito.",
     "actionHeading": "Reading action bar",
     "actionBody": "Sa reading page, ang dock ay pinapalitan, hindi sinasamahan, ng isang contextual action bar: isang progress ring na may kasalukuyang seksyon na nagbubukas ng contents sheet, tapos share at back-to-top. Ito ang totoong ReadingBar component, ipinapakita sa kalagitnaan ng artikulo. Isang bar sa bawat pagkakataon: browse chrome o read chrome, hindi kailanman pareho.",
     "footerHeading": "Footer",

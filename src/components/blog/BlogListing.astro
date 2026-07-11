@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
 import FeedPostCard from './FeedPostCard.astro';
+import SeriesCard from './SeriesCard.astro';
 import SeriesHeroCard from './SeriesHeroCard.astro';
 import Shelf from './Shelf.astro';
 import SubscribeForm from '../SubscribeForm.astro';
@@ -84,18 +85,13 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
       {moreSeries.length > 0 && (
         <Shelf class="series-shelf-block" heading={i18n.blog.moreSeries} labelPrev={i18n.blog.previous} labelNext={i18n.blog.next}>
           {moreSeries.map(s => (
-            <a class="series-card" href={getLocalePath(locale, `/blog/series/${s.slug}/`)}>
-              {s.intro?.data.heroImage && (
-                <div class="series-card-art">
-                  <img src={s.intro.data.heroImage} alt={s.intro.data.heroAlt || s.name} loading="lazy" />
-                </div>
-              )}
-              <div class="series-card-body">
-                <span class="series-card-kicker blog-mono">{s.count} {i18n.blog.parts}</span>
-                <h3 class="series-card-title">{shortenSeriesName(s.name)}</h3>
-                {s.desc && <p class="series-card-desc">{s.desc}</p>}
-              </div>
-            </a>
+            <SeriesCard
+              href={getLocalePath(locale, `/blog/series/${s.slug}/`)}
+              art={s.intro?.data.heroImage ? { src: s.intro.data.heroImage, alt: s.intro.data.heroAlt || s.name } : undefined}
+              kicker={`${s.count} ${i18n.blog.parts}`}
+              title={shortenSeriesName(s.name)}
+              desc={s.desc || undefined}
+            />
           ))}
         </Shelf>
       )}
@@ -292,40 +288,10 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
   /* Current series hero — the card itself lives in SeriesHeroCard.astro */
   .series-hero { margin-bottom: 3.6rem; }
 
-  /* More series — the carousel shell lives in Shelf.astro; this block only
-     carries the section spacing and the series-card styles. */
+  /* More series — the carousel shell lives in Shelf.astro and the card in
+     SeriesCard.astro (shared with the design docs); this block only carries
+     the section spacing. */
   .series-shelf-block { margin-bottom: 3.6rem; }
-
-  .series-card {
-    width: 320px;
-    flex: none;
-    display: block;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-
-  .series-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-  .series-card-art { aspect-ratio: 21 / 9; overflow: hidden; background: var(--bg-secondary); }
-  .series-card-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .series-card-body { padding: 1.1rem 1.3rem 1.3rem; }
-  .series-card-kicker { font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-green-text); }
-  .series-card-title { font-size: 1.18rem; font-weight: 700; letter-spacing: -0.02em; margin: 0.4rem 0 0.5rem; color: var(--text-primary); transition: color 0.15s ease; }
-  .series-card:hover .series-card-title { color: var(--color-green-text); }
-  .series-card-desc {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
 
   /* All posts feed-card styles are shared in global.css */
   .blog-empty { text-align: center; color: var(--text-muted); font-size: 1rem; margin-top: 2rem; }
@@ -550,7 +516,6 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
   }
 
   @media (max-width: 760px) {
-    .series-card { width: 200px; }
     .blog-pagination-link { padding: 0.4rem 0.75rem; }
     .blog-pagination-num { width: 36px; height: 36px; }
   }

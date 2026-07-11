@@ -192,6 +192,16 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
           <strong>{a.seriesNavSeries}</strong>
           <span class="series-nav-part">{a.seriesNavPart}</span>
         </p>
+        <!-- Desktop arrow controls (≥1280); the site's JS reveals them when
+             the shelf scrolls, so the specimen shows them revealed. -->
+        <div class="series-nav-arrows">
+          <button type="button" class="series-nav-arrow" aria-label={i18n.blog.previous}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button type="button" class="series-nav-arrow" aria-label={i18n.blog.next}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
       </div>
       <ol class="series-nav-list">
         {a.seriesNavTitles.map((title, i) => {

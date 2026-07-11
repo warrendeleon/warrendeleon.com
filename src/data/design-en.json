@@ -707,6 +707,22 @@
         "label": "Series hero card"
       },
       {
+        "id": "series-card",
+        "label": "Series card"
+      },
+      {
+        "id": "related",
+        "label": "Related-post card"
+      },
+      {
+        "id": "author",
+        "label": "Author card"
+      },
+      {
+        "id": "role",
+        "label": "Current-role card"
+      },
+      {
         "id": "lead",
         "label": "The lead post & viewports"
       },
@@ -736,7 +752,15 @@
       "Drop the border and rely on shadow alone to separate cards."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Base: .card. Feed: .feed-post with .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc."
+    "whereBody": "Base: .card. Feed: .feed-post with .feed-post-thumb, .feed-post-body, .feed-post-meta, .feed-post-title, .feed-post-desc.",
+    "seriesCardHeading": "Series card",
+    "seriesCardBody": "The More-series shelf card from Blog home: art over a parts count, title and a two-line description. The real SeriesCard component, here with a placeholder for the art.",
+    "relatedHeading": "Related-post card",
+    "relatedBody": "The More-from-the-blog shelf card that closes a post: image, date, title, and the whole surface one link. The real RelatedCard component.",
+    "authorHeading": "Author card",
+    "authorBody": "The bio card at the end of every post — avatar, name, bio, profile link. The real AuthorCard component, rendered live.",
+    "roleHeading": "Current-role card",
+    "roleBody": "The home page's latest-role card: a logo disc beside the company and role, description below. Rendered from the real classes with placeholder content."
   },
   "navigation": {
     "seoTitle": "Navigation | Design system | Warren de Leon",
@@ -778,7 +802,7 @@
     "barHeading": "Top bar",
     "barBody": "A sticky bar carrying the logo and the utility controls (language, theme, and blog search). It stands 64 pixels tall on desktop, 60 on tablet and 56 on a phone. On desktop it also holds the three section links; below 1280 those move to the dock.",
     "dockHeading": "Tab dock",
-    "dockBody": "The primary section navigation on phone and tablet: four tabs — Home, Blog, Work, Book a call. It is a single element with one breakpoint, not two components. Below is the real TabBar component, held static; the frames above show it in place at each width. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
+    "dockBody": "The primary section navigation on phone and tablet: four tabs — Home, Blog, Work, Book a call. It is a single element with one breakpoint, not two components. The frames below are the real page cropped to the dock: edge-to-edge at 390 with the active tab in green text alone, a floating pill at 768 where the active tab gains a tinted fill. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
     "actionHeading": "Reading action bar",
     "actionBody": "On a reading page the dock is replaced, not joined, by a contextual action bar: a progress ring with the current section opens the contents sheet, then share and back-to-top. This is the real ReadingBar component, shown mid-article. One bar at a time: browse chrome or read chrome, never both.",
     "actionProgressText": "12 min left · 45%",

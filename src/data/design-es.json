@@ -707,6 +707,22 @@
         "label": "Tarjeta hero de serie"
       },
       {
+        "id": "series-card",
+        "label": "Tarjeta de serie"
+      },
+      {
+        "id": "related",
+        "label": "Tarjeta de artículo relacionado"
+      },
+      {
+        "id": "author",
+        "label": "Tarjeta de autor"
+      },
+      {
+        "id": "role",
+        "label": "Tarjeta de puesto actual"
+      },
+      {
         "id": "lead",
         "label": "La entrada destacada y los viewports"
       },
@@ -736,7 +752,15 @@
     "seriesHeroHeading": "Tarjeta hero de serie",
     "seriesHeroBody": "La tarjeta de la serie actual de la portada del blog, renderizada en vivo: el arte del hero junto a la presentación de la serie, con la barra de progreso de publicadas sobre el total. En teléfonos se apila y gana un botón sólido de Ver la serie.",
     "leadHeading": "La entrada destacada y los viewports",
-    "leadBody": "La entrada más reciente recibe un tratamiento destacado más grande, y el feed entero cambia de forma según la banda: una tarjeta destacada grande sobre filas compactas en un teléfono, una cuadrícula de dos columnas en una tableta, filas con miniatura y una barra lateral en escritorio. Los marcos de abajo son la página real del blog a cada ancho."
+    "leadBody": "La entrada más reciente recibe un tratamiento destacado más grande, y el feed entero cambia de forma según la banda: una tarjeta destacada grande sobre filas compactas en un teléfono, una cuadrícula de dos columnas en una tableta, filas con miniatura y una barra lateral en escritorio. Los marcos de abajo son la página real del blog a cada ancho.",
+    "seriesCardHeading": "Tarjeta de serie",
+    "seriesCardBody": "La tarjeta de la estantería «Más series» de la portada del blog: arte sobre un contador de partes, título y una descripción de dos líneas. El componente real SeriesCard, aquí con un marcador de posición en el arte.",
+    "relatedHeading": "Tarjeta de artículo relacionado",
+    "relatedBody": "La tarjeta de la estantería «Más del blog» que cierra un artículo: imagen, fecha, título, y toda la superficie es un único enlace. El componente real RelatedCard.",
+    "authorHeading": "Tarjeta de autor",
+    "authorBody": "La tarjeta de biografía al final de cada artículo: avatar, nombre, biografía y enlace al perfil. El componente real AuthorCard, renderizado en vivo.",
+    "roleHeading": "Tarjeta de puesto actual",
+    "roleBody": "La tarjeta de último puesto de la portada: un disco con el logo junto a la empresa y el cargo, con la descripción debajo. Renderizada con las clases reales y contenido de relleno."
   },
   "navigation": {
     "seoTitle": "Navegación | Sistema de diseño | Warren de Leon",
@@ -776,7 +800,7 @@
     "barHeading": "Barra superior",
     "barBody": "Una barra fija que lleva el logotipo y los controles de utilidad (idioma, tema y búsqueda del blog). Mide 64 píxeles de alto en escritorio, 60 en tablet y 56 en el móvil. En escritorio también alberga los tres enlaces de sección; por debajo de 1280 estos pasan al dock.",
     "dockHeading": "Dock de pestañas",
-    "dockBody": "La navegación principal de secciones en teléfono y tableta: cuatro pestañas (Inicio, Blog, Trabajo, Reserva una llamada). Es un único elemento con un solo breakpoint, no dos componentes. Abajo está el componente TabBar real, mostrado estático; los marcos de arriba lo enseñan colocado a cada ancho. Que sean cuatro pestañas es estructural; una quinta no cabría en la cuadrícula, y por eso esta sección del sistema de diseño vive en el pie de página.",
+    "dockBody": "La navegación principal por secciones en móvil y tableta: cuatro pestañas — Inicio, Blog, Trabajo, Reservar llamada. Es un único elemento con un punto de ruptura, no dos componentes. Los marcos de abajo son la página real recortada al dock: de borde a borde a 390 con la pestaña activa solo en texto verde, y una píldora flotante a 768 donde la activa gana un fondo tintado. Cuatro pestañas es estructural; una quinta no cabría en la retícula, y por eso esta sección del sistema de diseño vive en el pie.",
     "actionHeading": "Barra de acciones de lectura",
     "actionBody": "En una página de lectura, una barra de acciones contextual sustituye al dock, no se le suma: un anillo de progreso con la sección actual abre la hoja del índice, y después compartir y volver arriba. Este es el componente ReadingBar real, mostrado a mitad de artículo. Una barra cada vez: chrome de navegación o chrome de lectura, nunca ambos.",
     "footerHeading": "Pie de página",

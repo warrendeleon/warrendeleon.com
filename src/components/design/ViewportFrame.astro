@@ -12,30 +12,40 @@ interface Props {
   width: number;
   /** The simulated viewport height (what media/fixed positioning sees). */
   height?: number;
-  /** Visible (unscaled) crop — show only the top N px of the viewport.
-      Lets a frame show just the top bar without bottom-fixed chrome (the
-      dock sits at the VIEWPORT bottom) sliding into the picture. */
+  /** Visible (unscaled) crop — show only N px of the viewport.
+      Lets a frame show just the top bar (or, with cropAlign bottom, just the
+      dock) without the rest of the page in the picture. */
   crop?: number;
+  /** Which edge of the viewport the crop shows. */
+  cropAlign?: 'top' | 'bottom';
   /** Shrink factor so the frame fits the column. */
   scale?: number;
   label: string;
 }
-const { src, width, height = 780, crop, scale = 0.5, label } = Astro.props;
+const { src, width, height = 780, crop, cropAlign = 'top', scale = 0.5, label } = Astro.props;
 const outerW = Math.round(width * scale);
 const outerH = Math.round((crop ?? height) * scale);
+// Bottom crop: slide the scaled iframe up so its bottom edge sits in view.
+const shiftY = cropAlign === 'bottom' && crop ? -Math.round((height - crop) * scale) : 0;
 ---
 
 <figure class="ds-viewport">
   <figcaption class="ds-viewport-label">{label} · {width}px</figcaption>
-  <div class="ds-viewport-clip" style={`width:${outerW}px;height:${outerH}px;`}>
-    <iframe
-      src={src}
-      title={`${label} — ${width}px`}
-      loading="lazy"
-      sandbox="allow-same-origin"
-      scrolling="no"
-      style={`width:${width}px;height:${height}px;transform:scale(${scale});`}
-    ></iframe>
+  <div class="ds-viewport-clip">
+    <!-- The canvas is sized to the SCALED frame and overflow-hidden: the
+         iframe's layout box (its unscaled width/height) counts as scrollable
+         overflow even though the transform shrinks it visually, and a
+         scrollable box paints scrollbar tracks on always-show setups. -->
+    <div class="ds-viewport-canvas" style={`width:${outerW}px;height:${outerH}px;`}>
+      <iframe
+        src={src}
+        title={`${label} — ${width}px`}
+        loading="lazy"
+        sandbox="allow-same-origin"
+        scrolling="no"
+        style={`width:${width}px;height:${height}px;transform:scale(${scale});top:${shiftY}px;`}
+      ></iframe>
+    </div>
   </div>
 </figure>
 
@@ -58,7 +68,8 @@ const outerH = Math.round((crop ?? height) * scale);
   .ds-viewport-clip {
     max-width: 100%;
     /* A frame wider than the column (the desktop one on a phone) pans
-       sideways instead of being cut off. */
+       sideways instead of being cut off. The canvas inside is exactly the
+       scaled size, so this only scrolls when the frame truly overflows. */
     overflow-x: auto;
     overflow-y: hidden;
     border: 1px solid var(--border-color);
@@ -66,8 +77,14 @@ const outerH = Math.round((crop ?? height) * scale);
     background: #ffffff;
     box-shadow: var(--shadow-card);
   }
-  .ds-viewport iframe { flex-shrink: 0; }
+  .ds-viewport-canvas {
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
   .ds-viewport iframe {
+    position: absolute;
+    left: 0;
     display: block;
     border: 0;
     transform-origin: top left;

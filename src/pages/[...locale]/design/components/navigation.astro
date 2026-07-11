@@ -52,17 +52,18 @@ const homePath = getLocalePath(locale, '/');
   <section id="dock">
     <h2>{n.dockHeading}</h2>
     <p>{n.dockBody}</p>
-    <SpecimenCard>
-      <div class="ds-fixed-demo ds-dock-demo">
-        <TabBar locale={locale} currentPath={homePath} />
-      </div>
-    </SpecimenCard>
+    <!-- The real page cropped to the dock: edge-to-edge at 390 (active tab =
+         green text, no fill), floating pill at 768 (active tab = tinted). -->
+    <div class="ds-frames">
+      <ViewportFrame src={homePath} width={390} height={780} crop={110} cropAlign="bottom" scale={0.85} label={d.bandLabels.mobile} />
+      <ViewportFrame src={homePath} width={768} height={780} crop={110} cropAlign="bottom" scale={0.6} label={d.bandLabels.tablet} />
+    </div>
   </section>
 
   <section id="action">
     <h2>{n.actionHeading}</h2>
     <p>{n.actionBody}</p>
-    <SpecimenCard>
+    <SpecimenCard plain>
       <div class="ds-fixed-demo ds-bar-demo">
         <ReadingBar
           locale={locale}
@@ -88,10 +89,8 @@ const homePath = getLocalePath(locale, '/');
   <section id="rules">
     <h2>{n.rulesHeading}</h2>
     <div class="ds-guidance-grid">
-      <GuidanceCard kind="do" label={d.doLabel} caption={n.dos[0]}>
-        <div class="ds-fixed-demo ds-dock-demo">
-          <TabBar locale={locale} currentPath={homePath} />
-        </div>
+      <GuidanceCard kind="do" label={d.doLabel} caption={n.dos[0]} plain>
+        <ViewportFrame src={homePath} width={390} height={780} crop={110} cropAlign="bottom" scale={0.72} label={d.bandLabels.mobile} />
       </GuidanceCard>
       <GuidanceCard kind="dont" label={d.dontLabel} caption={n.donts[0]}>
         <div class="ds-five-mock" aria-hidden="true">
@@ -104,12 +103,12 @@ const homePath = getLocalePath(locale, '/');
         </div>
       </GuidanceCard>
 
-      <GuidanceCard kind="do" label={d.doLabel} caption={n.dos[1]}>
+      <GuidanceCard kind="do" label={d.doLabel} caption={n.dos[1]} plain>
         <div class="ds-fixed-demo ds-bar-demo">
           <ReadingBar locale={locale} title={n.actionDemoTitle} progress={0.45} progressText={n.actionProgressText} hidden={false} />
         </div>
       </GuidanceCard>
-      <GuidanceCard kind="dont" label={d.dontLabel} caption={n.donts[1]}>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={n.donts[1]} plain>
         <div class="ds-stack-mock" aria-hidden="true">
           <div class="ds-fixed-demo ds-bar-demo">
             <ReadingBar locale={locale} title={n.actionDemoTitle} progress={0.45} progressText={n.actionProgressText} hidden={false} />

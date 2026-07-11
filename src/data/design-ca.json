@@ -707,6 +707,22 @@
         "label": "Targeta hero de sèrie"
       },
       {
+        "id": "series-card",
+        "label": "Targeta de sèrie"
+      },
+      {
+        "id": "related",
+        "label": "Targeta d'article relacionat"
+      },
+      {
+        "id": "author",
+        "label": "Targeta d'autor"
+      },
+      {
+        "id": "role",
+        "label": "Targeta de càrrec actual"
+      },
+      {
         "id": "lead",
         "label": "El post destacat i els viewports"
       },
@@ -736,7 +752,15 @@
     "seriesHeroHeading": "Targeta hero de sèrie",
     "seriesHeroBody": "La targeta de la sèrie actual de la pàgina d'inici del blog, renderitzada en viu: l'art de l'hero al costat de la presentació de la sèrie, amb la barra de progrés de publicats sobre el total. En mòbils s'apila i guanya un botó sòlid de «Veure la sèrie».",
     "leadHeading": "El post destacat i els viewports",
-    "leadBody": "El post més nou rep un tractament destacat més gran, i tot el feed canvia de forma segons la banda: una gran targeta destacada sobre files compactes en un mòbil, una graella de dues columnes en una tauleta, files amb miniatura i una barra lateral a escriptori. Els marcs de sota són la pàgina real del blog a cada amplada."
+    "leadBody": "El post més nou rep un tractament destacat més gran, i tot el feed canvia de forma segons la banda: una gran targeta destacada sobre files compactes en un mòbil, una graella de dues columnes en una tauleta, files amb miniatura i una barra lateral a escriptori. Els marcs de sota són la pàgina real del blog a cada amplada.",
+    "seriesCardHeading": "Targeta de sèrie",
+    "seriesCardBody": "La targeta de la prestatgeria «Més sèries» de la portada del blog: art sobre un comptador de parts, títol i una descripció de dues línies. El component real SeriesCard, aquí amb un marcador de posició a l'art.",
+    "relatedHeading": "Targeta d'article relacionat",
+    "relatedBody": "La targeta de la prestatgeria «Més del blog» que tanca un article: imatge, data, títol, i tota la superfície és un únic enllaç. El component real RelatedCard.",
+    "authorHeading": "Targeta d'autor",
+    "authorBody": "La targeta de biografia al final de cada article: avatar, nom, biografia i enllaç al perfil. El component real AuthorCard, renderitzat en viu.",
+    "roleHeading": "Targeta de càrrec actual",
+    "roleBody": "La targeta de darrer càrrec de la portada: un disc amb el logo al costat de l’empresa i el càrrec, amb la descripció a sota. Renderitzada amb les classes reals i contingut de mostra."
   },
   "navigation": {
     "seoTitle": "Navegació | Sistema de disseny | Warren de Leon",
@@ -776,7 +800,7 @@
     "barHeading": "Barra superior",
     "barBody": "Una barra fixa que porta el logotip i els controls d'utilitat (llengua, tema i cerca al blog). Fa 64 píxels d'alçada a l'escriptori, 60 en una tauleta i 56 en un telèfon. A l'escriptori també conté els tres enllaços de secció; per sota de 1280 aquests passen al dock.",
     "dockHeading": "Dock de pestanyes",
-    "dockBody": "La navegació primària de seccions en mòbil i tauleta: quatre pestanyes (Inici, Blog, Feina, Reserva una trucada). És un sol element amb un breakpoint, no pas dos components. A sota hi ha el component TabBar real, mantingut estàtic; els marcs de dalt el mostren al seu lloc a cada amplada. Quatre pestanyes és una decisió estructural; una cinquena no cabria a la graella, i per això aquesta secció del sistema de disseny viu al peu de pàgina.",
+    "dockBody": "La navegació principal per seccions a mòbil i tauleta: quatre pestanyes — Inici, Blog, Feina, Reservar trucada. És un únic element amb un punt de ruptura, no dos components. Els marcs de sota són la pàgina real retallada al dock: de vora a vora a 390 amb la pestanya activa només en text verd, i una píndola flotant a 768 on l'activa guanya un fons tintat. Quatre pestanyes és estructural; una cinquena no cabria a la retícula, i per això aquesta secció del sistema de disseny viu al peu.",
     "actionHeading": "Barra d'accions de lectura",
     "actionBody": "En una pàgina de lectura, el dock se substitueix, no s'acompanya, per una barra d'accions contextual: un anell de progrés amb la secció actual obre el full de sumari, i després compartir i tornar amunt. Aquest és el component ReadingBar real, mostrat a mig article. Una barra alhora: chrome de navegació o chrome de lectura, mai tots dos.",
     "footerHeading": "Peu de pàgina",

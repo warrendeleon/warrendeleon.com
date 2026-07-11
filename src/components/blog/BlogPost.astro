@@ -10,8 +10,10 @@ import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, ge
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import type { MarkdownHeading } from 'astro';
 import popularity from '../../data/popularity.json';
+import AuthorCard from './AuthorCard.astro';
 import MediaZoom from '../MediaZoom.astro';
 import ReadingBar from './ReadingBar.astro';
+import RelatedCard from './RelatedCard.astro';
 import Shelf from './Shelf.astro';
 import Toc from './Toc.astro';
 
@@ -265,20 +267,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
         </div>
       </div>
 
-      <div class="author-card">
-        <img src="/images/warren-deleon-headshot.webp" alt="Warren de Leon" class="author-avatar" />
-        <div class="author-info">
-          <strong>Warren de Leon</strong>
-          <p>{i18n.blog.authorBio}</p>
-          <a href={getLocalePath(locale, '/')} class="author-profile-link">
-            {i18n.blog.viewProfile}
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
-        </div>
-      </div>
+      <AuthorCard locale={locale} />
 
       <div class="share-links" aria-label={i18n.blog.sharePost}>
         <span>{i18n.blog.sharePost}</span>
@@ -314,17 +303,13 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
         <section class="related-posts more-from-blog" aria-label={i18n.blog.moreFromBlog}>
           <Shelf heading={i18n.blog.moreFromBlog} labelPrev={i18n.blog.previous} labelNext={i18n.blog.next}>
             {furtherReading.map(rp => (
-              <a href={getLocalePath(locale, `/blog/${getPostSlug(rp.id)}/`)} class="related-card">
-                {rp.data.heroImage && (
-                  <div class="related-card-image">
-                    <img src={rp.data.heroImage} alt={rp.data.heroAlt || rp.data.title} loading="lazy" />
-                  </div>
-                )}
-                <div class="related-card-content">
-                  <time datetime={rp.data.publishDate.toISOString()}>{formatBlogDate(rp.data.publishDate, locale)}</time>
-                  <h3>{rp.data.title}</h3>
-                </div>
-              </a>
+              <RelatedCard
+                href={getLocalePath(locale, `/blog/${getPostSlug(rp.id)}/`)}
+                image={rp.data.heroImage ? { src: rp.data.heroImage, alt: rp.data.heroAlt || rp.data.title } : undefined}
+                dateISO={rp.data.publishDate.toISOString()}
+                dateLabel={formatBlogDate(rp.data.publishDate, locale)}
+                title={rp.data.title}
+              />
             ))}
           </Shelf>
         </section>
@@ -886,31 +871,14 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
     .blog-back-link { display: none; }
   }
-  .author-card { display: flex; gap: 1.5rem; align-items: center; padding: 2rem; background: var(--bg-secondary); border-radius: 16px; margin-top: 3rem; border: 1px solid var(--border-color); }
-  .author-avatar { width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0; border: 3px solid var(--border-color); }
-  .author-info strong { display: block; font-size: 1.1rem; color: var(--text-primary); margin-bottom: 0.35rem; }
-  .author-info p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.6rem; }
-  .author-profile-link { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.95rem; color: var(--color-green-text); font-weight: 600; transition: gap 0.2s ease; }
-  .author-profile-link:hover { gap: 0.6rem; }
+  /* .author-card styles live in AuthorCard.astro (shared with the design docs). */
   .share-links { display: flex; align-items: center; gap: 0.75rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; }
   .share-links > span { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }
   .share-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; padding: 0.45rem 0.85rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; text-decoration: none; font-weight: 500; transition: border-color 0.2s ease, color 0.2s ease, transform 0.15s ease; font-family: inherit; }
   .share-btn:hover { border-color: var(--color-green); color: var(--color-green-text); transform: translateY(-1px); }
   .share-btn svg { flex-shrink: 0; }
   .related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
-  /* Cards ride the shared Shelf (Shelf.astro): fixed width, no shrink. */
-  .related-card { width: 280px; flex: none; border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; color: var(--text-primary); background: var(--bg-card); transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; overflow: hidden; }
-  .related-card:hover { border-color: var(--color-green); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-  .related-card-image { width: 100%; height: 140px; overflow: hidden; }
-  .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-  .related-card:hover .related-card-image img { transform: scale(1.03); }
-  .related-card-content { padding: 1.25rem; }
-  .related-card time { font-size: 0.9rem; color: var(--text-muted); }
-  .related-card h3 { font-size: 1rem; margin-top: 0.35rem; line-height: 1.35; transition: color 0.2s ease; }
-  .related-card:hover h3 { color: var(--color-green-text); }
-  @media (max-width: 760px) {
-    .related-card { width: 230px; }
-  }
+  /* .related-card styles live in RelatedCard.astro (shared with the design docs). */
   .blog-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
   .blog-nav-link { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
   .blog-nav-link:hover { border-color: var(--color-green); transform: translateY(-2px); }
@@ -1006,8 +974,6 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   }
 
   @media (max-width: 768px) {
-    .author-card { flex-direction: column; text-align: center; padding: 1.5rem; }
-    .author-avatar { width: 72px; height: 72px; }
     .blog-nav { grid-template-columns: 1fr; }
     .blog-nav-next { text-align: left; }
     .blog-nav-next .blog-nav-label { justify-content: flex-start; }

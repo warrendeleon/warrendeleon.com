@@ -4,7 +4,10 @@ import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import ViewportFrame from '../../../../components/design/ViewportFrame.astro';
 import Placeholder from '../../../../components/design/Placeholder.astro';
+import AuthorCard from '../../../../components/blog/AuthorCard.astro';
 import FeedPostCard from '../../../../components/blog/FeedPostCard.astro';
+import RelatedCard from '../../../../components/blog/RelatedCard.astro';
+import SeriesCard from '../../../../components/blog/SeriesCard.astro';
 import SeriesHeroCard from '../../../../components/blog/SeriesHeroCard.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
@@ -21,6 +24,9 @@ const blogPath = getLocalePath(locale, '/blog/');
 // The real current series, so the hero card renders exactly what Blog home shows.
 const currentSeries = await getCurrentSeriesName(locale);
 
+// Reuse the timeline page's localised placeholder role for the current-role
+// specimen (same no-employer-brands rule).
+const t2 = d.timeline;
 const demoMeta = `8 Jun 2026 · 10 ${i18n.blog.minRead}`;
 const demoTitle = 'One shared store across remotes';
 const demoDesc =
@@ -75,6 +81,65 @@ const demoDesc =
         <SeriesHeroCard locale={locale} seriesName={currentSeries} />
       </div>
     )}
+  </section>
+
+  <section id="series-card">
+    <h2>{c.seriesCardHeading}</h2>
+    <p>{c.seriesCardBody}</p>
+    <SpecimenCard plain>
+      <SeriesCard
+        href="#series-card"
+        kicker={`8 ${i18n.blog.parts}`}
+        title="Module Federation in React Native"
+        desc={demoDesc}
+      >
+        <Placeholder slot="art" />
+      </SeriesCard>
+    </SpecimenCard>
+  </section>
+
+  <section id="related">
+    <h2>{c.relatedHeading}</h2>
+    <p>{c.relatedBody}</p>
+    <SpecimenCard plain>
+      <RelatedCard
+        href="#related"
+        dateISO="2026-06-08"
+        dateLabel="8 Jun 2026"
+        title={demoTitle}
+      >
+        <Placeholder slot="image" />
+      </RelatedCard>
+    </SpecimenCard>
+  </section>
+
+  <section id="author">
+    <h2>{c.authorHeading}</h2>
+    <p>{c.authorBody}</p>
+    <div class="ds-author-demo">
+      <AuthorCard locale={locale} />
+    </div>
+  </section>
+
+  <section id="role">
+    <h2>{c.roleHeading}</h2>
+    <p>{c.roleBody}</p>
+    <SpecimenCard plain>
+      <!-- The .current-role classes live in global.css; placeholder content
+           per the no-employer-brands rule (letter disc = the real fallback). -->
+      <div class="card current-role ds-role-demo">
+        <div class="current-role-inner">
+          <div class="current-role-logo-col">
+            <div class="current-role-logo"><span class="ds-role-letter" aria-hidden="true">A</span></div>
+          </div>
+          <div class="current-role-content">
+            <h3>Acme Studios</h3>
+            <p class="role-title">{t2.sample[0].title}</p>
+            <p class="role-desc">{t2.sample[0].desc}</p>
+          </div>
+        </div>
+      </div>
+    </SpecimenCard>
   </section>
 
   <section id="lead">
@@ -143,6 +208,15 @@ const demoDesc =
   .ds-btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
   .ds-feed-demo { width: 100%; max-width: 560px; }
   .ds-series-hero-demo { margin: 0 0 1rem; }
+  .ds-author-demo { margin: 0 0 1rem; }
+  /* AuthorCard carries a post-context top margin; the specimen doesn't need it. */
+  .ds-author-demo :global(.author-card) { margin-top: 0; }
+  .ds-role-demo { width: 100%; max-width: 560px; }
+  .ds-role-letter {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-green-text);
+  }
   .ds-frames {
     display: flex;
     flex-wrap: wrap;

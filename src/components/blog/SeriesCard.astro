@@ -1,0 +1,65 @@
+---
+// The "More series" shelf card from Blog home, extracted from BlogListing so
+// the listing and the design-system docs render the same component. Pass the
+// art via props, or the `art` slot for a placeholder in docs specimens.
+interface Props {
+  href: string;
+  art?: { src: string; alt: string };
+  /** "N parts" line. */
+  kicker: string;
+  title: string;
+  desc?: string;
+}
+const { href, art, kicker, title, desc } = Astro.props;
+const hasArtSlot = Astro.slots.has('art');
+---
+
+<a class="series-card" href={href}>
+  {(hasArtSlot || art) && (
+    <div class="series-card-art">
+      {hasArtSlot ? <slot name="art" /> : <img src={art!.src} alt={art!.alt} loading="lazy" />}
+    </div>
+  )}
+  <div class="series-card-body">
+    <span class="series-card-kicker blog-mono">{kicker}</span>
+    <h3 class="series-card-title">{title}</h3>
+    {desc && <p class="series-card-desc">{desc}</p>}
+  </div>
+</a>
+
+<style is:global>
+  .series-card {
+    width: 320px;
+    flex: none;
+    display: block;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .series-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+  .series-card-art { aspect-ratio: 21 / 9; overflow: hidden; background: var(--bg-secondary); }
+  .series-card-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .series-card-body { padding: 1.1rem 1.3rem 1.3rem; }
+  .series-card-kicker { font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-green-text); }
+  .series-card-title { font-size: 1.18rem; font-weight: 700; letter-spacing: -0.02em; margin: 0.4rem 0 0.5rem; color: var(--text-primary); transition: color 0.15s ease; }
+  .series-card:hover .series-card-title { color: var(--color-green-text); }
+  .series-card-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 760px) {
+    .series-card { width: 200px; }
+  }
+</style>

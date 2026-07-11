@@ -93,7 +93,6 @@ const sample = s.sheetSample;
 
       <GuidanceCard kind="do" label={d.doLabel} caption={s.dos[2]}>
         <div class="ds-backdrop-mock">
-          <span class="ds-backdrop-tap" aria-hidden="true">✕</span>
           <div class="ds-sheet ds-sheet-mini ds-sheet-low">
             <div class="post-sheet-grabber"></div>
           </div>
@@ -129,8 +128,9 @@ const sample = s.sheetSample;
   .ds-sheet-low { min-height: 44px; }
   /* The DON'T: rows squeezed under the 48px floor. */
   .ds-cramped a { min-height: 30px; padding-top: 3px; padding-bottom: 3px; }
-  /* Backdrop mock: a dimmed stage with the panel at the bottom; the ✕ marks
-     the tap-outside-to-close affordance. */
+  /* Backdrop mock: the real backdrop dim (rgba 0,0,0,.45) with the panel at
+     the bottom. There is no visible close control on the site — tapping the
+     backdrop itself dismisses, which is what the caption states. */
   .ds-backdrop-mock {
     position: relative;
     width: 100%;
@@ -141,15 +141,6 @@ const sample = s.sheetSample;
     display: flex;
     align-items: flex-end;
     padding: 8px;
-  }
-  .ds-backdrop-tap {
-    position: absolute;
-    top: 10px;
-    right: 12px;
-    color: #ffffff;
-    font-size: 0.9rem;
-    font-weight: 700;
-    opacity: 0.9;
   }
   .ds-backdrop-locked { outline: 2px dashed #e53e3e; outline-offset: 2px; }
 </style>

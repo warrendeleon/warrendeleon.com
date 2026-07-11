@@ -1,0 +1,42 @@
+---
+// The "More from the blog" shelf card, extracted from BlogPost so post pages
+// and the design-system docs render the same component. Pass the image via
+// props, or the `image` slot for a placeholder in docs specimens.
+interface Props {
+  href: string;
+  image?: { src: string; alt: string };
+  dateISO: string;
+  dateLabel: string;
+  title: string;
+}
+const { href, image, dateISO, dateLabel, title } = Astro.props;
+const hasImageSlot = Astro.slots.has('image');
+---
+
+<a href={href} class="related-card">
+  {(hasImageSlot || image) && (
+    <div class="related-card-image">
+      {hasImageSlot ? <slot name="image" /> : <img src={image!.src} alt={image!.alt} loading="lazy" />}
+    </div>
+  )}
+  <div class="related-card-content">
+    <time datetime={dateISO}>{dateLabel}</time>
+    <h3>{title}</h3>
+  </div>
+</a>
+
+<style is:global>
+  /* Cards ride the shared Shelf (Shelf.astro): fixed width, no shrink. */
+  .related-card { width: 280px; flex: none; border: 1px solid var(--border-color); border-radius: 12px; text-decoration: none; color: var(--text-primary); background: var(--bg-card); transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column; overflow: hidden; }
+  .related-card:hover { border-color: var(--color-green); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+  .related-card-image { width: 100%; height: 140px; overflow: hidden; }
+  .related-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+  .related-card:hover .related-card-image img { transform: scale(1.03); }
+  .related-card-content { padding: 1.25rem; }
+  .related-card time { font-size: 0.9rem; color: var(--text-muted); }
+  .related-card h3 { font-size: 1rem; margin-top: 0.35rem; line-height: 1.35; transition: color 0.2s ease; }
+  .related-card:hover h3 { color: var(--color-green-text); }
+  @media (max-width: 760px) {
+    .related-card { width: 230px; }
+  }
+</style>
