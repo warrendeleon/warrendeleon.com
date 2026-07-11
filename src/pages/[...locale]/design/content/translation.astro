@@ -1,0 +1,142 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { getLocalePath, localeStaticPaths, localeNames, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const tr = d.translation;
+const currentPath = getLocalePath(locale, '/design/content/translation/');
+
+// Locale/path/language are structural facts (codes and prefixes), not prose.
+const localeRows: { code: string; path: string }[] = [
+  { code: 'en', path: tr.localesRoot },
+  { code: 'es', path: '/es/' },
+  { code: 'ca', path: '/ca/' },
+  { code: 'tl', path: '/tl/' },
+];
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={tr.seoTitle}
+  seoDescription={tr.seoDescription}
+  group="content"
+  title={tr.title}
+  intro={tr.intro}
+  toc={tr.toc}
+>
+  <section id="locales">
+    <h2>{tr.localesHeading}</h2>
+    <p>{tr.localesBody}</p>
+    <div class="ds-tablewrap">
+      <table class="ds-mini">
+        <thead>
+          <tr>
+            <th>{tr.localesTableHeaders.locale}</th>
+            <th>{tr.localesTableHeaders.prefix}</th>
+            <th>{tr.localesTableHeaders.language}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {localeRows.map((r) => (
+            <tr>
+              <td class="ds-mono">{r.code}</td>
+              <td class="ds-mono">{r.path}</td>
+              <td>{localeNames[r.code as Locale]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="scope">
+    <h2>{tr.scopeHeading}</h2>
+    <p>{tr.scopeBody}</p>
+    <div class="ds-scope-grid">
+      <div class="ds-scope-col ds-scope-yes">
+        <p class="ds-scope-head">{tr.scopeTableHeaders.translated}</p>
+        <ul>{tr.scopeTranslated.map((x) => <li>{x}</li>)}</ul>
+      </div>
+      <div class="ds-scope-col ds-scope-no">
+        <p class="ds-scope-head">{tr.scopeTableHeaders.kept}</p>
+        <ul>{tr.scopeKept.map((x) => <li>{x}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="connect">
+    <h2>{tr.connectHeading}</h2>
+    <p>{tr.connectBody}</p>
+  </section>
+
+  <section id="posts">
+    <h2>{tr.postsHeading}</h2>
+    <p>{tr.postsBody}</p>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin: 0 0 1.5rem;
+  }
+  .ds-mini { width: 100%; min-width: 100%; border-collapse: collapse; }
+  .ds-mini th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+    background: var(--badge-bg);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .ds-mini td {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+  .ds-mini tbody tr:last-child td { border-bottom: none; }
+  .ds-mono { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; color: var(--text-primary); }
+
+  /* Translate / keep pair — green and neutral columns. */
+  .ds-scope-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 0 0 1.5rem;
+  }
+  @media (min-width: 700px) {
+    .ds-scope-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .ds-scope-col {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-card);
+    padding: 1.1rem 1.25rem;
+  }
+  .ds-scope-yes { border-top: 3px solid var(--color-green); }
+  .ds-scope-no { border-top: 3px solid var(--text-muted); }
+  .ds-scope-head {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0 0 0.6rem;
+  }
+  .ds-scope-yes .ds-scope-head { color: var(--color-green-text); }
+  .ds-scope-no .ds-scope-head { color: var(--text-muted); }
+  .ds-scope-col ul { margin: 0; padding-left: 1.1rem; }
+  .ds-scope-col li { font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 0.4rem; }
+  .ds-scope-col li:last-child { margin-bottom: 0; }
+</style>

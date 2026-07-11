@@ -47,13 +47,13 @@ export const DESIGN_GROUPS: DesignGroup[] = [
   {
     key: 'content',
     pages: [
-      { slug: 'writing', path: '/design/content/writing/', built: false },
-      { slug: 'translation', path: '/design/content/translation/', built: false },
+      { slug: 'writing', path: '/design/content/writing/', built: true },
+      { slug: 'translation', path: '/design/content/translation/', built: true },
     ],
   },
   {
     key: 'accessibility',
-    pages: [{ slug: 'accessibility', path: '/design/accessibility/', built: false }],
+    pages: [{ slug: 'accessibility', path: '/design/accessibility/', built: true }],
   },
 ];
 

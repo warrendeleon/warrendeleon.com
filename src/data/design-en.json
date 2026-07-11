@@ -69,8 +69,15 @@
       "timeline": "The work-experience rail, logo dots and all.",
       "media": "The photo carousel, the device frame, and placeholders."
     },
-    "moreHeading": "More to come",
-    "moreBody": "Content guidelines and accessibility standards are being written up next, in the same shape as the pages here.",
+    "contentHeading": "Content",
+    "contentBlurbs": {
+      "writing": "British English, sentence case, dates, links, brand names.",
+      "translation": "Four locales, connected by hreflang; what translates and what does not."
+    },
+    "accessibilityHeading": "Accessibility",
+    "accessibilityBlurbs": {
+      "accessibility": "The standards the site holds itself to, and the honest green-contrast trade."
+    },
     "livingHeading": "A living document",
     "livingBody": "The colour, type and spacing tables on these pages are generated from the site's stylesheet at build time. Change a token in the CSS and the tables here change with it. If the parser can no longer read the stylesheet, the build fails rather than showing an empty table."
   },
@@ -1128,5 +1135,119 @@
         "desc": "An earlier placeholder role, with a closed date range and the same compact card."
       }
     ]
+  },
+  "writing": {
+    "seoTitle": "Writing | Design system | Warren de Leon",
+    "seoDescription": "The editorial conventions warrendeleon.com is written to: British English, sentence case, dates, punctuation, links and brand names.",
+    "title": "Writing",
+    "intro": "How the words on the site are set. These are the conventions the writing already follows, read back from the site itself — the public output standard, not the process behind it.",
+    "toc": [
+      { "id": "spelling", "label": "Spelling" },
+      { "id": "case", "label": "Case" },
+      { "id": "dates", "label": "Dates" },
+      { "id": "punctuation", "label": "Punctuation" },
+      { "id": "links", "label": "Links" },
+      { "id": "brands", "label": "Brand names" }
+    ],
+    "spellingHeading": "Spelling",
+    "spellingBody": "Prose is British English: behaviour, colour, organise, licence. The two exceptions are deliberate and both live in code, not prose. A code identifier keeps whatever spelling its API uses, so a color property stays color. And across the Module Federation writing, artifact is a term of art — a published, versioned module — so it keeps that spelling while ordinary prose still writes artefact.",
+    "spellingGood": "behaviour · colour · organise · optimise",
+    "spellingBad": "behavior · color · organize · optimize",
+    "spellingCaption": "British spelling in prose. Code identifiers and terms of art keep their own form.",
+    "spellingBadCaption": "Not American spellings in prose — those belong to code alone.",
+    "caseHeading": "Case",
+    "caseBody": "Sentence case is the house style: page titles, section headings, article headings, buttons and labels capitalise the first word and any proper nouns, and nothing else. The top navigation is the one standing exception, kept in title case.",
+    "caseGood": "Download CV · Back to blog · Browse by tag",
+    "caseBad": "Download Cv · Back To Blog · BROWSE BY TAG",
+    "caseCaption": "Sentence case for headings, buttons and labels.",
+    "caseBadCaption": "Not title case, not all caps, outside the top nav.",
+    "datesHeading": "Dates",
+    "datesBody": "Dates are British. An article date spells the month in full — 29 March 2026. A role range abbreviates the month and keeps the year — Mar 2016 to the present — and an open range closes with the word Present, never a trailing dash.",
+    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesBad": "03/29/2026 · March 29th · 2016–now",
+    "datesCaption": "Full month for article dates, abbreviated for ranges; open ranges say Present.",
+    "datesBadCaption": "Not numeric, not American order, not an ordinal.",
+    "punctuationHeading": "Punctuation",
+    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside takes a spaced em-dash, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences.",
+    "punctuationGood": "labels, hints, and states — one line · 10 min",
+    "punctuationBad": "labels, hints and states ... one line! - 10 min",
+    "punctuationCaption": "Serial comma, the ellipsis character, a spaced em-dash, a middot between meta.",
+    "punctuationBadCaption": "No three-dot ellipsis, no exclamation, no plain hyphen for an aside.",
+    "linksHeading": "Links",
+    "linksBody": "Link text describes where it goes. The site never links the words click here or read more, or a bare here or this; a link reads as the thing it points at.",
+    "linksGood": "read the token-refresh post",
+    "linksBad": "click here to read more",
+    "linksCaption": "Descriptive link text that stands on its own.",
+    "linksBadCaption": "Never click here, read more, or a bare here.",
+    "brandsHeading": "Brand and product names",
+    "brandsBody": "Product names keep their official spelling and casing. React Native and Module Federation are two title-case words each; Pokémon and Pokédex always carry the accent; App Store is two words. Where a name has an exact form, match it rather than tidy it.",
+    "brandsGood": "React Native · Pokédex · Module Federation",
+    "brandsBad": "react native · Pokedex · module federation",
+    "brandsCaption": "Match the official form, accents and all.",
+    "brandsBadCaption": "Not lowercased, not stripped of accents."
+  },
+  "translation": {
+    "seoTitle": "Translation | Design system | Warren de Leon",
+    "seoDescription": "The four-locale translation policy behind warrendeleon.com: English at the root, Spanish, Catalan and Tagalog mirrored and connected by hreflang.",
+    "title": "Translation",
+    "intro": "Every page is written to live in four languages. English sits at the root; Spanish, Catalan and Tagalog mirror it, each under its own prefix. This page is the policy that keeps them in step.",
+    "toc": [
+      { "id": "locales", "label": "Four locales" },
+      { "id": "scope", "label": "What translates" },
+      { "id": "connect", "label": "How versions connect" },
+      { "id": "posts", "label": "Posts & discovery" }
+    ],
+    "localesHeading": "Four locales",
+    "localesBody": "English is served at the root with no prefix. Spanish, Catalan and Tagalog each live under their own prefix. Dates and month names format per region — British English, European Spanish, Catalan and Filipino.",
+    "localesTableHeaders": { "locale": "Locale", "prefix": "Path", "language": "Language" },
+    "localesRoot": "(root)",
+    "scopeHeading": "What translates, and what does not",
+    "scopeBody": "Prose, headings, alt text, interface strings and diagram labels are translated. Everything a reader would copy and run is kept exactly: code, terminal commands, file paths, URLs, code identifiers, and brand and product names. A translated post reads in its own language while its git commands and API names stay byte-for-byte the English.",
+    "scopeTableHeaders": { "translated": "Translated", "kept": "Kept verbatim" },
+    "scopeTranslated": [
+      "Prose and headings",
+      "Image alt text",
+      "Diagram (Mermaid) labels",
+      "Interface strings"
+    ],
+    "scopeKept": [
+      "Code blocks",
+      "Terminal commands",
+      "File paths and URLs",
+      "Code identifiers",
+      "Brand and product names"
+    ],
+    "connectHeading": "How the versions connect",
+    "connectBody": "hreflang alternates tie the versions together, and each page emits them only for the languages it actually exists in, so an alternate is never advertised to a page that would return a 404. The x-default points at the English root. Each translated page is its own canonical: it does not defer to the English original. Links the interface generates stay within the reader's language, while a link written inside a post's body points at the English canonical.",
+    "postsHeading": "Posts and discovery",
+    "postsBody": "A translated post carries a reduced set of frontmatter: it inherits the publish date and series from its English master when the site builds, and drops the fields that exist only to generate the English hero image. Not every post exists in all four languages, and where a translation is missing the language's feed shows the English version rather than hiding the post. Locale pages are kept out of the sitemap by design; search engines reach them through hreflang, and a first-time visitor to the root is sent to their browser's language once."
+  },
+  "accessibility": {
+    "seoTitle": "Accessibility | Design system | Warren de Leon",
+    "seoDescription": "The accessibility standards warrendeleon.com holds itself to: landmarks, a visible focus ring, generous targets, reduced motion, and the readable-green trade.",
+    "title": "Accessibility",
+    "intro": "The standards the site is built to, measured against WCAG 2.2 with AA as the target. What follows is what the code actually does — including the one place the brand green forced an honest trade.",
+    "toc": [
+      { "id": "standards", "label": "The standards" },
+      { "id": "contrast", "label": "The readable-green trade" },
+      { "id": "scope", "label": "Scope" }
+    ],
+    "standardsHeading": "The standards",
+    "standards": [
+      { "title": "Skip link and landmarks", "body": "A keyboard visitor lands first on a Skip to content link that jumps past the chrome to the main region. The page is built from real landmarks: a main, labelled navigation elements, and a footer.", "sc": "2.4.1 Bypass Blocks · A" },
+      { "title": "Visible focus", "body": "Every control focuses to a two-pixel green ring set two pixels off the edge, shown for keyboard focus and not for a mouse click.", "sc": "2.4.7 Focus Visible · AA" },
+      { "title": "Target size", "body": "Primary touch controls — the tab dock, sheet rows, the call-to-action pills — are 44 to 48 pixels; the smallest pointer control still clears 24. So every control meets the AA minimum, and the touch controls meet the stricter AAA size.", "sc": "2.5.8 AA · 2.5.5 AAA" },
+      { "title": "Reduced motion", "body": "When a visitor's system asks for less motion the site collapses every animation and transition to a hair over zero, and turns smooth scrolling into a plain jump.", "sc": "2.3.3 · AAA" },
+      { "title": "Theme parity, no flash", "body": "Light and dark are both first-class: every surface is designed in both, and the theme resolves before the first paint so a dark-mode visitor never gets a white flash.", "sc": "" },
+      { "title": "Colour is not the only signal", "body": "Links in article prose are underlined, so their meaning never rests on green alone.", "sc": "1.4.1 Use of Colour · A" }
+    ],
+    "contrastHeading": "The readable-green trade",
+    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1 — below even the 3-to-1 bar for large text. That is why a second token exists: --color-green-text steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
+    "contrastTableHeaders": { "token": "Token", "white": "On white", "dark": "On near-black" },
+    "contrastLegend": { "pass": "Passes AA", "partial": "Large text and UI only", "fail": "Fails the bar" },
+    "contrastSampleText": "A green link",
+    "contrastLimitation": "The honest part: at body reading size on a light background, a green link sits at about 3.2 to 1 — past the large-text bar, short of the 4.5-to-1 bar for normal text. The site accepts that trade to keep its one brand colour, and softens it two ways. Article links are underlined, so colour is never the only signal; and dark mode resolves it outright, where the same lime on near-black reads at about 8.6 to 1. Body copy itself is always neutral, and always passes.",
+    "scopeHeading": "Scope",
+    "scopeBody": "This covers the website. The React Native app and the email templates are their own surfaces, with their own standards, and are not documented here."
   }
 }

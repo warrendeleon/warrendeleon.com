@@ -58,10 +58,6 @@
       "iconography": "Icones de línia a l'estil Feather i símbols de marca sòlids.",
       "motion": "Transicions curtes i discretes, i l'interruptor de moviment reduït."
     },
-    "moreHeading": "Encara n'hi ha més",
-    "moreBody": "Les guies de contingut i els estàndards d'accessibilitat s'estan redactant ara, amb la mateixa forma que les pàgines d'aquí.",
-    "livingHeading": "Un document viu",
-    "livingBody": "Les taules de color, tipografia i espaiat d'aquestes pàgines es generen a partir del full d'estils del lloc en temps de compilació. Canvia un token al CSS i les taules d'aquí canvien amb ell. Si l'analitzador ja no pot llegir el full d'estils, la compilació falla en comptes de mostrar una taula buida.",
     "componentsHeading": "Components",
     "componentBlurbs": {
       "buttons": "Dos nivells, estats reals i què escriure-hi.",
@@ -72,7 +68,18 @@
       "article-patterns": "Avisos, codi, taules, sumari: el kit dels textos llargs.",
       "timeline": "El rail de l'experiència laboral, amb punts de logo i tot.",
       "media": "El carrusel de fotos, el marc de dispositiu i els marcadors de posició."
-    }
+    },
+    "contentHeading": "Contingut",
+    "contentBlurbs": {
+      "writing": "Anglès britànic, majúscula a l'inici de frase, dates, enllaços, noms de marca.",
+      "translation": "Quatre llengües, connectades amb hreflang; què es tradueix i què no."
+    },
+    "accessibilityHeading": "Accessibilitat",
+    "accessibilityBlurbs": {
+      "accessibility": "Els estàndards que compleix el lloc, i l'honest compromís del contrast del verd."
+    },
+    "livingHeading": "Un document viu",
+    "livingBody": "Les taules de color, tipografia i espaiat d'aquestes pàgines es generen a partir del full d'estils del lloc en temps de compilació. Canvia un token al CSS i les taules d'aquí canvien amb ell. Si l'analitzador ja no pot llegir el full d'estils, la compilació falla en comptes de mostrar una taula buida."
   },
   "colour": {
     "seoTitle": "Color | Sistema de disseny | Warren de Leon",
@@ -1128,5 +1135,197 @@
         "desc": "Un càrrec de mostra anterior, amb un rang de dates tancat i la mateixa targeta compacta."
       }
     ]
+  },
+  "writing": {
+    "seoTitle": "Escriptura | Sistema de disseny | Warren de Leon",
+    "seoDescription": "Les convencions editorials amb què s'escriu warrendeleon.com: anglès britànic, majúscula a l'inici de frase, dates, puntuació, enllaços i noms de marca.",
+    "title": "Escriptura",
+    "intro": "Com es fixen les paraules del lloc. Són les convencions que l'escriptura ja segueix, llegides des del mateix lloc: l'estàndard públic de sortida, no el procés que hi ha al darrere.",
+    "toc": [
+      {
+        "id": "spelling",
+        "label": "Ortografia"
+      },
+      {
+        "id": "case",
+        "label": "Majúscules"
+      },
+      {
+        "id": "dates",
+        "label": "Dates"
+      },
+      {
+        "id": "punctuation",
+        "label": "Puntuació"
+      },
+      {
+        "id": "links",
+        "label": "Enllaços"
+      },
+      {
+        "id": "brands",
+        "label": "Noms de marca"
+      }
+    ],
+    "spellingHeading": "Ortografia",
+    "spellingBody": "La prosa és en anglès britànic: behaviour, colour, organise, licence. Les dues excepcions són deliberades i totes dues viuen en el codi, no en la prosa. Un identificador de codi conserva l'ortografia que fa servir la seva API, així que una propietat color continua sent color. I a tota l'escriptura sobre Module Federation, artifact és un terme tècnic (un mòdul publicat i versionat), de manera que conserva aquesta grafia mentre que la prosa corrent segueix escrivint artefact.",
+    "spellingGood": "behaviour · colour · organise · optimise",
+    "spellingBad": "behavior · color · organize · optimize",
+    "spellingCaption": "Ortografia britànica en la prosa. Els identificadors de codi i els termes tècnics conserven la seva pròpia forma.",
+    "spellingBadCaption": "No l'ortografia americana en la prosa: això només pertoca al codi.",
+    "caseHeading": "Majúscules",
+    "caseBody": "L'estil de frase és l'estil de la casa: els títols de pàgina, els encapçalaments de secció, els encapçalaments d'article, els botons i les etiquetes posen en majúscula la primera paraula i qualsevol nom propi, i res més. La navegació superior és l'única excepció permanent, que es manté en estil títol.",
+    "caseGood": "Download CV · Back to blog · Browse by tag",
+    "caseBad": "Download Cv · Back To Blog · BROWSE BY TAG",
+    "caseCaption": "Estil de frase per als encapçalaments, els botons i les etiquetes.",
+    "caseBadCaption": "No l'estil títol ni tot en majúscules, fora de la navegació superior.",
+    "datesHeading": "Dates",
+    "datesBody": "Les dates són britàniques. Una data d'article escriu el mes sencer: 29 March 2026. Un rang de càrrec abreuja el mes i manté l'any (Mar 2016 – Present), i un rang obert es tanca amb la paraula Present, mai amb un guió final.",
+    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesBad": "03/29/2026 · March 29th · 2016–now",
+    "datesCaption": "Mes sencer per a les dates d'article, abreujat per als rangs; els rangs oberts diuen Present.",
+    "datesBadCaption": "No numèriques, no en ordre americà, no amb ordinals.",
+    "punctuationHeading": "Puntuació",
+    "punctuationBody": "La coma final de sèrie és l'opció per defecte: labels, hints, and states. Els signes d'exclamació queden fora de la prosa. La truncació i els estats de càrrega fan servir el caràcter únic de punts suspensius, un incís pren un guió llarg amb espais, i una fila de metadades separa les seves parts amb un punt volat. Tres punts seguits pertanyen al codi, no a les frases.",
+    "punctuationGood": "labels, hints, and states — one line · 10 min",
+    "punctuationBad": "labels, hints and states ... one line! - 10 min",
+    "punctuationCaption": "Coma final de sèrie, el caràcter de punts suspensius, un guió llarg amb espais, un punt volat entre metadades.",
+    "punctuationBadCaption": "Ni punts suspensius de tres punts, ni exclamacions, ni un guió simple per a un incís.",
+    "linksHeading": "Enllaços",
+    "linksBody": "El text de l'enllaç descriu on porta. El lloc mai no enllaça les paraules click here o read more, ni un here o this soltos; un enllaç es llegeix com allò que assenyala.",
+    "linksGood": "read the token-refresh post",
+    "linksBad": "click here to read more",
+    "linksCaption": "Text d'enllaç descriptiu que se sosté per si sol.",
+    "linksBadCaption": "Mai click here, read more o un here solt.",
+    "brandsHeading": "Noms de marca i de producte",
+    "brandsBody": "Els noms de producte conserven la seva grafia i el seu ús de majúscules oficials. React Native i Module Federation són dues paraules en estil títol cadascun; Pokémon i Pokédex sempre porten l'accent; App Store són dues paraules. Quan un nom té una forma exacta, respecta-la en lloc d'endreçar-la.",
+    "brandsGood": "React Native · Pokédex · Module Federation",
+    "brandsBad": "react native · Pokedex · module federation",
+    "brandsCaption": "Respecta la forma oficial, accents inclosos.",
+    "brandsBadCaption": "No en minúscules ni sense accents."
+  },
+  "translation": {
+    "seoTitle": "Traducció | Sistema de disseny | Warren de Leon",
+    "seoDescription": "La política de traducció de quatre llengües darrere de warrendeleon.com: l'anglès a l'arrel, i el castellà, el català i el tagàlog reflectits i connectats amb hreflang.",
+    "title": "Traducció",
+    "intro": "Cada pàgina s'escriu per viure en quatre llengües. L'anglès és a l'arrel; el castellà, el català i el tagàlog el reflecteixen, cadascun sota el seu propi prefix. Aquesta pàgina és la política que els manté sincronitzats.",
+    "toc": [
+      {
+        "id": "locales",
+        "label": "Quatre llengües"
+      },
+      {
+        "id": "scope",
+        "label": "Què es tradueix"
+      },
+      {
+        "id": "connect",
+        "label": "Com es connecten les versions"
+      },
+      {
+        "id": "posts",
+        "label": "Articles i descoberta"
+      }
+    ],
+    "localesHeading": "Quatre llengües",
+    "localesBody": "L'anglès es serveix a l'arrel sense prefix. El castellà, el català i el tagàlog viuen cadascun sota el seu propi prefix. Les dates i els noms dels mesos es formaten segons la regió: anglès britànic, castellà europeu, català i filipí.",
+    "localesTableHeaders": {
+      "locale": "Llengua",
+      "prefix": "Ruta",
+      "language": "Idioma"
+    },
+    "localesRoot": "(root)",
+    "scopeHeading": "Què es tradueix i què no",
+    "scopeBody": "Es tradueixen la prosa, els encapçalaments, el text alternatiu, les cadenes d'interfície i les etiquetes dels diagrames. Tot el que un lector copiaria i executaria es conserva exactament: el codi, les ordres de terminal, les rutes de fitxers, les URL, els identificadors de codi i els noms de marca i de producte. Un article traduït es llegeix en la seva pròpia llengua mentre que les seves ordres de git i els noms d'API es mantenen idèntics, byte a byte, a l'anglès.",
+    "scopeTableHeaders": {
+      "translated": "Traduït",
+      "kept": "Conservat literalment"
+    },
+    "scopeTranslated": [
+      "Prosa i encapçalaments",
+      "Text alternatiu de les imatges",
+      "Etiquetes dels diagrames (Mermaid)",
+      "Cadenes d'interfície"
+    ],
+    "scopeKept": [
+      "Blocs de codi",
+      "Ordres de terminal",
+      "Rutes de fitxers i URL",
+      "Identificadors de codi",
+      "Noms de marca i de producte"
+    ],
+    "connectHeading": "Com es connecten les versions",
+    "connectBody": "Les alternatives hreflang lliguen les versions entre si, i cada pàgina només les emet per a les llengües en què realment existeix, de manera que mai no s'anuncia una alternativa cap a una pàgina que retornaria un 404. El x-default apunta a l'arrel en anglès. Cada pàgina traduïda és el seu propi canonical: no cedeix a l'original anglès. Els enllaços que genera la interfície es mantenen dins de la llengua del lector, mentre que un enllaç escrit dins del cos d'un article apunta al canonical anglès.",
+    "postsHeading": "Articles i descoberta",
+    "postsBody": "Un article traduït porta un conjunt reduït de frontmatter: hereta la data de publicació i la sèrie del seu original anglès quan es construeix el lloc, i descarta els camps que només existeixen per generar la imatge principal anglesa. No tots els articles existeixen en les quatre llengües, i quan falta una traducció, el canal de la llengua mostra la versió anglesa en lloc d'amagar l'article. Les pàgines de les llengües es mantenen fora del sitemap expressament; els cercadors hi arriben a través de hreflang, i un visitant que arriba per primera vegada a l'arrel s'envia a la llengua del seu navegador un cop."
+  },
+  "accessibility": {
+    "seoTitle": "Accessibilitat | Sistema de disseny | Warren de Leon",
+    "seoDescription": "Els estàndards d'accessibilitat que compleix warrendeleon.com: regions de referència, un anell de focus visible, àrees d'interacció generoses, moviment reduït i el compromís del verd llegible.",
+    "title": "Accessibilitat",
+    "intro": "Els estàndards amb què s'ha construït el lloc, mesurats segons la WCAG 2.2 amb l'AA com a objectiu. El que segueix és el que fa realment el codi, inclòs l'únic punt on el verd de marca ha forçat un compromís honest.",
+    "toc": [
+      {
+        "id": "standards",
+        "label": "Els estàndards"
+      },
+      {
+        "id": "contrast",
+        "label": "El compromís del verd llegible"
+      },
+      {
+        "id": "scope",
+        "label": "Abast"
+      }
+    ],
+    "standardsHeading": "Els estàndards",
+    "standards": [
+      {
+        "title": "Enllaç per ometre i regions de referència",
+        "body": "Un visitant amb teclat aterra primer en un enllaç Skip to content que salta per sobre de la interfície fins a la regió principal. La pàgina està construïda amb regions de referència reals: un main, elements de navegació etiquetats i un footer.",
+        "sc": "2.4.1 Bypass Blocks · A"
+      },
+      {
+        "title": "Focus visible",
+        "body": "Cada control es focalitza amb un anell verd de dos píxels situat a dos píxels de la vora, que es mostra per al focus de teclat i no per a un clic de ratolí.",
+        "sc": "2.4.7 Focus Visible · AA"
+      },
+      {
+        "title": "Mida de l'objectiu",
+        "body": "Els controls tàctils principals (la barra de pestanyes, les files del full, les pastilles de crida a l'acció) fan de 44 a 48 píxels; el control de punter més petit encara supera els 24. Així, cada control compleix el mínim de l'AA, i els controls tàctils compleixen la mida AAA, més estricta.",
+        "sc": "2.5.8 AA · 2.5.5 AAA"
+      },
+      {
+        "title": "Moviment reduït",
+        "body": "Quan el sistema d'un visitant demana menys moviment, el lloc redueix cada animació i transició a una mica per sobre de zero, i converteix el desplaçament suau en un salt simple.",
+        "sc": "2.3.3 · AAA"
+      },
+      {
+        "title": "Paritat de tema, sense flaix",
+        "body": "El clar i el fosc són tots dos de primera classe: cada superfície es dissenya en tots dos, i el tema es resol abans del primer pintat perquè un visitant en mode fosc mai no rebi un flaix blanc.",
+        "sc": ""
+      },
+      {
+        "title": "El color no és l'únic senyal",
+        "body": "Els enllaços en la prosa dels articles estan subratllats, de manera que el seu significat mai no depèn només del verd.",
+        "sc": "1.4.1 Use of Colour · A"
+      }
+    ],
+    "contrastHeading": "El compromís del verd llegible",
+    "contrastBody": "El verd de marca és un llima brillant, i el llima brillant no es llegeix com a text sobre blanc. Mesurat segons la WCAG, #6dc402 sobre blanc és d'uns 2,2:1, per sota fins i tot del llindar de 3:1 per al text gran. Per això existeix un segon token: --color-green-text rebaixa el verd fins a #5aa302, que supera el 3:1. Això n'hi ha prou per al text gran o en negreta, per als encapçalaments i per als accents d'interfície com l'anell de focus, i s'utilitza per a això, no per al text del cos.",
+    "contrastTableHeaders": {
+      "token": "Token",
+      "white": "Sobre blanc",
+      "dark": "Sobre gairebé negre"
+    },
+    "contrastLegend": {
+      "pass": "Compleix l'AA",
+      "partial": "Només text gran i interfície",
+      "fail": "No arriba al llindar"
+    },
+    "contrastSampleText": "Un enllaç verd",
+    "contrastLimitation": "La part honesta: a la mida de lectura del cos sobre un fons clar, un enllaç verd se situa a uns 3,2:1, per sobre del llindar del text gran però per sota del llindar de 4,5:1 per al text normal. El lloc accepta aquest compromís per conservar el seu únic color de marca, i el suavitza de dues maneres. Els enllaços dels articles estan subratllats, de manera que el color mai no és l'únic senyal; i el mode fosc ho resol del tot, on el mateix llima sobre gairebé negre es llegeix a uns 8,6:1. El text del cos, en si mateix, sempre és neutre, i sempre compleix.",
+    "scopeHeading": "Abast",
+    "scopeBody": "Això cobreix el lloc web. L'aplicació de React Native i les plantilles de correu són superfícies pròpies, amb els seus propis estàndards, i no es documenten aquí."
   }
 }

@@ -1,0 +1,200 @@
+---
+import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { getDesignData } from '../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const a = d.accessibility;
+const currentPath = getLocalePath(locale, '/design/accessibility/');
+
+// Contrast values are computed WCAG ratios (see the token comment in
+// global.css); status is 'pass' | 'partial' | 'fail'. Literals, not prose.
+const contrastRows = [
+  { token: '--color-green', hex: '#6dc402', white: '2.2:1', whiteStatus: 'fail', dark: '8.6:1', darkStatus: 'pass' },
+  { token: '--color-green-text', hex: '#5aa302', white: '3.2:1', whiteStatus: 'partial', dark: '6.0:1', darkStatus: 'pass' },
+] as const;
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={a.seoTitle}
+  seoDescription={a.seoDescription}
+  group="accessibility"
+  title={a.title}
+  intro={a.intro}
+  toc={a.toc}
+>
+  <section id="standards">
+    <h2>{a.standardsHeading}</h2>
+    <ol class="ds-standards">
+      {a.standards.map((s) => (
+        <li class="ds-standard">
+          <div class="ds-standard-head">
+            <h3>{s.title}</h3>
+            {s.sc && <span class="ds-sc">{s.sc}</span>}
+          </div>
+          <p>{s.body}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="contrast">
+    <h2>{a.contrastHeading}</h2>
+    <p>{a.contrastBody}</p>
+
+    <!-- The two greens as body-size text on their real stages: the reader
+         sees the readability gap, not just the numbers. -->
+    <div class="ds-contrast-demo">
+      <div class="ds-contrast-stage ds-cs-light">
+        <span style="color: #6dc402;">{a.contrastSampleText}</span>
+        <span style="color: #5aa302; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>
+        <code>#6dc402 · #5aa302</code>
+      </div>
+      <div class="ds-contrast-stage ds-cs-dark">
+        <span style="color: #6dc402; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>
+        <code>#6dc402</code>
+      </div>
+    </div>
+
+    <div class="ds-tablewrap">
+      <table class="ds-mini">
+        <thead>
+          <tr>
+            <th>{a.contrastTableHeaders.token}</th>
+            <th>{a.contrastTableHeaders.white}</th>
+            <th>{a.contrastTableHeaders.dark}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {contrastRows.map((r) => (
+            <tr>
+              <td class="ds-mono">{r.token}<span class="ds-hex">{r.hex}</span></td>
+              <td><span class:list={['ds-dot', `is-${r.whiteStatus}`]}></span><span class="ds-ratio">{r.white}</span></td>
+              <td><span class:list={['ds-dot', `is-${r.darkStatus}`]}></span><span class="ds-ratio">{r.dark}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="ds-legend">
+      <span class="ds-legend-item"><span class="ds-dot is-pass"></span>{a.contrastLegend.pass}</span>
+      <span class="ds-legend-item"><span class="ds-dot is-partial"></span>{a.contrastLegend.partial}</span>
+      <span class="ds-legend-item"><span class="ds-dot is-fail"></span>{a.contrastLegend.fail}</span>
+    </p>
+
+    <p>{a.contrastLimitation}</p>
+  </section>
+
+  <section id="scope">
+    <h2>{a.scopeHeading}</h2>
+    <p>{a.scopeBody}</p>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-standards { list-style: none; counter-reset: std; margin: 0; padding: 0; }
+  .ds-standard {
+    counter-increment: std;
+    position: relative;
+    padding: 1.1rem 0 1.1rem 3rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .ds-standard:last-child { border-bottom: none; }
+  .ds-standard::before {
+    content: counter(std);
+    position: absolute;
+    left: 0;
+    top: 1.1rem;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--color-green);
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--color-green-text);
+  }
+  .ds-standard-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.9rem;
+    margin-bottom: 0.4rem;
+  }
+  .ds-standard h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin: 0; }
+  .ds-sc {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--color-green-text);
+    background: rgba(109, 196, 2, 0.12);
+    border: 1px solid var(--color-green);
+    border-radius: 6px;
+    padding: 2px 7px;
+  }
+  .ds-standard p { margin: 0; font-size: var(--fs-body); line-height: 1.7; color: var(--text-secondary); }
+
+  /* Contrast demo: fixed light and dark stages, text at body size. */
+  .ds-contrast-demo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin: 0 0 1.5rem;
+  }
+  @media (min-width: 560px) {
+    .ds-contrast-demo { grid-template-columns: 2fr 1fr; }
+  }
+  .ds-contrast-stage {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 1.25rem;
+    padding: 1.1rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+  }
+  .ds-cs-light { background: #ffffff; }
+  .ds-cs-dark { background: #111111; }
+  .ds-contrast-stage code {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: #8a8a8a;
+  }
+
+  .ds-tablewrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 12px; margin: 0 0 0.75rem; }
+  .ds-mini { width: 100%; min-width: 100%; border-collapse: collapse; }
+  .ds-mini th {
+    text-align: left; padding: 10px 14px; font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted); background: var(--badge-bg); border-bottom: 1px solid var(--border-color);
+  }
+  .ds-mini td { padding: 10px 14px; font-size: 0.85rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); vertical-align: middle; }
+  .ds-mini tbody tr:last-child td { border-bottom: none; }
+  .ds-mono { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; color: var(--text-primary); }
+  .ds-hex { display: block; font-size: 0.72rem; color: var(--text-muted); }
+  .ds-ratio { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; }
+  .ds-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: baseline; }
+  .is-pass { background: var(--color-green); }
+  .is-partial { background: #d69e2e; }
+  .is-fail { background: #e53e3e; }
+  .ds-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin: 0 0 1.5rem !important;
+    font-size: 0.8rem !important;
+    color: var(--text-muted) !important;
+  }
+  .ds-legend-item { display: inline-flex; align-items: center; }
+</style>

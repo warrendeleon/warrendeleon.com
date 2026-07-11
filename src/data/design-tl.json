@@ -58,10 +58,6 @@
       "iconography": "Mga line icon na Feather-style at solid na brand marks.",
       "motion": "Maiikli, tahimik na mga transition, at ang reduced-motion na switch."
     },
-    "moreHeading": "Marami pang darating",
-    "moreBody": "Kasunod na isinusulat ang mga content guideline at accessibility standard, sa parehong hugis ng mga page dito.",
-    "livingHeading": "Isang buháy na dokumento",
-    "livingBody": "Ang mga table ng kulay, type at spacing sa mga pahinang ito ay nabubuo mula sa stylesheet ng site sa build time. Baguhin ang isang token sa CSS at magbabago rin ang mga table dito kasabay nito. Kung hindi na mabasa ng parser ang stylesheet, mabibigo ang build sa halip na magpakita ng walang lamang table.",
     "componentsHeading": "Mga Component",
     "componentBlurbs": {
       "buttons": "Dalawang tier, totoong mga state, at kung ano ang isusulat sa mga ito.",
@@ -72,7 +68,18 @@
       "article-patterns": "Mga callout, code, table, contents — ang long-form kit.",
       "timeline": "Ang rail ng work experience, kasama ang mga logo dot.",
       "media": "Ang photo carousel, ang device frame, at mga placeholder."
-    }
+    },
+    "contentHeading": "Nilalaman",
+    "contentBlurbs": {
+      "writing": "British English, sentence case, mga petsa, mga link, mga pangalan ng brand.",
+      "translation": "Apat na locale, na nag-uugnay sa pamamagitan ng hreflang; ano ang naisasalin at ano ang hindi."
+    },
+    "accessibilityHeading": "Aksesibilidad",
+    "accessibilityBlurbs": {
+      "accessibility": "Ang mga pamantayang sinusunod ng site, at ang tapat na trade-off sa contrast ng green."
+    },
+    "livingHeading": "Isang buháy na dokumento",
+    "livingBody": "Ang mga table ng kulay, type at spacing sa mga pahinang ito ay nabubuo mula sa stylesheet ng site sa build time. Baguhin ang isang token sa CSS at magbabago rin ang mga table dito kasabay nito. Kung hindi na mabasa ng parser ang stylesheet, mabibigo ang build sa halip na magpakita ng walang lamang table."
   },
   "colour": {
     "seoTitle": "Kulay | Disenyo | Warren de Leon",
@@ -1128,5 +1135,197 @@
         "desc": "Mas naunang placeholder na role, may saradong hanay ng petsa at parehong compact na card."
       }
     ]
+  },
+  "writing": {
+    "seoTitle": "Pagsulat | Disenyo | Warren de Leon",
+    "seoDescription": "Ang mga editorial na kombensiyon na sinusunod ng warrendeleon.com: British English, sentence case, mga petsa, bantas, mga link at mga pangalan ng brand.",
+    "title": "Pagsulat",
+    "intro": "Kung paano itinatakda ang mga salita sa site. Ito ang mga kombensiyong sinusunod na ng pagsulat, na binasa mula mismo sa site — ang pampublikong pamantayan ng output, hindi ang prosesong nasa likod nito.",
+    "toc": [
+      {
+        "id": "spelling",
+        "label": "Pagbaybay"
+      },
+      {
+        "id": "case",
+        "label": "Case"
+      },
+      {
+        "id": "dates",
+        "label": "Mga petsa"
+      },
+      {
+        "id": "punctuation",
+        "label": "Bantas"
+      },
+      {
+        "id": "links",
+        "label": "Mga link"
+      },
+      {
+        "id": "brands",
+        "label": "Mga pangalan ng brand"
+      }
+    ],
+    "spellingHeading": "Pagbaybay",
+    "spellingBody": "Ang prosa ay nasa British English: behaviour, colour, organise, licence. Ang dalawang eksepsiyon ay sinadya at parehong nasa code, hindi sa prosa. Pinapanatili ng isang code identifier kung anumang ispeling ang ginagamit ng API nito, kaya ang color property ay nananatiling color. At sa buong pagsulat tungkol sa Module Federation, ang artifact ay isang terminong teknikal — isang na-publish, na-version na module — kaya pinapanatili nito ang ispeling na iyon habang ang karaniwang prosa ay isinusulat pa ring artefact.",
+    "spellingGood": "behaviour · colour · organise · optimise",
+    "spellingBad": "behavior · color · organize · optimize",
+    "spellingCaption": "British na ispeling sa prosa. Pinapanatili ng mga code identifier at teknikal na termino ang sarili nilang anyo.",
+    "spellingBadCaption": "Hindi American na ispeling sa prosa — ang mga iyon ay para lamang sa code.",
+    "caseHeading": "Case",
+    "caseBody": "Sentence case ang istilo ng bahay: ang mga pamagat ng pahina, section heading, article heading, button at label ay nilalagyan ng malaking titik ang unang salita at anumang pantanging ngalan, at wala nang iba. Ang itaas na navigation ang tanging eksepsiyon, na pinapanatili sa title case.",
+    "caseGood": "Download CV · Back to blog · Browse by tag",
+    "caseBad": "Download Cv · Back To Blog · BROWSE BY TAG",
+    "caseCaption": "Sentence case para sa mga heading, button at label.",
+    "caseBadCaption": "Hindi title case, hindi all caps, maliban sa itaas na nav.",
+    "datesHeading": "Mga petsa",
+    "datesBody": "British ang mga petsa. Binabaybay nang buo ng petsa ng artikulo ang buwan — 29 March 2026. Pinapaikli ng saklaw ng tungkulin ang buwan at pinapanatili ang taon — Mar 2016 hanggang sa kasalukuyan — at nagtatapos ang bukás na saklaw sa salitang Present, hindi kailanman sa nakabitin na gitling.",
+    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesBad": "03/29/2026 · March 29th · 2016–now",
+    "datesCaption": "Buong buwan para sa petsa ng artikulo, pinaikli para sa mga saklaw; ang bukás na saklaw ay nagsasabi ng Present.",
+    "datesBadCaption": "Hindi numeriko, hindi American na pagkakasunod, hindi ordinal.",
+    "punctuationHeading": "Bantas",
+    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay pinaghihiwalay ang mga bahagi nito ng middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap.",
+    "punctuationGood": "labels, hints, and states — one line · 10 min",
+    "punctuationBad": "labels, hints and states ... one line! - 10 min",
+    "punctuationCaption": "Serial comma, ang ellipsis character, isang spaced em-dash, isang middot sa pagitan ng meta.",
+    "punctuationBadCaption": "Walang three-dot ellipsis, walang tandang padamdam, walang payak na gitling para sa aside.",
+    "linksHeading": "Mga link",
+    "linksBody": "Inilalarawan ng teksto ng link kung saan ito papunta. Hindi kailanman iniuugnay ng site ang mga salitang click here o read more, o isang payak na here o this; ang isang link ay nababasa bilang ang bagay na tinuturo nito.",
+    "linksGood": "read the token-refresh post",
+    "linksBad": "click here to read more",
+    "linksCaption": "Naglalarawang teksto ng link na nakatayo nang mag-isa.",
+    "linksBadCaption": "Hindi kailanman click here, read more, o payak na here.",
+    "brandsHeading": "Mga pangalan ng brand at produkto",
+    "brandsBody": "Pinapanatili ng mga pangalan ng produkto ang kanilang opisyal na ispeling at casing. Ang React Native at Module Federation ay tig-dalawang salita na naka-title case; ang Pokémon at Pokédex ay laging may accent; ang App Store ay dalawang salita. Kung saan may eksaktong anyo ang isang pangalan, tumbasan ito sa halip na ayusin.",
+    "brandsGood": "React Native · Pokédex · Module Federation",
+    "brandsBad": "react native · Pokedex · module federation",
+    "brandsCaption": "Tumbas sa opisyal na anyo, pati na ang mga accent.",
+    "brandsBadCaption": "Hindi ini-lowercase, hindi inaalis ang mga accent."
+  },
+  "translation": {
+    "seoTitle": "Pagsasalin | Disenyo | Warren de Leon",
+    "seoDescription": "Ang patakaran sa pagsasalin na may apat na locale sa likod ng warrendeleon.com: Ingles sa root, Espanyol, Katalan at Tagalog na nakasalamin at nag-uugnay sa pamamagitan ng hreflang.",
+    "title": "Pagsasalin",
+    "intro": "Ang bawat pahina ay isinusulat upang mabuhay sa apat na wika. Nasa root ang Ingles; sinasalamin ito ng Espanyol, Katalan at Tagalog, bawat isa sa ilalim ng sariling prefix. Ang pahinang ito ang patakarang nagpapanatili sa kanilang pagkakahanay.",
+    "toc": [
+      {
+        "id": "locales",
+        "label": "Apat na locale"
+      },
+      {
+        "id": "scope",
+        "label": "Ano ang naisasalin"
+      },
+      {
+        "id": "connect",
+        "label": "Paano nag-uugnay ang mga bersiyon"
+      },
+      {
+        "id": "posts",
+        "label": "Mga post at pagtuklas"
+      }
+    ],
+    "localesHeading": "Apat na locale",
+    "localesBody": "Ang Ingles ay inihahain sa root nang walang prefix. Ang Espanyol, Katalan at Tagalog ay bawat isa ay nasa ilalim ng sariling prefix. Ang mga petsa at pangalan ng buwan ay naka-format ayon sa rehiyon — British English, European Spanish, Katalan at Filipino.",
+    "localesTableHeaders": {
+      "locale": "Locale",
+      "prefix": "Landas",
+      "language": "Wika"
+    },
+    "localesRoot": "(root)",
+    "scopeHeading": "Ano ang naisasalin, at ano ang hindi",
+    "scopeBody": "Ang prosa, mga heading, alt text, interface string at diagram label ay isinasalin. Lahat ng kokopyahin at patatakbuhin ng isang mambabasa ay pinapanatili nang eksakto: code, terminal command, file path, URL, code identifier, at pangalan ng brand at produkto. Ang isang naisaling post ay nababasa sa sarili nitong wika habang ang git command at API name nito ay nananatiling byte-for-byte na Ingles.",
+    "scopeTableHeaders": {
+      "translated": "Isinalin",
+      "kept": "Pinanatiling verbatim"
+    },
+    "scopeTranslated": [
+      "Prosa at mga heading",
+      "Alt text ng larawan",
+      "Mga label ng diagram (Mermaid)",
+      "Mga interface string"
+    ],
+    "scopeKept": [
+      "Mga code block",
+      "Mga terminal command",
+      "Mga file path at URL",
+      "Mga code identifier",
+      "Mga pangalan ng brand at produkto"
+    ],
+    "connectHeading": "Paano nag-uugnay ang mga bersiyon",
+    "connectBody": "Pinagbubuklod ng mga hreflang alternate ang mga bersiyon, at ang bawat pahina ay naglalabas ng mga ito para lamang sa mga wikang talagang umiiral, kaya walang alternate na ina-advertise sa isang pahinang magbabalik ng 404. Ang x-default ay tumuturo sa Ingles na root. Ang bawat naisaling pahina ay sarili nitong canonical: hindi ito nagpapasakop sa orihinal na Ingles. Ang mga link na ginagawa ng interface ay nananatili sa loob ng wika ng mambabasa, habang ang isang link na nakasulat sa loob ng katawan ng isang post ay tumuturo sa Ingles na canonical.",
+    "postsHeading": "Mga post at pagtuklas",
+    "postsBody": "Ang isang naisaling post ay may pinaliit na hanay ng frontmatter: minamana nito ang petsa ng publish at series mula sa Ingles na master nito kapag binuo ang site, at ibinababa ang mga field na umiiral lamang upang buuin ang Ingles na hero image. Hindi lahat ng post ay umiiral sa lahat ng apat na wika, at kung saan nawawala ang isang salin, ipinapakita ng feed ng wika ang Ingles na bersiyon sa halip na itago ang post. Ang mga locale page ay sadyang hindi isinasama sa sitemap; naaabot sila ng mga search engine sa pamamagitan ng hreflang, at ang isang first-time na bisita sa root ay ipinapadala sa wika ng kanilang browser nang isang beses."
+  },
+  "accessibility": {
+    "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",
+    "seoDescription": "Ang mga pamantayan sa aksesibilidad na sinusunod ng warrendeleon.com: mga landmark, isang nakikitang focus ring, maluwag na mga target, reduced motion, at ang trade-off para sa nababasang green.",
+    "title": "Aksesibilidad",
+    "intro": "Ang mga pamantayang ginamit sa pagbuo ng site, sinukat laban sa WCAG 2.2 na may AA bilang target. Ang mga sumusunod ay kung ano talaga ang ginagawa ng code — kabilang ang isang lugar kung saan pinilit ng brand green ang isang tapat na trade-off.",
+    "toc": [
+      {
+        "id": "standards",
+        "label": "Ang mga pamantayan"
+      },
+      {
+        "id": "contrast",
+        "label": "Ang trade-off para sa nababasang green"
+      },
+      {
+        "id": "scope",
+        "label": "Saklaw"
+      }
+    ],
+    "standardsHeading": "Ang mga pamantayan",
+    "standards": [
+      {
+        "title": "Skip link at mga landmark",
+        "body": "Ang isang bisitang gumagamit ng keyboard ay unang napupunta sa isang Skip to content na link na tumatalon lampas sa chrome patungo sa main region. Ang pahina ay binuo mula sa tunay na mga landmark: isang main, mga naka-label na navigation element, at isang footer.",
+        "sc": "2.4.1 Bypass Blocks · A"
+      },
+      {
+        "title": "Nakikitang focus",
+        "body": "Ang bawat control ay nagpo-focus sa isang two-pixel na green ring na nakalagay ng dalawang pixel mula sa gilid, ipinapakita para sa keyboard focus at hindi para sa pag-click ng mouse.",
+        "sc": "2.4.7 Focus Visible · AA"
+      },
+      {
+        "title": "Laki ng target",
+        "body": "Ang mga pangunahing touch control — ang tab dock, sheet row, ang call-to-action pill — ay 44 hanggang 48 pixel; ang pinakamaliit na pointer control ay lumalampas pa rin sa 24. Kaya bawat control ay umaabot sa AA minimum, at ang mga touch control ay umaabot sa mas mahigpit na AAA na laki.",
+        "sc": "2.5.8 AA · 2.5.5 AAA"
+      },
+      {
+        "title": "Reduced motion",
+        "body": "Kapag humingi ng mas kaunting galaw ang sistema ng bisita, ibinababa ng site ang bawat animation at transition sa halos zero, at ginagawang payak na paglundag ang smooth scrolling.",
+        "sc": "2.3.3 · AAA"
+      },
+      {
+        "title": "Pagkakapantay ng theme, walang flash",
+        "body": "Parehong first-class ang light at dark: bawat surface ay dinisenyo sa pareho, at ang theme ay nareresolba bago ang unang paint kaya ang isang dark-mode na bisita ay hindi kailanman makakakuha ng puting flash.",
+        "sc": ""
+      },
+      {
+        "title": "Hindi lang kulay ang tanging senyas",
+        "body": "Ang mga link sa prosa ng artikulo ay may salungguhit, kaya ang kahulugan ng mga ito ay hindi kailanman nakasalalay sa green lamang.",
+        "sc": "1.4.1 Use of Colour · A"
+      }
+    ],
+    "contrastHeading": "Ang trade-off para sa nababasang green",
+    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti. Sinukat laban sa WCAG, ang #6dc402 sa puti ay mga 2.2 to 1 — mas mababa pa sa 3-to-1 na pamantayan para sa malaking teksto. Kaya't may umiiral na pangalawang token: ibinababa ng --color-green-text ang green sa #5aa302, na lumalampas sa 3 to 1. Sapat na iyon para sa malaki o bold na teksto, para sa mga heading, at para sa mga interface accent tulad ng focus ring, at ginagamit iyon para sa mga iyon, hindi para sa body copy.",
+    "contrastTableHeaders": {
+      "token": "Token",
+      "white": "Sa puti",
+      "dark": "Sa halos itim"
+    },
+    "contrastLegend": {
+      "pass": "Pumapasa sa AA",
+      "partial": "Malaking teksto at UI lamang",
+      "fail": "Bumabagsak sa pamantayan"
+    },
+    "contrastSampleText": "Isang green na link",
+    "contrastLimitation": "Ang tapat na bahagi: sa laki ng pagbabasa ng body sa isang maliwanag na background, ang isang green na link ay nasa mga 3.2 to 1 — lampas sa pamantayan para sa malaking teksto, kulang sa 4.5-to-1 na pamantayan para sa normal na teksto. Tinatanggap ng site ang trade-off na iyon upang mapanatili ang iisa nitong brand na kulay, at pinapalambot ito sa dalawang paraan. Ang mga link sa artikulo ay may salungguhit, kaya ang kulay ay hindi kailanman ang tanging senyas; at ganap itong nireresolba ng dark mode, kung saan ang parehong lime sa halos itim ay nababasa sa mga 8.6 to 1. Ang body copy mismo ay laging neutral, at laging pumapasa.",
+    "scopeHeading": "Saklaw",
+    "scopeBody": "Sinasaklaw nito ang website. Ang React Native app at ang mga email template ay sarili nilang mga surface, na may sarili nilang mga pamantayan, at hindi dokumentado rito."
   }
 }

@@ -1,0 +1,58 @@
+---
+import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { getDesignData } from '../../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const w = d.writing;
+const currentPath = getLocalePath(locale, '/design/content/writing/');
+
+const sections = [
+  { id: 'spelling', heading: w.spellingHeading, body: w.spellingBody, good: w.spellingGood, bad: w.spellingBad, goodCap: w.spellingCaption, badCap: w.spellingBadCaption },
+  { id: 'case', heading: w.caseHeading, body: w.caseBody, good: w.caseGood, bad: w.caseBad, goodCap: w.caseCaption, badCap: w.caseBadCaption },
+  { id: 'dates', heading: w.datesHeading, body: w.datesBody, good: w.datesGood, bad: w.datesBad, goodCap: w.datesCaption, badCap: w.datesBadCaption },
+  { id: 'punctuation', heading: w.punctuationHeading, body: w.punctuationBody, good: w.punctuationGood, bad: w.punctuationBad, goodCap: w.punctuationCaption, badCap: w.punctuationBadCaption },
+  { id: 'links', heading: w.linksHeading, body: w.linksBody, good: w.linksGood, bad: w.linksBad, goodCap: w.linksCaption, badCap: w.linksBadCaption },
+  { id: 'brands', heading: w.brandsHeading, body: w.brandsBody, good: w.brandsGood, bad: w.brandsBad, goodCap: w.brandsCaption, badCap: w.brandsBadCaption },
+];
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={w.seoTitle}
+  seoDescription={w.seoDescription}
+  group="content"
+  title={w.title}
+  intro={w.intro}
+  toc={w.toc}
+>
+  {sections.map((s) => (
+    <section id={s.id}>
+      <h2>{s.heading}</h2>
+      <p>{s.body}</p>
+      <div class="ds-guidance-grid">
+        <GuidanceCard kind="do" label={d.doLabel} caption={s.goodCap}>
+          <span class="ds-sample">{s.good}</span>
+        </GuidanceCard>
+        <GuidanceCard kind="dont" label={d.dontLabel} caption={s.badCap}>
+          <span class="ds-sample ds-sample-bad">{s.bad}</span>
+        </GuidanceCard>
+      </div>
+    </section>
+  ))}
+</DesignLayout>
+
+<style>
+  .ds-sample {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text-primary);
+    text-align: center;
+  }
+  .ds-sample-bad { color: var(--text-secondary); }
+</style>

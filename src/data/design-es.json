@@ -58,10 +58,6 @@
       "iconography": "Iconos de línea al estilo Feather y logotipos de marca sólidos.",
       "motion": "Transiciones breves y discretas, y el interruptor de movimiento reducido."
     },
-    "moreHeading": "Más por venir",
-    "moreBody": "Las guías de contenido y las normas de accesibilidad son lo siguiente en escribirse, con la misma forma que las páginas de aquí.",
-    "livingHeading": "Un documento vivo",
-    "livingBody": "Las tablas de color, tipografía y espaciado de estas páginas se generan a partir de la hoja de estilos del sitio en el momento de la compilación. Cambia un token en el CSS y las tablas de aquí cambian con él. Si el analizador ya no puede leer la hoja de estilos, la compilación falla en lugar de mostrar una tabla vacía.",
     "componentsHeading": "Componentes",
     "componentBlurbs": {
       "buttons": "Dos niveles, estados reales y qué escribir en ellos.",
@@ -72,7 +68,18 @@
       "article-patterns": "Avisos, código, tablas, índice: el kit de los artículos largos.",
       "timeline": "El raíl de la experiencia laboral, con sus puntos de logo incluidos.",
       "media": "El carrusel de fotos, el marco de dispositivo y los marcadores de posición."
-    }
+    },
+    "contentHeading": "Contenido",
+    "contentBlurbs": {
+      "writing": "Inglés británico, mayúscula inicial, fechas, enlaces, nombres de marca.",
+      "translation": "Cuatro idiomas, conectados por hreflang; qué se traduce y qué no."
+    },
+    "accessibilityHeading": "Accesibilidad",
+    "accessibilityBlurbs": {
+      "accessibility": "Los estándares que el sitio se impone, y la honesta concesión del contraste del verde."
+    },
+    "livingHeading": "Un documento vivo",
+    "livingBody": "Las tablas de color, tipografía y espaciado de estas páginas se generan a partir de la hoja de estilos del sitio en el momento de la compilación. Cambia un token en el CSS y las tablas de aquí cambian con él. Si el analizador ya no puede leer la hoja de estilos, la compilación falla en lugar de mostrar una tabla vacía."
   },
   "colour": {
     "seoTitle": "Color | Sistema de diseño | Warren de Leon",
@@ -1128,5 +1135,197 @@
         "desc": "Un puesto de relleno anterior, con un rango de fechas cerrado y la misma tarjeta compacta."
       }
     ]
+  },
+  "writing": {
+    "seoTitle": "Redacción | Sistema de diseño | Warren de Leon",
+    "seoDescription": "Las convenciones editoriales con las que se escribe warrendeleon.com: inglés británico, mayúscula inicial, fechas, puntuación, enlaces y nombres de marca.",
+    "title": "Redacción",
+    "intro": "Cómo se componen las palabras del sitio. Son las convenciones que la redacción ya sigue, leídas del propio sitio: el estándar público de salida, no el proceso que hay detrás.",
+    "toc": [
+      {
+        "id": "spelling",
+        "label": "Ortografía"
+      },
+      {
+        "id": "case",
+        "label": "Mayúsculas"
+      },
+      {
+        "id": "dates",
+        "label": "Fechas"
+      },
+      {
+        "id": "punctuation",
+        "label": "Puntuación"
+      },
+      {
+        "id": "links",
+        "label": "Enlaces"
+      },
+      {
+        "id": "brands",
+        "label": "Nombres de marca"
+      }
+    ],
+    "spellingHeading": "Ortografía",
+    "spellingBody": "La prosa usa inglés británico: behaviour, colour, organise, licence. Las dos excepciones son deliberadas y ambas viven en el código, no en la prosa. Un identificador de código conserva la grafía que use su API, así que una propiedad color se queda en color. Y en toda la documentación de Module Federation, artifact es un término técnico —un módulo publicado y versionado—, por lo que conserva esa grafía mientras la prosa corriente sigue escribiendo artefact.",
+    "spellingGood": "behaviour · colour · organise · optimise",
+    "spellingBad": "behavior · color · organize · optimize",
+    "spellingCaption": "Ortografía británica en la prosa. Los identificadores de código y los términos técnicos conservan su propia forma.",
+    "spellingBadCaption": "En la prosa no se usa ortografía estadounidense: eso pertenece solo al código.",
+    "caseHeading": "Mayúsculas",
+    "caseBody": "La mayúscula inicial es el estilo de la casa: los títulos de página, los encabezados de sección, los títulos de artículo, los botones y las etiquetas ponen en mayúscula la primera palabra y cualquier nombre propio, nada más. La navegación superior es la única excepción permanente, que se mantiene con mayúscula en cada palabra.",
+    "caseGood": "Download CV · Back to blog · Browse by tag",
+    "caseBad": "Download Cv · Back To Blog · BROWSE BY TAG",
+    "caseCaption": "Mayúscula inicial en encabezados, botones y etiquetas.",
+    "caseBadCaption": "Ni mayúscula en cada palabra ni todo en mayúsculas, fuera de la navegación superior.",
+    "datesHeading": "Fechas",
+    "datesBody": "Las fechas son británicas. La fecha de un artículo escribe el mes completo: 29 March 2026. Un rango de puesto abrevia el mes y conserva el año —Mar 2016 to the present— y un rango abierto se cierra con la palabra Present, nunca con un guion final.",
+    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesBad": "03/29/2026 · March 29th · 2016–now",
+    "datesCaption": "Mes completo para las fechas de artículo, abreviado para los rangos; los rangos abiertos dicen Present.",
+    "datesBadCaption": "Ni numérico, ni orden estadounidense, ni ordinal.",
+    "punctuationHeading": "Puntuación",
+    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. La truncación y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases.",
+    "punctuationGood": "labels, hints, and states — one line · 10 min",
+    "punctuationBad": "labels, hints and states ... one line! - 10 min",
+    "punctuationCaption": "Coma serial, el carácter de puntos suspensivos, una raya con espacios, un punto medio entre metadatos.",
+    "punctuationBadCaption": "Sin puntos suspensivos de tres puntos, sin exclamación, sin guion simple para un inciso.",
+    "linksHeading": "Enlaces",
+    "linksBody": "El texto del enlace describe adónde lleva. El sitio nunca enlaza las palabras click here o read more, ni un simple here o this; un enlace se lee como aquello a lo que apunta.",
+    "linksGood": "read the token-refresh post",
+    "linksBad": "click here to read more",
+    "linksCaption": "Texto de enlace descriptivo que se sostiene por sí solo.",
+    "linksBadCaption": "Nunca click here, read more ni un simple here.",
+    "brandsHeading": "Nombres de marca y de producto",
+    "brandsBody": "Los nombres de producto conservan su ortografía y sus mayúsculas oficiales. React Native y Module Federation son dos palabras con mayúscula inicial cada uno; Pokémon y Pokédex llevan siempre la tilde; App Store son dos palabras. Cuando un nombre tiene una forma exacta, respétala en lugar de corregirla.",
+    "brandsGood": "React Native · Pokédex · Module Federation",
+    "brandsBad": "react native · Pokedex · module federation",
+    "brandsCaption": "Respeta la forma oficial, con tildes incluidas.",
+    "brandsBadCaption": "Ni en minúsculas ni sin tildes."
+  },
+  "translation": {
+    "seoTitle": "Traducción | Sistema de diseño | Warren de Leon",
+    "seoDescription": "La política de traducción de cuatro idiomas de warrendeleon.com: inglés en la raíz, y español, catalán y tagalo replicados y conectados por hreflang.",
+    "title": "Traducción",
+    "intro": "Cada página se escribe para vivir en cuatro idiomas. El inglés está en la raíz; el español, el catalán y el tagalo lo reflejan, cada uno bajo su propio prefijo. Esta página es la política que los mantiene sincronizados.",
+    "toc": [
+      {
+        "id": "locales",
+        "label": "Cuatro idiomas"
+      },
+      {
+        "id": "scope",
+        "label": "Qué se traduce"
+      },
+      {
+        "id": "connect",
+        "label": "Cómo se conectan las versiones"
+      },
+      {
+        "id": "posts",
+        "label": "Entradas y descubrimiento"
+      }
+    ],
+    "localesHeading": "Cuatro idiomas",
+    "localesBody": "El inglés se sirve en la raíz, sin prefijo. El español, el catalán y el tagalo viven cada uno bajo su propio prefijo. Las fechas y los nombres de los meses se formatean según la región: inglés británico, español europeo, catalán y filipino.",
+    "localesTableHeaders": {
+      "locale": "Configuración regional",
+      "prefix": "Ruta",
+      "language": "Idioma"
+    },
+    "localesRoot": "(root)",
+    "scopeHeading": "Qué se traduce y qué no",
+    "scopeBody": "Se traducen la prosa, los encabezados, el texto alternativo, las cadenas de interfaz y las etiquetas de los diagramas. Todo lo que un lector copiaría y ejecutaría se conserva exactamente: el código, los comandos de terminal, las rutas de archivo, las URL, los identificadores de código y los nombres de marca y de producto. Una entrada traducida se lee en su propio idioma mientras que sus comandos de git y sus nombres de API se mantienen idénticos al inglés, byte a byte.",
+    "scopeTableHeaders": {
+      "translated": "Traducido",
+      "kept": "Conservado literalmente"
+    },
+    "scopeTranslated": [
+      "Prosa y encabezados",
+      "Texto alternativo de imagen",
+      "Etiquetas de diagrama (Mermaid)",
+      "Cadenas de interfaz"
+    ],
+    "scopeKept": [
+      "Bloques de código",
+      "Comandos de terminal",
+      "Rutas de archivo y URL",
+      "Identificadores de código",
+      "Nombres de marca y de producto"
+    ],
+    "connectHeading": "Cómo se conectan las versiones",
+    "connectBody": "Los hreflang alternates enlazan las versiones entre sí, y cada página los emite solo para los idiomas en los que realmente existe, de modo que nunca se anuncia un alternate hacia una página que devolvería un 404. El x-default apunta a la raíz en inglés. Cada página traducida es su propia canonical: no se remite al original en inglés. Los enlaces que genera la interfaz se mantienen en el idioma del lector, mientras que un enlace escrito dentro del cuerpo de una entrada apunta a la canonical en inglés.",
+    "postsHeading": "Entradas y descubrimiento",
+    "postsBody": "Una entrada traducida lleva un conjunto reducido de frontmatter: hereda la fecha de publicación y la serie de su versión maestra en inglés cuando el sitio se construye, y descarta los campos que existen solo para generar la imagen principal en inglés. No todas las entradas existen en los cuatro idiomas, y cuando falta una traducción el feed de ese idioma muestra la versión en inglés en lugar de ocultar la entrada. Las páginas de idioma se mantienen fuera del sitemap a propósito; los motores de búsqueda llegan a ellas a través de hreflang, y a un visitante que llega por primera vez a la raíz se le envía una sola vez al idioma de su navegador."
+  },
+  "accessibility": {
+    "seoTitle": "Accesibilidad | Sistema de diseño | Warren de Leon",
+    "seoDescription": "Los estándares de accesibilidad que cumple warrendeleon.com: puntos de referencia, un anillo de foco visible, objetivos táctiles generosos, movimiento reducido y la concesión del verde legible.",
+    "title": "Accesibilidad",
+    "intro": "Los estándares con los que está construido el sitio, medidos frente a WCAG 2.2 con AA como objetivo. Lo que sigue es lo que el código hace en realidad, incluido el único punto en el que el verde de marca obligó a una concesión honesta.",
+    "toc": [
+      {
+        "id": "standards",
+        "label": "Los estándares"
+      },
+      {
+        "id": "contrast",
+        "label": "La concesión del verde legible"
+      },
+      {
+        "id": "scope",
+        "label": "Alcance"
+      }
+    ],
+    "standardsHeading": "Los estándares",
+    "standards": [
+      {
+        "title": "Enlace de salto y puntos de referencia",
+        "body": "Quien navega con teclado llega primero a un enlace Saltar al contenido que salta por encima del armazón de la interfaz hasta la región principal. La página se construye a partir de puntos de referencia reales: un main, elementos de navegación etiquetados y un footer.",
+        "sc": "2.4.1 Evitar bloques · A"
+      },
+      {
+        "title": "Foco visible",
+        "body": "Cada control muestra al recibir el foco un anillo verde de dos píxeles situado a dos píxeles del borde, que aparece con el foco de teclado y no al hacer clic con el ratón.",
+        "sc": "2.4.7 Foco visible · AA"
+      },
+      {
+        "title": "Tamaño del objetivo",
+        "body": "Los controles táctiles principales —el dock de pestañas, las filas de la hoja, las píldoras de llamada a la acción— miden de 44 a 48 píxeles; el control de puntero más pequeño supera aún los 24. Así, cada control cumple el mínimo de AA, y los controles táctiles cumplen el tamaño AAA, más estricto.",
+        "sc": "2.5.8 AA · 2.5.5 AAA"
+      },
+      {
+        "title": "Movimiento reducido",
+        "body": "Cuando el sistema de un visitante pide menos movimiento, el sitio reduce cada animación y transición a un pelo por encima de cero, y convierte el desplazamiento suave en un salto directo.",
+        "sc": "2.3.3 · AAA"
+      },
+      {
+        "title": "Paridad de temas, sin parpadeo",
+        "body": "El tema claro y el oscuro son ambos de primer nivel: cada superficie se diseña en los dos, y el tema se resuelve antes del primer renderizado, de modo que quien usa el modo oscuro nunca ve un parpadeo blanco.",
+        "sc": ""
+      },
+      {
+        "title": "El color no es la única señal",
+        "body": "Los enlaces en la prosa de los artículos van subrayados, de modo que su significado nunca depende solo del verde.",
+        "sc": "1.4.1 Uso del color · A"
+      }
+    ],
+    "contrastHeading": "La concesión del verde legible",
+    "contrastBody": "El verde de marca es un lima brillante, y un lima brillante no se lee como texto sobre blanco. Medido frente a WCAG, #6dc402 sobre blanco da unos 2,2:1, por debajo incluso del umbral de 3:1 para texto grande. Por eso existe un segundo token: --color-green-text baja el verde a #5aa302, que supera el 3:1. Eso basta para el texto grande o en negrita, para los encabezados y para los acentos de interfaz como el anillo de foco, y se usa para eso, no para el cuerpo de texto.",
+    "contrastTableHeaders": {
+      "token": "Token",
+      "white": "Sobre blanco",
+      "dark": "Sobre casi negro"
+    },
+    "contrastLegend": {
+      "pass": "Cumple AA",
+      "partial": "Solo texto grande e interfaz",
+      "fail": "No alcanza el umbral"
+    },
+    "contrastSampleText": "Un enlace verde",
+    "contrastLimitation": "La parte honesta: al tamaño de lectura del cuerpo sobre un fondo claro, un enlace verde se queda en torno a 3,2:1, por encima del umbral de texto grande pero por debajo del umbral de 4,5:1 para texto normal. El sitio acepta esa concesión para conservar su único color de marca, y la suaviza de dos maneras. Los enlaces de los artículos van subrayados, así que el color nunca es la única señal; y el modo oscuro lo resuelve del todo, donde el mismo lima sobre casi negro se lee en torno a 8,6:1. El cuerpo de texto en sí siempre es neutro, y siempre cumple.",
+    "scopeHeading": "Alcance",
+    "scopeBody": "Esto cubre el sitio web. La aplicación de React Native y las plantillas de correo son superficies propias, con sus propios estándares, y no se documentan aquí."
   }
 }

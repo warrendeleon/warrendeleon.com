@@ -11,28 +11,35 @@ const d = getDesignData(locale);
 const L = d.landing;
 const currentPath = getLocalePath(locale, '/design/');
 
-const foundations = DESIGN_GROUPS.find((g) => g.key === 'foundations')!;
-const cards = foundations.pages
-  .filter((p) => p.built)
-  .map((p) => ({
-    label: d.nav[p.slug as keyof typeof d.nav],
-    blurb: L.cardBlurbs[p.slug as keyof typeof L.cardBlurbs],
-    href: getLocalePath(locale, p.path),
-  }));
+// One card list per IA group, blurbs pulled from the matching landing map.
+const blurbMaps: Record<string, Record<string, string>> = {
+  foundations: L.cardBlurbs,
+  components: L.componentBlurbs,
+  content: L.contentBlurbs,
+  accessibility: L.accessibilityBlurbs,
+};
+const groupCards = (key: string) => {
+  const g = DESIGN_GROUPS.find((x) => x.key === key)!;
+  const blurbs = blurbMaps[key] ?? {};
+  return g.pages
+    .filter((p) => p.built)
+    .map((p) => ({
+      label: d.nav[p.slug as keyof typeof d.nav],
+      blurb: blurbs[p.slug],
+      href: getLocalePath(locale, p.path),
+    }));
+};
 
-const components = DESIGN_GROUPS.find((g) => g.key === 'components')!;
-const componentCards = components.pages
-  .filter((p) => p.built)
-  .map((p) => ({
-    label: d.nav[p.slug as keyof typeof d.nav],
-    blurb: L.componentBlurbs[p.slug as keyof typeof L.componentBlurbs],
-    href: getLocalePath(locale, p.path),
-  }));
+const sections = [
+  { id: 'foundations', heading: L.foundationsHeading, cards: groupCards('foundations') },
+  { id: 'components', heading: L.componentsHeading, cards: groupCards('components') },
+  { id: 'content', heading: L.contentHeading, cards: groupCards('content') },
+  { id: 'accessibility', heading: L.accessibilityHeading, cards: groupCards('accessibility') },
+].filter((s) => s.cards.length > 0);
 
 const toc = [
   { id: 'principles', label: L.principlesHeading },
-  { id: 'foundations', label: L.foundationsHeading },
-  { id: 'components', label: L.componentsHeading },
+  ...sections.map((s) => ({ id: s.id, label: s.heading })),
   { id: 'living', label: L.livingHeading },
 ];
 ---
@@ -58,30 +65,19 @@ const toc = [
     </div>
   </section>
 
-  <section id="foundations">
-    <h2>{L.foundationsHeading}</h2>
-    <div class="ds-cards">
-      {cards.map((c) => (
-        <a href={c.href} class="card ds-card-link">
-          <span class="ds-card-title">{c.label}</span>
-          <span class="ds-card-blurb">{c.blurb}</span>
-        </a>
-      ))}
-    </div>
-  </section>
-
-  <section id="components">
-    <h2>{L.componentsHeading}</h2>
-    <div class="ds-cards">
-      {componentCards.map((c) => (
-        <a href={c.href} class="card ds-card-link">
-          <span class="ds-card-title">{c.label}</span>
-          <span class="ds-card-blurb">{c.blurb}</span>
-        </a>
-      ))}
-    </div>
-    <p class="ds-more"><strong>{L.moreHeading}.</strong> {L.moreBody}</p>
-  </section>
+  {sections.map((s) => (
+    <section id={s.id}>
+      <h2>{s.heading}</h2>
+      <div class="ds-cards">
+        {s.cards.map((c) => (
+          <a href={c.href} class="card ds-card-link">
+            <span class="ds-card-title">{c.label}</span>
+            <span class="ds-card-blurb">{c.blurb}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
 
   <section id="living">
     <h2>{L.livingHeading}</h2>
