@@ -65,8 +65,22 @@ const currentPath = getLocalePath(locale, '/design/components/media/');
 <style>
   .ds-carousel-demo { width: 100%; max-width: 460px; }
   .ds-device-demo { max-width: none; width: 100%; display: flex; justify-content: center; }
-  /* .device-frame sizes itself against .prose width; give it a stage width. */
-  .ds-device-demo .device-frame { width: 220px; margin: 0.5rem auto; }
+  /* .device-frame sizes itself against .prose width; give it a stage width.
+     flex-shrink 0 stops the stage squeezing it, and the side margins reserve
+     room for the side buttons drawn 8px outside the rail. */
+  .ds-device-demo .device-frame {
+    width: 200px;
+    flex-shrink: 0;
+    margin: 0.5rem 10px;
+  }
+  /* The frame's screen styles target img only; give the placeholder the same
+     containment (block flow + the 37px screen radius) so it sits INSIDE the
+     bezel instead of painting over it. */
+  .ds-device-demo .device-frame :global(.ds-placeholder) {
+    width: 100%;
+    border-radius: 37px;
+    overflow: hidden;
+  }
   .ds-ph { border-radius: 9px; overflow: hidden; border: 1px solid var(--border-color); }
   .ds-ph-thumb { width: 96px; height: 76px; }
   .ds-ph-hero { width: 280px; }

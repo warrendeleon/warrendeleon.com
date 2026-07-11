@@ -235,7 +235,12 @@ const calloutRows = [
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 0.78rem;
     color: var(--text-primary);
-    white-space: nowrap;
+  }
+  /* Long token names and header labels wrap on narrow screens instead of
+     forcing the table sideways. */
+  @media (max-width: 699px) {
+    .ds-mini th { white-space: normal; }
+    .ds-mini code { overflow-wrap: anywhere; }
   }
   .ds-mini-note { font-style: italic; color: var(--text-muted); }
   .ds-mini-swatch { width: 44px; }

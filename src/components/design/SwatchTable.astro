@@ -1,8 +1,11 @@
 ---
-// Colour / elevation tokens from the parser, with a swatch for BOTH themes side
-// by side. The swatches use the literal resolved values (not the live CSS var),
-// so light and dark render together regardless of the page's current theme —
-// the "audit both palettes at once" the playbook asked for.
+// Colour / elevation tokens from the parser, with a swatch for BOTH themes
+// side by side. The swatches use the literal resolved values (not the live
+// CSS var), so light and dark render together regardless of the page theme.
+//
+// Laid out as a wrapping list, not a <table>: shadow values are long and hex
+// pairs plus a usage note never fitted six columns — a table forced sideways
+// scrolling on every screen. Rows stack cleanly at any width instead.
 import type { ColorToken } from '../../lib/design-tokens.mjs';
 
 interface Props {
@@ -15,109 +18,126 @@ interface Props {
 const { rows, usage, kind = 'color', headers } = Astro.props;
 ---
 
-<div class="ds-tablewrap">
-  <table class="ds-swatch-table">
-    <thead>
-      <tr>
-        <th colspan="2">{headers.swatch}</th>
-        <th>{headers.token}</th>
-        <th>{headers.light}</th>
-        <th>{headers.dark}</th>
-        <th>{headers.usage}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {rows.map((r) => (
-        <tr>
-          <td class="ds-sw-cell ds-sw-light">
-            {kind === 'shadow' ? (
-              <span class="ds-sw-shadow" style={`box-shadow:${r.light}`}></span>
-            ) : (
-              <span class="ds-sw-chip" style={`background:${r.light}`}></span>
-            )}
-          </td>
-          <td class="ds-sw-cell ds-sw-dark">
-            {kind === 'shadow' ? (
-              <span class="ds-sw-shadow" style={`box-shadow:${r.dark}`}></span>
-            ) : (
-              <span class="ds-sw-chip" style={`background:${r.dark}`}></span>
-            )}
-          </td>
-          <td><code class="ds-token">{r.name}</code></td>
-          <td class="ds-val">{r.light}</td>
-          <td class="ds-val">{r.dark}</td>
-          <td class="ds-usage">{usage?.[r.name] ?? ''}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+<ul class="ds-swlist">
+  {rows.map((r) => (
+    <li class="ds-sw-row">
+      <span class="ds-sw-stages" aria-label={headers.swatch}>
+        <span class="ds-sw-stage ds-sw-light">
+          {kind === 'shadow' ? (
+            <span class="ds-sw-shadow" style={`box-shadow:${r.light}`}></span>
+          ) : (
+            <span class="ds-sw-chip" style={`background:${r.light}`}></span>
+          )}
+        </span>
+        <span class="ds-sw-stage ds-sw-dark">
+          {kind === 'shadow' ? (
+            <span class="ds-sw-shadow" style={`box-shadow:${r.dark}`}></span>
+          ) : (
+            <span class="ds-sw-chip" style={`background:${r.dark}`}></span>
+          )}
+        </span>
+      </span>
+      <span class="ds-sw-info">
+        <code class="ds-sw-token">{r.name}</code>
+        <span class="ds-sw-val"><span class="ds-sw-key">{headers.light}</span> <span class="ds-sw-code">{r.light}</span></span>
+        <span class="ds-sw-val"><span class="ds-sw-key">{headers.dark}</span> <span class="ds-sw-code">{r.dark}</span></span>
+        {usage?.[r.name] && <span class="ds-sw-usage">{usage[r.name]}</span>}
+      </span>
+    </li>
+  ))}
+</ul>
 
 <style>
-  .ds-tablewrap {
-    overflow-x: auto;
+  .ds-swlist {
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    margin: 0 0 1.5rem;
+    overflow: hidden;
   }
-  .ds-swatch-table {
-    width: 100%;
-    min-width: 100%;
-    border-collapse: collapse;
-  }
-  .ds-swatch-table th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
+  .ds-sw-row {
+    display: flex;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
     border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
+    background: var(--bg-card);
   }
-  .ds-swatch-table td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    vertical-align: middle;
-  }
-  .ds-swatch-table tbody tr:last-child td { border-bottom: none; }
+  .ds-sw-row:last-child { border-bottom: none; }
 
   /* Fixed light/dark stages so a swatch reads true whatever the page theme. */
-  .ds-sw-cell { width: 52px; padding: 8px !important; }
+  .ds-sw-stages {
+    display: flex;
+    flex-shrink: 0;
+    border-radius: 9px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    align-self: flex-start;
+  }
+  .ds-sw-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+  }
   .ds-sw-light { background: #ffffff; }
   .ds-sw-dark { background: #111111; }
   .ds-sw-chip {
     display: block;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
     border: 1px solid rgba(128, 128, 128, 0.35);
   }
   .ds-sw-shadow {
     display: block;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
   }
   .ds-sw-light .ds-sw-shadow { background: #ffffff; }
   .ds-sw-dark .ds-sw-shadow { background: #222222; }
 
-  .ds-token {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    font-size: 0.8rem;
-    color: var(--text-primary);
-    white-space: nowrap;
+  .ds-sw-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
   }
-  .ds-val {
+  .ds-sw-token {
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+  }
+  .ds-sw-val {
     font-size: 0.78rem;
-    color: var(--text-primary);
-    white-space: nowrap;
+    color: var(--text-secondary);
+    overflow-wrap: anywhere;
   }
-  .ds-usage { min-width: 16ch; }
+  .ds-sw-key {
+    display: inline-block;
+    min-width: 3.2em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .ds-sw-code { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; }
+  .ds-sw-usage {
+    margin-top: 0.2rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+
+  /* Roomier from tablet up: values sit beside the token instead of under it. */
+  @media (min-width: 700px) {
+    .ds-sw-row { gap: 1.25rem; align-items: flex-start; }
+    .ds-sw-stage { width: 52px; height: 48px; }
+  }
 </style>

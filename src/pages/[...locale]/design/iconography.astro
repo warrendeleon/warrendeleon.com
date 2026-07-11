@@ -83,7 +83,9 @@ const lbl = ic.iconLabels;
     <h2>{ic.brandHeading}</h2>
     <p>{ic.brandBody}</p>
     <SpecimenCard label={ic.brandCaption}>
-      <SocialLinks size={24} locale={locale} />
+      <div class="ds-social-demo">
+        <SocialLinks size={24} locale={locale} />
+      </div>
     </SpecimenCard>
   </section>
 
@@ -135,6 +137,14 @@ const lbl = ic.iconLabels;
 
 <style>
   .ds-ico-row { display: inline-flex; align-items: center; gap: 1.1rem; color: var(--text-primary); }
+  /* SocialLinks doesn't wrap by itself (the footer overrides it); let the
+     seven 44px hits wrap inside the specimen instead of overflowing at 390.
+     The wrapper is page-owned so the scoped selector actually reaches in. */
+  .ds-social-demo { max-width: 100%; }
+  .ds-social-demo :global(.social-links) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .ds-ico { display: inline-flex; }
   /* Hit-area demos: the dashed outline is the tappable area. */
   .ds-hit {

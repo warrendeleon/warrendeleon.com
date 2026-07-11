@@ -100,7 +100,10 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 0.8rem;
     color: var(--text-primary);
-    white-space: nowrap;
+  }
+  @media (max-width: 699px) {
+    .ds-mini th { white-space: normal; }
+    .ds-mono { overflow-wrap: anywhere; }
   }
   .ds-codeblock {
     margin: 0;

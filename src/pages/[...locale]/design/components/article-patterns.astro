@@ -234,6 +234,13 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
   /* Let the demo prose blocks size to the content column, not the 720px reading
      measure (that only applies inside .post-layout). */
   .ds-prose-demo { max-width: none; }
+  /* On phones the site's code blocks bleed -1rem (full-bleed to the screen
+     edge) and dt-cards bleed -6px. The site's column carries 1rem of side
+     padding for that; give the demo the same, so the bleeds land exactly at
+     the container edge as designed instead of escaping the docs column. */
+  @media (max-width: 699px) {
+    .ds-prose-demo { padding-inline: 1rem; }
+  }
   .ds-toc-demo { max-width: 320px; margin: 0 0 1rem; }
   /* Round off the subscribe band's full-bleed edges inside the docs column. */
   .ds-subscribe-demo {

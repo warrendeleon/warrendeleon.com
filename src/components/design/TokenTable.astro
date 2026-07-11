@@ -1,20 +1,20 @@
 ---
 // Renders a responsive scale (type or spacing) straight from the token parser.
-// Columns: token · desktop · tablet · mobile · (usage). Values are never typed
-// by hand — they arrive from getDesignTokens().
+// A real table from 700px up; below that each row stacks into a labelled block
+// (the classic data-label collapse), so nothing ever scrolls sideways.
 import type { ScaleToken } from '../../lib/design-tokens.mjs';
 
 interface Props {
   rows: ScaleToken[];
   headers: { token: string; desktop: string; tablet: string; mobile: string; usage?: string };
-  /** slug → one-line usage note, keyed by token name. */
+  /** token name → one-line usage note. */
   usage?: Record<string, string>;
 }
 const { rows, headers, usage } = Astro.props;
 const showUsage = !!headers.usage;
 ---
 
-<div class="ds-tablewrap">
+<div class="ds-tokentable">
   <table class="ds-table">
     <thead>
       <tr>
@@ -28,11 +28,11 @@ const showUsage = !!headers.usage;
     <tbody>
       {rows.map((r) => (
         <tr>
-          <td><code class="ds-token">{r.name}</code></td>
-          <td class="ds-num">{r.desktop}</td>
-          <td class="ds-num">{r.tablet}</td>
-          <td class="ds-num">{r.mobile}</td>
-          {showUsage && <td class="ds-usage">{usage?.[r.name] ?? ''}</td>}
+          <td class="ds-cell-token" data-label={headers.token}><code class="ds-token">{r.name}</code></td>
+          <td class="ds-num" data-label={headers.desktop}>{r.desktop}</td>
+          <td class="ds-num" data-label={headers.tablet}>{r.tablet}</td>
+          <td class="ds-num" data-label={headers.mobile}>{r.mobile}</td>
+          {showUsage && <td class="ds-usage" data-label={headers.usage}>{usage?.[r.name] ?? ''}</td>}
         </tr>
       ))}
     </tbody>
@@ -40,15 +40,14 @@ const showUsage = !!headers.usage;
 </div>
 
 <style>
-  .ds-tablewrap {
-    overflow-x: auto;
+  .ds-tokentable {
     border: 1px solid var(--border-color);
     border-radius: 12px;
     margin: 0 0 1.5rem;
+    overflow: hidden;
   }
   .ds-table {
     width: 100%;
-    min-width: 100%;
     border-collapse: collapse;
   }
   .ds-table th {
@@ -62,7 +61,6 @@ const showUsage = !!headers.usage;
     color: var(--text-muted);
     background: var(--badge-bg);
     border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
   }
   .ds-table td {
     padding: 10px 14px;
@@ -76,12 +74,40 @@ const showUsage = !!headers.usage;
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 0.8rem;
     color: var(--text-primary);
-    white-space: nowrap;
+    overflow-wrap: anywhere;
   }
   .ds-num {
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     color: var(--text-primary);
-    white-space: nowrap;
   }
-  .ds-usage { min-width: 16ch; }
+
+  /* Below 700px the table collapses: header row hidden, each row a block,
+     each cell a label/value pair. No sideways scrolling. */
+  @media (max-width: 699px) {
+    .ds-table thead { display: none; }
+    .ds-table, .ds-table tbody, .ds-table tr, .ds-table td { display: block; }
+    .ds-table tr { border-bottom: 1px solid var(--border-color); padding: 0.35rem 0; }
+    .ds-table tbody tr:last-child { border-bottom: none; }
+    .ds-table td {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      border-bottom: none;
+      padding: 3px 14px;
+    }
+    .ds-table td::before {
+      content: attr(data-label);
+      flex-shrink: 0;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+      color: var(--text-muted);
+    }
+    .ds-cell-token { padding-top: 8px; }
+    .ds-cell-token::before { content: none; }
+    .ds-usage { text-align: right; }
+  }
 </style>
