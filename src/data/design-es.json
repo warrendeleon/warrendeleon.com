@@ -1,0 +1,394 @@
+{
+  "designLabel": "Diseño",
+  "sectionsLabel": "Secciones del sistema de diseño",
+  "breadcrumbLabel": "Ruta de navegación",
+  "onThisPage": "En esta página",
+  "spottedIssue": "¿Has visto algo incorrecto en esta página? Escríbeme.",
+  "groups": {
+    "foundations": "Fundamentos",
+    "components": "Componentes",
+    "content": "Contenido",
+    "accessibility": "Accesibilidad"
+  },
+  "nav": {
+    "colour": "Color",
+    "typography": "Tipografía",
+    "layout": "Maquetación",
+    "shape-elevation": "Forma y elevación",
+    "iconography": "Iconografía",
+    "motion": "Movimiento",
+    "buttons": "Botones",
+    "tags-chips": "Etiquetas y chips",
+    "cards": "Tarjetas",
+    "navigation": "Navegación",
+    "sheets-overlays": "Paneles y superposiciones",
+    "article-patterns": "Patrones de artículo",
+    "timeline": "Cronología",
+    "writing": "Redacción",
+    "translation": "Traducción",
+    "accessibility": "Accesibilidad"
+  },
+  "landing": {
+    "seoTitle": "Sistema de diseño | Warren de Leon",
+    "seoDescription": "El sistema de diseño de warrendeleon.com: color, tipografía, maquetación, componentes y accesibilidad, documentado a partir de la hoja de estilos activa.",
+    "title": "Sistema de diseño",
+    "intro": "El sistema con el que está construido este sitio, documentado a partir de la hoja de estilos activa en vez de escrito aparte. Los fundamentos definen la materia prima. El resto muestra cómo encaja todo.",
+    "principlesHeading": "Principios",
+    "principles": [
+      {
+        "title": "Sobrio",
+        "body": "Un solo color de acento, usado con intención. El verde significa interacción o énfasis y nada más, así que cualquier elemento verde de la página invita a tocarlo o señala lo que importa. Todo lo demás es negro, blanco y gris."
+      },
+      {
+        "title": "Editorial",
+        "body": "El contenido manda. El espacio va antes que el armazón de la interfaz y la tipografía antes que la decoración. La maquetación se aparta para que se puedan leer los textos y el trabajo."
+      },
+      {
+        "title": "Técnico",
+        "body": "Cada valor es una variable CSS, y estas páginas leen de esa misma fuente cuando el sitio se compila. La documentación no puede desviarse del sitio porque se genera a partir de él."
+      }
+    ],
+    "foundationsHeading": "Fundamentos",
+    "cardBlurbs": {
+      "colour": "Un verde de marca, una escala neutra y el token que mantiene el verde legible.",
+      "typography": "Una tipografía y una escala por roles que se reduce según la pantalla.",
+      "layout": "Tres columnas, puntos de ruptura honestos y una escala de espaciado de cuatro píxeles.",
+      "shape-elevation": "La escala de radios, las sombras según el tema y la línea fina divisoria.",
+      "iconography": "Iconos de línea al estilo Feather y logotipos de marca sólidos.",
+      "motion": "Transiciones breves y discretas, y el interruptor de movimiento reducido."
+    },
+    "moreHeading": "Más por venir",
+    "moreBody": "Los componentes, las pautas de contenido y los estándares de accesibilidad se documentarán a continuación, con la misma forma que los fundamentos de aquí.",
+    "livingHeading": "Un documento vivo",
+    "livingBody": "Las tablas de color, tipografía y espaciado de estas páginas se generan a partir de la hoja de estilos del sitio en el momento de la compilación. Cambia un token en el CSS y las tablas de aquí cambian con él. Si el analizador ya no puede leer la hoja de estilos, la compilación falla en lugar de mostrar una tabla vacía."
+  },
+  "colour": {
+    "seoTitle": "Color | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El sistema de color de warrendeleon.com: un verde de marca, una escala neutra sensible al tema y el token de verde legible, documentado a partir del CSS activo.",
+    "title": "Color",
+    "intro": "Un único verde de marca hace todo el trabajo de acento. Todo lo demás es una escala neutra que cambia entre claro y oscuro. Los valores de abajo se leen de la hoja de estilos en el momento de la compilación.",
+    "toc": [
+      { "id": "brand", "label": "Verde de marca" },
+      { "id": "neutrals", "label": "Neutros y superficies" },
+      { "id": "interaction", "label": "Interacción" },
+      { "id": "callouts", "label": "Avisos" },
+      { "id": "using", "label": "Uso del color" }
+    ],
+    "swatchHeaders": {
+      "swatch": "Claro / oscuro",
+      "token": "Token",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "usage": "Se usa para"
+    },
+    "usage": {
+      "--color-green": "El único acento: botones primarios, pestaña activa, la barra del título y los anillos de foco.",
+      "--color-green-dark": "Verde al pasar el cursor y al pulsar en botones sólidos.",
+      "--color-green-light": "Un tono más claro, usado con moderación.",
+      "--color-green-text": "Verde para texto y enlaces: legible en claro, lima de marca en oscuro.",
+      "--color-green-text-hover": "Verde al pasar el cursor para texto y enlaces.",
+      "--color-white": "Blanco puro, sobre todo para texto sobre verde sólido.",
+      "--bg-primary": "El fondo de la página.",
+      "--bg-secondary": "Bandas tintadas, escenarios de muestra y cabeceras de código.",
+      "--bg-card": "Superficies de tarjetas y paneles.",
+      "--bg-nav": "El fondo desenfocado de la navegación.",
+      "--text-primary": "Títulos y texto de alto énfasis.",
+      "--text-secondary": "Texto de cuerpo.",
+      "--text-muted": "Metadatos, pies de foto y etiquetas desactivadas.",
+      "--border-color": "Líneas finas y bordes de tarjeta.",
+      "--badge-bg": "Relleno de insignias, etiquetas y cabeceras de tabla.",
+      "--badge-text": "Texto de insignias y etiquetas.",
+      "--code-bg": "Fondo de código en línea y en bloque.",
+      "--timeline-line": "El raíl de la cronología de experiencia laboral.",
+      "--device-edge": "El anillo exterior del marco del teléfono.",
+      "--device-button": "Los botones laterales del marco del teléfono."
+    },
+    "brandHeading": "Verde de marca",
+    "brandBody": "El verde es el único acento. Rellena los botones primarios, marca la pestaña activa, dibuja la barra bajo el título de una página y rodea un control enfocado. Como solo significa esas cosas, el lector aprende a leer el verde como «esto hace algo».",
+    "brandTextNote": "El verde lima es brillante y, al tamaño de texto de cuerpo sobre fondo blanco, no alcanza el umbral de contraste. Por eso existe un verde de texto aparte: el modo claro reduce el verde para texto y enlaces, mientras que el modo oscuro conserva el lima de marca. El motivo de su existencia se explica en la página de accesibilidad.",
+    "neutralsHeading": "Neutros y superficies",
+    "neutralsBody": "Los tokens neutros llevan dos valores, uno por tema, así que una superficie se diseña en ambos desde el principio. El texto tiene tres niveles de énfasis; los fondos van desde la página, a las bandas tintadas, a las tarjetas elevadas.",
+    "interactionHeading": "Interacción",
+    "interactionBody": "Los enlaces y los botones sólidos recorren los verdes al pasar el cursor. Los estados son iguales en todas partes, así que un control siempre te dice lo que va a hacer.",
+    "interactionHeaders": {
+      "state": "Estado",
+      "link": "Enlaces",
+      "button": "Botones sólidos"
+    },
+    "interactionStates": {
+      "default": "Por defecto",
+      "hover": "Al pasar el cursor",
+      "disabled": "Desactivado"
+    },
+    "interactionDisabledNote": "Opacidad reducida; el color no cambia.",
+    "calloutsHeading": "Avisos",
+    "calloutsBody": "Los artículos largos usan cuatro colores de aviso para señalar una trampa, un apunte, una precaución o una nota neutra. Son el único sitio donde un color distinto del verde tiene significado.",
+    "calloutsScoping": "Alcance: los colores de aviso viven solo en la prosa de los artículos. Nunca aparecen en el armazón de la interfaz, donde el verde y los neutros hacen todo el trabajo.",
+    "calloutsException": "Esta documentación hace una excepción deliberada a esa regla. Las tarjetas de «Hazlo» y «No lo hagas» de más abajo usan verde y rojo, porque un sistema de diseño que se documenta a sí mismo es el único lugar donde esas señales encajan fuera de la prosa.",
+    "calloutsHeaders": {
+      "type": "Aviso",
+      "colour": "Borde",
+      "use": "Cuándo usarlo"
+    },
+    "calloutsTypes": {
+      "danger": "Alerta roja",
+      "tip": "Consejo",
+      "warning": "Advertencia",
+      "info": "Información"
+    },
+    "calloutsUses": {
+      "danger": "Un error o una trampa que merece detener al lector.",
+      "tip": "Un apunte útil que no es esencial.",
+      "warning": "Algo que hacer con cuidado.",
+      "info": "Contexto neutro o una referencia a otro sitio."
+    },
+    "usingHeading": "Uso del color",
+    "doLabel": "Hazlo",
+    "dontLabel": "No lo hagas",
+    "dos": [
+      "Deja que el verde signifique una sola cosa: interacción o énfasis. Si algo es verde, debería poder tocarse o merecer atención.",
+      "Diseña cada superficie en ambos temas a la vez. Los pares de tokens hacen que eso sea lo normal, no una ocurrencia tardía.",
+      "Usa el verde de texto para el texto y los enlaces verdes, para que siga siendo legible sobre un fondo claro."
+    ],
+    "donts": [
+      "Introducir un segundo acento. Un color nuevo roba el significado que carga el verde.",
+      "Pintar el lima de marca sobre texto pequeño en blanco. No supera el umbral de contraste; para eso está el verde de texto.",
+      "Recurrir a un color de aviso en la interfaz. Esos pertenecen a la prosa de los artículos."
+    ],
+    "elevationNote": "Los tokens de elevación (las sombras según el tema) se documentan en la página de Forma y elevación."
+  },
+  "typography": {
+    "seoTitle": "Tipografía | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El sistema tipográfico de warrendeleon.com: una tipografía y una escala por roles que se reduce según la pantalla, documentado a partir del CSS activo.",
+    "title": "Tipografía",
+    "intro": "Una tipografía, un puñado de grosores y una escala por roles que baja un escalón en pantallas más pequeñas. Cada tamaño de abajo es una variable CSS leída de la hoja de estilos.",
+    "toc": [
+      { "id": "family", "label": "Tipografía" },
+      { "id": "scale", "label": "La escala" },
+      { "id": "specimens", "label": "Muestras" },
+      { "id": "mono", "label": "Monoespaciada" },
+      { "id": "mapping", "label": "En uso" }
+    ],
+    "familyHeading": "Tipografía",
+    "familyBody": "La interfaz usa Inter, alojada en el propio sitio en vez de tomarse de un servicio de fuentes, para que el primer pintado nunca espere a una petición de terceros. No hay fuente de titulares ni de display: el grosor y el tamaño llevan la jerarquía. Los títulos van a 800, los subtítulos y las etiquetas a 700, los botones y el énfasis a 600, y el texto de cuerpo a 400.",
+    "familyStackNote": "La pila completa recurre a la sans-serif del sistema si Inter no se ha cargado, así el texto siempre es legible.",
+    "scaleHeading": "La escala",
+    "scaleBody": "Los tamaños son roles, no casos sueltos. La misma variable gobierna cada título de página, cada encabezado de sección, y así sucesivamente. Las tres columnas son el valor de escritorio y las dos reducciones, aplicadas en los puntos de ruptura de tableta y móvil de la página de Maquetación.",
+    "scaleHeaders": {
+      "token": "Token",
+      "desktop": "Escritorio",
+      "tablet": "Tableta",
+      "mobile": "Móvil",
+      "usage": "Rol"
+    },
+    "usage": {
+      "--fs-h1": "Título de página, con la barra verde.",
+      "--bar-h1": "Ancho de la barra verde bajo el título.",
+      "--fs-h2": "Encabezados de sección.",
+      "--fs-h3": "Subtítulos y antetítulos de detalle.",
+      "--fs-h4": "Etiquetas menores en páginas con varios roles.",
+      "--fs-body": "Texto largo fuera de los artículos.",
+      "--lh-body": "Interlineado del texto de cuerpo.",
+      "--fs-prose": "Tamaño de lectura de los artículos.",
+      "--fs-prose-h2": "Encabezados de sección de los artículos."
+    },
+    "specimensHeading": "Muestras",
+    "specimensBody": "Renderizadas a sus tamaños reales. Estrecha la ventana y se reducen igual que el sitio.",
+    "samples": {
+      "h1": "El título de la página",
+      "h2": "Un encabezado de sección",
+      "h3": "Un subtítulo de detalle",
+      "h4": "Una etiqueta menor",
+      "body": "El texto de cuerpo marca el ritmo de lectura fuera de los artículos: lo bastante largo para respirar, lo bastante corto para ojearlo. Es el tamaño al que se lee la mayoría de las palabras del sitio.",
+      "prose": "Tamaño de lectura de los artículos, un poco mayor y más holgado, pensado para un rato largo con una sola columna de texto.",
+      "proseH2": "Un encabezado de sección de artículo"
+    },
+    "specimenNotes": {
+      "h1": "Título de página. Lleva la barra verde debajo.",
+      "h2": "Encabezado de sección.",
+      "h3": "Subtítulo de detalle y antetítulo.",
+      "h4": "Etiqueta menor, páginas con varios roles.",
+      "body": "Texto largo fuera de los artículos.",
+      "prose": "Tamaño de lectura de los artículos.",
+      "proseH2": "Encabezado de sección de artículo, con el subrayado verde."
+    },
+    "monoHeading": "Monoespaciada",
+    "monoBody": "Una pila monoespaciada marca todo lo que compone la máquina: líneas de metadatos y fechas, etiquetas e insignias, cabeceras de tabla, código y los pequeños antetítulos en mayúsculas. Señala que «esto son datos, no prosa». La pila es SF Mono, Fira Code, Cascadia Code y, después, la monoespaciada del sistema.",
+    "mappingHeading": "En uso",
+    "mappingBody": "Dónde aparece cada rol:",
+    "mapping": [
+      { "role": "Título de página", "where": "El h1 de cada página de nivel superior, con la barra verde." },
+      { "role": "Encabezado de sección", "where": "Encabezados de banda, con el breve subrayado verde." },
+      { "role": "Encabezado de artículo", "where": "El h2 dentro de una entrada del blog, con el subrayado verde. Solo el h2 de artículo; los subtítulos bajan a un grosor normal." },
+      { "role": "Cuerpo", "where": "Texto de la página sobre mí, introducciones de página, texto de tarjetas." },
+      { "role": "Prosa", "where": "La columna de lectura de un artículo." },
+      { "role": "Metadatos", "where": "Fechas, tiempo de lectura, etiquetas. Monoespaciada." }
+    ]
+  },
+  "layout": {
+    "seoTitle": "Maquetación | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El sistema de maquetación de warrendeleon.com: tres columnas de contenido, puntos de ruptura honestos y una escala de espaciado de cuatro píxeles.",
+    "title": "Maquetación",
+    "intro": "Primero el móvil, una columna, contenido centrado mientras el margen flexiona. Tres columnas fijas cubren teléfono, tableta y escritorio. La escala de espaciado de abajo se lee de la hoja de estilos.",
+    "toc": [
+      { "id": "columns", "label": "Columnas" },
+      { "id": "breakpoints", "label": "Puntos de ruptura" },
+      { "id": "spacing", "label": "Espaciado" },
+      { "id": "targets", "label": "Áreas táctiles" },
+      { "id": "logo", "label": "Logo en un círculo" }
+    ],
+    "columnsHeading": "Columnas",
+    "columnsBody": "La página es una única columna centrada con un ancho máximo fijo por banda. Por debajo de ese ancho, lo único que flexiona es el margen, así que la medida de lectura se mantiene cómoda en lugar de estirarse de borde a borde en una pantalla ancha. Los artículos se estrechan aún más, hasta una columna de lectura de 720 píxeles; solo los bloques a sangre completa, como el código, se salen de ella.",
+    "columnsHeaders": {
+      "band": "Banda",
+      "column": "Columna",
+      "gutter": "Margen",
+      "bar": "Barra superior"
+    },
+    "columnsRows": [
+      { "band": "Móvil", "column": "430px", "gutter": "20px", "bar": "56px" },
+      { "band": "Tableta", "column": "960px", "gutter": "24px", "bar": "60px" },
+      { "band": "Escritorio", "column": "1100px", "gutter": "24px", "bar": "64px" }
+    ],
+    "breakpointsHeading": "Puntos de ruptura",
+    "breakpointsBody": "Tres bandas, expresadas tal como son de verdad. La banda de tableta llega hasta los 1279 píxeles, así que una ventana de 1024 píxeles recibe el dimensionado de tableta, no el de escritorio. El dock de pestañas es un recurso de teléfono y tableta; la navegación de escritorio toma el relevo a los 1280.",
+    "breakpointsRows": [
+      { "band": "Móvil", "range": "≤ 699px" },
+      { "band": "Tableta", "range": "700–1279px" },
+      { "band": "Escritorio", "range": "≥ 1280px" }
+    ],
+    "spacingHeading": "Espaciado",
+    "spacingBody": "El espacio se construye sobre una base de cuatro píxeles. Los tokens de abajo fijan el ritmo entre secciones y encabezados; como el relleno de sección es de un solo lado, dos secciones contiguas quedan separadas el doble del token.",
+    "spacingHeaders": {
+      "token": "Token",
+      "desktop": "Escritorio",
+      "tablet": "Tableta",
+      "mobile": "Móvil",
+      "usage": "Fija"
+    },
+    "spacingUsage": {
+      "--sp-section": "Relleno de una sección (dos apiladas suman el doble).",
+      "--sp-band": "Relleno dentro de una banda tintada.",
+      "--sp-heading": "Espacio entre un encabezado de sección y su contenido."
+    },
+    "nestingBody": "El ritmo se anida: sección, luego tarjeta, luego grupo, luego elemento, cada uno con menos aire que el que lo rodea.",
+    "targetsHeading": "Áreas táctiles",
+    "targetsBody": "Todo lo que se puede tocar mide al menos 44 por 44 píxeles, aunque el icono visible sea más pequeño. Las áreas de pulsación se rellenan para llegar a ese mínimo en lugar de reducir el objetivo al tamaño del glifo.",
+    "logoHeading": "Logo en un círculo",
+    "logoBody": "La marca se sitúa en un marco circular y ocupa unos dos tercios de él, con un anillo fino en el borde. Aparece a 48 píxeles junto a un rol, a 96 en una tarjeta y a 120 como ancla de la cronología."
+  },
+  "shapeElevation": {
+    "seoTitle": "Forma y elevación | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El lenguaje de forma y elevación de warrendeleon.com: la escala de radios, las sombras sensibles al tema y la regla de borde de línea fina.",
+    "title": "Forma y elevación",
+    "intro": "Las esquinas se redondean con una escala coherente, las sombras son discretas y sensibles al tema, y casi toda la separación se hace con una sola línea fina en vez de con una sombra.",
+    "toc": [
+      { "id": "radius", "label": "Radio de esquina" },
+      { "id": "shadows", "label": "Sombras" },
+      { "id": "borders", "label": "Bordes" }
+    ],
+    "radiusHeading": "Radio de esquina",
+    "radiusBody": "El radio crece con el tamaño de la superficie: el más pequeño en un chip de código en línea, el más grande en un panel inferior. Son valores literales que se repiten en los estilos de los componentes en vez de tokens, así que aquí se documentan a mano y se cotejan con la hoja de estilos.",
+    "radiusHeaders": {
+      "radius": "Radio",
+      "where": "Dónde"
+    },
+    "radiusRows": [
+      { "radius": "5px", "where": "Chips de código en línea" },
+      { "radius": "7px", "where": "Chips de etiqueta del blog (.post-tag)" },
+      { "radius": "8px", "where": "Botones, insignias (.badge)" },
+      { "radius": "10px", "where": "Bloques de código, citas" },
+      { "radius": "12px", "where": "Tarjetas, publicaciones del feed" },
+      { "radius": "14px", "where": "Superficies compactas, tarjetas de tabla a medida" },
+      { "radius": "16px", "where": "Tarjeta de publicación destacada, tarjeta de rol en móvil" },
+      { "radius": "20px", "where": "Paneles inferiores (esquinas superiores)" },
+      { "radius": "pill", "where": "CTA principales, píldoras de idioma, dock" }
+    ],
+    "radiusNote": "El chip de etiqueta y la insignia están a un píxel de distancia, a 7 y 8 píxeles. Es una pequeña inconsistencia que conviene mantener a propósito o cerrar; por ahora la documentación refleja ambos tal como se publican.",
+    "shadowsHeading": "Sombras",
+    "shadowsBody": "Las sombras son suaves y tenues. La regla distintiva es que el modo oscuro no oscurece: una sombra negra sobre una página oscura no se ve, así que los tokens oscuros llevan en su lugar una sombra clara y sutil. Cada token de abajo se muestra en un escenario claro y en uno oscuro.",
+    "shadowsHeaders": {
+      "swatch": "Claro / oscuro",
+      "token": "Token",
+      "light": "Claro",
+      "dark": "Oscuro",
+      "usage": "Se usa para"
+    },
+    "shadowsUsage": {
+      "--shadow": "Elevación de tarjeta heredada, todavía en tarjetas y publicaciones del feed.",
+      "--shadow-hover": "Elevación al pasar el cursor heredada.",
+      "--shadow-card": "Elevación de tarjeta en reposo.",
+      "--shadow-lift": "Superficies elevadas y estados al pasar el cursor.",
+      "--shadow-dock": "El dock flotante de pestañas.",
+      "--sheet-shadow": "Paneles inferiores (sombra proyectada hacia arriba).",
+      "--device-shadow": "La sombra proyectada del marco del teléfono."
+    },
+    "bordersHeading": "Bordes",
+    "bordersBody": "El separador por defecto es una línea fina de un píxel en el color de borde, no una sombra. Las tarjetas, las tablas, los paneles y las bandas se enmarcan así. Las sombras se reservan para lo que de verdad flota sobre la página, como el dock o un panel abierto."
+  },
+  "iconography": {
+    "seoTitle": "Iconografía | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El lenguaje de iconos de warrendeleon.com: iconos de línea al estilo Feather y logotipos de marca sólidos, todos en currentColor.",
+    "title": "Iconografía",
+    "intro": "Dos tipos de icono. Las acciones de la interfaz usan iconos de línea ligeros con el estilo Feather; los enlaces de marca y sociales usan marcas sólidas. Ambos toman su color del texto que los rodea.",
+    "toc": [
+      { "id": "line", "label": "Iconos de línea" },
+      { "id": "brand", "label": "Logotipos de marca" },
+      { "id": "rules", "label": "Reglas" }
+    ],
+    "lineHeading": "Iconos de línea",
+    "lineBody": "Los iconos de la interfaz se dibujan sobre una rejilla de 24 unidades con un trazo de dos píxeles, extremos redondeados y uniones redondeadas, con el estilo Feather. Se renderizan de 15 a 20 píxeles dentro de un área de pulsación de al menos 38 y nunca llevan su propio color: heredan currentColor del texto.",
+    "lineCaption": "Una muestra del conjunto de la interfaz, al tamaño con el que se publican.",
+    "iconLabels": {
+      "search": "Buscar",
+      "back": "Atrás",
+      "download": "Descargar",
+      "rss": "RSS",
+      "check": "Marca",
+      "close": "Cerrar",
+      "chevron": "Chevrón"
+    },
+    "brandHeading": "Logotipos de marca",
+    "brandBody": "Los iconos sociales y de marca son marcas sólidas de un solo color en vez de dibujos de línea, para que un logotipo reconocible siga siéndolo. Viven en el pie de página y heredan el mismo currentColor, poniéndose verdes al pasar el cursor. Este es el componente real, renderizado aquí a partir de la misma fuente que usa el pie de página.",
+    "brandCaption": "Las marcas sociales reales.",
+    "rulesHeading": "Reglas",
+    "doLabel": "Hazlo",
+    "dontLabel": "No lo hagas",
+    "dos": [
+      "Deja que los iconos tomen currentColor, para que sigan el tema y el texto que los rodea.",
+      "Mantén un área de pulsación de 44 píxeles aunque el glifo mida 16 píxeles.",
+      "Usa iconos de línea para las acciones y marcas sólidas para las marcas."
+    ],
+    "donts": [
+      "Fijar a mano el color de un icono. Debería seguir al texto.",
+      "Mezclar estilos de trazo y de relleno dentro del conjunto de la interfaz.",
+      "Reducir el área táctil al tamaño del dibujo."
+    ]
+  },
+  "motion": {
+    "seoTitle": "Movimiento | Sistema de diseño | Warren de Leon",
+    "seoDescription": "El lenguaje de movimiento de warrendeleon.com: transiciones breves y discretas y un firme interruptor de movimiento reducido.",
+    "title": "Movimiento",
+    "intro": "El movimiento es discreto y rápido. Confirma una acción o suaviza un cambio de estado; nunca es decoración. Y se detiene en cuanto un visitante pide menos.",
+    "toc": [
+      { "id": "durations", "label": "Duraciones y curvas" },
+      { "id": "reduced", "label": "Movimiento reducido" }
+    ],
+    "durationsHeading": "Duraciones y curvas",
+    "durationsBody": "La mayoría de las transiciones duran una quinta parte de segundo sobre una curva ease: un cambio de color al pasar el cursor, un borde que se asienta. El cambio de tema dura un poco más para que el repintado de toda la página no dé un salto brusco. Las páginas aparecen con un desvanecido de unos píxeles al cargar. Los paneles inferiores son el único movimiento expresivo, que entra deslizándose sobre una curva de muelle.",
+    "durationsHeaders": {
+      "move": "Movimiento",
+      "value": "Valor"
+    },
+    "durationsRows": [
+      { "move": "Transición por defecto", "value": "0.2s ease" },
+      { "move": "Cambio de tema", "value": "0.3s ease" },
+      { "move": "Desvanecido de entrada de página", "value": "0.3s, up 8px" },
+      { "move": "Elevación al pasar el cursor", "value": "up 2px + shadow" },
+      { "move": "Muelle del panel", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+    ],
+    "reducedHeading": "Movimiento reducido",
+    "reducedBody": "Cuando el sistema de un visitante pide movimiento reducido, el sitio lo respeta sin excepción. Las animaciones y transiciones se reducen a un pelo por encima de cero, y el desplazamiento suave vuelve a ser un salto. Esta es la regla, no un detalle:",
+    "reducedCaption": "De la hoja de estilos."
+  }
+}

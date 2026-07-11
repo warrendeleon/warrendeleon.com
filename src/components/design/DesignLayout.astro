@@ -1,0 +1,295 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getLocalePath, type Locale } from '../../i18n/index';
+import { getDesignData } from '../../lib/design-data';
+import { DESIGN_GROUPS, DESIGN_ROOT, type DesignGroup } from '../../lib/design-ia';
+
+interface Props {
+  locale: Locale;
+  currentPath: string;
+  seoTitle: string;
+  seoDescription: string;
+  /** Which IA group this page belongs to; omitted on the landing hub. */
+  group?: DesignGroup['key'];
+  title: string;
+  intro: string;
+  /** In-page anchors for the "On this page" card. */
+  toc?: { id: string; label: string }[];
+}
+
+const { locale, currentPath, seoTitle, seoDescription, group, title, intro, toc = [] } = Astro.props;
+const d = getDesignData(locale);
+const rootPath = getLocalePath(locale, DESIGN_ROOT);
+
+// Localised rail: each group with its built pages resolved to labels + hrefs.
+const rail = DESIGN_GROUPS.map((g) => ({
+  key: g.key,
+  label: d.groups[g.key],
+  pages: g.pages
+    .filter((p) => p.built)
+    .map((p) => ({
+      label: d.nav[p.slug as keyof typeof d.nav],
+      href: getLocalePath(locale, p.path),
+    })),
+})).filter((g) => g.pages.length > 0);
+
+const groupLabel = group ? d.groups[group] : null;
+const issueSubject = encodeURIComponent(`Design system: ${title}`);
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} locale={locale} currentPath={currentPath}>
+  <section class="section">
+    <div class="container">
+      <div class="ds-shell">
+        <aside class="ds-rail" aria-label={d.sectionsLabel}>
+          <a href={rootPath} class="ds-rail-home">{d.designLabel}</a>
+          {rail.map((g) => (
+            <div class="ds-rail-group">
+              <p class="ds-rail-group-label">{g.label}</p>
+              <ul>
+                {g.pages.map((p) => (
+                  <li>
+                    <a
+                      href={p.href}
+                      class:list={['ds-rail-link', { active: currentPath === p.href }]}
+                      aria-current={currentPath === p.href ? 'page' : undefined}
+                    >
+                      {p.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </aside>
+
+        <div class="ds-content">
+          <nav class="ds-breadcrumb" aria-label={d.breadcrumbLabel}>
+            <a href={rootPath}>{d.designLabel}</a>
+            {groupLabel && (
+              <>
+                <span class="ds-crumb-sep" aria-hidden="true">/</span>
+                <span>{groupLabel}</span>
+              </>
+            )}
+          </nav>
+
+          <header class="ds-header">
+            <h1 class="section-title">{title}</h1>
+            <p class="ds-intro">{intro}</p>
+          </header>
+
+          {toc.length > 0 && (
+            <nav class="ds-toc" aria-label={d.onThisPage}>
+              <p class="ds-toc-label">{d.onThisPage}</p>
+              <ul>
+                {toc.map((i) => (
+                  <li><a href={`#${i.id}`}>{i.label}</a></li>
+                ))}
+              </ul>
+            </nav>
+          )}
+
+          <div class="ds-body">
+            <slot />
+          </div>
+
+          <footer class="ds-foot">
+            <a href={`mailto:hi@warrendeleon.com?subject=${issueSubject}`}>{d.spottedIssue}</a>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* Two-column docs shell: sticky section rail + content. Rail collapses below
+     1280px where the site's tab dock already carries primary navigation. */
+  .ds-shell {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .ds-rail {
+    display: none;
+  }
+
+  @media (min-width: 1280px) {
+    .ds-shell {
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 3rem;
+      align-items: start;
+    }
+    .ds-rail {
+      display: block;
+      position: sticky;
+      top: 88px;
+    }
+  }
+
+  .ds-rail-home {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+  }
+  .ds-rail-home:hover { color: var(--color-green-text); }
+
+  .ds-rail-group { margin-bottom: 1.4rem; }
+  .ds-rail-group ul { list-style: none; margin: 0; padding: 0; }
+  .ds-rail-group-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    margin: 0 0 0.5rem;
+  }
+  .ds-rail-link {
+    display: block;
+    padding: 0.28rem 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    border-left: 2px solid transparent;
+    padding-left: 0.75rem;
+    margin-left: -0.75rem;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .ds-rail-link:hover { color: var(--text-primary); }
+  .ds-rail-link.active {
+    color: var(--color-green-text);
+    font-weight: 600;
+    border-left-color: var(--color-green);
+  }
+
+  .ds-content { max-width: 820px; min-width: 0; }
+
+  .ds-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .ds-breadcrumb a { color: var(--text-muted); }
+  .ds-breadcrumb a:hover { color: var(--color-green-text); }
+  .ds-crumb-sep { opacity: 0.5; }
+
+  .ds-header { margin-bottom: 2rem; }
+  .ds-intro {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 60ch;
+    margin: 0;
+  }
+  @media (max-width: 699px) {
+    .ds-intro { font-size: 1.02rem; }
+  }
+
+  /* On this page */
+  .ds-toc {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    padding: 1rem 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .ds-toc-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    margin: 0 0 0.6rem;
+  }
+  .ds-toc ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .ds-toc a {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .ds-toc a:hover { color: var(--color-green-text); }
+
+  /* Body typography — the design pages' prose, mirroring the site's scale but
+     scoped here so it never depends on the blog's .prose class. */
+  .ds-body > section { margin-bottom: 3rem; scroll-margin-top: 5rem; }
+  .ds-body > section:last-child { margin-bottom: 0; }
+  .ds-body h2 {
+    font-size: var(--fs-h2);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid var(--color-green);
+    display: inline-block;
+  }
+  .ds-body h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 2rem 0 0.75rem;
+  }
+  .ds-body p {
+    font-size: var(--fs-body);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0 0 1.1rem;
+    max-width: 65ch;
+  }
+  .ds-body p:last-child { margin-bottom: 0; }
+  /* Prose links only. Scoped to p/li so it never bleeds into an embedded real
+     component (SocialLinks, SubscribeForm, Timeline) that carries its own link
+     styling inside a specimen. */
+  .ds-body p a,
+  .ds-body li a {
+    color: var(--color-green-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .ds-body ul.ds-list {
+    margin: 0 0 1.1rem;
+    padding-left: 1.25rem;
+    color: var(--text-secondary);
+    font-size: var(--fs-body);
+    line-height: 1.7;
+    max-width: 65ch;
+  }
+  .ds-body ul.ds-list li { margin-bottom: 0.4rem; }
+  .ds-body ul.ds-list li::marker { color: var(--color-green-text); }
+  .ds-body code.ds-code {
+    background: var(--code-bg);
+    padding: 0.12rem 0.4rem;
+    border-radius: 5px;
+    font-size: 0.86em;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+  }
+
+  .ds-foot {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.85rem;
+  }
+  .ds-foot a { color: var(--text-muted); }
+  .ds-foot a:hover { color: var(--color-green-text); }
+</style>

@@ -1,0 +1,123 @@
+---
+// Colour / elevation tokens from the parser, with a swatch for BOTH themes side
+// by side. The swatches use the literal resolved values (not the live CSS var),
+// so light and dark render together regardless of the page's current theme —
+// the "audit both palettes at once" the playbook asked for.
+import type { ColorToken } from '../../lib/design-tokens.mjs';
+
+interface Props {
+  rows: ColorToken[];
+  /** token name → one-line usage note. */
+  usage?: Record<string, string>;
+  kind?: 'color' | 'shadow';
+  headers: { swatch: string; token: string; light: string; dark: string; usage: string };
+}
+const { rows, usage, kind = 'color', headers } = Astro.props;
+---
+
+<div class="ds-tablewrap">
+  <table class="ds-swatch-table">
+    <thead>
+      <tr>
+        <th colspan="2">{headers.swatch}</th>
+        <th>{headers.token}</th>
+        <th>{headers.light}</th>
+        <th>{headers.dark}</th>
+        <th>{headers.usage}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td class="ds-sw-cell ds-sw-light">
+            {kind === 'shadow' ? (
+              <span class="ds-sw-shadow" style={`box-shadow:${r.light}`}></span>
+            ) : (
+              <span class="ds-sw-chip" style={`background:${r.light}`}></span>
+            )}
+          </td>
+          <td class="ds-sw-cell ds-sw-dark">
+            {kind === 'shadow' ? (
+              <span class="ds-sw-shadow" style={`box-shadow:${r.dark}`}></span>
+            ) : (
+              <span class="ds-sw-chip" style={`background:${r.dark}`}></span>
+            )}
+          </td>
+          <td><code class="ds-token">{r.name}</code></td>
+          <td class="ds-val">{r.light}</td>
+          <td class="ds-val">{r.dark}</td>
+          <td class="ds-usage">{usage?.[r.name] ?? ''}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .ds-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin: 0 0 1.5rem;
+  }
+  .ds-swatch-table {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+  }
+  .ds-swatch-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+    background: var(--badge-bg);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+  .ds-swatch-table td {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+  .ds-swatch-table tbody tr:last-child td { border-bottom: none; }
+
+  /* Fixed light/dark stages so a swatch reads true whatever the page theme. */
+  .ds-sw-cell { width: 52px; padding: 8px !important; }
+  .ds-sw-light { background: #ffffff; }
+  .ds-sw-dark { background: #111111; }
+  .ds-sw-chip {
+    display: block;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+  }
+  .ds-sw-shadow {
+    display: block;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+  }
+  .ds-sw-light .ds-sw-shadow { background: #ffffff; }
+  .ds-sw-dark .ds-sw-shadow { background: #222222; }
+
+  .ds-token {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ds-val {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ds-usage { min-width: 16ch; }
+</style>

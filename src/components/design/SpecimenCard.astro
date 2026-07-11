@@ -1,0 +1,71 @@
+---
+// A bordered frame that presents a live specimen rendered with the site's own
+// classes. The default slot is real markup (e.g. <button class="btn btn-primary">),
+// so what you see is what ships — never a lookalike restyled here.
+interface Props {
+  label?: string;
+  /** Optional markup snippet shown beneath the specimen. */
+  code?: string;
+  /** Left-align instead of centring (for wide specimens like nav bars). */
+  align?: 'center' | 'start';
+  /** Render the stage on the page background instead of the tinted panel. */
+  plain?: boolean;
+}
+const { label, code, align = 'center', plain = false } = Astro.props;
+---
+
+<figure class="ds-specimen">
+  {label && <figcaption class="ds-specimen-label">{label}</figcaption>}
+  <div class:list={['ds-specimen-stage', `is-${align}`, { 'is-plain': plain }]}>
+    <slot />
+  </div>
+  {code && (
+    <pre class="ds-specimen-code"><code>{code}</code></pre>
+  )}
+</figure>
+
+<style>
+  .ds-specimen {
+    margin: 0 0 1.25rem;
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .ds-specimen-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    padding: 0.6rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--badge-bg);
+  }
+  .ds-specimen-stage {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.75rem 1.5rem;
+    background: var(--bg-secondary);
+  }
+  .ds-specimen-stage.is-center { justify-content: center; }
+  .ds-specimen-stage.is-start { justify-content: flex-start; }
+  .ds-specimen-stage.is-plain { background: var(--bg-primary); }
+  .ds-specimen-code {
+    margin: 0;
+    padding: 0.85rem 1rem;
+    background: var(--code-bg);
+    border-top: 1px solid var(--border-color);
+    overflow-x: auto;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .ds-specimen-code code {
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    white-space: pre;
+  }
+</style>

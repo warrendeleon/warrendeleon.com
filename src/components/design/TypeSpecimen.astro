@@ -1,0 +1,65 @@
+---
+// Renders a sample string at its LIVE responsive size — font-size is the CSS
+// variable itself, so the specimen resizes across bands exactly like the site.
+// The caption reports the token and its three band values from the parser.
+import type { ScaleToken } from '../../lib/design-tokens.mjs';
+
+interface Props {
+  token: ScaleToken;
+  sample: string;
+  weight?: number;
+  /** Extra note, e.g. "used for the page title + green bar". */
+  note?: string;
+  /** Colour the sample with the brand text-green (headings that carry it). */
+  green?: boolean;
+}
+const { token, sample, weight = 400, note, green = false } = Astro.props;
+---
+
+<div class="ds-typespec">
+  <p
+    class:list={['ds-typespec-sample', { green }]}
+    style={`font-size: var(${token.name}); font-weight: ${weight};`}
+  >
+    {sample}
+  </p>
+  <p class="ds-typespec-caption">
+    <code>{token.name}</code>
+    <span class="ds-typespec-vals">{token.desktop} · {token.tablet} · {token.mobile}</span>
+    <span class="ds-typespec-weight">{weight}</span>
+    {note && <span class="ds-typespec-note">{note}</span>}
+  </p>
+</div>
+
+<style>
+  .ds-typespec {
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .ds-typespec:last-child { border-bottom: none; }
+  .ds-typespec-sample {
+    margin: 0 0 0.5rem;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+  .ds-typespec-sample.green { color: var(--color-green-text); }
+  .ds-typespec-caption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem 0.9rem;
+    margin: 0;
+    font-size: 0.72rem;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+  }
+  .ds-typespec-caption code { color: var(--text-primary); }
+  .ds-typespec-vals { color: var(--text-secondary); }
+  .ds-typespec-weight::before { content: 'w '; opacity: 0.6; }
+  .ds-typespec-note {
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+</style>

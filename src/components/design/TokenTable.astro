@@ -1,0 +1,87 @@
+---
+// Renders a responsive scale (type or spacing) straight from the token parser.
+// Columns: token · desktop · tablet · mobile · (usage). Values are never typed
+// by hand — they arrive from getDesignTokens().
+import type { ScaleToken } from '../../lib/design-tokens.mjs';
+
+interface Props {
+  rows: ScaleToken[];
+  headers: { token: string; desktop: string; tablet: string; mobile: string; usage?: string };
+  /** slug → one-line usage note, keyed by token name. */
+  usage?: Record<string, string>;
+}
+const { rows, headers, usage } = Astro.props;
+const showUsage = !!headers.usage;
+---
+
+<div class="ds-tablewrap">
+  <table class="ds-table">
+    <thead>
+      <tr>
+        <th>{headers.token}</th>
+        <th>{headers.desktop}</th>
+        <th>{headers.tablet}</th>
+        <th>{headers.mobile}</th>
+        {showUsage && <th>{headers.usage}</th>}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => (
+        <tr>
+          <td><code class="ds-token">{r.name}</code></td>
+          <td class="ds-num">{r.desktop}</td>
+          <td class="ds-num">{r.tablet}</td>
+          <td class="ds-num">{r.mobile}</td>
+          {showUsage && <td class="ds-usage">{usage?.[r.name] ?? ''}</td>}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .ds-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin: 0 0 1.5rem;
+  }
+  .ds-table {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+  }
+  .ds-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+    background: var(--badge-bg);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+  .ds-table td {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  .ds-table tbody tr:last-child td { border-bottom: none; }
+  .ds-token {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ds-num {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ds-usage { min-width: 16ch; }
+</style>

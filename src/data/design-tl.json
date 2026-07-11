@@ -1,0 +1,394 @@
+{
+  "designLabel": "Disenyo",
+  "sectionsLabel": "Mga seksyon ng disenyo",
+  "breadcrumbLabel": "Breadcrumb",
+  "onThisPage": "Sa pahinang ito",
+  "spottedIssue": "May napansing mali sa pahinang ito? I-email mo ako.",
+  "groups": {
+    "foundations": "Mga pundasyon",
+    "components": "Mga component",
+    "content": "Nilalaman",
+    "accessibility": "Accessibility"
+  },
+  "nav": {
+    "colour": "Kulay",
+    "typography": "Typography",
+    "layout": "Layout",
+    "shape-elevation": "Hugis at elevation",
+    "iconography": "Iconography",
+    "motion": "Motion",
+    "buttons": "Mga button",
+    "tags-chips": "Mga tag at chip",
+    "cards": "Mga card",
+    "navigation": "Navigation",
+    "sheets-overlays": "Mga sheet at overlay",
+    "article-patterns": "Mga pattern ng artikulo",
+    "timeline": "Timeline",
+    "writing": "Pagsusulat",
+    "translation": "Pagsasalin",
+    "accessibility": "Accessibility"
+  },
+  "landing": {
+    "seoTitle": "Disenyo | Warren de Leon",
+    "seoDescription": "Ang sistema ng disenyo sa likod ng warrendeleon.com: kulay, typography, layout, mga component at accessibility, nakadokumento mula sa live na stylesheet.",
+    "title": "Disenyo",
+    "intro": "Ang sistemang pinagbuuan ng site na ito, nakadokumento mula sa live na stylesheet sa halip na isinulat na katabi nito. Itinatakda ng mga pundasyon ang hilaw na materyal. Ipinapakita ng iba pa kung paano ito nagsasama-sama.",
+    "principlesHeading": "Mga prinsipyo",
+    "principles": [
+      {
+        "title": "Tahimik",
+        "body": "Isang accent, ginagamit nang may layunin. Ang berde ay nangangahulugang interaksyon o diin at wala nang iba, kaya ang anumang berde sa pahina ay nag-aanyaya ng tap o nagmamarka kung ano ang mahalaga. Ang lahat ng nakapaligid dito ay itim, puti at kulay-abo."
+      },
+      {
+        "title": "Editorial",
+        "body": "Nangunguna ang nilalaman. Nauuna ang espasyo kaysa sa chrome at ang type kaysa sa dekorasyon. Nananatiling nasa gilid ang layout upang mabasa ang pagsusulat at ang gawa."
+      },
+      {
+        "title": "Teknikal",
+        "body": "Bawat value ay isang CSS variable, at ang mga pahinang ito ay bumabasa mula sa parehong source kapag ini-build ang site. Hindi maaaring lumihis ang dokumentasyon mula sa site dahil ito ay nabubuo mula rito."
+      }
+    ],
+    "foundationsHeading": "Mga pundasyon",
+    "cardBlurbs": {
+      "colour": "Isang brand green, isang neutral scale, at ang token na nagpapanatiling nababasa ang berde.",
+      "typography": "Isang typeface, isang role-based na scale na bumababa kada screen.",
+      "layout": "Tatlong column, tapat na mga breakpoint, isang four-pixel na spacing ramp.",
+      "shape-elevation": "Ang radius scale, ang mga naka-theme na shadow, ang hairline na rule.",
+      "iconography": "Mga line icon na Feather-style at solid na brand marks.",
+      "motion": "Maiikli, tahimik na mga transition, at ang reduced-motion na switch."
+    },
+    "moreHeading": "Marami pang darating",
+    "moreBody": "Ang mga component, gabay sa nilalaman at mga pamantayan sa accessibility ay isusulat sunod, sa parehong hugis ng mga pundasyon dito.",
+    "livingHeading": "Isang buháy na dokumento",
+    "livingBody": "Ang mga table ng kulay, type at spacing sa mga pahinang ito ay nabubuo mula sa stylesheet ng site sa build time. Baguhin ang isang token sa CSS at magbabago rin ang mga table dito kasabay nito. Kung hindi na mabasa ng parser ang stylesheet, mabibigo ang build sa halip na magpakita ng walang lamang table."
+  },
+  "colour": {
+    "seoTitle": "Kulay | Disenyo | Warren de Leon",
+    "seoDescription": "Ang sistema ng kulay sa likod ng warrendeleon.com: isang brand green, isang theme-aware na neutral scale, at ang readable-green na token, nakadokumento mula sa live na CSS.",
+    "title": "Kulay",
+    "intro": "Isang brand green ang gumagawa ng lahat ng accent work. Ang iba pa ay isang neutral scale na naglilipat sa pagitan ng light at dark. Ang mga value sa ibaba ay binabasa mula sa stylesheet sa build time.",
+    "toc": [
+      { "id": "brand", "label": "Brand green" },
+      { "id": "neutrals", "label": "Mga neutral at surface" },
+      { "id": "interaction", "label": "Interaksyon" },
+      { "id": "callouts", "label": "Mga callout" },
+      { "id": "using", "label": "Paggamit ng kulay" }
+    ],
+    "swatchHeaders": {
+      "swatch": "Light / dark",
+      "token": "Token",
+      "light": "Light",
+      "dark": "Dark",
+      "usage": "Ginagamit para sa"
+    },
+    "usage": {
+      "--color-green": "Ang tanging accent: mga primary button, aktibong tab, ang title bar, mga focus ring.",
+      "--color-green-dark": "Hover at pressed na berde sa mga solid button.",
+      "--color-green-light": "Isang mas magaan na tint, ginagamit nang matipid.",
+      "--color-green-text": "Berde para sa text at mga link: nababasa sa light, brand lime sa dark.",
+      "--color-green-text-hover": "Hover na berde para sa text at mga link.",
+      "--color-white": "Purong puti, kadalasan para sa text sa solid na berde.",
+      "--bg-primary": "Ang background ng pahina.",
+      "--bg-secondary": "Mga tinted band, specimen stage, code header.",
+      "--bg-card": "Mga card at sheet surface.",
+      "--bg-nav": "Ang na-blur na nav backdrop.",
+      "--text-primary": "Mga heading at high-emphasis na text.",
+      "--text-secondary": "Body copy.",
+      "--text-muted": "Meta, mga caption, disabled na label.",
+      "--border-color": "Mga hairline at card border.",
+      "--badge-bg": "Fill ng badge, tag at table-header.",
+      "--badge-text": "Text ng badge at tag.",
+      "--code-bg": "Background ng inline at block code.",
+      "--timeline-line": "Ang timeline rail ng karanasan sa trabaho.",
+      "--device-edge": "Ang panlabas na ring sa phone frame.",
+      "--device-button": "Ang mga side button ng phone frame."
+    },
+    "brandHeading": "Brand green",
+    "brandBody": "Ang berde ang tanging accent. Pinupuno nito ang mga primary button, minamarkahan ang aktibong tab, ginuguhit ang bar sa ilalim ng title ng pahina at umiikot bilang ring sa isang focused na control. Dahil iyon lang ang ibig sabihin nito, natututunan ng mambabasa na basahin ang berde bilang “may ginagawa ito”.",
+    "brandTextNote": "Maliwanag ang lime green, at sa laki ng body-text sa puting background ay hindi nito naaabot ang contrast bar. Kaya may hiwalay na text green: sa light mode ay ibinababa ang berde para sa text at mga link, habang sa dark mode ay pinananatili ang brand lime. Ang dahilan kung bakit ito umiiral ay nakalahad sa accessibility page.",
+    "neutralsHeading": "Mga neutral at surface",
+    "neutralsBody": "Ang mga neutral token ay may dalawang value, isa kada theme, kaya ang isang surface ay dinidisenyo sa dalawa mula sa simula. Ang text ay nasa tatlong weight ng diin; ang mga background ay humahakbang mula sa pahina, papunta sa mga tinted band, hanggang sa mga raised card.",
+    "interactionHeading": "Interaksyon",
+    "interactionBody": "Ang mga link at solid button ay dumadaan sa mga berde kapag naka-hover. Pareho ang mga state kahit saan, kaya laging sinasabi ng isang control kung ano ang gagawin nito.",
+    "interactionHeaders": {
+      "state": "State",
+      "link": "Mga link",
+      "button": "Mga solid button"
+    },
+    "interactionStates": {
+      "default": "Default",
+      "hover": "Hover",
+      "disabled": "Disabled"
+    },
+    "interactionDisabledNote": "Nabawasang opacity; hindi nagbabago ang kulay.",
+    "calloutsHeading": "Mga callout",
+    "calloutsBody": "Ang mga long-form na artikulo ay gumagamit ng apat na kulay ng callout upang tukuyin ang isang bitag, isang panggilid na tala, isang pag-iingat o isang neutral na tala. Ito ang tanging lugar kung saan may kahulugan ang isang kulay maliban sa berde.",
+    "calloutsScoping": "Saklaw: ang mga kulay ng callout ay nabubuhay lamang sa prosa ng artikulo. Hindi kailanman lumilitaw ang mga ito sa interface chrome, kung saan ang berde at ang mga neutral ang gumagawa ng lahat ng trabaho.",
+    "calloutsException": "Ang mga dokumentong ito ay gumagawa ng isang sinadyang eksepsiyon sa rule na iyon. Ang mga Gawin at Huwag na card sa ibaba ay gumagamit ng berde at pula, dahil ang isang sistema ng disenyo na nagdodokumento sa sarili nito ang tanging lugar kung saan nararapat ang mga signal na iyon sa labas ng prosa.",
+    "calloutsHeaders": {
+      "type": "Callout",
+      "colour": "Border",
+      "use": "Kailan ito gagamitin"
+    },
+    "calloutsTypes": {
+      "danger": "Red flag",
+      "tip": "Tip",
+      "warning": "Babala",
+      "info": "Info"
+    },
+    "calloutsUses": {
+      "danger": "Isang pagkakamali o bitag na sulit ipahinto ang mambabasa.",
+      "tip": "Isang nakakatulong na panggilid na tala na hindi esensyal.",
+      "warning": "Isang bagay na dapat gawin nang may pag-iingat.",
+      "info": "Neutral na konteksto o isang pointer sa ibang lugar."
+    },
+    "usingHeading": "Paggamit ng kulay",
+    "doLabel": "Gawin",
+    "dontLabel": "Huwag",
+    "dos": [
+      "Hayaang mangahulugan ang berde ng isang bagay: interaksyon o diin. Kung ito ay berde, dapat itong ma-tap o sulit pansinin.",
+      "Idisenyo ang bawat surface sa dalawang theme nang sabay. Ginagawa ng mga token pair na default iyon, hindi isang huling-isip.",
+      "Gamitin ang text green para sa berdeng text at mga link, upang manatili itong nababasa sa light na background."
+    ],
+    "donts": [
+      "Magpasok ng pangalawang accent. Ninanakaw ng bagong kulay ang kahulugang dala ng berde.",
+      "Ipinta ang brand lime sa maliit na text sa puti. Bumabagsak ito sa contrast bar; para diyan ang text green.",
+      "Gumamit ng kulay ng callout sa interface. Nabibilang ang mga iyon sa prosa ng artikulo."
+    ],
+    "elevationNote": "Ang mga elevation token (ang mga naka-theme na shadow) ay nakadokumento sa Hugis at elevation page."
+  },
+  "typography": {
+    "seoTitle": "Typography | Disenyo | Warren de Leon",
+    "seoDescription": "Ang type system sa likod ng warrendeleon.com: isang typeface, isang role-based na scale na bumababa kada screen, nakadokumento mula sa live na CSS.",
+    "title": "Typography",
+    "intro": "Isang typeface, ilang weight, at isang role-based na scale na bumababa ng isang baytang sa mas maliliit na screen. Bawat laki sa ibaba ay isang CSS variable na binabasa mula sa stylesheet.",
+    "toc": [
+      { "id": "family", "label": "Typeface" },
+      { "id": "scale", "label": "Ang scale" },
+      { "id": "specimens", "label": "Mga specimen" },
+      { "id": "mono", "label": "Monospace" },
+      { "id": "mapping", "label": "Sa paggamit" }
+    ],
+    "familyHeading": "Typeface",
+    "familyBody": "Ang interface ay nakatakda sa Inter, self-hosted sa halip na kinuha mula sa isang font service kaya hindi kailanman naghihintay ang unang paint sa isang third-party na request. Walang display o heading font: ang weight at laki ang nagdadala ng hierarchy. Ang mga heading ay tumatakbo sa 800, ang mga sub-heading at label sa 700, ang mga button at diin sa 600, at ang body copy sa 400.",
+    "familyStackNote": "Ang buong stack ay bumabalik sa system sans-serif kung hindi pa na-load ang Inter, kaya laging nababasa ang text.",
+    "scaleHeading": "Ang scale",
+    "scaleBody": "Ang mga laki ay mga role, hindi mga isahang gamit. Ang parehong variable ang nagpapatakbo sa bawat title ng pahina, bawat section heading, at iba pa. Ang tatlong column ay ang desktop value at ang dalawang step-down, na inilalapat sa tablet at mobile breakpoint sa Layout page.",
+    "scaleHeaders": {
+      "token": "Token",
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile",
+      "usage": "Role"
+    },
+    "usage": {
+      "--fs-h1": "Title ng pahina, kasama ang green bar.",
+      "--bar-h1": "Lapad ng green bar sa ilalim ng title.",
+      "--fs-h2": "Mga section heading.",
+      "--fs-h3": "Mga sub-heading at detail browline.",
+      "--fs-h4": "Mga minor na label sa multi-role na pahina.",
+      "--fs-body": "Long-form na copy sa labas ng mga artikulo.",
+      "--lh-body": "Line height para sa body copy.",
+      "--fs-prose": "Laki ng pagbabasa ng artikulo.",
+      "--fs-prose-h2": "Mga section heading ng artikulo."
+    },
+    "specimensHeading": "Mga specimen",
+    "specimensBody": "Na-render sa kanilang live na laki. Paliitin ang window at bababa ang mga ito nang eksakto tulad ng ginagawa ng site.",
+    "samples": {
+      "h1": "Ang title ng pahina",
+      "h2": "Isang section heading",
+      "h3": "Isang detail sub-heading",
+      "h4": "Isang minor na label",
+      "body": "Itinatakda ng body copy ang bilis ng pagbabasa sa labas ng mga artikulo: sapat ang haba para makahinga, sapat ang ikli para ma-scan. Ito ang laki kung saan binabasa ang karamihan ng mga salita sa site.",
+      "prose": "Laki ng pagbabasa ng artikulo, bahagyang mas malaki at mas maluwag, nakatono para sa mahabang pag-upo na may isang column ng text.",
+      "proseH2": "Isang section heading ng artikulo"
+    },
+    "specimenNotes": {
+      "h1": "Title ng pahina. May dalang green bar sa ilalim nito.",
+      "h2": "Section heading.",
+      "h3": "Detail sub-heading at browline.",
+      "h4": "Minor na label, multi-role na pahina.",
+      "body": "Long-form na copy sa labas ng mga artikulo.",
+      "prose": "Laki ng pagbabasa ng artikulo.",
+      "proseH2": "Section heading ng artikulo, kasama ang green underline."
+    },
+    "monoHeading": "Monospace",
+    "monoBody": "Minamarkahan ng monospace stack ang anumang machine-set: mga meta line at petsa, mga tag at badge, table header, code, at ang maliliit na uppercase na kicker. Nagpapahiwatig ito ng “ito ay data, hindi prosa”. Ang stack ay SF Mono, Fira Code, Cascadia Code, pagkatapos ay ang system monospace.",
+    "mappingHeading": "Sa paggamit",
+    "mappingBody": "Kung saan lumilitaw ang bawat role:",
+    "mapping": [
+      { "role": "Title ng pahina", "where": "Ang h1 sa bawat top-level na pahina, kasama ang green bar." },
+      { "role": "Section heading", "where": "Mga band heading, kasama ang maikling green underline." },
+      { "role": "Heading ng artikulo", "where": "Ang h2 sa loob ng isang blog post, kasama ang green underline. Article h2 lamang; ang mga sub-heading ay bumababa sa plain na weight." },
+      { "role": "Body", "where": "About na text, mga intro ng pahina, card copy." },
+      { "role": "Prose", "where": "Ang reading column ng isang artikulo." },
+      { "role": "Meta", "where": "Mga petsa, oras ng pagbabasa, mga tag. Monospace." }
+    ]
+  },
+  "layout": {
+    "seoTitle": "Layout | Disenyo | Warren de Leon",
+    "seoDescription": "Ang layout system sa likod ng warrendeleon.com: tatlong content column, tapat na mga breakpoint, at isang four-pixel na spacing ramp.",
+    "title": "Layout",
+    "intro": "Mobile first, isang column, nakasentro ang nilalaman habang lumalawak ang gutter. Tatlong fixed na column ang sumasaklaw sa phone, tablet at desktop. Ang spacing ramp sa ibaba ay binabasa mula sa stylesheet.",
+    "toc": [
+      { "id": "columns", "label": "Mga column" },
+      { "id": "breakpoints", "label": "Mga breakpoint" },
+      { "id": "spacing", "label": "Spacing" },
+      { "id": "targets", "label": "Mga touch target" },
+      { "id": "logo", "label": "Logo sa isang bilog" }
+    ],
+    "columnsHeading": "Mga column",
+    "columnsBody": "Ang pahina ay isang nakasentrong column na may fixed na maximum na lapad kada band. Sa ilalim ng lapad na iyon, ang gutter lamang ang lumalawak, kaya nananatiling komportable ang sukat ng pagbabasa sa halip na umunat mula gilid hanggang gilid sa isang malapad na screen. Ang mga artikulo ay mas makitid pa, hanggang sa isang 720-pixel na reading column; ang mga full-bleed na block lamang tulad ng code ang lumalabas dito.",
+    "columnsHeaders": {
+      "band": "Band",
+      "column": "Column",
+      "gutter": "Gutter",
+      "bar": "Top bar"
+    },
+    "columnsRows": [
+      { "band": "Mobile", "column": "430px", "gutter": "20px", "bar": "56px" },
+      { "band": "Tablet", "column": "960px", "gutter": "24px", "bar": "60px" },
+      { "band": "Desktop", "column": "1100px", "gutter": "24px", "bar": "64px" }
+    ],
+    "breakpointsHeading": "Mga breakpoint",
+    "breakpointsBody": "Tatlong band, sinabi kung ano talaga sila. Ang tablet band ay umaabot hanggang 1279 pixel, kaya ang isang 1024-pixel na window ay nakakakuha ng tablet sizing, hindi desktop. Ang tab dock ay isang affordance sa phone at tablet; ang desktop nav ang pumapalit sa 1280.",
+    "breakpointsRows": [
+      { "band": "Mobile", "range": "≤ 699px" },
+      { "band": "Tablet", "range": "700–1279px" },
+      { "band": "Desktop", "range": "≥ 1280px" }
+    ],
+    "spacingHeading": "Spacing",
+    "spacingBody": "Ang espasyo ay binuo sa isang four-pixel na base. Ang mga token sa ibaba ang nagtatakda ng ritmo sa pagitan ng mga section at heading; dahil isang-panig ang section padding, ang dalawang magkatabing section ay nasa doble ng token ang layo.",
+    "spacingHeaders": {
+      "token": "Token",
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile",
+      "usage": "Itinatakda"
+    },
+    "spacingUsage": {
+      "--sp-section": "Padding sa isang section (ang dalawa ay nagsasalansan sa doble nito).",
+      "--sp-band": "Padding sa loob ng isang tinted band.",
+      "--sp-heading": "Puwang mula sa isang section heading hanggang sa nilalaman nito."
+    },
+    "nestingBody": "Nagkakaantas-antas ang ritmo: section, tapos card, tapos group, tapos element, bawat isa ay may mas kaunting hangin kaysa sa nakapaligid dito.",
+    "targetsHeading": "Mga touch target",
+    "targetsBody": "Ang anumang mata-tap ay hindi bababa sa 44 by 44 pixel, kahit na mas maliit ang nakikitang icon. Ang mga hit area ay dinaragdagan ng padding upang maabot ang minimum na iyon sa halip na paliitin ang target patungo sa glyph.",
+    "logoHeading": "Logo sa isang bilog",
+    "logoBody": "Ang mark ay nasa isang bilog na frame, pinupuno ang halos dalawang-katlo nito na may hairline na ring sa paligid ng gilid. Lumilitaw ito sa 48 pixel katabi ng isang role, 96 sa isang card, at 120 bilang isang timeline anchor."
+  },
+  "shapeElevation": {
+    "seoTitle": "Hugis at elevation | Disenyo | Warren de Leon",
+    "seoDescription": "Ang wika ng hugis at elevation sa likod ng warrendeleon.com: ang radius scale, ang mga theme-aware na shadow, at ang hairline-border na rule.",
+    "title": "Hugis at elevation",
+    "intro": "Ang mga sulok ay bumibilog sa isang consistent na scale, ang mga shadow ay tahimik at theme-aware, at ang karamihan ng paghihiwalay ay ginagawa gamit ang isang hairline sa halip na isang shadow.",
+    "toc": [
+      { "id": "radius", "label": "Corner radius" },
+      { "id": "shadows", "label": "Mga shadow" },
+      { "id": "borders", "label": "Mga border" }
+    ],
+    "radiusHeading": "Corner radius",
+    "radiusBody": "Ang radius ay umaakyat kasabay ng laki ng surface: ang pinakamaliit sa isang inline code chip, ang pinakamalaki sa isang bottom sheet. Ang mga ito ay paulit-ulit na literal na value sa mga component style sa halip na mga token, kaya nakadokumento ang mga ito rito nang manu-mano at sinusuri laban sa stylesheet.",
+    "radiusHeaders": {
+      "radius": "Radius",
+      "where": "Saan"
+    },
+    "radiusRows": [
+      { "radius": "5px", "where": "Mga inline code chip" },
+      { "radius": "7px", "where": "Mga blog tag chip (.post-tag)" },
+      { "radius": "8px", "where": "Mga button, badge (.badge)" },
+      { "radius": "10px", "where": "Mga code block, blockquote" },
+      { "radius": "12px", "where": "Mga card, feed post" },
+      { "radius": "14px", "where": "Mga compact na surface, bespoke na table card" },
+      { "radius": "16px", "where": "Lead post card, mobile role card" },
+      { "radius": "20px", "where": "Mga bottom sheet (itaas na sulok)" },
+      { "radius": "pill", "where": "Mga hero CTA, language pill, dock" }
+    ],
+    "radiusNote": "Ang tag chip at ang badge ay may isang pixel na pagitan, sa 7 at 8 pixel. Ito ay isang maliit na hindi pagkakatugma na sulit na panatilihin nang sinasadya o isara; sa ngayon, iniuulat ng mga dokumento ang dalawa ayon sa kung paano sila ipinadala.",
+    "shadowsHeading": "Mga shadow",
+    "shadowsBody": "Ang mga shadow ay malambot at mababa. Ang natatanging rule ay hindi nagdidilim ang dark mode: ang isang itim na shadow sa isang madilim na pahina ay walang mababasa, kaya ang mga dark token ay may dalang mahinang light na shadow sa halip. Ang bawat token sa ibaba ay ipinapakita sa isang light at isang dark na stage.",
+    "shadowsHeaders": {
+      "swatch": "Light / dark",
+      "token": "Token",
+      "light": "Light",
+      "dark": "Dark",
+      "usage": "Ginagamit para sa"
+    },
+    "shadowsUsage": {
+      "--shadow": "Legacy na card lift, nasa mga card at feed post pa rin.",
+      "--shadow-hover": "Legacy na hover lift.",
+      "--shadow-card": "Resting na card elevation.",
+      "--shadow-lift": "Mga nakataas na surface at hover state.",
+      "--shadow-dock": "Ang lumulutang na tab dock.",
+      "--sheet-shadow": "Mga bottom sheet (shadow na paitaas).",
+      "--device-shadow": "Ang drop shadow ng phone frame."
+    },
+    "bordersHeading": "Mga border",
+    "bordersBody": "Ang default na separator ay isang one-pixel na hairline sa border color, hindi isang shadow. Ang mga card, table, sheet at band ay lahat naka-frame nang ganito. Ang mga shadow ay nakalaan para sa mga bagay na talagang lumulutang sa itaas ng pahina, tulad ng dock o isang bukas na sheet."
+  },
+  "iconography": {
+    "seoTitle": "Iconography | Disenyo | Warren de Leon",
+    "seoDescription": "Ang wika ng icon sa likod ng warrendeleon.com: mga line icon na Feather-style at solid na brand marks, lahat nasa currentColor.",
+    "title": "Iconography",
+    "intro": "Dalawang uri ng icon. Ang mga interface action ay gumagamit ng magagaan na line icon sa Feather style; ang mga brand at social link ay gumagamit ng solid na marks. Parehong kinukuha ang kanilang kulay mula sa text na nakapaligid sa kanila.",
+    "toc": [
+      { "id": "line", "label": "Mga line icon" },
+      { "id": "brand", "label": "Mga brand mark" },
+      { "id": "rules", "label": "Mga rule" }
+    ],
+    "lineHeading": "Mga line icon",
+    "lineBody": "Ang mga interface icon ay iginuguhit sa isang 24-unit na grid na may two-pixel na stroke, round caps at round joins, sa Feather style. Nire-render ang mga ito sa 15 hanggang 20 pixel sa loob ng isang hit area na hindi bababa sa 38, at hindi kailanman may sariling kulay: minamana nila ang currentColor mula sa text.",
+    "lineCaption": "Isang sample ng interface set, sa laki kung paano sila ipinadala.",
+    "iconLabels": {
+      "search": "Hanapin",
+      "back": "Bumalik",
+      "download": "I-download",
+      "rss": "RSS",
+      "check": "Tsek",
+      "close": "Isara",
+      "chevron": "Chevron"
+    },
+    "brandHeading": "Mga brand mark",
+    "brandBody": "Ang mga social at brand icon ay solid na single-color na marks sa halip na mga line drawing, kaya ang isang nakikilalang logo ay nananatiling nakikilala. Nabubuhay ang mga ito sa footer at minamana ang parehong currentColor, nagiging berde kapag naka-hover. Ito ang tunay na component, na-render dito mula sa parehong source na ginagamit ng footer.",
+    "brandCaption": "Ang mga live na social mark.",
+    "rulesHeading": "Mga rule",
+    "doLabel": "Gawin",
+    "dontLabel": "Huwag",
+    "dos": [
+      "Hayaang kunin ng mga icon ang currentColor, upang sumunod ang mga ito sa theme at sa text na nakapaligid sa kanila.",
+      "Panatilihin ang isang 44-pixel na hit area kahit na 16 pixel ang glyph.",
+      "Gumamit ng mga line icon para sa mga action at solid na marks para sa mga brand."
+    ],
+    "donts": [
+      "I-hard-code ang kulay ng isang icon. Dapat itong sumunod sa text.",
+      "Paghaluin ang stroke at fill na mga style sa loob ng interface set.",
+      "Paliitin ang mata-tap na area hanggang sa laki ng drawing."
+    ]
+  },
+  "motion": {
+    "seoTitle": "Motion | Disenyo | Warren de Leon",
+    "seoDescription": "Ang wika ng motion sa likod ng warrendeleon.com: maiikli, tahimik na mga transition at isang matatag na reduced-motion na switch.",
+    "title": "Motion",
+    "intro": "Ang motion ay tahimik at mabilis. Kinukumpirma nito ang isang action o pinapadali ang isang pagbabago ng state; hindi ito kailanman dekorasyon. At humihinto ito sa sandaling humingi ng mas kaunti ang isang bisita.",
+    "toc": [
+      { "id": "durations", "label": "Mga duration at curve" },
+      { "id": "reduced", "label": "Reduced motion" }
+    ],
+    "durationsHeading": "Mga duration at curve",
+    "durationsBody": "Karamihan ng mga transition ay tumatakbo sa ikalimang bahagi ng isang segundo sa isang ease curve: isang paglipat ng kulay kapag naka-hover, isang border na humuhupa. Ang theme swap ay tumatakbo nang bahagyang mas mahaba upang hindi biglaan ang isang buong-pahinang repaint. Ang mga pahina ay pumapaitaas nang ilang pixel kapag naglo-load. Ang mga bottom sheet ang tanging mapagpahayag na galaw, dumudulas papasok sa isang spring curve.",
+    "durationsHeaders": {
+      "move": "Motion",
+      "value": "Value"
+    },
+    "durationsRows": [
+      { "move": "Default na transition", "value": "0.2s ease" },
+      { "move": "Theme swap", "value": "0.3s ease" },
+      { "move": "Page fade-in", "value": "0.3s, up 8px" },
+      { "move": "Hover lift", "value": "up 2px + shadow" },
+      { "move": "Sheet spring", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+    ],
+    "reducedHeading": "Reduced motion",
+    "reducedBody": "Kapag humingi ang system ng isang bisita ng reduced motion, iginagalang ito ng site nang walang eksepsiyon. Ang mga animation at transition ay bumabagsak sa halos zero, at ang smooth scrolling ay bumabalik sa isang biglaang lundag. Ito ang rule, hindi isang palamuti:",
+    "reducedCaption": "Mula sa stylesheet."
+  }
+}

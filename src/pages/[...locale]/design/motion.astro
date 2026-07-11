@@ -1,0 +1,134 @@
+---
+import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { getDesignData } from '../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const mo = d.motion;
+const currentPath = getLocalePath(locale, '/design/motion/');
+
+// Shown verbatim from global.css — the reduced-motion rule the site actually ships.
+const reducedCss = `@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}`;
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={mo.seoTitle}
+  seoDescription={mo.seoDescription}
+  group="foundations"
+  title={mo.title}
+  intro={mo.intro}
+  toc={mo.toc}
+>
+  <section id="durations">
+    <h2>{mo.durationsHeading}</h2>
+    <p>{mo.durationsBody}</p>
+    <div class="ds-tablewrap">
+      <table class="ds-mini">
+        <thead>
+          <tr>
+            <th>{mo.durationsHeaders.move}</th>
+            <th>{mo.durationsHeaders.value}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {mo.durationsRows.map((r) => (
+            <tr>
+              <td>{r.move}</td>
+              <td class="ds-mono">{r.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="reduced">
+    <h2>{mo.reducedHeading}</h2>
+    <p>{mo.reducedBody}</p>
+    <figure class="ds-codeblock">
+      <pre><code>{reducedCss}</code></pre>
+      <figcaption>{mo.reducedCaption}</figcaption>
+    </figure>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin: 0 0 1.5rem;
+  }
+  .ds-mini {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+  }
+  .ds-mini th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+    background: var(--badge-bg);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+  .ds-mini td {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+  .ds-mini tbody tr:last-child td { border-bottom: none; }
+  .ds-mono {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ds-codeblock {
+    margin: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--code-bg);
+  }
+  .ds-codeblock pre {
+    margin: 0;
+    padding: 1.1rem 1.25rem;
+    overflow-x: auto;
+  }
+  .ds-codeblock code {
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre;
+  }
+  .ds-codeblock figcaption {
+    padding: 0.5rem 1.25rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--badge-bg);
+    font-size: 0.68rem;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+</style>

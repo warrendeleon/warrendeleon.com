@@ -1,0 +1,394 @@
+{
+  "designLabel": "Design",
+  "sectionsLabel": "Design system sections",
+  "breadcrumbLabel": "Breadcrumb",
+  "onThisPage": "On this page",
+  "spottedIssue": "Spotted something wrong on this page? Email me.",
+  "groups": {
+    "foundations": "Foundations",
+    "components": "Components",
+    "content": "Content",
+    "accessibility": "Accessibility"
+  },
+  "nav": {
+    "colour": "Colour",
+    "typography": "Typography",
+    "layout": "Layout",
+    "shape-elevation": "Shape & elevation",
+    "iconography": "Iconography",
+    "motion": "Motion",
+    "buttons": "Buttons",
+    "tags-chips": "Tags & chips",
+    "cards": "Cards",
+    "navigation": "Navigation",
+    "sheets-overlays": "Sheets & overlays",
+    "article-patterns": "Article patterns",
+    "timeline": "Timeline",
+    "writing": "Writing",
+    "translation": "Translation",
+    "accessibility": "Accessibility"
+  },
+  "landing": {
+    "seoTitle": "Design system | Warren de Leon",
+    "seoDescription": "The design system behind warrendeleon.com: colour, typography, layout, components and accessibility, documented from the live stylesheet.",
+    "title": "Design system",
+    "intro": "The system this site is built from, documented from the live stylesheet rather than written next to it. Foundations set the raw material. The rest shows how it comes together.",
+    "principlesHeading": "Principles",
+    "principles": [
+      {
+        "title": "Quiet",
+        "body": "One accent, used with intent. Green means interaction or emphasis and nothing else, so anything green on the page either invites a tap or marks what matters. Everything around it is black, white and grey."
+      },
+      {
+        "title": "Editorial",
+        "body": "Content leads. Space comes before chrome and type before decoration. The layout stays out of the way so the writing and the work can be read."
+      },
+      {
+        "title": "Technical",
+        "body": "Every value is a CSS variable, and these pages read from that same source when the site builds. The documentation cannot drift from the site because it is generated from it."
+      }
+    ],
+    "foundationsHeading": "Foundations",
+    "cardBlurbs": {
+      "colour": "One brand green, a neutral scale, and the token that keeps green readable.",
+      "typography": "One typeface, a role-based scale that steps down per screen.",
+      "layout": "Three columns, honest breakpoints, a four-pixel spacing ramp.",
+      "shape-elevation": "The radius scale, the themed shadows, the hairline rule.",
+      "iconography": "Feather-style line icons and solid brand marks.",
+      "motion": "Short, quiet transitions, and the reduced-motion switch."
+    },
+    "moreHeading": "More to come",
+    "moreBody": "Components, content guidelines and accessibility standards are being written up next, in the same shape as the foundations here.",
+    "livingHeading": "A living document",
+    "livingBody": "The colour, type and spacing tables on these pages are generated from the site's stylesheet at build time. Change a token in the CSS and the tables here change with it. If the parser can no longer read the stylesheet, the build fails rather than showing an empty table."
+  },
+  "colour": {
+    "seoTitle": "Colour | Design system | Warren de Leon",
+    "seoDescription": "The colour system behind warrendeleon.com: one brand green, a theme-aware neutral scale, and the readable-green token, documented from the live CSS.",
+    "title": "Colour",
+    "intro": "One brand green does all the accent work. Everything else is a neutral scale that flips between light and dark. The values below are read from the stylesheet at build time.",
+    "toc": [
+      { "id": "brand", "label": "Brand green" },
+      { "id": "neutrals", "label": "Neutrals & surfaces" },
+      { "id": "interaction", "label": "Interaction" },
+      { "id": "callouts", "label": "Callouts" },
+      { "id": "using", "label": "Using colour" }
+    ],
+    "swatchHeaders": {
+      "swatch": "Light / dark",
+      "token": "Token",
+      "light": "Light",
+      "dark": "Dark",
+      "usage": "Used for"
+    },
+    "usage": {
+      "--color-green": "The one accent: primary buttons, active tab, the title bar, focus rings.",
+      "--color-green-dark": "Hover and pressed green on solid buttons.",
+      "--color-green-light": "A lighter tint, used sparingly.",
+      "--color-green-text": "Green for text and links: readable on light, brand lime on dark.",
+      "--color-green-text-hover": "Hover green for text and links.",
+      "--color-white": "Pure white, mostly for text on solid green.",
+      "--bg-primary": "The page background.",
+      "--bg-secondary": "Tinted bands, specimen stages, code headers.",
+      "--bg-card": "Cards and sheet surfaces.",
+      "--bg-nav": "The blurred nav backdrop.",
+      "--text-primary": "Headings and high-emphasis text.",
+      "--text-secondary": "Body copy.",
+      "--text-muted": "Meta, captions, disabled labels.",
+      "--border-color": "Hairlines and card borders.",
+      "--badge-bg": "Badge, tag and table-header fill.",
+      "--badge-text": "Badge and tag text.",
+      "--code-bg": "Inline and block code background.",
+      "--timeline-line": "The work-experience timeline rail.",
+      "--device-edge": "The outer ring on the phone frame.",
+      "--device-button": "The phone frame's side buttons."
+    },
+    "brandHeading": "Brand green",
+    "brandBody": "The green is the single accent. It fills primary buttons, marks the active tab, draws the bar under a page title and rings a focused control. Because it means only those things, a reader learns to read green as “this does something”.",
+    "brandTextNote": "Lime green is bright, and at body-text size on a white background it does not meet the contrast bar. That is why a separate text green exists: light mode steps the green down for text and links, while dark mode keeps the brand lime. The reason it exists is set out on the accessibility page.",
+    "neutralsHeading": "Neutrals & surfaces",
+    "neutralsBody": "The neutral tokens carry two values, one per theme, so a surface is designed in both from the start. Text sits at three weights of emphasis; backgrounds step from the page, to tinted bands, to raised cards.",
+    "interactionHeading": "Interaction",
+    "interactionBody": "Links and solid buttons move through the greens on hover. The states are the same everywhere, so a control always tells you what it will do.",
+    "interactionHeaders": {
+      "state": "State",
+      "link": "Links",
+      "button": "Solid buttons"
+    },
+    "interactionStates": {
+      "default": "Default",
+      "hover": "Hover",
+      "disabled": "Disabled"
+    },
+    "interactionDisabledNote": "Reduced opacity; the colour does not change.",
+    "calloutsHeading": "Callouts",
+    "calloutsBody": "Long-form articles use four callout colours to flag a trap, an aside, a caution or a neutral note. These are the one place a colour other than green carries meaning.",
+    "calloutsScoping": "Scope: callout colours live in article prose only. They never appear in the interface chrome, where green and the neutrals do all the work.",
+    "calloutsException": "These docs make one deliberate exception to that rule. The Do and Don’t cards further down use green and red, because a design system documenting itself is the one place those signals belong outside prose.",
+    "calloutsHeaders": {
+      "type": "Callout",
+      "colour": "Border",
+      "use": "When to reach for it"
+    },
+    "calloutsTypes": {
+      "danger": "Red flag",
+      "tip": "Tip",
+      "warning": "Warning",
+      "info": "Info"
+    },
+    "calloutsUses": {
+      "danger": "A mistake or trap worth stopping the reader on.",
+      "tip": "A helpful aside that is not essential.",
+      "warning": "Something to do with care.",
+      "info": "Neutral context or a pointer elsewhere."
+    },
+    "usingHeading": "Using colour",
+    "doLabel": "Do",
+    "dontLabel": "Don’t",
+    "dos": [
+      "Let green mean one thing: interaction or emphasis. If it is green, it should be tappable or worth noticing.",
+      "Design every surface in both themes at once. The token pairs make that the default, not an afterthought.",
+      "Use the text green for green text and links, so it stays readable on a light background."
+    ],
+    "donts": [
+      "Introduce a second accent. A new colour steals the meaning green is carrying.",
+      "Paint the brand lime onto small text on white. It fails the contrast bar; that is what the text green is for.",
+      "Reach for a callout colour in the interface. Those belong in article prose."
+    ],
+    "elevationNote": "Elevation tokens (the themed shadows) are documented on the Shape & elevation page."
+  },
+  "typography": {
+    "seoTitle": "Typography | Design system | Warren de Leon",
+    "seoDescription": "The type system behind warrendeleon.com: one typeface, a role-based scale that steps down per screen, documented from the live CSS.",
+    "title": "Typography",
+    "intro": "One typeface, a handful of weights, and a role-based scale that steps down a notch on smaller screens. Every size below is a CSS variable read from the stylesheet.",
+    "toc": [
+      { "id": "family", "label": "Typeface" },
+      { "id": "scale", "label": "The scale" },
+      { "id": "specimens", "label": "Specimens" },
+      { "id": "mono", "label": "Monospace" },
+      { "id": "mapping", "label": "In use" }
+    ],
+    "familyHeading": "Typeface",
+    "familyBody": "The interface is set in Inter, self-hosted rather than pulled from a font service so the first paint never waits on a third-party request. There is no display or heading font: weight and size carry the hierarchy. Headings run at 800, sub-headings and labels at 700, buttons and emphasis at 600, and body copy at 400.",
+    "familyStackNote": "The full stack falls back to the system sans-serif if Inter has not loaded, so text is always readable.",
+    "scaleHeading": "The scale",
+    "scaleBody": "Sizes are roles, not one-offs. The same variable drives every page title, every section heading, and so on. The three columns are the desktop value and the two step-downs, applied at the tablet and mobile breakpoints on the Layout page.",
+    "scaleHeaders": {
+      "token": "Token",
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile",
+      "usage": "Role"
+    },
+    "usage": {
+      "--fs-h1": "Page title, with the green bar.",
+      "--bar-h1": "Width of the green bar under the title.",
+      "--fs-h2": "Section headings.",
+      "--fs-h3": "Sub-headings and detail browlines.",
+      "--fs-h4": "Minor labels on multi-role pages.",
+      "--fs-body": "Long-form copy outside articles.",
+      "--lh-body": "Line height for body copy.",
+      "--fs-prose": "Article reading size.",
+      "--fs-prose-h2": "Article section headings."
+    },
+    "specimensHeading": "Specimens",
+    "specimensBody": "Rendered at their live sizes. Narrow the window and they step down exactly as the site does.",
+    "samples": {
+      "h1": "The page title",
+      "h2": "A section heading",
+      "h3": "A detail sub-heading",
+      "h4": "A minor label",
+      "body": "Body copy sets the reading pace outside articles: long enough to breathe, short enough to scan. This is the size most words on the site are read at.",
+      "prose": "Article reading size, a touch larger and looser, tuned for a long sit with a single column of text.",
+      "proseH2": "An article section heading"
+    },
+    "specimenNotes": {
+      "h1": "Page title. Carries the green bar beneath it.",
+      "h2": "Section heading.",
+      "h3": "Detail sub-heading and browline.",
+      "h4": "Minor label, multi-role pages.",
+      "body": "Long-form copy outside articles.",
+      "prose": "Article reading size.",
+      "proseH2": "Article section heading, with the green underline."
+    },
+    "monoHeading": "Monospace",
+    "monoBody": "A monospace stack marks anything machine-set: meta lines and dates, tags and badges, table headers, code, and the small uppercase kickers. It signals “this is data, not prose”. The stack is SF Mono, Fira Code, Cascadia Code, then the system monospace.",
+    "mappingHeading": "In use",
+    "mappingBody": "Where each role turns up:",
+    "mapping": [
+      { "role": "Page title", "where": "The h1 on every top-level page, with the green bar." },
+      { "role": "Section heading", "where": "Band headings, with the short green underline." },
+      { "role": "Article heading", "where": "The h2 inside a blog post, with the green underline. Article h2 only; sub-headings drop to a plain weight." },
+      { "role": "Body", "where": "About text, page intros, card copy." },
+      { "role": "Prose", "where": "The reading column of an article." },
+      { "role": "Meta", "where": "Dates, reading time, tags. Monospace." }
+    ]
+  },
+  "layout": {
+    "seoTitle": "Layout | Design system | Warren de Leon",
+    "seoDescription": "The layout system behind warrendeleon.com: three content columns, honest breakpoints, and a four-pixel spacing ramp.",
+    "title": "Layout",
+    "intro": "Mobile first, one column, content centred while the gutter flexes. Three fixed columns cover phone, tablet and desktop. The spacing ramp below is read from the stylesheet.",
+    "toc": [
+      { "id": "columns", "label": "Columns" },
+      { "id": "breakpoints", "label": "Breakpoints" },
+      { "id": "spacing", "label": "Spacing" },
+      { "id": "targets", "label": "Touch targets" },
+      { "id": "logo", "label": "Logo in a circle" }
+    ],
+    "columnsHeading": "Columns",
+    "columnsBody": "The page is one centred column at a fixed maximum width per band. Below that width the gutter is the only thing that flexes, so the reading measure stays comfortable rather than stretching edge to edge on a wide screen. Articles narrow further, to a 720-pixel reading column; only full-bleed blocks like code break out of it.",
+    "columnsHeaders": {
+      "band": "Band",
+      "column": "Column",
+      "gutter": "Gutter",
+      "bar": "Top bar"
+    },
+    "columnsRows": [
+      { "band": "Mobile", "column": "430px", "gutter": "20px", "bar": "56px" },
+      { "band": "Tablet", "column": "960px", "gutter": "24px", "bar": "60px" },
+      { "band": "Desktop", "column": "1100px", "gutter": "24px", "bar": "64px" }
+    ],
+    "breakpointsHeading": "Breakpoints",
+    "breakpointsBody": "Three bands, stated as they really are. The tablet band runs up to 1279 pixels, so a 1024-pixel window gets tablet sizing, not desktop. The tab dock is a phone and tablet affordance; the desktop nav takes over at 1280.",
+    "breakpointsRows": [
+      { "band": "Mobile", "range": "≤ 699px" },
+      { "band": "Tablet", "range": "700–1279px" },
+      { "band": "Desktop", "range": "≥ 1280px" }
+    ],
+    "spacingHeading": "Spacing",
+    "spacingBody": "Space is built on a four-pixel base. The tokens below set the rhythm between sections and headings; because section padding is one-sided, two adjacent sections sit twice the token apart.",
+    "spacingHeaders": {
+      "token": "Token",
+      "desktop": "Desktop",
+      "tablet": "Tablet",
+      "mobile": "Mobile",
+      "usage": "Sets"
+    },
+    "spacingUsage": {
+      "--sp-section": "Padding on a section (two stack at twice this).",
+      "--sp-band": "Padding inside a tinted band.",
+      "--sp-heading": "Gap from a section heading to its content."
+    },
+    "nestingBody": "The rhythm nests: section, then card, then group, then element, each with less air than the one around it.",
+    "targetsHeading": "Touch targets",
+    "targetsBody": "Anything tappable is at least 44 by 44 pixels, even when the visible icon is smaller. Hit areas are padded out to reach that floor rather than shrinking the target to the glyph.",
+    "logoHeading": "Logo in a circle",
+    "logoBody": "The mark sits in a circular frame, filling roughly two-thirds of it with a hairline ring around the edge. It appears at 48 pixels beside a role, 96 in a card, and 120 as a timeline anchor."
+  },
+  "shapeElevation": {
+    "seoTitle": "Shape & elevation | Design system | Warren de Leon",
+    "seoDescription": "The shape and elevation language behind warrendeleon.com: the radius scale, the theme-aware shadows, and the hairline-border rule.",
+    "title": "Shape & elevation",
+    "intro": "Corners round on a consistent scale, shadows are quiet and theme-aware, and most separation is done with a single hairline rather than a shadow.",
+    "toc": [
+      { "id": "radius", "label": "Corner radius" },
+      { "id": "shadows", "label": "Shadows" },
+      { "id": "borders", "label": "Borders" }
+    ],
+    "radiusHeading": "Corner radius",
+    "radiusBody": "Radius climbs with the size of the surface: the smallest on an inline code chip, the largest on a bottom sheet. These are recurring literal values in the component styles rather than tokens, so they are documented here by hand and checked against the stylesheet.",
+    "radiusHeaders": {
+      "radius": "Radius",
+      "where": "Where"
+    },
+    "radiusRows": [
+      { "radius": "5px", "where": "Inline code chips" },
+      { "radius": "7px", "where": "Blog tag chips (.post-tag)" },
+      { "radius": "8px", "where": "Buttons, badges (.badge)" },
+      { "radius": "10px", "where": "Code blocks, blockquotes" },
+      { "radius": "12px", "where": "Cards, feed posts" },
+      { "radius": "14px", "where": "Compact surfaces, bespoke table cards" },
+      { "radius": "16px", "where": "Lead post card, mobile role card" },
+      { "radius": "20px", "where": "Bottom sheets (top corners)" },
+      { "radius": "pill", "where": "Hero CTAs, language pills, dock" }
+    ],
+    "radiusNote": "The tag chip and the badge sit a pixel apart, at 7 and 8 pixels. It is a small inconsistency worth either keeping on purpose or closing; for now the docs report both as they ship.",
+    "shadowsHeading": "Shadows",
+    "shadowsBody": "Shadows are soft and low. The signature rule is that dark mode does not darken: a black shadow on a dark page reads as nothing, so the dark tokens carry a faint light shadow instead. Each token below is shown on both a light and a dark stage.",
+    "shadowsHeaders": {
+      "swatch": "Light / dark",
+      "token": "Token",
+      "light": "Light",
+      "dark": "Dark",
+      "usage": "Used for"
+    },
+    "shadowsUsage": {
+      "--shadow": "Legacy card lift, still on cards and feed posts.",
+      "--shadow-hover": "Legacy hover lift.",
+      "--shadow-card": "Resting card elevation.",
+      "--shadow-lift": "Raised surfaces and hover states.",
+      "--shadow-dock": "The floating tab dock.",
+      "--sheet-shadow": "Bottom sheets (shadow cast upward).",
+      "--device-shadow": "The phone frame's drop shadow."
+    },
+    "bordersHeading": "Borders",
+    "bordersBody": "The default separator is a one-pixel hairline in the border colour, not a shadow. Cards, tables, sheets and bands are all framed this way. Shadows are reserved for things that genuinely float above the page, like the dock or an open sheet."
+  },
+  "iconography": {
+    "seoTitle": "Iconography | Design system | Warren de Leon",
+    "seoDescription": "The icon language behind warrendeleon.com: Feather-style line icons and solid brand marks, all in currentColor.",
+    "title": "Iconography",
+    "intro": "Two kinds of icon. Interface actions use light line icons in the Feather style; brand and social links use solid marks. Both take their colour from the text around them.",
+    "toc": [
+      { "id": "line", "label": "Line icons" },
+      { "id": "brand", "label": "Brand marks" },
+      { "id": "rules", "label": "Rules" }
+    ],
+    "lineHeading": "Line icons",
+    "lineBody": "Interface icons are drawn on a 24-unit grid with a two-pixel stroke, round caps and round joins, in the Feather style. They render at 15 to 20 pixels inside a hit area of at least 38, and never carry their own colour: they inherit currentColor from the text.",
+    "lineCaption": "A sample of the interface set, at the size they ship.",
+    "iconLabels": {
+      "search": "Search",
+      "back": "Back",
+      "download": "Download",
+      "rss": "RSS",
+      "check": "Tick",
+      "close": "Close",
+      "chevron": "Chevron"
+    },
+    "brandHeading": "Brand marks",
+    "brandBody": "Social and brand icons are solid single-colour marks rather than line drawings, so a recognisable logo stays recognisable. They live in the footer and inherit the same currentColor, greening on hover. This is the real component, rendered here from the same source the footer uses.",
+    "brandCaption": "The live social marks.",
+    "rulesHeading": "Rules",
+    "doLabel": "Do",
+    "dontLabel": "Don’t",
+    "dos": [
+      "Let icons take currentColor, so they track the theme and the text around them.",
+      "Keep a 44-pixel hit area even when the glyph is 16 pixels.",
+      "Use line icons for actions and solid marks for brands."
+    ],
+    "donts": [
+      "Hard-code an icon's colour. It should follow the text.",
+      "Mix stroke and fill styles within the interface set.",
+      "Shrink the tappable area to the size of the drawing."
+    ]
+  },
+  "motion": {
+    "seoTitle": "Motion | Design system | Warren de Leon",
+    "seoDescription": "The motion language behind warrendeleon.com: short, quiet transitions and a firm reduced-motion switch.",
+    "title": "Motion",
+    "intro": "Motion is quiet and quick. It confirms an action or eases a change of state; it is never decoration. And it stops the moment a visitor asks for less.",
+    "toc": [
+      { "id": "durations", "label": "Durations & curves" },
+      { "id": "reduced", "label": "Reduced motion" }
+    ],
+    "durationsHeading": "Durations & curves",
+    "durationsBody": "Most transitions run at a fifth of a second on an ease curve: a colour shift on hover, a border settling in. The theme swap runs a little longer so a whole-page repaint does not snap. Pages fade up a few pixels on load. Bottom sheets are the one expressive move, sliding in on a spring curve.",
+    "durationsHeaders": {
+      "move": "Motion",
+      "value": "Value"
+    },
+    "durationsRows": [
+      { "move": "Default transition", "value": "0.2s ease" },
+      { "move": "Theme swap", "value": "0.3s ease" },
+      { "move": "Page fade-in", "value": "0.3s, up 8px" },
+      { "move": "Hover lift", "value": "up 2px + shadow" },
+      { "move": "Sheet spring", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+    ],
+    "reducedHeading": "Reduced motion",
+    "reducedBody": "When a visitor's system asks for reduced motion, the site honours it without exception. Animations and transitions collapse to a hair over zero, and smooth scrolling reverts to a jump. This is the rule, not a nicety:",
+    "reducedCaption": "From the stylesheet."
+  }
+}

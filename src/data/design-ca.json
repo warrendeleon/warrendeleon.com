@@ -1,0 +1,394 @@
+{
+  "designLabel": "Disseny",
+  "sectionsLabel": "Seccions del sistema de disseny",
+  "breadcrumbLabel": "Fil d'Ariadna",
+  "onThisPage": "En aquesta pàgina",
+  "spottedIssue": "Has vist algun error en aquesta pàgina? Escriu-me un correu.",
+  "groups": {
+    "foundations": "Fonaments",
+    "components": "Components",
+    "content": "Contingut",
+    "accessibility": "Accessibilitat"
+  },
+  "nav": {
+    "colour": "Color",
+    "typography": "Tipografia",
+    "layout": "Disposició",
+    "shape-elevation": "Forma i elevació",
+    "iconography": "Iconografia",
+    "motion": "Moviment",
+    "buttons": "Botons",
+    "tags-chips": "Etiquetes i xips",
+    "cards": "Targetes",
+    "navigation": "Navegació",
+    "sheets-overlays": "Fulls i superposicions",
+    "article-patterns": "Patrons d'article",
+    "timeline": "Cronologia",
+    "writing": "Redacció",
+    "translation": "Traducció",
+    "accessibility": "Accessibilitat"
+  },
+  "landing": {
+    "seoTitle": "Sistema de disseny | Warren de Leon",
+    "seoDescription": "El sistema de disseny darrere de warrendeleon.com: color, tipografia, disposició, components i accessibilitat, documentat a partir del full d'estils en viu.",
+    "title": "Sistema de disseny",
+    "intro": "El sistema amb què està construït aquest lloc, documentat a partir del full d'estils en viu en comptes d'escrit al seu costat. Els fonaments estableixen la matèria primera. La resta mostra com s'ajunta tot.",
+    "principlesHeading": "Principis",
+    "principles": [
+      {
+        "title": "Discret",
+        "body": "Un sol color d'accent, usat amb intenció. El verd significa interacció o èmfasi i res més, així que tot el que és verd a la pàgina o bé convida a tocar-lo o bé marca el que importa. Tota la resta és negre, blanc i gris."
+      },
+      {
+        "title": "Editorial",
+        "body": "El contingut mana. L'espai va abans que els ornaments i la tipografia abans que la decoració. La disposició s'aparta perquè es puguin llegir el text i la feina."
+      },
+      {
+        "title": "Tècnic",
+        "body": "Cada valor és una variable de CSS, i aquestes pàgines llegeixen d'aquesta mateixa font quan es compila el lloc. La documentació no es pot desviar del lloc perquè es genera a partir d'ell."
+      }
+    ],
+    "foundationsHeading": "Fonaments",
+    "cardBlurbs": {
+      "colour": "Un verd de marca, una escala neutra i el token que manté el verd llegible.",
+      "typography": "Un tipus de lletra, una escala basada en rols que baixa un graó segons la pantalla.",
+      "layout": "Tres columnes, punts de ruptura honestos, una escala d'espaiat de quatre píxels.",
+      "shape-elevation": "L'escala de radis, les ombres segons el tema, la línia fina.",
+      "iconography": "Icones de línia a l'estil Feather i símbols de marca sòlids.",
+      "motion": "Transicions curtes i discretes, i l'interruptor de moviment reduït."
+    },
+    "moreHeading": "Encara n'hi ha més",
+    "moreBody": "Els components, les directrius de contingut i els estàndards d'accessibilitat s'estan redactant a continuació, amb la mateixa forma que els fonaments d'aquí.",
+    "livingHeading": "Un document viu",
+    "livingBody": "Les taules de color, tipografia i espaiat d'aquestes pàgines es generen a partir del full d'estils del lloc en temps de compilació. Canvia un token al CSS i les taules d'aquí canvien amb ell. Si l'analitzador ja no pot llegir el full d'estils, la compilació falla en comptes de mostrar una taula buida."
+  },
+  "colour": {
+    "seoTitle": "Color | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El sistema de color darrere de warrendeleon.com: un verd de marca, una escala neutra que s'adapta al tema i el token de verd llegible, documentat a partir del CSS en viu.",
+    "title": "Color",
+    "intro": "Un sol verd de marca fa tota la feina d'accent. Tota la resta és una escala neutra que canvia entre clar i fosc. Els valors de sota es llegeixen del full d'estils en temps de compilació.",
+    "toc": [
+      { "id": "brand", "label": "Verd de marca" },
+      { "id": "neutrals", "label": "Neutres i superfícies" },
+      { "id": "interaction", "label": "Interacció" },
+      { "id": "callouts", "label": "Requadres destacats" },
+      { "id": "using", "label": "Ús del color" }
+    ],
+    "swatchHeaders": {
+      "swatch": "Clar / fosc",
+      "token": "Token",
+      "light": "Clar",
+      "dark": "Fosc",
+      "usage": "S'usa per a"
+    },
+    "usage": {
+      "--color-green": "L'únic accent: botons primaris, pestanya activa, la barra de títol, anells de focus.",
+      "--color-green-dark": "Verd en passar-hi per sobre i en prémer als botons sòlids.",
+      "--color-green-light": "Un to més clar, usat amb moderació.",
+      "--color-green-text": "Verd per a text i enllaços: llegible en clar, verd llima de marca en fosc.",
+      "--color-green-text-hover": "Verd en passar-hi per sobre per a text i enllaços.",
+      "--color-white": "Blanc pur, principalment per a text sobre verd sòlid.",
+      "--bg-primary": "El fons de la pàgina.",
+      "--bg-secondary": "Bandes tenyides, escenaris de mostra, capçaleres de codi.",
+      "--bg-card": "Superfícies de targetes i fulls.",
+      "--bg-nav": "El fons difuminat de la navegació.",
+      "--text-primary": "Títols i text d'èmfasi alt.",
+      "--text-secondary": "Text del cos.",
+      "--text-muted": "Metadades, llegendes, etiquetes desactivades.",
+      "--border-color": "Línies fines i vores de targetes.",
+      "--badge-bg": "Farciment de distintius, etiquetes i capçaleres de taula.",
+      "--badge-text": "Text de distintius i etiquetes.",
+      "--code-bg": "Fons de codi en línia i en bloc.",
+      "--timeline-line": "El carril de la cronologia d'experiència laboral.",
+      "--device-edge": "L'anell exterior del marc del telèfon.",
+      "--device-button": "Els botons laterals del marc del telèfon."
+    },
+    "brandHeading": "Verd de marca",
+    "brandBody": "El verd és l'únic accent. Omple els botons primaris, marca la pestanya activa, dibuixa la barra sota el títol d'una pàgina i envolta un control enfocat. Com que només significa aquestes coses, el lector aprèn a llegir el verd com a «això fa alguna cosa».",
+    "brandTextNote": "El verd llima és brillant i, a la mida del text del cos sobre fons blanc, no arriba al llindar de contrast. Per això existeix un verd de text separat: el mode clar rebaixa el verd per a text i enllaços, mentre que el mode fosc manté el verd llima de marca. El motiu pel qual existeix s'explica a la pàgina d'accessibilitat.",
+    "neutralsHeading": "Neutres i superfícies",
+    "neutralsBody": "Els tokens neutres porten dos valors, un per tema, així que una superfície es dissenya en tots dos des del principi. El text es col·loca en tres nivells d'èmfasi; els fons passen de la pàgina, a les bandes tenyides, a les targetes elevades.",
+    "interactionHeading": "Interacció",
+    "interactionBody": "Els enllaços i els botons sòlids recorren els verds en passar-hi per sobre. Els estats són els mateixos a tot arreu, així que un control sempre et diu què farà.",
+    "interactionHeaders": {
+      "state": "Estat",
+      "link": "Enllaços",
+      "button": "Botons sòlids"
+    },
+    "interactionStates": {
+      "default": "Per defecte",
+      "hover": "En passar-hi per sobre",
+      "disabled": "Desactivat"
+    },
+    "interactionDisabledNote": "Opacitat reduïda; el color no canvia.",
+    "calloutsHeading": "Requadres destacats",
+    "calloutsBody": "Els articles llargs usen quatre colors de requadre per assenyalar un parany, un incís, una precaució o una nota neutra. Són l'únic lloc on un color diferent del verd té significat.",
+    "calloutsScoping": "Àmbit: els colors dels requadres viuen només a la prosa dels articles. No apareixen mai a la interfície, on el verd i els neutres fan tota la feina.",
+    "calloutsException": "Aquesta documentació fa una excepció deliberada a aquesta regla. Les targetes de «Fes» i «No facis» de més avall usen verd i vermell, perquè un sistema de disseny que es documenta a si mateix és l'únic lloc on aquests senyals tenen sentit fora de la prosa.",
+    "calloutsHeaders": {
+      "type": "Requadre",
+      "colour": "Vora",
+      "use": "Quan usar-lo"
+    },
+    "calloutsTypes": {
+      "danger": "Alerta roja",
+      "tip": "Consell",
+      "warning": "Advertiment",
+      "info": "Informació"
+    },
+    "calloutsUses": {
+      "danger": "Un error o parany prou important com per aturar el lector.",
+      "tip": "Un incís útil que no és essencial.",
+      "warning": "Alguna cosa que cal fer amb cura.",
+      "info": "Context neutre o una referència a un altre lloc."
+    },
+    "usingHeading": "Ús del color",
+    "doLabel": "Fes",
+    "dontLabel": "No facis",
+    "dos": [
+      "Deixa que el verd signifiqui una sola cosa: interacció o èmfasi. Si és verd, hauria de ser tocable o digne d'atenció.",
+      "Dissenya cada superfície en tots dos temes alhora. Les parelles de tokens fan que això sigui el comportament per defecte, no una idea tardana.",
+      "Usa el verd de text per al text i els enllaços verds, perquè es mantingui llegible sobre un fons clar."
+    ],
+    "donts": [
+      "Introduir un segon accent. Un color nou roba el significat que porta el verd.",
+      "Pintar el verd llima de marca sobre text petit en blanc. No passa el llindar de contrast; per a això és el verd de text.",
+      "Recórrer a un color de requadre a la interfície. Aquests pertanyen a la prosa dels articles."
+    ],
+    "elevationNote": "Els tokens d'elevació (les ombres segons el tema) es documenten a la pàgina de Forma i elevació."
+  },
+  "typography": {
+    "seoTitle": "Tipografia | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El sistema tipogràfic darrere de warrendeleon.com: un tipus de lletra, una escala basada en rols que baixa un graó segons la pantalla, documentat a partir del CSS en viu.",
+    "title": "Tipografia",
+    "intro": "Un tipus de lletra, un grapat de pesos i una escala basada en rols que baixa un graó a les pantalles més petites. Cada mida de sota és una variable de CSS llegida del full d'estils.",
+    "toc": [
+      { "id": "family", "label": "Tipus de lletra" },
+      { "id": "scale", "label": "L'escala" },
+      { "id": "specimens", "label": "Mostres" },
+      { "id": "mono", "label": "Monoespai" },
+      { "id": "mapping", "label": "En ús" }
+    ],
+    "familyHeading": "Tipus de lletra",
+    "familyBody": "La interfície està composta amb Inter, allotjada de forma pròpia en comptes de carregar-se des d'un servei de fonts perquè el primer pintat no esperi mai una petició de tercers. No hi ha cap tipus de lletra decoratiu ni de títol: el pes i la mida porten la jerarquia. Els títols van a 800, els subtítols i les etiquetes a 700, els botons i l'èmfasi a 600, i el text del cos a 400.",
+    "familyStackNote": "La pila completa recorre a la sans-serif del sistema si Inter no s'ha carregat, de manera que el text sempre és llegible.",
+    "scaleHeading": "L'escala",
+    "scaleBody": "Les mides són rols, no casos únics. La mateixa variable governa cada títol de pàgina, cada capçalera de secció, etcètera. Les tres columnes són el valor d'escriptori i les dues reduccions, aplicades als punts de ruptura de tauleta i mòbil de la pàgina de Disposició.",
+    "scaleHeaders": {
+      "token": "Token",
+      "desktop": "Escriptori",
+      "tablet": "Tauleta",
+      "mobile": "Mòbil",
+      "usage": "Rol"
+    },
+    "usage": {
+      "--fs-h1": "Títol de pàgina, amb la barra verda.",
+      "--bar-h1": "Amplada de la barra verda sota el títol.",
+      "--fs-h2": "Capçaleres de secció.",
+      "--fs-h3": "Subtítols i avanttítols de detall.",
+      "--fs-h4": "Etiquetes menors a pàgines amb múltiples rols.",
+      "--fs-body": "Text llarg fora dels articles.",
+      "--lh-body": "Alçada de línia del text del cos.",
+      "--fs-prose": "Mida de lectura d'article.",
+      "--fs-prose-h2": "Capçaleres de secció d'article."
+    },
+    "specimensHeading": "Mostres",
+    "specimensBody": "Renderitzades a les seves mides reals. Estreny la finestra i baixaran un graó exactament com ho fa el lloc.",
+    "samples": {
+      "h1": "El títol de la pàgina",
+      "h2": "Una capçalera de secció",
+      "h3": "Un subtítol de detall",
+      "h4": "Una etiqueta menor",
+      "body": "El text del cos marca el ritme de lectura fora dels articles: prou llarg per respirar, prou curt per fer-hi un cop d'ull. És la mida a què es llegeixen la majoria de paraules del lloc.",
+      "prose": "Mida de lectura d'article, una mica més gran i airejada, pensada per a una estona llarga amb una sola columna de text.",
+      "proseH2": "Una capçalera de secció d'article"
+    },
+    "specimenNotes": {
+      "h1": "Títol de pàgina. Porta la barra verda a sota.",
+      "h2": "Capçalera de secció.",
+      "h3": "Subtítol de detall i avanttítol.",
+      "h4": "Etiqueta menor, pàgines amb múltiples rols.",
+      "body": "Text llarg fora dels articles.",
+      "prose": "Mida de lectura d'article.",
+      "proseH2": "Capçalera de secció d'article, amb el subratllat verd."
+    },
+    "monoHeading": "Monoespai",
+    "monoBody": "Una pila monoespaiada marca tot el que és compost per màquina: línies de metadades i dates, etiquetes i distintius, capçaleres de taula, codi i els petits avanttítols en majúscules. Assenyala «això són dades, no prosa». La pila és SF Mono, Fira Code, Cascadia Code i, després, la monoespaiada del sistema.",
+    "mappingHeading": "En ús",
+    "mappingBody": "On apareix cada rol:",
+    "mapping": [
+      { "role": "Títol de pàgina", "where": "L'h1 de cada pàgina de primer nivell, amb la barra verda." },
+      { "role": "Capçalera de secció", "where": "Capçaleres de banda, amb el subratllat verd curt." },
+      { "role": "Capçalera d'article", "where": "L'h2 dins d'una entrada de blog, amb el subratllat verd. Només l'h2 d'article; els subtítols baixen a un pes normal." },
+      { "role": "Cos", "where": "Text de presentació, introduccions de pàgina, text de targetes." },
+      { "role": "Prosa", "where": "La columna de lectura d'un article." },
+      { "role": "Metadades", "where": "Dates, temps de lectura, etiquetes. Monoespaiada." }
+    ]
+  },
+  "layout": {
+    "seoTitle": "Disposició | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El sistema de disposició darrere de warrendeleon.com: tres columnes de contingut, punts de ruptura honestos i una escala d'espaiat de quatre píxels.",
+    "title": "Disposició",
+    "intro": "Primer el mòbil, una columna, el contingut centrat mentre el marge s'ajusta. Tres columnes fixes cobreixen telèfon, tauleta i escriptori. L'escala d'espaiat de sota es llegeix del full d'estils.",
+    "toc": [
+      { "id": "columns", "label": "Columnes" },
+      { "id": "breakpoints", "label": "Punts de ruptura" },
+      { "id": "spacing", "label": "Espaiat" },
+      { "id": "targets", "label": "Àrees tàctils" },
+      { "id": "logo", "label": "Logotip en un cercle" }
+    ],
+    "columnsHeading": "Columnes",
+    "columnsBody": "La pàgina és una sola columna centrada amb una amplada màxima fixa per banda. Per sota d'aquesta amplada, el marge és l'única cosa que s'ajusta, de manera que la mesura de lectura es manté còmoda en comptes d'estirar-se de banda a banda en una pantalla ampla. Els articles s'estrenyen encara més, fins a una columna de lectura de 720 píxels; només els blocs a sang completa com el codi en surten.",
+    "columnsHeaders": {
+      "band": "Banda",
+      "column": "Columna",
+      "gutter": "Marge",
+      "bar": "Barra superior"
+    },
+    "columnsRows": [
+      { "band": "Mòbil", "column": "430px", "gutter": "20px", "bar": "56px" },
+      { "band": "Tauleta", "column": "960px", "gutter": "24px", "bar": "60px" },
+      { "band": "Escriptori", "column": "1100px", "gutter": "24px", "bar": "64px" }
+    ],
+    "breakpointsHeading": "Punts de ruptura",
+    "breakpointsBody": "Tres bandes, indicades tal com són realment. La banda de tauleta arriba fins a 1279 píxels, així que una finestra de 1024 píxels rep la mida de tauleta, no la d'escriptori. El moll de pestanyes és un recurs de telèfon i tauleta; la navegació d'escriptori pren el relleu a 1280.",
+    "breakpointsRows": [
+      { "band": "Mòbil", "range": "≤ 699px" },
+      { "band": "Tauleta", "range": "700–1279px" },
+      { "band": "Escriptori", "range": "≥ 1280px" }
+    ],
+    "spacingHeading": "Espaiat",
+    "spacingBody": "L'espai es construeix sobre una base de quatre píxels. Els tokens de sota estableixen el ritme entre seccions i capçaleres; com que el farciment de secció és d'un sol costat, dues seccions adjacents queden separades el doble del token.",
+    "spacingHeaders": {
+      "token": "Token",
+      "desktop": "Escriptori",
+      "tablet": "Tauleta",
+      "mobile": "Mòbil",
+      "usage": "Estableix"
+    },
+    "spacingUsage": {
+      "--sp-section": "Farciment d'una secció (dues s'apilen al doble d'això).",
+      "--sp-band": "Farciment dins d'una banda tenyida.",
+      "--sp-heading": "Espai d'una capçalera de secció fins al seu contingut."
+    },
+    "nestingBody": "El ritme s'imbrica: secció, després targeta, després grup, després element, cadascun amb menys aire que el que l'envolta.",
+    "targetsHeading": "Àrees tàctils",
+    "targetsBody": "Qualsevol cosa tocable fa com a mínim 44 per 44 píxels, encara que la icona visible sigui més petita. Les àrees de contacte s'eixamplen amb farciment per arribar a aquest mínim en comptes d'encongir l'àrea fins al glif.",
+    "logoHeading": "Logotip en un cercle",
+    "logoBody": "El símbol s'asseu en un marc circular i n'omple aproximadament dos terços, amb un anell fi a la vora. Apareix a 48 píxels al costat d'un rol, a 96 en una targeta i a 120 com a àncora de la cronologia."
+  },
+  "shapeElevation": {
+    "seoTitle": "Forma i elevació | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El llenguatge de forma i elevació darrere de warrendeleon.com: l'escala de radis, les ombres que s'adapten al tema i la regla de la vora fina.",
+    "title": "Forma i elevació",
+    "intro": "Les cantonades s'arrodoneixen segons una escala coherent, les ombres són discretes i s'adapten al tema, i la major part de la separació es fa amb una sola línia fina en comptes d'una ombra.",
+    "toc": [
+      { "id": "radius", "label": "Radi de cantonada" },
+      { "id": "shadows", "label": "Ombres" },
+      { "id": "borders", "label": "Vores" }
+    ],
+    "radiusHeading": "Radi de cantonada",
+    "radiusBody": "El radi creix amb la mida de la superfície: el més petit en un xip de codi en línia, el més gran en un full inferior. Són valors literals recurrents als estils dels components, no pas tokens, així que aquí es documenten a mà i es contrasten amb el full d'estils.",
+    "radiusHeaders": {
+      "radius": "Radi",
+      "where": "On"
+    },
+    "radiusRows": [
+      { "radius": "5px", "where": "Xips de codi en línia" },
+      { "radius": "7px", "where": "Xips d'etiqueta de blog (.post-tag)" },
+      { "radius": "8px", "where": "Botons, distintius (.badge)" },
+      { "radius": "10px", "where": "Blocs de codi, cites en bloc" },
+      { "radius": "12px", "where": "Targetes, publicacions del feed" },
+      { "radius": "14px", "where": "Superfícies compactes, targetes de taula a mida" },
+      { "radius": "16px", "where": "Targeta de publicació principal, targeta de rol per a mòbil" },
+      { "radius": "20px", "where": "Fulls inferiors (cantonades superiors)" },
+      { "radius": "pill", "where": "CTA de portada, càpsules d'idioma, moll" }
+    ],
+    "radiusNote": "El xip d'etiqueta i el distintiu queden separats per un píxel, a 7 i 8 píxels. És una petita incoherència que val la pena mantenir a propòsit o bé eliminar; de moment, la documentació informa dels dos tal com són.",
+    "shadowsHeading": "Ombres",
+    "shadowsBody": "Les ombres són suaus i baixes. La regla distintiva és que el mode fosc no enfosqueix: una ombra negra sobre una pàgina fosca no es percep, així que els tokens foscos porten, en canvi, una ombra clara i tènue. Cada token de sota es mostra sobre un escenari clar i un de fosc.",
+    "shadowsHeaders": {
+      "swatch": "Clar / fosc",
+      "token": "Token",
+      "light": "Clar",
+      "dark": "Fosc",
+      "usage": "S'usa per a"
+    },
+    "shadowsUsage": {
+      "--shadow": "Elevació de targeta antiga, encara a les targetes i les publicacions del feed.",
+      "--shadow-hover": "Elevació antiga en passar-hi per sobre.",
+      "--shadow-card": "Elevació de targeta en repòs.",
+      "--shadow-lift": "Superfícies elevades i estats de passar-hi per sobre.",
+      "--shadow-dock": "El moll de pestanyes flotant.",
+      "--sheet-shadow": "Fulls inferiors (ombra projectada cap amunt).",
+      "--device-shadow": "L'ombra del marc del telèfon."
+    },
+    "bordersHeading": "Vores",
+    "bordersBody": "El separador per defecte és una línia fina d'un píxel del color de la vora, no una ombra. Les targetes, les taules, els fulls i les bandes s'emmarquen tots així. Les ombres es reserven per a coses que floten de debò per sobre de la pàgina, com el moll o un full obert."
+  },
+  "iconography": {
+    "seoTitle": "Iconografia | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El llenguatge d'icones darrere de warrendeleon.com: icones de línia a l'estil Feather i símbols de marca sòlids, tots en currentColor.",
+    "title": "Iconografia",
+    "intro": "Dos tipus d'icona. Les accions d'interfície usen icones de línia lleugeres a l'estil Feather; els enllaços de marca i socials usen símbols sòlids. Tots dos prenen el color del text del voltant.",
+    "toc": [
+      { "id": "line", "label": "Icones de línia" },
+      { "id": "brand", "label": "Símbols de marca" },
+      { "id": "rules", "label": "Regles" }
+    ],
+    "lineHeading": "Icones de línia",
+    "lineBody": "Les icones d'interfície es dibuixen sobre una graella de 24 unitats amb un traç de dos píxels, extrems rodons i unions rodones, a l'estil Feather. Es renderitzen de 15 a 20 píxels dins d'una àrea de contacte de com a mínim 38, i mai no porten color propi: hereten currentColor del text.",
+    "lineCaption": "Una mostra del conjunt d'interfície, a la mida a què es publiquen.",
+    "iconLabels": {
+      "search": "Cerca",
+      "back": "Enrere",
+      "download": "Baixada",
+      "rss": "RSS",
+      "check": "Vist-i-plau",
+      "close": "Tanca",
+      "chevron": "Cheuró"
+    },
+    "brandHeading": "Símbols de marca",
+    "brandBody": "Les icones socials i de marca són símbols sòlids d'un sol color en comptes de dibuixos de línia, de manera que un logotip reconeixible es mantingui reconeixible. Viuen al peu de pàgina i hereten el mateix currentColor, i es tornen verdes en passar-hi per sobre. Aquest és el component real, renderitzat aquí a partir de la mateixa font que usa el peu de pàgina.",
+    "brandCaption": "Els símbols socials en viu.",
+    "rulesHeading": "Regles",
+    "doLabel": "Fes",
+    "dontLabel": "No facis",
+    "dos": [
+      "Deixa que les icones prenguin currentColor, perquè segueixin el tema i el text del voltant.",
+      "Mantén una àrea de contacte de 44 píxels encara que el glif faci 16 píxels.",
+      "Usa icones de línia per a les accions i símbols sòlids per a les marques."
+    ],
+    "donts": [
+      "Fixar el color d'una icona al codi. Hauria de seguir el text.",
+      "Barrejar estils de traç i d'emplenat dins del conjunt d'interfície.",
+      "Encongir l'àrea tocable fins a la mida del dibuix."
+    ]
+  },
+  "motion": {
+    "seoTitle": "Moviment | Sistema de disseny | Warren de Leon",
+    "seoDescription": "El llenguatge de moviment darrere de warrendeleon.com: transicions curtes i discretes i un interruptor ferm de moviment reduït.",
+    "title": "Moviment",
+    "intro": "El moviment és discret i ràpid. Confirma una acció o suavitza un canvi d'estat; mai no és decoració. I s'atura en el moment que un visitant en demana menys.",
+    "toc": [
+      { "id": "durations", "label": "Durades i corbes" },
+      { "id": "reduced", "label": "Moviment reduït" }
+    ],
+    "durationsHeading": "Durades i corbes",
+    "durationsBody": "La majoria de transicions duren una cinquena part de segon amb una corba suau: un canvi de color en passar-hi per sobre, una vora que s'assenta. El canvi de tema dura una mica més perquè el repintat de tota la pàgina no sigui brusc. Les pàgines apareixen amb un fos i pugen uns quants píxels en carregar-se. Els fulls inferiors són l'únic moviment expressiu, i llisquen cap endins amb una corba elàstica.",
+    "durationsHeaders": {
+      "move": "Moviment",
+      "value": "Valor"
+    },
+    "durationsRows": [
+      { "move": "Transició per defecte", "value": "0.2s ease" },
+      { "move": "Canvi de tema", "value": "0.3s ease" },
+      { "move": "Fos d'entrada de pàgina", "value": "0.3s, up 8px" },
+      { "move": "Elevació en passar-hi per sobre", "value": "up 2px + shadow" },
+      { "move": "Elasticitat del full", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+    ],
+    "reducedHeading": "Moviment reduït",
+    "reducedBody": "Quan el sistema d'un visitant demana moviment reduït, el lloc ho respecta sense excepció. Les animacions i les transicions es redueixen a una engruna per sobre de zero, i el desplaçament suau torna a un salt. Aquesta és la regla, no una cortesia:",
+    "reducedCaption": "Del full d'estils."
+  }
+}

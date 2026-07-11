@@ -75,8 +75,9 @@
   --lh-body: 1.6;
   --fs-prose: 17px;     /* article reading size */
   --fs-prose-h2: 24px;  /* article section heading */
-  /* Section rhythm (DS §3): sections separated by 44px mobile/tablet,
-     48–60px desktop; tinted bands carry their own inner padding. */
+  /* Section rhythm (DS §3): --sp-section is one-sided padding, so two adjacent
+     .section blocks sit 2× apart — 56px desktop, 44px tablet/mobile. Tinted
+     bands (.section-alt) use --sp-band and carry their own fuller padding. */
   --sp-section: 28px;
   --sp-band: 56px;
   --sp-heading: 24px;   /* section heading → content */

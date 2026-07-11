@@ -1,0 +1,111 @@
+---
+import DesignLayout from '../../../components/design/DesignLayout.astro';
+import SpecimenCard from '../../../components/design/SpecimenCard.astro';
+import DoDont from '../../../components/design/DoDont.astro';
+import SocialLinks from '../../../components/SocialLinks.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { getDesignData } from '../../../lib/design-data';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const ic = d.iconography;
+const currentPath = getLocalePath(locale, '/design/iconography/');
+const lbl = ic.iconLabels;
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={ic.seoTitle}
+  seoDescription={ic.seoDescription}
+  group="foundations"
+  title={ic.title}
+  intro={ic.intro}
+  toc={ic.toc}
+>
+  <section id="line">
+    <h2>{ic.lineHeading}</h2>
+    <p>{ic.lineBody}</p>
+    <SpecimenCard label={ic.lineCaption}>
+      <div class="ds-icons">
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <figcaption>{lbl.search}</figcaption>
+        </figure>
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <figcaption>{lbl.back}</figcaption>
+        </figure>
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <figcaption>{lbl.chevron}</figcaption>
+        </figure>
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <figcaption>{lbl.download}</figcaption>
+        </figure>
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+          <figcaption>{lbl.rss}</figcaption>
+        </figure>
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <figcaption>{lbl.check}</figcaption>
+        </figure>
+        <figure class="ds-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          <figcaption>{lbl.close}</figcaption>
+        </figure>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="brand">
+    <h2>{ic.brandHeading}</h2>
+    <p>{ic.brandBody}</p>
+    <SpecimenCard label={ic.brandCaption}>
+      <SocialLinks size={24} locale={locale} />
+    </SpecimenCard>
+  </section>
+
+  <section id="rules">
+    <h2>{ic.rulesHeading}</h2>
+    <DoDont doLabel={ic.doLabel} dontLabel={ic.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{ic.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{ic.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem 2rem;
+    justify-content: center;
+  }
+  .ds-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    color: var(--text-primary);
+  }
+  .ds-icon figcaption {
+    font-size: 0.68rem;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+  }
+  .ds-dodont-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .ds-dodont-list li { margin-bottom: 0.45rem; }
+  .ds-dodont-list li:last-child { margin-bottom: 0; }
+</style>

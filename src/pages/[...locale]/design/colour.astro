@@ -1,0 +1,207 @@
+---
+import DesignLayout from '../../../components/design/DesignLayout.astro';
+import SwatchTable from '../../../components/design/SwatchTable.astro';
+import DoDont from '../../../components/design/DoDont.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { getDesignData } from '../../../lib/design-data';
+import { pickColors } from '../../../lib/design-tokens.mjs';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const c = d.colour;
+const currentPath = getLocalePath(locale, '/design/colour/');
+const accessibilityHref = getLocalePath(locale, '/design/accessibility/');
+
+const greens = pickColors([
+  '--color-green',
+  '--color-green-dark',
+  '--color-green-light',
+  '--color-green-text',
+  '--color-green-text-hover',
+  '--color-white',
+]);
+
+const neutrals = pickColors([
+  '--bg-primary',
+  '--bg-secondary',
+  '--bg-card',
+  '--bg-nav',
+  '--text-primary',
+  '--text-secondary',
+  '--text-muted',
+  '--border-color',
+  '--badge-bg',
+  '--badge-text',
+  '--code-bg',
+  '--timeline-line',
+  '--device-edge',
+  '--device-button',
+]);
+
+// Interaction palette — the states are constants in the CSS, so the token
+// references live here, not in the translated data.
+const interactionRows = [
+  { state: c.interactionStates.default, link: '--color-green-text', button: '--color-green' },
+  { state: c.interactionStates.hover, link: '--color-green-text-hover', button: '--color-green-dark' },
+];
+
+// Callout colours are hard-coded hexes in global.css (prose only), so they are
+// documented here as literals rather than parsed tokens.
+const calloutRows = [
+  { key: 'danger', hex: '#e53e3e' },
+  { key: 'tip', hex: '#f59e0b' },
+  { key: 'warning', hex: '#d69e2e' },
+  { key: 'info', hex: '#3182ce' },
+] as const;
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={c.seoTitle}
+  seoDescription={c.seoDescription}
+  group="foundations"
+  title={c.title}
+  intro={c.intro}
+  toc={c.toc}
+>
+  <section id="brand">
+    <h2>{c.brandHeading}</h2>
+    <p>{c.brandBody}</p>
+    <SwatchTable rows={greens} usage={c.usage} headers={c.swatchHeaders} />
+    <p>{c.brandTextNote} <a href={accessibilityHref}>{d.groups.accessibility}</a>.</p>
+  </section>
+
+  <section id="neutrals">
+    <h2>{c.neutralsHeading}</h2>
+    <p>{c.neutralsBody}</p>
+    <SwatchTable rows={neutrals} usage={c.usage} headers={c.swatchHeaders} />
+    <p>{c.elevationNote}</p>
+  </section>
+
+  <section id="interaction">
+    <h2>{c.interactionHeading}</h2>
+    <p>{c.interactionBody}</p>
+    <div class="ds-tablewrap">
+      <table class="ds-mini">
+        <thead>
+          <tr>
+            <th>{c.interactionHeaders.state}</th>
+            <th>{c.interactionHeaders.link}</th>
+            <th>{c.interactionHeaders.button}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {interactionRows.map((r) => (
+            <tr>
+              <td>{r.state}</td>
+              <td><code>{r.link}</code></td>
+              <td><code>{r.button}</code></td>
+            </tr>
+          ))}
+          <tr>
+            <td>{c.interactionStates.disabled}</td>
+            <td colspan="2" class="ds-mini-note">{c.interactionDisabledNote}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="callouts">
+    <h2>{c.calloutsHeading}</h2>
+    <p>{c.calloutsBody}</p>
+    <div class="ds-tablewrap">
+      <table class="ds-mini">
+        <thead>
+          <tr>
+            <th colspan="2">{c.calloutsHeaders.type}</th>
+            <th>{c.calloutsHeaders.colour}</th>
+            <th>{c.calloutsHeaders.use}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {calloutRows.map((r) => (
+            <tr>
+              <td class="ds-mini-swatch"><span style={`background:${r.hex}`}></span></td>
+              <td>{c.calloutsTypes[r.key]}</td>
+              <td><code>{r.hex}</code></td>
+              <td>{c.calloutsUses[r.key]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>{c.calloutsScoping}</p>
+    <p>{c.calloutsException}</p>
+  </section>
+
+  <section id="using">
+    <h2>{c.usingHeading}</h2>
+    <DoDont doLabel={c.doLabel} dontLabel={c.dontLabel}>
+      <ul slot="do" class="ds-dodont-list">{c.dos.map((x) => <li>{x}</li>)}</ul>
+      <ul slot="dont" class="ds-dodont-list">{c.donts.map((x) => <li>{x}</li>)}</ul>
+    </DoDont>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-tablewrap {
+    overflow-x: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin: 0 0 1.5rem;
+  }
+  .ds-mini {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+  }
+  .ds-mini th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+    background: var(--badge-bg);
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+  .ds-mini td {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    vertical-align: middle;
+  }
+  .ds-mini tbody tr:last-child td { border-bottom: none; }
+  .ds-mini code {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.78rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .ds-mini-note { font-style: italic; color: var(--text-muted); }
+  .ds-mini-swatch { width: 44px; }
+  .ds-mini-swatch span {
+    display: block;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+  }
+  .ds-dodont-list {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .ds-dodont-list li { margin-bottom: 0.45rem; }
+  .ds-dodont-list li:last-child { margin-bottom: 0; }
+</style>

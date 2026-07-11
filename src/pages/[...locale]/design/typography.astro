@@ -1,0 +1,91 @@
+---
+import DesignLayout from '../../../components/design/DesignLayout.astro';
+import TokenTable from '../../../components/design/TokenTable.astro';
+import TypeSpecimen from '../../../components/design/TypeSpecimen.astro';
+import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { getDesignData } from '../../../lib/design-data';
+import { getDesignTokens } from '../../../lib/design-tokens.mjs';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const d = getDesignData(locale);
+const ty = d.typography;
+const currentPath = getLocalePath(locale, '/design/typography/');
+
+const type = getDesignTokens().type;
+const findType = (name: string) => type.find((t) => t.name === name)!;
+
+const specimens = [
+  { name: '--fs-h1', sample: ty.samples.h1, weight: 800, note: ty.specimenNotes.h1, green: false },
+  { name: '--fs-h2', sample: ty.samples.h2, weight: 700, note: ty.specimenNotes.h2, green: false },
+  { name: '--fs-prose-h2', sample: ty.samples.proseH2, weight: 700, note: ty.specimenNotes.proseH2, green: false },
+  { name: '--fs-h3', sample: ty.samples.h3, weight: 700, note: ty.specimenNotes.h3, green: true },
+  { name: '--fs-h4', sample: ty.samples.h4, weight: 700, note: ty.specimenNotes.h4, green: false },
+  { name: '--fs-body', sample: ty.samples.body, weight: 400, note: ty.specimenNotes.body, green: false },
+  { name: '--fs-prose', sample: ty.samples.prose, weight: 400, note: ty.specimenNotes.prose, green: false },
+];
+---
+
+<DesignLayout
+  locale={locale}
+  currentPath={currentPath}
+  seoTitle={ty.seoTitle}
+  seoDescription={ty.seoDescription}
+  group="foundations"
+  title={ty.title}
+  intro={ty.intro}
+  toc={ty.toc}
+>
+  <section id="family">
+    <h2>{ty.familyHeading}</h2>
+    <p>{ty.familyBody}</p>
+    <p>{ty.familyStackNote}</p>
+  </section>
+
+  <section id="scale">
+    <h2>{ty.scaleHeading}</h2>
+    <p>{ty.scaleBody}</p>
+    <TokenTable rows={type} headers={ty.scaleHeaders} usage={ty.usage} />
+  </section>
+
+  <section id="specimens">
+    <h2>{ty.specimensHeading}</h2>
+    <p>{ty.specimensBody}</p>
+    <div class="ds-specimens">
+      {specimens.map((s) => (
+        <TypeSpecimen
+          token={findType(s.name)}
+          sample={s.sample}
+          weight={s.weight}
+          note={s.note}
+          green={s.green}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section id="mono">
+    <h2>{ty.monoHeading}</h2>
+    <p>{ty.monoBody}</p>
+  </section>
+
+  <section id="mapping">
+    <h2>{ty.mappingHeading}</h2>
+    <p>{ty.mappingBody}</p>
+    <ul class="ds-list">
+      {ty.mapping.map((m) => (
+        <li><strong>{m.role}.</strong> {m.where}</li>
+      ))}
+    </ul>
+  </section>
+</DesignLayout>
+
+<style>
+  .ds-specimens {
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 0.5rem 1.25rem;
+    background: var(--bg-card);
+  }
+</style>
