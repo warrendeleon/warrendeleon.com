@@ -384,7 +384,7 @@
     },
     "nestingBody": "The rhythm nests: section, then card, then group, then element, each with less air than the one around it.",
     "targetsHeading": "Touch targets",
-    "targetsBody": "Anything tappable is at least 44 by 44 pixels, even when the visible icon is smaller. Hit areas are padded out to reach that floor rather than shrinking the target to the glyph.",
+    "targetsBody": "Primary touch controls hold a 44-pixel floor: the dock tabs, the reading bar's controls, the footer icons on a phone. The glyph inside stays 15 to 20 pixels; padding does the rest. Compact, pointer-first controls — the shelf and series arrows, the top bar's search — sit at 38 to 42 pixels with clear space around them.",
     "logoHeading": "Logo in a circle",
     "logoBody": "The mark sits in a circular frame, filling roughly two-thirds of it with a hairline ring around the edge. It appears at 48 pixels beside a role, 96 in a card, and 120 as a timeline anchor.",
     "annotatedHeading": "The rhythm, annotated",
@@ -395,7 +395,14 @@
       "card": "The base card’s padding: a fixed 24px on every side.",
       "buttons": "Stacked pill CTAs: a fixed 10px gap."
     },
-    "perBandCaption": "Each token at its mobile, tablet and desktop size — the parsed values side by side, whatever device you are on. The figures below then resize live with your viewport."
+    "perBandCaption": "Each token at its mobile, tablet and desktop size — the parsed values side by side, whatever device you are on. The figures below then resize live with your viewport.",
+    "targetLabels": {
+      "compact": "compact · arrows, search",
+      "floor": "the floor · dock, footer",
+      "bar": "reading bar"
+    },
+    "targetsCaption": "Three real sizes from the chrome, glyphs at 18px: padding carries the target, not bigger drawings.",
+    "logoCaption": "The mark fills roughly two-thirds of a white disc with a hairline green ring — 48px beside a role or on the phone timeline, 96 in a card, 120 as the desktop timeline anchor. Live in .timeline-logo and .current-role-logo."
   },
   "shapeElevation": {
     "seoTitle": "Shape & elevation | Design system | Warren de Leon",

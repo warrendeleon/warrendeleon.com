@@ -168,11 +168,42 @@ const bandLabel = (name: string) => {
   <section id="targets">
     <h2>{ly.targetsHeading}</h2>
     <p>{ly.targetsBody}</p>
+    <figure class="ds-annotated">
+      <div class="ds-target-row">
+        {[
+          { size: 38, label: ly.targetLabels.compact },
+          { size: 44, label: ly.targetLabels.floor },
+          { size: 48, label: ly.targetLabels.bar },
+        ].map((t) => (
+          <div class="ds-target">
+            <span class="ds-target-ring" style={`width:${t.size}px;height:${t.size}px;`}>
+              <span class="ds-hatch ds-target-pad" aria-hidden="true"></span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <span class="ds-gap-label">{t.size}px · {t.label}</span>
+          </div>
+        ))}
+      </div>
+      <figcaption>{ly.targetsCaption}</figcaption>
+    </figure>
   </section>
 
   <section id="logo">
     <h2>{ly.logoHeading}</h2>
     <p>{ly.logoBody}</p>
+    <figure class="ds-annotated">
+      <div class="ds-logo-row">
+        {[48, 96, 120].map((size) => (
+          <div class="ds-target">
+            <span class="ds-logo-circle" style={`width:${size}px;height:${size}px;`}>
+              <img src="/images/logos/hl.svg" alt="" loading="lazy" />
+            </span>
+            <span class="ds-gap-label">{size}px</span>
+          </div>
+        ))}
+      </div>
+      <figcaption>{ly.logoCaption}</figcaption>
+    </figure>
   </section>
 </DesignLayout>
 
@@ -270,4 +301,54 @@ const bandLabel = (name: string) => {
     max-width: 300px;
   }
   .ds-cta-stack .hero-cta { justify-content: center; }
+
+  /* Touch-target spectrum: real chrome sizes, 18px glyph centred, the hatch
+     is the tappable padding around it. */
+  .ds-target-row,
+  .ds-logo-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1.75rem;
+  }
+  .ds-target {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .ds-target-ring {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    outline: 1px dashed var(--text-muted);
+    color: var(--text-primary);
+    overflow: hidden;
+  }
+  .ds-target-ring svg {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-card);
+    border-radius: 3px;
+  }
+  .ds-target-pad { position: absolute; inset: 0; border: none; }
+
+  /* Logo circles at the three documented diameters: white disc, hairline
+     green ring, the mark at ~two-thirds fill (the .timeline-logo spec). */
+  .ds-logo-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1.5px solid var(--color-green);
+    overflow: hidden;
+  }
+  .ds-logo-circle img {
+    width: 66%;
+    height: 66%;
+    object-fit: contain;
+  }
 </style>

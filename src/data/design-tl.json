@@ -384,7 +384,7 @@
     },
     "nestingBody": "Nagkakaantas-antas ang ritmo: section, tapos card, tapos group, tapos element, bawat isa ay may mas kaunting hangin kaysa sa nakapaligid dito.",
     "targetsHeading": "Mga touch target",
-    "targetsBody": "Ang anumang mata-tap ay hindi bababa sa 44 by 44 pixel, kahit na mas maliit ang nakikitang icon. Ang mga hit area ay dinaragdagan ng padding upang maabot ang minimum na iyon sa halip na paliitin ang target patungo sa glyph.",
+    "targetsBody": "Ang mga pangunahing touch control ay may 44-pixel na floor: ang mga tab ng dock, ang mga control ng reading bar, ang mga icon ng footer sa phone. Ang glyph sa loob ay nananatiling 15 hanggang 20 pixels; ang padding ang bahala sa iba. Ang mga compact na pointer-first na control — ang mga arrow ng shelf at series, ang search ng top bar — ay nasa 38 hanggang 42 pixels na may maluwag na espasyo sa paligid.",
     "logoHeading": "Logo sa isang bilog",
     "logoBody": "Ang mark ay nasa isang bilog na frame, pinupuno ang halos dalawang-katlo nito na may hairline na ring sa paligid ng gilid. Lumilitaw ito sa 48 pixel katabi ng isang role, 96 sa isang card, at 120 bilang isang timeline anchor.",
     "annotatedHeading": "Ang ritmo, may anotasyon",
@@ -395,7 +395,14 @@
       "card": "Ang padding ng base card: fixed na 24px sa bawat gilid.",
       "buttons": "Nakasalansang pill CTAs: fixed na 10px na pagitan."
     },
-    "perBandCaption": "Bawat token sa mobile, tablet at desktop na sukat nito — ang mga na-parse na halaga nang magkakatabi, anuman ang device mo. Ang mga figure sa ibaba naman ay live na nagre-resize kasama ng viewport mo."
+    "perBandCaption": "Bawat token sa mobile, tablet at desktop na sukat nito — ang mga na-parse na halaga nang magkakatabi, anuman ang device mo. Ang mga figure sa ibaba naman ay live na nagre-resize kasama ng viewport mo.",
+    "targetLabels": {
+      "compact": "compact · arrows, search",
+      "floor": "ang floor · dock, footer",
+      "bar": "reading bar"
+    },
+    "targetsCaption": "Tatlong tunay na sukat mula sa chrome, 18px ang glyphs: ang padding ang nagdadala ng target, hindi mas malalaking drawing.",
+    "logoCaption": "Pinupuno ng marka ang humigit-kumulang dalawang-katlo ng puting disc na may manipis na green na singsing — 48px sa tabi ng role o sa phone timeline, 96 sa card, 120 bilang desktop timeline anchor. Live sa .timeline-logo at .current-role-logo."
   },
   "shapeElevation": {
     "seoTitle": "Hugis at elevation | Disenyo | Warren de Leon",

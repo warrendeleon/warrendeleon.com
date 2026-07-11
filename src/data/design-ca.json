@@ -384,7 +384,7 @@
     },
     "nestingBody": "El ritme s'imbrica: secció, després targeta, després grup, després element, cadascun amb menys aire que el que l'envolta.",
     "targetsHeading": "Àrees tàctils",
-    "targetsBody": "Qualsevol cosa tocable fa com a mínim 44 per 44 píxels, encara que la icona visible sigui més petita. Les àrees de contacte s'eixamplen amb farciment per arribar a aquest mínim en comptes d'encongir l'àrea fins al glif.",
+    "targetsBody": "Els controls tàctils primaris mantenen un terra de 44 píxels: les pestanyes del dock, els controls de la barra de lectura, les icones del peu al mòbil. El glif interior es queda en 15 a 20 píxels; el padding fa la resta. Els controls compactes pensats per a punter — les fletxes de prestatgeries i sèries, la cerca de la barra superior — es queden en 38 a 42 píxels amb espai lliure al voltant.",
     "logoHeading": "Logotip en un cercle",
     "logoBody": "El símbol s'asseu en un marc circular i n'omple aproximadament dos terços, amb un anell fi a la vora. Apareix a 48 píxels al costat d'un rol, a 96 en una targeta i a 120 com a àncora de la cronologia.",
     "annotatedHeading": "El ritme, anotat",
@@ -395,7 +395,14 @@
       "card": "El padding de la targeta base: 24px fixos per cada costat.",
       "buttons": "CTAs de píndola apilades: un espai fix de 10px."
     },
-    "perBandCaption": "Cada token en la seva mida mòbil, tauleta i escriptori: els valors extrets costat a costat, siguis al dispositiu que siguis. Les figures de sota, en canvi, es redimensionen en viu amb la teva pantalla."
+    "perBandCaption": "Cada token en la seva mida mòbil, tauleta i escriptori: els valors extrets costat a costat, siguis al dispositiu que siguis. Les figures de sota, en canvi, es redimensionen en viu amb la teva pantalla.",
+    "targetLabels": {
+      "compact": "compacte · fletxes, cerca",
+      "floor": "el terra · dock, peu",
+      "bar": "barra de lectura"
+    },
+    "targetsCaption": "Tres mides reals del chrome, glifs a 18px: l'objectiu el posa el padding, no dibuixos més grans.",
+    "logoCaption": "La marca omple uns dos terços d'un disc blanc amb un anell verd fi: 48px al costat d'un rol o a la línia de temps del mòbil, 96 en una targeta, 120 com a àncora de la línia de temps a escriptori. En viu a .timeline-logo i .current-role-logo."
   },
   "shapeElevation": {
     "seoTitle": "Forma i elevació | Sistema de disseny | Warren de Leon",

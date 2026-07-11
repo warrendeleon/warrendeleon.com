@@ -384,7 +384,7 @@
     },
     "nestingBody": "El ritmo se anida: sección, luego tarjeta, luego grupo, luego elemento, cada uno con menos aire que el que lo rodea.",
     "targetsHeading": "Áreas táctiles",
-    "targetsBody": "Todo lo que se puede tocar mide al menos 44 por 44 píxeles, aunque el icono visible sea más pequeño. Las áreas de pulsación se rellenan para llegar a ese mínimo en lugar de reducir el objetivo al tamaño del glifo.",
+    "targetsBody": "Los controles táctiles primarios mantienen un suelo de 44 píxeles: las pestañas del dock, los controles de la barra de lectura, los iconos del pie en el móvil. El glifo interior se queda en 15 a 20 píxeles; el padding hace el resto. Los controles compactos pensados para puntero — las flechas de estanterías y series, la búsqueda de la barra superior — se quedan en 38 a 42 píxeles con espacio libre alrededor.",
     "logoHeading": "Logo en un círculo",
     "logoBody": "La marca se sitúa en un marco circular y ocupa unos dos tercios de él, con un anillo fino en el borde. Aparece a 48 píxeles junto a un rol, a 96 en una tarjeta y a 120 como ancla de la cronología.",
     "annotatedHeading": "El ritmo, anotado",
@@ -395,7 +395,14 @@
       "card": "El padding de la tarjeta base: 24px fijos por cada lado.",
       "buttons": "CTAs de píldora apiladas: un hueco fijo de 10px."
     },
-    "perBandCaption": "Cada token en su tamaño móvil, tableta y escritorio: los valores extraídos lado a lado, estés en el dispositivo que estés. Las figuras de abajo, en cambio, se redimensionan en vivo con tu pantalla."
+    "perBandCaption": "Cada token en su tamaño móvil, tableta y escritorio: los valores extraídos lado a lado, estés en el dispositivo que estés. Las figuras de abajo, en cambio, se redimensionan en vivo con tu pantalla.",
+    "targetLabels": {
+      "compact": "compacto · flechas, búsqueda",
+      "floor": "el suelo · dock, pie",
+      "bar": "barra de lectura"
+    },
+    "targetsCaption": "Tres tamaños reales del chrome, glifos a 18px: el objetivo lo aporta el padding, no dibujos más grandes.",
+    "logoCaption": "La marca llena unos dos tercios de un disco blanco con un anillo verde fino: 48px junto a un rol o en la línea de tiempo del móvil, 96 en una tarjeta, 120 como ancla de la línea de tiempo en escritorio. En vivo en .timeline-logo y .current-role-logo."
   },
   "shapeElevation": {
     "seoTitle": "Forma y elevación | Sistema de diseño | Warren de Leon",
