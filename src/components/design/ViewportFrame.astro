@@ -33,6 +33,7 @@ const outerH = Math.round((crop ?? height) * scale);
       title={`${label} — ${width}px`}
       loading="lazy"
       sandbox="allow-same-origin"
+      scrolling="no"
       style={`width:${width}px;height:${height}px;transform:scale(${scale});`}
     ></iframe>
   </div>
