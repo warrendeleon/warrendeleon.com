@@ -3,7 +3,8 @@
   "sectionsLabel": "Design system sections",
   "breadcrumbLabel": "Breadcrumb",
   "onThisPage": "On this page",
-  "spottedIssue": "Spotted something wrong on this page? Email me.",
+  "spottedIssue": "Spotted something wrong on this page?",
+  "spottedIssueLink": "Email me",
   "groups": {
     "foundations": "Foundations",
     "components": "Components",

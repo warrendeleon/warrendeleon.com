@@ -3,7 +3,8 @@
   "sectionsLabel": "Mga seksyon ng disenyo",
   "breadcrumbLabel": "Breadcrumb",
   "onThisPage": "Sa pahinang ito",
-  "spottedIssue": "May napansing mali sa pahinang ito? I-email mo ako.",
+  "spottedIssue": "May napansin ka bang mali sa page na ito?",
+  "spottedIssueLink": "Mag-email sa akin",
   "groups": {
     "foundations": "Mga pundasyon",
     "components": "Mga component",

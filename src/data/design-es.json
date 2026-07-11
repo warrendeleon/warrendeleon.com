@@ -3,7 +3,8 @@
   "sectionsLabel": "Secciones del sistema de diseño",
   "breadcrumbLabel": "Ruta de navegación",
   "onThisPage": "En esta página",
-  "spottedIssue": "¿Has visto algo incorrecto en esta página? Escríbeme.",
+  "spottedIssue": "¿Has visto algo mal en esta página?",
+  "spottedIssueLink": "Escríbeme",
   "groups": {
     "foundations": "Fundamentos",
     "components": "Componentes",

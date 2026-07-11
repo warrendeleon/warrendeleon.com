@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReadingBar from '../blog/ReadingBar.astro';
+import ReadingProgress from '../blog/ReadingProgress.astro';
 import Toc from '../blog/Toc.astro';
-import { getLocalePath, type Locale } from '../../i18n/index';
+import { t, getLocalePath, type Locale } from '../../i18n/index';
 import { getDesignData } from '../../lib/design-data';
 import { DESIGN_ROOT, type DesignGroup } from '../../lib/design-ia';
 
@@ -20,8 +22,12 @@ interface Props {
 
 const { locale, currentPath, seoTitle, seoDescription, group, title, intro, toc = [] } = Astro.props;
 const d = getDesignData(locale);
+const i18n = t(locale);
 const rootPath = getLocalePath(locale, DESIGN_ROOT);
 const isHub = currentPath === rootPath;
+// Content pages get the post's mobile chrome: the reading action bar whose
+// ring button opens the contents as a bottom sheet, replacing the dock.
+const hasReadingBar = !isHub && toc.length > 0;
 
 const groupLabel = group ? d.groups[group] : null;
 const issueSubject = encodeURIComponent(`Design system: ${title}`);
@@ -68,12 +74,122 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
         </div>
 
         <footer class="ds-foot">
-          <a href={`mailto:hi@warrendeleon.com?subject=${issueSubject}`}>{d.spottedIssue}</a>
+          <span>{d.spottedIssue}</span>
+          <a href={`mailto:hi@warrendeleon.com?subject=${issueSubject}`}>{d.spottedIssueLink}</a>
         </footer>
       </div>
     </div>
   </section>
+
+  {hasReadingBar && (
+    <>
+      <ReadingProgress locale={locale} />
+      <ReadingBar locale={locale} title={title} hidden={false} />
+
+      <!-- Contents bottom sheet — the post's own pattern and classes. -->
+      <div class="post-sheet" id="ds-toc-sheet" role="dialog" aria-modal="true" aria-label={i18n.blog.contents} hidden>
+        <div class="post-sheet-backdrop" data-overlay-close></div>
+        <div class="post-sheet-panel">
+          <div class="post-sheet-grabber" aria-hidden="true"></div>
+          <div class="post-sheet-head">
+            <span class="post-sheet-title">{i18n.blog.contents}</span>
+            <span class="post-sheet-meta" data-sheet-progress></span>
+          </div>
+          <ul class="post-sheet-list">
+            {toc.map((item, i) => (
+              <li data-sheet-item={item.id}>
+                <a href={`#${item.id}`} data-sheet-close>
+                  <span class="sheet-num" aria-hidden="true">{i + 1}</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </>
+  )}
 </BaseLayout>
+
+{hasReadingBar && (
+  <script>
+    // The post reading-bar behaviour, for docs pages: ring progress, current
+    // section label, contents sheet, share, back-to-top. Same affordances as
+    // BlogPost's wiring, driven by the docs' own section anchors.
+    const bar = document.querySelector<HTMLElement>('.post-reading-bar');
+    const sheet = document.getElementById('ds-toc-sheet');
+    if (bar && sheet) {
+      const RING = 75.4;
+      const ringFill = bar.querySelector<SVGCircleElement>('.prb-ring-fill');
+      const secLabel = bar.querySelector<HTMLElement>('[data-prb-section]');
+      const progLabel = bar.querySelector<HTMLElement>('[data-prb-progress]');
+      const tocBtn = bar.querySelector<HTMLButtonElement>('[data-toc-open]');
+      const shareBtn = bar.querySelector<HTMLButtonElement>('[data-share-open]');
+      const topBtn = bar.querySelector<HTMLButtonElement>('[data-prb-top]');
+      const topBar = document.querySelector<HTMLElement>('.reading-progress-bar');
+      const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>('.ds-contents [data-toc-link]')];
+      const sections = [...document.querySelectorAll<HTMLElement>('.ds-body > section[id]')];
+      const pageTitle = secLabel?.textContent ?? '';
+
+      let ticking = false;
+      function paint() {
+        ticking = false;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+        if (ringFill) ringFill.style.strokeDashoffset = String((RING * (1 - p)).toFixed(1));
+        if (progLabel) progLabel.textContent = `${Math.round(p * 100)}%`;
+        if (topBar) topBar.style.width = `${(p * 100).toFixed(1)}%`;
+        let current: HTMLElement | null = null;
+        for (const s of sections) {
+          if (s.getBoundingClientRect().top <= 120) current = s;
+        }
+        if (secLabel) secLabel.textContent = current?.querySelector('h2')?.textContent?.trim() || pageTitle;
+        // Pinned-ToC scroll-spy, the post's own .toc-active highlight.
+        for (const link of tocLinks) {
+          link.classList.toggle('toc-active', !!current && link.getAttribute('href') === `#${current.id}`);
+        }
+      }
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(paint);
+      }, { passive: true });
+      paint();
+
+      // Sheet open/close — the post sheet's is-open transition dance.
+      const desktopToc = window.matchMedia('(min-width: 1024px)');
+      function openSheet() {
+        if (desktopToc.matches) return; // the pinned sidebar covers it there
+        sheet.hidden = false;
+        requestAnimationFrame(() => sheet.classList.add('is-open'));
+        tocBtn?.setAttribute('aria-expanded', 'true');
+      }
+      function closeSheet() {
+        sheet.classList.remove('is-open');
+        tocBtn?.setAttribute('aria-expanded', 'false');
+        window.setTimeout(() => { sheet.hidden = true; }, 300);
+      }
+      tocBtn?.addEventListener('click', () => (sheet.hidden ? openSheet() : closeSheet()));
+      sheet.querySelector('[data-overlay-close]')?.addEventListener('click', closeSheet);
+      sheet.querySelectorAll('[data-sheet-close]').forEach((a) => a.addEventListener('click', closeSheet));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !sheet.hidden) closeSheet();
+      });
+
+      // Share: the native sheet where it exists, copy-the-link otherwise.
+      shareBtn?.addEventListener('click', async () => {
+        const data = { title: document.title, url: window.location.href };
+        if (navigator.share) {
+          try { await navigator.share(data); } catch { /* dismissed */ }
+        } else {
+          try { await navigator.clipboard.writeText(data.url); } catch { /* blocked */ }
+        }
+      });
+
+      topBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  </script>
+)}
 
 <style is:global>
   /* Two-column docs shell: sticky section rail + content. Below 1280px the
@@ -86,24 +202,32 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
   .ds-body { min-width: 0; }
   /* Inline contents card on small screens (the blog hides its ToC here in
      favour of the reading-bar sheet; the docs keep it inline instead). */
-  /* This whole block is is:global, so plain selectors reach the Toc. */
-  .ds-contents { margin-bottom: 2rem; }
-  .ds-contents .toc { position: static; max-height: none; }
+  /* This whole block is is:global, so plain selectors reach the Toc.
+     Below 1024 the contents live behind the reading bar as a bottom sheet
+     (the post's own pattern), so the sidebar card doesn't render at all. */
+  .ds-contents { display: none; }
 
   @media (min-width: 1024px) {
     .ds-has-toc {
       grid-template-columns: minmax(0, 1fr) 280px;
       gap: 40px;
-      align-items: start;
+      /* NO align-items: start — the contents cell must stretch to the row
+         height or the sticky ToC has no room to travel (the post layout
+         relies on the same default stretch). */
     }
-    /* Same shape as the post layout: content left, contents right, sticky. */
+    /* Same shape as the post layout: content left, contents right, pinned. */
     .ds-has-toc .ds-body { grid-column: 1; grid-row: 1; }
-    .ds-has-toc .ds-contents { grid-column: 2; grid-row: 1; margin-bottom: 0; }
-    .ds-has-toc .ds-contents .toc {
-      position: sticky;
-      top: 5rem;
-      max-height: calc(100vh - 7rem);
-    }
+    .ds-has-toc .ds-contents { display: block; grid-column: 2; grid-row: 1; }
+    /* The Toc's own styles already pin it: sticky, top 5rem, capped height. */
+
+    /* The pinned sidebar covers contents here, as on a post. */
+    #ds-toc-sheet { display: none; }
+  }
+
+  /* On design content pages the reading bar REPLACES the dock (the post
+     rule), scoped by the sheet's presence so the hub keeps its dock. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    html:has(#ds-toc-sheet) nav.tab-bar[aria-label] { display: none; }
   }
 
   .ds-breadcrumb {
@@ -127,7 +251,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     font-size: 1.15rem;
     line-height: 1.55;
     color: var(--text-secondary);
-    max-width: 60ch;
     margin: 0;
   }
   @media (max-width: 699px) {
@@ -159,7 +282,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     line-height: 1.7;
     color: var(--text-secondary);
     margin: 0 0 1.1rem;
-    max-width: 65ch;
   }
   .ds-body > section > p:last-child { margin-bottom: 0; }
   .ds-body > section > p a,
@@ -174,7 +296,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     color: var(--text-secondary);
     font-size: var(--fs-body);
     line-height: 1.7;
-    max-width: 65ch;
   }
   .ds-body > section > ul.ds-list li { margin-bottom: 0.4rem; }
   .ds-body > section > ul.ds-list li::marker { color: var(--color-green-text); }
@@ -275,7 +396,13 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     padding-top: 1.5rem;
     border-top: 1px solid var(--border-color);
     font-size: 0.85rem;
+    color: var(--text-muted);
   }
-  .ds-foot a { color: var(--text-muted); }
-  .ds-foot a:hover { color: var(--color-green-text); }
+  /* The mailto reads as a real link: green and underlined, not muted prose. */
+  .ds-foot a {
+    color: var(--color-green-text);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .ds-foot a:hover { color: var(--color-green-text-hover); }
 </style>

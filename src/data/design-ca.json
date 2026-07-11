@@ -3,7 +3,8 @@
   "sectionsLabel": "Seccions del sistema de disseny",
   "breadcrumbLabel": "Fil d'Ariadna",
   "onThisPage": "En aquesta pàgina",
-  "spottedIssue": "Has vist algun error en aquesta pàgina? Escriu-me un correu.",
+  "spottedIssue": "Has vist alguna cosa malament en aquesta pàgina?",
+  "spottedIssueLink": "Escriu-me",
   "groups": {
     "foundations": "Fonaments",
     "components": "Components",
