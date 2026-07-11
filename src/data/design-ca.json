@@ -203,6 +203,10 @@
         "label": "Mostres"
       },
       {
+        "id": "headings",
+        "label": "Tractaments de capçalera"
+      },
+      {
         "id": "mono",
         "label": "Monoespai"
       },
@@ -283,7 +287,15 @@
         "role": "Metadades",
         "where": "Dates, temps de lectura, etiquetes. Monoespaiada."
       }
-    ]
+    ],
+    "headingsHeading": "Tractaments de capçalera",
+    "headingsBody": "Dues marques verdes, dues funcions. Els títols de pàgina i de secció porten una barra verda curta sota les primeres paraules: un accent d'amplada fixa que no s'estira amb el text. Les capçaleres d'article porten en canvi un subratllat complet que recorre tota l'amplada de les paraules. Si la marca abasta el text, ets dins d'un article; si és una barra curta, ets davant d'un títol de pàgina o de secció.",
+    "headingsLabels": {
+      "pageTitle": "Títol de pàgina: la barra fa --bar-h1, mai l'amplada del text. Classe .section-title.",
+      "sectionHeading": "Capçalera de secció: una barra fixa de 60px. Classe .section-heading.",
+      "articleHeading": "Capçalera d'article: un subratllat complet a l'amplada del text. .prose h2.",
+      "browline": "Browline de detall: text verd, sense marca. .prose h3."
+    }
   },
   "layout": {
     "seoTitle": "Disposició | Sistema de disseny | Warren de Leon",
@@ -839,6 +851,10 @@
         "label": "Taules"
       },
       {
+        "id": "diagrams",
+        "label": "Diagrames"
+      },
+      {
         "id": "contents",
         "label": "Sumari"
       },
@@ -979,7 +995,9 @@
       "El teu primer remote federat",
       "Host shell i pestanyes federades",
       "Tipar la costura entre remotes"
-    ]
+    ],
+    "diagramsHeading": "Diagrames",
+    "diagramsBody": "Els diagrames d'arquitectura s'escriuen com a Mermaid al codi de l'article i es prerenderitzen a SVG en el moment d'escriure: al lector no li arriba cap llibreria de diagrames. Els mateixos tokens del lloc donen tema al resultat (nodes verds, fletxes neutres), així que es recoloreja amb el tema com tota la resta, i el control de la cantonada l'obre a pantalla completa. Aquest és un diagrama real d'un article publicat:"
   },
   "media": {
     "seoTitle": "Mèdia | Sistema de disseny | Warren de Leon",

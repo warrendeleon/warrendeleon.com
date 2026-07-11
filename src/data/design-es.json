@@ -203,6 +203,10 @@
         "label": "Muestras"
       },
       {
+        "id": "headings",
+        "label": "Tratamientos de encabezado"
+      },
+      {
         "id": "mono",
         "label": "Monoespaciada"
       },
@@ -283,7 +287,15 @@
         "role": "Metadatos",
         "where": "Fechas, tiempo de lectura, etiquetas. Monoespaciada."
       }
-    ]
+    ],
+    "headingsHeading": "Tratamientos de encabezado",
+    "headingsBody": "Dos marcas verdes, dos funciones. Los títulos de página y de sección llevan una barra verde corta bajo las primeras palabras: un acento de ancho fijo que no se estira con el texto. Los encabezados de artículo llevan en cambio un subrayado completo que recorre todo el ancho de las palabras. Si la marca abarca el texto, estás dentro de un artículo; si es una barra corta, estás ante un título de página o de sección.",
+    "headingsLabels": {
+      "pageTitle": "Título de página: la barra mide --bar-h1, nunca el ancho del texto. Clase .section-title.",
+      "sectionHeading": "Encabezado de sección: una barra fija de 60px. Clase .section-heading.",
+      "articleHeading": "Encabezado de artículo: un subrayado completo a lo ancho del texto. .prose h2.",
+      "browline": "Browline de detalle: texto verde, sin marca. .prose h3."
+    }
   },
   "layout": {
     "seoTitle": "Maquetación | Sistema de diseño | Warren de Leon",
@@ -839,6 +851,10 @@
         "label": "Tablas"
       },
       {
+        "id": "diagrams",
+        "label": "Diagramas"
+      },
+      {
         "id": "contents",
         "label": "Índice"
       },
@@ -979,7 +995,9 @@
       "Tu primer remote federado",
       "Host shell y pestañas federadas",
       "Tipar la costura entre remotes"
-    ]
+    ],
+    "diagramsHeading": "Diagramas",
+    "diagramsBody": "Los diagramas de arquitectura se escriben como Mermaid en el código del artículo y se prerrenderizan a SVG al redactar: al lector no le llega ninguna librería de diagramas. Los propios tokens del sitio dan tema al resultado (nodos verdes, flechas neutras), así que se recolorea con el tema como todo lo demás, y el control de la esquina lo abre a pantalla completa. Este es un diagrama real de un artículo publicado:"
   },
   "media": {
     "seoTitle": "Medios | Sistema de diseño | Warren de Leon",

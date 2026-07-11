@@ -203,6 +203,10 @@
         "label": "Mga specimen"
       },
       {
+        "id": "headings",
+        "label": "Mga heading treatment"
+      },
+      {
         "id": "mono",
         "label": "Monospace"
       },
@@ -283,7 +287,15 @@
         "role": "Meta",
         "where": "Mga petsa, oras ng pagbabasa, mga tag. Monospace."
       }
-    ]
+    ],
+    "headingsHeading": "Mga heading treatment",
+    "headingsBody": "Dalawang green na marka, dalawang trabaho. Ang mga page title at section title ay may maikling green bar sa ilalim ng unang mga salita — fixed-width na accent na hindi humahaba kasama ng teksto. Ang mga article heading naman ay may buong underline na umaabot sa lapad ng mga salita. Kung sakop ng marka ang teksto, nasa loob ka ng artikulo; kung maikling bar ito, page o section title ang tinitingnan mo.",
+    "headingsLabels": {
+      "pageTitle": "Page title: ang bar ay --bar-h1 ang lapad, hindi kailanman ang lapad ng teksto. Class .section-title.",
+      "sectionHeading": "Section heading: fixed na 60px na bar. Class .section-heading.",
+      "articleHeading": "Article heading: buong underline sa lapad ng teksto. .prose h2.",
+      "browline": "Detail browline: green na teksto, walang marka. .prose h3."
+    }
   },
   "layout": {
     "seoTitle": "Layout | Disenyo | Warren de Leon",
@@ -839,6 +851,10 @@
         "label": "Mga Table"
       },
       {
+        "id": "diagrams",
+        "label": "Mga diagram"
+      },
+      {
         "id": "contents",
         "label": "Contents"
       },
@@ -979,7 +995,9 @@
       "Ang iyong unang federated remote",
       "Host shell at mga federated tab",
       "Pag-type ng seam sa pagitan ng mga remote"
-    ]
+    ],
+    "diagramsHeading": "Mga diagram",
+    "diagramsBody": "Ang mga architecture diagram ay isinusulat bilang Mermaid sa source ng artikulo at pre-rendered sa SVG sa oras ng pagsulat — walang diagram library na naipapadala sa mambabasa. Ang mismong tokens ng site ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:"
   },
   "media": {
     "seoTitle": "Media | Disenyo | Warren de Leon",

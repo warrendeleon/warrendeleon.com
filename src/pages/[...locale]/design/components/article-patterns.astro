@@ -1,11 +1,22 @@
 ---
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import MediaZoom from '../../../../components/MediaZoom.astro';
 import SubscribeForm from '../../../../components/SubscribeForm.astro';
 import Toc from '../../../../components/blog/Toc.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
 export const getStaticPaths = localeStaticPaths;
+
+// A real pre-rendered diagram from a published article, inlined with the
+// exact markup the rehype plugin emits on post pages — so the global.css
+// theming and MediaZoom's fullscreen control apply unchanged.
+const diagramSvg = readFileSync(
+  resolve(process.cwd(), 'src/generated/mermaid/9f5da757f9a0.svg'),
+  'utf8',
+);
 
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
@@ -156,6 +167,14 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
     </div>
   </section>
 
+  <section id="diagrams">
+    <h2>{a.diagramsHeading}</h2>
+    <p>{a.diagramsBody}</p>
+    <div class="prose ds-prose-demo">
+      <pre class="mermaid" data-processed="true" data-prerendered="true" set:html={diagramSvg}></pre>
+    </div>
+  </section>
+
   <section id="contents">
     <h2>{a.contentsHeading}</h2>
     <p>{a.contentsBody}</p>
@@ -207,6 +226,8 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
     <h3>{a.whereHeading}</h3>
     <p>{a.whereBody}</p>
   </section>
+
+  <MediaZoom locale={locale} />
 </DesignLayout>
 
 <style>

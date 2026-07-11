@@ -65,6 +65,35 @@ const specimens = [
     </div>
   </section>
 
+  <section id="headings">
+    <h2>{ty.headingsHeading}</h2>
+    <p>{ty.headingsBody}</p>
+
+    <figure class="ds-headmark">
+      <p class="section-title" aria-hidden="true">{ty.samples.h1}</p>
+      <figcaption>{ty.headingsLabels.pageTitle}</figcaption>
+    </figure>
+
+    <figure class="ds-headmark">
+      <p class="section-heading" aria-hidden="true">{ty.samples.h2}</p>
+      <figcaption>{ty.headingsLabels.sectionHeading}</figcaption>
+    </figure>
+
+    <figure class="ds-headmark">
+      <div class="prose ds-prose-inline" aria-hidden="true">
+        <h2>{ty.samples.proseH2}</h2>
+      </div>
+      <figcaption>{ty.headingsLabels.articleHeading}</figcaption>
+    </figure>
+
+    <figure class="ds-headmark">
+      <div class="prose ds-prose-inline" aria-hidden="true">
+        <h3>{ty.samples.h3}</h3>
+      </div>
+      <figcaption>{ty.headingsLabels.browline}</figcaption>
+    </figure>
+  </section>
+
   <section id="mono">
     <h2>{ty.monoHeading}</h2>
     <p>{ty.monoBody}</p>
@@ -87,5 +116,33 @@ const specimens = [
     border-radius: 14px;
     padding: 0.5rem 1.25rem;
     background: var(--bg-card);
+  }
+
+  /* Heading-treatment specimens: each mark rendered by its REAL class
+     (.section-title / .section-heading / .prose h2 / .prose h3), with the
+     class named in the caption. */
+  .ds-headmark {
+    margin: 0 0 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .ds-headmark > :first-child,
+  .ds-headmark .ds-prose-inline {
+    padding: 1.25rem 1.25rem 1rem;
+    margin: 0;
+  }
+  .ds-headmark .section-title { margin-bottom: 0; }
+  .ds-prose-inline { max-width: none; }
+  .ds-prose-inline h2,
+  .ds-prose-inline h3 { margin: 0; }
+  .ds-headmark figcaption {
+    padding: 0.55rem 1.25rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--badge-bg);
+    font-size: 0.72rem;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
   }
 </style>

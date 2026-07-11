@@ -80,11 +80,26 @@
     "title": "Colour",
     "intro": "One brand green does all the accent work. Everything else is a neutral scale that flips between light and dark. The values below are read from the stylesheet at build time.",
     "toc": [
-      { "id": "brand", "label": "Brand green" },
-      { "id": "neutrals", "label": "Neutrals & surfaces" },
-      { "id": "interaction", "label": "Interaction" },
-      { "id": "callouts", "label": "Callouts" },
-      { "id": "using", "label": "Using colour" }
+      {
+        "id": "brand",
+        "label": "Brand green"
+      },
+      {
+        "id": "neutrals",
+        "label": "Neutrals & surfaces"
+      },
+      {
+        "id": "interaction",
+        "label": "Interaction"
+      },
+      {
+        "id": "callouts",
+        "label": "Callouts"
+      },
+      {
+        "id": "using",
+        "label": "Using colour"
+      }
     ],
     "swatchHeaders": {
       "swatch": "Light / dark",
@@ -175,11 +190,30 @@
     "title": "Typography",
     "intro": "One typeface, a handful of weights, and a role-based scale that steps down a notch on smaller screens. Every size below is a CSS variable read from the stylesheet.",
     "toc": [
-      { "id": "family", "label": "Typeface" },
-      { "id": "scale", "label": "The scale" },
-      { "id": "specimens", "label": "Specimens" },
-      { "id": "mono", "label": "Monospace" },
-      { "id": "mapping", "label": "In use" }
+      {
+        "id": "family",
+        "label": "Typeface"
+      },
+      {
+        "id": "scale",
+        "label": "The scale"
+      },
+      {
+        "id": "specimens",
+        "label": "Specimens"
+      },
+      {
+        "id": "headings",
+        "label": "Heading treatments"
+      },
+      {
+        "id": "mono",
+        "label": "Monospace"
+      },
+      {
+        "id": "mapping",
+        "label": "In use"
+      }
     ],
     "familyHeading": "Typeface",
     "familyBody": "The interface is set in Inter, self-hosted rather than pulled from a font service so the first paint never waits on a third-party request. There is no display or heading font: weight and size carry the hierarchy. Headings run at 800, sub-headings and labels at 700, buttons and emphasis at 600, and body copy at 400.",
@@ -229,13 +263,39 @@
     "mappingHeading": "In use",
     "mappingBody": "Where each role turns up:",
     "mapping": [
-      { "role": "Page title", "where": "The h1 on every top-level page, with the green bar." },
-      { "role": "Section heading", "where": "Band headings, with the short green underline." },
-      { "role": "Article heading", "where": "The h2 inside a blog post, with the green underline. Article h2 only; sub-headings drop to a plain weight." },
-      { "role": "Body", "where": "About text, page intros, card copy." },
-      { "role": "Prose", "where": "The reading column of an article." },
-      { "role": "Meta", "where": "Dates, reading time, tags. Monospace." }
-    ]
+      {
+        "role": "Page title",
+        "where": "The h1 on every top-level page, with the green bar."
+      },
+      {
+        "role": "Section heading",
+        "where": "Band headings, with the short green underline."
+      },
+      {
+        "role": "Article heading",
+        "where": "The h2 inside a blog post, with the green underline. Article h2 only; sub-headings drop to a plain weight."
+      },
+      {
+        "role": "Body",
+        "where": "About text, page intros, card copy."
+      },
+      {
+        "role": "Prose",
+        "where": "The reading column of an article."
+      },
+      {
+        "role": "Meta",
+        "where": "Dates, reading time, tags. Monospace."
+      }
+    ],
+    "headingsHeading": "Heading treatments",
+    "headingsBody": "Two green marks, two jobs. Page and section titles carry a short green bar under the first words — a fixed-width accent that does not stretch with the text. Article headings instead take a full underline that runs the width of the words. If the mark spans the text, you are inside an article; if it is a short bar, you are looking at a page or section title.",
+    "headingsLabels": {
+      "pageTitle": "Page title: the bar is --bar-h1 wide, never the text width. Class .section-title.",
+      "sectionHeading": "Section heading: a fixed 60px bar. Class .section-heading.",
+      "articleHeading": "Article heading: a full underline across the text. .prose h2.",
+      "browline": "Detail browline: green text, no mark. .prose h3."
+    }
   },
   "layout": {
     "seoTitle": "Layout | Design system | Warren de Leon",
@@ -243,11 +303,26 @@
     "title": "Layout",
     "intro": "Mobile first, one column, content centred while the gutter flexes. Three fixed columns cover phone, tablet and desktop. The spacing ramp below is read from the stylesheet.",
     "toc": [
-      { "id": "columns", "label": "Columns" },
-      { "id": "breakpoints", "label": "Breakpoints" },
-      { "id": "spacing", "label": "Spacing" },
-      { "id": "targets", "label": "Touch targets" },
-      { "id": "logo", "label": "Logo in a circle" }
+      {
+        "id": "columns",
+        "label": "Columns"
+      },
+      {
+        "id": "breakpoints",
+        "label": "Breakpoints"
+      },
+      {
+        "id": "spacing",
+        "label": "Spacing"
+      },
+      {
+        "id": "targets",
+        "label": "Touch targets"
+      },
+      {
+        "id": "logo",
+        "label": "Logo in a circle"
+      }
     ],
     "columnsHeading": "Columns",
     "columnsBody": "The page is one centred column at a fixed maximum width per band. Below that width the gutter is the only thing that flexes, so the reading measure stays comfortable rather than stretching edge to edge on a wide screen. Articles narrow further, to a 720-pixel reading column; only full-bleed blocks like code break out of it.",
@@ -258,16 +333,40 @@
       "bar": "Top bar"
     },
     "columnsRows": [
-      { "band": "Mobile", "column": "430px", "gutter": "20px", "bar": "56px" },
-      { "band": "Tablet", "column": "960px", "gutter": "24px", "bar": "60px" },
-      { "band": "Desktop", "column": "1100px", "gutter": "24px", "bar": "64px" }
+      {
+        "band": "Mobile",
+        "column": "430px",
+        "gutter": "20px",
+        "bar": "56px"
+      },
+      {
+        "band": "Tablet",
+        "column": "960px",
+        "gutter": "24px",
+        "bar": "60px"
+      },
+      {
+        "band": "Desktop",
+        "column": "1100px",
+        "gutter": "24px",
+        "bar": "64px"
+      }
     ],
     "breakpointsHeading": "Breakpoints",
     "breakpointsBody": "Three bands, stated as they really are. The tablet band runs up to 1279 pixels, so a 1024-pixel window gets tablet sizing, not desktop. The tab dock is a phone and tablet affordance; the desktop nav takes over at 1280.",
     "breakpointsRows": [
-      { "band": "Mobile", "range": "≤ 699px" },
-      { "band": "Tablet", "range": "700–1279px" },
-      { "band": "Desktop", "range": "≥ 1280px" }
+      {
+        "band": "Mobile",
+        "range": "≤ 699px"
+      },
+      {
+        "band": "Tablet",
+        "range": "700–1279px"
+      },
+      {
+        "band": "Desktop",
+        "range": "≥ 1280px"
+      }
     ],
     "spacingHeading": "Spacing",
     "spacingBody": "Space is built on a four-pixel base. The tokens below set the rhythm between sections and headings; because section padding is one-sided, two adjacent sections sit twice the token apart.",
@@ -295,9 +394,18 @@
     "title": "Shape & elevation",
     "intro": "Corners round on a consistent scale, shadows are quiet and theme-aware, and most separation is done with a single hairline rather than a shadow.",
     "toc": [
-      { "id": "radius", "label": "Corner radius" },
-      { "id": "shadows", "label": "Shadows" },
-      { "id": "borders", "label": "Borders" }
+      {
+        "id": "radius",
+        "label": "Corner radius"
+      },
+      {
+        "id": "shadows",
+        "label": "Shadows"
+      },
+      {
+        "id": "borders",
+        "label": "Borders"
+      }
     ],
     "radiusHeading": "Corner radius",
     "radiusBody": "Radius climbs with the size of the surface: the smallest on an inline code chip, the largest on a bottom sheet. These are recurring literal values in the component styles rather than tokens, so they are documented here by hand and checked against the stylesheet.",
@@ -306,15 +414,42 @@
       "where": "Where"
     },
     "radiusRows": [
-      { "radius": "5px", "where": "Inline code chips" },
-      { "radius": "7px", "where": "Blog tag chips (.post-tag)" },
-      { "radius": "8px", "where": "Buttons, badges (.badge)" },
-      { "radius": "10px", "where": "Code blocks, blockquotes" },
-      { "radius": "12px", "where": "Cards, feed posts" },
-      { "radius": "14px", "where": "Compact surfaces, bespoke table cards" },
-      { "radius": "16px", "where": "Lead post card, mobile role card" },
-      { "radius": "20px", "where": "Bottom sheets (top corners)" },
-      { "radius": "pill", "where": "Hero CTAs, language pills, dock" }
+      {
+        "radius": "5px",
+        "where": "Inline code chips"
+      },
+      {
+        "radius": "7px",
+        "where": "Blog tag chips (.post-tag)"
+      },
+      {
+        "radius": "8px",
+        "where": "Buttons, badges (.badge)"
+      },
+      {
+        "radius": "10px",
+        "where": "Code blocks, blockquotes"
+      },
+      {
+        "radius": "12px",
+        "where": "Cards, feed posts"
+      },
+      {
+        "radius": "14px",
+        "where": "Compact surfaces, bespoke table cards"
+      },
+      {
+        "radius": "16px",
+        "where": "Lead post card, mobile role card"
+      },
+      {
+        "radius": "20px",
+        "where": "Bottom sheets (top corners)"
+      },
+      {
+        "radius": "pill",
+        "where": "Hero CTAs, language pills, dock"
+      }
     ],
     "radiusNote": "The tag chip and the badge sit a pixel apart, at 7 and 8 pixels. It is a small inconsistency worth either keeping on purpose or closing; for now the docs report both as they ship.",
     "shadowsHeading": "Shadows",
@@ -344,9 +479,18 @@
     "title": "Iconography",
     "intro": "Two kinds of icon. Interface actions use light line icons in the Feather style; brand and social links use solid marks. Both take their colour from the text around them.",
     "toc": [
-      { "id": "line", "label": "Line icons" },
-      { "id": "brand", "label": "Brand marks" },
-      { "id": "rules", "label": "Rules" }
+      {
+        "id": "line",
+        "label": "Line icons"
+      },
+      {
+        "id": "brand",
+        "label": "Brand marks"
+      },
+      {
+        "id": "rules",
+        "label": "Rules"
+      }
     ],
     "lineHeading": "Line icons",
     "lineBody": "Interface icons are drawn on a 24-unit grid with a two-pixel stroke, round caps and round joins, in the Feather style. They render at 15 to 20 pixels inside a hit area of at least 38, and never carry their own colour: they inherit currentColor from the text.",
@@ -383,8 +527,14 @@
     "title": "Motion",
     "intro": "Motion is quiet and quick. It confirms an action or eases a change of state; it is never decoration. And it stops the moment a visitor asks for less.",
     "toc": [
-      { "id": "durations", "label": "Durations & curves" },
-      { "id": "reduced", "label": "Reduced motion" }
+      {
+        "id": "durations",
+        "label": "Durations & curves"
+      },
+      {
+        "id": "reduced",
+        "label": "Reduced motion"
+      }
     ],
     "durationsHeading": "Durations & curves",
     "durationsBody": "Most transitions run at a fifth of a second on an ease curve: a colour shift on hover, a border settling in. The theme swap runs a little longer so a whole-page repaint does not snap. Pages fade up a few pixels on load. Bottom sheets are the one expressive move, sliding in on a spring curve.",
@@ -393,11 +543,26 @@
       "value": "Value"
     },
     "durationsRows": [
-      { "move": "Default transition", "value": "0.2s ease" },
-      { "move": "Theme swap", "value": "0.3s ease" },
-      { "move": "Page fade-in", "value": "0.3s, up 8px" },
-      { "move": "Hover lift", "value": "up 2px + shadow" },
-      { "move": "Sheet spring", "value": "cubic-bezier(0.32, 0.72, 0, 1)" }
+      {
+        "move": "Default transition",
+        "value": "0.2s ease"
+      },
+      {
+        "move": "Theme swap",
+        "value": "0.3s ease"
+      },
+      {
+        "move": "Page fade-in",
+        "value": "0.3s, up 8px"
+      },
+      {
+        "move": "Hover lift",
+        "value": "up 2px + shadow"
+      },
+      {
+        "move": "Sheet spring",
+        "value": "cubic-bezier(0.32, 0.72, 0, 1)"
+      }
     ],
     "reducedHeading": "Reduced motion",
     "reducedBody": "When a visitor's system asks for reduced motion, the site honours it without exception. Animations and transitions collapse to a hair over zero, and smooth scrolling reverts to a jump. This is the rule, not a nicety:",
@@ -417,10 +582,22 @@
     "title": "Buttons",
     "intro": "Two tiers. Inline buttons carry ordinary actions inside forms and cards; pill CTAs carry the one or two calls to action that anchor a whole page. Knowing which tier a control belongs to is most of the decision.",
     "toc": [
-      { "id": "tiers", "label": "The two tiers" },
-      { "id": "states", "label": "States" },
-      { "id": "content", "label": "Content" },
-      { "id": "rules", "label": "When to use" }
+      {
+        "id": "tiers",
+        "label": "The two tiers"
+      },
+      {
+        "id": "states",
+        "label": "States"
+      },
+      {
+        "id": "content",
+        "label": "Content"
+      },
+      {
+        "id": "rules",
+        "label": "When to use"
+      }
     ],
     "tiersHeading": "The two tiers",
     "inlineHeading": "Inline buttons",
@@ -458,9 +635,18 @@
     "title": "Tags & chips",
     "intro": "Small rounded pills that label things. They look alike on purpose, but they do different jobs: a badge states a fact, a tag links to more.",
     "toc": [
-      { "id": "badge", "label": "Badge" },
-      { "id": "tag", "label": "Post tag" },
-      { "id": "rules", "label": "When to use" }
+      {
+        "id": "badge",
+        "label": "Badge"
+      },
+      {
+        "id": "tag",
+        "label": "Post tag"
+      },
+      {
+        "id": "rules",
+        "label": "When to use"
+      }
     ],
     "badgeHeading": "Badge",
     "badgeBody": "Static metadata that is not a link: a technology on a work-experience card, a language on a post. Neutral fill, 8-pixel radius, no hover.",
@@ -486,11 +672,26 @@
     "title": "Cards",
     "intro": "A card groups a small unit of content behind a hairline border and a soft shadow. The blog feed post is the card doing its most-used job.",
     "toc": [
-      { "id": "base", "label": "Base card" },
-      { "id": "feed", "label": "Feed post" },
-      { "id": "series-hero", "label": "Series hero card" },
-      { "id": "lead", "label": "The lead post & viewports" },
-      { "id": "rules", "label": "When to use" }
+      {
+        "id": "base",
+        "label": "Base card"
+      },
+      {
+        "id": "feed",
+        "label": "Feed post"
+      },
+      {
+        "id": "series-hero",
+        "label": "Series hero card"
+      },
+      {
+        "id": "lead",
+        "label": "The lead post & viewports"
+      },
+      {
+        "id": "rules",
+        "label": "When to use"
+      }
     ],
     "baseHeading": "Base card",
     "baseBody": "A rounded 12-pixel surface on the card background, framed by a hairline and lifted by a soft shadow. On hover it lifts a little more. It is the shell almost every other card is built on.",
@@ -521,13 +722,34 @@
     "title": "Navigation",
     "intro": "Getting around the site uses one chrome set that reshapes per screen rather than several separate ones. The same dock is edge-to-edge on a phone, a floating pill on a tablet, and gone on desktop, where the top nav takes over.",
     "toc": [
-      { "id": "viewports", "label": "One chrome set, three viewports" },
-      { "id": "bar", "label": "Top bar" },
-      { "id": "dock", "label": "Tab dock" },
-      { "id": "action", "label": "Reading action bar" },
-      { "id": "footer", "label": "Footer" },
-      { "id": "rail", "label": "Docs navigation" },
-      { "id": "rules", "label": "When to use" }
+      {
+        "id": "viewports",
+        "label": "One chrome set, three viewports"
+      },
+      {
+        "id": "bar",
+        "label": "Top bar"
+      },
+      {
+        "id": "dock",
+        "label": "Tab dock"
+      },
+      {
+        "id": "action",
+        "label": "Reading action bar"
+      },
+      {
+        "id": "footer",
+        "label": "Footer"
+      },
+      {
+        "id": "rail",
+        "label": "Docs navigation"
+      },
+      {
+        "id": "rules",
+        "label": "When to use"
+      }
     ],
     "viewportsHeading": "One chrome set, three viewports",
     "viewportsBody": "Navigation is shaped by the viewport more than any other part of the system. The frames below are the real home page rendered at each band's width, whatever device you are reading this on: the dock runs edge-to-edge on a phone, floats as a pill on a tablet, and gives way to the top nav links on desktop.",
@@ -563,9 +785,18 @@
     "title": "Sheets & overlays",
     "intro": "On touch, choices that would be a dropdown on desktop slide up from the bottom as a sheet. One primitive backs the contents menu, the share menu and the language picker.",
     "toc": [
-      { "id": "anatomy", "label": "Anatomy" },
-      { "id": "desktop", "label": "On desktop" },
-      { "id": "rules", "label": "When to use" }
+      {
+        "id": "anatomy",
+        "label": "Anatomy"
+      },
+      {
+        "id": "desktop",
+        "label": "On desktop"
+      },
+      {
+        "id": "rules",
+        "label": "When to use"
+      }
     ],
     "anatomyHeading": "Anatomy",
     "anatomyBody": "A panel rounded 20 pixels at the top, capped by a 36-by-4 grabber, over a dimmed backdrop. Rows are 48 pixels tall for a comfortable thumb; the active row carries a faint green tint. It slides in on a spring curve, so it arrives with a little weight.",
@@ -573,7 +804,12 @@
     "sheetSample": {
       "title": "Contents",
       "meta": "8 sections",
-      "rows": ["Overview", "The two tiers", "States", "Content"],
+      "rows": [
+        "Overview",
+        "The two tiers",
+        "States",
+        "Content"
+      ],
       "activeIndex": 1
     },
     "desktopHeading": "On desktop",
@@ -598,13 +834,38 @@
     "title": "Article patterns",
     "intro": "The kit a blog post is built from. These are the patterns that turn a wall of text into something you can read, scan and trust.",
     "toc": [
-      { "id": "callouts", "label": "Callouts" },
-      { "id": "quote", "label": "Blockquote" },
-      { "id": "code", "label": "Code" },
-      { "id": "tables", "label": "Tables" },
-      { "id": "contents", "label": "Contents" },
-      { "id": "series-nav", "label": "Series navigation" },
-      { "id": "subscribe", "label": "Subscribe" }
+      {
+        "id": "callouts",
+        "label": "Callouts"
+      },
+      {
+        "id": "quote",
+        "label": "Blockquote"
+      },
+      {
+        "id": "code",
+        "label": "Code"
+      },
+      {
+        "id": "tables",
+        "label": "Tables"
+      },
+      {
+        "id": "diagrams",
+        "label": "Diagrams"
+      },
+      {
+        "id": "contents",
+        "label": "Contents"
+      },
+      {
+        "id": "series-nav",
+        "label": "Series navigation"
+      },
+      {
+        "id": "subscribe",
+        "label": "Subscribe"
+      }
     ],
     "calloutsHeading": "Callouts",
     "calloutsBody": "Four flags for a trap, a tip, a caution or a neutral note, each with its own colour and icon. They pull a single important point out of the flow without breaking it.",
@@ -626,58 +887,117 @@
     "tablesBody": "An article never uses a bare HTML table. A classic table ships inside a bordered card with a sticky first column and a monospace header strip; and where rows would fight the phone column, the data becomes a bespoke card instead. All five patterns, rendered from the real classes:",
     "tableClassic": {
       "label": "Classic table card",
-      "headers": ["Pattern", "Shape", "Reach for it when"],
+      "headers": [
+        "Pattern",
+        "Shape",
+        "Reach for it when"
+      ],
       "rows": [
-        ["Classic", "Rows in a scrollable card", "The data really is tabular"],
-        ["Score rows", "Numbered circles + descriptions", "A rubric or scale"],
-        ["Checklist", "Ticked and unticked rows", "Observable criteria"]
+        [
+          "Classic",
+          "Rows in a scrollable card",
+          "The data really is tabular"
+        ],
+        [
+          "Score rows",
+          "Numbered circles + descriptions",
+          "A rubric or scale"
+        ],
+        [
+          "Checklist",
+          "Ticked and unticked rows",
+          "Observable criteria"
+        ]
       ]
     },
     "tableScore": {
       "kicker": "Score rows",
       "title": "Rubric scale",
       "rows": [
-        { "num": "1", "desc": "Meets the bar with gaps a reviewer would flag." },
-        { "num": "2", "desc": "Meets the bar cleanly; nothing to flag." }
+        {
+          "num": "1",
+          "desc": "Meets the bar with gaps a reviewer would flag."
+        },
+        {
+          "num": "2",
+          "desc": "Meets the bar cleanly; nothing to flag."
+        }
       ]
     },
     "tableChecklist": {
       "kicker": "Checklist",
       "title": "Observable criteria",
       "items": [
-        { "text": "States rendered, not described", "checked": true },
-        { "text": "Every value from the live stylesheet", "checked": true },
-        { "text": "A lookalike rebuilt with new CSS", "checked": false }
+        {
+          "text": "States rendered, not described",
+          "checked": true
+        },
+        {
+          "text": "Every value from the live stylesheet",
+          "checked": true
+        },
+        {
+          "text": "A lookalike rebuilt with new CSS",
+          "checked": false
+        }
       ]
     },
     "tableSample": {
       "kicker": "Range bands",
       "title": "Level ranges",
       "rows": [
-        { "name": "Foundations", "val": "6 pages", "fill": 60 },
-        { "name": "Components", "val": "8 pages", "fill": 80 }
+        {
+          "name": "Foundations",
+          "val": "6 pages",
+          "fill": 60
+        },
+        {
+          "name": "Components",
+          "val": "8 pages",
+          "fill": 80
+        }
       ]
     },
     "tableCrit": {
       "kicker": "Criterion rows",
       "title": "With WCAG chips",
       "rows": [
-        { "name": "Focus visible", "chip": "2.4.7 AA", "desc": "Every interactive control draws the shared green ring." },
-        { "name": "Target size", "chip": "2.5.8 AA", "desc": "Hit areas stay at 44 pixels or better." }
+        {
+          "name": "Focus visible",
+          "chip": "2.4.7 AA",
+          "desc": "Every interactive control draws the shared green ring."
+        },
+        {
+          "name": "Target size",
+          "chip": "2.5.8 AA",
+          "desc": "Hit areas stay at 44 pixels or better."
+        }
       ]
     },
     "contentsHeading": "Contents",
     "contentsBody": "A long article carries its table of contents: the real Toc component renders as a sticky sidebar card from 1024 pixels, and the same headings feed the contents sheet behind the reading bar's progress ring below that.",
-    "contentsRows": ["Overview", "The two tiers", "States", "Content"],
+    "contentsRows": [
+      "Overview",
+      "The two tiers",
+      "States",
+      "Content"
+    ],
     "seriesNavHeading": "Series navigation",
     "seriesNavBody": "A post that belongs to a series opens with a horizontal shelf of numbered part cards — the current part outlined green, the rest linking across the series. Mobile scrolls the shelf freely; desktop adds arrow controls.",
     "seriesNavSeries": "Module Federation in React Native",
     "seriesNavPart": "Part 3 of 8",
-    "seriesNavTitles": ["Why Module Federation", "Your first federated remote", "Host shell & federated tabs", "Typing the seam between remotes"],
+    "seriesNavTitles": [
+      "Why Module Federation",
+      "Your first federated remote",
+      "Host shell & federated tabs",
+      "Typing the seam between remotes"
+    ],
     "subscribeHeading": "Subscribe",
     "subscribeBody": "The newsletter band that closes a post: a short pitch, one email field, and a note about double opt-in. This is the real component, rendered live.",
     "whereHeading": "Where it lives",
-    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro."
+    "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro.",
+    "diagramsHeading": "Diagrams",
+    "diagramsBody": "Architecture diagrams are written as Mermaid in the article source and pre-rendered to SVG at authoring time — no diagram library ships to the reader. The site's own tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:"
   },
   "media": {
     "seoTitle": "Media | Design system | Warren de Leon",
@@ -685,10 +1005,22 @@
     "title": "Media",
     "intro": "How photos and screenshots are carried: a carousel on the home hero, a flat green-railed phone frame for app screenshots, a full-screen zoom for diagrams and images, and a placeholder for specimens.",
     "toc": [
-      { "id": "carousel", "label": "Carousel" },
-      { "id": "device", "label": "Device frame" },
-      { "id": "zoom", "label": "Full-screen zoom" },
-      { "id": "placeholder", "label": "Placeholder" }
+      {
+        "id": "carousel",
+        "label": "Carousel"
+      },
+      {
+        "id": "device",
+        "label": "Device frame"
+      },
+      {
+        "id": "zoom",
+        "label": "Full-screen zoom"
+      },
+      {
+        "id": "placeholder",
+        "label": "Placeholder"
+      }
     ],
     "carouselHeading": "Carousel",
     "carouselBody": "The home hero's photo carousel, rendered live: arrows and a counter on the frame, a dot row beneath it from 700 pixels (the active dot stretches to a pill), swipe on touch, and autoplay that respects reduced motion and pauses from the control beside the dots. On a phone the dots give way to an overlay title on the photo.",
@@ -708,9 +1040,18 @@
     "title": "Timeline",
     "intro": "The work-experience rail: a vertical line with a company logo riding it at each stop, and a card beside each logo. Below is the real component with real entries.",
     "toc": [
-      { "id": "specimen", "label": "The rail" },
-      { "id": "anatomy", "label": "Anatomy" },
-      { "id": "rules", "label": "When to use" }
+      {
+        "id": "specimen",
+        "label": "The rail"
+      },
+      {
+        "id": "anatomy",
+        "label": "Anatomy"
+      },
+      {
+        "id": "rules",
+        "label": "When to use"
+      }
     ],
     "specimenHeading": "The rail",
     "anatomyHeading": "Anatomy",
