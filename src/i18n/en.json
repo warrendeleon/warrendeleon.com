@@ -24,7 +24,10 @@
     "fromTheBlog": "From the blog",
     "readMore": "Read more",
     "showLess": "Show less",
-    "allExperience": "All experience"
+    "allExperience": "All experience",
+    "designTitle": "Designed in the open",
+    "designBody": "The design system this site is built from is documented publicly — colour, type, layout and components, generated from the live stylesheet.",
+    "designCta": "Explore the design system"
   },
   "workExperience": {
     "title": "Work Experience",

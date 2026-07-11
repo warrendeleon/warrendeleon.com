@@ -24,7 +24,10 @@
     "fromTheBlog": "Mula sa blog",
     "readMore": "Magbasa pa",
     "showLess": "Bawasan",
-    "allExperience": "Lahat ng karanasan"
+    "allExperience": "Lahat ng karanasan",
+    "designTitle": "Dinisenyo nang hayagan",
+    "designBody": "Ang design system na pinagbuuan ng site na ito ay pampublikong nakadokumento — kulay, tipograpiya, layout at mga component, na ginawa mula sa live na stylesheet.",
+    "designCta": "Galugarin ang design system"
   },
   "workExperience": {
     "title": "Karanasan sa Trabaho",

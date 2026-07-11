@@ -24,7 +24,10 @@
     "fromTheBlog": "Del blog",
     "readMore": "Llegeix més",
     "showLess": "Mostra menys",
-    "allExperience": "Tota l’experiència"
+    "allExperience": "Tota l’experiència",
+    "designTitle": "Dissenyat a la vista",
+    "designBody": "El sistema de disseny amb què està construït aquest lloc està documentat en públic: color, tipografia, maquetació i components, generats des del full d'estils en viu.",
+    "designCta": "Explora el sistema de disseny"
   },
   "workExperience": {
     "title": "Experiència Laboral",

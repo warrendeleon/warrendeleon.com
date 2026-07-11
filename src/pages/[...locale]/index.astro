@@ -139,9 +139,46 @@ const jsonLd = {
   </section>
 
   <HomeBlog locale={locale} />
+
+  <!-- Design-system pointer: quiet closing card; the section's primary home
+       is the footer link, this is the portfolio nudge. -->
+  <section class="section">
+    <div class="container">
+      <div class="card home-design-card">
+        <h2>{i18n.home.designTitle}</h2>
+        <p>{i18n.home.designBody}</p>
+        <a href={getLocalePath(locale, '/design/')} class="btn btn-outline">{i18n.home.designCta}</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style is:global>
+  /* Design-system pointer card: same weight as the work-experience CTA. */
+  .home-design-card {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .home-design-card h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  .home-design-card p {
+    margin: 0;
+    font-size: var(--fs-body);
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 46ch;
+  }
+  .home-design-card .btn { margin-top: 4px; }
+
   /* ===== Hero per design ===== */
   .hero-eyebrow {
     display: inline-flex;

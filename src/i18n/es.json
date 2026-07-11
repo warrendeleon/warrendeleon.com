@@ -24,7 +24,10 @@
     "fromTheBlog": "Del blog",
     "readMore": "Leer más",
     "showLess": "Mostrar menos",
-    "allExperience": "Toda la experiencia"
+    "allExperience": "Toda la experiencia",
+    "designTitle": "Diseñado a la vista",
+    "designBody": "El sistema de diseño con el que está construido este sitio está documentado en público: color, tipografía, maquetación y componentes, generados desde la hoja de estilos en vivo.",
+    "designCta": "Explora el sistema de diseño"
   },
   "workExperience": {
     "title": "Experiencia Laboral",
