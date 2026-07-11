@@ -140,8 +140,15 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
         if (progLabel) progLabel.textContent = `${Math.round(p * 100)}%`;
         if (topBar) topBar.style.width = `${(p * 100).toFixed(1)}%`;
         let current: HTMLElement | null = null;
+        // The reading line sinks down the viewport with progress (same cure
+        // as BlogPost's spy): a fixed line never reaches short sections the
+        // page cannot scroll past at the end.
+        const line = 120 + Math.max(0, window.innerHeight - 240) * p;
         for (const s of sections) {
-          if (s.getBoundingClientRect().top <= 120) current = s;
+          if (s.getBoundingClientRect().top <= line) current = s;
+        }
+        if (max > 0 && window.scrollY >= max - 2 && sections.length) {
+          current = sections[sections.length - 1];
         }
         if (secLabel) secLabel.textContent = current?.querySelector('h2')?.textContent?.trim() || pageTitle;
         // Pinned-ToC scroll-spy, the post's own .toc-active highlight.

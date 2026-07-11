@@ -175,8 +175,9 @@ const VIGNETTES: Record<string, string> = {
   }
 
   /* Shelf cards: fixed width in the scroll track (the series-card pattern),
-     equal heights via the track's default stretch. */
-  .ds-group-shelf { margin-bottom: 0.5rem; }
+     equal heights via the track's default stretch. No margin override here:
+     the shared 3rem section rhythm applies, same as every other section
+     (a scoped 0.5rem out-specified it and crushed the hub's breathing room). */
   /* The real .card carries the surface (border, radius, shadow, padding);
      this modifier only adds the link layout and the whole-card hover the
      feed cards use (lift + green title). */

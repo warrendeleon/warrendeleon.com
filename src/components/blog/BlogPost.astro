@@ -632,10 +632,15 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
     }
 
     var current = null;
-    var scrollPos = scrollTop + 100;
+    /* The reading line sinks down the viewport as the reader progresses, so
+       short sections clustered at the end each get their turn — a fixed
+       +100px line never reaches headings the page cannot scroll past. */
+    var readOffset = 100 + Math.max(0, window.innerHeight - 200) * (pct / 100);
+    var scrollPos = scrollTop + readOffset;
     for (var i = 0; i < headingEls.length; i++) {
       if (headingEls[i].el.offsetTop <= scrollPos) current = headingEls[i];
     }
+    if (pct >= 99.9 && headingEls.length) current = headingEls[headingEls.length - 1];
     headingEls.forEach(function(h) {
       h.link.classList.remove('toc-active');
       h.link.removeAttribute('aria-current');
