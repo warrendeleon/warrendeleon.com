@@ -601,11 +601,26 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   var tocLinks = document.querySelectorAll('[data-toc-link]');
   var sheetLinks = document.querySelectorAll('[data-sheet-toc-link]');
   var headingEls = [];
+  /* A ToC click pins its target as current: a late heading often cannot
+     reach the reading line (the page bottoms out first), so the spy would
+     highlight a heading below the one chosen. The pin holds until the
+     reader scrolls on their own. */
+  var pinnedId = null;
+  function pinFrom(link) {
+    var href = link.getAttribute('href') || '';
+    pinnedId = href.charAt(0) === '#' ? href.slice(1) : null;
+  }
+  ['wheel', 'touchstart', 'keydown'].forEach(function(evt) {
+    window.addEventListener(evt, function() { pinnedId = null; }, { passive: true });
+  });
   tocLinks.forEach(function(link, i) {
     var id = link.getAttribute('href').slice(1);
     var el = document.getElementById(id);
     if (el) headingEls.push({ el: el, link: link, sheetLi: sheetLinks[i] ? sheetLinks[i].parentNode : null, text: link.textContent });
-    link.addEventListener('click', function() { t('toc_click', { section: link.textContent }); });
+    link.addEventListener('click', function() { pinFrom(link); t('toc_click', { section: link.textContent }); });
+  });
+  sheetLinks.forEach(function(link) {
+    link.addEventListener('click', function() { pinFrom(link); });
   });
 
   var milestones = [25, 50, 75, 100];
@@ -632,15 +647,22 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
     }
 
     var current = null;
-    /* The reading line sinks down the viewport as the reader progresses, so
-       short sections clustered at the end each get their turn — a fixed
-       +100px line never reaches headings the page cannot scroll past. */
-    var readOffset = 100 + Math.max(0, window.innerHeight - 200) * (pct / 100);
-    var scrollPos = scrollTop + readOffset;
-    for (var i = 0; i < headingEls.length; i++) {
-      if (headingEls[i].el.offsetTop <= scrollPos) current = headingEls[i];
+    if (pinnedId) {
+      for (var k = 0; k < headingEls.length; k++) {
+        if (headingEls[k].el.id === pinnedId) current = headingEls[k];
+      }
     }
-    if (pct >= 99.9 && headingEls.length) current = headingEls[headingEls.length - 1];
+    if (!current) {
+      /* The reading line sinks down the viewport as the reader progresses, so
+         short sections clustered at the end each get their turn — a fixed
+         +100px line never reaches headings the page cannot scroll past. */
+      var readOffset = 100 + Math.max(0, window.innerHeight - 200) * (pct / 100);
+      var scrollPos = scrollTop + readOffset;
+      for (var i = 0; i < headingEls.length; i++) {
+        if (headingEls[i].el.offsetTop <= scrollPos) current = headingEls[i];
+      }
+      if (pct >= 99.9 && headingEls.length) current = headingEls[headingEls.length - 1];
+    }
     headingEls.forEach(function(h) {
       h.link.classList.remove('toc-active');
       h.link.removeAttribute('aria-current');
