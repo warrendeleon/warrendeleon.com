@@ -2,16 +2,20 @@
 // A bordered frame that presents a live specimen rendered with the site's own
 // classes. The default slot is real markup (e.g. <button class="btn btn-primary">),
 // so what you see is what ships — never a lookalike restyled here.
+import { Code } from 'astro:components';
+
 interface Props {
   label?: string;
   /** Optional markup snippet shown beneath the specimen. */
   code?: string;
+  /** Shiki language for the snippet. */
+  lang?: string;
   /** Left-align instead of centring (for wide specimens like nav bars). */
   align?: 'center' | 'start';
   /** Render the stage on the page background instead of the tinted panel. */
   plain?: boolean;
 }
-const { label, code, align = 'center', plain = false } = Astro.props;
+const { label, code, lang = 'html', align = 'center', plain = false } = Astro.props;
 ---
 
 <figure class="ds-specimen">
@@ -20,7 +24,11 @@ const { label, code, align = 'center', plain = false } = Astro.props;
     <slot />
   </div>
   {code && (
-    <pre class="ds-specimen-code"><code>{code}</code></pre>
+    <div class="ds-specimen-code">
+      <!-- Same Shiki dual-theme pair the article pipeline uses; the global
+           [data-theme="dark"] .astro-code rule swaps the palette. -->
+      <Code code={code} lang={lang as any} themes={{ light: 'github-light', dark: 'github-dark' }} />
+    </div>
   )}
 </figure>
 
@@ -55,16 +63,17 @@ const { label, code, align = 'center', plain = false } = Astro.props;
   .ds-specimen-stage.is-start { justify-content: flex-start; }
   .ds-specimen-stage.is-plain { background: var(--bg-primary); }
   .ds-specimen-code {
+    border-top: 1px solid var(--border-color);
+  }
+  .ds-specimen-code :global(pre.astro-code) {
     margin: 0;
     padding: 0.85rem 1rem;
-    background: var(--code-bg);
-    border-top: 1px solid var(--border-color);
+    background: var(--code-bg) !important;
     overflow-x: auto;
     font-size: 0.8rem;
     line-height: 1.5;
-    color: var(--text-secondary);
   }
-  .ds-specimen-code code {
+  .ds-specimen-code :global(pre.astro-code code) {
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
     white-space: pre;
   }

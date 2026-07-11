@@ -1,6 +1,7 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
-import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import Shelf from '../../../components/blog/Shelf.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
 import { DESIGN_GROUPS } from '../../../lib/design-ia';
 
@@ -8,6 +9,7 @@ export const getStaticPaths = localeStaticPaths;
 
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
+const i18n = t(locale);
 const L = d.landing;
 const currentPath = getLocalePath(locale, '/design/');
 
@@ -39,7 +41,14 @@ const sections = [
 ].filter((s) => s.cards.length > 0);
 
 // Feather-style line icons (24 grid, 2px stroke, currentColor — the site's
-// own icon language) for foundations, content and accessibility cards.
+// own icon language) for the principles and for foundations, content and
+// accessibility cards.
+const PRINCIPLE_ICONS = [
+  '<path d="M11 5L6 9H2v6h4l5 4zM23 9l-6 6M17 9l6 6"></path>',
+  '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>',
+  '<polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline>',
+];
+
 const ICONS: Record<string, string> = {
   colour: '<path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>',
   typography: '<polyline points="4 7 4 4 20 4 20 7"></polyline><line x1="9" y1="20" x2="15" y2="20"></line><line x1="12" y1="4" x2="12" y2="20"></line>',
@@ -77,19 +86,23 @@ const VIGNETTES: Record<string, string> = {
   <section id="principles">
     <h2>{L.principlesHeading}</h2>
     <div class="ds-principles">
-      {L.principles.map((p) => (
+      {L.principles.map((p, i) => (
         <div class="ds-principle">
-          <h3>{p.title}</h3>
+          <div class="ds-principle-head">
+            <svg class="ds-principle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={PRINCIPLE_ICONS[i]} />
+            <h3>{p.title}</h3>
+          </div>
           <p>{p.body}</p>
         </div>
       ))}
     </div>
   </section>
 
+  <!-- Each group rides the site's real Shelf carousel (the blog's More-series
+       shell): horizontal scroll with arrows, so the hub stays short on a phone. -->
   {sections.map((s) => (
-    <section id={s.id}>
-      <h2>{s.heading}</h2>
-      <div class="ds-cards">
+    <section id={s.id} class="ds-group-shelf">
+      <Shelf heading={s.heading} labelPrev={i18n.blog.previous} labelNext={i18n.blog.next}>
         {s.cards.map((c) => (
           <a href={c.href} class="card ds-card-link">
             {VIGNETTES[c.slug] && (
@@ -104,7 +117,7 @@ const VIGNETTES: Record<string, string> = {
             <span class="ds-card-blurb">{c.blurb}</span>
           </a>
         ))}
-      </div>
+      </Shelf>
     </section>
   ))}
 
@@ -129,8 +142,15 @@ const VIGNETTES: Record<string, string> = {
     background: var(--bg-card);
     padding: 1.25rem;
   }
+  .ds-principle-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  .ds-principle-icon { flex-shrink: 0; color: var(--color-green-text); }
   .ds-principle h3 {
-    margin: 0 0 0.5rem;
+    margin: 0;
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--color-green-text);
@@ -142,24 +162,23 @@ const VIGNETTES: Record<string, string> = {
     color: var(--text-secondary);
   }
 
-  .ds-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-    margin-bottom: 1.5rem;
-  }
-  @media (min-width: 700px) {
-    .ds-cards { grid-template-columns: 1fr 1fr; }
-  }
+  /* Shelf cards: fixed width in the scroll track (the series-card pattern),
+     equal heights via the track's default stretch. */
+  .ds-group-shelf { margin-bottom: 0.5rem; }
   /* The real .card carries the surface (border, radius, shadow, padding);
      this modifier only adds the link layout and the whole-card hover the
      feed cards use (lift + green title). */
   .ds-card-link {
+    width: 280px;
+    flex: none;
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  @media (max-width: 760px) {
+    .ds-card-link { width: 230px; }
   }
   .ds-card-link:hover {
     transform: translateY(-2px);

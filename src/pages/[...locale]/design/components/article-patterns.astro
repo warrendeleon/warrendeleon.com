@@ -1,6 +1,7 @@
 ---
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { Code } from 'astro:components';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import MediaZoom from '../../../../components/MediaZoom.astro';
 import SubscribeForm from '../../../../components/SubscribeForm.astro';
@@ -68,7 +69,8 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
         <div class="code-block-header">
           <span class="code-block-lang">{a.codeSampleLang}</span>
         </div>
-        <pre class="plain-code"><code>{a.codeSample}</code></pre>
+        <!-- Shiki-highlighted like a real article block, line numbers included. -->
+        <Code code={a.codeSample} lang="tsx" themes={{ light: 'github-light', dark: 'github-dark' }} />
       </div>
     </div>
   </section>

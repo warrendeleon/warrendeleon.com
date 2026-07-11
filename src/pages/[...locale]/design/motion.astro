@@ -1,4 +1,5 @@
 ---
+import { Code } from 'astro:components';
 import DesignLayout from '../../../components/design/DesignLayout.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
@@ -57,7 +58,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
     <h2>{mo.reducedHeading}</h2>
     <p>{mo.reducedBody}</p>
     <figure class="ds-codeblock">
-      <pre><code>{reducedCss}</code></pre>
+      <Code code={reducedCss} lang="css" themes={{ light: 'github-light', dark: 'github-dark' }} />
       <figcaption>{mo.reducedCaption}</figcaption>
     </figure>
   </section>
@@ -112,16 +113,16 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
     overflow: hidden;
     background: var(--code-bg);
   }
-  .ds-codeblock pre {
+  .ds-codeblock :global(pre.astro-code) {
     margin: 0;
     padding: 1.1rem 1.25rem;
     overflow-x: auto;
+    background: var(--code-bg) !important;
   }
-  .ds-codeblock code {
+  .ds-codeblock :global(pre.astro-code code) {
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
     font-size: 0.82rem;
     line-height: 1.6;
-    color: var(--text-primary);
     white-space: pre;
   }
   .ds-codeblock figcaption {
