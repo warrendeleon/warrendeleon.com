@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import CopyHex from '../../../components/design/CopyHex.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
 
@@ -53,11 +54,11 @@ const contrastRows = [
       <div class="ds-contrast-stage ds-cs-light">
         <span style="color: #6dc402;">{a.contrastSampleText}</span>
         <span style="color: #5aa302; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>
-        <code>#6dc402 · #5aa302</code>
+        <span class="ds-cs-hexes"><CopyHex value="#6dc402" label={d.copyLabel} /> <CopyHex value="#5aa302" label={d.copyLabel} /></span>
       </div>
       <div class="ds-contrast-stage ds-cs-dark">
         <span style="color: #6dc402; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>
-        <code>#6dc402</code>
+        <span class="ds-cs-hexes"><CopyHex value="#6dc402" label={d.copyLabel} /></span>
       </div>
     </div>
 
@@ -73,7 +74,7 @@ const contrastRows = [
         <tbody>
           {contrastRows.map((r) => (
             <tr>
-              <td class="ds-mono">{r.token}<span class="ds-hex">{r.hex}</span></td>
+              <td class="ds-mono">{r.token}<br /><CopyHex value={r.hex} label={d.copyLabel} /></td>
               <td><span class:list={['ds-dot', `is-${r.whiteStatus}`]}></span><span class="ds-ratio">{r.white}</span></td>
               <td><span class:list={['ds-dot', `is-${r.darkStatus}`]}></span><span class="ds-ratio">{r.dark}</span></td>
             </tr>
@@ -182,7 +183,7 @@ const contrastRows = [
   .ds-mini td { padding: 10px 14px; font-size: 0.85rem; border-bottom: 1px solid var(--border-color); color: var(--text-secondary); vertical-align: middle; }
   .ds-mini tbody tr:last-child td { border-bottom: none; }
   .ds-mono { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; color: var(--text-primary); }
-  .ds-hex { display: block; font-size: 0.72rem; color: var(--text-muted); }
+  .ds-mono .ds-copyhex { display: inline-flex; margin-top: 0.25rem; }
   .ds-ratio { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; }
   .ds-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 7px; vertical-align: baseline; }
   .is-pass { background: var(--color-green); }

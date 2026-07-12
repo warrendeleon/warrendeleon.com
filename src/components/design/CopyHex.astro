@@ -1,0 +1,13 @@
+---
+// A hex (or any colour value) rendered as a click-to-copy chip. The delegated
+// click handler and the styles live in DesignLayout, so this stays markup-only.
+interface Props {
+  value: string;
+  label: string;
+}
+const { value, label } = Astro.props;
+---
+
+<button type="button" class="ds-copyhex" data-copy-hex={value} aria-label={`${label} ${value}`}>
+  <code>{value}</code>
+</button>

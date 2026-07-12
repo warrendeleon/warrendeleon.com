@@ -5,6 +5,8 @@ import GuidanceCard from '../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
 import { pickColors } from '../../../lib/design-tokens.mjs';
+import { getPostsForLocale, shortenSeriesName } from '../../../utils/blogHelpers';
+import CopyHex from '../../../components/design/CopyHex.astro';
 
 export const getStaticPaths = localeStaticPaths;
 
@@ -13,6 +15,19 @@ const d = getDesignData(locale);
 const c = d.colour;
 const currentPath = getLocalePath(locale, '/design/colour/');
 const accessibilityHref = getLocalePath(locale, '/design/accessibility/');
+const mediaHref = getLocalePath(locale, '/design/components/media/');
+
+// Illustration colour: the shared hero palette and the per-series grounds,
+// read from the published posts so the docs cannot drift and unannounced
+// series never leak. getPostsForLocale enforces one ground per series.
+const posts = await getPostsForLocale('en', false);
+const heroPalette = posts.find(p => p.data.heroPalette)?.data.heroPalette ?? [];
+const seriesPastels = new Map<string, string>();
+for (const post of posts) {
+  if (post.data.series && post.data.heroBgColor && !seriesPastels.has(post.data.series)) {
+    seriesPastels.set(post.data.series, post.data.heroBgColor);
+  }
+}
 
 const greens = pickColors([
   '--color-green',
@@ -70,14 +85,14 @@ const calloutRows = [
   <section id="brand">
     <h2>{c.brandHeading}</h2>
     <p>{c.brandBody}</p>
-    <SwatchTable rows={greens} usage={c.usage} headers={c.swatchHeaders} />
+    <SwatchTable rows={greens} usage={c.usage} headers={c.swatchHeaders} copyLabel={d.copyLabel} />
     <p>{c.brandTextNote} <a href={accessibilityHref}>{d.groups.accessibility}</a>.</p>
   </section>
 
   <section id="neutrals">
     <h2>{c.neutralsHeading}</h2>
     <p>{c.neutralsBody}</p>
-    <SwatchTable rows={neutrals} usage={c.usage} headers={c.swatchHeaders} />
+    <SwatchTable rows={neutrals} usage={c.usage} headers={c.swatchHeaders} copyLabel={d.copyLabel} />
     <p>{c.elevationNote}</p>
   </section>
 
@@ -127,7 +142,7 @@ const calloutRows = [
             <tr>
               <td class="ds-mini-swatch"><span style={`background:${r.hex}`}></span></td>
               <td>{c.calloutsTypes[r.key]}</td>
-              <td><code>{r.hex}</code></td>
+              <td><CopyHex value={r.hex} label={d.copyLabel} /></td>
               <td>{c.calloutsUses[r.key]}</td>
             </tr>
           ))}
@@ -136,6 +151,35 @@ const calloutRows = [
     </div>
     <p>{c.calloutsScoping}</p>
     <p>{c.calloutsException}</p>
+  </section>
+
+  <section id="illustration">
+    <h2>{c.illosHeading}</h2>
+    <p>{c.illosBody} {c.illosMore} <a href={mediaHref}>{c.illosMoreLink}</a>.</p>
+    <h3>{c.heroPaletteHeading}</h3>
+    <p>{c.heroPaletteBody}</p>
+    <ul class="ds-palette-strip">
+      {heroPalette.map((hex, i) => (
+        <li class="ds-palette-item">
+          <span class="ds-palette-chip" style={`background: ${hex}`}></span>
+          <span class="ds-palette-name">{c.heroPaletteNames[i] ?? ''}</span>
+          <CopyHex value={hex} label={d.copyLabel} />
+        </li>
+      ))}
+    </ul>
+    <h3>{c.heroSwatchHeading}</h3>
+    <p>{c.heroSwatchBody}</p>
+    <ul class="ds-harmony-grid">
+      {[...seriesPastels.entries()].map(([series, hex]) => (
+        <li class="ds-harmony-card" style={`background: ${hex}`}>
+          <span class="ds-harmony-name">{shortenSeriesName(series)}</span>
+          <CopyHex value={hex} label={d.copyLabel} />
+          <span class="ds-harmony-dots">
+            {heroPalette.map((chipHex) => <span class="ds-harmony-dot" style={`background: ${chipHex}`}></span>)}
+          </span>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section id="using">
@@ -260,4 +304,70 @@ const calloutRows = [
   }
   .ds-dodont-list li { margin-bottom: 0.45rem; }
   .ds-dodont-list li:last-child { margin-bottom: 0; }
+
+  /* Illustration colour: the shared hero pool and the harmony check (the
+     whole pool on each series ground). Literal colours on both themes. */
+  .ds-palette-strip {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .ds-palette-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .ds-palette-chip {
+    width: 64px;
+    height: 44px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+  .ds-palette-name {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .ds-harmony-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 700px) {
+    .ds-harmony-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .ds-harmony-card {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .ds-harmony-name {
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .ds-harmony-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .ds-harmony-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
 </style>

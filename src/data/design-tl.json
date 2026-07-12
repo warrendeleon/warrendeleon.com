@@ -105,6 +105,10 @@
         "label": "Mga callout"
       },
       {
+        "id": "illustration",
+        "label": "Kulay ng illustration"
+      },
+      {
         "id": "using",
         "label": "Paggamit ng kulay"
       }
@@ -190,7 +194,27 @@
       "Ipinta ang brand lime sa maliit na text sa puti. Bumabagsak ito sa contrast bar; para diyan ang text green.",
       "Gumamit ng kulay ng callout sa interface. Nabibilang ang mga iyon sa prosa ng artikulo."
     ],
-    "elevationNote": "Ang mga elevation token (ang mga naka-theme na shadow) ay nakadokumento sa Hugis at elevation page."
+    "elevationNote": "Ang mga elevation token (ang mga naka-theme na shadow) ay nakadokumento sa Hugis at elevation page.",
+    "illosHeading": "Kulay ng illustration",
+    "illosBody": "Ang interface ay nakatayo sa iisang berde, pero ang mga hero illustration ng blog ay may sariling palette. Pareho ang paraan sa maliit na sukat: isang fixed pool na sampu, laging kasama ang brand lime, at isang malambot na background bawat serye.",
+    "heroPaletteHeading": "Ang shared palette",
+    "heroPaletteBody": "Ang sampu, binabasa mula sa mga totoong post sa build time. Ilan lang dito ang ginagamit ng bawat illustration — doon nanggagaling ang pagkakaiba-iba ng mga hero; ang pool mismo ay hindi nagbabago.",
+    "heroPaletteNames": [
+      "Lime",
+      "Navy",
+      "Coral",
+      "Teal",
+      "Plum",
+      "Amber",
+      "Blush",
+      "Sky",
+      "Charcoal",
+      "Sand"
+    ],
+    "heroSwatchHeading": "Isang background bawat serye",
+    "heroSwatchBody": "Ang mga background ay sadyang nasa labas ng palette: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed — ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
+    "illosMore": "Ang paraan ng pagguhit ng mga hero ay nasa",
+    "illosMoreLink": "Media page"
   },
   "typography": {
     "seoTitle": "Typography | Disenyo | Warren de Leon",
@@ -1110,22 +1134,8 @@
     "heroBody": "Bawat post ay bumubukas sa isang rich pero flat na isometric illustration: detalyado at may mga layer na vector scene, walang gradient, walang nababasang text o logo, sa malambot na halos puting background. Bawat isa ay ginagawa gamit ang Cloudflare AI mula sa maikling konsepto na naglalarawan sa ideya ng post bilang mga bagay — isang tab bar na humihila ng mga panel, isang mesh na nagbubukod ng mga arrow sa mga tray.",
     "heroColourBody": "Hindi kailanman ang model ang pumipili ng palette. Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay — ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand — at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
     "heroCaption": "Isang totoong post hero: ilang kulay mula sa shared palette sa background ng serye nito.",
-    "heroSwatchHeading": "Isang background bawat serye",
-    "heroSwatchBody": "Ang mga background ay sadyang nasa labas ng palette: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed — ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
-    "heroPaletteHeading": "Ang shared palette",
-    "heroPaletteBody": "Ang sampu, binabasa mula sa mga totoong post sa build time. Ilan lang dito ang ginagamit ng bawat illustration — doon nanggagaling ang pagkakaiba-iba ng mga hero; ang pool mismo ay hindi nagbabago.",
-    "heroPaletteNames": [
-      "Lime",
-      "Navy",
-      "Coral",
-      "Teal",
-      "Plum",
-      "Amber",
-      "Blush",
-      "Sky",
-      "Charcoal",
-      "Sand"
-    ]
+    "heroMore": "Ang palette at ang mga background ng serye ay nakadokumento kasama ng buong colour system sa",
+    "heroMoreLink": "Colour page"
   },
   "timeline": {
     "seoTitle": "Timeline | Disenyo | Warren de Leon",
@@ -1367,5 +1377,6 @@
     "contrastLimitation": "Ang tapat na bahagi: sa laki ng pagbabasa ng body sa isang maliwanag na background, ang isang green na link ay nasa mga 3.2 to 1 — lampas sa pamantayan para sa malaking teksto, kulang sa 4.5-to-1 na pamantayan para sa normal na teksto. Tinatanggap ng site ang trade-off na iyon upang mapanatili ang iisa nitong brand na kulay, at pinapalambot ito sa dalawang paraan. Ang mga link sa artikulo ay may salungguhit, kaya ang kulay ay hindi kailanman ang tanging senyas; at ganap itong nireresolba ng dark mode, kung saan ang parehong lime sa halos itim ay nababasa sa mga 8.6 to 1. Ang body copy mismo ay laging neutral, at laging pumapasa.",
     "scopeHeading": "Saklaw",
     "scopeBody": "Sinasaklaw nito ang website. Ang React Native app at ang mga email template ay sarili nilang mga surface, na may sarili nilang mga pamantayan, at hindi dokumentado rito."
-  }
+  },
+  "copyLabel": "Kopyahin"
 }

@@ -112,6 +112,20 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
   )}
 </BaseLayout>
 
+<script>
+  // Click-to-copy for every CopyHex chip on the docs. Delegated, so one
+  // listener covers a page regardless of how many chips it renders.
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-copy-hex]');
+    if (!btn) return;
+    const value = btn.dataset.copyHex ?? '';
+    navigator.clipboard.writeText(value).then(() => {
+      btn.classList.add('is-copied');
+      window.setTimeout(() => btn.classList.remove('is-copied'), 1200);
+    }).catch(() => { /* clipboard blocked; the value is still visible to select */ });
+  });
+</script>
+
 {hasReadingBar && (
   <script>
     // The post reading-bar behaviour, for docs pages: ring progress, current
@@ -316,6 +330,40 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
     border: 1px solid var(--border-color);
     color: var(--text-primary);
+  }
+
+  /* Click-to-copy hex chip (CopyHex.astro). Reads like an inline code chip,
+     acts like a button; the tick confirms the copy without moving the layout. */
+  .ds-copyhex {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--code-bg);
+    padding: 0.12rem 0.4rem;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+  }
+  .ds-copyhex code {
+    font-size: 0.75rem;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    color: var(--text-primary);
+  }
+  .ds-copyhex:hover { border-color: var(--color-green); }
+  .ds-copyhex::after {
+    content: '✓';
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-green-text);
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.15s ease, width 0.15s ease;
+  }
+  .ds-copyhex.is-copied::after {
+    opacity: 1;
+    width: 0.7rem;
   }
 
   /* Guidance grid: each Do / Don't is its own card with a rendered example.

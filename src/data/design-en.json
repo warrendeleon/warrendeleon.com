@@ -105,6 +105,10 @@
         "label": "Callouts"
       },
       {
+        "id": "illustration",
+        "label": "Illustration colour"
+      },
+      {
         "id": "using",
         "label": "Using colour"
       }
@@ -190,7 +194,27 @@
       "Paint the brand lime onto small text on white. It fails the contrast bar; that is what the text green is for.",
       "Reach for a callout colour in the interface. Those belong in article prose."
     ],
-    "elevationNote": "Elevation tokens (the themed shadows) are documented on the Shape & elevation page."
+    "elevationNote": "Elevation tokens (the themed shadows) are documented on the Shape & elevation page.",
+    "illosHeading": "Illustration colour",
+    "illosBody": "The interface holds to one green, but the blog’s hero illustrations carry a palette of their own. It works the same way in miniature: a fixed pool of ten, the brand lime always present, and one soft ground per series.",
+    "heroPaletteHeading": "The shared palette",
+    "heroPaletteBody": "The ten, read from the live posts at build time. Each illustration uses only a few of them, which is where the variety between heroes comes from; the pool itself never changes.",
+    "heroPaletteNames": [
+      "Lime",
+      "Navy",
+      "Coral",
+      "Teal",
+      "Plum",
+      "Amber",
+      "Blush",
+      "Sky",
+      "Charcoal",
+      "Sand"
+    ],
+    "heroSwatchHeading": "One ground per series",
+    "heroSwatchBody": "Backgrounds deliberately sit off the palette: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed — its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
+    "illosMore": "How the heroes are drawn is on",
+    "illosMoreLink": "the Media page"
   },
   "typography": {
     "seoTitle": "Typography | Design system | Warren de Leon",
@@ -1110,22 +1134,8 @@
     "heroBody": "Every post opens with a rich but flat isometric illustration: detailed, layered vector scenes with no gradients, no readable text and no logos, on a soft near-white ground. Each one is generated with Cloudflare AI from a short written concept describing the post’s idea as objects — a tab bar pulling in panels, a mesh sorting arrows into trays.",
     "heroColourBody": "The model never chooses the palette. Every illustration picks a few colours from one shared ten-colour pool — the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand — and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
     "heroCaption": "A real post hero: a few of the shared palette on its series’ ground.",
-    "heroSwatchHeading": "One ground per series",
-    "heroSwatchBody": "Backgrounds deliberately sit off the palette: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed — its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
-    "heroPaletteHeading": "The shared palette",
-    "heroPaletteBody": "The ten, read from the live posts at build time. Each illustration uses only a few of them, which is where the variety between heroes comes from; the pool itself never changes.",
-    "heroPaletteNames": [
-      "Lime",
-      "Navy",
-      "Coral",
-      "Teal",
-      "Plum",
-      "Amber",
-      "Blush",
-      "Sky",
-      "Charcoal",
-      "Sand"
-    ]
+    "heroMore": "The palette and the series grounds are documented with the rest of the colour system on",
+    "heroMoreLink": "the Colour page"
   },
   "timeline": {
     "seoTitle": "Timeline | Design system | Warren de Leon",
@@ -1367,5 +1377,6 @@
     "contrastLimitation": "The honest part: at body reading size on a light background, a green link sits at about 3.2 to 1 — past the large-text bar, short of the 4.5-to-1 bar for normal text. The site accepts that trade to keep its one brand colour, and softens it two ways. Article links are underlined, so colour is never the only signal; and dark mode resolves it outright, where the same lime on near-black reads at about 8.6 to 1. Body copy itself is always neutral, and always passes.",
     "scopeHeading": "Scope",
     "scopeBody": "This covers the website. The React Native app and the email templates are their own surfaces, with their own standards, and are not documented here."
-  }
+  },
+  "copyLabel": "Copy"
 }

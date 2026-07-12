@@ -105,6 +105,10 @@
         "label": "Avisos"
       },
       {
+        "id": "illustration",
+        "label": "Color de ilustración"
+      },
+      {
         "id": "using",
         "label": "Uso del color"
       }
@@ -190,7 +194,27 @@
       "Pintar el lima de marca sobre texto pequeño en blanco. No supera el umbral de contraste; para eso está el verde de texto.",
       "Recurrir a un color de aviso en la interfaz. Esos pertenecen a la prosa de los artículos."
     ],
-    "elevationNote": "Los tokens de elevación (las sombras según el tema) se documentan en la página de Forma y elevación."
+    "elevationNote": "Los tokens de elevación (las sombras según el tema) se documentan en la página de Forma y elevación.",
+    "illosHeading": "Color de ilustración",
+    "illosBody": "La interfaz se sostiene sobre un solo verde, pero las cabeceras del blog llevan una paleta propia. Funciona igual en miniatura: un fondo común fijo de diez, la lima de la marca siempre presente, y un suelo suave por serie.",
+    "heroPaletteHeading": "La paleta compartida",
+    "heroPaletteBody": "Los diez, leídos de los posts reales al compilar. Cada ilustración usa solo unos pocos, y de ahí viene la variedad entre cabeceras; el fondo común nunca cambia.",
+    "heroPaletteNames": [
+      "Lima",
+      "Azul marino",
+      "Coral",
+      "Verde azulado",
+      "Ciruela",
+      "Ámbar",
+      "Rosa pálido",
+      "Celeste",
+      "Carbón",
+      "Arena"
+    ],
+    "heroSwatchHeading": "Un fondo por serie",
+    "heroSwatchBody": "Los fondos quedan deliberadamente fuera de la paleta: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el fondo común descansa sobre cada suelo: la mezcla cambia por imagen, la familia nunca.",
+    "illosMore": "Cómo se dibujan las cabeceras está en",
+    "illosMoreLink": "la página de Media"
   },
   "typography": {
     "seoTitle": "Tipografía | Sistema de diseño | Warren de Leon",
@@ -1110,22 +1134,8 @@
     "heroBody": "Cada post se abre con una ilustración isométrica rica pero plana: escenas vectoriales detalladas y por capas, sin degradados, sin texto legible ni logotipos, sobre un fondo suave casi blanco. Cada una se genera con Cloudflare AI a partir de un concepto breve que describe la idea del post como objetos: una barra de pestañas que atrae paneles, una malla que reparte flechas en bandejas.",
     "heroColourBody": "El modelo nunca elige la paleta. Cada ilustración toma unos pocos colores de un fondo común de diez — la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena — y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
     "heroCaption": "Una cabecera real: unos pocos colores de la paleta compartida sobre el fondo de su serie.",
-    "heroSwatchHeading": "Un fondo por serie",
-    "heroSwatchBody": "Los fondos quedan deliberadamente fuera de la paleta: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el fondo común descansa sobre cada suelo: la mezcla cambia por imagen, la familia nunca.",
-    "heroPaletteHeading": "La paleta compartida",
-    "heroPaletteBody": "Los diez, leídos de los posts reales al compilar. Cada ilustración usa solo unos pocos, y de ahí viene la variedad entre cabeceras; el fondo común nunca cambia.",
-    "heroPaletteNames": [
-      "Lima",
-      "Azul marino",
-      "Coral",
-      "Verde azulado",
-      "Ciruela",
-      "Ámbar",
-      "Rosa pálido",
-      "Celeste",
-      "Carbón",
-      "Arena"
-    ]
+    "heroMore": "La paleta y los fondos por serie están documentados con el resto del sistema de color en",
+    "heroMoreLink": "la página de Color"
   },
   "timeline": {
     "seoTitle": "Cronología | Sistema de diseño | Warren de Leon",
@@ -1367,5 +1377,6 @@
     "contrastLimitation": "La parte honesta: al tamaño de lectura del cuerpo sobre un fondo claro, un enlace verde se queda en torno a 3,2:1, por encima del umbral de texto grande pero por debajo del umbral de 4,5:1 para texto normal. El sitio acepta esa concesión para conservar su único color de marca, y la suaviza de dos maneras. Los enlaces de los artículos van subrayados, así que el color nunca es la única señal; y el modo oscuro lo resuelve del todo, donde el mismo lima sobre casi negro se lee en torno a 8,6:1. El cuerpo de texto en sí siempre es neutro, y siempre cumple.",
     "scopeHeading": "Alcance",
     "scopeBody": "Esto cubre el sitio web. La aplicación de React Native y las plantillas de correo son superficies propias, con sus propios estándares, y no se documentan aquí."
-  }
+  },
+  "copyLabel": "Copiar"
 }

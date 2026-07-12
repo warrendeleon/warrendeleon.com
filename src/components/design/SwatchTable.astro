@@ -7,6 +7,7 @@
 // pairs plus a usage note never fitted six columns — a table forced sideways
 // scrolling on every screen. Rows stack cleanly at any width instead.
 import type { ColorToken } from '../../lib/design-tokens.mjs';
+import CopyHex from './CopyHex.astro';
 
 interface Props {
   rows: ColorToken[];
@@ -14,8 +15,10 @@ interface Props {
   usage?: Record<string, string>;
   kind?: 'color' | 'shadow';
   headers: { swatch: string; token: string; light: string; dark: string; usage: string };
+  /** localised aria prefix for the copy chips, e.g. "Copy". */
+  copyLabel: string;
 }
-const { rows, usage, kind = 'color', headers } = Astro.props;
+const { rows, usage, kind = 'color', headers, copyLabel } = Astro.props;
 ---
 
 <ul class="ds-swlist">
@@ -39,8 +42,8 @@ const { rows, usage, kind = 'color', headers } = Astro.props;
       </span>
       <span class="ds-sw-info">
         <code class="ds-sw-token">{r.name}</code>
-        <span class="ds-sw-val"><span class="ds-sw-key">{headers.light}</span> <span class="ds-sw-code">{r.light}</span></span>
-        <span class="ds-sw-val"><span class="ds-sw-key">{headers.dark}</span> <span class="ds-sw-code">{r.dark}</span></span>
+        <span class="ds-sw-val"><span class="ds-sw-key">{headers.light}</span> <CopyHex value={r.light} label={copyLabel} /></span>
+        <span class="ds-sw-val"><span class="ds-sw-key">{headers.dark}</span> <CopyHex value={r.dark} label={copyLabel} /></span>
         {usage?.[r.name] && <span class="ds-sw-usage">{usage[r.name]}</span>}
       </span>
     </li>
@@ -129,7 +132,6 @@ const { rows, usage, kind = 'color', headers } = Astro.props;
     text-transform: uppercase;
     color: var(--text-muted);
   }
-  .ds-sw-code { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; }
   .ds-sw-usage {
     margin-top: 0.2rem;
     font-size: 0.82rem;
