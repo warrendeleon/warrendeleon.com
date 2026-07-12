@@ -22,7 +22,7 @@
     "tags-chips": "Etiquetas y chips",
     "cards": "Tarjetas",
     "navigation": "Navegación",
-    "sheets-overlays": "Paneles y superposiciones",
+    "sheets-overlays": "Hojas y superposiciones",
     "article-patterns": "Patrones de artículo",
     "timeline": "Cronología",
     "writing": "Redacción",
@@ -198,9 +198,9 @@
     ],
     "elevationNote": "Los tokens de elevación (las sombras según el tema) se documentan en la página de Forma y elevación.",
     "illosHeading": "Color de ilustración",
-    "illosBody": "La interfaz se sostiene sobre un solo verde, pero las cabeceras del blog llevan una paleta propia. Funciona igual en miniatura: un **fondo común fijo de diez**, la lima de la marca siempre presente, y un suelo suave por serie.",
+    "illosBody": "La interfaz se sostiene sobre un solo verde, pero las cabeceras del blog llevan una paleta propia. Funciona igual en miniatura: un **repertorio fijo de diez**, la lima de la marca siempre presente, y un suelo suave por serie.",
     "heroPaletteHeading": "La paleta compartida",
-    "heroPaletteBody": "Los diez, leídos de los posts reales al compilar. Cada ilustración usa solo unos pocos, y de ahí viene la variedad entre cabeceras; el fondo común nunca cambia.",
+    "heroPaletteBody": "Los diez, leídos de los posts reales al compilar. Cada ilustración usa solo unos pocos, y de ahí viene la variedad entre cabeceras; el repertorio nunca cambia.",
     "heroPaletteNames": [
       "Lima",
       "Azul marino",
@@ -214,9 +214,9 @@
       "Arena"
     ],
     "heroSwatchHeading": "Un fondo por serie",
-    "heroSwatchBody": "**Los fondos quedan deliberadamente fuera de la paleta**: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el fondo común descansa sobre cada suelo: la mezcla cambia por imagen, la familia nunca.",
+    "heroSwatchBody": "**Los fondos quedan deliberadamente fuera de la paleta**: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el repertorio descansa sobre cada fondo de serie: la mezcla cambia por imagen, la familia nunca.",
     "illosMore": "Cómo se dibujan las cabeceras está en",
-    "illosMoreLink": "la página de Media"
+    "illosMoreLink": "la página de Medios"
   },
   "typography": {
     "seoTitle": "Tipografía | Sistema de diseño | Warren de Leon",
@@ -293,7 +293,7 @@
       "proseH2": "Encabezado de sección de artículo, con el subrayado verde."
     },
     "monoHeading": "Monoespaciada",
-    "monoBody": "Una pila monoespaciada marca todo lo que compone la máquina: líneas de metadatos y fechas, etiquetas e insignias, cabeceras de tabla, código y los pequeños antetítulos en mayúsculas. Señala que «esto son datos, no prosa». La pila es SF Mono, Fira Code, Cascadia Code y, después, la monoespaciada del sistema.",
+    "monoBody": "Una pila monoespaciada marca todo lo que la máquina compone: líneas de metadatos y fechas, etiquetas e insignias, cabeceras de tabla, código y los pequeños antetítulos en mayúsculas. Señala que «esto son datos, no prosa». La pila es SF Mono, Fira Code, Cascadia Code y, después, la monoespaciada del sistema.",
     "mappingHeading": "En uso",
     "mappingBody": "Dónde aparece cada rol:",
     "mapping": [
@@ -335,7 +335,7 @@
     "seoTitle": "Maquetación | Sistema de diseño | Warren de Leon",
     "seoDescription": "El sistema de maquetación de warrendeleon.com: tres columnas de contenido, puntos de ruptura honestos y una escala de espaciado de cuatro píxeles.",
     "title": "Maquetación",
-    "intro": "Primero el móvil, una columna, contenido centrado mientras el margen flexiona. Tres columnas fijas cubren teléfono, tableta y escritorio. La escala de espaciado de abajo se lee de la hoja de estilos.",
+    "intro": "Primero el móvil, una columna, contenido centrado mientras el margen se adapta. Tres columnas fijas cubren teléfono, tableta y escritorio. La escala de espaciado de abajo se lee de la hoja de estilos.",
     "toc": [
       {
         "id": "columns",
@@ -359,7 +359,7 @@
       }
     ],
     "columnsHeading": "Columnas",
-    "columnsBody": "La página es una única columna centrada con un ancho máximo fijo por banda. Por debajo de ese ancho, lo único que flexiona es el margen, así que la medida de lectura se mantiene cómoda en lugar de estirarse de borde a borde en una pantalla ancha. Los artículos se estrechan aún más, hasta una columna de lectura de 720 píxeles; solo los bloques a sangre completa, como el código, se salen de ella.",
+    "columnsBody": "La página es una única columna centrada con un ancho máximo fijo por banda. Por debajo de ese ancho, lo único que cede es el margen, así que la medida de lectura se mantiene cómoda en lugar de estirarse de borde a borde en una pantalla ancha. Los artículos se estrechan aún más, hasta una columna de lectura de 720 píxeles; solo los bloques a sangre completa, como el código, se salen de ella.",
     "columnsHeaders": {
       "band": "Banda",
       "column": "Columna",
@@ -418,7 +418,7 @@
     },
     "nestingBody": "El ritmo se anida: sección, luego tarjeta, luego grupo, luego elemento, cada uno con menos aire que el que lo rodea.",
     "targetsHeading": "Áreas táctiles",
-    "targetsBody": "Los controles táctiles primarios mantienen un suelo de 44 píxeles: las pestañas del dock, los controles de la barra de lectura, los iconos del pie en el móvil. El glifo interior se queda en 15 a 20 píxeles; el padding hace el resto. Los controles compactos pensados para puntero (las flechas de estanterías y series, la búsqueda de la barra superior) se quedan en 38 a 42 píxeles con espacio libre alrededor.",
+    "targetsBody": "Los controles táctiles primarios mantienen un mínimo de 44 píxeles: las pestañas del dock, los controles de la barra de lectura, los iconos del pie en el móvil. El glifo interior se queda en 15 a 20 píxeles; el padding hace el resto. Los controles compactos pensados para puntero (las flechas de estanterías y series, la búsqueda de la barra superior) se quedan en 38 a 42 píxeles con espacio libre alrededor.",
     "logoHeading": "Logo en un círculo",
     "logoBody": "La marca se sitúa en un marco circular y ocupa unos dos tercios de él, con un anillo fino en el borde. Aparece a 48 píxeles junto a un rol, a 96 en una tarjeta y a 120 como ancla de la cronología.",
     "annotatedHeading": "El ritmo, anotado",
@@ -432,7 +432,7 @@
     "perBandCaption": "Cada token en su tamaño móvil, tableta y escritorio: los valores extraídos lado a lado, estés en el dispositivo que estés. Las figuras de abajo, en cambio, se redimensionan en vivo con tu pantalla.",
     "targetLabels": {
       "compact": "compacto · flechas, búsqueda",
-      "floor": "el suelo · dock, pie",
+      "floor": "el mínimo · dock, pie",
       "bar": "barra de lectura"
     },
     "targetsCaption": "Tres tamaños reales del chrome, glifos a 18px: el objetivo lo aporta el padding, no dibujos más grandes.",
@@ -482,7 +482,7 @@
       },
       {
         "radius": "9px",
-        "where": "Miniaturas de posts del feed (lista móvil)"
+        "where": "Miniaturas de entradas del feed (lista móvil)"
       },
       {
         "radius": "10px",
@@ -490,7 +490,7 @@
       },
       {
         "radius": "12px",
-        "where": "Tarjetas, publicaciones del feed"
+        "where": "Tarjetas, entradas del feed"
       },
       {
         "radius": "14px",
@@ -498,7 +498,7 @@
       },
       {
         "radius": "16px",
-        "where": "Tarjeta de publicación destacada, tarjeta de rol en móvil"
+        "where": "Tarjeta de entrada destacada, tarjeta de rol en móvil"
       },
       {
         "radius": "20px",
@@ -520,8 +520,8 @@
       "usage": "Se usa para"
     },
     "shadowsUsage": {
-      "--shadow": "Elevación de tarjeta heredada, todavía en tarjetas y publicaciones del feed.",
-      "--shadow-hover": "Elevación al pasar el cursor heredada.",
+      "--shadow": "Elevación de tarjeta heredada, todavía en tarjetas y entradas del feed.",
+      "--shadow-hover": "Elevación heredada al pasar el cursor.",
       "--shadow-card": "Elevación de tarjeta en reposo.",
       "--shadow-lift": "Superficies elevadas y estados al pasar el cursor.",
       "--shadow-dock": "El dock flotante de pestañas.",
@@ -558,7 +558,7 @@
       "back": "Atrás",
       "download": "Descargar",
       "rss": "RSS",
-      "check": "Marca",
+      "check": "Visto",
       "close": "Cerrar",
       "chevron": "Chevrón"
     },
@@ -632,8 +632,8 @@
     "reducedBody": "Cuando el sistema de un visitante pide movimiento reducido, el sitio lo respeta sin excepción. Las animaciones y transiciones se reducen a un pelo por encima de cero, y el desplazamiento suave vuelve a ser un salto. Esta es la regla, no un detalle:",
     "reducedCaption": "De la hoja de estilos."
   },
-  "doLabel": "Sí",
-  "dontLabel": "No",
+  "doLabel": "Hazlo",
+  "dontLabel": "No lo hagas",
   "bandLabels": {
     "mobile": "Móvil",
     "tablet": "Tableta",
@@ -644,7 +644,7 @@
     "seoTitle": "Botones | Sistema de diseño | Warren de Leon",
     "seoDescription": "Los dos niveles de botones en warrendeleon.com: botones en línea para formularios y acciones, y CTA en forma de píldora para las llamadas a la acción a nivel de página, con estados y reglas de contenido.",
     "title": "Botones",
-    "intro": "Dos niveles. Los botones en línea llevan acciones corrientes dentro de formularios y tarjetas; los CTA en forma de píldora llevan la una o dos llamadas a la acción que anclan una página entera. Saber a qué nivel pertenece un control es la mayor parte de la decisión.",
+    "intro": "Dos niveles. Los botones en línea llevan acciones corrientes dentro de formularios y tarjetas; los CTA en forma de píldora llevan las pocas llamadas a la acción (una o dos) que anclan una página entera. Saber a qué nivel pertenece un control es la mayor parte de la decisión.",
     "toc": [
       {
         "id": "tiers",
@@ -770,7 +770,7 @@
       },
       {
         "id": "rules",
-        "label": "Cuándo usar cada una"
+        "label": "Cuándo usarlo"
       }
     ],
     "baseHeading": "Tarjeta base",
@@ -808,7 +808,7 @@
     "seoTitle": "Navegación | Sistema de diseño | Warren de Leon",
     "seoDescription": "Cómo te mueves por warrendeleon.com: la barra superior, la navegación de escritorio, el dock de pestañas de un solo elemento, la barra de acciones contextual y el pie de página.",
     "title": "Navegación",
-    "intro": "Moverse por el sitio usa un único conjunto de controles de navegación que se remodela según la pantalla en lugar de varios por separado. El mismo dock va de borde a borde en el móvil, es una píldora flotante en la tablet y desaparece en escritorio, donde la navegación superior toma el relevo.",
+    "intro": "Moverse por el sitio usa un único conjunto de controles de navegación que se remodela según la pantalla en lugar de varios por separado. El mismo dock va de borde a borde en el móvil, es una píldora flotante en la tableta y desaparece en escritorio, donde la navegación superior toma el relevo.",
     "toc": [
       {
         "id": "viewports",
@@ -840,11 +840,11 @@
       },
       {
         "id": "rules",
-        "label": "Cuándo usar cada una"
+        "label": "Cuándo usarlo"
       }
     ],
     "barHeading": "Barra superior",
-    "barBody": "Una barra fija que lleva el logotipo y los controles de utilidad (idioma, tema y búsqueda del blog). Mide 64 píxeles de alto en escritorio, 60 en tablet y 56 en el móvil. En escritorio también alberga los tres enlaces de sección; por debajo de 1280 estos pasan al dock.",
+    "barBody": "Una barra fija que lleva el logotipo y los controles de utilidad (idioma, tema y búsqueda del blog). Mide 64 píxeles de alto en escritorio, 60 en tableta y 56 en el móvil. En escritorio también alberga los tres enlaces de sección; por debajo de 1280 estos pasan al dock.",
     "dockHeading": "Dock de pestañas",
     "dockBody": "La navegación principal por secciones en móvil y tableta: cuatro pestañas: Inicio, Blog, Trabajo, Reservar llamada. Es un único elemento con un punto de ruptura, no dos componentes. Los marcos de abajo son la página real recortada al dock: de borde a borde a 390 con la pestaña activa solo en texto verde, y una píldora flotante a 768 donde la activa gana un fondo tintado. Cuatro pestañas es estructural; una quinta no cabría en la retícula, y por eso esta sección del sistema de diseño vive en el pie.",
     "actionHeading": "Barra de acciones de lectura",
@@ -869,7 +869,7 @@
     "actionProgressText": "Quedan 12 min · 45%",
     "actionDemoTitle": "Una única store compartida entre remotes",
     "railHeading": "Navegación de la documentación",
-    "railBody": "La navegación de esta sección sigue la anatomía del artículo del blog en lugar de inventar la suya: en el móvil la barra superior cambia el logo por un chevron de vuelta al inicio de Diseño con un título plegable, la barra de lectura sustituye al dock y su botón de anillo abre los contenidos como una hoja inferior, y en escritorio los contenidos quedan fijados a la derecha como el ToC del artículo, resaltando la sección en la que estás. La miga de pan nombra el grupo, y la página de inicio de la sección es el índice.",
+    "railBody": "La navegación de esta sección sigue la anatomía del artículo del blog en lugar de inventar la suya: en el móvil la barra superior cambia el logo por un chevrón de vuelta a la portada de Diseño con un título plegable, la barra de lectura sustituye al dock y su botón de anillo abre los contenidos como una hoja inferior, y en escritorio los contenidos quedan fijados a la derecha como el ToC del artículo, resaltando la sección en la que estás. La miga de pan nombra el grupo, y la página de inicio de la sección es el índice.",
     "crumbHeading": "Miga de pan",
     "crumbBody": "Un pequeño rastro en versalitas mono sobre el título de la página. Nombra lugares, nunca la propia página: eso lo hace el título de debajo, así que el rastro termina un nivel por encima. Cada segmento se corta con puntos suspensivos, y los nombres largos de serie se acortan en origen (“React Native” pasa a “RN”), de modo que el rastro no puede partirse en dos líneas.",
     "crumbWhere": "Aparece en los artículos (Blog y después la serie), en las páginas de etiquetas y series, y en esta documentación. En el móvil convive con el chevrón de la barra superior: el chevrón te lleva atrás, el rastro te dice dónde estás."
@@ -894,7 +894,7 @@
       }
     ],
     "anatomyHeading": "Anatomía",
-    "anatomyBody": "Un panel con las esquinas superiores redondeadas a 20 píxeles, rematado por un tirador de 36 por 4, sobre un fondo atenuado. Las filas miden 48 píxeles de alto para un pulgar cómodo; la fila activa lleva un leve tinte verde. Entra deslizándose con una curva de resorte, de modo que llega con algo de peso.",
+    "anatomyBody": "Un panel con las esquinas superiores redondeadas a 20 píxeles, rematado por un tirador de 36 por 4, sobre un fondo atenuado. Las filas miden 48 píxeles de alto para un pulgar cómodo; la fila activa lleva un leve tinte verde. Entra deslizándose con una curva de muelle, de modo que llega con algo de peso.",
     "anatomyCaption": "Las filas y el tirador de la hoja, a partir de las clases reales.",
     "sheetSample": {
       "title": "Índice",
@@ -925,7 +925,7 @@
   },
   "articlePatterns": {
     "seoTitle": "Patrones de artículo | Sistema de diseño | Warren de Leon",
-    "seoDescription": "El kit de formato largo tras el blog en warrendeleon.com: llamadas de atención, bloques de código, la doctrina de tablas y el formulario de suscripción.",
+    "seoDescription": "El kit de formato largo tras el blog en warrendeleon.com: avisos, bloques de código, la doctrina de tablas y el formulario de suscripción.",
     "title": "Patrones de artículo",
     "intro": "El kit con el que se construye una entrada de blog. Son los patrones que convierten un muro de texto en algo que se puede leer, ojear y en lo que confiar.",
     "toc": [
@@ -962,7 +962,7 @@
         "label": "Suscripción"
       }
     ],
-    "calloutsHeading": "Llamadas de atención",
+    "calloutsHeading": "Avisos",
     "calloutsBody": "Cuatro señales para una trampa, un consejo, una precaución o una nota neutra, cada una con su propio color e icono. Extraen un único punto importante del flujo sin romperlo.",
     "calloutSamples": {
       "danger": "Una señal roja te detiene ante un error que conviene evitar.",
@@ -1076,7 +1076,7 @@
     "contentsHeading": "Índice",
     "contentsBody": "Un artículo largo lleva su índice: el componente Toc real se renderiza como una tarjeta lateral fija a partir de 1024 píxeles, y por debajo de ese ancho los mismos encabezados alimentan la hoja del índice tras el anillo de progreso de la barra de lectura.",
     "contentsRows": [
-      "Resumen",
+      "Visión general",
       "Los dos niveles",
       "Estados",
       "Contenido"
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "El marcador de posición en las proporciones de miniatura de tarjeta y de hero.",
     "heroHeading": "Ilustraciones de cabecera de los posts",
     "heroBody": "Cada post se abre con una ilustración isométrica rica pero plana: escenas vectoriales detalladas y por capas, sin degradados, sin texto legible ni logotipos, sobre un fondo suave casi blanco. Cada una se genera con Cloudflare AI a partir de un concepto breve que describe la idea del post como objetos: una barra de pestañas que atrae paneles, una malla que reparte flechas en bandejas.",
-    "heroColourBody": "**El modelo nunca elige la paleta.** Cada ilustración toma unos pocos colores de un fondo común de diez (la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena), y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
+    "heroColourBody": "**El modelo nunca elige la paleta.** Cada ilustración toma unos pocos colores de un repertorio compartido de diez (la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena), y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
     "heroCaption": "Una cabecera real: unos pocos colores de la paleta compartida sobre el fondo de su serie.",
     "heroMore": "La paleta y los fondos por serie están documentados con el resto del sistema de color en",
     "heroMoreLink": "la página de Color"
@@ -1160,7 +1160,7 @@
     ],
     "specimenHeading": "El raíl",
     "anatomyHeading": "Anatomía",
-    "anatomyBody": "Un círculo con el logotipo se asienta sobre el raíl en cada empresa, rodeado de un anillo verde: 120 píxeles en escritorio, 92 en tablet, 48 en el móvil. Una etiqueta verde «Reciente» remata la parte superior. Cada tarjeta lleva la empresa en verde, un rango de fechas en monoespaciado, el puesto, un breve resumen y una fila de chips de tecnología; un chevrón la marca como enlace. En el móvil la tarjeta se compacta a logotipo, empresa, puesto y fecha.",
+    "anatomyBody": "Un círculo con el logotipo se asienta sobre el raíl en cada empresa, rodeado de un anillo verde: 120 píxeles en escritorio, 92 en tableta, 48 en el móvil. Una etiqueta verde «Reciente» remata la parte superior. Cada tarjeta lleva la empresa en verde, un rango de fechas en monoespaciado, el puesto, un breve resumen y una fila de chips de tecnología; un chevrón la marca como enlace. En el móvil la tarjeta se compacta a logotipo, empresa, puesto y fecha.",
     "detailNote": "En la página propia de una empresa, el punto del logotipo ancla directamente el título de la página: el único lugar donde un encabezado de página prescinde de su barra verde, porque el punto ya lo marca.",
     "rulesHeading": "Cuándo usarlo",
     "dos": [
@@ -1250,7 +1250,7 @@
     "datesCaption": "Mes completo para las fechas de artículo, abreviado para los rangos; los rangos abiertos dicen Present.",
     "datesBadCaption": "Ni numérico, ni orden estadounidense, ni ordinal.",
     "punctuationHeading": "Puntuación",
-    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. La truncación y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases.",
+    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. El truncamiento y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Coma serial, el carácter de puntos suspensivos, una raya con espacios, un punto medio entre metadatos.",
@@ -1286,8 +1286,8 @@
     ],
     "crossHeading": "Enlaces cruzados",
     "crossBody1": "Los posts se apuntan entre sí con libertad: una frase que menciona el post del refresco de tokens enlaza con él, con el texto del enlace nombrando el destino como arriba. Los enlaces pueden incluso apuntar a posts que aún no han salido. Al compilar, un enlace a un post sin publicar se **sustituye por su propio texto plano**, así que nada da nunca un 404; cuando el destino se publica, la siguiente compilación vuelve a convertir esas palabras en enlace. Las referencias hacia delante se escriben una vez y se resuelven solas.",
-    "crossBody2": "Cada post puede elegir a mano hasta tres posts relacionados en su front matter; los que no eligen caen en las etiquetas compartidas. Una estantería de lecturas adicionales completa eso con posts más discretos que el lector probablemente no conoce, con un tope de nueve en total, para que siga siendo una recomendación y no un archivo.",
-    "crossBody3": "Dentro de una serie, anterior y siguiente se quedan dentro de la serie: la parte cinco apunta a las partes cuatro y seis, nunca a un post sin relación que se publicó al lado. Solo en los extremos de una serie las flechas caen al post vecino por fecha."
+    "crossBody2": "Cada post puede elegir a mano hasta tres posts relacionados en su front matter; los que no eligen recurren a las etiquetas compartidas. Una estantería de lecturas adicionales completa eso con posts más discretos que el lector probablemente no conoce, con un tope de nueve en total, para que siga siendo una recomendación y no un archivo.",
+    "crossBody3": "Dentro de una serie, anterior y siguiente se quedan dentro de la serie: la parte cinco apunta a las partes cuatro y seis, nunca a un post sin relación que se publicó al lado. Solo en los extremos de una serie las flechas pasan al post vecino por fecha."
   },
   "translation": {
     "seoTitle": "Traducción | Sistema de diseño | Warren de Leon",
@@ -1447,7 +1447,7 @@
     "copyHeading": "Qué dice el correo",
     "copyBody1": "El correo se escribe solo a partir del **front matter** del post, así que nada se escribe dos veces y nada puede contradecir al sitio. Un post de serie recibe el eyebrow de la serie y su número de parte, el cuerpo es la propia descripción del post, y el botón es la única acción.",
     "copyRules": [
-      "Asunto de serie: «Nuevo en la serie: {título} (Parte N)», con el título cortado en sus primeros dos puntos para que la línea quede corta.",
+      "Asunto de serie: «Nuevo en la serie: {título} (Parte N)», con el título cortado en el primer signo de dos puntos para que la línea quede corta.",
       "Asunto de post suelto: «Nuevo artículo: {título}».",
       "Un solo botón verde, «Leer el post →». El correo pide exactamente un clic.",
       "Un post de serie cierra nombrando la serie y enlazando la parte anterior, para que un suscriptor nuevo pueda caminar hacia atrás.",

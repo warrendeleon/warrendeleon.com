@@ -60,7 +60,7 @@
       "iconography": "Mga line icon na Feather-style at solid na brand marks.",
       "motion": "Maiikli, tahimik na mga transition, at ang reduced-motion na switch."
     },
-    "componentsHeading": "Mga Component",
+    "componentsHeading": "Mga component",
     "componentBlurbs": {
       "buttons": "Dalawang tier, totoong mga state, at kung ano ang isusulat sa mga ito.",
       "tags-chips": "Mga badge na nagsasabi ng katotohanan, mga tag na may pupuntahan.",
@@ -74,7 +74,7 @@
     "contentHeading": "Nilalaman",
     "contentBlurbs": {
       "writing": "British English, sentence case, mga petsa, mga link, mga pangalan ng brand.",
-      "translation": "Apat na locale, na nag-uugnay sa pamamagitan ng hreflang; ano ang naisasalin at ano ang hindi.",
+      "translation": "Apat na locale, pinag-uugnay ng hreflang; ano ang naisasalin at ano ang hindi.",
       "newsletter": "Isang email bawat wika: ang disenyo ng site sa inbox, gamit ang text ng mismong post."
     },
     "accessibilityHeading": "Aksesibilidad",
@@ -145,7 +145,7 @@
       "--device-button": "Ang mga side button ng phone frame."
     },
     "brandHeading": "Brand green",
-    "brandBody": "Ang berde ang **tanging accent**. Pinupuno nito ang mga primary button, minamarkahan ang aktibong tab, ginuguhit ang bar sa ilalim ng title ng pahina at umiikot bilang ring sa isang focused na control. Dahil iyon lang ang ibig sabihin nito, natututunan ng mambabasa na basahin ang berde bilang “may ginagawa ito”.",
+    "brandBody": "Ang berde ang **tanging accent**. Pinupuno nito ang mga primary button, minamarkahan ang aktibong tab, ginuguhit ang bar sa ilalim ng title ng pahina at pumapalibot bilang ring sa isang focused na control. Dahil iyon lang ang ibig sabihin nito, natututunan ng mambabasa na basahin ang berde bilang “may ginagawa ito”.",
     "brandTextNote": "Maliwanag ang lime green, at sa laki ng body-text sa puting background ay hindi nito naaabot ang contrast bar. Kaya may hiwalay na text green: sa light mode ay ibinababa ang berde para sa text at mga link, habang sa dark mode ay pinananatili ang brand lime. Ang dahilan kung bakit ito umiiral ay nakalahad sa accessibility page.",
     "neutralsHeading": "Mga neutral at surface",
     "neutralsBody": "Ang mga neutral token ay may **dalawang value, isa kada theme**, kaya ang isang surface ay dinidisenyo sa dalawa mula sa simula. Ang text ay nasa tatlong weight ng diin; ang mga background ay humahakbang mula sa pahina, papunta sa mga tinted band, hanggang sa mga raised card.",
@@ -163,7 +163,7 @@
     },
     "interactionDisabledNote": "Nabawasang opacity; hindi nagbabago ang kulay.",
     "calloutsHeading": "Mga callout",
-    "calloutsBody": "Ang mga long-form na artikulo ay gumagamit ng apat na kulay ng callout upang tukuyin ang isang bitag, isang panggilid na tala, isang pag-iingat o isang neutral na tala. Ito ang tanging lugar kung saan may kahulugan ang isang kulay maliban sa berde.",
+    "calloutsBody": "Ang mga long-form na artikulo ay gumagamit ng apat na kulay ng callout upang tukuyin ang isang bitag, isang aside, isang pag-iingat o isang neutral na tala. Ito ang tanging lugar kung saan may kahulugan ang isang kulay maliban sa berde.",
     "calloutsScoping": "Saklaw: ang mga kulay ng callout ay nabubuhay lamang sa prosa ng artikulo. Hindi kailanman lumilitaw ang mga ito sa interface chrome, kung saan ang berde at ang mga neutral ang gumagawa ng lahat ng trabaho.",
     "calloutsException": "Ang mga dokumentong ito ay gumagawa ng isang sinadyang eksepsiyon sa rule na iyon. Ang mga Gawin at Huwag na card sa ibaba ay gumagamit ng berde at pula, dahil ang isang sistema ng disenyo na nagdodokumento sa sarili nito ang tanging lugar kung saan nararapat ang mga signal na iyon sa labas ng prosa.",
     "calloutsHeaders": {
@@ -178,8 +178,8 @@
       "info": "Info"
     },
     "calloutsUses": {
-      "danger": "Isang pagkakamali o bitag na sulit ipahinto ang mambabasa.",
-      "tip": "Isang nakakatulong na panggilid na tala na hindi esensyal.",
+      "danger": "Isang pagkakamali o bitag na dapat paghintuan ng mambabasa.",
+      "tip": "Isang nakakatulong na aside na hindi essential.",
       "warning": "Isang bagay na dapat gawin nang may pag-iingat.",
       "info": "Neutral na konteksto o isang pointer sa ibang lugar."
     },
@@ -188,7 +188,7 @@
     "dontLabel": "Huwag",
     "dos": [
       "Hayaang mangahulugan ang berde ng isang bagay: interaksyon o diin. Kung ito ay berde, dapat itong ma-tap o sulit pansinin.",
-      "Idisenyo ang bawat surface sa dalawang theme nang sabay. Ginagawa ng mga token pair na default iyon, hindi isang huling-isip.",
+      "Idisenyo ang bawat surface sa dalawang theme nang sabay. Ginagawa ng mga token pair na default iyon, hindi isang afterthought.",
       "Gamitin ang text green para sa berdeng text at mga link, upang manatili itong nababasa sa light na background."
     ],
     "donts": [
@@ -214,7 +214,7 @@
       "Sand"
     ],
     "heroSwatchHeading": "Isang background bawat serye",
-    "heroSwatchBody": "**Ang mga background ay sadyang nasa labas ng palette**: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed: ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
+    "heroSwatchBody": "**Ang mga background ay sadyang nasa labas ng palette**: malalambot na tint na halos puti, na mababasa bilang background at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed: ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
     "illosMore": "Ang paraan ng pagguhit ng mga hero ay nasa",
     "illosMoreLink": "Media page"
   },
@@ -509,9 +509,9 @@
         "where": "Mga hero CTA, language pill, dock"
       }
     ],
-    "radiusNote": "Ang tag chip at ang badge ay may isang pixel na pagitan, sa 7 at 8 pixel. Ito ay isang maliit na hindi pagkakatugma na sulit na panatilihin nang sinasadya o isara; sa ngayon, iniuulat ng mga dokumento ang dalawa ayon sa kung paano sila ipinadala.",
+    "radiusNote": "Ang tag chip at ang badge ay may isang pixel na pagitan, sa 7 at 8 pixel. Ito ay isang maliit na hindi pagkakatugma na sulit na panatilihin nang sinasadya o isara; sa ngayon, iniuulat ng mga dokumento ang dalawa ayon sa kung paano sila naka-ship.",
     "shadowsHeading": "Mga shadow",
-    "shadowsBody": "Ang mga shadow ay malambot at mababa. Ang natatanging rule ay **hindi nagdidilim ang dark mode**: ang isang itim na shadow sa isang madilim na pahina ay walang mababasa, kaya ang mga dark token ay may dalang mahinang light na shadow sa halip. Ang bawat token sa ibaba ay ipinapakita sa isang light at isang dark na stage.",
+    "shadowsBody": "Ang mga shadow ay malambot at mababa. Ang natatanging rule ay **hindi nagdidilim ang dark mode**: ang isang itim na shadow sa isang madilim na pahina ay mababasa bilang wala, kaya ang mga dark token ay may dalang mahinang light na shadow sa halip. Ang bawat token sa ibaba ay ipinapakita sa isang light at isang dark na stage.",
     "shadowsHeaders": {
       "swatch": "Light / dark",
       "token": "Token",
@@ -552,7 +552,7 @@
     ],
     "lineHeading": "Mga line icon",
     "lineBody": "Ang mga interface icon ay iginuguhit sa isang 24-unit na grid na may two-pixel na stroke, round caps at round joins, sa Feather style. Nire-render ang mga ito sa 15 hanggang 20 pixel sa loob ng isang hit area na hindi bababa sa 38, at hindi kailanman may sariling kulay: minamana nila ang currentColor mula sa text.",
-    "lineCaption": "Isang sample ng interface set, sa laki kung paano sila ipinadala.",
+    "lineCaption": "Isang sample ng interface set, sa mismong laki na lumalabas sila sa site.",
     "iconLabels": {
       "search": "Hanapin",
       "back": "Bumalik",
@@ -641,18 +641,18 @@
   },
   "frameThemeNote": "Ang mga frame sa ibaba ay ang totoong mga page na ni-render sa totoong lapad, naka-off ang scripts: kaya palaging light theme ang ipinapakita nila at walang analytics na tumatakbo sa loob.",
   "buttons": {
-    "seoTitle": "Mga Button | Disenyo | Warren de Leon",
+    "seoTitle": "Mga button | Disenyo | Warren de Leon",
     "seoDescription": "Ang dalawang antas ng button sa warrendeleon.com: mga inline na button para sa mga form at aksyon, at mga pill CTA para sa mga panawagan sa antas ng pahina, kasama ang mga estado at mga panuntunan sa nilalaman.",
-    "title": "Mga Button",
-    "intro": "Dalawang antas. Ang mga inline na button ang nagdadala ng mga karaniwang aksyon sa loob ng mga form at card; ang mga pill CTA naman ang nagdadala ng isa o dalawang panawagan na siyang nagbibigay-diin sa isang buong pahina. Ang pag-alam kung saang antas nabibilang ang isang kontrol ang pinakamalaking bahagi ng desisyon.",
+    "title": "Mga button",
+    "intro": "Dalawang tier. Ang mga inline na button ang nagdadala ng mga karaniwang aksyon sa loob ng mga form at card; ang mga pill CTA naman ang nagdadala ng isa o dalawang call to action na nag-aangkla sa buong pahina. Ang pag-alam kung saang antas nabibilang ang isang kontrol ang pinakamalaking bahagi ng desisyon.",
     "toc": [
       {
         "id": "tiers",
-        "label": "Ang dalawang antas"
+        "label": "Ang dalawang tier"
       },
       {
         "id": "states",
-        "label": "Mga estado"
+        "label": "Mga state"
       },
       {
         "id": "content",
@@ -663,18 +663,18 @@
         "label": "Kailan gagamitin"
       }
     ],
-    "tiersHeading": "Ang dalawang antas",
+    "tiersHeading": "Ang dalawang tier",
     "inlineHeading": "Mga inline na button",
-    "inlineBody": "Ang default na kontrol: isang button na may 8-pixel na radius para sa mga aksyon sa loob ng mga form, card at prose. Solidong berde para sa pangunahing aksyon, may-balangkas na berde para sa pangalawa. Isang pangunahin lang bawat grupo.",
+    "inlineBody": "Ang default na kontrol: isang button na may 8-pixel na radius para sa mga aksyon sa loob ng mga form, card at prose. Solidong berde para sa pangunahing aksyon, outline na berde para sa secondary. Isang pangunahin lang bawat grupo.",
     "pillHeading": "Mga pill CTA",
-    "pillBody": "Mas matataas na 48-pixel na pill para sa mga panawagan sa antas ng pahina: ang mga dapat makita ng bisita kahit mula sa malayo, tulad ng “Download CV” o “Book a call”. Solido at may-balangkas, parehong pares ng berde.",
-    "statesHeading": "Mga estado",
+    "pillBody": "Mas matataas na 48-pixel na pill para sa mga panawagan sa antas ng pahina: ang mga dapat makita ng bisita kahit mula sa malayo, tulad ng “Download CV” o “Book a call”. Solid at outline, parehong pares ng berde.",
+    "statesHeading": "Mga state",
     "statesBody": "Bawat state, ni-render. Pinapalalim ng hover ang berde; iginuguhit ng focus ang shared na 2-pixel na berdeng ring; ang disabled na control ay bumababa sa mababang opacity nang hindi nagbabago ang kulay, kaya mababasa pa rin itong parehong control. Ipinapakita ng mga column ng hover at focus ang mga state na iyon nang naka-apply, dahil hindi kayang mag-hover ng cursor ang isang static na page sa sarili nito.",
     "contentHeading": "Nilalaman",
     "contentBody": "Ang mga label ay isang pandiwa at isang pangngalan, sa sentence case, sa isang linya. Sabihin kung ano ang mangyayari, mula sa panig ng mambabasa, nang walang “my” o “your”.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
-      "Gumamit ng isang pangunahing button bawat grupo; gawing may-balangkas o payak ang iba.",
+      "Gumamit ng isang pangunahing button bawat grupo; gawing outline o plain ang iba.",
       "Ilaan ang mga pill CTA para sa mga aksyon sa antas ng pahina; gumamit ng mga inline na button sa lahat ng iba pa.",
       "Lagyan ng label na may pandiwa at pangngalan: “Download CV”, “Book a call”."
     ],
@@ -734,7 +734,7 @@
     "seoTitle": "Mga card | Disenyo | Warren de Leon",
     "seoDescription": "Ang pamilya ng card sa warrendeleon.com: ang base card at ang blog feed post, kasama ang mga panuntunan sa buong-ibabaw na link at hover-lift.",
     "title": "Mga card",
-    "intro": "Ang isang card ay pinagsasama-sama ang isang maliit na yunit ng nilalaman sa likod ng manipis na border at malambot na anino. Ang blog feed post ang card na ginagawa ang pinakamadalas nitong trabaho.",
+    "intro": "Pinagsasama-sama ng card ang isang maliit na yunit ng nilalaman sa likod ng manipis na border at malambot na anino. Ang blog feed post ang card na gumagawa ng pinakamadalas nitong trabaho.",
     "toc": [
       {
         "id": "base",
@@ -774,7 +774,7 @@
       }
     ],
     "baseHeading": "Base card",
-    "baseBody": "Isang bilog na 12-pixel na ibabaw sa background ng card, nakabalangkas ng manipis na linya at itinaas ng malambot na anino. Kapag hini-hover, kaunti pa itong itinataas. Ito ang shell na halos lahat ng ibang card ay itinatayo.",
+    "baseBody": "Isang bilog na 12-pixel na ibabaw sa background ng card, nakabalangkas ng manipis na linya at itinaas ng malambot na anino. Kapag hini-hover, kaunti pa itong itinataas. Ito ang shell na pinagtatayuan ng halos lahat ng ibang card.",
     "feedHeading": "Feed post",
     "feedBody": "Ang card ng blog listing: ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row.",
     "wholeLinkNote": "Ang buong card ay isang link, hindi isang title link na may hiwalay na “read more”. Ang hover ay magkasabay na nagtataas ng card at nag-be-berde sa pamagat.",
@@ -900,7 +900,7 @@
       "title": "Nilalaman",
       "meta": "8 seksyon",
       "rows": [
-        "Pangkalahatang-ideya",
+        "Overview",
         "Ang dalawang antas",
         "Mga estado",
         "Nilalaman"
@@ -925,13 +925,13 @@
   },
   "articlePatterns": {
     "seoTitle": "Mga pattern ng artikulo | Disenyo | Warren de Leon",
-    "seoDescription": "Ang long-form na kit sa likod ng blog sa warrendeleon.com: mga callout, code block, ang doktrina sa talahanayan, at ang subscribe form.",
+    "seoDescription": "Ang long-form na kit sa likod ng blog sa warrendeleon.com: mga callout, code block, ang doktrina sa mga table, at ang subscribe form.",
     "title": "Mga pattern ng artikulo",
     "intro": "Ang kit kung saan itinatayo ang isang blog post. Ito ang mga pattern na ginagawang mababasa, ma-scan at mapagkakatiwalaan ang isang dingding ng teksto.",
     "toc": [
       {
         "id": "callouts",
-        "label": "Mga Callout"
+        "label": "Mga callout"
       },
       {
         "id": "quote",
@@ -943,7 +943,7 @@
       },
       {
         "id": "tables",
-        "label": "Mga Table"
+        "label": "Mga table"
       },
       {
         "id": "diagrams",
@@ -978,7 +978,7 @@
     "codeInlineNote": "Ganito ang hitsura ng inline code:",
     "codeSampleLang": "TypeScript",
     "codeSample": "const tokens = getDesignTokens();\nrenderTable(tokens.colors);",
-    "tablesHeading": "Mga talahanayan",
+    "tablesHeading": "Mga table",
     "tablesBody": "Hindi kailanman gumagamit ang artikulo ng hubad na HTML table. Ang classic na table ay nasa loob ng bordered na card na may sticky na unang column at monospace na header strip; at kung saan mag-aaway ang mga row at ang column ng phone, nagiging bespoke na card ang data. Lahat ng limang pattern, ni-render mula sa totoong mga class:",
     "tableSample": {
       "kicker": "Range bands",
@@ -1076,7 +1076,7 @@
     "contentsHeading": "Contents",
     "contentsBody": "Ang mahabang artikulo ay may dalang table of contents: ang totoong Toc component ay nire-render bilang sticky na sidebar card mula 1024 pixels, at ang parehong mga heading ang nagpapakain sa contents sheet sa likod ng progress ring ng reading bar sa ilalim niyon.",
     "contentsRows": [
-      "Pangkalahatang-ideya",
+      "Overview",
       "Ang dalawang tier",
       "Mga State",
       "Content"
@@ -1160,7 +1160,7 @@
     ],
     "specimenHeading": "Ang rail",
     "anatomyHeading": "Anatomya",
-    "anatomyBody": "Isang bilog na logo ang nakaupo sa rail sa bawat kompanya, napapalibutan ng berde: 120 pixel sa desktop, 92 sa tablet, 48 sa isang telepono. Isang berdeng “Latest” na tag ang tumatakip sa itaas. Ang bawat card ay nagdadala ng kompanya sa berde, isang monospace na saklaw ng petsa, ang tungkulin, isang maikling buod at isang hanay ng mga tech chip; isang chevron ang nagmamarka rito bilang isang link. Sa isang telepono ang card ay compact sa logo, kompanya, tungkulin at petsa.",
+    "anatomyBody": "Isang bilog na logo ang nakaupo sa rail sa bawat kompanya, napapalibutan ng berde: 120 pixel sa desktop, 92 sa tablet, 48 sa isang telepono. Isang berdeng “Latest” na tag ang tumatakip sa itaas. Ang bawat card ay nagdadala ng kompanya sa berde, isang monospace na saklaw ng petsa, ang role, isang maikling buod at isang hanay ng mga tech chip; isang chevron ang nagmamarka rito bilang isang link. Sa isang telepono ang card ay compact sa logo, kompanya, role at petsa.",
     "detailNote": "Sa sariling pahina ng isang kompanya ang logo dot ang direktang nag-aankla sa pamagat ng pahina: ang tanging lugar kung saan ang isang page heading ay iniiwan ang berdeng bar nito, dahil minamarkahan na ito ng dot.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
@@ -1170,7 +1170,7 @@
     ],
     "donts": [
       "Gamitin ang timeline para sa mga walang-ayos na item; iyon ay isang listahan.",
-      "Ipakita ang positions badge sa isang kompanyang may isang tungkulin lamang.",
+      "Ipakita ang positions badge sa isang kompanyang may iisang role lamang.",
       "Panatilihin ang berdeng bar sa isang detail na pahina kung saan nag-aankla na ang logo dot sa pamagat."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
@@ -1250,13 +1250,13 @@
     "datesCaption": "Buong buwan para sa petsa ng artikulo, pinaikli para sa mga saklaw; ang bukás na saklaw ay nagsasabi ng Present.",
     "datesBadCaption": "Hindi numeriko, hindi American na pagkakasunod, hindi ordinal.",
     "punctuationHeading": "Bantas",
-    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay pinaghihiwalay ang mga bahagi nito ng middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap.",
+    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay naghihiwalay ng mga bahagi nito gamit ang middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Serial comma, ang ellipsis character, isang spaced em-dash, isang middot sa pagitan ng meta.",
     "punctuationBadCaption": "Walang three-dot ellipsis, walang tandang padamdam, walang payak na gitling para sa aside.",
     "linksHeading": "Mga link",
-    "linksBody": "Inilalarawan ng teksto ng link kung saan ito papunta. Hindi kailanman iniuugnay ng site ang mga salitang click here o read more, o isang payak na here o this; ang isang link ay nababasa bilang ang bagay na tinuturo nito.",
+    "linksBody": "Inilalarawan ng teksto ng link kung saan ito papunta. Hindi kailanman nili-link ng site ang mga salitang click here o read more, o isang payak na here o this; ang isang link ay nababasa bilang ang bagay na tinuturo nito.",
     "linksGood": "read the token-refresh post",
     "linksBad": "click here to read more",
     "linksCaption": "Naglalarawang teksto ng link na nakatayo nang mag-isa.",
@@ -1317,7 +1317,7 @@
       }
     ],
     "localesHeading": "Apat na locale",
-    "localesBody": "Ang Ingles ay inihahain sa root nang walang prefix. Ang Espanyol, Katalan at Tagalog ay bawat isa ay nasa ilalim ng sariling prefix. Ang mga petsa at pangalan ng buwan ay naka-format ayon sa rehiyon: British English, European Spanish, Katalan at Filipino.",
+    "localesBody": "Ang Ingles ay inihahain sa root nang walang prefix. Ang Espanyol, Katalan at Tagalog ay nasa ilalim ng kanya-kanyang prefix. Ang mga petsa at pangalan ng buwan ay naka-format ayon sa rehiyon: British English, European Spanish, Katalan at Filipino.",
     "localesTableHeaders": {
       "locale": "Locale",
       "prefix": "Landas",
@@ -1346,7 +1346,7 @@
     "connectHeading": "Paano nag-uugnay ang mga bersiyon",
     "connectBody": "Pinagbubuklod ng mga hreflang alternate ang mga bersiyon, at ang bawat pahina ay naglalabas ng mga ito para lamang sa mga wikang talagang umiiral, kaya walang alternate na ina-advertise sa isang pahinang magbabalik ng 404. Ang x-default ay tumuturo sa Ingles na root. Ang bawat naisaling pahina ay sarili nitong canonical: hindi ito nagpapasakop sa orihinal na Ingles. Ang mga link na ginagawa ng interface ay nananatili sa loob ng wika ng mambabasa, habang ang isang link na nakasulat sa loob ng katawan ng isang post ay tumuturo sa Ingles na canonical.",
     "postsHeading": "Mga post at pagtuklas",
-    "postsBody": "Ang isang naisaling post ay may pinaliit na hanay ng frontmatter: minamana nito ang petsa ng publish at series mula sa Ingles na master nito kapag binuo ang site, at ibinababa ang mga field na umiiral lamang upang buuin ang Ingles na hero image. Hindi lahat ng post ay umiiral sa lahat ng apat na wika, at kung saan nawawala ang isang salin, ipinapakita ng feed ng wika ang Ingles na bersiyon sa halip na itago ang post. Ang mga locale page ay sadyang hindi isinasama sa sitemap; naaabot sila ng mga search engine sa pamamagitan ng hreflang, at ang isang first-time na bisita sa root ay ipinapadala sa wika ng kanilang browser nang isang beses.",
+    "postsBody": "Ang isang naisaling post ay may pinaliit na hanay ng frontmatter: minamana nito ang petsa ng publish at series mula sa Ingles na master nito kapag binuo ang site, at dini-drop ang mga field na umiiral lamang upang buuin ang Ingles na hero image. Hindi lahat ng post ay umiiral sa lahat ng apat na wika, at kung saan nawawala ang isang salin, ipinapakita ng feed ng wika ang Ingles na bersiyon sa halip na itago ang post. Ang mga locale page ay sadyang hindi isinasama sa sitemap; naaabot sila ng mga search engine sa pamamagitan ng hreflang, at ang isang first-time na bisita sa root ay ipinapadala sa wika ng kanilang browser nang isang beses.",
     "voiceHeading": "Ang boses sa bawat wika",
     "voiceBody": "Ang translation dito ay hindi word-for-word. Bawat wika ay isinusulat kung paano ito natural na isusulat ng isang senior engineer: parehong structure at parehong facts, sa sarili nitong natural na pananalita.",
     "angliHeading": "Nananatili ang mga hiram na salita",
@@ -1403,7 +1403,7 @@
         "sc": ""
       },
       {
-        "title": "Hindi lang kulay ang tanging senyas",
+        "title": "Hindi kulay ang tanging senyas",
         "body": "Ang mga link sa prosa ng artikulo ay may salungguhit, kaya ang kahulugan ng mga ito ay hindi kailanman nakasalalay sa green lamang.",
         "sc": "1.4.1 Use of Colour · A"
       }
@@ -1427,7 +1427,7 @@
   },
   "copyLabel": "Kopyahin",
   "newsletter": {
-    "seoTitle": "Newsletter | Design system | Warren de Leon",
+    "seoTitle": "Newsletter | Disenyo | Warren de Leon",
     "seoDescription": "Paano dinidisenyo at isinusulat ang newsletter ng warrendeleon.com: isang email bawat wika, ang mga kulay ng site sa inbox, at text na muling ginagamit ang front matter ng mismong post.",
     "title": "Newsletter",
     "intro": "Kapag lumabas ang isang post, lumalabas din ito sa email: **isang campaign bawat wika**, bawat isa sa sariling list. Hinihiram ng email ang design language ng site at muling ginagamit ang mga salita ng mismong post, para ang inbox at ang site ay parang iisang produkto.",
@@ -1451,7 +1451,7 @@
       "Standalone subject: “Bagong post: {title}”.",
       "Isang berdeng button, “Basahin ang post →”. Eksaktong isang click ang hinihingi ng email.",
       "Ang series post ay nagsasara sa pagbanggit ng serye at pag-link sa nakaraang bahagi, para makapag-backtrack ang bagong subscriber.",
-      "Ang campaign ng bawat wika ay pumupunta sa sariling list, at kapag may translation lang."
+      "Ang campaign ng bawat wika ay pumupunta sa sariling list, at ipinapadala lang kapag may translation."
     ],
     "mockLabel": "Ang email, muling binuo gamit ang mga totoong value ng isang post.",
     "mockSubject": "Bago sa serye: Ang host shell (Bahagi 4)",
