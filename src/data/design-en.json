@@ -946,6 +946,22 @@
         "label": "Tables"
       },
       {
+        "id": "advice",
+        "label": "Advice cards"
+      },
+      {
+        "id": "compare",
+        "label": "Compare columns"
+      },
+      {
+        "id": "minitable",
+        "label": "Simple table"
+      },
+      {
+        "id": "lists",
+        "label": "Dividers & dot lists"
+      },
+      {
         "id": "diagrams",
         "label": "Diagrams"
       },
@@ -1092,7 +1108,19 @@
     "whereHeading": "Where it lives",
     "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro.",
     "diagramsHeading": "Diagrams",
-    "diagramsBody": "Architecture diagrams are static images drawn in the site's own tokens — no diagram library ever ships to the reader. The tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:"
+    "diagramsBody": "Architecture diagrams are static images drawn in the site's own tokens — no diagram library ever ships to the reader. The tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:",
+    "adviceHeading": "Advice cards",
+    "adviceBody": "Born in these docs and promoted to the site: a Do and a Don’t card pair for giving advice without a wall of text. Each card is a `figure` with a labelled head, an example stage and a caption. Available to articles as plain HTML with the `dodont` classes.",
+    "adviceCode": "<div class=\"dodont-grid\">\n  <figure class=\"dodont dodont-do\">\n    <p class=\"dodont-head\">Do</p>\n    <div class=\"dodont-stage\">…example…</div>\n    <figcaption class=\"dodont-caption\">Why this works.</figcaption>\n  </figure>\n  …\n</div>",
+    "compareHeading": "Compare columns",
+    "compareBody": "Two bordered columns, green-topped for the favoured side and neutral for the other: what translates against what stays verbatim, what a library does against what it costs. The `compare` classes, available to articles.",
+    "minitableHeading": "Simple table",
+    "minitableBody": "The docs’ own light table: a mono uppercase header strip on the badge tint, hairline row dividers, wrapped in a rounded scrollable card. For token-and-value data that fits three or four columns; anything wider belongs to the bespoke table patterns above. The `table-mini` classes.",
+    "listsHeading": "Dividers & dot lists",
+    "listsBody": "A horizontal rule in an article renders as a short centred green bar, the section divider. And the green-dot list — the bullet used by role descriptions and the booking page — is available to articles as `dot-list`.",
+    "codeFilenameNote": "A code block can also carry a file-path header: a mono strip above the code naming the file it belongs to. On phones a third control joins Copy and Expand: Wrap, which soft-wraps long lines instead of scrolling them.",
+    "adviceDemoDo": "A short, specific rule.",
+    "adviceDemoDont": "The same rule, buried in a paragraph."
   },
   "media": {
     "seoTitle": "Media | Design system | Warren de Leon",

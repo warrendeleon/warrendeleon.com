@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { md } from '../../../../lib/inline-markup';
 import { resolve } from 'node:path';
 import { Code } from 'astro:components';
+import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import MediaZoom from '../../../../components/MediaZoom.astro';
 import SubscribeForm from '../../../../components/SubscribeForm.astro';
@@ -74,6 +75,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
         <Code code={a.codeSample} lang="tsx" themes={{ light: 'github-light', dark: 'github-dark' }} />
       </div>
     </div>
+    <p set:html={md(a.codeFilenameNote)} />
   </section>
 
   <section id="tables">
@@ -168,6 +170,66 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
         </div>
       </div>
     </div>
+  </section>
+
+
+  <section id="minitable">
+    <h2>{a.minitableHeading}</h2>
+    <p set:html={md(a.minitableBody)} />
+    <div class="table-mini-wrap">
+      <table class="table-mini">
+        <thead><tr><th>Token</th><th>Light</th><th>Dark</th></tr></thead>
+        <tbody>
+          <tr><td class="mono-cell">--color-green</td><td>#6dc402</td><td>#6dc402</td></tr>
+          <tr><td class="mono-cell">--bg-primary</td><td>#ffffff</td><td>#111111</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="advice">
+    <h2>{a.adviceHeading}</h2>
+    <p set:html={md(a.adviceBody)} />
+    <div class="dodont-grid">
+      <figure class="dodont dodont-do">
+        <p class="dodont-head">{d.doLabel}</p>
+        <div class="dodont-stage"><span class="ds-plain-text">{a.adviceDemoDo}</span></div>
+        <figcaption class="dodont-caption">{a.adviceDemoDo}</figcaption>
+      </figure>
+      <figure class="dodont dodont-dont">
+        <p class="dodont-head">{d.dontLabel}</p>
+        <div class="dodont-stage"><span class="ds-plain-text">{a.adviceDemoDont}</span></div>
+        <figcaption class="dodont-caption">{a.adviceDemoDont}</figcaption>
+      </figure>
+    </div>
+    <SpecimenCard code={a.adviceCode} lang="html" />
+  </section>
+
+  <section id="compare">
+    <h2>{a.compareHeading}</h2>
+    <p set:html={md(a.compareBody)} />
+    <ul class="compare-grid">
+      <li class="compare-col compare-yes">
+        <p class="compare-head">{d.doLabel}</p>
+        <ul><li>compare-yes</li></ul>
+      </li>
+      <li class="compare-col compare-no">
+        <p class="compare-head">{d.dontLabel}</p>
+        <ul><li>compare-no</li></ul>
+      </li>
+    </ul>
+  </section>
+
+  <section id="lists">
+    <h2>{a.listsHeading}</h2>
+    <p set:html={md(a.listsBody)} />
+    <div class="prose ds-prose-demo">
+      <hr />
+    </div>
+    <ul class="dot-list">
+      <li>{a.listsHeading}</li>
+      <li>{a.compareHeading}</li>
+    </ul>
   </section>
 
   <section id="diagrams">

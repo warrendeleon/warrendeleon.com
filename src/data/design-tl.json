@@ -946,6 +946,22 @@
         "label": "Mga table"
       },
       {
+        "id": "advice",
+        "label": "Mga advice card"
+      },
+      {
+        "id": "compare",
+        "label": "Mga compare column"
+      },
+      {
+        "id": "minitable",
+        "label": "Simpleng table"
+      },
+      {
+        "id": "lists",
+        "label": "Mga divider at dot list"
+      },
+      {
         "id": "diagrams",
         "label": "Mga diagram"
       },
@@ -1092,7 +1108,19 @@
       "Pag-type ng seam sa pagitan ng mga remote"
     ],
     "diagramsHeading": "Mga diagram",
-    "diagramsBody": "Ang mga architecture diagram ay mga static na imahe na iginuhit gamit ang mismong tokens ng site: walang diagram library na naipapadala sa mambabasa. Ang tokens ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:"
+    "diagramsBody": "Ang mga architecture diagram ay mga static na imahe na iginuhit gamit ang mismong tokens ng site: walang diagram library na naipapadala sa mambabasa. Ang tokens ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:",
+    "adviceHeading": "Mga advice card",
+    "adviceBody": "Ipinanganak sa docs na ito at na-promote sa site: magkapares na Do at Don’t card para magbigay ng payo nang walang pader ng teksto. Bawat card ay isang `figure` na may may-label na head, example stage at caption. Available sa mga artikulo bilang plain HTML gamit ang mga `dodont` class.",
+    "adviceCode": "<div class=\"dodont-grid\">\n  <figure class=\"dodont dodont-do\">\n    <p class=\"dodont-head\">Do</p>\n    <div class=\"dodont-stage\">…halimbawa…</div>\n    <figcaption class=\"dodont-caption\">Kung bakit gumagana.</figcaption>\n  </figure>\n  …\n</div>",
+    "compareHeading": "Mga compare column",
+    "compareBody": "Dalawang column na may border, berde ang tuktok ng pinapaboran at neutral ang kabila: kung ano ang isinasalin laban sa kung ano ang nananatili, kung ano ang bigay ng library laban sa halaga nito. Ang mga `compare` class, available sa mga artikulo.",
+    "minitableHeading": "Simpleng table",
+    "minitableBody": "Ang magaan na table ng docs na ito: mono uppercase na header strip sa badge tint, napakanipis na row divider, nakabalot sa rounded na scrollable card. Para sa token-at-value na data na kasya sa tatlo o apat na column; ang mas malapad ay para sa mga bespoke table pattern sa itaas. Ang mga `table-mini` class.",
+    "listsHeading": "Mga divider at dot list",
+    "listsBody": "Ang horizontal rule sa isang artikulo ay lumalabas bilang maikling nakagitnang berdeng bar, ang section divider. At ang green-dot list — ang bullet ng mga role description at ng booking page — ay available sa mga artikulo bilang `dot-list`.",
+    "codeFilenameNote": "Ang code block ay maaari ring may file-path header: mono strip sa itaas ng code na nagpapangalan sa file na kinabibilangan nito. Sa phone, may pangatlong control na sumasama sa Copy at Expand: Wrap, na nagti-tiklop ng mahahabang linya sa halip na i-scroll ang mga ito.",
+    "adviceDemoDo": "Maikli at espesipikong rule.",
+    "adviceDemoDont": "Ang parehong rule, nakabaon sa isang talata."
   },
   "media": {
     "seoTitle": "Media | Disenyo | Warren de Leon",

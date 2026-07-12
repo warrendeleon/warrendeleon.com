@@ -946,6 +946,22 @@
         "label": "Tablas"
       },
       {
+        "id": "advice",
+        "label": "Tarjetas de consejo"
+      },
+      {
+        "id": "compare",
+        "label": "Columnas comparadas"
+      },
+      {
+        "id": "minitable",
+        "label": "Tabla sencilla"
+      },
+      {
+        "id": "lists",
+        "label": "Separadores y listas de puntos"
+      },
+      {
         "id": "diagrams",
         "label": "Diagramas"
       },
@@ -1092,7 +1108,19 @@
       "Tipar la costura entre remotes"
     ],
     "diagramsHeading": "Diagramas",
-    "diagramsBody": "Los diagramas de arquitectura son imágenes estáticas dibujadas con los propios tokens del sitio: al lector no le llega ninguna librería de diagramas. Los tokens dan tema al resultado (nodos verdes, flechas neutras), así que se recolorea con el tema como todo lo demás, y el control de la esquina lo abre a pantalla completa. Este es un diagrama real de un artículo publicado:"
+    "diagramsBody": "Los diagramas de arquitectura son imágenes estáticas dibujadas con los propios tokens del sitio: al lector no le llega ninguna librería de diagramas. Los tokens dan tema al resultado (nodos verdes, flechas neutras), así que se recolorea con el tema como todo lo demás, y el control de la esquina lo abre a pantalla completa. Este es un diagrama real de un artículo publicado:",
+    "adviceHeading": "Tarjetas de consejo",
+    "adviceBody": "Nacieron en esta documentación y se promocionaron al sitio: una pareja de tarjetas Hazlo / No lo hagas para dar consejo sin un muro de texto. Cada tarjeta es una `figure` con cabecera etiquetada, un escenario de ejemplo y un pie. Disponible para los artículos como HTML plano con las clases `dodont`.",
+    "adviceCode": "<div class=\"dodont-grid\">\n  <figure class=\"dodont dodont-do\">\n    <p class=\"dodont-head\">Hazlo</p>\n    <div class=\"dodont-stage\">…ejemplo…</div>\n    <figcaption class=\"dodont-caption\">Por qué funciona.</figcaption>\n  </figure>\n  …\n</div>",
+    "compareHeading": "Columnas comparadas",
+    "compareBody": "Dos columnas con borde, la favorecida coronada en verde y la otra en neutro: qué se traduce frente a qué se conserva, qué da una librería frente a lo que cuesta. Las clases `compare`, disponibles para los artículos.",
+    "minitableHeading": "Tabla sencilla",
+    "minitableBody": "La tabla ligera de esta documentación: una franja de cabecera en mono mayúsculas sobre el tinte de insignia, separadores muy finos y una tarjeta redondeada con desplazamiento. Para datos de token y valor que caben en tres o cuatro columnas; lo más ancho pertenece a los patrones de tabla a medida de arriba. Las clases `table-mini`.",
+    "listsHeading": "Separadores y listas de puntos",
+    "listsBody": "Una regla horizontal en un artículo se dibuja como una barra verde corta y centrada, el separador de sección. Y la lista de puntos verdes, la viñeta de las descripciones de rol y la página de reservas, está disponible para los artículos como `dot-list`.",
+    "codeFilenameNote": "Un bloque de código puede llevar además una cabecera con la ruta del archivo: una franja mono sobre el código que nombra el archivo al que pertenece. En el móvil, un tercer control se une a Copiar y Expandir: Ajustar, que pliega las líneas largas en vez de desplazarlas.",
+    "adviceDemoDo": "Una regla corta y concreta.",
+    "adviceDemoDont": "La misma regla, enterrada en un párrafo."
   },
   "media": {
     "seoTitle": "Medios | Sistema de diseño | Warren de Leon",

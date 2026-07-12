@@ -946,6 +946,22 @@
         "label": "Taules"
       },
       {
+        "id": "advice",
+        "label": "Targetes de consell"
+      },
+      {
+        "id": "compare",
+        "label": "Columnes comparades"
+      },
+      {
+        "id": "minitable",
+        "label": "Taula senzilla"
+      },
+      {
+        "id": "lists",
+        "label": "Separadors i llistes de punts"
+      },
+      {
         "id": "diagrams",
         "label": "Diagrames"
       },
@@ -1092,7 +1108,19 @@
       "Tipar la costura entre remotes"
     ],
     "diagramsHeading": "Diagrames",
-    "diagramsBody": "Els diagrames d'arquitectura són imatges estàtiques dibuixades amb els mateixos tokens del web: al lector no li arriba cap llibreria de diagrames. Els tokens donen tema al resultat (nodes verds, fletxes neutres), així que es recoloreja amb el tema com tota la resta, i el control de la cantonada l'obre a pantalla completa. Aquest és un diagrama real d'un article publicat:"
+    "diagramsBody": "Els diagrames d'arquitectura són imatges estàtiques dibuixades amb els mateixos tokens del web: al lector no li arriba cap llibreria de diagrames. Els tokens donen tema al resultat (nodes verds, fletxes neutres), així que es recoloreja amb el tema com tota la resta, i el control de la cantonada l'obre a pantalla completa. Aquest és un diagrama real d'un article publicat:",
+    "adviceHeading": "Targetes de consell",
+    "adviceBody": "Van néixer en aquesta documentació i s’han promocionat al web: una parella de targetes Fes-ho / No ho facis per donar consell sense un mur de text. Cada targeta és una `figure` amb capçalera etiquetada, un escenari d’exemple i un peu. Disponible per als articles com a HTML pla amb les classes `dodont`.",
+    "adviceCode": "<div class=\"dodont-grid\">\n  <figure class=\"dodont dodont-do\">\n    <p class=\"dodont-head\">Fes-ho</p>\n    <div class=\"dodont-stage\">…exemple…</div>\n    <figcaption class=\"dodont-caption\">Per què funciona.</figcaption>\n  </figure>\n  …\n</div>",
+    "compareHeading": "Columnes comparades",
+    "compareBody": "Dues columnes amb vora, l’afavorida coronada en verd i l’altra en neutre: què es tradueix davant de què es conserva, què dona una llibreria davant del que costa. Les classes `compare`, disponibles per als articles.",
+    "minitableHeading": "Taula senzilla",
+    "minitableBody": "La taula lleugera d’aquesta documentació: una franja de capçalera en mono majúscules sobre el tint de distintiu, separadors molt fins i una targeta arrodonida amb desplaçament. Per a dades de token i valor que caben en tres o quatre columnes; el que és més ample pertany als patrons de taula a mida de dalt. Les classes `table-mini`.",
+    "listsHeading": "Separadors i llistes de punts",
+    "listsBody": "Una regla horitzontal en un article es dibuixa com una barra verda curta i centrada, el separador de secció. I la llista de punts verds, el pic de les descripcions de rol i la pàgina de reserves, està disponible per als articles com a `dot-list`.",
+    "codeFilenameNote": "Un bloc de codi pot portar a més una capçalera amb la ruta del fitxer: una franja mono sobre el codi que anomena el fitxer al qual pertany. Al mòbil, un tercer control s’uneix a Copiar i Expandir: Ajustar, que plega les línies llargues en comptes de desplaçar-les.",
+    "adviceDemoDo": "Una regla curta i concreta.",
+    "adviceDemoDont": "La mateixa regla, enterrada en un paràgraf."
   },
   "media": {
     "seoTitle": "Mèdia | Sistema de disseny | Warren de Leon",
