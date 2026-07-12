@@ -1193,7 +1193,9 @@
     "listsBody": "A horizontal rule in an article renders as a short centred green bar, the section divider. And the green-dot list — the bullet used by role descriptions and the booking page — is available to articles as `dot-list`.",
     "codeFilenameNote": "A code block can also carry a file-path header: a mono strip above the code naming the file it belongs to. On phones a third control joins Copy and Expand: Wrap, which soft-wraps long lines instead of scrolling them.",
     "adviceDemoDo": "A short, specific rule.",
-    "adviceDemoDont": "The same rule, buried in a paragraph."
+    "adviceDemoDont": "The same rule, buried in a paragraph.",
+    "stackBody": "When a row carries more than three or four columns, do not let it scroll sideways: add `table-stack` and give every cell a `data-label`. From 700 pixels it is the same table; on a phone the header row hides and each row stacks into label-value pairs — the type scale on the Typography page reads this way. Mark the row’s title cell `stack-lead` and a trailing note `stack-end`. And when even pairs are too wide, give up the table: the colour swatches render as a wrapping list instead.",
+    "stackCode": "<div class=\"table-mini-wrap\">\n  <table class=\"table-mini table-stack\">\n    <thead>…</thead>\n    <tbody>\n      <tr>\n        <td class=\"stack-lead\"><code>--fs-h1</code></td>\n        <td data-label=\"Desktop\">34px</td>\n        <td data-label=\"Mobile\">30px</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
   },
   "media": {
     "seoTitle": "Media | Design system | Warren de Leon",

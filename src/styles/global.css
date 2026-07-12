@@ -1574,6 +1574,40 @@ a.series-card-inner:hover {
   font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
   color: var(--text-primary);
 }
+.table-mini td { vertical-align: top; }
+
+/* Stacking table: add .table-stack to a .table-mini and give every cell a
+   data-label. A real table from 700px; below, the header row hides and each
+   row stacks into label/value pairs — nothing ever scrolls sideways.
+   .stack-lead marks the row's title cell (no label, breathing room);
+   .stack-end right-aligns a trailing note. */
+@media (max-width: 699px) {
+  .table-stack thead { display: none; }
+  .table-stack, .table-stack tbody, .table-stack tr, .table-stack td { display: block; }
+  .table-stack tr { border-bottom: 1px solid var(--border-color); padding: 0.35rem 0; }
+  .table-stack tbody tr:last-child { border-bottom: none; }
+  .table-stack td {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: none;
+    padding: 3px 14px;
+  }
+  .table-stack td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    color: var(--text-muted);
+  }
+  .table-stack .stack-lead { padding-top: 8px; }
+  .table-stack .stack-lead::before { content: none; }
+  .table-stack .stack-end { text-align: right; }
+}
 
 
 /* Prev/next navigation cards: two bordered tiles, green uppercase label,

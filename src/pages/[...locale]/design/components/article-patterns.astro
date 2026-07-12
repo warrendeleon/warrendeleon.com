@@ -185,6 +185,27 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
         </tbody>
       </table>
     </div>
+    <p set:html={md(a.stackBody)} />
+    <div class="table-mini-wrap">
+      <table class="table-mini table-stack">
+        <thead><tr><th>Token</th><th>Desktop</th><th>Tablet</th><th>Mobile</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="stack-lead"><code class="ds-code">--fs-h1</code></td>
+            <td data-label="Desktop">34px</td>
+            <td data-label="Tablet">32px</td>
+            <td data-label="Mobile">30px</td>
+          </tr>
+          <tr>
+            <td class="stack-lead"><code class="ds-code">--fs-body</code></td>
+            <td data-label="Desktop">17px</td>
+            <td data-label="Tablet">15px</td>
+            <td data-label="Mobile">14px</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <SpecimenCard code={a.stackCode} lang="html" />
   </section>
 
   <section id="advice">

@@ -1193,7 +1193,9 @@
     "listsBody": "Una regla horizontal en un artículo se dibuja como una barra verde corta y centrada, el separador de sección. Y la lista de puntos verdes, la viñeta de las descripciones de rol y la página de reservas, está disponible para los artículos como `dot-list`.",
     "codeFilenameNote": "Un bloque de código puede llevar además una cabecera con la ruta del archivo: una franja mono sobre el código que nombra el archivo al que pertenece. En el móvil, un tercer control se une a Copiar y Expandir: Ajustar, que pliega las líneas largas en vez de desplazarlas.",
     "adviceDemoDo": "Una regla corta y concreta.",
-    "adviceDemoDont": "La misma regla, enterrada en un párrafo."
+    "adviceDemoDont": "La misma regla, enterrada en un párrafo.",
+    "stackBody": "Cuando una fila lleva más de tres o cuatro columnas, no la dejes desplazarse de lado: añade `table-stack` y da a cada celda un `data-label`. Desde 700 píxeles es la misma tabla; en el móvil la fila de cabecera se oculta y cada fila se apila en pares etiqueta-valor: la escala tipográfica de la página de Tipografía se lee así. Marca la celda de título de la fila con `stack-lead` y una nota final con `stack-end`. Y cuando hasta los pares se quedan anchos, renuncia a la tabla: las muestras de color se dibujan como una lista que fluye.",
+    "stackCode": "<div class=\"table-mini-wrap\">\n  <table class=\"table-mini table-stack\">\n    <thead>…</thead>\n    <tbody>\n      <tr>\n        <td class=\"stack-lead\"><code>--fs-h1</code></td>\n        <td data-label=\"Escritorio\">34px</td>\n        <td data-label=\"Móvil\">30px</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
   },
   "media": {
     "seoTitle": "Medios | Sistema de diseño | Warren de Leon",

@@ -1193,7 +1193,9 @@
     "listsBody": "Ang horizontal rule sa isang artikulo ay lumalabas bilang maikling nakagitnang berdeng bar, ang section divider. At ang green-dot list — ang bullet ng mga role description at ng booking page — ay available sa mga artikulo bilang `dot-list`.",
     "codeFilenameNote": "Ang code block ay maaari ring may file-path header: mono strip sa itaas ng code na nagpapangalan sa file na kinabibilangan nito. Sa phone, may pangatlong control na sumasama sa Copy at Expand: Wrap, na nagti-tiklop ng mahahabang linya sa halip na i-scroll ang mga ito.",
     "adviceDemoDo": "Maikli at espesipikong rule.",
-    "adviceDemoDont": "Ang parehong rule, nakabaon sa isang talata."
+    "adviceDemoDont": "Ang parehong rule, nakabaon sa isang talata.",
+    "stackBody": "Kapag ang isang row ay may higit sa tatlo o apat na column, huwag itong hayaang mag-scroll pagilid: magdagdag ng `table-stack` at bigyan ang bawat cell ng `data-label`. Mula 700 pixels, pareho pa rin ang table; sa phone, nagtatago ang header row at bawat row ay nagsasalansan sa label-value pairs — ganito binabasa ang type scale sa Typography page. Markahan ang title cell ng row ng `stack-lead` at ang panghuling note ng `stack-end`. At kapag maging ang pairs ay masyadong malapad, bitawan ang table: ang mga colour swatch ay lumalabas bilang wrapping list.",
+    "stackCode": "<div class=\"table-mini-wrap\">\n  <table class=\"table-mini table-stack\">\n    <thead>…</thead>\n    <tbody>\n      <tr>\n        <td class=\"stack-lead\"><code>--fs-h1</code></td>\n        <td data-label=\"Desktop\">34px</td>\n        <td data-label=\"Mobile\">30px</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
   },
   "media": {
     "seoTitle": "Media | Disenyo | Warren de Leon",

@@ -14,8 +14,8 @@ const { rows, headers, usage } = Astro.props;
 const showUsage = !!headers.usage;
 ---
 
-<div class="ds-tokentable">
-  <table class="ds-table">
+<div class="table-mini-wrap">
+  <table class="table-mini table-stack">
     <thead>
       <tr>
         <th>{headers.token}</th>
@@ -28,11 +28,11 @@ const showUsage = !!headers.usage;
     <tbody>
       {rows.map((r) => (
         <tr>
-          <td class="ds-cell-token" data-label={headers.token}><code class="ds-token">{r.name}</code></td>
+          <td class="stack-lead" data-label={headers.token}><code class="ds-token">{r.name}</code></td>
           <td class="ds-num" data-label={headers.desktop}>{r.desktop}</td>
           <td class="ds-num" data-label={headers.tablet}>{r.tablet}</td>
           <td class="ds-num" data-label={headers.mobile}>{r.mobile}</td>
-          {showUsage && <td class="ds-usage" data-label={headers.usage}>{usage?.[r.name] ?? ''}</td>}
+          {showUsage && <td class="ds-usage stack-end" data-label={headers.usage}>{usage?.[r.name] ?? ''}</td>}
         </tr>
       ))}
     </tbody>
@@ -40,36 +40,6 @@ const showUsage = !!headers.usage;
 </div>
 
 <style>
-  .ds-tokentable {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0 0 1.5rem;
-    overflow: hidden;
-  }
-  .ds-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .ds-table th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
-    border-bottom: 1px solid var(--border-color);
-  }
-  .ds-table td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    vertical-align: top;
-  }
-  .ds-table tbody tr:last-child td { border-bottom: none; }
   .ds-token {
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     font-size: 0.8rem;
@@ -79,35 +49,5 @@ const showUsage = !!headers.usage;
   .ds-num {
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     color: var(--text-primary);
-  }
-
-  /* Below 700px the table collapses: header row hidden, each row a block,
-     each cell a label/value pair. No sideways scrolling. */
-  @media (max-width: 699px) {
-    .ds-table thead { display: none; }
-    .ds-table, .ds-table tbody, .ds-table tr, .ds-table td { display: block; }
-    .ds-table tr { border-bottom: 1px solid var(--border-color); padding: 0.35rem 0; }
-    .ds-table tbody tr:last-child { border-bottom: none; }
-    .ds-table td {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      border-bottom: none;
-      padding: 3px 14px;
-    }
-    .ds-table td::before {
-      content: attr(data-label);
-      flex-shrink: 0;
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-      color: var(--text-muted);
-    }
-    .ds-cell-token { padding-top: 8px; }
-    .ds-cell-token::before { content: none; }
-    .ds-usage { text-align: right; }
   }
 </style>

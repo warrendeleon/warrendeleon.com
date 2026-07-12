@@ -1193,7 +1193,9 @@
     "listsBody": "Una regla horitzontal en un article es dibuixa com una barra verda curta i centrada, el separador de secció. I la llista de punts verds, el pic de les descripcions de rol i la pàgina de reserves, està disponible per als articles com a `dot-list`.",
     "codeFilenameNote": "Un bloc de codi pot portar a més una capçalera amb la ruta del fitxer: una franja mono sobre el codi que anomena el fitxer al qual pertany. Al mòbil, un tercer control s’uneix a Copiar i Expandir: Ajustar, que plega les línies llargues en comptes de desplaçar-les.",
     "adviceDemoDo": "Una regla curta i concreta.",
-    "adviceDemoDont": "La mateixa regla, enterrada en un paràgraf."
+    "adviceDemoDont": "La mateixa regla, enterrada en un paràgraf.",
+    "stackBody": "Quan una fila porta més de tres o quatre columnes, no la deixis desplaçar-se de costat: afegeix `table-stack` i dona a cada cel·la un `data-label`. Des de 700 píxels és la mateixa taula; al mòbil la fila de capçalera s’amaga i cada fila s’apila en parelles etiqueta-valor: l’escala tipogràfica de la pàgina de Tipografia es llegeix així. Marca la cel·la de títol de la fila amb `stack-lead` i una nota final amb `stack-end`. I quan fins i tot les parelles queden amples, renuncia a la taula: les mostres de color es dibuixen com una llista que flueix.",
+    "stackCode": "<div class=\"table-mini-wrap\">\n  <table class=\"table-mini table-stack\">\n    <thead>…</thead>\n    <tbody>\n      <tr>\n        <td class=\"stack-lead\"><code>--fs-h1</code></td>\n        <td data-label=\"Escriptori\">34px</td>\n        <td data-label=\"Mòbil\">30px</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
   },
   "media": {
     "seoTitle": "Mèdia | Sistema de disseny | Warren de Leon",
