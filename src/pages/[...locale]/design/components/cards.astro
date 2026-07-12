@@ -200,7 +200,7 @@ const demoDesc =
     <h2>{c.rulesHeading}</h2>
     <div class="dodont-grid">
       <GuidanceCard kind="do" label={d.doLabel} caption={c.dos[0]}>
-        <div class="ds-feed-demo">
+        <div class="ds-feed-demo ds-feed-compact">
           <FeedPostCard href="#rules" metaText={demoMeta} title={demoTitle}>
             <Placeholder slot="thumb" />
           </FeedPostCard>
@@ -250,6 +250,33 @@ const demoDesc =
   .ds-card-demo p { margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
   .ds-btn-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
   .ds-feed-demo { width: 100%; max-width: 560px; }
+  /* Inside a narrow guidance stage the desktop feed grid (240px thumb column)
+     cannot fit; force the site's own compact phone variant regardless of the
+     viewport, mirroring global.css's ≤1023 rules. */
+  .ds-feed-compact :global(.feed-post) {
+    display: flex;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 14px;
+  }
+  .ds-feed-compact :global(.feed-post-thumb) {
+    width: 96px;
+    height: 76px;
+    min-height: 0;
+    aspect-ratio: auto;
+    flex-shrink: 0;
+    border-radius: 9px;
+    overflow: hidden;
+  }
+  .ds-feed-compact :global(.feed-post-body) {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
+    padding: 0;
+  }
+  .ds-feed-compact :global(.feed-post-desc) { display: none; }
   .ds-series-hero-demo { margin: 0 0 1rem; }
   .ds-author-demo { margin: 0 0 1rem; }
   /* AuthorCard carries a post-context top margin; the specimen doesn't need it. */
