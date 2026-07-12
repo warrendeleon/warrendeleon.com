@@ -67,7 +67,7 @@
       "cards": "Mula sa base card hanggang sa lead at series card ng blog.",
       "navigation": "Isang chrome set na nagbabago ng hugis sa tatlong viewport.",
       "sheets-overlays": "Ang bottom-sheet primitive sa likod ng bawat picker.",
-      "article-patterns": "Mga callout, code, table, contents — ang long-form kit.",
+      "article-patterns": "Mga callout, code, table, contents: ang long-form kit.",
       "timeline": "Ang rail ng work experience, kasama ang mga logo dot.",
       "media": "Mga post hero, ang photo carousel, ang device frame, at mga placeholder."
     },
@@ -200,7 +200,7 @@
     "illosHeading": "Kulay ng illustration",
     "illosBody": "Ang interface ay nakatayo sa iisang berde, pero ang mga hero illustration ng blog ay may sariling palette. Pareho ang paraan sa maliit na sukat: isang **fixed pool na sampu**, laging kasama ang brand lime, at isang malambot na background bawat serye.",
     "heroPaletteHeading": "Ang shared palette",
-    "heroPaletteBody": "Ang sampu, binabasa mula sa mga totoong post sa build time. Ilan lang dito ang ginagamit ng bawat illustration — doon nanggagaling ang pagkakaiba-iba ng mga hero; ang pool mismo ay hindi nagbabago.",
+    "heroPaletteBody": "Ang sampu, binabasa mula sa mga totoong post sa build time. Ilan lang dito ang ginagamit ng bawat illustration: doon nanggagaling ang pagkakaiba-iba ng mga hero; ang pool mismo ay hindi nagbabago.",
     "heroPaletteNames": [
       "Lime",
       "Navy",
@@ -214,7 +214,7 @@
       "Sand"
     ],
     "heroSwatchHeading": "Isang background bawat serye",
-    "heroSwatchBody": "**Ang mga background ay sadyang nasa labas ng palette**: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed — ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
+    "heroSwatchBody": "**Ang mga background ay sadyang nasa labas ng palette**: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed: ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
     "illosMore": "Ang paraan ng pagguhit ng mga hero ay nasa",
     "illosMoreLink": "Media page"
   },
@@ -323,7 +323,7 @@
       }
     ],
     "headingsHeading": "Mga heading treatment",
-    "headingsBody": "Dalawang green na marka, dalawang trabaho. Ang mga page title at section title ay may maikling green bar sa ilalim ng unang mga salita — fixed-width na accent na hindi humahaba kasama ng teksto. Ang mga article heading naman ay may buong underline na umaabot sa lapad ng mga salita. Kung sakop ng marka ang teksto, nasa loob ka ng artikulo; kung maikling bar ito, page o section title ang tinitingnan mo.",
+    "headingsBody": "Dalawang green na marka, dalawang trabaho. Ang mga page title at section title ay may maikling green bar sa ilalim ng unang mga salita: fixed-width na accent na hindi humahaba kasama ng teksto. Ang mga article heading naman ay may buong underline na umaabot sa lapad ng mga salita. Kung sakop ng marka ang teksto, nasa loob ka ng artikulo; kung maikling bar ito, page o section title ang tinitingnan mo.",
     "headingsLabels": {
       "pageTitle": "Page title: ang bar ay --bar-h1 ang lapad, hindi kailanman ang lapad ng teksto. Class .section-title.",
       "sectionHeading": "Section heading: fixed na 60px na bar. Class .section-heading.",
@@ -418,7 +418,7 @@
     },
     "nestingBody": "Nagkakaantas-antas ang ritmo: section, tapos card, tapos group, tapos element, bawat isa ay may mas kaunting hangin kaysa sa nakapaligid dito.",
     "targetsHeading": "Mga touch target",
-    "targetsBody": "Ang mga pangunahing touch control ay may 44-pixel na floor: ang mga tab ng dock, ang mga control ng reading bar, ang mga icon ng footer sa phone. Ang glyph sa loob ay nananatiling 15 hanggang 20 pixels; ang padding ang bahala sa iba. Ang mga compact na pointer-first na control — ang mga arrow ng shelf at series, ang search ng top bar — ay nasa 38 hanggang 42 pixels na may maluwag na espasyo sa paligid.",
+    "targetsBody": "Ang mga pangunahing touch control ay may 44-pixel na floor: ang mga tab ng dock, ang mga control ng reading bar, ang mga icon ng footer sa phone. Ang glyph sa loob ay nananatiling 15 hanggang 20 pixels; ang padding ang bahala sa iba. Ang mga compact na pointer-first na control (ang mga arrow ng shelf at series, ang search ng top bar) ay nasa 38 hanggang 42 pixels na may maluwag na espasyo sa paligid.",
     "logoHeading": "Logo sa isang bilog",
     "logoBody": "Ang mark ay nasa isang bilog na frame, pinupuno ang halos dalawang-katlo nito na may hairline na ring sa paligid ng gilid. Lumilitaw ito sa 48 pixel katabi ng isang role, 96 sa isang card, at 120 bilang isang timeline anchor.",
     "annotatedHeading": "Ang ritmo, may anotasyon",
@@ -429,14 +429,14 @@
       "card": "Ang padding ng base card: fixed na 24px sa bawat gilid.",
       "buttons": "Nakasalansang pill CTAs: fixed na 10px na pagitan."
     },
-    "perBandCaption": "Bawat token sa mobile, tablet at desktop na sukat nito — ang mga na-parse na halaga nang magkakatabi, anuman ang device mo. Ang mga figure sa ibaba naman ay live na nagre-resize kasama ng viewport mo.",
+    "perBandCaption": "Bawat token sa mobile, tablet at desktop na sukat nito: ang mga na-parse na halaga nang magkakatabi, anuman ang device mo. Ang mga figure sa ibaba naman ay live na nagre-resize kasama ng viewport mo.",
     "targetLabels": {
       "compact": "compact · arrows, search",
       "floor": "ang floor · dock, footer",
       "bar": "reading bar"
     },
     "targetsCaption": "Tatlong tunay na sukat mula sa chrome, 18px ang glyphs: ang padding ang nagdadala ng target, hindi mas malalaking drawing.",
-    "logoCaption": "Pinupuno ng marka ang humigit-kumulang dalawang-katlo ng puting disc na may manipis na green na singsing — 48px sa tabi ng role o sa phone timeline, 96 sa card, 120 bilang desktop timeline anchor. Live sa .timeline-logo at .current-role-logo."
+    "logoCaption": "Pinupuno ng marka ang humigit-kumulang dalawang-katlo ng puting disc na may manipis na green na singsing: 48px sa tabi ng role o sa phone timeline, 96 sa card, 120 bilang desktop timeline anchor. Live sa .timeline-logo at .current-role-logo."
   },
   "shapeElevation": {
     "seoTitle": "Hugis at elevation | Disenyo | Warren de Leon",
@@ -578,7 +578,7 @@
       "Paghaluin ang stroke at fill na mga style sa loob ng interface set.",
       "Paliitin ang mata-tap na area hanggang sa laki ng drawing."
     ],
-    "hitCaption": "Ang hit area, may anotasyon: 20px na glyph na nakagitna sa 44px na parisukat — ang may-guhit na singsing ang tappable na padding.",
+    "hitCaption": "Ang hit area, may anotasyon: 20px na glyph na nakagitna sa 44px na parisukat: ang may-guhit na singsing ang tappable na padding.",
     "hitLabels": {
       "area": "Hit area",
       "glyph": "Glyph",
@@ -639,7 +639,7 @@
     "tablet": "Tablet",
     "desktop": "Desktop"
   },
-  "frameThemeNote": "Ang mga frame sa ibaba ay ang totoong mga page na ni-render sa totoong lapad, naka-off ang scripts — kaya palaging light theme ang ipinapakita nila at walang analytics na tumatakbo sa loob.",
+  "frameThemeNote": "Ang mga frame sa ibaba ay ang totoong mga page na ni-render sa totoong lapad, naka-off ang scripts: kaya palaging light theme ang ipinapakita nila at walang analytics na tumatakbo sa loob.",
   "buttons": {
     "seoTitle": "Mga Button | Disenyo | Warren de Leon",
     "seoDescription": "Ang dalawang antas ng button sa warrendeleon.com: mga inline na button para sa mga form at aksyon, at mga pill CTA para sa mga panawagan sa antas ng pahina, kasama ang mga estado at mga panuntunan sa nilalaman.",
@@ -667,7 +667,7 @@
     "inlineHeading": "Mga inline na button",
     "inlineBody": "Ang default na kontrol: isang button na may 8-pixel na radius para sa mga aksyon sa loob ng mga form, card at prose. Solidong berde para sa pangunahing aksyon, may-balangkas na berde para sa pangalawa. Isang pangunahin lang bawat grupo.",
     "pillHeading": "Mga pill CTA",
-    "pillBody": "Mas matataas na 48-pixel na pill para sa mga panawagan sa antas ng pahina — ang mga dapat makita ng bisita kahit mula sa malayo, tulad ng “Download CV” o “Book a call”. Solido at may-balangkas, parehong pares ng berde.",
+    "pillBody": "Mas matataas na 48-pixel na pill para sa mga panawagan sa antas ng pahina: ang mga dapat makita ng bisita kahit mula sa malayo, tulad ng “Download CV” o “Book a call”. Solido at may-balangkas, parehong pares ng berde.",
     "statesHeading": "Mga estado",
     "statesBody": "Bawat state, ni-render. Pinapalalim ng hover ang berde; iginuguhit ng focus ang shared na 2-pixel na berdeng ring; ang disabled na control ay bumababa sa mababang opacity nang hindi nagbabago ang kulay, kaya mababasa pa rin itong parehong control. Ipinapakita ng mga column ng hover at focus ang mga state na iyon nang naka-apply, dahil hindi kayang mag-hover ng cursor ang isang static na page sa sarili nito.",
     "contentHeading": "Nilalaman",
@@ -679,7 +679,7 @@
       "Lagyan ng label na may pandiwa at pangngalan: “Download CV”, “Book a call”."
     ],
     "donts": [
-      "Magsalansan ng dalawang solidong-berdeng button nang magkatabi — walang nangunguna.",
+      "Magsalansan ng dalawang solidong-berdeng button nang magkatabi: walang nangunguna.",
       "Sumulat ng “Click here” o “Submit”; sabihin kung ano ang ginagawa ng button.",
       "I-grey out ang isang disabled na button nang labis na hindi na ito mukhang kontrol."
     ],
@@ -776,7 +776,7 @@
     "baseHeading": "Base card",
     "baseBody": "Isang bilog na 12-pixel na ibabaw sa background ng card, nakabalangkas ng manipis na linya at itinaas ng malambot na anino. Kapag hini-hover, kaunti pa itong itinataas. Ito ang shell na halos lahat ng ibang card ay itinatayo.",
     "feedHeading": "Feed post",
-    "feedBody": "Ang card ng blog listing — ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row.",
+    "feedBody": "Ang card ng blog listing: ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row.",
     "wholeLinkNote": "Ang buong card ay isang link, hindi isang title link na may hiwalay na “read more”. Ang hover ay magkasabay na nagtataas ng card at nag-be-berde sa pamagat.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
@@ -794,13 +794,13 @@
     "seriesHeroHeading": "Series hero card",
     "seriesHeroBody": "Ang card ng kasalukuyang series sa blog home, ni-render nang live: hero art sa tabi ng pitch ng series, kasama ang progress bar ng nailathala-sa-kabuuan. Sa phone, nagpapatong-patong ito at nagkakaroon ng solid na View series na button.",
     "leadHeading": "Ang lead post at mga viewport",
-    "leadBody": "Ang pinakabagong post ay may mas malaking lead treatment, at ang buong feed ay nagbabago ng hugis bawat band — malaking lead card sa ibabaw ng mga compact na row sa phone, dalawang-column na grid sa tablet, mga thumbnail row na may sidebar sa desktop. Ang mga frame sa ibaba ay ang totoong blog page sa bawat lapad.",
+    "leadBody": "Ang pinakabagong post ay may mas malaking lead treatment, at ang buong feed ay nagbabago ng hugis bawat band: malaking lead card sa ibabaw ng mga compact na row sa phone, dalawang-column na grid sa tablet, mga thumbnail row na may sidebar sa desktop. Ang mga frame sa ibaba ay ang totoong blog page sa bawat lapad.",
     "seriesCardHeading": "Series card",
     "seriesCardBody": "Ang card ng More-series shelf sa Blog home: art sa ibabaw ng bilang ng parts, pamagat at dalawang-linyang paglalarawan. Ang tunay na SeriesCard component, dito may placeholder sa art.",
     "relatedHeading": "Related-post card",
     "relatedBody": "Ang card ng More-from-the-blog shelf na nagsasara ng post: larawan, petsa, pamagat, at ang buong surface ay iisang link. Ang tunay na RelatedCard component.",
     "authorHeading": "Author card",
-    "authorBody": "Ang bio card sa dulo ng bawat post — avatar, pangalan, bio, link sa profile. Ang tunay na AuthorCard component, naka-render nang live.",
+    "authorBody": "Ang bio card sa dulo ng bawat post: avatar, pangalan, bio, link sa profile. Ang tunay na AuthorCard component, naka-render nang live.",
     "roleHeading": "Current-role card",
     "roleBody": "Ang latest-role card ng home page: logo disc sa tabi ng kumpanya at role, may paglalarawan sa ibaba. Naka-render mula sa tunay na classes na may placeholder na content."
   },
@@ -846,11 +846,11 @@
     "barHeading": "Top bar",
     "barBody": "Isang sticky bar na nagdadala ng logo at ng mga utility na kontrol (wika, tema, at paghahanap sa blog). Ito ay 64 pixel ang taas sa desktop, 60 sa tablet at 56 sa isang telepono. Sa desktop dinadala rin nito ang tatlong link ng seksyon; sa ibaba ng 1280 lumilipat ang mga iyon sa dock.",
     "dockHeading": "Tab dock",
-    "dockBody": "Ang pangunahing section navigation sa phone at tablet: apat na tab — Home, Blog, Work, Book a call. Iisang element ito na may isang breakpoint, hindi dalawang component. Ang mga frame sa ibaba ay ang tunay na page na naka-crop sa dock: edge-to-edge sa 390 kung saan green na teksto lang ang aktibong tab, at floating pill sa 768 kung saan may tinted na fill ang aktibo. Structural ang apat na tab; hindi kakasya ang panglima sa grid, kaya nasa footer ang design-system section na ito.",
+    "dockBody": "Ang pangunahing section navigation sa phone at tablet: apat na tab (Home, Blog, Work, Book a call). Iisang element ito na may isang breakpoint, hindi dalawang component. Ang mga frame sa ibaba ay ang tunay na page na naka-crop sa dock: edge-to-edge sa 390 kung saan green na teksto lang ang aktibong tab, at floating pill sa 768 kung saan may tinted na fill ang aktibo. Structural ang apat na tab; hindi kakasya ang panglima sa grid, kaya nasa footer ang design-system section na ito.",
     "actionHeading": "Reading action bar",
     "actionBody": "Sa reading page, ang dock ay pinapalitan, hindi sinasamahan, ng isang contextual action bar: isang progress ring na may kasalukuyang seksyon na nagbubukas ng contents sheet, tapos share at back-to-top. Ito ang totoong ReadingBar component, ipinapakita sa kalagitnaan ng artikulo. Isang bar sa bawat pagkakataon: browse chrome o read chrome, hindi kailanman pareho.",
     "footerHeading": "Footer",
-    "footerBody": "Isang nakasentrong column sa bawat screen: ang mga link ng seksyon, isang flat na hilera ng mga social mark kasama ang RSS, at ang copyright. Walang logo, kailanman — dala na ito ng top bar. Ang live na footer ay nasa ibaba mismo ng page na ito.",
+    "footerBody": "Isang nakasentrong column sa bawat screen: ang mga link ng seksyon, isang flat na hilera ng mga social mark kasama ang RSS, at ang copyright. Walang logo, kailanman: dala na ito ng top bar. Ang live na footer ay nasa ibaba mismo ng page na ito.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
       "Panatilihing apat na tab lang ang dock; ilagay ang anupamang iba sa footer.",
@@ -971,7 +971,7 @@
       "info": "Ang info ay nagbibigay ng neutral na konteksto o tumuturo sa ibang lugar."
     },
     "quoteHeading": "Blockquote",
-    "quoteBody": "Isang hinugot na sipi, ipinakita sa pamamagitan ng isang berdeng linya sa kaliwa sa isang may-tint na panel. Ginagamit para sa isang tunay na sipi, hindi para sa diin — ang diin ay para sa bold.",
+    "quoteBody": "Isang hinugot na sipi, ipinakita sa pamamagitan ng isang berdeng linya sa kaliwa sa isang may-tint na panel. Ginagamit para sa isang tunay na sipi, hindi para sa diin: ang diin ay para sa bold.",
     "quoteSample": "Ang pinakamahuhusay na engineering leader ay hindi kailanman lubusang umaalis sa craft.",
     "codeHeading": "Code",
     "codeBody": "Ang inline code ay nasa isang may-tint na chip. Ang mga block ay may header na may wika at mga kontrol na Copy at Expand, may syntax highlight gamit ang Shiki sa isang light at isang dark na tema, at umaabot sila nang full-bleed sa mga gilid ng screen sa isang telepono kaya may puwang ang isang malapad na linya.",
@@ -1082,7 +1082,7 @@
       "Content"
     ],
     "seriesNavHeading": "Nabigasyon ng series",
-    "seriesNavBody": "Ang post na kabilang sa isang series ay bumubukas na may pahalang na shelf ng mga numerong part card — ang kasalukuyang part ay naka-outline ng berde, ang iba ay nagli-link sa buong series. Malayang nagsi-scroll ang shelf sa mobile; nagdadagdag ng mga arrow control ang desktop.",
+    "seriesNavBody": "Ang post na kabilang sa isang series ay bumubukas na may pahalang na shelf ng mga numerong part card: ang kasalukuyang part ay naka-outline ng berde, ang iba ay nagli-link sa buong series. Malayang nagsi-scroll ang shelf sa mobile; nagdadagdag ng mga arrow control ang desktop.",
     "seriesNavSeries": "Module Federation sa React Native",
     "seriesNavPart": "Part 3 ng 8",
     "seriesNavTitles": [
@@ -1092,7 +1092,7 @@
       "Pag-type ng seam sa pagitan ng mga remote"
     ],
     "diagramsHeading": "Mga diagram",
-    "diagramsBody": "Ang mga architecture diagram ay isinusulat bilang Mermaid sa source ng artikulo at pre-rendered sa SVG sa oras ng pagsulat — walang diagram library na naipapadala sa mambabasa. Ang mismong tokens ng site ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:"
+    "diagramsBody": "Ang mga architecture diagram ay isinusulat bilang Mermaid sa source ng artikulo at pre-rendered sa SVG sa oras ng pagsulat: walang diagram library na naipapadala sa mambabasa. Ang mismong tokens ng site ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:"
   },
   "media": {
     "seoTitle": "Media | Disenyo | Warren de Leon",
@@ -1128,13 +1128,13 @@
     "deviceBody": "Ang mga app screenshot sa mga artikulo ay nakalagay sa loob ng flat na phone frame na iginuhit sa CSS: isang brand-green na rail, isang manipis na itim na bezel, mga side button na iginuhit sa labas mismo ng rail, at isang shadow na sumusunod sa theme. Nananatili ito sa flat na estetika ng blog sa halip na photoreal na render.",
     "deviceCaption": "Ang .device-frame pattern, dito may placeholder sa pwesto ng screenshot.",
     "zoomHeading": "Full-screen zoom",
-    "zoomBody": "Ang mga larawan at pre-rendered na diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap — ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
+    "zoomBody": "Ang mga larawan at pre-rendered na diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap: ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
     "placeholderHeading": "Placeholder",
     "placeholderBody": "Ang mga specimen sa docs na ito na dapat sana ay may larawan ay gumagamit ng neutral na placeholder sa halip na hiram na imahe, para tapat ang layout kung alin ang content at alin ang chrome.",
     "placeholderCaption": "Ang placeholder sa card-thumbnail at hero na mga ratio.",
     "heroHeading": "Mga hero illustration ng posts",
-    "heroBody": "Bawat post ay bumubukas sa isang rich pero flat na isometric illustration: detalyado at may mga layer na vector scene, walang gradient, walang nababasang text o logo, sa malambot na halos puting background. Bawat isa ay ginagawa gamit ang Cloudflare AI mula sa maikling konsepto na naglalarawan sa ideya ng post bilang mga bagay — isang tab bar na humihila ng mga panel, isang mesh na nagbubukod ng mga arrow sa mga tray.",
-    "heroColourBody": "**Hindi kailanman ang model ang pumipili ng palette.** Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay — ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand — at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
+    "heroBody": "Bawat post ay bumubukas sa isang rich pero flat na isometric illustration: detalyado at may mga layer na vector scene, walang gradient, walang nababasang text o logo, sa malambot na halos puting background. Bawat isa ay ginagawa gamit ang Cloudflare AI mula sa maikling konsepto na naglalarawan sa ideya ng post bilang mga bagay: isang tab bar na humihila ng mga panel, isang mesh na nagbubukod ng mga arrow sa mga tray.",
+    "heroColourBody": "**Hindi kailanman ang model ang pumipili ng palette.** Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay (ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand)at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
     "heroCaption": "Isang totoong post hero: ilang kulay mula sa shared palette sa background ng serye nito.",
     "heroMore": "Ang palette at ang mga background ng serye ay nakadokumento kasama ng buong colour system sa",
     "heroMoreLink": "Colour page"
@@ -1143,7 +1143,7 @@
     "seoTitle": "Timeline | Disenyo | Warren de Leon",
     "seoDescription": "Ang timeline ng karanasan sa trabaho sa warrendeleon.com: isang patayong rail ng mga logo dot at card, na may Latest na tag at isang scale ng dot bawat screen.",
     "title": "Timeline",
-    "intro": "Ang work-experience rail: patayong linya na may logo ng kumpanya sa bawat hinto, at card sa tabi ng bawat logo. Nasa ibaba ang tunay na component na pinakain ng placeholder na entries — sa live na page, ang tunay na employment record ang dala nito.",
+    "intro": "Ang work-experience rail: patayong linya na may logo ng kumpanya sa bawat hinto, at card sa tabi ng bawat logo. Nasa ibaba ang tunay na component na pinakain ng placeholder na entries: sa live na page, ang tunay na employment record ang dala nito.",
     "toc": [
       {
         "id": "specimen",
@@ -1160,8 +1160,8 @@
     ],
     "specimenHeading": "Ang rail",
     "anatomyHeading": "Anatomya",
-    "anatomyBody": "Isang bilog na logo ang nakaupo sa rail sa bawat kompanya, napapalibutan ng berde — 120 pixel sa desktop, 92 sa tablet, 48 sa isang telepono. Isang berdeng “Latest” na tag ang tumatakip sa itaas. Ang bawat card ay nagdadala ng kompanya sa berde, isang monospace na saklaw ng petsa, ang tungkulin, isang maikling buod at isang hanay ng mga tech chip; isang chevron ang nagmamarka rito bilang isang link. Sa isang telepono ang card ay compact sa logo, kompanya, tungkulin at petsa.",
-    "detailNote": "Sa sariling pahina ng isang kompanya ang logo dot ang direktang nag-aankla sa pamagat ng pahina — ang tanging lugar kung saan ang isang page heading ay iniiwan ang berdeng bar nito, dahil minamarkahan na ito ng dot.",
+    "anatomyBody": "Isang bilog na logo ang nakaupo sa rail sa bawat kompanya, napapalibutan ng berde: 120 pixel sa desktop, 92 sa tablet, 48 sa isang telepono. Isang berdeng “Latest” na tag ang tumatakip sa itaas. Ang bawat card ay nagdadala ng kompanya sa berde, isang monospace na saklaw ng petsa, ang tungkulin, isang maikling buod at isang hanay ng mga tech chip; isang chevron ang nagmamarka rito bilang isang link. Sa isang telepono ang card ay compact sa logo, kompanya, tungkulin at petsa.",
+    "detailNote": "Sa sariling pahina ng isang kompanya ang logo dot ang direktang nag-aankla sa pamagat ng pahina: ang tanging lugar kung saan ang isang page heading ay iniiwan ang berdeng bar nito, dahil minamarkahan na ito ng dot.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
       "Gamitin ang timeline para sa isang pagkakasunod-sunod ng mga naka-petsang entry sa isang rail.",
@@ -1192,7 +1192,7 @@
     "seoTitle": "Pagsulat | Disenyo | Warren de Leon",
     "seoDescription": "Ang mga editorial na kombensiyon na sinusunod ng warrendeleon.com: British English, sentence case, mga petsa, bantas, mga link at mga pangalan ng brand.",
     "title": "Pagsulat",
-    "intro": "Kung paano itinatakda ang mga salita sa site. Ito ang mga kombensiyong sinusunod na ng pagsulat, na binasa mula mismo sa site — ang pampublikong pamantayan ng output, hindi ang prosesong nasa likod nito.",
+    "intro": "Kung paano itinatakda ang mga salita sa site. Ito ang mga kombensiyong sinusunod na ng pagsulat, na binasa mula mismo sa site: ang pampublikong pamantayan ng output, hindi ang prosesong nasa likod nito.",
     "toc": [
       {
         "id": "spelling",
@@ -1232,11 +1232,11 @@
       }
     ],
     "spellingHeading": "Pagbaybay",
-    "spellingBody": "Ang prosa ay nasa British English: behaviour, colour, organise, licence. Ang dalawang eksepsiyon ay sinadya at parehong nasa code, hindi sa prosa. Pinapanatili ng isang code identifier kung anumang ispeling ang ginagamit ng API nito, kaya ang color property ay nananatiling color. At sa buong pagsulat tungkol sa Module Federation, ang artifact ay isang terminong teknikal — isang na-publish, na-version na module — kaya pinapanatili nito ang ispeling na iyon habang ang karaniwang prosa ay isinusulat pa ring artefact.",
+    "spellingBody": "Ang prosa ay nasa British English: behaviour, colour, organise, licence. Ang dalawang eksepsiyon ay sinadya at parehong nasa code, hindi sa prosa. Pinapanatili ng isang code identifier kung anumang ispeling ang ginagamit ng API nito, kaya ang color property ay nananatiling color. At sa buong pagsulat tungkol sa Module Federation, ang artifact ay isang terminong teknikal (isang na-publish, na-version na module), kaya pinapanatili nito ang ispeling na iyon habang ang karaniwang prosa ay isinusulat pa ring artefact.",
     "spellingGood": "behaviour · colour · organise · optimise",
     "spellingBad": "behavior · color · organize · optimize",
     "spellingCaption": "British na ispeling sa prosa. Pinapanatili ng mga code identifier at teknikal na termino ang sarili nilang anyo.",
-    "spellingBadCaption": "Hindi American na ispeling sa prosa — ang mga iyon ay para lamang sa code.",
+    "spellingBadCaption": "Hindi American na ispeling sa prosa: ang mga iyon ay para lamang sa code.",
     "caseHeading": "Case",
     "caseBody": "Sentence case ang istilo ng bahay: ang mga pamagat ng pahina, section heading, article heading, button at label ay nilalagyan ng malaking titik ang unang salita at anumang pantanging ngalan, at wala nang iba. Ang itaas na navigation ang tanging eksepsiyon, na pinapanatili sa title case.",
     "caseGood": "Download CV · Back to blog · Browse by tag",
@@ -1244,8 +1244,8 @@
     "caseCaption": "Sentence case para sa mga heading, button at label.",
     "caseBadCaption": "Hindi title case, hindi all caps, maliban sa itaas na nav.",
     "datesHeading": "Mga petsa",
-    "datesBody": "British ang mga petsa. Binabaybay nang buo ng petsa ng artikulo ang buwan — 29 March 2026. Pinapaikli ng saklaw ng tungkulin ang buwan at pinapanatili ang taon — Mar 2016 hanggang sa kasalukuyan — at nagtatapos ang bukás na saklaw sa salitang Present, hindi kailanman sa nakabitin na gitling.",
-    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesBody": "British ang mga petsa. Binabaybay nang buo ng petsa ng artikulo ang buwan: 29 March 2026. Pinapaikli ng saklaw ng tungkulin ang buwan at pinapanatili ang taon, Mar 2016 hanggang sa kasalukuyan, at nagtatapos ang bukás na saklaw sa salitang Present, hindi kailanman sa nakabitin na gitling.",
+    "datesGood": "29 March 2026 · Mar 2016 - Present",
     "datesBad": "03/29/2026 · March 29th · 2016–now",
     "datesCaption": "Buong buwan para sa petsa ng artikulo, pinaikli para sa mga saklaw; ang bukás na saklaw ay nagsasabi ng Present.",
     "datesBadCaption": "Hindi numeriko, hindi American na pagkakasunod, hindi ordinal.",
@@ -1275,7 +1275,7 @@
     "disagreeBadCaption": "Ang confrontational na bersyon ay mababasa bilang paghatol at nagpapa-depensiba sa mambabasa.",
     "disagreeBody2": "Dalawang gawi ang sumusuporta rito. Ang hindi absolute ay hindi isinusulat bilang absolute: ang “X never works” ay nagiging “X was not designed for Y”. At walang defensive opener: ang mga pangungusap ay hindi nagsisimula sa “To be clear” o “Just to clarify”.",
     "socialHeading": "Mga social teaser",
-    "socialBody1": "Kapag ibinahagi ang isang post sa LinkedIn, **teaser ang ibinabahagi, hindi buod**. Iisa lang ang trabaho nito: magbukas ng curiosity gap na isasara ng artikulo — maglahad ng tensyon, magbanggit ng espesipikong detalye nang hindi ipinapaliwanag, at ituro pasulong. Kung nasiyahan na ang mambabasa nang hindi nag-click, pumalya ang teaser.",
+    "socialBody1": "Kapag ibinahagi ang isang post sa LinkedIn, **teaser ang ibinabahagi, hindi buod**. Iisa lang ang trabaho nito: magbukas ng curiosity gap na isasara ng artikulo: maglahad ng tensyon, magbanggit ng espesipikong detalye nang hindi ipinapaliwanag, at ituro pasulong. Kung nasiyahan na ang mambabasa nang hindi nag-click, pumalya ang teaser.",
     "socialRules": [
       "Mga 500 character, bawat pangungusap ay may pinaglalaban.",
       "Walang link sa body; ang link ay nasa unang komento.",
@@ -1317,7 +1317,7 @@
       }
     ],
     "localesHeading": "Apat na locale",
-    "localesBody": "Ang Ingles ay inihahain sa root nang walang prefix. Ang Espanyol, Katalan at Tagalog ay bawat isa ay nasa ilalim ng sariling prefix. Ang mga petsa at pangalan ng buwan ay naka-format ayon sa rehiyon — British English, European Spanish, Katalan at Filipino.",
+    "localesBody": "Ang Ingles ay inihahain sa root nang walang prefix. Ang Espanyol, Katalan at Tagalog ay bawat isa ay nasa ilalim ng sariling prefix. Ang mga petsa at pangalan ng buwan ay naka-format ayon sa rehiyon: British English, European Spanish, Katalan at Filipino.",
     "localesTableHeaders": {
       "locale": "Locale",
       "prefix": "Landas",
@@ -1360,7 +1360,7 @@
     "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",
     "seoDescription": "Ang mga pamantayan sa aksesibilidad na sinusunod ng warrendeleon.com: mga landmark, isang nakikitang focus ring, maluwag na mga target, reduced motion, at ang trade-off para sa nababasang green.",
     "title": "Aksesibilidad",
-    "intro": "Ang mga pamantayang ginamit sa pagbuo ng site, sinukat laban sa WCAG 2.2 na may AA bilang target. Ang mga sumusunod ay kung ano talaga ang ginagawa ng code — kabilang ang isang lugar kung saan pinilit ng brand green ang isang tapat na trade-off.",
+    "intro": "Ang mga pamantayang ginamit sa pagbuo ng site, sinukat laban sa WCAG 2.2 na may AA bilang target. Ang mga sumusunod ay kung ano talaga ang ginagawa ng code: kabilang ang isang lugar kung saan pinilit ng brand green ang isang tapat na trade-off.",
     "toc": [
       {
         "id": "standards",
@@ -1389,7 +1389,7 @@
       },
       {
         "title": "Laki ng target",
-        "body": "Ang mga pangunahing touch control — ang tab dock, sheet row, ang call-to-action pill — ay 44 hanggang 48 pixel; ang pinakamaliit na pointer control ay lumalampas pa rin sa 24. Kaya bawat control ay umaabot sa AA minimum, at ang mga touch control ay umaabot sa mas mahigpit na AAA na laki.",
+        "body": "Ang mga pangunahing touch control (ang tab dock, sheet row, ang call-to-action pill) ay 44 hanggang 48 pixel; ang pinakamaliit na pointer control ay lumalampas pa rin sa 24. Kaya bawat control ay umaabot sa AA minimum, at ang mga touch control ay umaabot sa mas mahigpit na AAA na laki.",
         "sc": "2.5.8 AA · 2.5.5 AAA"
       },
       {
@@ -1409,7 +1409,7 @@
       }
     ],
     "contrastHeading": "Ang trade-off para sa nababasang green",
-    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti. Sinukat laban sa WCAG, ang #6dc402 sa puti ay mga 2.2 to 1 — mas mababa pa sa 3-to-1 na pamantayan para sa malaking teksto. Kaya't may umiiral na pangalawang token: ibinababa ng `--color-green-text` ang green sa #5aa302, na lumalampas sa 3 to 1. Sapat na iyon para sa malaki o bold na teksto, para sa mga heading, at para sa mga interface accent tulad ng focus ring, at ginagamit iyon para sa mga iyon, hindi para sa body copy.",
+    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti. Sinukat laban sa WCAG, ang #6dc402 sa puti ay mga 2.2 to 1: mas mababa pa sa 3-to-1 na pamantayan para sa malaking teksto. Kaya't may umiiral na pangalawang token: ibinababa ng `--color-green-text` ang green sa #5aa302, na lumalampas sa 3 to 1. Sapat na iyon para sa malaki o bold na teksto, para sa mga heading, at para sa mga interface accent tulad ng focus ring, at ginagamit iyon para sa mga iyon, hindi para sa body copy.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sa puti",
@@ -1421,7 +1421,7 @@
       "fail": "Bumabagsak sa pamantayan"
     },
     "contrastSampleText": "Isang green na link",
-    "contrastLimitation": "Ang tapat na bahagi: sa laki ng pagbabasa ng body sa isang maliwanag na background, ang isang green na link ay nasa mga 3.2 to 1 — lampas sa pamantayan para sa malaking teksto, kulang sa 4.5-to-1 na pamantayan para sa normal na teksto. Tinatanggap ng site ang trade-off na iyon upang mapanatili ang iisa nitong brand na kulay, at pinapalambot ito sa dalawang paraan. Ang mga link sa artikulo ay may salungguhit, kaya ang kulay ay hindi kailanman ang tanging senyas; at ganap itong nireresolba ng dark mode, kung saan ang parehong lime sa halos itim ay nababasa sa mga 8.6 to 1. Ang body copy mismo ay laging neutral, at laging pumapasa.",
+    "contrastLimitation": "Ang tapat na bahagi: sa laki ng pagbabasa ng body sa isang maliwanag na background, ang isang green na link ay nasa mga 3.2 to 1: lampas sa pamantayan para sa malaking teksto, kulang sa 4.5-to-1 na pamantayan para sa normal na teksto. Tinatanggap ng site ang trade-off na iyon upang mapanatili ang iisa nitong brand na kulay, at pinapalambot ito sa dalawang paraan. Ang mga link sa artikulo ay may salungguhit, kaya ang kulay ay hindi kailanman ang tanging senyas; at ganap itong nireresolba ng dark mode, kung saan ang parehong lime sa halos itim ay nababasa sa mga 8.6 to 1. Ang body copy mismo ay laging neutral, at laging pumapasa.",
     "scopeHeading": "Saklaw",
     "scopeBody": "Sinasaklaw nito ang website. Ang React Native app at ang mga email template ay sarili nilang mga surface, na may sarili nilang mga pamantayan, at hindi dokumentado rito."
   },
@@ -1454,12 +1454,12 @@
       "Ang campaign ng bawat wika ay pumupunta sa sariling list, at kapag may translation lang."
     ],
     "mockLabel": "Ang email, muling binuo gamit ang mga totoong value ng isang post.",
-    "mockSubject": "Bago sa serye: The host shell (Bahagi 4)",
+    "mockSubject": "Bago sa serye: Ang host shell (Bahagi 4)",
     "mockEyebrow": "Module Federation · Bahagi 4",
-    "mockTitle": "The host shell: federated remotes as tabs in React Native",
-    "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
+    "mockTitle": "Ang host shell: mga federated remote bilang tabs sa React Native",
+    "mockDesc": "Gawing tunay na app shell ang host: ito ang may-ari ng tab bar at navigation, at bawat tab ay remote na binuo, na-ship at nilo-load nang mag-isa.",
     "mockButton": "Basahin ang post →",
-    "mockNav": "Bahagi ng seryeng React Native Module Federation, kasunod ng bahagi 3, the shared-singleton contract.",
+    "mockNav": "Bahagi ng seryeng React Native Module Federation, kasunod ng bahagi 3, ang shared-singleton contract.",
     "mockSubjectLabel": "Subject"
   }
 }

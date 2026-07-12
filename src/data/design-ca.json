@@ -418,7 +418,7 @@
     },
     "nestingBody": "El ritme s'imbrica: secció, després targeta, després grup, després element, cadascun amb menys aire que el que l'envolta.",
     "targetsHeading": "Àrees tàctils",
-    "targetsBody": "Els controls tàctils primaris mantenen un terra de 44 píxels: les pestanyes del dock, els controls de la barra de lectura, les icones del peu al mòbil. El glif interior es queda en 15 a 20 píxels; el padding fa la resta. Els controls compactes pensats per a punter — les fletxes de prestatgeries i sèries, la cerca de la barra superior — es queden en 38 a 42 píxels amb espai lliure al voltant.",
+    "targetsBody": "Els controls tàctils primaris mantenen un terra de 44 píxels: les pestanyes del dock, els controls de la barra de lectura, les icones del peu al mòbil. El glif interior es queda en 15 a 20 píxels; el padding fa la resta. Els controls compactes pensats per a punter (les fletxes de prestatgeries i sèries, la cerca de la barra superior) es queden en 38 a 42 píxels amb espai lliure al voltant.",
     "logoHeading": "Logotip en un cercle",
     "logoBody": "El símbol s'asseu en un marc circular i n'omple aproximadament dos terços, amb un anell fi a la vora. Apareix a 48 píxels al costat d'un rol, a 96 en una targeta i a 120 com a àncora de la cronologia.",
     "annotatedHeading": "El ritme, anotat",
@@ -578,7 +578,7 @@
       "Barrejar estils de traç i d'emplenat dins del conjunt d'interfície.",
       "Encongir l'àrea tocable fins a la mida del dibuix."
     ],
-    "hitCaption": "L'àrea de toc, anotada: un glif de 20px centrat en un quadrat de 44px — l'anell ratllat és el padding tocable.",
+    "hitCaption": "L'àrea de toc, anotada: un glif de 20px centrat en un quadrat de 44px: l'anell ratllat és el padding tocable.",
     "hitLabels": {
       "area": "Àrea de toc",
       "glyph": "Glif",
@@ -846,7 +846,7 @@
     "barHeading": "Barra superior",
     "barBody": "Una barra fixa que porta el logotip i els controls d'utilitat (llengua, tema i cerca al blog). Fa 64 píxels d'alçada a l'escriptori, 60 en una tauleta i 56 en un telèfon. A l'escriptori també conté els tres enllaços de secció; per sota de 1280 aquests passen al dock.",
     "dockHeading": "Dock de pestanyes",
-    "dockBody": "La navegació principal per seccions a mòbil i tauleta: quatre pestanyes — Inici, Blog, Feina, Reservar trucada. És un únic element amb un punt de ruptura, no dos components. Els marcs de sota són la pàgina real retallada al dock: de vora a vora a 390 amb la pestanya activa només en text verd, i una píndola flotant a 768 on l'activa guanya un fons tintat. Quatre pestanyes és estructural; una cinquena no cabria a la retícula, i per això aquesta secció del sistema de disseny viu al peu.",
+    "dockBody": "La navegació principal per seccions a mòbil i tauleta: quatre pestanyes: Inici, Blog, Feina, Reservar trucada. És un únic element amb un punt de ruptura, no dos components. Els marcs de sota són la pàgina real retallada al dock: de vora a vora a 390 amb la pestanya activa només en text verd, i una píndola flotant a 768 on l'activa guanya un fons tintat. Quatre pestanyes és estructural; una cinquena no cabria a la retícula, i per això aquesta secció del sistema de disseny viu al peu.",
     "actionHeading": "Barra d'accions de lectura",
     "actionBody": "En una pàgina de lectura, el dock se substitueix, no s'acompanya, per una barra d'accions contextual: un anell de progrés amb la secció actual obre el full de sumari, i després compartir i tornar amunt. Aquest és el component ReadingBar real, mostrat a mig article. Una barra alhora: chrome de navegació o chrome de lectura, mai tots dos.",
     "footerHeading": "Peu de pàgina",
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "El marcador de posició en proporcions de miniatura de targeta i d'hero.",
     "heroHeading": "Il·lustracions de capçalera dels posts",
     "heroBody": "Cada post s’obre amb una il·lustració isomètrica rica però plana: escenes vectorials detallades i per capes, sense degradats, sense text llegible ni logotips, sobre un fons suau gairebé blanc. Cadascuna es genera amb Cloudflare AI a partir d’un concepte breu que descriu la idea del post com a objectes: una barra de pestanyes que atrau panells, una malla que reparteix fletxes en safates.",
-    "heroColourBody": "**El model mai tria la paleta.** Cada il·lustració agafa uns quants colors d’un fons comú de deu — la llima de la marca, i després blau marí, corall, verd blavós, pruna, ambre, rosa pàl·lid, cel, carbó i sorra — i l’accent llima sempre hi és. Així no hi ha dues capçaleres amb la mateixa barreja, però totes es queden dins de la mateixa família.",
+    "heroColourBody": "**El model mai tria la paleta.** Cada il·lustració agafa uns quants colors d’un fons comú de deu (la llima de la marca, i després blau marí, corall, verd blavós, pruna, ambre, rosa pàl·lid, cel, carbó i sorra), i l’accent llima sempre hi és. Així no hi ha dues capçaleres amb la mateixa barreja, però totes es queden dins de la mateixa família.",
     "heroCaption": "Una capçalera real: uns quants colors de la paleta compartida sobre el fons de la seva sèrie.",
     "heroMore": "La paleta i els fons per sèrie estan documentats amb la resta del sistema de color a",
     "heroMoreLink": "la pàgina de Color"
@@ -1245,7 +1245,7 @@
     "caseBadCaption": "No l'estil títol ni tot en majúscules, fora de la navegació superior.",
     "datesHeading": "Dates",
     "datesBody": "Les dates són britàniques. Una data d'article escriu el mes sencer: 29 March 2026. Un rang de càrrec abreuja el mes i manté l'any (Mar 2016 – Present), i un rang obert es tanca amb la paraula Present, mai amb un guió final.",
-    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesGood": "29 March 2026 · Mar 2016 - Present",
     "datesBad": "03/29/2026 · March 29th · 2016–now",
     "datesCaption": "Mes sencer per a les dates d'article, abreujat per als rangs; els rangs oberts diuen Present.",
     "datesBadCaption": "No numèriques, no en ordre americà, no amb ordinals.",
@@ -1454,12 +1454,12 @@
       "La campanya de cada idioma va a la seva pròpia llista, i només quan la traducció existeix."
     ],
     "mockLabel": "El correu, reconstruït amb els valors d’un post real.",
-    "mockSubject": "Nou a la sèrie: The host shell (Part 4)",
+    "mockSubject": "Nou a la sèrie: La closca del host (Part 4)",
     "mockEyebrow": "Module Federation · Part 4",
-    "mockTitle": "The host shell: federated remotes as tabs in React Native",
-    "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
+    "mockTitle": "La closca del host: remotes federats com a pestanyes a React Native",
+    "mockDesc": "Converteix el host d'una sola pantalla en una closca d'app: té la tab bar i la navegació, i cada pestanya és un remote construït, desplegat i carregat a part.",
     "mockButton": "Llegir el post →",
-    "mockNav": "Forma part de la sèrie React Native Module Federation i continua la part 3, the shared-singleton contract.",
+    "mockNav": "Forma part de la sèrie React Native Module Federation i continua la part 3, el contracte de singletons compartits.",
     "mockSubjectLabel": "Assumpte"
   }
 }

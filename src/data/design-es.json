@@ -418,7 +418,7 @@
     },
     "nestingBody": "El ritmo se anida: sección, luego tarjeta, luego grupo, luego elemento, cada uno con menos aire que el que lo rodea.",
     "targetsHeading": "Áreas táctiles",
-    "targetsBody": "Los controles táctiles primarios mantienen un suelo de 44 píxeles: las pestañas del dock, los controles de la barra de lectura, los iconos del pie en el móvil. El glifo interior se queda en 15 a 20 píxeles; el padding hace el resto. Los controles compactos pensados para puntero — las flechas de estanterías y series, la búsqueda de la barra superior — se quedan en 38 a 42 píxeles con espacio libre alrededor.",
+    "targetsBody": "Los controles táctiles primarios mantienen un suelo de 44 píxeles: las pestañas del dock, los controles de la barra de lectura, los iconos del pie en el móvil. El glifo interior se queda en 15 a 20 píxeles; el padding hace el resto. Los controles compactos pensados para puntero (las flechas de estanterías y series, la búsqueda de la barra superior) se quedan en 38 a 42 píxeles con espacio libre alrededor.",
     "logoHeading": "Logo en un círculo",
     "logoBody": "La marca se sitúa en un marco circular y ocupa unos dos tercios de él, con un anillo fino en el borde. Aparece a 48 píxeles junto a un rol, a 96 en una tarjeta y a 120 como ancla de la cronología.",
     "annotatedHeading": "El ritmo, anotado",
@@ -578,7 +578,7 @@
       "Mezclar estilos de trazo y de relleno dentro del conjunto de la interfaz.",
       "Reducir el área táctil al tamaño del dibujo."
     ],
-    "hitCaption": "El área de toque, anotada: un glifo de 20px centrado en un cuadrado de 44px — el anillo rayado es el padding pulsable.",
+    "hitCaption": "El área de toque, anotada: un glifo de 20px centrado en un cuadrado de 44px: el anillo rayado es el padding pulsable.",
     "hitLabels": {
       "area": "Área de toque",
       "glyph": "Glifo",
@@ -846,7 +846,7 @@
     "barHeading": "Barra superior",
     "barBody": "Una barra fija que lleva el logotipo y los controles de utilidad (idioma, tema y búsqueda del blog). Mide 64 píxeles de alto en escritorio, 60 en tablet y 56 en el móvil. En escritorio también alberga los tres enlaces de sección; por debajo de 1280 estos pasan al dock.",
     "dockHeading": "Dock de pestañas",
-    "dockBody": "La navegación principal por secciones en móvil y tableta: cuatro pestañas — Inicio, Blog, Trabajo, Reservar llamada. Es un único elemento con un punto de ruptura, no dos componentes. Los marcos de abajo son la página real recortada al dock: de borde a borde a 390 con la pestaña activa solo en texto verde, y una píldora flotante a 768 donde la activa gana un fondo tintado. Cuatro pestañas es estructural; una quinta no cabría en la retícula, y por eso esta sección del sistema de diseño vive en el pie.",
+    "dockBody": "La navegación principal por secciones en móvil y tableta: cuatro pestañas: Inicio, Blog, Trabajo, Reservar llamada. Es un único elemento con un punto de ruptura, no dos componentes. Los marcos de abajo son la página real recortada al dock: de borde a borde a 390 con la pestaña activa solo en texto verde, y una píldora flotante a 768 donde la activa gana un fondo tintado. Cuatro pestañas es estructural; una quinta no cabría en la retícula, y por eso esta sección del sistema de diseño vive en el pie.",
     "actionHeading": "Barra de acciones de lectura",
     "actionBody": "En una página de lectura, una barra de acciones contextual sustituye al dock, no se le suma: un anillo de progreso con la sección actual abre la hoja del índice, y después compartir y volver arriba. Este es el componente ReadingBar real, mostrado a mitad de artículo. Una barra cada vez: chrome de navegación o chrome de lectura, nunca ambos.",
     "footerHeading": "Pie de página",
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "El marcador de posición en las proporciones de miniatura de tarjeta y de hero.",
     "heroHeading": "Ilustraciones de cabecera de los posts",
     "heroBody": "Cada post se abre con una ilustración isométrica rica pero plana: escenas vectoriales detalladas y por capas, sin degradados, sin texto legible ni logotipos, sobre un fondo suave casi blanco. Cada una se genera con Cloudflare AI a partir de un concepto breve que describe la idea del post como objetos: una barra de pestañas que atrae paneles, una malla que reparte flechas en bandejas.",
-    "heroColourBody": "**El modelo nunca elige la paleta.** Cada ilustración toma unos pocos colores de un fondo común de diez — la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena — y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
+    "heroColourBody": "**El modelo nunca elige la paleta.** Cada ilustración toma unos pocos colores de un fondo común de diez (la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena), y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
     "heroCaption": "Una cabecera real: unos pocos colores de la paleta compartida sobre el fondo de su serie.",
     "heroMore": "La paleta y los fondos por serie están documentados con el resto del sistema de color en",
     "heroMoreLink": "la página de Color"
@@ -1232,7 +1232,7 @@
       }
     ],
     "spellingHeading": "Ortografía",
-    "spellingBody": "La prosa usa inglés británico: behaviour, colour, organise, licence. Las dos excepciones son deliberadas y ambas viven en el código, no en la prosa. Un identificador de código conserva la grafía que use su API, así que una propiedad color se queda en color. Y en toda la documentación de Module Federation, artifact es un término técnico —un módulo publicado y versionado—, por lo que conserva esa grafía mientras la prosa corriente sigue escribiendo artefact.",
+    "spellingBody": "La prosa usa inglés británico: behaviour, colour, organise, licence. Las dos excepciones son deliberadas y ambas viven en el código, no en la prosa. Un identificador de código conserva la grafía que use su API, así que una propiedad color se queda en color. Y en toda la documentación de Module Federation, artifact es un término técnico (un módulo publicado y versionado), por lo que conserva esa grafía mientras la prosa corriente sigue escribiendo artefact.",
     "spellingGood": "behaviour · colour · organise · optimise",
     "spellingBad": "behavior · color · organize · optimize",
     "spellingCaption": "Ortografía británica en la prosa. Los identificadores de código y los términos técnicos conservan su propia forma.",
@@ -1244,8 +1244,8 @@
     "caseCaption": "Mayúscula inicial en encabezados, botones y etiquetas.",
     "caseBadCaption": "Ni mayúscula en cada palabra ni todo en mayúsculas, fuera de la navegación superior.",
     "datesHeading": "Fechas",
-    "datesBody": "Las fechas son británicas. La fecha de un artículo escribe el mes completo: 29 March 2026. Un rango de puesto abrevia el mes y conserva el año —Mar 2016 to the present— y un rango abierto se cierra con la palabra Present, nunca con un guion final.",
-    "datesGood": "29 March 2026 · Mar 2016 – Present",
+    "datesBody": "Las fechas son británicas. La fecha de un artículo escribe el mes completo: 29 March 2026. Un rango de puesto abrevia el mes y conserva el año (Mar 2016 to the present), y un rango abierto se cierra con la palabra Present, nunca con un guion final.",
+    "datesGood": "29 March 2026 · Mar 2016 - Present",
     "datesBad": "03/29/2026 · March 29th · 2016–now",
     "datesCaption": "Mes completo para las fechas de artículo, abreviado para los rangos; los rangos abiertos dicen Present.",
     "datesBadCaption": "Ni numérico, ni orden estadounidense, ni ordinal.",
@@ -1389,7 +1389,7 @@
       },
       {
         "title": "Tamaño del objetivo",
-        "body": "Los controles táctiles principales —el dock de pestañas, las filas de la hoja, las píldoras de llamada a la acción— miden de 44 a 48 píxeles; el control de puntero más pequeño supera aún los 24. Así, cada control cumple el mínimo de AA, y los controles táctiles cumplen el tamaño AAA, más estricto.",
+        "body": "Los controles táctiles principales (el dock de pestañas, las filas de la hoja, las píldoras de llamada a la acción) miden de 44 a 48 píxeles; el control de puntero más pequeño supera aún los 24. Así, cada control cumple el mínimo de AA, y los controles táctiles cumplen el tamaño AAA, más estricto.",
         "sc": "2.5.8 AA · 2.5.5 AAA"
       },
       {
@@ -1454,12 +1454,12 @@
       "La campaña de cada idioma va a su propia lista, y solo cuando la traducción existe."
     ],
     "mockLabel": "El correo, reconstruido con los valores de un post real.",
-    "mockSubject": "Nuevo en la serie: The host shell (Parte 4)",
+    "mockSubject": "Nuevo en la serie: La cáscara del host (Parte 4)",
     "mockEyebrow": "Module Federation · Parte 4",
-    "mockTitle": "The host shell: federated remotes as tabs in React Native",
-    "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
+    "mockTitle": "La cáscara del host: remotes federados como pestañas en React Native",
+    "mockDesc": "El host pasa de una pantalla a cáscara de la app: es dueño de la tab bar y la navegación, y cada pestaña es un remote construido, desplegado y cargado aparte.",
     "mockButton": "Leer el post →",
-    "mockNav": "Forma parte de la serie React Native Module Federation y continúa la parte 3, the shared-singleton contract.",
+    "mockNav": "Forma parte de la serie React Native Module Federation y continúa la parte 3, el contrato de singletons compartidos.",
     "mockSubjectLabel": "Asunto"
   }
 }
