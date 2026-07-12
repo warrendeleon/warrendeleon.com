@@ -168,11 +168,11 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
             </div>
 
             {position.description && (
-              <div class="work-description-block"><h3 class="work-h2">{i18n.workExperience.description}</h3><div class="work-description" set:html={renderSimpleMarkdown(position.description)} /></div>
+              <div class="work-description-block"><h3 class="work-h2">{i18n.workExperience.description}</h3><div class="work-description dot-list" set:html={renderSimpleMarkdown(position.description)} /></div>
             )}
 
             {position.responsibilities && position.responsibilities.length > 0 && (
-              <div class="work-responsibilities">
+              <div class="work-responsibilities dot-list">
                 <h3 class="work-h2">{i18n.workExperience.keyResponsibilities}</h3>
                 <ul>
                   {position.responsibilities.map((r: string) => {
@@ -253,11 +253,11 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
         nonClientPositions.map((position: any) => (
           <div class="work-position">
             {position.description && (
-              <div class="work-description-block"><h3 class="work-h2">{i18n.workExperience.description}</h3><div class="work-description" set:html={renderSimpleMarkdown(position.description)} /></div>
+              <div class="work-description-block"><h3 class="work-h2">{i18n.workExperience.description}</h3><div class="work-description dot-list" set:html={renderSimpleMarkdown(position.description)} /></div>
             )}
 
             {position.responsibilities && position.responsibilities.length > 0 && (
-              <div class="work-responsibilities">
+              <div class="work-responsibilities dot-list">
                 <h3 class="work-h2">{i18n.workExperience.keyResponsibilities}</h3>
                 <ul>
                   {position.responsibilities.map((r: string) => {
@@ -372,29 +372,29 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
 
       {/* Prev/Next navigation */}
       {!isClientPage && (prevCompany || nextCompany) && (
-        <nav class="work-detail-nav" aria-label={i18n.workExperience.prevNextNav}>
+        <nav class="pn-nav" aria-label={i18n.workExperience.prevNextNav}>
           {prevCompany ? (
-            <a href={getLocalePath(locale, `/work-experience/${slugify(prevCompany.company)}/`)} class="work-detail-nav-link work-detail-nav-prev">
-              <span class="work-detail-nav-label">
+            <a href={getLocalePath(locale, `/work-experience/${slugify(prevCompany.company)}/`)} class="pn-link work-detail-nav-prev">
+              <span class="pn-label">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <line x1="19" y1="12" x2="5" y2="12"></line>
                   <polyline points="12 19 5 12 12 5"></polyline>
                 </svg>
                 {i18n.blog.previous}
               </span>
-              <span class="work-detail-nav-title">{prevCompany.company}</span>
+              <span class="pn-title">{prevCompany.company}</span>
             </a>
           ) : <span />}
           {nextCompany ? (
-            <a href={getLocalePath(locale, `/work-experience/${slugify(nextCompany.company)}/`)} class="work-detail-nav-link work-detail-nav-next">
-              <span class="work-detail-nav-label">
+            <a href={getLocalePath(locale, `/work-experience/${slugify(nextCompany.company)}/`)} class="pn-link pn-next">
+              <span class="pn-label">
                 {i18n.blog.next}
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </span>
-              <span class="work-detail-nav-title">{nextCompany.company}</span>
+              <span class="pn-title">{nextCompany.company}</span>
             </a>
           ) : <span />}
         </nav>
@@ -705,16 +705,6 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
     font-size: 1rem;
   }
 
-  .work-description li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.65rem;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-green);
-  }
 
   .work-description strong {
     color: var(--text-primary);
@@ -747,16 +737,6 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
     font-weight: 700;
   }
 
-  .work-responsibilities li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6rem;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-green);
-  }
 
   /* Tech grid: vertically stacked label+pill groups (design). */
   .work-tech-block {
@@ -881,15 +861,9 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
     transform: translateX(3px);
   }
 
-  /* Prev/Next navigation */
-  .work-detail-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 3rem;
-  }
+  /* prev/next tiles: shared .pn-nav classes (global.css). */
 
-  .work-detail-nav-link {
+  .pn-link {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -901,12 +875,12 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
     transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
-  .work-detail-nav-link:hover {
+  .pn-link:hover {
     border-color: var(--color-green);
     transform: translateY(-2px);
   }
 
-  .work-detail-nav-label {
+  .pn-label {
     display: flex;
     align-items: center;
     gap: 0.35rem;
@@ -917,18 +891,18 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
     color: var(--color-green-text);
   }
 
-  .work-detail-nav-title {
+  .pn-title {
     font-size: 0.95rem;
     font-weight: 500;
     color: var(--text-primary);
     line-height: 1.35;
   }
 
-  .work-detail-nav-next {
+  .pn-next {
     text-align: right;
   }
 
-  .work-detail-nav-next .work-detail-nav-label {
+  .pn-next .pn-label {
     justify-content: flex-end;
   }
 
@@ -985,15 +959,13 @@ const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0
       display: none;
     }
 
-    .work-detail-nav {
-      grid-template-columns: 1fr;
-    }
+    .pn-nav { grid-template-columns: 1fr; }
 
-    .work-detail-nav-next {
+    .pn-next {
       text-align: left;
     }
 
-    .work-detail-nav-next .work-detail-nav-label {
+    .pn-next .pn-label {
       justify-content: flex-start;
     }
 

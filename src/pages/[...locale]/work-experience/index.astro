@@ -87,9 +87,9 @@ const pdfHref =
 
   <section class="section">
     <div class="container">
-      <div class="wx-cta">
-        <p class="wx-cta-heading">{i18n.workExperience.ctaHeading}</p>
-        <div class="wx-cta-actions">
+      <div class="cta-band">
+        <p class="cta-band-heading">{i18n.workExperience.ctaHeading}</p>
+        <div class="cta-band-actions">
           <a href={pdfHref} class="hero-cta hero-cta-solid" download>{i18n.workExperience.downloadCV}</a>
           <a href={getLocalePath(locale, '/book-a-call/')} class="hero-cta hero-cta-outline">{i18n.nav.bookACall}</a>
         </div>
@@ -121,28 +121,11 @@ const pdfHref =
 
   .wx-intro { margin: 0.75rem 0 0; font-size: 15px; line-height: 1.65; color: var(--text-secondary); max-width: 70ch; }
 
-  /* CTA card per design: bordered rounded band with two pills. */
-  .wx-cta {
-    padding: 28px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    text-align: center;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-  .wx-cta-heading { margin: 0; font-size: 17px; font-weight: 700; color: var(--text-primary); }
-  .wx-cta-actions { display: flex; gap: 12px; justify-content: center; }
+  /* The CTA band uses the shared .cta-band classes (global.css). */
 
   @media (max-width: 1279px) {
     .wx-cv-pill { height: 42px; padding: 0 20px; font-size: 13px; }
     .wx-intro { font-size: 14px; }
-    .wx-cta { padding: 24px; gap: 14px; max-width: 600px; }
-    .wx-cta-heading { font-size: 16px; }
-    .wx-cta-actions { gap: 10px; }
   }
 
   @media (max-width: 699px) {
@@ -150,9 +133,5 @@ const pdfHref =
     .wx-cv-label-full { display: none; }
     .wx-cv-label-short { display: inline; }
     .wx-intro { font-size: 13.5px; line-height: 1.6; }
-    .wx-cta { padding: 20px 18px; gap: 12px; }
-    .wx-cta-heading { font-size: 15px; }
-    .wx-cta-actions { width: 100%; }
-    .wx-cta-actions .hero-cta { flex: 1; }
   }
 </style>

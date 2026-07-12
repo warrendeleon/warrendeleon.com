@@ -144,8 +144,8 @@ const jsonLd = {
        is the footer link, this is the portfolio nudge. -->
   <section class="section">
     <div class="container">
-      <div class="card home-design-card">
-        <h2>{i18n.home.designTitle}</h2>
+      <div class="cta-band">
+        <h2 class="cta-band-heading">{i18n.home.designTitle}</h2>
         <p>{i18n.home.designBody}</p>
         <a href={getLocalePath(locale, '/design/')} class="btn btn-outline">{i18n.home.designCta}</a>
       </div>
@@ -154,30 +154,6 @@ const jsonLd = {
 </BaseLayout>
 
 <style is:global>
-  /* Design-system pointer card: same weight as the work-experience CTA. */
-  .home-design-card {
-    max-width: 640px;
-    margin: 0 auto;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  .home-design-card h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
-  }
-  .home-design-card p {
-    margin: 0;
-    font-size: var(--fs-body);
-    line-height: 1.65;
-    color: var(--text-secondary);
-    max-width: 46ch;
-  }
-  .home-design-card .btn { margin-top: 4px; }
 
   /* ===== Hero per design ===== */
   .hero-eyebrow {
@@ -245,13 +221,6 @@ const jsonLd = {
   /* About type comes from the theme scale in global.css. */
 
   .home-head-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-  .home-head-row .blog-eyebrow-link {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--color-green-text);
-    white-space: nowrap;
-    text-decoration: none;
-  }
 
   .about-toggle {
     display: flex;

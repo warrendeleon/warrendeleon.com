@@ -23,7 +23,7 @@ const CALENDLY_BASE = 'https://calendly.com/warrendeleon/30min?hide_event_type_d
       <p class="bac-intro">{i18n.bookACall.intro}</p>
 
       <h2 class="bac-expect-title">{i18n.bookACall.expectTitle}</h2>
-      <ul class="bac-expect">
+      <ul class="bac-expect dot-list">
         {i18n.bookACall.expect.map((item: string) => <li>{item}</li>)}
       </ul>
 
@@ -70,32 +70,8 @@ const CALENDLY_BASE = 'https://calendly.com/warrendeleon/30min?hide_event_type_d
     margin-bottom: 0.75rem;
   }
 
-  .bac-expect {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 
-  .bac-expect li {
-    padding-left: 1.5rem;
-    position: relative;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
 
-  .bac-expect li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.55rem;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-green);
-  }
 
   .calendly-embed {
     position: relative;

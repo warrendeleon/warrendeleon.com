@@ -640,77 +640,7 @@ const tryChips = [...tagCounts.entries()]
     gap: 0.5rem;
   }
 
-  /* Series-chip primitive. Lives here (not in BlogListing) because BlogSearch is
-     mounted on every blog page, so these styles are present wherever a chip is
-     rendered — the overlay here, and BlogListing's own browse section. */
-  .blog-series-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.5rem 0.6rem 0.5rem 1rem;
-    border-radius: 24px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-  }
-
-  .blog-series-chip:hover {
-    border-color: var(--color-green);
-    color: var(--color-green-text);
-    background: var(--bg-secondary);
-  }
-
-  .blog-series-chip-count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 1.5rem;
-    height: 1.5rem;
-    padding: 0 0.4rem;
-    border-radius: 12px;
-    background: var(--color-green);
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 700;
-  }
-
-  .bso-try {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .bso-try-label {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-
-  .bso-try-chip {
-    padding: 0.3rem 0.7rem;
-    border-radius: 16px;
-    border: 1px solid var(--border-color);
-    background: transparent;
-    color: var(--color-green-text);
-    font: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-
-  [data-theme="dark"] .bso-try-chip {
-    color: var(--color-green-light);
-  }
-
-  .bso-try-chip:hover {
-    border-color: var(--color-green);
-    background: var(--bg-secondary);
-  }
+  /* .blog-series-chip now lives in global.css (shared primitive). */
 
   /* Results — the blog's card language, compact for a palette. */
   .bso-results {

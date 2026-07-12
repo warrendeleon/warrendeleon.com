@@ -317,29 +317,29 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
         </section>
       )}
 
-      <nav class="blog-nav" aria-label={`${i18n.blog.previous} / ${i18n.blog.next}`}>
+      <nav class="pn-nav" aria-label={`${i18n.blog.previous} / ${i18n.blog.next}`}>
         {navPrev ? (
-          <a href={getLocalePath(locale, `/blog/${getPostSlug(navPrev.id)}/`)} class="blog-nav-link blog-nav-prev">
-            <span class="blog-nav-label">
+          <a href={getLocalePath(locale, `/blog/${getPostSlug(navPrev.id)}/`)} class="pn-link blog-nav-prev">
+            <span class="pn-label">
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
               </svg>
               {i18n.blog.previous}
             </span>
-            <span class="blog-nav-title">{navPrev.data.title}</span>
+            <span class="pn-title">{navPrev.data.title}</span>
           </a>
         ) : <span />}
         {navNext ? (
-          <a href={getLocalePath(locale, `/blog/${getPostSlug(navNext.id)}/`)} class="blog-nav-link blog-nav-next">
-            <span class="blog-nav-label">
+          <a href={getLocalePath(locale, `/blog/${getPostSlug(navNext.id)}/`)} class="pn-link pn-next">
+            <span class="pn-label">
               {i18n.blog.next}
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </span>
-            <span class="blog-nav-title">{navNext.data.title}</span>
+            <span class="pn-title">{navNext.data.title}</span>
           </a>
         ) : <span />}
       </nav>
@@ -484,7 +484,7 @@ document.querySelectorAll('.related-card').forEach(function(card) {
 });
 
 /* Blog prev/next tracking */
-document.querySelectorAll('.blog-nav-link').forEach(function(link) {
+document.querySelectorAll('.pn-link').forEach(function(link) {
   link.addEventListener('click', function() {
     var direction = link.classList.contains('blog-nav-prev') ? 'prev' : 'next';
     t('blog_nav', { direction: direction });
@@ -900,13 +900,13 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .share-btn svg { flex-shrink: 0; }
   .related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
   /* .related-card styles live in RelatedCard.astro (shared with the design docs). */
-  .blog-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 3rem; }
-  .blog-nav-link { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
-  .blog-nav-link:hover { border-color: var(--color-green); transform: translateY(-2px); }
-  .blog-nav-label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-green-text); }
-  .blog-nav-title { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); line-height: 1.35; }
-  .blog-nav-next { text-align: right; }
-  .blog-nav-next .blog-nav-label { justify-content: flex-end; }
+  /* prev/next tiles: shared .pn-nav classes (global.css). */
+  .pn-link { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-secondary); text-decoration: none; transition: border-color 0.2s ease, transform 0.2s ease; }
+  .pn-link:hover { border-color: var(--color-green); transform: translateY(-2px); }
+  .pn-label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-green-text); }
+  .pn-title { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); line-height: 1.35; }
+  .pn-next { text-align: right; }
+  .pn-next .pn-label { justify-content: flex-end; }
   .scroll-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow); transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, opacity 0.2s ease; z-index: 50; }
   .scroll-to-top:hover { border-color: var(--color-green); color: var(--color-green-text); transform: translateY(-2px); }
   .scroll-to-top[hidden] { display: none; }
@@ -995,9 +995,9 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   }
 
   @media (max-width: 768px) {
-    .blog-nav { grid-template-columns: 1fr; }
-    .blog-nav-next { text-align: left; }
-    .blog-nav-next .blog-nav-label { justify-content: flex-start; }
+    .pn-nav { grid-template-columns: 1fr; }
+    .pn-next { text-align: left; }
+    .pn-next .pn-label { justify-content: flex-start; }
     .share-links { gap: 0.5rem; }
     .scroll-to-top { display: none; }
   }
