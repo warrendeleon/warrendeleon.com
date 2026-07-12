@@ -39,8 +39,8 @@ const radiusChips = [5, 8, 12, 16, 20];
         </div>
       ))}
     </div>
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <thead>
           <tr>
             <th>{se.radiusHeaders.radius}</th>
@@ -50,7 +50,7 @@ const radiusChips = [5, 8, 12, 16, 20];
         <tbody>
           {se.radiusRows.map((r) => (
             <tr>
-              <td class="ds-mono">{r.radius}</td>
+              <td class="mono-cell">{r.radius}</td>
               <td>{r.where}</td>
             </tr>
           ))}
@@ -97,43 +97,5 @@ const radiusChips = [5, 8, 12, 16, 20];
     font-size: 0.72rem;
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
     color: var(--text-muted);
-  }
-  .ds-tablewrap {
-    overflow-x: auto;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0 0 1.5rem;
-  }
-  .ds-mini {
-    width: 100%;
-    min-width: 100%;
-    border-collapse: collapse;
-  }
-  .ds-mini th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-  .ds-mini td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    vertical-align: middle;
-  }
-  .ds-mini tbody tr:last-child td { border-bottom: none; }
-  .ds-mono {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    font-size: 0.8rem;
-    color: var(--text-primary);
-    white-space: nowrap;
   }
 </style>

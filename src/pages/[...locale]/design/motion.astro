@@ -35,8 +35,8 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
   <section id="durations">
     <h2>{mo.durationsHeading}</h2>
     <p set:html={md(mo.durationsBody)} />
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <thead>
           <tr>
             <th>{mo.durationsHeaders.move}</th>
@@ -47,7 +47,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
           {mo.durationsRows.map((r) => (
             <tr>
               <td>{r.move}</td>
-              <td class="ds-mono">{r.value}</td>
+              <td class="mono-cell">{r.value}</td>
             </tr>
           ))}
         </tbody>
@@ -66,46 +66,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
 </DesignLayout>
 
 <style>
-  .ds-tablewrap {
-    overflow-x: auto;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0 0 1.5rem;
-  }
-  .ds-mini {
-    width: 100%;
-    min-width: 100%;
-    border-collapse: collapse;
-  }
-  .ds-mini th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-  .ds-mini td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    vertical-align: middle;
-  }
-  .ds-mini tbody tr:last-child td { border-bottom: none; }
-  .ds-mono {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    font-size: 0.8rem;
-    color: var(--text-primary);
-  }
   @media (max-width: 699px) {
-    .ds-mini th { white-space: normal; }
-    .ds-mono { overflow-wrap: anywhere; }
   }
   .ds-codeblock {
     margin: 0;

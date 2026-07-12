@@ -106,15 +106,15 @@ const VIGNETTES: Record<string, string> = {
     <section id={s.id} class="ds-group-shelf">
       <Shelf heading={s.heading} labelPrev={i18n.blog.previous} labelNext={i18n.blog.next}>
         {s.cards.map((c) => (
-          <a href={c.href} class="card ds-card-link">
+          <a href={c.href} class="card icon-card ds-card-link">
             {VIGNETTES[c.slug] && (
               <span class="ds-card-vig" aria-hidden="true" set:html={VIGNETTES[c.slug]} />
             )}
-            <span class="ds-card-head">
+            <span class="icon-card-head">
               {ICONS[c.slug] && (
-                <svg class="ds-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[c.slug]} />
+                <svg class="icon-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={ICONS[c.slug]} />
               )}
-              <span class="ds-card-title">{c.label}</span>
+              <span class="icon-card-title">{c.label}</span>
             </span>
             <span class="ds-card-blurb">{c.blurb}</span>
           </a>
@@ -183,39 +183,10 @@ const VIGNETTES: Record<string, string> = {
   /* The real .card carries the surface (border, radius, shadow, padding);
      this modifier only adds the link layout and the whole-card hover the
      feed cards use (lift + green title). */
-  .ds-card-link {
-    width: 280px;
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  }
+  .ds-card-link { width: 280px; flex: none; }
   @media (max-width: 760px) {
     .ds-card-link { width: 230px; }
   }
-  .ds-card-link:hover {
-    transform: translateY(-2px);
-    border-color: var(--color-green);
-  }
-  .ds-card-head {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .ds-card-icon {
-    flex-shrink: 0;
-    color: var(--text-muted);
-    transition: color 0.2s ease;
-  }
-  .ds-card-link:hover .ds-card-icon { color: var(--color-green-text); }
-  .ds-card-title {
-    font-size: 1.02rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  .ds-card-link:hover .ds-card-title { color: var(--color-green-text); }
 
   /* Component-card vignettes: miniature token drawings on a specimen stage —
      the same abstract-mock language the guidance cards use. */

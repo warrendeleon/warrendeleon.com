@@ -33,8 +33,8 @@ const localeRows: { code: string; path: string }[] = [
   <section id="locales">
     <h2>{tr.localesHeading}</h2>
     <p set:html={md(tr.localesBody)} />
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <thead>
           <tr>
             <th>{tr.localesTableHeaders.locale}</th>
@@ -45,8 +45,8 @@ const localeRows: { code: string; path: string }[] = [
         <tbody>
           {localeRows.map((r) => (
             <tr>
-              <td class="ds-mono">{r.code}</td>
-              <td class="ds-mono">{r.path}</td>
+              <td class="mono-cell">{r.code}</td>
+              <td class="mono-cell">{r.path}</td>
               <td>{localeNames[r.code as Locale]}</td>
             </tr>
           ))}
@@ -58,13 +58,13 @@ const localeRows: { code: string; path: string }[] = [
   <section id="scope">
     <h2>{tr.scopeHeading}</h2>
     <p set:html={md(tr.scopeBody)} />
-    <div class="ds-scope-grid">
-      <div class="ds-scope-col ds-scope-yes">
-        <p class="ds-scope-head">{tr.scopeTableHeaders.translated}</p>
+    <div class="compare-grid">
+      <div class="compare-col compare-yes">
+        <p class="compare-head">{tr.scopeTableHeaders.translated}</p>
         <ul>{tr.scopeTranslated.map((x) => <li set:html={md(x)} />)}</ul>
       </div>
-      <div class="ds-scope-col ds-scope-no">
-        <p class="ds-scope-head">{tr.scopeTableHeaders.kept}</p>
+      <div class="compare-col compare-no">
+        <p class="compare-head">{tr.scopeTableHeaders.kept}</p>
         <ul>{tr.scopeKept.map((x) => <li set:html={md(x)} />)}</ul>
       </div>
     </div>
@@ -85,62 +85,12 @@ const localeRows: { code: string; path: string }[] = [
 </DesignLayout>
 
 <style>
-  .ds-tablewrap {
-    overflow-x: auto;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0 0 1.5rem;
-  }
-  .ds-mini { width: 100%; min-width: 100%; border-collapse: collapse; }
-  .ds-mini th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
-    border-bottom: 1px solid var(--border-color);
-  }
-  .ds-mini td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-  }
-  .ds-mini tbody tr:last-child td { border-bottom: none; }
-  .ds-mono { font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; color: var(--text-primary); }
 
-  /* Translate / keep pair — green and neutral columns. */
-  .ds-scope-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
     margin: 0 0 1.5rem;
   }
   @media (min-width: 700px) {
-    .ds-scope-grid { grid-template-columns: 1fr 1fr; }
   }
-  .ds-scope-col {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--bg-card);
-    padding: 1.1rem 1.25rem;
-  }
-  .ds-scope-yes { border-top: 3px solid var(--color-green); }
-  .ds-scope-no { border-top: 3px solid var(--text-muted); }
-  .ds-scope-head {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin: 0 0 0.6rem;
-  }
-  .ds-scope-yes .ds-scope-head { color: var(--color-green-text); }
-  .ds-scope-no .ds-scope-head { color: var(--text-muted); }
-  .ds-scope-col ul { margin: 0; padding-left: 1.1rem; }
-  .ds-scope-col li { font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary); margin-bottom: 0.4rem; }
-  .ds-scope-col li:last-child { margin-bottom: 0; }
 </style>

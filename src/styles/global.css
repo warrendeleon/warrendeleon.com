@@ -1451,6 +1451,159 @@ a.series-card-inner:hover {
   border-radius: 12px;
 }
 
+/* ---- Shared documentation patterns. Born in the design docs, promoted here
+   so articles can use them as raw HTML and the docs ride the same classes.
+   Do/don't guidance cards, compare columns, the small mono-headed table,
+   and the icon link card. ---- */
+.dodont-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+@media (min-width: 700px) {
+  .dodont-grid { grid-template-columns: 1fr 1fr; }
+}
+.dodont {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-card);
+  overflow: hidden;
+}
+.dodont-do { border-top: 3px solid var(--color-green); }
+.dodont-dont { border-top: 3px solid #e53e3e; }
+.dodont-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.7rem 1rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dodont-do .dodont-head { color: var(--color-green-text); }
+.dodont-dont .dodont-head { color: #e53e3e; }
+.dodont-stage {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 96px;
+  padding: 1.1rem 1rem;
+  margin: 0 1rem;
+  border-radius: 10px;
+  background: var(--bg-secondary);
+}
+.dodont-stage.is-plain { background: var(--bg-primary); }
+.dodont-caption {
+  padding: 0.7rem 1rem 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+@media (min-width: 700px) {
+  .compare-grid { grid-template-columns: 1fr 1fr; }
+}
+.compare-col {
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  background: var(--bg-card);
+  padding: 1.1rem 1.25rem;
+}
+.compare-yes { border-top: 3px solid var(--color-green); }
+.compare-no { border-top: 3px solid var(--text-muted); }
+.compare-head {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+}
+.compare-yes .compare-head { color: var(--color-green-text); }
+.compare-no .compare-head { color: var(--text-muted); }
+.compare-col ul { margin: 0; padding-left: 1.1rem; }
+.compare-col li {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+.compare-col li:last-child { margin-bottom: 0; }
+
+.table-mini-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin: 0 0 1.5rem;
+}
+.table-mini { width: 100%; min-width: 100%; border-collapse: collapse; }
+.table-mini th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  color: var(--text-muted);
+  background: var(--badge-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+.table-mini td {
+  padding: 10px 14px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+.table-mini tbody tr:last-child td { border-bottom: none; }
+.table-mini .mono-cell {
+  font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  color: var(--text-primary);
+}
+
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.icon-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-green);
+}
+.icon-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.icon-card-icon {
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+.icon-card:hover .icon-card-icon { color: var(--color-green-text); }
+.icon-card-title {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.icon-card:hover .icon-card-title { color: var(--color-green-text); }
+
 .prose table {
   width: 100%;
   min-width: 100%;

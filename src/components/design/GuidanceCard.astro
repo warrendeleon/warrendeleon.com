@@ -13,8 +13,8 @@ interface Props {
 const { kind, label, caption, plain = false } = Astro.props;
 ---
 
-<figure class:list={['ds-guidance', `is-${kind}`]}>
-  <p class="ds-guidance-head">
+<figure class:list={['dodont', `dodont-${kind}`]}>
+  <p class="dodont-head">
     {kind === 'do' ? (
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
     ) : (
@@ -22,55 +22,9 @@ const { kind, label, caption, plain = false } = Astro.props;
     )}
     {label}
   </p>
-  <div class:list={['ds-guidance-stage', { 'is-plain': plain }]}>
+  <div class:list={['dodont-stage', { 'is-plain': plain }]}>
     <slot />
   </div>
-  <figcaption class="ds-guidance-caption" set:html={md(caption)} />
+  <figcaption class="dodont-caption" set:html={md(caption)} />
 </figure>
 
-<style>
-  .ds-guidance {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    background: var(--bg-card);
-    overflow: hidden;
-  }
-  .is-do { border-top: 3px solid var(--color-green); }
-  .is-dont { border-top: 3px solid #e53e3e; }
-  .ds-guidance-head {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0;
-    padding: 0.7rem 1rem 0.5rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .is-do .ds-guidance-head { color: var(--color-green-text); }
-  .is-dont .ds-guidance-head { color: #e53e3e; }
-  .ds-guidance-stage {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    min-height: 96px;
-    padding: 1.1rem 1rem;
-    margin: 0 1rem;
-    border-radius: 10px;
-    background: var(--bg-secondary);
-  }
-  .ds-guidance-stage.is-plain { background: var(--bg-primary); }
-  .ds-guidance-caption {
-    padding: 0.7rem 1rem 0.9rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: var(--text-secondary);
-  }
-</style>

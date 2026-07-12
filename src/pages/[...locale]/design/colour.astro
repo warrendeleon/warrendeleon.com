@@ -100,8 +100,8 @@ const calloutRows = [
   <section id="interaction">
     <h2>{c.interactionHeading}</h2>
     <p set:html={md(c.interactionBody)} />
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <thead>
           <tr>
             <th>{c.interactionHeaders.state}</th>
@@ -129,8 +129,8 @@ const calloutRows = [
   <section id="callouts">
     <h2>{c.calloutsHeading}</h2>
     <p set:html={md(c.calloutsBody)} />
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <thead>
           <tr>
             <th colspan="2">{c.calloutsHeaders.type}</th>
@@ -185,7 +185,7 @@ const calloutRows = [
 
   <section id="using">
     <h2>{c.usingHeading}</h2>
-    <div class="ds-guidance-grid">
+    <div class="dodont-grid">
       <GuidanceCard kind="do" label={c.doLabel} caption={c.dos[0]}>
         <button type="button" class="btn btn-primary">Download CV</button>
         <span class="ds-plain-text">Body copy stays neutral.</span>
@@ -244,48 +244,9 @@ const calloutRows = [
 </style>
 
 <style>
-  .ds-tablewrap {
-    overflow-x: auto;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0 0 1.5rem;
-  }
-  .ds-mini {
-    width: 100%;
-    min-width: 100%;
-    border-collapse: collapse;
-  }
-  .ds-mini th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-  .ds-mini td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    vertical-align: middle;
-  }
-  .ds-mini tbody tr:last-child td { border-bottom: none; }
-  .ds-mini code {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    font-size: 0.78rem;
-    color: var(--text-primary);
-  }
   /* Long token names and header labels wrap on narrow screens instead of
      forcing the table sideways. */
   @media (max-width: 699px) {
-    .ds-mini th { white-space: normal; }
-    .ds-mini code { overflow-wrap: anywhere; }
   }
   .ds-mini-note { font-style: italic; color: var(--text-muted); }
   .ds-mini-swatch { width: 44px; }

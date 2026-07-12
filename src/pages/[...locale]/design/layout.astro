@@ -35,8 +35,8 @@ const bandLabel = (name: string) => {
   <section id="columns">
     <h2>{ly.columnsHeading}</h2>
     <p set:html={md(ly.columnsBody)} />
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <thead>
           <tr>
             <th>{ly.columnsHeaders.band}</th>
@@ -49,9 +49,9 @@ const bandLabel = (name: string) => {
           {ly.columnsRows.map((r) => (
             <tr>
               <td>{r.band}</td>
-              <td class="ds-mono">{r.column}</td>
-              <td class="ds-mono">{r.gutter}</td>
-              <td class="ds-mono">{r.bar}</td>
+              <td class="mono-cell">{r.column}</td>
+              <td class="mono-cell">{r.gutter}</td>
+              <td class="mono-cell">{r.bar}</td>
             </tr>
           ))}
         </tbody>
@@ -62,13 +62,13 @@ const bandLabel = (name: string) => {
   <section id="breakpoints">
     <h2>{ly.breakpointsHeading}</h2>
     <p set:html={md(ly.breakpointsBody)} />
-    <div class="ds-tablewrap">
-      <table class="ds-mini">
+    <div class="table-mini-wrap">
+      <table class="table-mini">
         <tbody>
           {ly.breakpointsRows.map((r) => (
             <tr>
               <td><strong>{r.band}</strong></td>
-              <td class="ds-mono">{r.range}</td>
+              <td class="mono-cell">{r.range}</td>
             </tr>
           ))}
         </tbody>
@@ -209,44 +209,6 @@ const bandLabel = (name: string) => {
 </DesignLayout>
 
 <style>
-  .ds-tablewrap {
-    overflow-x: auto;
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin: 0 0 1.5rem;
-  }
-  .ds-mini {
-    width: 100%;
-    min-width: 100%;
-    border-collapse: collapse;
-  }
-  .ds-mini th {
-    text-align: left;
-    padding: 10px 14px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    color: var(--text-muted);
-    background: var(--badge-bg);
-    border-bottom: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-  .ds-mini td {
-    padding: 10px 14px;
-    font-size: 0.85rem;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    vertical-align: middle;
-  }
-  .ds-mini tbody tr:last-child td { border-bottom: none; }
-  .ds-mono {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    font-size: 0.8rem;
-    color: var(--text-primary);
-    white-space: nowrap;
-  }
 
   /* Annotated-rhythm demos. The heading specimen drops its own margin so the
      hatched band below it is the ONLY space in the figure. */

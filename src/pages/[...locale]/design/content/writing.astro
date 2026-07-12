@@ -36,7 +36,7 @@ const sections = [
     <section id={s.id}>
       <h2>{s.heading}</h2>
       <p set:html={md(s.body)} />
-      <div class="ds-guidance-grid">
+      <div class="dodont-grid">
         <GuidanceCard kind="do" label={d.doLabel} caption={s.goodCap}>
           <span class="ds-sample">{s.good}</span>
         </GuidanceCard>
@@ -57,7 +57,7 @@ const sections = [
   <section id="disagreeing">
     <h2>{w.disagreeHeading}</h2>
     <p set:html={md(w.disagreeBody1)} />
-    <div class="ds-guidance-grid">
+    <div class="dodont-grid">
       <GuidanceCard kind="do" label={d.doLabel} caption={w.disagreeCaption}>
         <span class="ds-sample">{w.disagreeGood}</span>
       </GuidanceCard>

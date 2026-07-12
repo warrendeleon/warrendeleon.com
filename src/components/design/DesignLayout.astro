@@ -367,17 +367,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     width: 0.7rem;
   }
 
-  /* Guidance grid: each Do / Don't is its own card with a rendered example.
-     Mobile-first single column; pairs sit side by side from 700px. */
-  .ds-guidance-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin: 0 0 1.5rem;
-  }
-  @media (min-width: 700px) {
-    .ds-guidance-grid { grid-template-columns: 1fr 1fr; }
-  }
 
   /* Spacing annotations: a hatched band whose size IS the gap being
      documented (height driven by the live token or literal), with a mono
