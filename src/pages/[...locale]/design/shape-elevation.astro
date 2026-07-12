@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { md } from '../../../lib/inline-markup';
 import SwatchTable from '../../../components/design/SwatchTable.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
@@ -29,7 +30,7 @@ const radiusChips = [5, 8, 12, 16, 20];
 >
   <section id="radius">
     <h2>{se.radiusHeading}</h2>
-    <p>{se.radiusBody}</p>
+    <p set:html={md(se.radiusBody)} />
     <div class="ds-radius-chips">
       {radiusChips.map((r) => (
         <div class="ds-radius-chip">
@@ -56,18 +57,18 @@ const radiusChips = [5, 8, 12, 16, 20];
         </tbody>
       </table>
     </div>
-    <p>{se.radiusNote}</p>
+    <p set:html={md(se.radiusNote)} />
   </section>
 
   <section id="shadows">
     <h2>{se.shadowsHeading}</h2>
-    <p>{se.shadowsBody}</p>
+    <p set:html={md(se.shadowsBody)} />
     <SwatchTable rows={shadows} kind="shadow" usage={se.shadowsUsage} headers={se.shadowsHeaders} copyLabel={d.copyLabel} />
   </section>
 
   <section id="borders">
     <h2>{se.bordersHeading}</h2>
-    <p>{se.bordersBody}</p>
+    <p set:html={md(se.bordersBody)} />
   </section>
 </DesignLayout>
 

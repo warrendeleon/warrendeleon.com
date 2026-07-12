@@ -145,10 +145,10 @@
       "--device-button": "Ang mga side button ng phone frame."
     },
     "brandHeading": "Brand green",
-    "brandBody": "Ang berde ang tanging accent. Pinupuno nito ang mga primary button, minamarkahan ang aktibong tab, ginuguhit ang bar sa ilalim ng title ng pahina at umiikot bilang ring sa isang focused na control. Dahil iyon lang ang ibig sabihin nito, natututunan ng mambabasa na basahin ang berde bilang “may ginagawa ito”.",
+    "brandBody": "Ang berde ang **tanging accent**. Pinupuno nito ang mga primary button, minamarkahan ang aktibong tab, ginuguhit ang bar sa ilalim ng title ng pahina at umiikot bilang ring sa isang focused na control. Dahil iyon lang ang ibig sabihin nito, natututunan ng mambabasa na basahin ang berde bilang “may ginagawa ito”.",
     "brandTextNote": "Maliwanag ang lime green, at sa laki ng body-text sa puting background ay hindi nito naaabot ang contrast bar. Kaya may hiwalay na text green: sa light mode ay ibinababa ang berde para sa text at mga link, habang sa dark mode ay pinananatili ang brand lime. Ang dahilan kung bakit ito umiiral ay nakalahad sa accessibility page.",
     "neutralsHeading": "Mga neutral at surface",
-    "neutralsBody": "Ang mga neutral token ay may dalawang value, isa kada theme, kaya ang isang surface ay dinidisenyo sa dalawa mula sa simula. Ang text ay nasa tatlong weight ng diin; ang mga background ay humahakbang mula sa pahina, papunta sa mga tinted band, hanggang sa mga raised card.",
+    "neutralsBody": "Ang mga neutral token ay may **dalawang value, isa kada theme**, kaya ang isang surface ay dinidisenyo sa dalawa mula sa simula. Ang text ay nasa tatlong weight ng diin; ang mga background ay humahakbang mula sa pahina, papunta sa mga tinted band, hanggang sa mga raised card.",
     "interactionHeading": "Interaksyon",
     "interactionBody": "Ang mga link at solid button ay dumadaan sa mga berde kapag naka-hover. Pareho ang mga state kahit saan, kaya laging sinasabi ng isang control kung ano ang gagawin nito.",
     "interactionHeaders": {
@@ -198,7 +198,7 @@
     ],
     "elevationNote": "Ang mga elevation token (ang mga naka-theme na shadow) ay nakadokumento sa Hugis at elevation page.",
     "illosHeading": "Kulay ng illustration",
-    "illosBody": "Ang interface ay nakatayo sa iisang berde, pero ang mga hero illustration ng blog ay may sariling palette. Pareho ang paraan sa maliit na sukat: isang fixed pool na sampu, laging kasama ang brand lime, at isang malambot na background bawat serye.",
+    "illosBody": "Ang interface ay nakatayo sa iisang berde, pero ang mga hero illustration ng blog ay may sariling palette. Pareho ang paraan sa maliit na sukat: isang **fixed pool na sampu**, laging kasama ang brand lime, at isang malambot na background bawat serye.",
     "heroPaletteHeading": "Ang shared palette",
     "heroPaletteBody": "Ang sampu, binabasa mula sa mga totoong post sa build time. Ilan lang dito ang ginagamit ng bawat illustration — doon nanggagaling ang pagkakaiba-iba ng mga hero; ang pool mismo ay hindi nagbabago.",
     "heroPaletteNames": [
@@ -214,7 +214,7 @@
       "Sand"
     ],
     "heroSwatchHeading": "Isang background bawat serye",
-    "heroSwatchBody": "Ang mga background ay sadyang nasa labas ng palette: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed — ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
+    "heroSwatchBody": "**Ang mga background ay sadyang nasa labas ng palette**: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed — ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
     "illosMore": "Ang paraan ng pagguhit ng mga hero ay nasa",
     "illosMoreLink": "Media page"
   },
@@ -253,7 +253,7 @@
     "familyBody": "Ang interface ay nakatakda sa Inter, self-hosted sa halip na kinuha mula sa isang font service kaya hindi kailanman naghihintay ang unang paint sa isang third-party na request. Walang display o heading font: ang weight at laki ang nagdadala ng hierarchy. Ang mga heading ay tumatakbo sa 800, ang mga sub-heading at label sa 700, ang mga button at diin sa 600, at ang body copy sa 400.",
     "familyStackNote": "Ang buong stack ay bumabalik sa system sans-serif kung hindi pa na-load ang Inter, kaya laging nababasa ang text.",
     "scaleHeading": "Ang scale",
-    "scaleBody": "Ang mga laki ay mga role, hindi mga isahang gamit. Ang parehong variable ang nagpapatakbo sa bawat title ng pahina, bawat section heading, at iba pa. Ang tatlong column ay ang desktop value at ang dalawang step-down, na inilalapat sa tablet at mobile breakpoint sa Layout page.",
+    "scaleBody": "Ang mga laki ay **mga role, hindi mga isahang gamit**. Ang parehong variable ang nagpapatakbo sa bawat title ng pahina, bawat section heading, at iba pa. Ang tatlong column ay ang desktop value at ang dalawang step-down, na inilalapat sa tablet at mobile breakpoint sa Layout page.",
     "scaleHeaders": {
       "token": "Token",
       "desktop": "Desktop",
@@ -387,7 +387,7 @@
       }
     ],
     "breakpointsHeading": "Mga breakpoint",
-    "breakpointsBody": "Tatlong band, sinabi kung ano talaga sila. Ang tablet band ay umaabot hanggang 1279 pixel, kaya ang isang 1024-pixel na window ay nakakakuha ng tablet sizing, hindi desktop. Ang tab dock ay isang affordance sa phone at tablet; ang desktop nav ang pumapalit sa 1280.",
+    "breakpointsBody": "**Tatlong band**, sinabi kung ano talaga sila. Ang tablet band ay umaabot hanggang 1279 pixel, kaya ang isang 1024-pixel na window ay nakakakuha ng tablet sizing, hindi desktop. Ang tab dock ay isang affordance sa phone at tablet; ang desktop nav ang pumapalit sa 1280.",
     "breakpointsRows": [
       {
         "band": "Mobile",
@@ -403,7 +403,7 @@
       }
     ],
     "spacingHeading": "Spacing",
-    "spacingBody": "Ang espasyo ay binuo sa isang four-pixel na base. Ang mga token sa ibaba ang nagtatakda ng ritmo sa pagitan ng mga section at heading; dahil isang-panig ang section padding, ang dalawang magkatabing section ay nasa doble ng token ang layo.",
+    "spacingBody": "Ang espasyo ay binuo sa isang **four-pixel na base**. Ang mga token sa ibaba ang nagtatakda ng ritmo sa pagitan ng mga section at heading; dahil isang-panig ang section padding, ang dalawang magkatabing section ay nasa doble ng token ang layo.",
     "spacingHeaders": {
       "token": "Token",
       "desktop": "Desktop",
@@ -511,7 +511,7 @@
     ],
     "radiusNote": "Ang tag chip at ang badge ay may isang pixel na pagitan, sa 7 at 8 pixel. Ito ay isang maliit na hindi pagkakatugma na sulit na panatilihin nang sinasadya o isara; sa ngayon, iniuulat ng mga dokumento ang dalawa ayon sa kung paano sila ipinadala.",
     "shadowsHeading": "Mga shadow",
-    "shadowsBody": "Ang mga shadow ay malambot at mababa. Ang natatanging rule ay hindi nagdidilim ang dark mode: ang isang itim na shadow sa isang madilim na pahina ay walang mababasa, kaya ang mga dark token ay may dalang mahinang light na shadow sa halip. Ang bawat token sa ibaba ay ipinapakita sa isang light at isang dark na stage.",
+    "shadowsBody": "Ang mga shadow ay malambot at mababa. Ang natatanging rule ay **hindi nagdidilim ang dark mode**: ang isang itim na shadow sa isang madilim na pahina ay walang mababasa, kaya ang mga dark token ay may dalang mahinang light na shadow sa halip. Ang bawat token sa ibaba ay ipinapakita sa isang light at isang dark na stage.",
     "shadowsHeaders": {
       "swatch": "Light / dark",
       "token": "Token",
@@ -728,7 +728,7 @@
       "Punuin ang isang hanay ng napakaraming pill kaya walang mababasa."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Badge: .badge (nakagrupo sa .badge-group). Post tag: .post-tag (nakagrupo sa .post-tags). Parehong ginagamit ang neutral na pares na --badge-bg / --badge-text."
+    "whereBody": "Badge: .badge (nakagrupo sa .badge-group). Post tag: .post-tag (nakagrupo sa .post-tags). Parehong ginagamit ang neutral na pares na `--badge-bg` / `--badge-text`."
   },
   "cards": {
     "seoTitle": "Mga card | Disenyo | Warren de Leon",
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "Ang placeholder sa card-thumbnail at hero na mga ratio.",
     "heroHeading": "Mga hero illustration ng posts",
     "heroBody": "Bawat post ay bumubukas sa isang rich pero flat na isometric illustration: detalyado at may mga layer na vector scene, walang gradient, walang nababasang text o logo, sa malambot na halos puting background. Bawat isa ay ginagawa gamit ang Cloudflare AI mula sa maikling konsepto na naglalarawan sa ideya ng post bilang mga bagay — isang tab bar na humihila ng mga panel, isang mesh na nagbubukod ng mga arrow sa mga tray.",
-    "heroColourBody": "Hindi kailanman ang model ang pumipili ng palette. Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay — ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand — at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
+    "heroColourBody": "**Hindi kailanman ang model ang pumipili ng palette.** Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay — ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand — at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
     "heroCaption": "Isang totoong post hero: ilang kulay mula sa shared palette sa background ng serye nito.",
     "heroMore": "Ang palette at ang mga background ng serye ay nakadokumento kasama ng buong colour system sa",
     "heroMoreLink": "Colour page"
@@ -1268,14 +1268,14 @@
     "brandsCaption": "Tumbas sa opisyal na anyo, pati na ang mga accent.",
     "brandsBadCaption": "Hindi ini-lowercase, hindi inaalis ang mga accent.",
     "disagreeHeading": "Pagtutol sa sulat",
-    "disagreeBody1": "Maraming tinututulan ang technical writing dito: mga default, mga sikat na library, mga minanang paniniwala. Ang rule ay i-steelman muna. Ilahad ang kabilang panig sa pinakamalakas nitong bersyon, kilalanin ang tama nito, saka ipakita kung saan ito huminto sa paggana para sa kasong pinag-uusapan. Ang pagtutol ay dumadating bilang obserbasyon tungkol sa akma, hindi bilang paghatol.",
+    "disagreeBody1": "Maraming tinututulan ang technical writing dito: mga default, mga sikat na library, mga minanang paniniwala. Ang rule ay **i-steelman muna**. Ilahad ang kabilang panig sa pinakamalakas nitong bersyon, kilalanin ang tama nito, saka ipakita kung saan ito huminto sa paggana para sa kasong pinag-uusapan. Ang pagtutol ay dumadating bilang obserbasyon tungkol sa akma, hindi bilang paghatol.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",
     "disagreeCaption": "Isang totoong section heading mula sa blog: binibigyan muna ng karampatang halaga ang mga alternatibo bago ipagtanggol ang pinili.",
     "disagreeBad": "Why MSW doesn’t work for E2E testing",
     "disagreeBadCaption": "Ang confrontational na bersyon ay mababasa bilang paghatol at nagpapa-depensiba sa mambabasa.",
     "disagreeBody2": "Dalawang gawi ang sumusuporta rito. Ang hindi absolute ay hindi isinusulat bilang absolute: ang “X never works” ay nagiging “X was not designed for Y”. At walang defensive opener: ang mga pangungusap ay hindi nagsisimula sa “To be clear” o “Just to clarify”.",
     "socialHeading": "Mga social teaser",
-    "socialBody1": "Kapag ibinahagi ang isang post sa LinkedIn, teaser ang ibinabahagi, hindi buod. Iisa lang ang trabaho nito: magbukas ng curiosity gap na isasara ng artikulo — maglahad ng tensyon, magbanggit ng espesipikong detalye nang hindi ipinapaliwanag, at ituro pasulong. Kung nasiyahan na ang mambabasa nang hindi nag-click, pumalya ang teaser.",
+    "socialBody1": "Kapag ibinahagi ang isang post sa LinkedIn, **teaser ang ibinabahagi, hindi buod**. Iisa lang ang trabaho nito: magbukas ng curiosity gap na isasara ng artikulo — maglahad ng tensyon, magbanggit ng espesipikong detalye nang hindi ipinapaliwanag, at ituro pasulong. Kung nasiyahan na ang mambabasa nang hindi nag-click, pumalya ang teaser.",
     "socialRules": [
       "Mga 500 character, bawat pangungusap ay may pinaglalaban.",
       "Walang link sa body; ang link ay nasa unang komento.",
@@ -1285,7 +1285,7 @@
       "Hindi kailanman pinapangalanan ang mga employer o internal project."
     ],
     "crossHeading": "Cross-linking",
-    "crossBody1": "Malayang nagtuturo ang mga post sa isa’t isa: ang pangungusap na bumabanggit sa token-refresh post ay naka-link doon, at pinapangalanan ng link text ang pupuntahan gaya sa itaas. Puwede pang tumuro ang mga link sa mga post na hindi pa lumalabas. Sa build time, ang link sa hindi pa na-publish na post ay pinapalitan ng sarili nitong plain text, kaya walang kailanman nagre-404; kapag na-publish ang pupuntahan, ang susunod na build ang magbabalik ng mga salitang iyon bilang link. Ang mga forward reference ay isinusulat nang isang beses at nareresolba nang kusa.",
+    "crossBody1": "Malayang nagtuturo ang mga post sa isa’t isa: ang pangungusap na bumabanggit sa token-refresh post ay naka-link doon, at pinapangalanan ng link text ang pupuntahan gaya sa itaas. Puwede pang tumuro ang mga link sa mga post na hindi pa lumalabas. Sa build time, ang link sa hindi pa na-publish na post ay **pinapalitan ng sarili nitong plain text**, kaya walang kailanman nagre-404; kapag na-publish ang pupuntahan, ang susunod na build ang magbabalik ng mga salitang iyon bilang link. Ang mga forward reference ay isinusulat nang isang beses at nareresolba nang kusa.",
     "crossBody2": "Bawat post ay maaaring pumili ng hanggang tatlong related post sa front matter nito; ang mga walang pinili ay babagsak sa mga shared tag. May further-reading shelf na nagdadagdag ng mas tahimik na mga post na malamang hindi pa nakikita ng mambabasa, na may tope na siyam sa kabuuan, para manatili itong rekomendasyon at hindi archive.",
     "crossBody3": "Sa loob ng isang serye, ang previous at next ay nananatili sa loob ng serye: ang part five ay tumuturo sa parts four at six, hindi kailanman sa walang kaugnayang post na nagkataong lumabas katabi nito. Sa mga dulo lang ng serye babagsak ang mga arrow sa katabing post ayon sa petsa."
   },
@@ -1350,7 +1350,7 @@
     "voiceHeading": "Ang boses sa bawat wika",
     "voiceBody": "Ang translation dito ay hindi word-for-word. Bawat wika ay isinusulat kung paano ito natural na isusulat ng isang senior engineer: parehong structure at parehong facts, sa sarili nitong natural na pananalita.",
     "angliHeading": "Nananatili ang mga hiram na salita",
-    "angliBody": "Sa Spanish at Catalan, nananatili ang technical English na talagang ginagamit ng mga developer: runtime, bundle, host, remote, build, deploy. Ang ilan dito ay mga anglicism na hindi bebendisyunan ng anumang diksyunaryo, pero nananatili pa rin. Ang pagsasalin ng runtime bilang “tiempo de ejecución” ay tama ayon sa diksyunaryo pero parang textbook ang dating; ang layunin ay tumunog na parang katrabaho.",
+    "angliBody": "Sa Spanish at Catalan, nananatili ang technical English na talagang ginagamit ng mga developer: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Ang ilan dito ay mga anglicism na hindi bebendisyunan ng anumang diksyunaryo, pero nananatili pa rin. Ang pagsasalin ng runtime bilang “tiempo de ejecución” ay tama ayon sa diksyunaryo pero parang textbook ang dating; ang layunin ay tumunog na parang katrabaho.",
     "taglishHeading": "Taglish ang Tagalog",
     "taglishBody": "Ang mga post sa Tagalog ay idiomatic Taglish: Filipino ang daloy ng pangungusap pero nasa English pa rin ang technical vocabulary, kung paano talaga mag-usap ang mga Filipino developer tungkol sa trabaho. Ang buong-salin na technical Tagalog ay mas mahirap basahin, hindi mas madali.",
     "fillerHeading": "Tumatawid ang mga parehong bawal",
@@ -1409,7 +1409,7 @@
       }
     ],
     "contrastHeading": "Ang trade-off para sa nababasang green",
-    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti. Sinukat laban sa WCAG, ang #6dc402 sa puti ay mga 2.2 to 1 — mas mababa pa sa 3-to-1 na pamantayan para sa malaking teksto. Kaya't may umiiral na pangalawang token: ibinababa ng --color-green-text ang green sa #5aa302, na lumalampas sa 3 to 1. Sapat na iyon para sa malaki o bold na teksto, para sa mga heading, at para sa mga interface accent tulad ng focus ring, at ginagamit iyon para sa mga iyon, hindi para sa body copy.",
+    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti. Sinukat laban sa WCAG, ang #6dc402 sa puti ay mga 2.2 to 1 — mas mababa pa sa 3-to-1 na pamantayan para sa malaking teksto. Kaya't may umiiral na pangalawang token: ibinababa ng `--color-green-text` ang green sa #5aa302, na lumalampas sa 3 to 1. Sapat na iyon para sa malaki o bold na teksto, para sa mga heading, at para sa mga interface accent tulad ng focus ring, at ginagamit iyon para sa mga iyon, hindi para sa body copy.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sa puti",
@@ -1430,7 +1430,7 @@
     "seoTitle": "Newsletter | Design system | Warren de Leon",
     "seoDescription": "Paano dinidisenyo at isinusulat ang newsletter ng warrendeleon.com: isang email bawat wika, ang mga kulay ng site sa inbox, at text na muling ginagamit ang front matter ng mismong post.",
     "title": "Newsletter",
-    "intro": "Kapag lumabas ang isang post, lumalabas din ito sa email: isang campaign bawat wika, bawat isa sa sariling list. Hinihiram ng email ang design language ng site at muling ginagamit ang mga salita ng mismong post, para ang inbox at ang site ay parang iisang produkto.",
+    "intro": "Kapag lumabas ang isang post, lumalabas din ito sa email: **isang campaign bawat wika**, bawat isa sa sariling list. Hinihiram ng email ang design language ng site at muling ginagamit ang mga salita ng mismong post, para ang inbox at ang site ay parang iisang produkto.",
     "toc": [
       {
         "id": "design",
@@ -1445,7 +1445,7 @@
     "designBody1": "Isang 600-pixel na column: puting card sa malambot na kulay-abo na page, apat-na-pixel na lime accent bar sa itaas, ang wordmark sa ilalim nito, at Inter sa bawat linya. Ang mga link ay gumagamit ng nababasang text green at ang mga kanto ng card ay nasa 14 pixels. Ito ang site, isinalin sa kung ano ang pinapayagan ng mga email client.",
     "designBody2": "Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark grey, ang logo ay napapalitan ng light na bersyon, at ang mga berde ay tumataas para manatiling nababasa. Ang button ay gumagamit ng mas madilim na hover green para pumasa sa contrast bar ang puting text.",
     "copyHeading": "Ano ang sinasabi ng email",
-    "copyBody1": "Ang email ay nagsusulat ng sarili mula sa front matter ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
+    "copyBody1": "Ang email ay nagsusulat ng sarili mula sa **front matter** ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
     "copyRules": [
       "Series subject: “Bago sa serye: {title} (Bahagi N)”, na pinuputol ang title sa unang colon para manatiling maikli ang linya.",
       "Standalone subject: “Bagong post: {title}”.",

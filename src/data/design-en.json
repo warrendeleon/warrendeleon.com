@@ -145,10 +145,10 @@
       "--device-button": "The phone frame's side buttons."
     },
     "brandHeading": "Brand green",
-    "brandBody": "The green is the single accent. It fills primary buttons, marks the active tab, draws the bar under a page title and rings a focused control. Because it means only those things, a reader learns to read green as “this does something”.",
+    "brandBody": "The green is **the single accent**. It fills primary buttons, marks the active tab, draws the bar under a page title and rings a focused control. Because it means only those things, a reader learns to read green as “this does something”.",
     "brandTextNote": "Lime green is bright, and at body-text size on a white background it does not meet the contrast bar. That is why a separate text green exists: light mode steps the green down for text and links, while dark mode keeps the brand lime. The reason it exists is set out on the accessibility page.",
     "neutralsHeading": "Neutrals & surfaces",
-    "neutralsBody": "The neutral tokens carry two values, one per theme, so a surface is designed in both from the start. Text sits at three weights of emphasis; backgrounds step from the page, to tinted bands, to raised cards.",
+    "neutralsBody": "The neutral tokens carry **two values, one per theme**, so a surface is designed in both from the start. Text sits at three weights of emphasis; backgrounds step from the page, to tinted bands, to raised cards.",
     "interactionHeading": "Interaction",
     "interactionBody": "Links and solid buttons move through the greens on hover. The states are the same everywhere, so a control always tells you what it will do.",
     "interactionHeaders": {
@@ -198,7 +198,7 @@
     ],
     "elevationNote": "Elevation tokens (the themed shadows) are documented on the Shape & elevation page.",
     "illosHeading": "Illustration colour",
-    "illosBody": "The interface holds to one green, but the blog’s hero illustrations carry a palette of their own. It works the same way in miniature: a fixed pool of ten, the brand lime always present, and one soft ground per series.",
+    "illosBody": "The interface holds to one green, but the blog’s hero illustrations carry a palette of their own. It works the same way in miniature: a **fixed pool of ten**, the brand lime always present, and one soft ground per series.",
     "heroPaletteHeading": "The shared palette",
     "heroPaletteBody": "The ten, read from the live posts at build time. Each illustration uses only a few of them, which is where the variety between heroes comes from; the pool itself never changes.",
     "heroPaletteNames": [
@@ -214,7 +214,7 @@
       "Sand"
     ],
     "heroSwatchHeading": "One ground per series",
-    "heroSwatchBody": "Backgrounds deliberately sit off the palette: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed — its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
+    "heroSwatchBody": "**Backgrounds deliberately sit off the palette**: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed — its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
     "illosMore": "How the heroes are drawn is on",
     "illosMoreLink": "the Media page"
   },
@@ -253,7 +253,7 @@
     "familyBody": "The interface is set in Inter, self-hosted rather than pulled from a font service so the first paint never waits on a third-party request. There is no display or heading font: weight and size carry the hierarchy. Headings run at 800, sub-headings and labels at 700, buttons and emphasis at 600, and body copy at 400.",
     "familyStackNote": "The full stack falls back to the system sans-serif if Inter has not loaded, so text is always readable.",
     "scaleHeading": "The scale",
-    "scaleBody": "Sizes are roles, not one-offs. The same variable drives every page title, every section heading, and so on. The three columns are the desktop value and the two step-downs, applied at the tablet and mobile breakpoints on the Layout page.",
+    "scaleBody": "Sizes are **roles, not one-offs**. The same variable drives every page title, every section heading, and so on. The three columns are the desktop value and the two step-downs, applied at the tablet and mobile breakpoints on the Layout page.",
     "scaleHeaders": {
       "token": "Token",
       "desktop": "Desktop",
@@ -387,7 +387,7 @@
       }
     ],
     "breakpointsHeading": "Breakpoints",
-    "breakpointsBody": "Three bands, stated as they really are. The tablet band runs up to 1279 pixels, so a 1024-pixel window gets tablet sizing, not desktop. The tab dock is a phone and tablet affordance; the desktop nav takes over at 1280.",
+    "breakpointsBody": "**Three bands**, stated as they really are. The tablet band runs up to 1279 pixels, so a 1024-pixel window gets tablet sizing, not desktop. The tab dock is a phone and tablet affordance; the desktop nav takes over at 1280.",
     "breakpointsRows": [
       {
         "band": "Mobile",
@@ -403,7 +403,7 @@
       }
     ],
     "spacingHeading": "Spacing",
-    "spacingBody": "Space is built on a four-pixel base. The tokens below set the rhythm between sections and headings; because section padding is one-sided, two adjacent sections sit twice the token apart.",
+    "spacingBody": "Space is built on a **four-pixel base**. The tokens below set the rhythm between sections and headings; because section padding is one-sided, two adjacent sections sit twice the token apart.",
     "spacingHeaders": {
       "token": "Token",
       "desktop": "Desktop",
@@ -511,7 +511,7 @@
     ],
     "radiusNote": "The tag chip and the badge sit a pixel apart, at 7 and 8 pixels. It is a small inconsistency worth either keeping on purpose or closing; for now the docs report both as they ship.",
     "shadowsHeading": "Shadows",
-    "shadowsBody": "Shadows are soft and low. The signature rule is that dark mode does not darken: a black shadow on a dark page reads as nothing, so the dark tokens carry a faint light shadow instead. Each token below is shown on both a light and a dark stage.",
+    "shadowsBody": "Shadows are soft and low. The signature rule is that **dark mode does not darken**: a black shadow on a dark page reads as nothing, so the dark tokens carry a faint light shadow instead. Each token below is shown on both a light and a dark stage.",
     "shadowsHeaders": {
       "swatch": "Light / dark",
       "token": "Token",
@@ -728,7 +728,7 @@
       "Crowd a row with so many pills that none can be read."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Badge: .badge (grouped in .badge-group). Post tag: .post-tag (grouped in .post-tags). Both share the neutral --badge-bg / --badge-text pair."
+    "whereBody": "Badge: .badge (grouped in .badge-group). Post tag: .post-tag (grouped in .post-tags). Both share the neutral `--badge-bg` / `--badge-text` pair."
   },
   "cards": {
     "seoTitle": "Cards | Design system | Warren de Leon",
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "The placeholder at card-thumbnail and hero ratios.",
     "heroHeading": "Post hero illustrations",
     "heroBody": "Every post opens with a rich but flat isometric illustration: detailed, layered vector scenes with no gradients, no readable text and no logos, on a soft near-white ground. Each one is generated with Cloudflare AI from a short written concept describing the post’s idea as objects — a tab bar pulling in panels, a mesh sorting arrows into trays.",
-    "heroColourBody": "The model never chooses the palette. Every illustration picks a few colours from one shared ten-colour pool — the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand — and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
+    "heroColourBody": "**The model never chooses the palette.** Every illustration picks a few colours from one shared ten-colour pool — the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand — and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
     "heroCaption": "A real post hero: a few of the shared palette on its series’ ground.",
     "heroMore": "The palette and the series grounds are documented with the rest of the colour system on",
     "heroMoreLink": "the Colour page"
@@ -1268,14 +1268,14 @@
     "brandsCaption": "Match the official form, accents and all.",
     "brandsBadCaption": "Not lowercased, not stripped of accents.",
     "disagreeHeading": "Disagreeing in print",
-    "disagreeBody1": "Technical writing here disagrees a lot: with defaults, with popular libraries, with received wisdom. The rule is to steelman first. State the opposing view in its strongest form, credit what it gets right, then show where it stops working for the case at hand. The disagreement lands as an observation about fit, not a condemnation.",
+    "disagreeBody1": "Technical writing here disagrees a lot: with defaults, with popular libraries, with received wisdom. The rule is to **steelman first**. State the opposing view in its strongest form, credit what it gets right, then show where it stops working for the case at hand. The disagreement lands as an observation about fit, not a condemnation.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",
     "disagreeCaption": "A real section heading from the blog: the alternatives get their due before the trade-off is argued.",
     "disagreeBad": "Why MSW doesn’t work for E2E testing",
     "disagreeBadCaption": "The oppositional version reads as condemnation and puts the reader on the defensive.",
     "disagreeBody2": "Two habits support it. Claims that are not absolute are not written as absolutes: “X never works” becomes “X was not designed for Y”. And there are no defensive openers: sentences do not start with “To be clear” or “Just to clarify”.",
     "socialHeading": "Social teasers",
-    "socialBody1": "When a post is shared on LinkedIn, the share is a teaser, not a summary. Its one job is to open a curiosity gap the article closes: state a tension, name a specific detail without explaining it, and point forward. If the reader feels satisfied without clicking, the teaser failed.",
+    "socialBody1": "When a post is shared on LinkedIn, the share is a **teaser, not a summary**. Its one job is to open a curiosity gap the article closes: state a tension, name a specific detail without explaining it, and point forward. If the reader feels satisfied without clicking, the teaser failed.",
     "socialRules": [
       "Around 500 characters, every sentence earning its place.",
       "No links in the body; the link goes in the first comment.",
@@ -1285,7 +1285,7 @@
       "Employers and internal projects are never named."
     ],
     "crossHeading": "Cross-linking",
-    "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet. At build time a link to an unpublished post is replaced by its own plain text, so nothing ever 404s; when the target publishes, the next build turns the words back into a link. Forward references are written once and resolve themselves.",
+    "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet. At build time a link to an unpublished post is **replaced by its own plain text**, so nothing ever 404s; when the target publishes, the next build turns the words back into a link. Forward references are written once and resolve themselves.",
     "crossBody2": "Each post can hand-pick up to three related posts in its front matter; posts without picks fall back to shared tags. A further-reading shelf tops that up with quieter posts the reader has probably not met, capped at nine in total, so it stays a recommendation rather than an archive.",
     "crossBody3": "Inside a series, previous and next stay inside the series: part five points at parts four and six, never at an unrelated post that happened to publish next to it. Only at the ends of a series do the arrows fall back to the neighbouring post by date."
   },
@@ -1350,7 +1350,7 @@
     "voiceHeading": "Voice across languages",
     "voiceBody": "A translation here is not a word-for-word rendering. Each language is written the way a senior engineer would write it natively: the same structure and the same facts, in its own natural phrasing.",
     "angliHeading": "Borrowed words stay",
-    "angliBody": "Spanish and Catalan keep the technical English that developers actually use: runtime, bundle, host, remote, build, deploy. Some of these are anglicisms no dictionary would bless, and they stay anyway. Translating runtime as “tiempo de ejecución” is dictionary-correct and reads like a textbook; the goal is to read like a colleague.",
+    "angliBody": "Spanish and Catalan keep the technical English that developers actually use: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Some of these are anglicisms no dictionary would bless, and they stay anyway. Translating runtime as “tiempo de ejecución” is dictionary-correct and reads like a textbook; the goal is to read like a colleague.",
     "taglishHeading": "Tagalog is Taglish",
     "taglishBody": "The Tagalog posts are idiomatic Taglish: Filipino sentence flow with the technical vocabulary left in English, the way Filipino developers talk shop. A fully translated technical Tagalog would be harder to read, not easier.",
     "fillerHeading": "The same bans travel",
@@ -1409,7 +1409,7 @@
       }
     ],
     "contrastHeading": "The readable-green trade",
-    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1 — below even the 3-to-1 bar for large text. That is why a second token exists: --color-green-text steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
+    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1 — below even the 3-to-1 bar for large text. That is why a second token exists: `--color-green-text` steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "On white",
@@ -1430,7 +1430,7 @@
     "seoTitle": "Newsletter | Design system | Warren de Leon",
     "seoDescription": "How the warrendeleon.com newsletter is designed and written: one email per language, the site’s colours in the inbox, and copy that reuses the post’s own front matter.",
     "title": "Newsletter",
-    "intro": "When a post goes live it goes out by email too: one campaign per language, each to its own list. The email borrows the site’s design language and reuses the post’s own words, so the inbox and the site feel like one product.",
+    "intro": "When a post goes live it goes out by email too: **one campaign per language**, each to its own list. The email borrows the site’s design language and reuses the post’s own words, so the inbox and the site feel like one product.",
     "toc": [
       {
         "id": "design",
@@ -1445,7 +1445,7 @@
     "designBody1": "One 600-pixel column: a white card on a soft grey page, a four-pixel lime accent bar across the top, the wordmark beneath it, and Inter for every line. Links use the readable text green and the card corners sit at 14 pixels. It is the site, translated into what email clients allow.",
     "designBody2": "Dark mode follows the reader’s preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The button uses the darker hover green so white text on it clears the contrast bar.",
     "copyHeading": "What the email says",
-    "copyBody1": "The email writes itself from the post’s front matter, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
+    "copyBody1": "The email writes itself from the post’s **front matter**, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
     "copyRules": [
       "Series subject: “New in the series: {title} (Part N)”, with the title cut at its first colon so the line stays short.",
       "Standalone subject: “New post: {title}”.",

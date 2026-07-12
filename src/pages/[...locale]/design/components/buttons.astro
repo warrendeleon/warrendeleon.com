@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
@@ -30,14 +31,14 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
   <section id="tiers">
     <h2>{b.tiersHeading}</h2>
     <h3>{b.inlineHeading}</h3>
-    <p>{b.inlineBody}</p>
+    <p set:html={md(b.inlineBody)} />
     <SpecimenCard code={'<button class="btn btn-primary">…</button>\n<button class="btn btn-outline">…</button>'}>
       <button type="button" class="btn btn-primary">{CV}</button>
       <button type="button" class="btn btn-outline">{CALL}</button>
     </SpecimenCard>
 
     <h3>{b.pillHeading}</h3>
-    <p>{b.pillBody}</p>
+    <p set:html={md(b.pillBody)} />
     <SpecimenCard code={'<div class="hero-ctas">\n  <a class="hero-cta hero-cta-solid">…</a>\n  <a class="hero-cta hero-cta-outline">…</a>\n</div>'}>
       <div class="hero-ctas">
         <a class="hero-cta hero-cta-solid" href="#tiers">{CV}</a>
@@ -48,7 +49,7 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
 
   <section id="states">
     <h2>{b.statesHeading}</h2>
-    <p>{b.statesBody}</p>
+    <p set:html={md(b.statesBody)} />
     <div class="ds-states">
       <div class="ds-state">
         <span class="ds-state-label">{b.states.default}</span>
@@ -73,12 +74,12 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
         </button>
       </div>
     </div>
-    <p>{b.statesDisabledNote}</p>
+    <p set:html={md(b.statesDisabledNote)} />
   </section>
 
   <section id="content">
     <h2>{b.contentHeading}</h2>
-    <p>{b.contentBody}</p>
+    <p set:html={md(b.contentBody)} />
   </section>
 
   <section id="rules">
@@ -109,7 +110,7 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
       </GuidanceCard>
     </div>
     <h3>{b.whereHeading}</h3>
-    <p>{b.whereBody}</p>
+    <p set:html={md(b.whereBody)} />
   </section>
 </DesignLayout>
 

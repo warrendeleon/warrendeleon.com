@@ -145,10 +145,10 @@
       "--device-button": "Los botones laterales del marco del teléfono."
     },
     "brandHeading": "Verde de marca",
-    "brandBody": "El verde es el único acento. Rellena los botones primarios, marca la pestaña activa, dibuja la barra bajo el título de una página y rodea un control enfocado. Como solo significa esas cosas, el lector aprende a leer el verde como «esto hace algo».",
+    "brandBody": "El verde es **el único acento**. Rellena los botones primarios, marca la pestaña activa, dibuja la barra bajo el título de una página y rodea un control enfocado. Como solo significa esas cosas, el lector aprende a leer el verde como «esto hace algo».",
     "brandTextNote": "El verde lima es brillante y, al tamaño de texto de cuerpo sobre fondo blanco, no alcanza el umbral de contraste. Por eso existe un verde de texto aparte: el modo claro reduce el verde para texto y enlaces, mientras que el modo oscuro conserva el lima de marca. El motivo de su existencia se explica en la página de accesibilidad.",
     "neutralsHeading": "Neutros y superficies",
-    "neutralsBody": "Los tokens neutros llevan dos valores, uno por tema, así que una superficie se diseña en ambos desde el principio. El texto tiene tres niveles de énfasis; los fondos van desde la página, a las bandas tintadas, a las tarjetas elevadas.",
+    "neutralsBody": "Los tokens neutros llevan **dos valores, uno por tema**, así que una superficie se diseña en ambos desde el principio. El texto tiene tres niveles de énfasis; los fondos van desde la página, a las bandas tintadas, a las tarjetas elevadas.",
     "interactionHeading": "Interacción",
     "interactionBody": "Los enlaces y los botones sólidos recorren los verdes al pasar el cursor. Los estados son iguales en todas partes, así que un control siempre te dice lo que va a hacer.",
     "interactionHeaders": {
@@ -198,7 +198,7 @@
     ],
     "elevationNote": "Los tokens de elevación (las sombras según el tema) se documentan en la página de Forma y elevación.",
     "illosHeading": "Color de ilustración",
-    "illosBody": "La interfaz se sostiene sobre un solo verde, pero las cabeceras del blog llevan una paleta propia. Funciona igual en miniatura: un fondo común fijo de diez, la lima de la marca siempre presente, y un suelo suave por serie.",
+    "illosBody": "La interfaz se sostiene sobre un solo verde, pero las cabeceras del blog llevan una paleta propia. Funciona igual en miniatura: un **fondo común fijo de diez**, la lima de la marca siempre presente, y un suelo suave por serie.",
     "heroPaletteHeading": "La paleta compartida",
     "heroPaletteBody": "Los diez, leídos de los posts reales al compilar. Cada ilustración usa solo unos pocos, y de ahí viene la variedad entre cabeceras; el fondo común nunca cambia.",
     "heroPaletteNames": [
@@ -214,7 +214,7 @@
       "Arena"
     ],
     "heroSwatchHeading": "Un fondo por serie",
-    "heroSwatchBody": "Los fondos quedan deliberadamente fuera de la paleta: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el fondo común descansa sobre cada suelo: la mezcla cambia por imagen, la familia nunca.",
+    "heroSwatchBody": "**Los fondos quedan deliberadamente fuera de la paleta**: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el fondo común descansa sobre cada suelo: la mezcla cambia por imagen, la familia nunca.",
     "illosMore": "Cómo se dibujan las cabeceras está en",
     "illosMoreLink": "la página de Media"
   },
@@ -253,7 +253,7 @@
     "familyBody": "La interfaz usa Inter, alojada en el propio sitio en vez de tomarse de un servicio de fuentes, para que el primer pintado nunca espere a una petición de terceros. No hay fuente de titulares ni de display: el grosor y el tamaño llevan la jerarquía. Los títulos van a 800, los subtítulos y las etiquetas a 700, los botones y el énfasis a 600, y el texto de cuerpo a 400.",
     "familyStackNote": "La pila completa recurre a la sans-serif del sistema si Inter no se ha cargado, así el texto siempre es legible.",
     "scaleHeading": "La escala",
-    "scaleBody": "Los tamaños son roles, no casos sueltos. La misma variable gobierna cada título de página, cada encabezado de sección, y así sucesivamente. Las tres columnas son el valor de escritorio y las dos reducciones, aplicadas en los puntos de ruptura de tableta y móvil de la página de Maquetación.",
+    "scaleBody": "Los tamaños son **roles, no casos sueltos**. La misma variable gobierna cada título de página, cada encabezado de sección, y así sucesivamente. Las tres columnas son el valor de escritorio y las dos reducciones, aplicadas en los puntos de ruptura de tableta y móvil de la página de Maquetación.",
     "scaleHeaders": {
       "token": "Token",
       "desktop": "Escritorio",
@@ -387,7 +387,7 @@
       }
     ],
     "breakpointsHeading": "Puntos de ruptura",
-    "breakpointsBody": "Tres bandas, expresadas tal como son de verdad. La banda de tableta llega hasta los 1279 píxeles, así que una ventana de 1024 píxeles recibe el dimensionado de tableta, no el de escritorio. El dock de pestañas es un recurso de teléfono y tableta; la navegación de escritorio toma el relevo a los 1280.",
+    "breakpointsBody": "**Tres bandas**, expresadas tal como son de verdad. La banda de tableta llega hasta los 1279 píxeles, así que una ventana de 1024 píxeles recibe el dimensionado de tableta, no el de escritorio. El dock de pestañas es un recurso de teléfono y tableta; la navegación de escritorio toma el relevo a los 1280.",
     "breakpointsRows": [
       {
         "band": "Móvil",
@@ -403,7 +403,7 @@
       }
     ],
     "spacingHeading": "Espaciado",
-    "spacingBody": "El espacio se construye sobre una base de cuatro píxeles. Los tokens de abajo fijan el ritmo entre secciones y encabezados; como el relleno de sección es de un solo lado, dos secciones contiguas quedan separadas el doble del token.",
+    "spacingBody": "El espacio se construye sobre una **base de cuatro píxeles**. Los tokens de abajo fijan el ritmo entre secciones y encabezados; como el relleno de sección es de un solo lado, dos secciones contiguas quedan separadas el doble del token.",
     "spacingHeaders": {
       "token": "Token",
       "desktop": "Escritorio",
@@ -511,7 +511,7 @@
     ],
     "radiusNote": "El chip de etiqueta y la insignia están a un píxel de distancia, a 7 y 8 píxeles. Es una pequeña inconsistencia que conviene mantener a propósito o cerrar; por ahora la documentación refleja ambos tal como se publican.",
     "shadowsHeading": "Sombras",
-    "shadowsBody": "Las sombras son suaves y tenues. La regla distintiva es que el modo oscuro no oscurece: una sombra negra sobre una página oscura no se ve, así que los tokens oscuros llevan en su lugar una sombra clara y sutil. Cada token de abajo se muestra en un escenario claro y en uno oscuro.",
+    "shadowsBody": "Las sombras son suaves y tenues. La regla distintiva es que **el modo oscuro no oscurece**: una sombra negra sobre una página oscura no se ve, así que los tokens oscuros llevan en su lugar una sombra clara y sutil. Cada token de abajo se muestra en un escenario claro y en uno oscuro.",
     "shadowsHeaders": {
       "swatch": "Claro / oscuro",
       "token": "Token",
@@ -728,7 +728,7 @@
       "Saturar una fila con tantas píldoras que ninguna se pueda leer."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "Insignia: .badge (agrupadas en .badge-group). Etiqueta de entrada: .post-tag (agrupadas en .post-tags). Ambas comparten el par neutro --badge-bg / --badge-text."
+    "whereBody": "Insignia: .badge (agrupadas en .badge-group). Etiqueta de entrada: .post-tag (agrupadas en .post-tags). Ambas comparten el par neutro `--badge-bg` / `--badge-text`."
   },
   "cards": {
     "seoTitle": "Tarjetas | Sistema de diseño | Warren de Leon",
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "El marcador de posición en las proporciones de miniatura de tarjeta y de hero.",
     "heroHeading": "Ilustraciones de cabecera de los posts",
     "heroBody": "Cada post se abre con una ilustración isométrica rica pero plana: escenas vectoriales detalladas y por capas, sin degradados, sin texto legible ni logotipos, sobre un fondo suave casi blanco. Cada una se genera con Cloudflare AI a partir de un concepto breve que describe la idea del post como objetos: una barra de pestañas que atrae paneles, una malla que reparte flechas en bandejas.",
-    "heroColourBody": "El modelo nunca elige la paleta. Cada ilustración toma unos pocos colores de un fondo común de diez — la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena — y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
+    "heroColourBody": "**El modelo nunca elige la paleta.** Cada ilustración toma unos pocos colores de un fondo común de diez — la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena — y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
     "heroCaption": "Una cabecera real: unos pocos colores de la paleta compartida sobre el fondo de su serie.",
     "heroMore": "La paleta y los fondos por serie están documentados con el resto del sistema de color en",
     "heroMoreLink": "la página de Color"
@@ -1268,14 +1268,14 @@
     "brandsCaption": "Respeta la forma oficial, con tildes incluidas.",
     "brandsBadCaption": "Ni en minúsculas ni sin tildes.",
     "disagreeHeading": "Discrepar por escrito",
-    "disagreeBody1": "La escritura técnica de aquí discrepa mucho: de los valores por defecto, de librerías populares, de ideas heredadas. La regla es reforzar primero la postura contraria. Se expone la opción rival en su mejor versión, se reconoce lo que hace bien, y después se muestra dónde deja de funcionar para el caso concreto. La discrepancia llega como una observación sobre encaje, no como una condena.",
+    "disagreeBody1": "La escritura técnica de aquí discrepa mucho: de los valores por defecto, de librerías populares, de ideas heredadas. La regla es **reforzar primero la postura contraria**. Se expone la opción rival en su mejor versión, se reconoce lo que hace bien, y después se muestra dónde deja de funcionar para el caso concreto. La discrepancia llega como una observación sobre encaje, no como una condena.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",
     "disagreeCaption": "Un encabezado real del blog: las alternativas reciben su mérito antes de argumentar la elección.",
     "disagreeBad": "Why MSW doesn’t work for E2E testing",
     "disagreeBadCaption": "La versión de confrontación se lee como una condena y pone al lector a la defensiva.",
     "disagreeBody2": "Dos hábitos lo sostienen. Lo que no es absoluto no se escribe como absoluto: «X nunca funciona» pasa a ser «X no se diseñó para Y». Y no hay aperturas defensivas: las frases no empiezan con «Para que quede claro» ni «Solo por aclarar».",
     "socialHeading": "Teasers sociales",
-    "socialBody1": "Cuando un post se comparte en LinkedIn, lo compartido es un teaser, no un resumen. Su único trabajo es abrir una brecha de curiosidad que el artículo cierra: plantear una tensión, nombrar un detalle concreto sin explicarlo, y apuntar hacia delante. Si el lector queda satisfecho sin hacer clic, el teaser ha fallado.",
+    "socialBody1": "Cuando un post se comparte en LinkedIn, lo compartido es un **teaser, no un resumen**. Su único trabajo es abrir una brecha de curiosidad que el artículo cierra: plantear una tensión, nombrar un detalle concreto sin explicarlo, y apuntar hacia delante. Si el lector queda satisfecho sin hacer clic, el teaser ha fallado.",
     "socialRules": [
       "Unos 500 caracteres, con cada frase ganándose su sitio.",
       "Sin enlaces en el cuerpo; el enlace va en el primer comentario.",
@@ -1285,7 +1285,7 @@
       "Nunca se nombran empleadores ni proyectos internos."
     ],
     "crossHeading": "Enlaces cruzados",
-    "crossBody1": "Los posts se apuntan entre sí con libertad: una frase que menciona el post del refresco de tokens enlaza con él, con el texto del enlace nombrando el destino como arriba. Los enlaces pueden incluso apuntar a posts que aún no han salido. Al compilar, un enlace a un post sin publicar se sustituye por su propio texto plano, así que nada da nunca un 404; cuando el destino se publica, la siguiente compilación vuelve a convertir esas palabras en enlace. Las referencias hacia delante se escriben una vez y se resuelven solas.",
+    "crossBody1": "Los posts se apuntan entre sí con libertad: una frase que menciona el post del refresco de tokens enlaza con él, con el texto del enlace nombrando el destino como arriba. Los enlaces pueden incluso apuntar a posts que aún no han salido. Al compilar, un enlace a un post sin publicar se **sustituye por su propio texto plano**, así que nada da nunca un 404; cuando el destino se publica, la siguiente compilación vuelve a convertir esas palabras en enlace. Las referencias hacia delante se escriben una vez y se resuelven solas.",
     "crossBody2": "Cada post puede elegir a mano hasta tres posts relacionados en su front matter; los que no eligen caen en las etiquetas compartidas. Una estantería de lecturas adicionales completa eso con posts más discretos que el lector probablemente no conoce, con un tope de nueve en total, para que siga siendo una recomendación y no un archivo.",
     "crossBody3": "Dentro de una serie, anterior y siguiente se quedan dentro de la serie: la parte cinco apunta a las partes cuatro y seis, nunca a un post sin relación que se publicó al lado. Solo en los extremos de una serie las flechas caen al post vecino por fecha."
   },
@@ -1350,7 +1350,7 @@
     "voiceHeading": "La voz en cada idioma",
     "voiceBody": "Una traducción aquí no es un calco palabra por palabra. Cada idioma se escribe como lo escribiría de forma nativa un ingeniero senior: la misma estructura y los mismos hechos, con su propia manera natural de decirlos.",
     "angliHeading": "Los préstamos se quedan",
-    "angliBody": "El español y el catalán conservan el inglés técnico que los desarrolladores usan de verdad: runtime, bundle, host, remote, build, deploy. Algunos son anglicismos que ningún diccionario bendeciría, y se quedan igualmente. Traducir runtime como «tiempo de ejecución» es correcto según el diccionario y suena a libro de texto; el objetivo es sonar a compañero de equipo.",
+    "angliBody": "El español y el catalán conservan el inglés técnico que los desarrolladores usan de verdad: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Algunos son anglicismos que ningún diccionario bendeciría, y se quedan igualmente. Traducir runtime como «tiempo de ejecución» es correcto según el diccionario y suena a libro de texto; el objetivo es sonar a compañero de equipo.",
     "taglishHeading": "El tagalo es taglish",
     "taglishBody": "Los posts en tagalo son taglish idiomático: la frase fluye en filipino con el vocabulario técnico intacto en inglés, tal como hablan de trabajo los desarrolladores filipinos. Un tagalo técnico traducido del todo sería más difícil de leer, no más fácil.",
     "fillerHeading": "Las mismas prohibiciones viajan",
@@ -1409,7 +1409,7 @@
       }
     ],
     "contrastHeading": "La concesión del verde legible",
-    "contrastBody": "El verde de marca es un lima brillante, y un lima brillante no se lee como texto sobre blanco. Medido frente a WCAG, #6dc402 sobre blanco da unos 2,2:1, por debajo incluso del umbral de 3:1 para texto grande. Por eso existe un segundo token: --color-green-text baja el verde a #5aa302, que supera el 3:1. Eso basta para el texto grande o en negrita, para los encabezados y para los acentos de interfaz como el anillo de foco, y se usa para eso, no para el cuerpo de texto.",
+    "contrastBody": "El verde de marca es un lima brillante, y un lima brillante no se lee como texto sobre blanco. Medido frente a WCAG, #6dc402 sobre blanco da unos 2,2:1, por debajo incluso del umbral de 3:1 para texto grande. Por eso existe un segundo token: `--color-green-text` baja el verde a #5aa302, que supera el 3:1. Eso basta para el texto grande o en negrita, para los encabezados y para los acentos de interfaz como el anillo de foco, y se usa para eso, no para el cuerpo de texto.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sobre blanco",
@@ -1430,7 +1430,7 @@
     "seoTitle": "Newsletter | Sistema de diseño | Warren de Leon",
     "seoDescription": "Cómo se diseña y se escribe la newsletter de warrendeleon.com: un correo por idioma, los colores del sitio en la bandeja de entrada, y un texto que reutiliza el front matter del propio post.",
     "title": "Newsletter",
-    "intro": "Cuando un post sale a la luz, también sale por correo: una campaña por idioma, cada una a su propia lista. El correo toma prestado el lenguaje de diseño del sitio y reutiliza las palabras del propio post, para que la bandeja de entrada y el sitio se sientan un solo producto.",
+    "intro": "Cuando un post sale a la luz, también sale por correo: **una campaña por idioma**, cada una a su propia lista. El correo toma prestado el lenguaje de diseño del sitio y reutiliza las palabras del propio post, para que la bandeja de entrada y el sitio se sientan un solo producto.",
     "toc": [
       {
         "id": "design",
@@ -1445,7 +1445,7 @@
     "designBody1": "Una sola columna de 600 píxeles: una tarjeta blanca sobre una página gris suave, una barra de acento lima de cuatro píxeles en la parte superior, el logotipo debajo, e Inter en cada línea. Los enlaces usan el verde legible de texto y las esquinas de la tarjeta van a 14 píxeles. Es el sitio, traducido a lo que los clientes de correo permiten.",
     "designBody2": "El modo oscuro sigue la preferencia del lector, con la misma idea de valores emparejados que los tokens del sitio: la página pasa a casi negro, la tarjeta a gris oscuro, el logotipo cambia a su versión clara, y los verdes suben un punto para seguir siendo legibles. El botón usa el verde oscuro de hover para que el texto blanco supere el listón de contraste.",
     "copyHeading": "Qué dice el correo",
-    "copyBody1": "El correo se escribe solo a partir del front matter del post, así que nada se escribe dos veces y nada puede contradecir al sitio. Un post de serie recibe el eyebrow de la serie y su número de parte, el cuerpo es la propia descripción del post, y el botón es la única acción.",
+    "copyBody1": "El correo se escribe solo a partir del **front matter** del post, así que nada se escribe dos veces y nada puede contradecir al sitio. Un post de serie recibe el eyebrow de la serie y su número de parte, el cuerpo es la propia descripción del post, y el botón es la única acción.",
     "copyRules": [
       "Asunto de serie: «Nuevo en la serie: {título} (Parte N)», con el título cortado en sus primeros dos puntos para que la línea quede corta.",
       "Asunto de post suelto: «Nuevo artículo: {título}».",

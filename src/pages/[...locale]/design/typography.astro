@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { md } from '../../../lib/inline-markup';
 import TokenTable from '../../../components/design/TokenTable.astro';
 import TypeSpecimen from '../../../components/design/TypeSpecimen.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
@@ -39,19 +40,19 @@ const specimens = [
 >
   <section id="family">
     <h2>{ty.familyHeading}</h2>
-    <p>{ty.familyBody}</p>
-    <p>{ty.familyStackNote}</p>
+    <p set:html={md(ty.familyBody)} />
+    <p set:html={md(ty.familyStackNote)} />
   </section>
 
   <section id="scale">
     <h2>{ty.scaleHeading}</h2>
-    <p>{ty.scaleBody}</p>
+    <p set:html={md(ty.scaleBody)} />
     <TokenTable rows={type} headers={ty.scaleHeaders} usage={ty.usage} />
   </section>
 
   <section id="specimens">
     <h2>{ty.specimensHeading}</h2>
-    <p>{ty.specimensBody}</p>
+    <p set:html={md(ty.specimensBody)} />
     <div class="ds-specimens">
       {specimens.map((s) => (
         <TypeSpecimen
@@ -67,7 +68,7 @@ const specimens = [
 
   <section id="headings">
     <h2>{ty.headingsHeading}</h2>
-    <p>{ty.headingsBody}</p>
+    <p set:html={md(ty.headingsBody)} />
 
     <figure class="ds-headmark">
       <p class="section-title" aria-hidden="true">{ty.samples.h1}</p>
@@ -96,12 +97,12 @@ const specimens = [
 
   <section id="mono">
     <h2>{ty.monoHeading}</h2>
-    <p>{ty.monoBody}</p>
+    <p set:html={md(ty.monoBody)} />
   </section>
 
   <section id="mapping">
     <h2>{ty.mappingHeading}</h2>
-    <p>{ty.mappingBody}</p>
+    <p set:html={md(ty.mappingBody)} />
     <ul class="ds-list">
       {ty.mapping.map((m) => (
         <li><strong>{m.role}.</strong> {m.where}</li>

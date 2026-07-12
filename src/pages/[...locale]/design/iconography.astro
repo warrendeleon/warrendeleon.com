@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { md } from '../../../lib/inline-markup';
 import SpecimenCard from '../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../components/design/GuidanceCard.astro';
 import SocialLinks from '../../../components/SocialLinks.astro';
@@ -27,7 +28,7 @@ const lbl = ic.iconLabels;
 >
   <section id="line">
     <h2>{ic.lineHeading}</h2>
-    <p>{ic.lineBody}</p>
+    <p set:html={md(ic.lineBody)} />
     <SpecimenCard label={ic.lineCaption}>
       <div class="ds-icons">
         <figure class="ds-icon">
@@ -81,7 +82,7 @@ const lbl = ic.iconLabels;
 
   <section id="brand">
     <h2>{ic.brandHeading}</h2>
-    <p>{ic.brandBody}</p>
+    <p set:html={md(ic.brandBody)} />
     <SpecimenCard label={ic.brandCaption}>
       <div class="ds-social-demo">
         <SocialLinks size={24} locale={locale} />

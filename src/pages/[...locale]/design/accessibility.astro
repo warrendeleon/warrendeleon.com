@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { md } from '../../../lib/inline-markup';
 import CopyHex from '../../../components/design/CopyHex.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
@@ -38,7 +39,7 @@ const contrastRows = [
             <h3>{s.title}</h3>
             {s.sc && <span class="ds-sc">{s.sc}</span>}
           </div>
-          <p>{s.body}</p>
+          <p set:html={md(s.body)} />
         </li>
       ))}
     </ol>
@@ -46,7 +47,7 @@ const contrastRows = [
 
   <section id="contrast">
     <h2>{a.contrastHeading}</h2>
-    <p>{a.contrastBody}</p>
+    <p set:html={md(a.contrastBody)} />
 
     <!-- The two greens as body-size text on their real stages: the reader
          sees the readability gap, not just the numbers. -->
@@ -88,12 +89,12 @@ const contrastRows = [
       <span class="ds-legend-item"><span class="ds-dot is-fail"></span>{a.contrastLegend.fail}</span>
     </p>
 
-    <p>{a.contrastLimitation}</p>
+    <p set:html={md(a.contrastLimitation)} />
   </section>
 
   <section id="scope">
     <h2>{a.scopeHeading}</h2>
-    <p>{a.scopeBody}</p>
+    <p set:html={md(a.scopeBody)} />
   </section>
 </DesignLayout>
 

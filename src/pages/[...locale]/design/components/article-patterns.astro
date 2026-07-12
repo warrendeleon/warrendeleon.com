@@ -1,5 +1,6 @@
 ---
 import { readFileSync } from 'node:fs';
+import { md } from '../../../../lib/inline-markup';
 import { resolve } from 'node:path';
 import { Code } from 'astro:components';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
@@ -43,26 +44,26 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
 >
   <section id="callouts">
     <h2>{a.calloutsHeading}</h2>
-    <p>{a.calloutsBody}</p>
+    <p set:html={md(a.calloutsBody)} />
     <div class="prose ds-prose-demo">
-      <blockquote class="callout callout-danger"><p>{cs.danger}</p></blockquote>
-      <blockquote class="callout callout-tip"><p>{cs.tip}</p></blockquote>
-      <blockquote class="callout callout-warning"><p>{cs.warning}</p></blockquote>
-      <blockquote class="callout callout-info"><p>{cs.info}</p></blockquote>
+      <blockquote class="callout callout-danger"><p set:html={md(cs.danger)} /></blockquote>
+      <blockquote class="callout callout-tip"><p set:html={md(cs.tip)} /></blockquote>
+      <blockquote class="callout callout-warning"><p set:html={md(cs.warning)} /></blockquote>
+      <blockquote class="callout callout-info"><p set:html={md(cs.info)} /></blockquote>
     </div>
   </section>
 
   <section id="quote">
     <h2>{a.quoteHeading}</h2>
-    <p>{a.quoteBody}</p>
+    <p set:html={md(a.quoteBody)} />
     <div class="prose ds-prose-demo">
-      <blockquote><p>{a.quoteSample}</p></blockquote>
+      <blockquote><p set:html={md(a.quoteSample)} /></blockquote>
     </div>
   </section>
 
   <section id="code">
     <h2>{a.codeHeading}</h2>
-    <p>{a.codeBody}</p>
+    <p set:html={md(a.codeBody)} />
     <div class="prose ds-prose-demo">
       <p>{a.codeInlineNote} <code>getDesignTokens()</code>.</p>
       <div class="code-block-wrapper">
@@ -77,7 +78,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
 
   <section id="tables">
     <h2>{a.tablesHeading}</h2>
-    <p>{a.tablesBody}</p>
+    <p set:html={md(a.tablesBody)} />
     <div class="prose ds-prose-demo">
       <!-- 1. Classic table card: sticky first column, mono header strip. -->
       <div class="table-wrapper">
@@ -171,7 +172,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
 
   <section id="diagrams">
     <h2>{a.diagramsHeading}</h2>
-    <p>{a.diagramsBody}</p>
+    <p set:html={md(a.diagramsBody)} />
     <div class="prose ds-prose-demo">
       <pre class="mermaid" data-processed="true" data-prerendered="true" set:html={diagramSvg}></pre>
     </div>
@@ -179,7 +180,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
 
   <section id="contents">
     <h2>{a.contentsHeading}</h2>
-    <p>{a.contentsBody}</p>
+    <p set:html={md(a.contentsBody)} />
     <div class="ds-static-demo ds-toc-demo">
       <Toc label={i18n.blog.contents} headings={tocHeadings} />
     </div>
@@ -187,7 +188,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
 
   <section id="series-nav">
     <h2>{a.seriesNavHeading}</h2>
-    <p>{a.seriesNavBody}</p>
+    <p set:html={md(a.seriesNavBody)} />
     <aside class="series-nav" aria-label={a.seriesNavSeries}>
       <div class="series-nav-head">
         <p class="series-nav-heading">
@@ -231,12 +232,12 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
 
   <section id="subscribe">
     <h2>{a.subscribeHeading}</h2>
-    <p>{a.subscribeBody}</p>
+    <p set:html={md(a.subscribeBody)} />
     <div class="ds-subscribe-demo">
       <SubscribeForm locale={locale} variant="design" />
     </div>
     <h3>{a.whereHeading}</h3>
-    <p>{a.whereBody}</p>
+    <p set:html={md(a.whereBody)} />
   </section>
 
   <MediaZoom locale={locale} />

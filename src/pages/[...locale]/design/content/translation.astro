@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import { getLocalePath, localeStaticPaths, localeNames, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
@@ -31,7 +32,7 @@ const localeRows: { code: string; path: string }[] = [
 >
   <section id="locales">
     <h2>{tr.localesHeading}</h2>
-    <p>{tr.localesBody}</p>
+    <p set:html={md(tr.localesBody)} />
     <div class="ds-tablewrap">
       <table class="ds-mini">
         <thead>
@@ -56,38 +57,38 @@ const localeRows: { code: string; path: string }[] = [
 
   <section id="scope">
     <h2>{tr.scopeHeading}</h2>
-    <p>{tr.scopeBody}</p>
+    <p set:html={md(tr.scopeBody)} />
     <div class="ds-scope-grid">
       <div class="ds-scope-col ds-scope-yes">
         <p class="ds-scope-head">{tr.scopeTableHeaders.translated}</p>
-        <ul>{tr.scopeTranslated.map((x) => <li>{x}</li>)}</ul>
+        <ul>{tr.scopeTranslated.map((x) => <li set:html={md(x)} />)}</ul>
       </div>
       <div class="ds-scope-col ds-scope-no">
         <p class="ds-scope-head">{tr.scopeTableHeaders.kept}</p>
-        <ul>{tr.scopeKept.map((x) => <li>{x}</li>)}</ul>
+        <ul>{tr.scopeKept.map((x) => <li set:html={md(x)} />)}</ul>
       </div>
     </div>
   </section>
 
   <section id="voice">
     <h2>{tr.voiceHeading}</h2>
-    <p>{tr.voiceBody}</p>
+    <p set:html={md(tr.voiceBody)} />
     <h3>{tr.angliHeading}</h3>
-    <p>{tr.angliBody}</p>
+    <p set:html={md(tr.angliBody)} />
     <h3>{tr.taglishHeading}</h3>
-    <p>{tr.taglishBody}</p>
+    <p set:html={md(tr.taglishBody)} />
     <h3>{tr.fillerHeading}</h3>
-    <p>{tr.fillerBody}</p>
+    <p set:html={md(tr.fillerBody)} />
   </section>
 
   <section id="connect">
     <h2>{tr.connectHeading}</h2>
-    <p>{tr.connectBody}</p>
+    <p set:html={md(tr.connectBody)} />
   </section>
 
   <section id="posts">
     <h2>{tr.postsHeading}</h2>
-    <p>{tr.postsBody}</p>
+    <p set:html={md(tr.postsBody)} />
   </section>
 </DesignLayout>
 

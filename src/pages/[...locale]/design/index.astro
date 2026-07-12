@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { md } from '../../../lib/inline-markup';
 import Shelf from '../../../components/blog/Shelf.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
@@ -93,7 +94,7 @@ const VIGNETTES: Record<string, string> = {
             <svg class="ds-principle-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={PRINCIPLE_ICONS[i]} />
             <h3>{p.title}</h3>
           </div>
-          <p>{p.body}</p>
+          <p set:html={md(p.body)} />
         </div>
       ))}
     </div>
@@ -124,7 +125,7 @@ const VIGNETTES: Record<string, string> = {
 
   <section id="living">
     <h2>{L.livingHeading}</h2>
-    <p>{L.livingBody}</p>
+    <p set:html={md(L.livingBody)} />
   </section>
 </DesignLayout>
 

@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../components/design/DesignLayout.astro';
+import { md } from '../../../lib/inline-markup';
 import SwatchTable from '../../../components/design/SwatchTable.astro';
 import GuidanceCard from '../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
@@ -84,21 +85,21 @@ const calloutRows = [
 >
   <section id="brand">
     <h2>{c.brandHeading}</h2>
-    <p>{c.brandBody}</p>
+    <p set:html={md(c.brandBody)} />
     <SwatchTable rows={greens} usage={c.usage} headers={c.swatchHeaders} copyLabel={d.copyLabel} />
     <p>{c.brandTextNote} <a href={accessibilityHref}>{d.groups.accessibility}</a>.</p>
   </section>
 
   <section id="neutrals">
     <h2>{c.neutralsHeading}</h2>
-    <p>{c.neutralsBody}</p>
+    <p set:html={md(c.neutralsBody)} />
     <SwatchTable rows={neutrals} usage={c.usage} headers={c.swatchHeaders} copyLabel={d.copyLabel} />
-    <p>{c.elevationNote}</p>
+    <p set:html={md(c.elevationNote)} />
   </section>
 
   <section id="interaction">
     <h2>{c.interactionHeading}</h2>
-    <p>{c.interactionBody}</p>
+    <p set:html={md(c.interactionBody)} />
     <div class="ds-tablewrap">
       <table class="ds-mini">
         <thead>
@@ -127,7 +128,7 @@ const calloutRows = [
 
   <section id="callouts">
     <h2>{c.calloutsHeading}</h2>
-    <p>{c.calloutsBody}</p>
+    <p set:html={md(c.calloutsBody)} />
     <div class="ds-tablewrap">
       <table class="ds-mini">
         <thead>
@@ -149,15 +150,15 @@ const calloutRows = [
         </tbody>
       </table>
     </div>
-    <p>{c.calloutsScoping}</p>
-    <p>{c.calloutsException}</p>
+    <p set:html={md(c.calloutsScoping)} />
+    <p set:html={md(c.calloutsException)} />
   </section>
 
   <section id="illustration">
     <h2>{c.illosHeading}</h2>
-    <p>{c.illosBody} {c.illosMore} <a href={mediaHref}>{c.illosMoreLink}</a>.</p>
+    <p><Fragment set:html={md(c.illosBody)} /> {c.illosMore} <a href={mediaHref}>{c.illosMoreLink}</a>.</p>
     <h3>{c.heroPaletteHeading}</h3>
-    <p>{c.heroPaletteBody}</p>
+    <p set:html={md(c.heroPaletteBody)} />
     <ul class="ds-palette-strip">
       {heroPalette.map((hex, i) => (
         <li class="ds-palette-item">
@@ -168,7 +169,7 @@ const calloutRows = [
       ))}
     </ul>
     <h3>{c.heroSwatchHeading}</h3>
-    <p>{c.heroSwatchBody}</p>
+    <p set:html={md(c.heroSwatchBody)} />
     <ul class="ds-harmony-grid">
       {[...seriesPastels.entries()].map(([series, hex]) => (
         <li class="ds-harmony-card" style={`background: ${hex}`}>

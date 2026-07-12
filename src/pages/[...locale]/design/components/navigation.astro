@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import ViewportFrame from '../../../../components/design/ViewportFrame.astro';
@@ -30,8 +31,8 @@ const homePath = getLocalePath(locale, '/');
 >
   <section id="viewports">
     <h2>{n.viewportsHeading}</h2>
-    <p>{n.viewportsBody}</p>
-    <p>{d.frameThemeNote}</p>
+    <p set:html={md(n.viewportsBody)} />
+    <p set:html={md(d.frameThemeNote)} />
     <div class="ds-frames">
       <ViewportFrame src={homePath} width={390} height={780} scale={0.58} label={d.bandLabels.mobile} />
       <ViewportFrame src={homePath} width={768} height={900} scale={0.42} label={d.bandLabels.tablet} />
@@ -41,7 +42,7 @@ const homePath = getLocalePath(locale, '/');
 
   <section id="bar">
     <h2>{n.barHeading}</h2>
-    <p>{n.barBody}</p>
+    <p set:html={md(n.barBody)} />
     <!-- The real page cropped to bar height: 56px mobile, 64px desktop.
          (Embedding Nav.astro directly would duplicate its control ids.) -->
     <div class="ds-frames">
@@ -52,7 +53,7 @@ const homePath = getLocalePath(locale, '/');
 
   <section id="dock">
     <h2>{n.dockHeading}</h2>
-    <p>{n.dockBody}</p>
+    <p set:html={md(n.dockBody)} />
     <!-- The real page cropped to the dock: edge-to-edge at 390 (active tab =
          green text, no fill), floating pill at 768 (active tab = tinted). -->
     <div class="ds-frames">
@@ -63,7 +64,7 @@ const homePath = getLocalePath(locale, '/');
 
   <section id="action">
     <h2>{n.actionHeading}</h2>
-    <p>{n.actionBody}</p>
+    <p set:html={md(n.actionBody)} />
     <SpecimenCard plain>
       <div class="ds-fixed-demo ds-bar-demo">
         <ReadingBar
@@ -79,17 +80,17 @@ const homePath = getLocalePath(locale, '/');
 
   <section id="footer">
     <h2>{n.footerHeading}</h2>
-    <p>{n.footerBody}</p>
+    <p set:html={md(n.footerBody)} />
   </section>
 
   <section id="rail">
     <h2>{n.railHeading}</h2>
-    <p>{n.railBody}</p>
+    <p set:html={md(n.railBody)} />
   </section>
 
   <section id="crumb">
     <h2>{n.crumbHeading}</h2>
-    <p>{n.crumbBody}</p>
+    <p set:html={md(n.crumbBody)} />
     <SpecimenCard code={'<Breadcrumb label="…" items={[{ label, href }, …]} />'} lang="astro">
       <Breadcrumb
         label={n.crumbHeading}
@@ -99,7 +100,7 @@ const homePath = getLocalePath(locale, '/');
         ]}
       />
     </SpecimenCard>
-    <p>{n.crumbWhere}</p>
+    <p set:html={md(n.crumbWhere)} />
   </section>
 
   <section id="rules">
@@ -136,7 +137,7 @@ const homePath = getLocalePath(locale, '/');
       </GuidanceCard>
     </div>
     <h3>{n.whereHeading}</h3>
-    <p>{n.whereBody}</p>
+    <p set:html={md(n.whereBody)} />
   </section>
 </DesignLayout>
 

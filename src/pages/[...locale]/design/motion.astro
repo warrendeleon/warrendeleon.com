@@ -1,5 +1,6 @@
 ---
 import { Code } from 'astro:components';
+import { md } from '../../../lib/inline-markup';
 import DesignLayout from '../../../components/design/DesignLayout.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
 import { getDesignData } from '../../../lib/design-data';
@@ -33,7 +34,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
 >
   <section id="durations">
     <h2>{mo.durationsHeading}</h2>
-    <p>{mo.durationsBody}</p>
+    <p set:html={md(mo.durationsBody)} />
     <div class="ds-tablewrap">
       <table class="ds-mini">
         <thead>
@@ -56,7 +57,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
 
   <section id="reduced">
     <h2>{mo.reducedHeading}</h2>
-    <p>{mo.reducedBody}</p>
+    <p set:html={md(mo.reducedBody)} />
     <figure class="ds-codeblock">
       <Code code={reducedCss} lang="css" themes={{ light: 'github-light', dark: 'github-dark' }} />
       <figcaption>{mo.reducedCaption}</figcaption>

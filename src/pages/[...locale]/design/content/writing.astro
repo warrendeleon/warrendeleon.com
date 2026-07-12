@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
@@ -34,7 +35,7 @@ const sections = [
   {sections.map((s) => (
     <section id={s.id}>
       <h2>{s.heading}</h2>
-      <p>{s.body}</p>
+      <p set:html={md(s.body)} />
       <div class="ds-guidance-grid">
         <GuidanceCard kind="do" label={d.doLabel} caption={s.goodCap}>
           <span class="ds-sample">{s.good}</span>
@@ -48,14 +49,14 @@ const sections = [
 
   <section id="crosslinks">
     <h2>{w.crossHeading}</h2>
-    <p>{w.crossBody1}</p>
-    <p>{w.crossBody2}</p>
-    <p>{w.crossBody3}</p>
+    <p set:html={md(w.crossBody1)} />
+    <p set:html={md(w.crossBody2)} />
+    <p set:html={md(w.crossBody3)} />
   </section>
 
   <section id="disagreeing">
     <h2>{w.disagreeHeading}</h2>
-    <p>{w.disagreeBody1}</p>
+    <p set:html={md(w.disagreeBody1)} />
     <div class="ds-guidance-grid">
       <GuidanceCard kind="do" label={d.doLabel} caption={w.disagreeCaption}>
         <span class="ds-sample">{w.disagreeGood}</span>
@@ -64,14 +65,14 @@ const sections = [
         <span class="ds-sample ds-sample-bad">{w.disagreeBad}</span>
       </GuidanceCard>
     </div>
-    <p>{w.disagreeBody2}</p>
+    <p set:html={md(w.disagreeBody2)} />
   </section>
 
   <section id="social">
     <h2>{w.socialHeading}</h2>
-    <p>{w.socialBody1}</p>
+    <p set:html={md(w.socialBody1)} />
     <ul class="ds-list">
-      {w.socialRules.map((r) => <li>{r}</li>)}
+      {w.socialRules.map((r) => <li set:html={md(r)} />)}
     </ul>
   </section>
 </DesignLayout>

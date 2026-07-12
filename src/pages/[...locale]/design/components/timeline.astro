@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import Timeline from '../../../../components/Timeline.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
@@ -50,8 +51,8 @@ const sample = t.sample.map((co, i) => ({
 
   <section id="anatomy">
     <h2>{t.anatomyHeading}</h2>
-    <p>{t.anatomyBody}</p>
-    <p>{t.detailNote}</p>
+    <p set:html={md(t.anatomyBody)} />
+    <p set:html={md(t.detailNote)} />
   </section>
 
   <section id="rules">
@@ -98,7 +99,7 @@ const sample = t.sample.map((co, i) => ({
       </GuidanceCard>
     </div>
     <h3>{t.whereHeading}</h3>
-    <p>{t.whereBody}</p>
+    <p set:html={md(t.whereBody)} />
   </section>
 </DesignLayout>
 

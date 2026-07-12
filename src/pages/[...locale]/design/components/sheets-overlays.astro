@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
@@ -26,7 +27,7 @@ const sample = s.sheetSample;
 >
   <section id="anatomy">
     <h2>{s.anatomyHeading}</h2>
-    <p>{s.anatomyBody}</p>
+    <p set:html={md(s.anatomyBody)} />
     <SpecimenCard label={s.anatomyCaption}>
       <div class="ds-sheet">
         <div class="post-sheet-grabber"></div>
@@ -47,7 +48,7 @@ const sample = s.sheetSample;
 
   <section id="desktop">
     <h2>{s.desktopHeading}</h2>
-    <p>{s.desktopBody}</p>
+    <p set:html={md(s.desktopBody)} />
   </section>
 
   <section id="rules">
@@ -107,7 +108,7 @@ const sample = s.sheetSample;
       </GuidanceCard>
     </div>
     <h3>{s.whereHeading}</h3>
-    <p>{s.whereBody}</p>
+    <p set:html={md(s.whereBody)} />
   </section>
 </DesignLayout>
 

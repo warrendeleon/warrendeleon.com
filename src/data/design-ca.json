@@ -145,10 +145,10 @@
       "--device-button": "Els botons laterals del marc del telèfon."
     },
     "brandHeading": "Verd de marca",
-    "brandBody": "El verd és l'únic accent. Omple els botons primaris, marca la pestanya activa, dibuixa la barra sota el títol d'una pàgina i envolta un control enfocat. Com que només significa aquestes coses, el lector aprèn a llegir el verd com a «això fa alguna cosa».",
+    "brandBody": "El verd és **l'únic accent**. Omple els botons primaris, marca la pestanya activa, dibuixa la barra sota el títol d'una pàgina i envolta un control enfocat. Com que només significa aquestes coses, el lector aprèn a llegir el verd com a «això fa alguna cosa».",
     "brandTextNote": "El verd llima és brillant i, a la mida del text del cos sobre fons blanc, no arriba al llindar de contrast. Per això existeix un verd de text separat: el mode clar rebaixa el verd per a text i enllaços, mentre que el mode fosc manté el verd llima de marca. El motiu pel qual existeix s'explica a la pàgina d'accessibilitat.",
     "neutralsHeading": "Neutres i superfícies",
-    "neutralsBody": "Els tokens neutres porten dos valors, un per tema, així que una superfície es dissenya en tots dos des del principi. El text es col·loca en tres nivells d'èmfasi; els fons passen de la pàgina, a les bandes tenyides, a les targetes elevades.",
+    "neutralsBody": "Els tokens neutres porten **dos valors, un per tema**, així que una superfície es dissenya en tots dos des del principi. El text es col·loca en tres nivells d'èmfasi; els fons passen de la pàgina, a les bandes tenyides, a les targetes elevades.",
     "interactionHeading": "Interacció",
     "interactionBody": "Els enllaços i els botons sòlids recorren els verds en passar-hi per sobre. Els estats són els mateixos a tot arreu, així que un control sempre et diu què farà.",
     "interactionHeaders": {
@@ -198,7 +198,7 @@
     ],
     "elevationNote": "Els tokens d'elevació (les ombres segons el tema) es documenten a la pàgina de Forma i elevació.",
     "illosHeading": "Color d’il·lustració",
-    "illosBody": "La interfície se sosté sobre un sol verd, però les capçaleres del blog porten una paleta pròpia. Funciona igual en miniatura: un fons comú fix de deu, la llima de la marca sempre present, i un terra suau per sèrie.",
+    "illosBody": "La interfície se sosté sobre un sol verd, però les capçaleres del blog porten una paleta pròpia. Funciona igual en miniatura: un **fons comú fix de deu**, la llima de la marca sempre present, i un terra suau per sèrie.",
     "heroPaletteHeading": "La paleta compartida",
     "heroPaletteBody": "Els deu, llegits dels posts reals en compilar. Cada il·lustració en fa servir només uns quants, i d’aquí ve la varietat entre capçaleres; el fons comú no canvia mai.",
     "heroPaletteNames": [
@@ -214,7 +214,7 @@
       "Sorra"
     ],
     "heroSwatchHeading": "Un fons per sèrie",
-    "heroSwatchBody": "Els fons queden deliberadament fora de la paleta: tints suaus, gairebé blancs, que es llegeixen com a terra i no com un dels deu. Cada sèrie publicada conserva el seu propi tint, així que una sèrie es llegeix com un conjunt al feed: la seva identitat viu en aquest fons. A sota, tot el fons comú descansa sobre cada terra: la barreja canvia per imatge, la família mai.",
+    "heroSwatchBody": "**Els fons queden deliberadament fora de la paleta**: tints suaus, gairebé blancs, que es llegeixen com a terra i no com un dels deu. Cada sèrie publicada conserva el seu propi tint, així que una sèrie es llegeix com un conjunt al feed: la seva identitat viu en aquest fons. A sota, tot el fons comú descansa sobre cada terra: la barreja canvia per imatge, la família mai.",
     "illosMore": "Com es dibuixen les capçaleres és a",
     "illosMoreLink": "la pàgina de Media"
   },
@@ -253,7 +253,7 @@
     "familyBody": "La interfície està composta amb Inter, allotjada de forma pròpia en comptes de carregar-se des d'un servei de fonts perquè el primer pintat no esperi mai una petició de tercers. No hi ha cap tipus de lletra decoratiu ni de títol: el pes i la mida porten la jerarquia. Els títols van a 800, els subtítols i les etiquetes a 700, els botons i l'èmfasi a 600, i el text del cos a 400.",
     "familyStackNote": "La pila completa recorre a la sans-serif del sistema si Inter no s'ha carregat, de manera que el text sempre és llegible.",
     "scaleHeading": "L'escala",
-    "scaleBody": "Les mides són rols, no casos únics. La mateixa variable governa cada títol de pàgina, cada capçalera de secció, etcètera. Les tres columnes són el valor d'escriptori i les dues reduccions, aplicades als punts de ruptura de tauleta i mòbil de la pàgina de Disposició.",
+    "scaleBody": "Les mides són **rols, no casos únics**. La mateixa variable governa cada títol de pàgina, cada capçalera de secció, etcètera. Les tres columnes són el valor d'escriptori i les dues reduccions, aplicades als punts de ruptura de tauleta i mòbil de la pàgina de Disposició.",
     "scaleHeaders": {
       "token": "Token",
       "desktop": "Escriptori",
@@ -387,7 +387,7 @@
       }
     ],
     "breakpointsHeading": "Punts de ruptura",
-    "breakpointsBody": "Tres bandes, indicades tal com són realment. La banda de tauleta arriba fins a 1279 píxels, així que una finestra de 1024 píxels rep la mida de tauleta, no la d'escriptori. El moll de pestanyes és un recurs de telèfon i tauleta; la navegació d'escriptori pren el relleu a 1280.",
+    "breakpointsBody": "**Tres bandes**, indicades tal com són realment. La banda de tauleta arriba fins a 1279 píxels, així que una finestra de 1024 píxels rep la mida de tauleta, no la d'escriptori. El moll de pestanyes és un recurs de telèfon i tauleta; la navegació d'escriptori pren el relleu a 1280.",
     "breakpointsRows": [
       {
         "band": "Mòbil",
@@ -403,7 +403,7 @@
       }
     ],
     "spacingHeading": "Espaiat",
-    "spacingBody": "L'espai es construeix sobre una base de quatre píxels. Els tokens de sota estableixen el ritme entre seccions i capçaleres; com que el farciment de secció és d'un sol costat, dues seccions adjacents queden separades el doble del token.",
+    "spacingBody": "L'espai es construeix sobre una **base de quatre píxels**. Els tokens de sota estableixen el ritme entre seccions i capçaleres; com que el farciment de secció és d'un sol costat, dues seccions adjacents queden separades el doble del token.",
     "spacingHeaders": {
       "token": "Token",
       "desktop": "Escriptori",
@@ -511,7 +511,7 @@
     ],
     "radiusNote": "El xip d'etiqueta i el distintiu queden separats per un píxel, a 7 i 8 píxels. És una petita incoherència que val la pena mantenir a propòsit o bé eliminar; de moment, la documentació informa dels dos tal com són.",
     "shadowsHeading": "Ombres",
-    "shadowsBody": "Les ombres són suaus i baixes. La regla distintiva és que el mode fosc no enfosqueix: una ombra negra sobre una pàgina fosca no es percep, així que els tokens foscos porten, en canvi, una ombra clara i tènue. Cada token de sota es mostra sobre un escenari clar i un de fosc.",
+    "shadowsBody": "Les ombres són suaus i baixes. La regla distintiva és que **el mode fosc no enfosqueix**: una ombra negra sobre una pàgina fosca no es percep, així que els tokens foscos porten, en canvi, una ombra clara i tènue. Cada token de sota es mostra sobre un escenari clar i un de fosc.",
     "shadowsHeaders": {
       "swatch": "Clar / fosc",
       "token": "Token",
@@ -728,7 +728,7 @@
       "Amuntega tantes píndoles en una fila que no se'n pugui llegir cap."
     ],
     "whereHeading": "On es troba",
-    "whereBody": "Distintiu: .badge (agrupat a .badge-group). Etiqueta d'entrada: .post-tag (agrupat a .post-tags). Tots dos comparteixen la parella neutra --badge-bg / --badge-text."
+    "whereBody": "Distintiu: .badge (agrupat a .badge-group). Etiqueta d'entrada: .post-tag (agrupat a .post-tags). Tots dos comparteixen la parella neutra `--badge-bg` / `--badge-text`."
   },
   "cards": {
     "seoTitle": "Targetes | Sistema de disseny | Warren de Leon",
@@ -1134,7 +1134,7 @@
     "placeholderCaption": "El marcador de posició en proporcions de miniatura de targeta i d'hero.",
     "heroHeading": "Il·lustracions de capçalera dels posts",
     "heroBody": "Cada post s’obre amb una il·lustració isomètrica rica però plana: escenes vectorials detallades i per capes, sense degradats, sense text llegible ni logotips, sobre un fons suau gairebé blanc. Cadascuna es genera amb Cloudflare AI a partir d’un concepte breu que descriu la idea del post com a objectes: una barra de pestanyes que atrau panells, una malla que reparteix fletxes en safates.",
-    "heroColourBody": "El model mai tria la paleta. Cada il·lustració agafa uns quants colors d’un fons comú de deu — la llima de la marca, i després blau marí, corall, verd blavós, pruna, ambre, rosa pàl·lid, cel, carbó i sorra — i l’accent llima sempre hi és. Així no hi ha dues capçaleres amb la mateixa barreja, però totes es queden dins de la mateixa família.",
+    "heroColourBody": "**El model mai tria la paleta.** Cada il·lustració agafa uns quants colors d’un fons comú de deu — la llima de la marca, i després blau marí, corall, verd blavós, pruna, ambre, rosa pàl·lid, cel, carbó i sorra — i l’accent llima sempre hi és. Així no hi ha dues capçaleres amb la mateixa barreja, però totes es queden dins de la mateixa família.",
     "heroCaption": "Una capçalera real: uns quants colors de la paleta compartida sobre el fons de la seva sèrie.",
     "heroMore": "La paleta i els fons per sèrie estan documentats amb la resta del sistema de color a",
     "heroMoreLink": "la pàgina de Color"
@@ -1268,14 +1268,14 @@
     "brandsCaption": "Respecta la forma oficial, accents inclosos.",
     "brandsBadCaption": "No en minúscules ni sense accents.",
     "disagreeHeading": "Discrepar per escrit",
-    "disagreeBody1": "L’escriptura tècnica d’aquí discrepa molt: dels valors per defecte, de llibreries populars, d’idees heretades. La regla és reforçar primer la postura contrària. S’exposa l’opció rival en la seva millor versió, se li reconeix el que fa bé, i després es mostra on deixa de funcionar per al cas concret. La discrepància arriba com una observació sobre encaix, no com una condemna.",
+    "disagreeBody1": "L’escriptura tècnica d’aquí discrepa molt: dels valors per defecte, de llibreries populars, d’idees heretades. La regla és **reforçar primer la postura contrària**. S’exposa l’opció rival en la seva millor versió, se li reconeix el que fa bé, i després es mostra on deixa de funcionar per al cas concret. La discrepància arriba com una observació sobre encaix, no com una condemna.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",
     "disagreeCaption": "Una capçalera real del blog: les alternatives reben el seu mèrit abans d’argumentar l’elecció.",
     "disagreeBad": "Why MSW doesn’t work for E2E testing",
     "disagreeBadCaption": "La versió de confrontació es llegeix com una condemna i posa el lector a la defensiva.",
     "disagreeBody2": "Dos hàbits ho sostenen. El que no és absolut no s’escriu com a absolut: «X mai funciona» passa a ser «X no es va dissenyar per a Y». I no hi ha obertures defensives: les frases no comencen amb «Perquè quedi clar» ni «Només per aclarir».",
     "socialHeading": "Teasers socials",
-    "socialBody1": "Quan un post es comparteix a LinkedIn, allò compartit és un teaser, no un resum. La seva única feina és obrir una bretxa de curiositat que l’article tanca: plantejar una tensió, anomenar un detall concret sense explicar-lo, i apuntar endavant. Si el lector queda satisfet sense fer clic, el teaser ha fallat.",
+    "socialBody1": "Quan un post es comparteix a LinkedIn, allò compartit és un **teaser, no un resum**. La seva única feina és obrir una bretxa de curiositat que l’article tanca: plantejar una tensió, anomenar un detall concret sense explicar-lo, i apuntar endavant. Si el lector queda satisfet sense fer clic, el teaser ha fallat.",
     "socialRules": [
       "Uns 500 caràcters, amb cada frase guanyant-se el seu lloc.",
       "Sense enllaços al cos; l’enllaç va al primer comentari.",
@@ -1285,7 +1285,7 @@
       "Mai no s’anomenen ocupadors ni projectes interns."
     ],
     "crossHeading": "Enllaços creuats",
-    "crossBody1": "Els posts s’apunten entre si amb llibertat: una frase que esmenta el post del refresc de tokens hi enllaça, amb el text de l’enllaç anomenant la destinació com més amunt. Els enllaços poden fins i tot apuntar a posts que encara no han sortit. En compilar, un enllaç a un post sense publicar se substitueix pel seu propi text pla, així que res no dona mai un 404; quan la destinació es publica, la compilació següent torna a convertir aquelles paraules en enllaç. Les referències endavant s’escriuen una vegada i es resolen soles.",
+    "crossBody1": "Els posts s’apunten entre si amb llibertat: una frase que esmenta el post del refresc de tokens hi enllaça, amb el text de l’enllaç anomenant la destinació com més amunt. Els enllaços poden fins i tot apuntar a posts que encara no han sortit. En compilar, un enllaç a un post sense publicar se **substitueix pel seu propi text pla**, així que res no dona mai un 404; quan la destinació es publica, la compilació següent torna a convertir aquelles paraules en enllaç. Les referències endavant s’escriuen una vegada i es resolen soles.",
     "crossBody2": "Cada post pot triar a mà fins a tres posts relacionats al seu front matter; els que no trien cauen a les etiquetes compartides. Una prestatgeria de lectures addicionals ho completa amb posts més discrets que el lector probablement no coneix, amb un topall de nou en total, perquè continuï sent una recomanació i no un arxiu.",
     "crossBody3": "Dins d’una sèrie, anterior i següent es queden dins de la sèrie: la part cinc apunta a les parts quatre i sis, mai a un post sense relació que es va publicar al costat. Només als extrems d’una sèrie les fletxes cauen al post veí per data."
   },
@@ -1350,7 +1350,7 @@
     "voiceHeading": "La veu a cada idioma",
     "voiceBody": "Una traducció aquí no és un calc paraula per paraula. Cada idioma s’escriu com l’escriuria de manera nativa un enginyer sènior: la mateixa estructura i els mateixos fets, amb la seva pròpia manera natural de dir-los.",
     "angliHeading": "Els manlleus es queden",
-    "angliBody": "El castellà i el català conserven l’anglès tècnic que els desenvolupadors fan servir de debò: runtime, bundle, host, remote, build, deploy. Alguns són anglicismes que cap diccionari beneiria, i es queden igualment. Traduir runtime com a «temps d’execució» és correcte segons el diccionari i sona a llibre de text; l’objectiu és sonar a company d’equip.",
+    "angliBody": "El castellà i el català conserven l’anglès tècnic que els desenvolupadors fan servir de debò: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Alguns són anglicismes que cap diccionari beneiria, i es queden igualment. Traduir runtime com a «temps d’execució» és correcte segons el diccionari i sona a llibre de text; l’objectiu és sonar a company d’equip.",
     "taglishHeading": "El tagal és taglish",
     "taglishBody": "Els posts en tagal són taglish idiomàtic: la frase flueix en filipí amb el vocabulari tècnic intacte en anglès, tal com parlen de feina els desenvolupadors filipins. Un tagal tècnic traduït del tot seria més difícil de llegir, no més fàcil.",
     "fillerHeading": "Les mateixes prohibicions viatgen",
@@ -1409,7 +1409,7 @@
       }
     ],
     "contrastHeading": "El compromís del verd llegible",
-    "contrastBody": "El verd de marca és un llima brillant, i el llima brillant no es llegeix com a text sobre blanc. Mesurat segons la WCAG, #6dc402 sobre blanc és d'uns 2,2:1, per sota fins i tot del llindar de 3:1 per al text gran. Per això existeix un segon token: --color-green-text rebaixa el verd fins a #5aa302, que supera el 3:1. Això n'hi ha prou per al text gran o en negreta, per als encapçalaments i per als accents d'interfície com l'anell de focus, i s'utilitza per a això, no per al text del cos.",
+    "contrastBody": "El verd de marca és un llima brillant, i el llima brillant no es llegeix com a text sobre blanc. Mesurat segons la WCAG, #6dc402 sobre blanc és d'uns 2,2:1, per sota fins i tot del llindar de 3:1 per al text gran. Per això existeix un segon token: `--color-green-text` rebaixa el verd fins a #5aa302, que supera el 3:1. Això n'hi ha prou per al text gran o en negreta, per als encapçalaments i per als accents d'interfície com l'anell de focus, i s'utilitza per a això, no per al text del cos.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sobre blanc",
@@ -1430,7 +1430,7 @@
     "seoTitle": "Newsletter | Sistema de disseny | Warren de Leon",
     "seoDescription": "Com es dissenya i s’escriu la newsletter de warrendeleon.com: un correu per idioma, els colors del web a la safata d’entrada, i un text que reutilitza el front matter del mateix post.",
     "title": "Newsletter",
-    "intro": "Quan un post surt a la llum, també surt per correu: una campanya per idioma, cadascuna a la seva pròpia llista. El correu manlleva el llenguatge de disseny del web i reutilitza les paraules del mateix post, perquè la safata d’entrada i el web se sentin un sol producte.",
+    "intro": "Quan un post surt a la llum, també surt per correu: **una campanya per idioma**, cadascuna a la seva pròpia llista. El correu manlleva el llenguatge de disseny del web i reutilitza les paraules del mateix post, perquè la safata d’entrada i el web se sentin un sol producte.",
     "toc": [
       {
         "id": "design",
@@ -1445,7 +1445,7 @@
     "designBody1": "Una sola columna de 600 píxels: una targeta blanca sobre una pàgina gris suau, una barra d’accent llima de quatre píxels a la part superior, el logotip a sota, i Inter a cada línia. Els enllaços fan servir el verd llegible de text i les cantonades de la targeta van a 14 píxels. És el web, traduït al que els clients de correu permeten.",
     "designBody2": "El mode fosc segueix la preferència del lector, amb la mateixa idea de valors aparellats que els tokens del web: la pàgina passa a gairebé negre, la targeta a gris fosc, el logotip canvia a la seva versió clara, i els verds pugen un punt per continuar sent llegibles. El botó fa servir el verd fosc de hover perquè el text blanc superi el llistó de contrast.",
     "copyHeading": "Què diu el correu",
-    "copyBody1": "El correu s’escriu sol a partir del front matter del post, així que res no s’escriu dues vegades i res no pot contradir el web. Un post de sèrie rep l’eyebrow de la sèrie i el seu número de part, el cos és la mateixa descripció del post, i el botó és l’única acció.",
+    "copyBody1": "El correu s’escriu sol a partir del **front matter** del post, així que res no s’escriu dues vegades i res no pot contradir el web. Un post de sèrie rep l’eyebrow de la sèrie i el seu número de part, el cos és la mateixa descripció del post, i el botó és l’única acció.",
     "copyRules": [
       "Assumpte de sèrie: «Nou a la sèrie: {títol} (Part N)», amb el títol tallat als seus primers dos punts perquè la línia quedi curta.",
       "Assumpte de post solt: «Nou article: {títol}».",

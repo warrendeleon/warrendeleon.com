@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import TechBadge from '../../../../components/TechBadge.astro';
@@ -26,7 +27,7 @@ const currentPath = getLocalePath(locale, '/design/components/tags-chips/');
 >
   <section id="badge">
     <h2>{c.badgeHeading}</h2>
-    <p>{c.badgeBody}</p>
+    <p set:html={md(c.badgeBody)} />
     <SpecimenCard code={'<span class="badge">React Native</span>'}>
       <div class="badge-group">
         <TechBadge label="React Native" />
@@ -38,7 +39,7 @@ const currentPath = getLocalePath(locale, '/design/components/tags-chips/');
 
   <section id="tag">
     <h2>{c.tagHeading}</h2>
-    <p>{c.tagBody}</p>
+    <p set:html={md(c.tagBody)} />
     <SpecimenCard code={'<a class="post-tag" href="/blog/tags/testing/">Testing</a>'}>
       <div class="post-tags">
         <a class="post-tag" href="#tag">Testing</a>
@@ -81,6 +82,6 @@ const currentPath = getLocalePath(locale, '/design/components/tags-chips/');
       </GuidanceCard>
     </div>
     <h3>{c.whereHeading}</h3>
-    <p>{c.whereBody}</p>
+    <p set:html={md(c.whereBody)} />
   </section>
 </DesignLayout>

@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
@@ -24,8 +25,8 @@ const currentPath = getLocalePath(locale, '/design/content/newsletter/');
 >
   <section id="design">
     <h2>{n.designHeading}</h2>
-    <p>{n.designBody1}</p>
-    <p>{n.designBody2}</p>
+    <p set:html={md(n.designBody1)} />
+    <p set:html={md(n.designBody2)} />
     <SpecimenCard label={n.mockLabel}>
       <!-- A static reconstruction of the email (the real thing is HTML mail,
            not a site component). Literal light-theme colours on purpose. -->
@@ -48,9 +49,9 @@ const currentPath = getLocalePath(locale, '/design/content/newsletter/');
 
   <section id="copy">
     <h2>{n.copyHeading}</h2>
-    <p>{n.copyBody1}</p>
+    <p set:html={md(n.copyBody1)} />
     <ul class="ds-list">
-      {n.copyRules.map((r) => <li>{r}</li>)}
+      {n.copyRules.map((r) => <li set:html={md(r)} />)}
     </ul>
   </section>
 </DesignLayout>

@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import ViewportFrame from '../../../../components/design/ViewportFrame.astro';
@@ -45,7 +46,7 @@ const demoDesc =
 >
   <section id="base">
     <h2>{c.baseHeading}</h2>
-    <p>{c.baseBody}</p>
+    <p set:html={md(c.baseBody)} />
     <SpecimenCard plain code={'<div class="card"> … </div>'}>
       <div class="card ds-card-demo">
         <strong>A base card</strong>
@@ -56,7 +57,7 @@ const demoDesc =
 
   <section id="feed">
     <h2>{c.feedHeading}</h2>
-    <p>{c.feedBody}</p>
+    <p set:html={md(c.feedBody)} />
     <SpecimenCard plain>
       <div class="ds-feed-demo">
         <FeedPostCard
@@ -70,12 +71,12 @@ const demoDesc =
         </FeedPostCard>
       </div>
     </SpecimenCard>
-    <p>{c.wholeLinkNote}</p>
+    <p set:html={md(c.wholeLinkNote)} />
   </section>
 
   <section id="series-hero">
     <h2>{c.seriesHeroHeading}</h2>
-    <p>{c.seriesHeroBody}</p>
+    <p set:html={md(c.seriesHeroBody)} />
     {currentSeries && (
       <div class="ds-series-hero-demo">
         <SeriesHeroCard locale={locale} seriesName={currentSeries} />
@@ -85,7 +86,7 @@ const demoDesc =
 
   <section id="series-card">
     <h2>{c.seriesCardHeading}</h2>
-    <p>{c.seriesCardBody}</p>
+    <p set:html={md(c.seriesCardBody)} />
     <SpecimenCard plain>
       <SeriesCard
         href="#series-card"
@@ -100,7 +101,7 @@ const demoDesc =
 
   <section id="related">
     <h2>{c.relatedHeading}</h2>
-    <p>{c.relatedBody}</p>
+    <p set:html={md(c.relatedBody)} />
     <SpecimenCard plain>
       <RelatedCard
         href="#related"
@@ -115,7 +116,7 @@ const demoDesc =
 
   <section id="author">
     <h2>{c.authorHeading}</h2>
-    <p>{c.authorBody}</p>
+    <p set:html={md(c.authorBody)} />
     <div class="ds-author-demo">
       <AuthorCard locale={locale} />
     </div>
@@ -123,7 +124,7 @@ const demoDesc =
 
   <section id="role">
     <h2>{c.roleHeading}</h2>
-    <p>{c.roleBody}</p>
+    <p set:html={md(c.roleBody)} />
     <SpecimenCard plain>
       <!-- The .current-role classes live in global.css; placeholder content
            per the no-employer-brands rule (letter disc = the real fallback). -->
@@ -144,8 +145,8 @@ const demoDesc =
 
   <section id="lead">
     <h2>{c.leadHeading}</h2>
-    <p>{c.leadBody}</p>
-    <p>{d.frameThemeNote}</p>
+    <p set:html={md(c.leadBody)} />
+    <p set:html={md(d.frameThemeNote)} />
     <div class="ds-frames">
       <ViewportFrame src={blogPath} width={390} height={840} scale={0.58} label={d.bandLabels.mobile} />
       <ViewportFrame src={blogPath} width={768} height={900} scale={0.42} label={d.bandLabels.tablet} />
@@ -166,7 +167,7 @@ const demoDesc =
       <GuidanceCard kind="dont" label={d.dontLabel} caption={c.donts[0]}>
         <div class="card ds-card-demo">
           <strong>{demoTitle}</strong>
-          <p>{demoDesc}</p>
+          <p set:html={md(demoDesc)} />
           <span class="ds-btn-row">
             <button type="button" class="btn btn-primary">{i18n.home.readPost}</button>
             <button type="button" class="btn btn-outline">{i18n.blog.copyLink}</button>
@@ -197,7 +198,7 @@ const demoDesc =
       </GuidanceCard>
     </div>
     <h3>{c.whereHeading}</h3>
-    <p>{c.whereBody}</p>
+    <p set:html={md(c.whereBody)} />
   </section>
 </DesignLayout>
 

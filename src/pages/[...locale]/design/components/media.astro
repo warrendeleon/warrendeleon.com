@@ -1,5 +1,6 @@
 ---
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
+import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import Placeholder from '../../../../components/design/Placeholder.astro';
 import HeroCarousel from '../../../../components/HeroCarousel.astro';
@@ -35,8 +36,8 @@ const heroExample = [...posts].reverse().find(p => p.data.series === 'React Nati
 >
   <section id="hero">
     <h2>{m.heroHeading}</h2>
-    <p>{m.heroBody}</p>
-    <p>{m.heroColourBody}</p>
+    <p set:html={md(m.heroBody)} />
+    <p set:html={md(m.heroColourBody)} />
     {heroExample && heroExample.data.heroImage && (
       <SpecimenCard label={m.heroCaption}>
         <img class="ds-hero-example" src={heroExample.data.heroImage} alt={heroExample.data.heroAlt ?? ''} loading="lazy" />
@@ -47,7 +48,7 @@ const heroExample = [...posts].reverse().find(p => p.data.series === 'React Nati
 
   <section id="carousel">
     <h2>{m.carouselHeading}</h2>
-    <p>{m.carouselBody}</p>
+    <p set:html={md(m.carouselBody)} />
     <SpecimenCard label={m.carouselCaption}>
       <div class="ds-carousel-demo">
         <HeroCarousel locale={locale} />
@@ -57,7 +58,7 @@ const heroExample = [...posts].reverse().find(p => p.data.series === 'React Nati
 
   <section id="device">
     <h2>{m.deviceHeading}</h2>
-    <p>{m.deviceBody}</p>
+    <p set:html={md(m.deviceBody)} />
     <SpecimenCard label={m.deviceCaption}>
       <!-- .device-frame lives in global.css scoped under .prose. -->
       <div class="prose ds-device-demo">
@@ -70,12 +71,12 @@ const heroExample = [...posts].reverse().find(p => p.data.series === 'React Nati
 
   <section id="zoom">
     <h2>{m.zoomHeading}</h2>
-    <p>{m.zoomBody}</p>
+    <p set:html={md(m.zoomBody)} />
   </section>
 
   <section id="placeholder">
     <h2>{m.placeholderHeading}</h2>
-    <p>{m.placeholderBody}</p>
+    <p set:html={md(m.placeholderBody)} />
     <SpecimenCard label={m.placeholderCaption}>
       <div class="ds-ph ds-ph-thumb"><Placeholder /></div>
       <div class="ds-ph ds-ph-hero"><Placeholder ratio="16 / 9" /></div>
