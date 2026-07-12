@@ -803,6 +803,18 @@
         "label": "Tarjeta de puesto actual"
       },
       {
+        "id": "iconcard",
+        "label": "Tarjeta de enlace con icono"
+      },
+      {
+        "id": "ctaband",
+        "label": "Banda CTA"
+      },
+      {
+        "id": "pn",
+        "label": "Fichas anterior / siguiente"
+      },
+      {
         "id": "lead",
         "label": "El post destacado y los viewports"
       },
@@ -840,7 +852,14 @@
     "authorHeading": "Tarjeta de autor",
     "authorBody": "La tarjeta de biografía al final de cada artículo: avatar, nombre, biografía y enlace al perfil. El componente real AuthorCard, renderizado en vivo.",
     "roleHeading": "Tarjeta de puesto actual",
-    "roleBody": "La tarjeta de último puesto de la portada: un disco con el logo junto a la empresa y el cargo, con la descripción debajo. Renderizada con las clases reales y contenido de relleno."
+    "roleBody": "La tarjeta de último puesto de la portada: un disco con el logo junto a la empresa y el cargo, con la descripción debajo. Renderizada con las clases reales y contenido de relleno.",
+    "iconcardHeading": "Tarjeta de enlace con icono",
+    "iconcardBody": "Una tarjeta base que es un único enlace: un glifo Feather y un título en la fila de cabecera, un resumen debajo. Icono y título se ponen verdes juntos al pasar el cursor. Nació como la tarjeta de índice de esta documentación y se promocionó al sitio: las clases `icon-card` sobre `card`.",
+    "ctabandHeading": "Banda CTA",
+    "ctabandBody": "La banda de cierre centrada: tintada, con borde, esquinas de 16 píxeles, un encabezado corto y una o dos llamadas a la acción, con un tope de 640 píxeles. Cierra la portada y la página del CV: una sola implementación, las clases `cta-band`.",
+    "pnHeading": "Fichas anterior / siguiente",
+    "pnBody": "Dos fichas tintadas al pie de una página de detalle: una etiqueta verde de dirección en mayúsculas y el título del destino, con la ficha siguiente alineada a la derecha. Los artículos y las páginas de empresa comparten las clases `pn-nav`; en el móvil las fichas se apilan.",
+    "homeBlogNote": "La portada compone además dos tarjetas a medida con estas piezas: una tarjeta de serie en curso con su barra de progreso junto al último post. En el móvil ambas ceden el sitio a las filas estándar del feed."
   },
   "navigation": {
     "seoTitle": "Navegación | Sistema de diseño | Warren de Leon",

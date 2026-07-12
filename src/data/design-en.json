@@ -803,6 +803,18 @@
         "label": "Current-role card"
       },
       {
+        "id": "iconcard",
+        "label": "Icon link card"
+      },
+      {
+        "id": "ctaband",
+        "label": "CTA band"
+      },
+      {
+        "id": "pn",
+        "label": "Prev / next tiles"
+      },
+      {
         "id": "lead",
         "label": "The lead post & viewports"
       },
@@ -840,7 +852,14 @@
     "authorHeading": "Author card",
     "authorBody": "The bio card at the end of every post — avatar, name, bio, profile link. The real AuthorCard component, rendered live.",
     "roleHeading": "Current-role card",
-    "roleBody": "The home page's latest-role card: a logo disc beside the company and role, description below. Rendered from the real classes with placeholder content."
+    "roleBody": "The home page's latest-role card: a logo disc beside the company and role, description below. Rendered from the real classes with placeholder content.",
+    "iconcardHeading": "Icon link card",
+    "iconcardBody": "A base card that is one link: a Feather glyph and a title on the head row, a blurb below. Icon and title green together on hover. Born as this documentation’s own index card and promoted to the site — the `icon-card` classes on top of `card`.",
+    "ctabandHeading": "CTA band",
+    "ctabandBody": "The centred closing band: tinted, bordered, 16-pixel corners, a short heading and one or two calls to action, capped at 640 pixels. It closes the home page and the CV page — one implementation, the `cta-band` classes.",
+    "pnHeading": "Prev / next tiles",
+    "pnBody": "Two tinted tiles at the foot of a detail page: a green uppercase direction label and the destination’s title, the next tile right-aligned. Articles and company pages share the `pn-nav` classes; on phones the tiles stack.",
+    "homeBlogNote": "The home page also composes two bespoke cards from these parts: a current-series card with its progress bar beside the latest post. On phones both give way to the standard feed rows."
   },
   "navigation": {
     "seoTitle": "Navigation | Design system | Warren de Leon",

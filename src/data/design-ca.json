@@ -803,6 +803,18 @@
         "label": "Targeta de càrrec actual"
       },
       {
+        "id": "iconcard",
+        "label": "Targeta d’enllaç amb icona"
+      },
+      {
+        "id": "ctaband",
+        "label": "Banda CTA"
+      },
+      {
+        "id": "pn",
+        "label": "Fitxes anterior / següent"
+      },
+      {
         "id": "lead",
         "label": "El post destacat i els viewports"
       },
@@ -840,7 +852,14 @@
     "authorHeading": "Targeta d'autor",
     "authorBody": "La targeta de biografia al final de cada article: avatar, nom, biografia i enllaç al perfil. El component real AuthorCard, renderitzat en viu.",
     "roleHeading": "Targeta de càrrec actual",
-    "roleBody": "La targeta de darrer càrrec de la portada: un disc amb el logo al costat de l’empresa i el càrrec, amb la descripció a sota. Renderitzada amb les classes reals i contingut de mostra."
+    "roleBody": "La targeta de darrer càrrec de la portada: un disc amb el logo al costat de l’empresa i el càrrec, amb la descripció a sota. Renderitzada amb les classes reals i contingut de mostra.",
+    "iconcardHeading": "Targeta d’enllaç amb icona",
+    "iconcardBody": "Una targeta base que és un únic enllaç: un glif Feather i un títol a la fila de capçalera, un resum a sota. Icona i títol es tornen verds junts en passar-hi per sobre. Va néixer com la targeta d’índex d’aquesta documentació i es va promocionar al web: les classes `icon-card` sobre `card`.",
+    "ctabandHeading": "Banda CTA",
+    "ctabandBody": "La banda de tancament centrada: tintada, amb vora, cantonades de 16 píxels, una capçalera curta i una o dues crides a l’acció, amb un topall de 640 píxels. Tanca la portada i la pàgina del CV: una sola implementació, les classes `cta-band`.",
+    "pnHeading": "Fitxes anterior / següent",
+    "pnBody": "Dues fitxes tintades al peu d’una pàgina de detall: una etiqueta verda de direcció en majúscules i el títol de la destinació, amb la fitxa següent alineada a la dreta. Els articles i les pàgines d’empresa comparteixen les classes `pn-nav`; al mòbil les fitxes s’apilen.",
+    "homeBlogNote": "La portada compon a més dues targetes a mida amb aquestes peces: una targeta de sèrie en curs amb la seva barra de progrés al costat de l’últim post. Al mòbil totes dues cedeixen el lloc a les files estàndard del feed."
   },
   "navigation": {
     "seoTitle": "Navegació | Sistema de disseny | Warren de Leon",

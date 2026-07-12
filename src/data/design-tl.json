@@ -803,6 +803,18 @@
         "label": "Current-role card"
       },
       {
+        "id": "iconcard",
+        "label": "Icon link card"
+      },
+      {
+        "id": "ctaband",
+        "label": "CTA band"
+      },
+      {
+        "id": "pn",
+        "label": "Prev / next tiles"
+      },
+      {
         "id": "lead",
         "label": "Ang lead post at mga viewport"
       },
@@ -840,7 +852,14 @@
     "authorHeading": "Author card",
     "authorBody": "Ang bio card sa dulo ng bawat post: avatar, pangalan, bio, link sa profile. Ang tunay na AuthorCard component, naka-render nang live.",
     "roleHeading": "Current-role card",
-    "roleBody": "Ang latest-role card ng home page: logo disc sa tabi ng kumpanya at role, may paglalarawan sa ibaba. Naka-render mula sa tunay na classes na may placeholder na content."
+    "roleBody": "Ang latest-role card ng home page: logo disc sa tabi ng kumpanya at role, may paglalarawan sa ibaba. Naka-render mula sa tunay na classes na may placeholder na content.",
+    "iconcardHeading": "Icon link card",
+    "iconcardBody": "Isang base card na iisang link: Feather glyph at title sa head row, blurb sa ibaba. Sabay na nagiging berde ang icon at title kapag naka-hover. Ipinanganak bilang index card ng docs na ito at na-promote sa site — ang mga `icon-card` class sa ibabaw ng `card`.",
+    "ctabandHeading": "CTA band",
+    "ctabandBody": "Ang nakagitnang closing band: may tint, may border, 16-pixel na kanto, maikling heading at isa o dalawang call to action, hanggang 640 pixels. Nagsasara ito ng home page at ng CV page — iisang implementation, ang mga `cta-band` class.",
+    "pnHeading": "Prev / next tiles",
+    "pnBody": "Dalawang tinted tile sa paanan ng detail page: berdeng uppercase na direction label at title ng pupuntahan, naka-right-align ang next tile. Magkabahagi ang mga artikulo at company page sa mga `pn-nav` class; sa phone, nagsasalansan ang mga tile.",
+    "homeBlogNote": "Ang home page ay bumubuo rin ng dalawang bespoke card mula sa mga pirasong ito: current-series card na may progress bar sa tabi ng pinakabagong post. Sa phone, kapwa sila nagbibigay-daan sa standard na feed rows."
   },
   "navigation": {
     "seoTitle": "Nabigasyon | Disenyo | Warren de Leon",

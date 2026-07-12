@@ -145,6 +145,46 @@ const demoDesc =
     </SpecimenCard>
   </section>
 
+
+  <section id="iconcard">
+    <h2>{c.iconcardHeading}</h2>
+    <p set:html={md(c.iconcardBody)} />
+    <SpecimenCard plain>
+      <a class="card icon-card ds-iconcard-demo" href="#iconcard">
+        <span class="icon-card-head">
+          <svg class="icon-card-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span class="icon-card-title">{c.iconcardHeading}</span>
+        </span>
+        <span class="ds-card-blurb">{c.iconcardBody.split(':')[0]}.</span>
+      </a>
+    </SpecimenCard>
+  </section>
+
+  <section id="ctaband">
+    <h2>{c.ctabandHeading}</h2>
+    <p set:html={md(c.ctabandBody)} />
+    <SpecimenCard plain>
+      <div class="cta-band ds-ctaband-demo">
+        <p class="cta-band-heading">{c.ctabandHeading}</p>
+        <div class="cta-band-actions">
+          <span class="btn btn-outline">{c.pnHeading}</span>
+        </div>
+      </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="pn">
+    <h2>{c.pnHeading}</h2>
+    <p set:html={md(c.pnBody)} />
+    <SpecimenCard plain>
+      <nav class="pn-nav ds-pn-demo" aria-hidden="true">
+        <span class="pn-link"><span class="pn-label">&larr; {i18n.blog.previous}</span><span class="pn-title">{c.iconcardHeading}</span></span>
+        <span class="pn-link pn-next"><span class="pn-label">{i18n.blog.next} &rarr;</span><span class="pn-title">{c.ctabandHeading}</span></span>
+      </nav>
+    </SpecimenCard>
+    <p set:html={md(c.homeBlogNote)} />
+  </section>
+
   <section id="lead">
     <h2>{c.leadHeading}</h2>
     <p set:html={md(c.leadBody)} />
@@ -247,4 +287,8 @@ const demoDesc =
     border: 1px solid var(--border-color);
     background: var(--bg-card);
   }
+  .ds-iconcard-demo { width: 280px; }
+  .ds-card-blurb { font-size: 0.88rem; line-height: 1.5; color: var(--text-secondary); }
+  .ds-ctaband-demo, .ds-pn-demo { width: 100%; }
+  .ds-pn-demo { margin-top: 0; }
 </style>
