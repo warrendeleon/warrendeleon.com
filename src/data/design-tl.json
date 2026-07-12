@@ -443,12 +443,20 @@
         "where": "Mga inline code chip"
       },
       {
+        "radius": "6px",
+        "where": "Copy button ng code, WCAG criterion chips"
+      },
+      {
         "radius": "7px",
         "where": "Mga blog tag chip (.post-tag)"
       },
       {
         "radius": "8px",
         "where": "Mga button, badge (.badge)"
+      },
+      {
+        "radius": "9px",
+        "where": "Thumbnails ng feed posts (mobile list)"
       },
       {
         "radius": "10px",

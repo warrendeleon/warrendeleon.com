@@ -443,12 +443,20 @@
         "where": "Inline code chips"
       },
       {
+        "radius": "6px",
+        "where": "Code copy button, WCAG criterion chips"
+      },
+      {
         "radius": "7px",
         "where": "Blog tag chips (.post-tag)"
       },
       {
         "radius": "8px",
         "where": "Buttons, badges (.badge)"
+      },
+      {
+        "radius": "9px",
+        "where": "Feed post thumbnails (mobile list)"
       },
       {
         "radius": "10px",

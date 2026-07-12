@@ -128,6 +128,15 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Form controls don't inherit the body font by default — without this,
+   every <button>/<input> falls back to the system font. */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
 a {
   color: var(--color-green-text);
   text-decoration: none;

@@ -443,12 +443,20 @@
         "where": "Xips de codi en línia"
       },
       {
+        "radius": "6px",
+        "where": "Botó de copiar codi, xips de criteris WCAG"
+      },
+      {
         "radius": "7px",
         "where": "Xips d'etiqueta de blog (.post-tag)"
       },
       {
         "radius": "8px",
         "where": "Botons, distintius (.badge)"
+      },
+      {
+        "radius": "9px",
+        "where": "Miniatures de posts del feed (llista mòbil)"
       },
       {
         "radius": "10px",

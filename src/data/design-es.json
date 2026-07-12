@@ -443,12 +443,20 @@
         "where": "Chips de código en línea"
       },
       {
+        "radius": "6px",
+        "where": "Botón de copiar código, chips de criterios WCAG"
+      },
+      {
         "radius": "7px",
         "where": "Chips de etiqueta del blog (.post-tag)"
       },
       {
         "radius": "8px",
         "where": "Botones, insignias (.badge)"
+      },
+      {
+        "radius": "9px",
+        "where": "Miniaturas de posts del feed (lista móvil)"
       },
       {
         "radius": "10px",
