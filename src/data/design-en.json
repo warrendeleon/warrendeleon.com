@@ -68,7 +68,7 @@
       "sheets-overlays": "The bottom-sheet primitive behind every picker.",
       "article-patterns": "Callouts, code, tables, contents — the long-form kit.",
       "timeline": "The work-experience rail, logo dots and all.",
-      "media": "The photo carousel, the device frame, and placeholders."
+      "media": "Post heroes, the photo carousel, the device frame, and placeholders."
     },
     "contentHeading": "Content",
     "contentBlurbs": {
@@ -809,6 +809,10 @@
         "label": "Docs navigation"
       },
       {
+        "id": "crumb",
+        "label": "Breadcrumb"
+      },
+      {
         "id": "rules",
         "label": "When to use"
       }
@@ -839,7 +843,10 @@
       "Put a logo in the footer; the top bar owns it."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro and Footer.astro (.footer). The dock and reading bar above are those components rendered live; the frames show the top bar in place."
+    "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro and Footer.astro (.footer). The dock and reading bar above are those components rendered live; the frames show the top bar in place.",
+    "crumbHeading": "Breadcrumb",
+    "crumbBody": "A small mono-caps trail above a page title. It names places, never the page itself: the title below does that, so the trail ends one level up. Every segment is capped with an ellipsis, and long series names are shortened at the source (“React Native” becomes “RN”), so the trail cannot wrap.",
+    "crumbWhere": "It sits on articles (Blog, then the series), on tag and series pages, and on these docs. On phones it works alongside the top-bar chevron: the chevron takes you back, the trail tells you where you are."
   },
   "sheetsOverlays": {
     "seoTitle": "Sheets & overlays | Design system | Warren de Leon",
@@ -1068,6 +1075,10 @@
     "intro": "How photos and screenshots are carried: a carousel on the home hero, a flat green-railed phone frame for app screenshots, a full-screen zoom for diagrams and images, and a placeholder for specimens.",
     "toc": [
       {
+        "id": "hero",
+        "label": "Post hero illustrations"
+      },
+      {
         "id": "carousel",
         "label": "Carousel"
       },
@@ -1094,7 +1105,27 @@
     "zoomBody": "Images and pre-rendered diagrams in articles open in a full-screen lightbox on tap — the one overlay that behaves the same on every device. Diagrams re-theme inside it, so a dark-mode reader zooms into a dark-mode diagram.",
     "placeholderHeading": "Placeholder",
     "placeholderBody": "Specimens on these docs that would carry a photo use a neutral placeholder rather than a borrowed image, so the layout is honest about what is content and what is chrome.",
-    "placeholderCaption": "The placeholder at card-thumbnail and hero ratios."
+    "placeholderCaption": "The placeholder at card-thumbnail and hero ratios.",
+    "heroHeading": "Post hero illustrations",
+    "heroBody": "Every post opens with a rich but flat isometric illustration: detailed, layered vector scenes with no gradients, no readable text and no logos, on a soft near-white ground. Each one is generated with Cloudflare AI from a short written concept describing the post’s idea as objects — a tab bar pulling in panels, a mesh sorting arrows into trays.",
+    "heroColourBody": "The model never chooses the palette. Every illustration picks a few colours from one shared ten-colour pool — the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand — and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
+    "heroCaption": "A real post hero: a few of the shared palette on its series’ ground.",
+    "heroSwatchHeading": "One ground per series",
+    "heroSwatchBody": "Backgrounds deliberately sit off the palette: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed — its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
+    "heroPaletteHeading": "The shared palette",
+    "heroPaletteBody": "The ten, read from the live posts at build time. Each illustration uses only a few of them, which is where the variety between heroes comes from; the pool itself never changes.",
+    "heroPaletteNames": [
+      "Lime",
+      "Navy",
+      "Coral",
+      "Teal",
+      "Plum",
+      "Amber",
+      "Blush",
+      "Sky",
+      "Charcoal",
+      "Sand"
+    ]
   },
   "timeline": {
     "seoTitle": "Timeline | Design system | Warren de Leon",

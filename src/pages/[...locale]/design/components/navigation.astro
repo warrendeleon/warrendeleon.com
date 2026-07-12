@@ -5,6 +5,7 @@ import GuidanceCard from '../../../../components/design/GuidanceCard.astro';
 import ViewportFrame from '../../../../components/design/ViewportFrame.astro';
 import TabBar from '../../../../components/TabBar.astro';
 import ReadingBar from '../../../../components/blog/ReadingBar.astro';
+import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
 
@@ -84,6 +85,21 @@ const homePath = getLocalePath(locale, '/');
   <section id="rail">
     <h2>{n.railHeading}</h2>
     <p>{n.railBody}</p>
+  </section>
+
+  <section id="crumb">
+    <h2>{n.crumbHeading}</h2>
+    <p>{n.crumbBody}</p>
+    <SpecimenCard code={'<Breadcrumb label="…" items={[{ label, href }, …]} />'} lang="astro">
+      <Breadcrumb
+        label={n.crumbHeading}
+        items={[
+          { label: 'Blog', href: getLocalePath(locale, '/blog/') },
+          { label: 'RN Module Federation', href: getLocalePath(locale, '/blog/series/react-native-module-federation/') },
+        ]}
+      />
+    </SpecimenCard>
+    <p>{n.crumbWhere}</p>
   </section>
 
   <section id="rules">

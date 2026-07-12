@@ -68,7 +68,7 @@
       "sheets-overlays": "Ang bottom-sheet primitive sa likod ng bawat picker.",
       "article-patterns": "Mga callout, code, table, contents — ang long-form kit.",
       "timeline": "Ang rail ng work experience, kasama ang mga logo dot.",
-      "media": "Ang photo carousel, ang device frame, at mga placeholder."
+      "media": "Mga post hero, ang photo carousel, ang device frame, at mga placeholder."
     },
     "contentHeading": "Nilalaman",
     "contentBlurbs": {
@@ -809,6 +809,10 @@
         "label": "Nabigasyon ng docs"
       },
       {
+        "id": "crumb",
+        "label": "Breadcrumb"
+      },
+      {
         "id": "rules",
         "label": "Kailan gagamitin"
       }
@@ -839,7 +843,10 @@
     "actionProgressText": "12 min na lang · 45%",
     "actionDemoTitle": "Isang shared store sa lahat ng remotes",
     "railHeading": "Nabigasyon ng docs",
-    "railBody": "Ang navigation ng section na ito ay sumusunod sa anatomy ng blog post sa halip na mag-imbento ng sarili: sa phone, pinapalitan ng top bar ang logo ng back chevron pabalik sa Design hub na may nagko-collapse na pamagat, pinapalitan ng reading action bar ang dock at binubuksan ng ring button nito ang contents bilang bottom sheet, at sa desktop naka-pin ang contents sa kanan bilang ToC ng artikulo, na hina-highlight ang section kung nasaan ka. Pinangangalanan ng breadcrumb ang grupo, at ang hub page ang index."
+    "railBody": "Ang navigation ng section na ito ay sumusunod sa anatomy ng blog post sa halip na mag-imbento ng sarili: sa phone, pinapalitan ng top bar ang logo ng back chevron pabalik sa Design hub na may nagko-collapse na pamagat, pinapalitan ng reading action bar ang dock at binubuksan ng ring button nito ang contents bilang bottom sheet, at sa desktop naka-pin ang contents sa kanan bilang ToC ng artikulo, na hina-highlight ang section kung nasaan ka. Pinangangalanan ng breadcrumb ang grupo, at ang hub page ang index.",
+    "crumbHeading": "Breadcrumb",
+    "crumbBody": "Isang maliit na mono-caps na trail sa itaas ng page title. Mga lugar ang pinapangalanan nito, hindi kailanman ang page mismo: ang title sa ibaba na ang bahala doon, kaya nagtatapos ang trail isang level pataas. Bawat segment ay pinuputol ng ellipsis, at ang mahahabang pangalan ng serye ay pinapaikli sa pinagmulan (“React Native” ay nagiging “RN”), kaya hindi kayang mag-wrap ng trail.",
+    "crumbWhere": "Nasa mga artikulo ito (Blog, tapos ang serye), sa mga tag at series page, at sa docs na ito. Sa phone, katrabaho nito ang chevron ng top bar: ang chevron ang nagbabalik sa iyo, ang trail ang nagsasabi kung nasaan ka."
   },
   "sheetsOverlays": {
     "seoTitle": "Mga sheet at overlay | Disenyo | Warren de Leon",
@@ -1068,6 +1075,10 @@
     "intro": "Kung paano dinadala ang mga larawan at screenshot: isang carousel sa home hero, isang flat na phone frame na may berdeng rail para sa mga app screenshot, isang full-screen zoom para sa mga diagram at larawan, at isang placeholder para sa mga specimen.",
     "toc": [
       {
+        "id": "hero",
+        "label": "Post hero illustrations"
+      },
+      {
         "id": "carousel",
         "label": "Carousel"
       },
@@ -1094,7 +1105,27 @@
     "zoomBody": "Ang mga larawan at pre-rendered na diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap — ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
     "placeholderHeading": "Placeholder",
     "placeholderBody": "Ang mga specimen sa docs na ito na dapat sana ay may larawan ay gumagamit ng neutral na placeholder sa halip na hiram na imahe, para tapat ang layout kung alin ang content at alin ang chrome.",
-    "placeholderCaption": "Ang placeholder sa card-thumbnail at hero na mga ratio."
+    "placeholderCaption": "Ang placeholder sa card-thumbnail at hero na mga ratio.",
+    "heroHeading": "Mga hero illustration ng posts",
+    "heroBody": "Bawat post ay bumubukas sa isang rich pero flat na isometric illustration: detalyado at may mga layer na vector scene, walang gradient, walang nababasang text o logo, sa malambot na halos puting background. Bawat isa ay ginagawa gamit ang Cloudflare AI mula sa maikling konsepto na naglalarawan sa ideya ng post bilang mga bagay — isang tab bar na humihila ng mga panel, isang mesh na nagbubukod ng mga arrow sa mga tray.",
+    "heroColourBody": "Hindi kailanman ang model ang pumipili ng palette. Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay — ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand — at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
+    "heroCaption": "Isang totoong post hero: ilang kulay mula sa shared palette sa background ng serye nito.",
+    "heroSwatchHeading": "Isang background bawat serye",
+    "heroSwatchBody": "Ang mga background ay sadyang nasa labas ng palette: malalambot na tint na halos puti, na mababasa bilang lupa at hindi bilang isa sa sampu. Bawat na-publish na serye ay may sariling tint, kaya ang isang serye ay mababasa bilang isang set sa feed — ang identity nito ay nasa background na iyon. Sa ibaba, ang buong pool ay nakapatong sa bawat background: nagbabago ang timpla bawat imahe, hindi kailanman ang pamilya.",
+    "heroPaletteHeading": "Ang shared palette",
+    "heroPaletteBody": "Ang sampu, binabasa mula sa mga totoong post sa build time. Ilan lang dito ang ginagamit ng bawat illustration — doon nanggagaling ang pagkakaiba-iba ng mga hero; ang pool mismo ay hindi nagbabago.",
+    "heroPaletteNames": [
+      "Lime",
+      "Navy",
+      "Coral",
+      "Teal",
+      "Plum",
+      "Amber",
+      "Blush",
+      "Sky",
+      "Charcoal",
+      "Sand"
+    ]
   },
   "timeline": {
     "seoTitle": "Timeline | Disenyo | Warren de Leon",

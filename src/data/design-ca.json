@@ -68,7 +68,7 @@
       "sheets-overlays": "La primitiva de bottom sheet que hi ha darrere de cada selector.",
       "article-patterns": "Avisos, codi, taules, sumari: el kit dels textos llargs.",
       "timeline": "El rail de l'experiència laboral, amb punts de logo i tot.",
-      "media": "El carrusel de fotos, el marc de dispositiu i els marcadors de posició."
+      "media": "Les capçaleres dels posts, el carrusel de fotos, el marc de mòbil i els placeholders."
     },
     "contentHeading": "Contingut",
     "contentBlurbs": {
@@ -809,6 +809,10 @@
         "label": "Navegació de la documentació"
       },
       {
+        "id": "crumb",
+        "label": "Fil d’Ariadna"
+      },
+      {
         "id": "rules",
         "label": "Quan fer-la servir"
       }
@@ -839,7 +843,10 @@
     "actionProgressText": "Queden 12 min · 45%",
     "actionDemoTitle": "Una única store compartida entre remotes",
     "railHeading": "Navegació de la documentació",
-    "railBody": "La navegació d'aquesta secció segueix l'anatomia de l'article del blog en lloc d'inventar la seva: al mòbil la barra superior canvia el logo per un xebró de tornada a l'inici de Disseny amb un títol plegable, la barra de lectura substitueix el dock i el seu botó d'anell obre els continguts com un full inferior, i a escriptori els continguts queden fixats a la dreta com el ToC de l'article, ressaltant la secció on ets. El fil d'Ariadna anomena el grup, i la pàgina d'inici de la secció és l'índex."
+    "railBody": "La navegació d'aquesta secció segueix l'anatomia de l'article del blog en lloc d'inventar la seva: al mòbil la barra superior canvia el logo per un xebró de tornada a l'inici de Disseny amb un títol plegable, la barra de lectura substitueix el dock i el seu botó d'anell obre els continguts com un full inferior, i a escriptori els continguts queden fixats a la dreta com el ToC de l'article, ressaltant la secció on ets. El fil d'Ariadna anomena el grup, i la pàgina d'inici de la secció és l'índex.",
+    "crumbHeading": "Fil d’Ariadna",
+    "crumbBody": "Un petit rastre en versaletes mono sobre el títol de la pàgina. Anomena llocs, mai la pàgina mateixa: això ho fa el títol de sota, així que el rastre acaba un nivell per sobre. Cada segment es talla amb punts suspensius, i els noms llargs de sèrie s’escurcen a l’origen (“React Native” passa a “RN”), de manera que el rastre no es pot partir en dues línies.",
+    "crumbWhere": "Apareix als articles (Blog i després la sèrie), a les pàgines d’etiquetes i sèries, i en aquesta documentació. Al mòbil conviu amb el xebró de la barra superior: el xebró et porta enrere, el rastre et diu on ets."
   },
   "sheetsOverlays": {
     "seoTitle": "Fulls i superposicions | Sistema de disseny | Warren de Leon",
@@ -1068,6 +1075,10 @@
     "intro": "Com es porten les fotos i les captures: un carrusel a l'hero de la pàgina d'inici, un marc de mòbil pla amb carril verd per a captures d'app, un zoom a pantalla completa per a diagrames i imatges, i un marcador de posició per als especímens.",
     "toc": [
       {
+        "id": "hero",
+        "label": "Capçaleres dels posts"
+      },
+      {
         "id": "carousel",
         "label": "Carrusel"
       },
@@ -1094,7 +1105,27 @@
     "zoomBody": "Les imatges i els diagrames prerenderitzats dels articles s'obren en una lightbox a pantalla completa en tocar-los: l'única superposició que es comporta igual a tots els dispositius. Els diagrames es retematitzen a dins, així que un lector en mode fosc fa zoom sobre un diagrama en mode fosc.",
     "placeholderHeading": "Marcador de posició",
     "placeholderBody": "Els especímens d'aquesta documentació que portarien una foto fan servir un marcador de posició neutre en lloc d'una imatge manllevada, perquè la maqueta sigui honesta sobre què és contingut i què és chrome.",
-    "placeholderCaption": "El marcador de posició en proporcions de miniatura de targeta i d'hero."
+    "placeholderCaption": "El marcador de posició en proporcions de miniatura de targeta i d'hero.",
+    "heroHeading": "Il·lustracions de capçalera dels posts",
+    "heroBody": "Cada post s’obre amb una il·lustració isomètrica rica però plana: escenes vectorials detallades i per capes, sense degradats, sense text llegible ni logotips, sobre un fons suau gairebé blanc. Cadascuna es genera amb Cloudflare AI a partir d’un concepte breu que descriu la idea del post com a objectes: una barra de pestanyes que atrau panells, una malla que reparteix fletxes en safates.",
+    "heroColourBody": "El model mai tria la paleta. Cada il·lustració agafa uns quants colors d’un fons comú de deu — la llima de la marca, i després blau marí, corall, verd blavós, pruna, ambre, rosa pàl·lid, cel, carbó i sorra — i l’accent llima sempre hi és. Així no hi ha dues capçaleres amb la mateixa barreja, però totes es queden dins de la mateixa família.",
+    "heroCaption": "Una capçalera real: uns quants colors de la paleta compartida sobre el fons de la seva sèrie.",
+    "heroSwatchHeading": "Un fons per sèrie",
+    "heroSwatchBody": "Els fons queden deliberadament fora de la paleta: tints suaus, gairebé blancs, que es llegeixen com a terra i no com un dels deu. Cada sèrie publicada conserva el seu propi tint, així que una sèrie es llegeix com un conjunt al feed: la seva identitat viu en aquest fons. A sota, tot el fons comú descansa sobre cada terra: la barreja canvia per imatge, la família mai.",
+    "heroPaletteHeading": "La paleta compartida",
+    "heroPaletteBody": "Els deu, llegits dels posts reals en compilar. Cada il·lustració en fa servir només uns quants, i d’aquí ve la varietat entre capçaleres; el fons comú no canvia mai.",
+    "heroPaletteNames": [
+      "Llima",
+      "Blau marí",
+      "Corall",
+      "Verd blavós",
+      "Pruna",
+      "Ambre",
+      "Rosa pàl·lid",
+      "Cel",
+      "Carbó",
+      "Sorra"
+    ]
   },
   "timeline": {
     "seoTitle": "Cronologia | Sistema de disseny | Warren de Leon",

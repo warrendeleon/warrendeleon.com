@@ -68,7 +68,7 @@
       "sheets-overlays": "La primitiva de bottom sheet que hay detrás de cada selector.",
       "article-patterns": "Avisos, código, tablas, índice: el kit de los artículos largos.",
       "timeline": "El raíl de la experiencia laboral, con sus puntos de logo incluidos.",
-      "media": "El carrusel de fotos, el marco de dispositivo y los marcadores de posición."
+      "media": "Las cabeceras de los posts, el carrusel de fotos, el marco de móvil y los placeholders."
     },
     "contentHeading": "Contenido",
     "contentBlurbs": {
@@ -809,6 +809,10 @@
         "label": "Navegación de la documentación"
       },
       {
+        "id": "crumb",
+        "label": "Miga de pan"
+      },
+      {
         "id": "rules",
         "label": "Cuándo usar cada una"
       }
@@ -839,7 +843,10 @@
     "actionProgressText": "Quedan 12 min · 45%",
     "actionDemoTitle": "Una única store compartida entre remotes",
     "railHeading": "Navegación de la documentación",
-    "railBody": "La navegación de esta sección sigue la anatomía del artículo del blog en lugar de inventar la suya: en el móvil la barra superior cambia el logo por un chevron de vuelta al inicio de Diseño con un título plegable, la barra de lectura sustituye al dock y su botón de anillo abre los contenidos como una hoja inferior, y en escritorio los contenidos quedan fijados a la derecha como el ToC del artículo, resaltando la sección en la que estás. La miga de pan nombra el grupo, y la página de inicio de la sección es el índice."
+    "railBody": "La navegación de esta sección sigue la anatomía del artículo del blog en lugar de inventar la suya: en el móvil la barra superior cambia el logo por un chevron de vuelta al inicio de Diseño con un título plegable, la barra de lectura sustituye al dock y su botón de anillo abre los contenidos como una hoja inferior, y en escritorio los contenidos quedan fijados a la derecha como el ToC del artículo, resaltando la sección en la que estás. La miga de pan nombra el grupo, y la página de inicio de la sección es el índice.",
+    "crumbHeading": "Miga de pan",
+    "crumbBody": "Un pequeño rastro en versalitas mono sobre el título de la página. Nombra lugares, nunca la propia página: eso lo hace el título de debajo, así que el rastro termina un nivel por encima. Cada segmento se corta con puntos suspensivos, y los nombres largos de serie se acortan en origen (“React Native” pasa a “RN”), de modo que el rastro no puede partirse en dos líneas.",
+    "crumbWhere": "Aparece en los artículos (Blog y después la serie), en las páginas de etiquetas y series, y en esta documentación. En el móvil convive con el chevrón de la barra superior: el chevrón te lleva atrás, el rastro te dice dónde estás."
   },
   "sheetsOverlays": {
     "seoTitle": "Hojas y superposiciones | Sistema de diseño | Warren de Leon",
@@ -1068,6 +1075,10 @@
     "intro": "Cómo se presentan las fotos y las capturas de pantalla: un carrusel en el hero de la portada, un marco de teléfono plano con raíl verde para capturas de la app, un zoom a pantalla completa para diagramas e imágenes, y un marcador de posición para las muestras.",
     "toc": [
       {
+        "id": "hero",
+        "label": "Cabeceras de los posts"
+      },
+      {
         "id": "carousel",
         "label": "Carrusel"
       },
@@ -1094,7 +1105,27 @@
     "zoomBody": "Las imágenes y los diagramas prerrenderizados de los artículos se abren al tocarlos en un lightbox a pantalla completa, el único overlay que se comporta igual en todos los dispositivos. Los diagramas cambian de tema dentro de él, de modo que quien lee en modo oscuro amplía un diagrama en modo oscuro.",
     "placeholderHeading": "Marcador de posición",
     "placeholderBody": "Las muestras de esta documentación que llevarían una foto usan un marcador de posición neutro en lugar de una imagen prestada, para que el diseño sea honesto sobre qué es contenido y qué es chrome.",
-    "placeholderCaption": "El marcador de posición en las proporciones de miniatura de tarjeta y de hero."
+    "placeholderCaption": "El marcador de posición en las proporciones de miniatura de tarjeta y de hero.",
+    "heroHeading": "Ilustraciones de cabecera de los posts",
+    "heroBody": "Cada post se abre con una ilustración isométrica rica pero plana: escenas vectoriales detalladas y por capas, sin degradados, sin texto legible ni logotipos, sobre un fondo suave casi blanco. Cada una se genera con Cloudflare AI a partir de un concepto breve que describe la idea del post como objetos: una barra de pestañas que atrae paneles, una malla que reparte flechas en bandejas.",
+    "heroColourBody": "El modelo nunca elige la paleta. Cada ilustración toma unos pocos colores de un fondo común de diez — la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena — y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
+    "heroCaption": "Una cabecera real: unos pocos colores de la paleta compartida sobre el fondo de su serie.",
+    "heroSwatchHeading": "Un fondo por serie",
+    "heroSwatchBody": "Los fondos quedan deliberadamente fuera de la paleta: tintes suaves, casi blancos, que se leen como suelo y no como uno de los diez. Cada serie publicada conserva su propio tinte, así que una serie se lee como un conjunto en el feed: su identidad vive en ese fondo. Abajo, todo el fondo común descansa sobre cada suelo: la mezcla cambia por imagen, la familia nunca.",
+    "heroPaletteHeading": "La paleta compartida",
+    "heroPaletteBody": "Los diez, leídos de los posts reales al compilar. Cada ilustración usa solo unos pocos, y de ahí viene la variedad entre cabeceras; el fondo común nunca cambia.",
+    "heroPaletteNames": [
+      "Lima",
+      "Azul marino",
+      "Coral",
+      "Verde azulado",
+      "Ciruela",
+      "Ámbar",
+      "Rosa pálido",
+      "Celeste",
+      "Carbón",
+      "Arena"
+    ]
   },
   "timeline": {
     "seoTitle": "Cronología | Sistema de diseño | Warren de Leon",

@@ -5,6 +5,7 @@ import Placeholder from '../../../../components/design/Placeholder.astro';
 import HeroCarousel from '../../../../components/HeroCarousel.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
 import { getDesignData } from '../../../../lib/design-data';
+import { getPostsForLocale, shortenSeriesName } from '../../../../utils/blogHelpers';
 
 export const getStaticPaths = localeStaticPaths;
 
@@ -12,6 +13,21 @@ const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);
 const m = d.media;
 const currentPath = getLocalePath(locale, '/design/components/media/');
+
+// The series pastels, read from the published posts so the docs cannot drift.
+// getPostsForLocale has already checked that series-mates agree on the hex.
+const posts = await getPostsForLocale('en', false);
+const seriesPastels = new Map<string, string>();
+for (const post of posts) {
+  if (post.data.series && post.data.heroBgColor && !seriesPastels.has(post.data.series)) {
+    seriesPastels.set(post.data.series, post.data.heroBgColor);
+  }
+}
+// Oldest published post in the series, so the example stays stable as new parts ship.
+const heroExample = [...posts].reverse().find(p => p.data.series === 'React Native Module Federation' && p.data.heroImage);
+
+// The shared ten-colour foreground palette, identical in every post.
+const heroPalette = posts.find(p => p.data.heroPalette)?.data.heroPalette ?? [];
 ---
 
 <DesignLayout
@@ -24,6 +40,41 @@ const currentPath = getLocalePath(locale, '/design/components/media/');
   intro={m.intro}
   toc={m.toc}
 >
+  <section id="hero">
+    <h2>{m.heroHeading}</h2>
+    <p>{m.heroBody}</p>
+    <p>{m.heroColourBody}</p>
+    {heroExample && heroExample.data.heroImage && (
+      <SpecimenCard label={m.heroCaption}>
+        <img class="ds-hero-example" src={heroExample.data.heroImage} alt={heroExample.data.heroAlt ?? ''} loading="lazy" />
+      </SpecimenCard>
+    )}
+    <h3>{m.heroPaletteHeading}</h3>
+    <p>{m.heroPaletteBody}</p>
+    <ul class="ds-palette-strip">
+      {heroPalette.map((hex, i) => (
+        <li class="ds-palette-item">
+          <span class="ds-pastel-chip ds-palette-chip" style={`background: ${hex}`}></span>
+          <span class="ds-palette-name">{m.heroPaletteNames[i] ?? ''}</span>
+          <code class="ds-code">{hex}</code>
+        </li>
+      ))}
+    </ul>
+    <h3>{m.heroSwatchHeading}</h3>
+    <p>{m.heroSwatchBody}</p>
+    <ul class="ds-harmony-grid">
+      {[...seriesPastels.entries()].map(([series, hex]) => (
+        <li class="ds-harmony-card" style={`background: ${hex}`}>
+          <span class="ds-harmony-name">{shortenSeriesName(series)}</span>
+          <code class="ds-harmony-hex">{hex}</code>
+          <span class="ds-harmony-dots">
+            {heroPalette.map((c) => <span class="ds-harmony-dot" style={`background: ${c}`}></span>)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
   <section id="carousel">
     <h2>{m.carouselHeading}</h2>
     <p>{m.carouselBody}</p>
@@ -84,4 +135,87 @@ const currentPath = getLocalePath(locale, '/design/components/media/');
   .ds-ph { border-radius: 9px; overflow: hidden; border: 1px solid var(--border-color); }
   .ds-ph-thumb { width: 96px; height: 76px; }
   .ds-ph-hero { width: 280px; }
+
+  .ds-hero-example {
+    display: block;
+    width: 100%;
+    max-width: 480px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+  }
+  .ds-pastel-chip {
+    width: 48px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+  }
+
+  /* The harmony check from the approved palette sheet: the whole pool on each
+     series ground. Literal colours on both themes, like the swatch stages. */
+  .ds-harmony-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 700px) {
+    .ds-harmony-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .ds-harmony-card {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .ds-harmony-name {
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .ds-harmony-hex {
+    color: #4a4a4a;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 0.75rem;
+  }
+  .ds-harmony-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .ds-harmony-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .ds-palette-strip {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .ds-palette-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+  .ds-palette-chip {
+    width: 64px;
+    height: 44px;
+  }
+  .ds-palette-name {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
 </style>
