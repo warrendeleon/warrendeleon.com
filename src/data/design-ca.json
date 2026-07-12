@@ -1337,7 +1337,7 @@
     ],
     "voiceHeading": "La veu a cada idioma",
     "voiceBody": "Una traducció aquí no és un calc paraula per paraula. Cada idioma s’escriu com l’escriuria de manera nativa un enginyer sènior: la mateixa estructura i els mateixos fets, amb la seva pròpia manera natural de dir-los.",
-    "angliHeading": "Els manlleus es queden",
+    "angliHeading": "Els anglicismes es queden",
     "angliBody": "El castellà i el català conserven l’anglès tècnic que els desenvolupadors fan servir de debò: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Alguns són anglicismes que cap diccionari beneiria, i es queden igualment. Traduir runtime com a «temps d’execució» és correcte segons el diccionari i sona a llibre de text; l’objectiu és sonar a company d’equip.",
     "taglishHeading": "El tagal és taglish",
     "taglishBody": "Els posts en tagal són taglish idiomàtic: la frase flueix en filipí amb el vocabulari tècnic intacte en anglès, tal com parlen de feina els desenvolupadors filipins. Un tagal tècnic traduït del tot seria més difícil de llegir, no més fàcil.",

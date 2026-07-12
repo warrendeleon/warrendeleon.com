@@ -1337,7 +1337,7 @@
     ],
     "voiceHeading": "La voz en cada idioma",
     "voiceBody": "Una traducción aquí no es un calco palabra por palabra. Cada idioma se escribe como lo escribiría de forma nativa un ingeniero senior: la misma estructura y los mismos hechos, con su propia manera natural de decirlos.",
-    "angliHeading": "Los préstamos se quedan",
+    "angliHeading": "Los anglicismos se quedan",
     "angliBody": "El español y el catalán conservan el inglés técnico que los desarrolladores usan de verdad: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Algunos son anglicismos que ningún diccionario bendeciría, y se quedan igualmente. Traducir runtime como «tiempo de ejecución» es correcto según el diccionario y suena a libro de texto; el objetivo es sonar a compañero de equipo.",
     "taglishHeading": "El tagalo es taglish",
     "taglishBody": "Los posts en tagalo son taglish idiomático: la frase fluye en filipino con el vocabulario técnico intacto en inglés, tal como hablan de trabajo los desarrolladores filipinos. Un tagalo técnico traducido del todo sería más difícil de leer, no más fácil.",
