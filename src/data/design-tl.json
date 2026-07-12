@@ -28,7 +28,8 @@
     "writing": "Pagsusulat",
     "translation": "Pagsasalin",
     "accessibility": "Accessibility",
-    "media": "Media"
+    "media": "Media",
+    "newsletter": "Newsletter"
   },
   "landing": {
     "seoTitle": "Disenyo | Warren de Leon",
@@ -73,7 +74,8 @@
     "contentHeading": "Nilalaman",
     "contentBlurbs": {
       "writing": "British English, sentence case, mga petsa, mga link, mga pangalan ng brand.",
-      "translation": "Apat na locale, na nag-uugnay sa pamamagitan ng hreflang; ano ang naisasalin at ano ang hindi."
+      "translation": "Apat na locale, na nag-uugnay sa pamamagitan ng hreflang; ano ang naisasalin at ano ang hindi.",
+      "newsletter": "Isang email bawat wika: ang disenyo ng site sa inbox, gamit ang text ng mismong post."
     },
     "accessibilityHeading": "Aksesibilidad",
     "accessibilityBlurbs": {
@@ -1215,6 +1217,14 @@
       {
         "id": "brands",
         "label": "Mga pangalan ng brand"
+      },
+      {
+        "id": "disagreeing",
+        "label": "Pagtutol sa sulat"
+      },
+      {
+        "id": "social",
+        "label": "Mga social teaser"
       }
     ],
     "spellingHeading": "Pagbaybay",
@@ -1252,7 +1262,24 @@
     "brandsGood": "React Native · Pokédex · Module Federation",
     "brandsBad": "react native · Pokedex · module federation",
     "brandsCaption": "Tumbas sa opisyal na anyo, pati na ang mga accent.",
-    "brandsBadCaption": "Hindi ini-lowercase, hindi inaalis ang mga accent."
+    "brandsBadCaption": "Hindi ini-lowercase, hindi inaalis ang mga accent.",
+    "disagreeHeading": "Pagtutol sa sulat",
+    "disagreeBody1": "Maraming tinututulan ang technical writing dito: mga default, mga sikat na library, mga minanang paniniwala. Ang rule ay i-steelman muna. Ilahad ang kabilang panig sa pinakamalakas nitong bersyon, kilalanin ang tama nito, saka ipakita kung saan ito huminto sa paggana para sa kasong pinag-uusapan. Ang pagtutol ay dumadating bilang obserbasyon tungkol sa akma, hindi bilang paghatol.",
+    "disagreeGood": "Why not MSW, Mirage, or a mock server?",
+    "disagreeCaption": "Isang totoong section heading mula sa blog: binibigyan muna ng karampatang halaga ang mga alternatibo bago ipagtanggol ang pinili.",
+    "disagreeBad": "Why MSW doesn’t work for E2E testing",
+    "disagreeBadCaption": "Ang confrontational na bersyon ay mababasa bilang paghatol at nagpapa-depensiba sa mambabasa.",
+    "disagreeBody2": "Dalawang gawi ang sumusuporta rito. Ang hindi absolute ay hindi isinusulat bilang absolute: ang “X never works” ay nagiging “X was not designed for Y”. At walang defensive opener: ang mga pangungusap ay hindi nagsisimula sa “To be clear” o “Just to clarify”.",
+    "socialHeading": "Mga social teaser",
+    "socialBody1": "Kapag ibinahagi ang isang post sa LinkedIn, teaser ang ibinabahagi, hindi buod. Iisa lang ang trabaho nito: magbukas ng curiosity gap na isasara ng artikulo — maglahad ng tensyon, magbanggit ng espesipikong detalye nang hindi ipinapaliwanag, at ituro pasulong. Kung nasiyahan na ang mambabasa nang hindi nag-click, pumalya ang teaser.",
+    "socialRules": [
+      "Mga 500 character, bawat pangungusap ay may pinaglalaban.",
+      "Walang link sa body; ang link ay nasa unang komento.",
+      "Tatlo hanggang limang hashtag, hindi hihigit.",
+      "Walang exclamation mark, at walang rhetorical question bilang pang-akit.",
+      "First person singular, isinulat mula sa senior authority: walang self-deprecation, walang imbentong war story.",
+      "Hindi kailanman pinapangalanan ang mga employer o internal project."
+    ]
   },
   "translation": {
     "seoTitle": "Pagsasalin | Disenyo | Warren de Leon",
@@ -1267,6 +1294,10 @@
       {
         "id": "scope",
         "label": "Ano ang naisasalin"
+      },
+      {
+        "id": "voice",
+        "label": "Ang boses sa bawat wika"
       },
       {
         "id": "connect",
@@ -1307,7 +1338,15 @@
     "connectHeading": "Paano nag-uugnay ang mga bersiyon",
     "connectBody": "Pinagbubuklod ng mga hreflang alternate ang mga bersiyon, at ang bawat pahina ay naglalabas ng mga ito para lamang sa mga wikang talagang umiiral, kaya walang alternate na ina-advertise sa isang pahinang magbabalik ng 404. Ang x-default ay tumuturo sa Ingles na root. Ang bawat naisaling pahina ay sarili nitong canonical: hindi ito nagpapasakop sa orihinal na Ingles. Ang mga link na ginagawa ng interface ay nananatili sa loob ng wika ng mambabasa, habang ang isang link na nakasulat sa loob ng katawan ng isang post ay tumuturo sa Ingles na canonical.",
     "postsHeading": "Mga post at pagtuklas",
-    "postsBody": "Ang isang naisaling post ay may pinaliit na hanay ng frontmatter: minamana nito ang petsa ng publish at series mula sa Ingles na master nito kapag binuo ang site, at ibinababa ang mga field na umiiral lamang upang buuin ang Ingles na hero image. Hindi lahat ng post ay umiiral sa lahat ng apat na wika, at kung saan nawawala ang isang salin, ipinapakita ng feed ng wika ang Ingles na bersiyon sa halip na itago ang post. Ang mga locale page ay sadyang hindi isinasama sa sitemap; naaabot sila ng mga search engine sa pamamagitan ng hreflang, at ang isang first-time na bisita sa root ay ipinapadala sa wika ng kanilang browser nang isang beses."
+    "postsBody": "Ang isang naisaling post ay may pinaliit na hanay ng frontmatter: minamana nito ang petsa ng publish at series mula sa Ingles na master nito kapag binuo ang site, at ibinababa ang mga field na umiiral lamang upang buuin ang Ingles na hero image. Hindi lahat ng post ay umiiral sa lahat ng apat na wika, at kung saan nawawala ang isang salin, ipinapakita ng feed ng wika ang Ingles na bersiyon sa halip na itago ang post. Ang mga locale page ay sadyang hindi isinasama sa sitemap; naaabot sila ng mga search engine sa pamamagitan ng hreflang, at ang isang first-time na bisita sa root ay ipinapadala sa wika ng kanilang browser nang isang beses.",
+    "voiceHeading": "Ang boses sa bawat wika",
+    "voiceBody": "Ang translation dito ay hindi word-for-word. Bawat wika ay isinusulat kung paano ito natural na isusulat ng isang senior engineer: parehong structure at parehong facts, sa sarili nitong natural na pananalita.",
+    "angliHeading": "Nananatili ang mga hiram na salita",
+    "angliBody": "Sa Spanish at Catalan, nananatili ang technical English na talagang ginagamit ng mga developer: runtime, bundle, host, remote, build, deploy. Ang ilan dito ay mga anglicism na hindi bebendisyunan ng anumang diksyunaryo, pero nananatili pa rin. Ang pagsasalin ng runtime bilang “tiempo de ejecución” ay tama ayon sa diksyunaryo pero parang textbook ang dating; ang layunin ay tumunog na parang katrabaho.",
+    "taglishHeading": "Taglish ang Tagalog",
+    "taglishBody": "Ang mga post sa Tagalog ay idiomatic Taglish: Filipino ang daloy ng pangungusap pero nasa English pa rin ang technical vocabulary, kung paano talaga mag-usap ang mga Filipino developer tungkol sa trabaho. Ang buong-salin na technical Tagalog ay mas mahirap basahin, hindi mas madali.",
+    "fillerHeading": "Tumatawid ang mga parehong bawal",
+    "fillerBody": "Ang mga writing rule ay tumatawid sa wika, at isa ang humihigpit: ang spaced em-dash na pinapayagan ng English prose ay tuluyang nawawala sa mga translation; comma, colon o parentheses ang gamit ng Spanish, Catalan at Tagalog. Bawat wika ay may sariling bawal na marketing filler din, ang mga lokal na pinsan ng English list: sa Catalan, halimbawa, bawal ang d’avantguarda, sense fissures, holístic at disruptiu."
   },
   "accessibility": {
     "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",
@@ -1378,5 +1417,41 @@
     "scopeHeading": "Saklaw",
     "scopeBody": "Sinasaklaw nito ang website. Ang React Native app at ang mga email template ay sarili nilang mga surface, na may sarili nilang mga pamantayan, at hindi dokumentado rito."
   },
-  "copyLabel": "Kopyahin"
+  "copyLabel": "Kopyahin",
+  "newsletter": {
+    "seoTitle": "Newsletter | Design system | Warren de Leon",
+    "seoDescription": "Paano dinidisenyo at isinusulat ang newsletter ng warrendeleon.com: isang email bawat wika, ang mga kulay ng site sa inbox, at text na muling ginagamit ang front matter ng mismong post.",
+    "title": "Newsletter",
+    "intro": "Kapag lumabas ang isang post, lumalabas din ito sa email: isang campaign bawat wika, bawat isa sa sariling list. Hinihiram ng email ang design language ng site at muling ginagamit ang mga salita ng mismong post, para ang inbox at ang site ay parang iisang produkto.",
+    "toc": [
+      {
+        "id": "design",
+        "label": "Ang disenyo ng email"
+      },
+      {
+        "id": "copy",
+        "label": "Ano ang sinasabi ng email"
+      }
+    ],
+    "designHeading": "Ang disenyo ng email",
+    "designBody1": "Isang 600-pixel na column: puting card sa malambot na kulay-abo na page, apat-na-pixel na lime accent bar sa itaas, ang wordmark sa ilalim nito, at Inter sa bawat linya. Ang mga link ay gumagamit ng nababasang text green at ang mga kanto ng card ay nasa 14 pixels. Ito ang site, isinalin sa kung ano ang pinapayagan ng mga email client.",
+    "designBody2": "Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark grey, ang logo ay napapalitan ng light na bersyon, at ang mga berde ay tumataas para manatiling nababasa. Ang button ay gumagamit ng mas madilim na hover green para pumasa sa contrast bar ang puting text.",
+    "copyHeading": "Ano ang sinasabi ng email",
+    "copyBody1": "Ang email ay nagsusulat ng sarili mula sa front matter ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
+    "copyRules": [
+      "Series subject: “Bago sa serye: {title} (Bahagi N)”, na pinuputol ang title sa unang colon para manatiling maikli ang linya.",
+      "Standalone subject: “Bagong post: {title}”.",
+      "Isang berdeng button, “Basahin ang post →”. Eksaktong isang click ang hinihingi ng email.",
+      "Ang series post ay nagsasara sa pagbanggit ng serye at pag-link sa nakaraang bahagi, para makapag-backtrack ang bagong subscriber.",
+      "Ang campaign ng bawat wika ay pumupunta sa sariling list, at kapag may translation lang."
+    ],
+    "mockLabel": "Ang email, muling binuo gamit ang mga totoong value ng isang post.",
+    "mockSubject": "Bago sa serye: The host shell (Bahagi 4)",
+    "mockEyebrow": "Module Federation · Bahagi 4",
+    "mockTitle": "The host shell: federated remotes as tabs in React Native",
+    "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
+    "mockButton": "Basahin ang post →",
+    "mockNav": "Bahagi ng seryeng React Native Module Federation, kasunod ng bahagi 3, the shared-singleton contract.",
+    "mockSubjectLabel": "Subject"
+  }
 }

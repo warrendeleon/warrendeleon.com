@@ -28,7 +28,8 @@
     "writing": "Redacción",
     "translation": "Traducción",
     "accessibility": "Accesibilidad",
-    "media": "Medios"
+    "media": "Medios",
+    "newsletter": "Newsletter"
   },
   "landing": {
     "seoTitle": "Sistema de diseño | Warren de Leon",
@@ -73,7 +74,8 @@
     "contentHeading": "Contenido",
     "contentBlurbs": {
       "writing": "Inglés británico, mayúscula inicial, fechas, enlaces, nombres de marca.",
-      "translation": "Cuatro idiomas, conectados por hreflang; qué se traduce y qué no."
+      "translation": "Cuatro idiomas, conectados por hreflang; qué se traduce y qué no.",
+      "newsletter": "Un correo por idioma: el diseño del sitio en la bandeja de entrada, con el texto del propio post."
     },
     "accessibilityHeading": "Accesibilidad",
     "accessibilityBlurbs": {
@@ -1215,6 +1217,14 @@
       {
         "id": "brands",
         "label": "Nombres de marca"
+      },
+      {
+        "id": "disagreeing",
+        "label": "Discrepar por escrito"
+      },
+      {
+        "id": "social",
+        "label": "Teasers sociales"
       }
     ],
     "spellingHeading": "Ortografía",
@@ -1252,7 +1262,24 @@
     "brandsGood": "React Native · Pokédex · Module Federation",
     "brandsBad": "react native · Pokedex · module federation",
     "brandsCaption": "Respeta la forma oficial, con tildes incluidas.",
-    "brandsBadCaption": "Ni en minúsculas ni sin tildes."
+    "brandsBadCaption": "Ni en minúsculas ni sin tildes.",
+    "disagreeHeading": "Discrepar por escrito",
+    "disagreeBody1": "La escritura técnica de aquí discrepa mucho: de los valores por defecto, de librerías populares, de ideas heredadas. La regla es reforzar primero la postura contraria. Se expone la opción rival en su mejor versión, se reconoce lo que hace bien, y después se muestra dónde deja de funcionar para el caso concreto. La discrepancia llega como una observación sobre encaje, no como una condena.",
+    "disagreeGood": "Why not MSW, Mirage, or a mock server?",
+    "disagreeCaption": "Un encabezado real del blog: las alternativas reciben su mérito antes de argumentar la elección.",
+    "disagreeBad": "Why MSW doesn’t work for E2E testing",
+    "disagreeBadCaption": "La versión de confrontación se lee como una condena y pone al lector a la defensiva.",
+    "disagreeBody2": "Dos hábitos lo sostienen. Lo que no es absoluto no se escribe como absoluto: «X nunca funciona» pasa a ser «X no se diseñó para Y». Y no hay aperturas defensivas: las frases no empiezan con «Para que quede claro» ni «Solo por aclarar».",
+    "socialHeading": "Teasers sociales",
+    "socialBody1": "Cuando un post se comparte en LinkedIn, lo compartido es un teaser, no un resumen. Su único trabajo es abrir una brecha de curiosidad que el artículo cierra: plantear una tensión, nombrar un detalle concreto sin explicarlo, y apuntar hacia delante. Si el lector queda satisfecho sin hacer clic, el teaser ha fallado.",
+    "socialRules": [
+      "Unos 500 caracteres, con cada frase ganándose su sitio.",
+      "Sin enlaces en el cuerpo; el enlace va en el primer comentario.",
+      "De tres a cinco hashtags, no más.",
+      "Sin signos de exclamación y sin preguntas retóricas como gancho.",
+      "Primera persona del singular, escrita desde la autoridad senior: sin autocrítica de cara a la galería ni batallitas inventadas.",
+      "Nunca se nombran empleadores ni proyectos internos."
+    ]
   },
   "translation": {
     "seoTitle": "Traducción | Sistema de diseño | Warren de Leon",
@@ -1267,6 +1294,10 @@
       {
         "id": "scope",
         "label": "Qué se traduce"
+      },
+      {
+        "id": "voice",
+        "label": "La voz en cada idioma"
       },
       {
         "id": "connect",
@@ -1307,7 +1338,15 @@
     "connectHeading": "Cómo se conectan las versiones",
     "connectBody": "Los hreflang alternates enlazan las versiones entre sí, y cada página los emite solo para los idiomas en los que realmente existe, de modo que nunca se anuncia un alternate hacia una página que devolvería un 404. El x-default apunta a la raíz en inglés. Cada página traducida es su propia canonical: no se remite al original en inglés. Los enlaces que genera la interfaz se mantienen en el idioma del lector, mientras que un enlace escrito dentro del cuerpo de una entrada apunta a la canonical en inglés.",
     "postsHeading": "Entradas y descubrimiento",
-    "postsBody": "Una entrada traducida lleva un conjunto reducido de frontmatter: hereda la fecha de publicación y la serie de su versión maestra en inglés cuando el sitio se construye, y descarta los campos que existen solo para generar la imagen principal en inglés. No todas las entradas existen en los cuatro idiomas, y cuando falta una traducción el feed de ese idioma muestra la versión en inglés en lugar de ocultar la entrada. Las páginas de idioma se mantienen fuera del sitemap a propósito; los motores de búsqueda llegan a ellas a través de hreflang, y a un visitante que llega por primera vez a la raíz se le envía una sola vez al idioma de su navegador."
+    "postsBody": "Una entrada traducida lleva un conjunto reducido de frontmatter: hereda la fecha de publicación y la serie de su versión maestra en inglés cuando el sitio se construye, y descarta los campos que existen solo para generar la imagen principal en inglés. No todas las entradas existen en los cuatro idiomas, y cuando falta una traducción el feed de ese idioma muestra la versión en inglés en lugar de ocultar la entrada. Las páginas de idioma se mantienen fuera del sitemap a propósito; los motores de búsqueda llegan a ellas a través de hreflang, y a un visitante que llega por primera vez a la raíz se le envía una sola vez al idioma de su navegador.",
+    "voiceHeading": "La voz en cada idioma",
+    "voiceBody": "Una traducción aquí no es un calco palabra por palabra. Cada idioma se escribe como lo escribiría de forma nativa un ingeniero senior: la misma estructura y los mismos hechos, con su propia manera natural de decirlos.",
+    "angliHeading": "Los préstamos se quedan",
+    "angliBody": "El español y el catalán conservan el inglés técnico que los desarrolladores usan de verdad: runtime, bundle, host, remote, build, deploy. Algunos son anglicismos que ningún diccionario bendeciría, y se quedan igualmente. Traducir runtime como «tiempo de ejecución» es correcto según el diccionario y suena a libro de texto; el objetivo es sonar a compañero de equipo.",
+    "taglishHeading": "El tagalo es taglish",
+    "taglishBody": "Los posts en tagalo son taglish idiomático: la frase fluye en filipino con el vocabulario técnico intacto en inglés, tal como hablan de trabajo los desarrolladores filipinos. Un tagalo técnico traducido del todo sería más difícil de leer, no más fácil.",
+    "fillerHeading": "Las mismas prohibiciones viajan",
+    "fillerBody": "Las reglas de escritura cruzan la barrera del idioma, y una se endurece: el inciso con raya que la prosa inglesa permite desaparece por completo en las traducciones; el español, el catalán y el tagalo usan coma, dos puntos o paréntesis. Cada idioma prohíbe además su propio relleno de marketing, los primos locales de la lista inglesa: en catalán, por ejemplo, quedan fuera d’avantguarda, sense fissures, holístic y disruptiu."
   },
   "accessibility": {
     "seoTitle": "Accesibilidad | Sistema de diseño | Warren de Leon",
@@ -1378,5 +1417,41 @@
     "scopeHeading": "Alcance",
     "scopeBody": "Esto cubre el sitio web. La aplicación de React Native y las plantillas de correo son superficies propias, con sus propios estándares, y no se documentan aquí."
   },
-  "copyLabel": "Copiar"
+  "copyLabel": "Copiar",
+  "newsletter": {
+    "seoTitle": "Newsletter | Sistema de diseño | Warren de Leon",
+    "seoDescription": "Cómo se diseña y se escribe la newsletter de warrendeleon.com: un correo por idioma, los colores del sitio en la bandeja de entrada, y un texto que reutiliza el front matter del propio post.",
+    "title": "Newsletter",
+    "intro": "Cuando un post sale a la luz, también sale por correo: una campaña por idioma, cada una a su propia lista. El correo toma prestado el lenguaje de diseño del sitio y reutiliza las palabras del propio post, para que la bandeja de entrada y el sitio se sientan un solo producto.",
+    "toc": [
+      {
+        "id": "design",
+        "label": "El diseño del correo"
+      },
+      {
+        "id": "copy",
+        "label": "Qué dice el correo"
+      }
+    ],
+    "designHeading": "El diseño del correo",
+    "designBody1": "Una sola columna de 600 píxeles: una tarjeta blanca sobre una página gris suave, una barra de acento lima de cuatro píxeles en la parte superior, el logotipo debajo, e Inter en cada línea. Los enlaces usan el verde legible de texto y las esquinas de la tarjeta van a 14 píxeles. Es el sitio, traducido a lo que los clientes de correo permiten.",
+    "designBody2": "El modo oscuro sigue la preferencia del lector, con la misma idea de valores emparejados que los tokens del sitio: la página pasa a casi negro, la tarjeta a gris oscuro, el logotipo cambia a su versión clara, y los verdes suben un punto para seguir siendo legibles. El botón usa el verde oscuro de hover para que el texto blanco supere el listón de contraste.",
+    "copyHeading": "Qué dice el correo",
+    "copyBody1": "El correo se escribe solo a partir del front matter del post, así que nada se escribe dos veces y nada puede contradecir al sitio. Un post de serie recibe el eyebrow de la serie y su número de parte, el cuerpo es la propia descripción del post, y el botón es la única acción.",
+    "copyRules": [
+      "Asunto de serie: «Nuevo en la serie: {título} (Parte N)», con el título cortado en sus primeros dos puntos para que la línea quede corta.",
+      "Asunto de post suelto: «Nuevo artículo: {título}».",
+      "Un solo botón verde, «Leer el post →». El correo pide exactamente un clic.",
+      "Un post de serie cierra nombrando la serie y enlazando la parte anterior, para que un suscriptor nuevo pueda caminar hacia atrás.",
+      "La campaña de cada idioma va a su propia lista, y solo cuando la traducción existe."
+    ],
+    "mockLabel": "El correo, reconstruido con los valores de un post real.",
+    "mockSubject": "Nuevo en la serie: The host shell (Parte 4)",
+    "mockEyebrow": "Module Federation · Parte 4",
+    "mockTitle": "The host shell: federated remotes as tabs in React Native",
+    "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
+    "mockButton": "Leer el post →",
+    "mockNav": "Forma parte de la serie React Native Module Federation y continúa la parte 3, the shared-singleton contract.",
+    "mockSubjectLabel": "Asunto"
+  }
 }

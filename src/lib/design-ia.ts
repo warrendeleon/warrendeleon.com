@@ -49,6 +49,7 @@ export const DESIGN_GROUPS: DesignGroup[] = [
     pages: [
       { slug: 'writing', path: '/design/content/writing/', built: true },
       { slug: 'translation', path: '/design/content/translation/', built: true },
+      { slug: 'newsletter', path: '/design/content/newsletter/', built: true },
     ],
   },
   {

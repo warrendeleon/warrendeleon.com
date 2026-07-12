@@ -28,7 +28,8 @@
     "media": "Media",
     "writing": "Writing",
     "translation": "Translation",
-    "accessibility": "Accessibility"
+    "accessibility": "Accessibility",
+    "newsletter": "Newsletter"
   },
   "landing": {
     "seoTitle": "Design system | Warren de Leon",
@@ -73,7 +74,8 @@
     "contentHeading": "Content",
     "contentBlurbs": {
       "writing": "British English, sentence case, dates, links, brand names.",
-      "translation": "Four locales, connected by hreflang; what translates and what does not."
+      "translation": "Four locales, connected by hreflang; what translates and what does not.",
+      "newsletter": "One email per language: the site’s design in the inbox, copy from the post itself."
     },
     "accessibilityHeading": "Accessibility",
     "accessibilityBlurbs": {
@@ -1215,6 +1217,14 @@
       {
         "id": "brands",
         "label": "Brand names"
+      },
+      {
+        "id": "disagreeing",
+        "label": "Disagreeing in print"
+      },
+      {
+        "id": "social",
+        "label": "Social teasers"
       }
     ],
     "spellingHeading": "Spelling",
@@ -1252,7 +1262,24 @@
     "brandsGood": "React Native · Pokédex · Module Federation",
     "brandsBad": "react native · Pokedex · module federation",
     "brandsCaption": "Match the official form, accents and all.",
-    "brandsBadCaption": "Not lowercased, not stripped of accents."
+    "brandsBadCaption": "Not lowercased, not stripped of accents.",
+    "disagreeHeading": "Disagreeing in print",
+    "disagreeBody1": "Technical writing here disagrees a lot: with defaults, with popular libraries, with received wisdom. The rule is to steelman first. State the opposing view in its strongest form, credit what it gets right, then show where it stops working for the case at hand. The disagreement lands as an observation about fit, not a condemnation.",
+    "disagreeGood": "Why not MSW, Mirage, or a mock server?",
+    "disagreeCaption": "A real section heading from the blog: the alternatives get their due before the trade-off is argued.",
+    "disagreeBad": "Why MSW doesn’t work for E2E testing",
+    "disagreeBadCaption": "The oppositional version reads as condemnation and puts the reader on the defensive.",
+    "disagreeBody2": "Two habits support it. Claims that are not absolute are not written as absolutes: “X never works” becomes “X was not designed for Y”. And there are no defensive openers: sentences do not start with “To be clear” or “Just to clarify”.",
+    "socialHeading": "Social teasers",
+    "socialBody1": "When a post is shared on LinkedIn, the share is a teaser, not a summary. Its one job is to open a curiosity gap the article closes: state a tension, name a specific detail without explaining it, and point forward. If the reader feels satisfied without clicking, the teaser failed.",
+    "socialRules": [
+      "Around 500 characters, every sentence earning its place.",
+      "No links in the body; the link goes in the first comment.",
+      "Three to five hashtags, no more.",
+      "No exclamation marks, and no rhetorical questions as hooks.",
+      "First person singular, written from senior authority: no self-deprecation, no invented war stories.",
+      "Employers and internal projects are never named."
+    ]
   },
   "translation": {
     "seoTitle": "Translation | Design system | Warren de Leon",
@@ -1267,6 +1294,10 @@
       {
         "id": "scope",
         "label": "What translates"
+      },
+      {
+        "id": "voice",
+        "label": "Voice across languages"
       },
       {
         "id": "connect",
@@ -1307,7 +1338,15 @@
     "connectHeading": "How the versions connect",
     "connectBody": "hreflang alternates tie the versions together, and each page emits them only for the languages it actually exists in, so an alternate is never advertised to a page that would return a 404. The x-default points at the English root. Each translated page is its own canonical: it does not defer to the English original. Links the interface generates stay within the reader's language, while a link written inside a post's body points at the English canonical.",
     "postsHeading": "Posts and discovery",
-    "postsBody": "A translated post carries a reduced set of frontmatter: it inherits the publish date and series from its English master when the site builds, and drops the fields that exist only to generate the English hero image. Not every post exists in all four languages, and where a translation is missing the language's feed shows the English version rather than hiding the post. Locale pages are kept out of the sitemap by design; search engines reach them through hreflang, and a first-time visitor to the root is sent to their browser's language once."
+    "postsBody": "A translated post carries a reduced set of frontmatter: it inherits the publish date and series from its English master when the site builds, and drops the fields that exist only to generate the English hero image. Not every post exists in all four languages, and where a translation is missing the language's feed shows the English version rather than hiding the post. Locale pages are kept out of the sitemap by design; search engines reach them through hreflang, and a first-time visitor to the root is sent to their browser's language once.",
+    "voiceHeading": "Voice across languages",
+    "voiceBody": "A translation here is not a word-for-word rendering. Each language is written the way a senior engineer would write it natively: the same structure and the same facts, in its own natural phrasing.",
+    "angliHeading": "Borrowed words stay",
+    "angliBody": "Spanish and Catalan keep the technical English that developers actually use: runtime, bundle, host, remote, build, deploy. Some of these are anglicisms no dictionary would bless, and they stay anyway. Translating runtime as “tiempo de ejecución” is dictionary-correct and reads like a textbook; the goal is to read like a colleague.",
+    "taglishHeading": "Tagalog is Taglish",
+    "taglishBody": "The Tagalog posts are idiomatic Taglish: Filipino sentence flow with the technical vocabulary left in English, the way Filipino developers talk shop. A fully translated technical Tagalog would be harder to read, not easier.",
+    "fillerHeading": "The same bans travel",
+    "fillerBody": "The writing rules cross the language barrier, and one gets stricter: the spaced em-dash aside that English prose allows is dropped entirely in translation; Spanish, Catalan and Tagalog reach for a comma, a colon or parentheses instead. Each language also bans its own marketing filler, the local cousins of the English list: in Catalan, for instance, d’avantguarda, sense fissures, holístic and disruptiu are out."
   },
   "accessibility": {
     "seoTitle": "Accessibility | Design system | Warren de Leon",
@@ -1378,5 +1417,41 @@
     "scopeHeading": "Scope",
     "scopeBody": "This covers the website. The React Native app and the email templates are their own surfaces, with their own standards, and are not documented here."
   },
-  "copyLabel": "Copy"
+  "copyLabel": "Copy",
+  "newsletter": {
+    "seoTitle": "Newsletter | Design system | Warren de Leon",
+    "seoDescription": "How the warrendeleon.com newsletter is designed and written: one email per language, the site’s colours in the inbox, and copy that reuses the post’s own front matter.",
+    "title": "Newsletter",
+    "intro": "When a post goes live it goes out by email too: one campaign per language, each to its own list. The email borrows the site’s design language and reuses the post’s own words, so the inbox and the site feel like one product.",
+    "toc": [
+      {
+        "id": "design",
+        "label": "The email design"
+      },
+      {
+        "id": "copy",
+        "label": "What the email says"
+      }
+    ],
+    "designHeading": "The email design",
+    "designBody1": "One 600-pixel column: a white card on a soft grey page, a four-pixel lime accent bar across the top, the wordmark beneath it, and Inter for every line. Links use the readable text green and the card corners sit at 14 pixels. It is the site, translated into what email clients allow.",
+    "designBody2": "Dark mode follows the reader’s preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The button uses the darker hover green so white text on it clears the contrast bar.",
+    "copyHeading": "What the email says",
+    "copyBody1": "The email writes itself from the post’s front matter, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
+    "copyRules": [
+      "Series subject: “New in the series: {title} (Part N)”, with the title cut at its first colon so the line stays short.",
+      "Standalone subject: “New post: {title}”.",
+      "One green button, “Read the post →”. The email asks for exactly one click.",
+      "A series post closes by naming the series and linking the previous part, so a new subscriber can walk backwards.",
+      "Each language’s campaign goes to its own list, and only when the translation exists."
+    ],
+    "mockLabel": "The email, reconstructed with a real post’s values.",
+    "mockSubject": "New in the series: The host shell (Part 4)",
+    "mockEyebrow": "Module Federation · Part 4",
+    "mockTitle": "The host shell: federated remotes as tabs in React Native",
+    "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
+    "mockButton": "Read the post →",
+    "mockNav": "Part of the React Native Module Federation series, building on part 3, the shared-singleton contract.",
+    "mockSubjectLabel": "Subject"
+  }
 }

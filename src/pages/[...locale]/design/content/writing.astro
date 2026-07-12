@@ -45,6 +45,28 @@ const sections = [
       </div>
     </section>
   ))}
+
+  <section id="disagreeing">
+    <h2>{w.disagreeHeading}</h2>
+    <p>{w.disagreeBody1}</p>
+    <div class="ds-guidance-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={w.disagreeCaption}>
+        <span class="ds-sample">{w.disagreeGood}</span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={w.disagreeBadCaption}>
+        <span class="ds-sample ds-sample-bad">{w.disagreeBad}</span>
+      </GuidanceCard>
+    </div>
+    <p>{w.disagreeBody2}</p>
+  </section>
+
+  <section id="social">
+    <h2>{w.socialHeading}</h2>
+    <p>{w.socialBody1}</p>
+    <ul class="ds-list">
+      {w.socialRules.map((r) => <li>{r}</li>)}
+    </ul>
+  </section>
 </DesignLayout>
 
 <style>
