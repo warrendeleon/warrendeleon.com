@@ -74,7 +74,7 @@
     "contentHeading": "Content",
     "contentBlurbs": {
       "writing": "British English, sentence case, dates, links, brand names.",
-      "translation": "Four locales, connected by hreflang; what translates and what does not.",
+      "translation": "Four locales; what translates, what stays English, and the voice each language keeps.",
       "newsletter": "One email per language: the site’s design in the inbox, copy from the post itself."
     },
     "accessibilityHeading": "Accessibility",
@@ -1092,7 +1092,7 @@
     "whereHeading": "Where it lives",
     "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro.",
     "diagramsHeading": "Diagrams",
-    "diagramsBody": "Architecture diagrams are written as Mermaid in the article source and pre-rendered to SVG at authoring time — no diagram library ships to the reader. The site's own tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:"
+    "diagramsBody": "Architecture diagrams are static images drawn in the site's own tokens — no diagram library ever ships to the reader. The tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:"
   },
   "media": {
     "seoTitle": "Media | Design system | Warren de Leon",
@@ -1128,7 +1128,7 @@
     "deviceBody": "App screenshots in articles sit inside a flat phone frame drawn in CSS: a brand-green rail, a thin black bezel, side buttons drawn just outside the rail, and a theme-aware shadow. It holds to the blog's flat aesthetic rather than a photoreal render.",
     "deviceCaption": "The .device-frame pattern, here with a placeholder where the screenshot goes.",
     "zoomHeading": "Full-screen zoom",
-    "zoomBody": "Images and pre-rendered diagrams in articles open in a full-screen lightbox on tap — the one overlay that behaves the same on every device. Diagrams re-theme inside it, so a dark-mode reader zooms into a dark-mode diagram.",
+    "zoomBody": "Images and diagrams in articles open in a full-screen lightbox on tap — the one overlay that behaves the same on every device. Diagrams re-theme inside it, so a dark-mode reader zooms into a dark-mode diagram.",
     "placeholderHeading": "Placeholder",
     "placeholderBody": "Specimens on these docs that would carry a photo use a neutral placeholder rather than a borrowed image, so the layout is honest about what is content and what is chrome.",
     "placeholderCaption": "The placeholder at card-thumbnail and hero ratios.",
@@ -1285,13 +1285,13 @@
       "Employers and internal projects are never named."
     ],
     "crossHeading": "Cross-linking",
-    "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet. At build time a link to an unpublished post is **replaced by its own plain text**, so nothing ever 404s; when the target publishes, the next build turns the words back into a link. Forward references are written once and resolve themselves.",
-    "crossBody2": "Each post can hand-pick up to three related posts in its front matter; posts without picks fall back to shared tags. A further-reading shelf tops that up with quieter posts the reader has probably not met, capped at nine in total, so it stays a recommendation rather than an archive.",
+    "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet: the words simply **render as plain text**, so nothing ever 404s, and they become a link on their own when the target publishes. Forward references are written once and resolve themselves.",
+    "crossBody2": "Each post can hand-pick up to three related posts; posts without picks fall back to shared tags. A further-reading shelf tops that up with quieter posts the reader has probably not met, capped at nine in total, so it stays a recommendation rather than an archive.",
     "crossBody3": "Inside a series, previous and next stay inside the series: part five points at parts four and six, never at an unrelated post that happened to publish next to it. Only at the ends of a series do the arrows fall back to the neighbouring post by date."
   },
   "translation": {
     "seoTitle": "Translation | Design system | Warren de Leon",
-    "seoDescription": "The four-locale translation policy behind warrendeleon.com: English at the root, Spanish, Catalan and Tagalog mirrored and connected by hreflang.",
+    "seoDescription": "The four-locale translation policy behind warrendeleon.com: English at the root; Spanish, Catalan and Tagalog written the way a colleague would write them.",
     "title": "Translation",
     "intro": "Every page is written to live in four languages. English sits at the root; Spanish, Catalan and Tagalog mirror it, each under its own prefix. This page is the policy that keeps them in step.",
     "toc": [
@@ -1306,14 +1306,6 @@
       {
         "id": "voice",
         "label": "Voice across languages"
-      },
-      {
-        "id": "connect",
-        "label": "How versions connect"
-      },
-      {
-        "id": "posts",
-        "label": "Posts & discovery"
       }
     ],
     "localesHeading": "Four locales",
@@ -1343,10 +1335,6 @@
       "Code identifiers",
       "Brand and product names"
     ],
-    "connectHeading": "How the versions connect",
-    "connectBody": "hreflang alternates tie the versions together, and each page emits them only for the languages it actually exists in, so an alternate is never advertised to a page that would return a 404. The x-default points at the English root. Each translated page is its own canonical: it does not defer to the English original. Links the interface generates stay within the reader's language, while a link written inside a post's body points at the English canonical.",
-    "postsHeading": "Posts and discovery",
-    "postsBody": "A translated post carries a reduced set of frontmatter: it inherits the publish date and series from its English master when the site builds, and drops the fields that exist only to generate the English hero image. Not every post exists in all four languages, and where a translation is missing the language's feed shows the English version rather than hiding the post. Locale pages are kept out of the sitemap by design; search engines reach them through hreflang, and a first-time visitor to the root is sent to their browser's language once.",
     "voiceHeading": "Voice across languages",
     "voiceBody": "A translation here is not a word-for-word rendering. Each language is written the way a senior engineer would write it natively: the same structure and the same facts, in its own natural phrasing.",
     "angliHeading": "Borrowed words stay",
@@ -1354,7 +1342,8 @@
     "taglishHeading": "Tagalog is Taglish",
     "taglishBody": "The Tagalog posts are idiomatic Taglish: Filipino sentence flow with the technical vocabulary left in English, the way Filipino developers talk shop. A fully translated technical Tagalog would be harder to read, not easier.",
     "fillerHeading": "The same bans travel",
-    "fillerBody": "The writing rules cross the language barrier, and one gets stricter: the spaced em-dash aside that English prose allows is dropped entirely in translation; Spanish, Catalan and Tagalog reach for a comma, a colon or parentheses instead. Each language also bans its own marketing filler, the local cousins of the English list: in Catalan, for instance, d’avantguarda, sense fissures, holístic and disruptiu are out."
+    "fillerBody": "The writing rules cross the language barrier, and one gets stricter: the spaced em-dash aside that English prose allows is dropped entirely in translation; Spanish, Catalan and Tagalog reach for a comma, a colon or parentheses instead. Each language also bans its own marketing filler, the local cousins of the English list: in Catalan, for instance, d’avantguarda, sense fissures, holístic and disruptiu are out.",
+    "scopeNote": "Not every post exists in all four languages. Where a translation is missing, that language’s feed shows the English post rather than hiding it, and a first-time visitor to the site root is sent to their browser’s language."
   },
   "accessibility": {
     "seoTitle": "Accessibility | Design system | Warren de Leon",
@@ -1428,7 +1417,7 @@
   "copyLabel": "Copy",
   "newsletter": {
     "seoTitle": "Newsletter | Design system | Warren de Leon",
-    "seoDescription": "How the warrendeleon.com newsletter is designed and written: one email per language, the site’s colours in the inbox, and copy that reuses the post’s own front matter.",
+    "seoDescription": "How the warrendeleon.com newsletter is designed and written: one email per language, the site’s colours in the inbox, and copy that reuses the post’s own words.",
     "title": "Newsletter",
     "intro": "When a post goes live it goes out by email too: **one campaign per language**, each to its own list. The email borrows the site’s design language and reuses the post’s own words, so the inbox and the site feel like one product.",
     "toc": [
@@ -1445,7 +1434,7 @@
     "designBody1": "One 600-pixel column: a white card on a soft grey page, a four-pixel lime accent bar across the top, the wordmark beneath it, and Inter for every line. Links use the readable text green and the card corners sit at 14 pixels. It is the site, translated into what email clients allow.",
     "designBody2": "Dark mode follows the reader’s preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The button uses the darker hover green so white text on it clears the contrast bar.",
     "copyHeading": "What the email says",
-    "copyBody1": "The email writes itself from the post’s **front matter**, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
+    "copyBody1": "The email reuses the post’s **own words**, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
     "copyRules": [
       "Series subject: “New in the series: {title} (Part N)”, with the title cut at its first colon so the line stays short.",
       "Standalone subject: “New post: {title}”.",

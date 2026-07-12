@@ -74,7 +74,7 @@
     "contentHeading": "Nilalaman",
     "contentBlurbs": {
       "writing": "British English, sentence case, mga petsa, mga link, mga pangalan ng brand.",
-      "translation": "Apat na locale, pinag-uugnay ng hreflang; ano ang naisasalin at ano ang hindi.",
+      "translation": "Apat na locale; ano ang isinasalin, ano ang nananatiling English, at ang boses ng bawat wika.",
       "newsletter": "Isang email bawat wika: ang disenyo ng site sa inbox, gamit ang text ng mismong post."
     },
     "accessibilityHeading": "Aksesibilidad",
@@ -1092,7 +1092,7 @@
       "Pag-type ng seam sa pagitan ng mga remote"
     ],
     "diagramsHeading": "Mga diagram",
-    "diagramsBody": "Ang mga architecture diagram ay isinusulat bilang Mermaid sa source ng artikulo at pre-rendered sa SVG sa oras ng pagsulat: walang diagram library na naipapadala sa mambabasa. Ang mismong tokens ng site ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:"
+    "diagramsBody": "Ang mga architecture diagram ay mga static na imahe na iginuhit gamit ang mismong tokens ng site: walang diagram library na naipapadala sa mambabasa. Ang tokens ang nagbibigay-tema sa resulta (green na nodes, neutral na arrows), kaya nagre-recolor ito kasama ng theme tulad ng lahat, at ang control sa sulok ang nagbubukas nito nang full screen. Ito ay tunay na diagram mula sa isang na-publish na artikulo:"
   },
   "media": {
     "seoTitle": "Media | Disenyo | Warren de Leon",
@@ -1128,7 +1128,7 @@
     "deviceBody": "Ang mga app screenshot sa mga artikulo ay nakalagay sa loob ng flat na phone frame na iginuhit sa CSS: isang brand-green na rail, isang manipis na itim na bezel, mga side button na iginuhit sa labas mismo ng rail, at isang shadow na sumusunod sa theme. Nananatili ito sa flat na estetika ng blog sa halip na photoreal na render.",
     "deviceCaption": "Ang .device-frame pattern, dito may placeholder sa pwesto ng screenshot.",
     "zoomHeading": "Full-screen zoom",
-    "zoomBody": "Ang mga larawan at pre-rendered na diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap: ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
+    "zoomBody": "Ang mga larawan at diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap: ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
     "placeholderHeading": "Placeholder",
     "placeholderBody": "Ang mga specimen sa docs na ito na dapat sana ay may larawan ay gumagamit ng neutral na placeholder sa halip na hiram na imahe, para tapat ang layout kung alin ang content at alin ang chrome.",
     "placeholderCaption": "Ang placeholder sa card-thumbnail at hero na mga ratio.",
@@ -1285,13 +1285,13 @@
       "Hindi kailanman pinapangalanan ang mga employer o internal project."
     ],
     "crossHeading": "Cross-linking",
-    "crossBody1": "Malayang nagtuturo ang mga post sa isa’t isa: ang pangungusap na bumabanggit sa token-refresh post ay naka-link doon, at pinapangalanan ng link text ang pupuntahan gaya sa itaas. Puwede pang tumuro ang mga link sa mga post na hindi pa lumalabas. Sa build time, ang link sa hindi pa na-publish na post ay **pinapalitan ng sarili nitong plain text**, kaya walang kailanman nagre-404; kapag na-publish ang pupuntahan, ang susunod na build ang magbabalik ng mga salitang iyon bilang link. Ang mga forward reference ay isinusulat nang isang beses at nareresolba nang kusa.",
-    "crossBody2": "Bawat post ay maaaring pumili ng hanggang tatlong related post sa front matter nito; ang mga walang pinili ay babagsak sa mga shared tag. May further-reading shelf na nagdadagdag ng mas tahimik na mga post na malamang hindi pa nakikita ng mambabasa, na may tope na siyam sa kabuuan, para manatili itong rekomendasyon at hindi archive.",
+    "crossBody1": "Malayang nagtuturo ang mga post sa isa’t isa: ang pangungusap na bumabanggit sa token-refresh post ay naka-link doon, at pinapangalanan ng link text ang pupuntahan gaya sa itaas. Puwede pang tumuro ang mga link sa mga post na hindi pa lumalabas. Ang link sa hindi pa na-publish na post ay simpleng **lumalabas bilang plain text**, kaya walang kailanman nagre-404, at kusang nagiging link ang mga salitang iyon kapag na-publish ang pupuntahan. Ang mga forward reference ay isinusulat nang isang beses at nareresolba nang kusa.",
+    "crossBody2": "Bawat post ay maaaring pumili ng hanggang tatlong related post ; ang mga walang pinili ay babagsak sa mga shared tag. May further-reading shelf na nagdadagdag ng mas tahimik na mga post na malamang hindi pa nakikita ng mambabasa, na may tope na siyam sa kabuuan, para manatili itong rekomendasyon at hindi archive.",
     "crossBody3": "Sa loob ng isang serye, ang previous at next ay nananatili sa loob ng serye: ang part five ay tumuturo sa parts four at six, hindi kailanman sa walang kaugnayang post na nagkataong lumabas katabi nito. Sa mga dulo lang ng serye babagsak ang mga arrow sa katabing post ayon sa petsa."
   },
   "translation": {
     "seoTitle": "Pagsasalin | Disenyo | Warren de Leon",
-    "seoDescription": "Ang patakaran sa pagsasalin na may apat na locale sa likod ng warrendeleon.com: Ingles sa root, Espanyol, Katalan at Tagalog na nakasalamin at nag-uugnay sa pamamagitan ng hreflang.",
+    "seoDescription": "Ang apat-na-wika na translation policy ng warrendeleon.com: English sa root; Spanish, Catalan at Tagalog na isinulat kung paano ito isusulat ng isang katrabaho.",
     "title": "Pagsasalin",
     "intro": "Ang bawat pahina ay isinusulat upang mabuhay sa apat na wika. Nasa root ang Ingles; sinasalamin ito ng Espanyol, Katalan at Tagalog, bawat isa sa ilalim ng sariling prefix. Ang pahinang ito ang patakarang nagpapanatili sa kanilang pagkakahanay.",
     "toc": [
@@ -1306,14 +1306,6 @@
       {
         "id": "voice",
         "label": "Ang boses sa bawat wika"
-      },
-      {
-        "id": "connect",
-        "label": "Paano nag-uugnay ang mga bersiyon"
-      },
-      {
-        "id": "posts",
-        "label": "Mga post at pagtuklas"
       }
     ],
     "localesHeading": "Apat na locale",
@@ -1343,10 +1335,6 @@
       "Mga code identifier",
       "Mga pangalan ng brand at produkto"
     ],
-    "connectHeading": "Paano nag-uugnay ang mga bersiyon",
-    "connectBody": "Pinagbubuklod ng mga hreflang alternate ang mga bersiyon, at ang bawat pahina ay naglalabas ng mga ito para lamang sa mga wikang talagang umiiral, kaya walang alternate na ina-advertise sa isang pahinang magbabalik ng 404. Ang x-default ay tumuturo sa Ingles na root. Ang bawat naisaling pahina ay sarili nitong canonical: hindi ito nagpapasakop sa orihinal na Ingles. Ang mga link na ginagawa ng interface ay nananatili sa loob ng wika ng mambabasa, habang ang isang link na nakasulat sa loob ng katawan ng isang post ay tumuturo sa Ingles na canonical.",
-    "postsHeading": "Mga post at pagtuklas",
-    "postsBody": "Ang isang naisaling post ay may pinaliit na hanay ng frontmatter: minamana nito ang petsa ng publish at series mula sa Ingles na master nito kapag binuo ang site, at dini-drop ang mga field na umiiral lamang upang buuin ang Ingles na hero image. Hindi lahat ng post ay umiiral sa lahat ng apat na wika, at kung saan nawawala ang isang salin, ipinapakita ng feed ng wika ang Ingles na bersiyon sa halip na itago ang post. Ang mga locale page ay sadyang hindi isinasama sa sitemap; naaabot sila ng mga search engine sa pamamagitan ng hreflang, at ang isang first-time na bisita sa root ay ipinapadala sa wika ng kanilang browser nang isang beses.",
     "voiceHeading": "Ang boses sa bawat wika",
     "voiceBody": "Ang translation dito ay hindi word-for-word. Bawat wika ay isinusulat kung paano ito natural na isusulat ng isang senior engineer: parehong structure at parehong facts, sa sarili nitong natural na pananalita.",
     "angliHeading": "Nananatili ang mga hiram na salita",
@@ -1354,7 +1342,8 @@
     "taglishHeading": "Taglish ang Tagalog",
     "taglishBody": "Ang mga post sa Tagalog ay idiomatic Taglish: Filipino ang daloy ng pangungusap pero nasa English pa rin ang technical vocabulary, kung paano talaga mag-usap ang mga Filipino developer tungkol sa trabaho. Ang buong-salin na technical Tagalog ay mas mahirap basahin, hindi mas madali.",
     "fillerHeading": "Tumatawid ang mga parehong bawal",
-    "fillerBody": "Ang mga writing rule ay tumatawid sa wika, at isa ang humihigpit: ang spaced em-dash na pinapayagan ng English prose ay tuluyang nawawala sa mga translation; comma, colon o parentheses ang gamit ng Spanish, Catalan at Tagalog. Bawat wika ay may sariling bawal na marketing filler din, ang mga lokal na pinsan ng English list: sa Catalan, halimbawa, bawal ang d’avantguarda, sense fissures, holístic at disruptiu."
+    "fillerBody": "Ang mga writing rule ay tumatawid sa wika, at isa ang humihigpit: ang spaced em-dash na pinapayagan ng English prose ay tuluyang nawawala sa mga translation; comma, colon o parentheses ang gamit ng Spanish, Catalan at Tagalog. Bawat wika ay may sariling bawal na marketing filler din, ang mga lokal na pinsan ng English list: sa Catalan, halimbawa, bawal ang d’avantguarda, sense fissures, holístic at disruptiu.",
+    "scopeNote": "Hindi lahat ng post ay umiiral sa apat na wika. Kapag walang translation, ipinapakita ng feed ng wikang iyon ang English na post sa halip na itago ito, at ang unang beses na bisita sa root ng site ay dinadala nang isang beses sa wika ng kanyang browser."
   },
   "accessibility": {
     "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",
@@ -1428,7 +1417,7 @@
   "copyLabel": "Kopyahin",
   "newsletter": {
     "seoTitle": "Newsletter | Disenyo | Warren de Leon",
-    "seoDescription": "Paano dinidisenyo at isinusulat ang newsletter ng warrendeleon.com: isang email bawat wika, ang mga kulay ng site sa inbox, at text na muling ginagamit ang front matter ng mismong post.",
+    "seoDescription": "Paano dinidisenyo at isinusulat ang newsletter ng warrendeleon.com: isang email bawat wika, ang mga kulay ng site sa inbox, at text na muling ginagamit ang mga salita ng mismong post.",
     "title": "Newsletter",
     "intro": "Kapag lumabas ang isang post, lumalabas din ito sa email: **isang campaign bawat wika**, bawat isa sa sariling list. Hinihiram ng email ang design language ng site at muling ginagamit ang mga salita ng mismong post, para ang inbox at ang site ay parang iisang produkto.",
     "toc": [
@@ -1445,7 +1434,7 @@
     "designBody1": "Isang 600-pixel na column: puting card sa malambot na kulay-abo na page, apat-na-pixel na lime accent bar sa itaas, ang wordmark sa ilalim nito, at Inter sa bawat linya. Ang mga link ay gumagamit ng nababasang text green at ang mga kanto ng card ay nasa 14 pixels. Ito ang site, isinalin sa kung ano ang pinapayagan ng mga email client.",
     "designBody2": "Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark grey, ang logo ay napapalitan ng light na bersyon, at ang mga berde ay tumataas para manatiling nababasa. Ang button ay gumagamit ng mas madilim na hover green para pumasa sa contrast bar ang puting text.",
     "copyHeading": "Ano ang sinasabi ng email",
-    "copyBody1": "Ang email ay nagsusulat ng sarili mula sa **front matter** ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
+    "copyBody1": "Muling ginagamit ng email ang **sariling mga salita** ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
     "copyRules": [
       "Series subject: “Bago sa serye: {title} (Bahagi N)”, na pinuputol ang title sa unang colon para manatiling maikli ang linya.",
       "Standalone subject: “Bagong post: {title}”.",

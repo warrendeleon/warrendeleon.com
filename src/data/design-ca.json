@@ -74,7 +74,7 @@
     "contentHeading": "Contingut",
     "contentBlurbs": {
       "writing": "Anglès britànic, majúscula a l'inici de frase, dates, enllaços, noms de marca.",
-      "translation": "Quatre llengües, connectades amb hreflang; què es tradueix i què no.",
+      "translation": "Quatre idiomes; què es tradueix, què es queda en anglès i la veu que conserva cada llengua.",
       "newsletter": "Un correu per idioma: el disseny del web a la safata d’entrada, amb el text del mateix post."
     },
     "accessibilityHeading": "Accessibilitat",
@@ -1092,7 +1092,7 @@
       "Tipar la costura entre remotes"
     ],
     "diagramsHeading": "Diagrames",
-    "diagramsBody": "Els diagrames d'arquitectura s'escriuen com a Mermaid al codi de l'article i es prerenderitzen a SVG en el moment d'escriure: al lector no li arriba cap llibreria de diagrames. Els mateixos tokens del lloc donen tema al resultat (nodes verds, fletxes neutres), així que es recoloreja amb el tema com tota la resta, i el control de la cantonada l'obre a pantalla completa. Aquest és un diagrama real d'un article publicat:"
+    "diagramsBody": "Els diagrames d'arquitectura són imatges estàtiques dibuixades amb els mateixos tokens del web: al lector no li arriba cap llibreria de diagrames. Els tokens donen tema al resultat (nodes verds, fletxes neutres), així que es recoloreja amb el tema com tota la resta, i el control de la cantonada l'obre a pantalla completa. Aquest és un diagrama real d'un article publicat:"
   },
   "media": {
     "seoTitle": "Mèdia | Sistema de disseny | Warren de Leon",
@@ -1128,7 +1128,7 @@
     "deviceBody": "Les captures d'app als articles van dins d'un marc de mòbil pla dibuixat amb CSS: un carril del verd de la marca, un bisell negre fi, botons laterals dibuixats just fora del carril i una ombra que s'adapta al tema. Es manté fidel a l'estètica plana del blog en lloc d'un render fotorealista.",
     "deviceCaption": "El patró .device-frame, aquí amb un marcador de posició on va la captura.",
     "zoomHeading": "Zoom a pantalla completa",
-    "zoomBody": "Les imatges i els diagrames prerenderitzats dels articles s'obren en una lightbox a pantalla completa en tocar-los: l'única superposició que es comporta igual a tots els dispositius. Els diagrames es retematitzen a dins, així que un lector en mode fosc fa zoom sobre un diagrama en mode fosc.",
+    "zoomBody": "Les imatges i els diagrames dels articles s'obren en una lightbox a pantalla completa en tocar-los: l'única superposició que es comporta igual a tots els dispositius. Els diagrames es retematitzen a dins, així que un lector en mode fosc fa zoom sobre un diagrama en mode fosc.",
     "placeholderHeading": "Marcador de posició",
     "placeholderBody": "Els especímens d'aquesta documentació que portarien una foto fan servir un marcador de posició neutre en lloc d'una imatge manllevada, perquè la maqueta sigui honesta sobre què és contingut i què és chrome.",
     "placeholderCaption": "El marcador de posició en proporcions de miniatura de targeta i d'hero.",
@@ -1285,13 +1285,13 @@
       "Mai no s’anomenen ocupadors ni projectes interns."
     ],
     "crossHeading": "Enllaços creuats",
-    "crossBody1": "Els posts s’apunten entre si amb llibertat: una frase que esmenta el post del refresc de tokens hi enllaça, amb el text de l’enllaç anomenant la destinació com més amunt. Els enllaços poden fins i tot apuntar a posts que encara no han sortit. En compilar, un enllaç a un post sense publicar se **substitueix pel seu propi text pla**, així que res no dona mai un 404; quan la destinació es publica, la compilació següent torna a convertir aquelles paraules en enllaç. Les referències endavant s’escriuen una vegada i es resolen soles.",
-    "crossBody2": "Cada post pot triar a mà fins a tres posts relacionats al seu front matter; els que no trien cauen a les etiquetes compartides. Una prestatgeria de lectures addicionals ho completa amb posts més discrets que el lector probablement no coneix, amb un topall de nou en total, perquè continuï sent una recomanació i no un arxiu.",
+    "crossBody1": "Els posts s’apunten entre si amb llibertat: una frase que esmenta el post del refresc de tokens hi enllaça, amb el text de l’enllaç anomenant la destinació com més amunt. Els enllaços poden fins i tot apuntar a posts que encara no han sortit. Un enllaç a un post sense publicar simplement es **mostra com a text pla**, així que res no dona mai un 404, i aquelles paraules es converteixen soles en enllaç quan la destinació es publica. Les referències endavant s’escriuen una vegada i es resolen soles.",
+    "crossBody2": "Cada post pot triar a mà fins a tres posts relacionats ; els que no trien cauen a les etiquetes compartides. Una prestatgeria de lectures addicionals ho completa amb posts més discrets que el lector probablement no coneix, amb un topall de nou en total, perquè continuï sent una recomanació i no un arxiu.",
     "crossBody3": "Dins d’una sèrie, anterior i següent es queden dins de la sèrie: la part cinc apunta a les parts quatre i sis, mai a un post sense relació que es va publicar al costat. Només als extrems d’una sèrie les fletxes cauen al post veí per data."
   },
   "translation": {
     "seoTitle": "Traducció | Sistema de disseny | Warren de Leon",
-    "seoDescription": "La política de traducció de quatre llengües darrere de warrendeleon.com: l'anglès a l'arrel, i el castellà, el català i el tagal reflectits i connectats amb hreflang.",
+    "seoDescription": "La política de traducció a quatre idiomes de warrendeleon.com: anglès a l’arrel; castellà, català i tagal escrits com els escriuria un company d’equip.",
     "title": "Traducció",
     "intro": "Cada pàgina s'escriu per viure en quatre llengües. L'anglès és a l'arrel; el castellà, el català i el tagal el reflecteixen, cadascun sota el seu propi prefix. Aquesta pàgina és la política que els manté sincronitzats.",
     "toc": [
@@ -1306,14 +1306,6 @@
       {
         "id": "voice",
         "label": "La veu a cada idioma"
-      },
-      {
-        "id": "connect",
-        "label": "Com es connecten les versions"
-      },
-      {
-        "id": "posts",
-        "label": "Articles i descoberta"
       }
     ],
     "localesHeading": "Quatre llengües",
@@ -1343,10 +1335,6 @@
       "Identificadors de codi",
       "Noms de marca i de producte"
     ],
-    "connectHeading": "Com es connecten les versions",
-    "connectBody": "Les alternatives hreflang lliguen les versions entre si, i cada pàgina només les emet per a les llengües en què realment existeix, de manera que mai no s'anuncia una alternativa cap a una pàgina que retornaria un 404. El x-default apunta a l'arrel en anglès. Cada pàgina traduïda és la seva pròpia URL canònica: no cedeix a l'original anglès. Els enllaços que genera la interfície es mantenen dins de la llengua del lector, mentre que un enllaç escrit dins del cos d'un article apunta a la canònica anglesa.",
-    "postsHeading": "Articles i descoberta",
-    "postsBody": "Un article traduït porta un conjunt reduït de frontmatter: hereta la data de publicació i la sèrie del seu original anglès quan es construeix el lloc, i descarta els camps que només existeixen per generar la imatge principal anglesa. No tots els articles existeixen en les quatre llengües, i quan falta una traducció, el canal de la llengua mostra la versió anglesa en lloc d'amagar l'article. Les pàgines de les llengües es mantenen fora del sitemap expressament; els cercadors hi arriben a través de hreflang, i un visitant que arriba per primera vegada a l'arrel s'envia a la llengua del seu navegador un cop.",
     "voiceHeading": "La veu a cada idioma",
     "voiceBody": "Una traducció aquí no és un calc paraula per paraula. Cada idioma s’escriu com l’escriuria de manera nativa un enginyer sènior: la mateixa estructura i els mateixos fets, amb la seva pròpia manera natural de dir-los.",
     "angliHeading": "Els manlleus es queden",
@@ -1354,7 +1342,8 @@
     "taglishHeading": "El tagal és taglish",
     "taglishBody": "Els posts en tagal són taglish idiomàtic: la frase flueix en filipí amb el vocabulari tècnic intacte en anglès, tal com parlen de feina els desenvolupadors filipins. Un tagal tècnic traduït del tot seria més difícil de llegir, no més fàcil.",
     "fillerHeading": "Les mateixes prohibicions viatgen",
-    "fillerBody": "Les regles d’escriptura creuen la barrera de l’idioma, i una s’endureix: l’incís amb guió llarg que la prosa anglesa permet desapareix del tot a les traduccions; el castellà, el català i el tagal fan servir coma, dos punts o parèntesis. Cada idioma prohibeix a més el seu propi farciment de màrqueting, els cosins locals de la llista anglesa: en català, per exemple, queden fora d’avantguarda, sense fissures, holístic i disruptiu."
+    "fillerBody": "Les regles d’escriptura creuen la barrera de l’idioma, i una s’endureix: l’incís amb guió llarg que la prosa anglesa permet desapareix del tot a les traduccions; el castellà, el català i el tagal fan servir coma, dos punts o parèntesis. Cada idioma prohibeix a més el seu propi farciment de màrqueting, els cosins locals de la llista anglesa: en català, per exemple, queden fora d’avantguarda, sense fissures, holístic i disruptiu.",
+    "scopeNote": "No tots els posts existeixen en els quatre idiomes. Quan falta una traducció, el feed d’aquell idioma mostra el post en anglès en comptes d’amagar-lo, i qui visita l’arrel del web per primera vegada és enviat un cop a la llengua del seu navegador."
   },
   "accessibility": {
     "seoTitle": "Accessibilitat | Sistema de disseny | Warren de Leon",
@@ -1428,7 +1417,7 @@
   "copyLabel": "Copia",
   "newsletter": {
     "seoTitle": "Newsletter | Sistema de disseny | Warren de Leon",
-    "seoDescription": "Com es dissenya i s’escriu la newsletter de warrendeleon.com: un correu per idioma, els colors del web a la safata d’entrada, i un text que reutilitza el front matter del mateix post.",
+    "seoDescription": "Com es dissenya i s’escriu la newsletter de warrendeleon.com: un correu per idioma, els colors del web a la safata d’entrada, i un text que reutilitza les paraules del mateix post.",
     "title": "Newsletter",
     "intro": "Quan un post surt a la llum, també surt per correu: **una campanya per idioma**, cadascuna a la seva pròpia llista. El correu manlleva el llenguatge de disseny del web i reutilitza les paraules del mateix post, perquè la safata d’entrada i el web se sentin un sol producte.",
     "toc": [
@@ -1445,7 +1434,7 @@
     "designBody1": "Una sola columna de 600 píxels: una targeta blanca sobre una pàgina gris suau, una barra d’accent llima de quatre píxels a la part superior, el logotip a sota, i Inter a cada línia. Els enllaços fan servir el verd llegible de text i les cantonades de la targeta van a 14 píxels. És el web, traduït al que els clients de correu permeten.",
     "designBody2": "El mode fosc segueix la preferència del lector, amb la mateixa idea de valors aparellats que els tokens del web: la pàgina passa a gairebé negre, la targeta a gris fosc, el logotip canvia a la seva versió clara, i els verds pugen un punt per continuar sent llegibles. El botó fa servir el verd fosc de hover perquè el text blanc superi el llistó de contrast.",
     "copyHeading": "Què diu el correu",
-    "copyBody1": "El correu s’escriu sol a partir del **front matter** del post, així que res no s’escriu dues vegades i res no pot contradir el web. Un post de sèrie rep l’eyebrow de la sèrie i el seu número de part, el cos és la mateixa descripció del post, i el botó és l’única acció.",
+    "copyBody1": "El correu reutilitza les **pròpies paraules** del post, així que res no s’escriu dues vegades i res no pot contradir el web. Un post de sèrie rep l’eyebrow de la sèrie i el seu número de part, el cos és la mateixa descripció del post, i el botó és l’única acció.",
     "copyRules": [
       "Assumpte de sèrie: «Nou a la sèrie: {títol} (Part N)», amb el títol tallat al primer signe de dos punts perquè la línia quedi curta.",
       "Assumpte de post solt: «Nou article: {títol}».",

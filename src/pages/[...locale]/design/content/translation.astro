@@ -68,6 +68,7 @@ const localeRows: { code: string; path: string }[] = [
         <ul>{tr.scopeKept.map((x) => <li set:html={md(x)} />)}</ul>
       </div>
     </div>
+    <p set:html={md(tr.scopeNote)} />
   </section>
 
   <section id="voice">
@@ -81,15 +82,6 @@ const localeRows: { code: string; path: string }[] = [
     <p set:html={md(tr.fillerBody)} />
   </section>
 
-  <section id="connect">
-    <h2>{tr.connectHeading}</h2>
-    <p set:html={md(tr.connectBody)} />
-  </section>
-
-  <section id="posts">
-    <h2>{tr.postsHeading}</h2>
-    <p set:html={md(tr.postsBody)} />
-  </section>
 </DesignLayout>
 
 <style>
