@@ -690,6 +690,10 @@
         "label": "Nilalaman"
       },
       {
+        "id": "icon",
+        "label": "Mga icon button"
+      },
+      {
         "id": "rules",
         "label": "Kailan gagamitin"
       }
@@ -722,7 +726,10 @@
       "focus": "Focus",
       "disabled": "Disabled"
     },
-    "statesDisabledNote": "Karamihan ng mga button sa site ay mga link, kaya bihira ang tunay na disabled state; ang mga arrow ng series ang live na halimbawa ng kumbensyong ito."
+    "statesDisabledNote": "Karamihan ng mga button sa site ay mga link, kaya bihira ang tunay na disabled state; ang mga arrow ng series ang live na halimbawa ng kumbensyong ito.",
+    "iconHeading": "Mga icon button",
+    "iconBody": "May mga button na glyph, hindi salita: ang mga round social circle sa hero, ang theme toggle, ang mga control ng reading bar. Ang glyph ay nananatili sa 15 hanggang 20 pixels habang ang circle ang nagbibigay ng hit area, at ang kulay ay sumusunod sa mga rule ng text: muted kapag nakapahinga, berde kapag naka-hover. Sa ibaba, ang mga totoong component.",
+    "iconCaption": "Ang mga live na social link at ang totoong theme toggle."
   },
   "tagsChips": {
     "seoTitle": "Mga tag at chip | Disenyo | Warren de Leon",

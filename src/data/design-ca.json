@@ -690,6 +690,10 @@
         "label": "Contingut"
       },
       {
+        "id": "icon",
+        "label": "Botons d’icona"
+      },
+      {
         "id": "rules",
         "label": "Quan utilitzar-ho"
       }
@@ -722,7 +726,10 @@
       "focus": "Focus",
       "disabled": "Desactivat"
     },
-    "statesDisabledNote": "La majoria de botons del lloc són enllaços, així que un estat desactivat de debò és rar; les fletxes de sèrie són l'exemple viu d'aquesta convenció."
+    "statesDisabledNote": "La majoria de botons del lloc són enllaços, així que un estat desactivat de debò és rar; les fletxes de sèrie són l'exemple viu d'aquesta convenció.",
+    "iconHeading": "Botons d’icona",
+    "iconBody": "Alguns botons són un glif, no una paraula: els cercles socials de la portada, el commutador de tema, els controls de la barra de lectura. El glif es queda en 15 a 20 píxels mentre el cercle aporta l’àrea de toc, i el color segueix les regles del text: apagat en repòs, verd en passar-hi per sobre. A sota, els components reals.",
+    "iconCaption": "Els enllaços socials reals i el commutador de tema real."
   },
   "tagsChips": {
     "seoTitle": "Etiquetes i xips | Sistema de disseny | Warren de Leon",

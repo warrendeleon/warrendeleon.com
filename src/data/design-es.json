@@ -690,6 +690,10 @@
         "label": "Contenido"
       },
       {
+        "id": "icon",
+        "label": "Botones de icono"
+      },
+      {
         "id": "rules",
         "label": "Cuándo usarlo"
       }
@@ -722,7 +726,10 @@
       "focus": "Foco",
       "disabled": "Deshabilitado"
     },
-    "statesDisabledNote": "La mayoría de los botones del sitio son enlaces, así que un estado deshabilitado real es raro; las flechas de serie son el ejemplo vivo de esta convención."
+    "statesDisabledNote": "La mayoría de los botones del sitio son enlaces, así que un estado deshabilitado real es raro; las flechas de serie son el ejemplo vivo de esta convención.",
+    "iconHeading": "Botones de icono",
+    "iconBody": "Algunos botones son un glifo, no una palabra: los círculos sociales de la portada, el conmutador de tema, los controles de la barra de lectura. El glifo se queda en 15 a 20 píxeles mientras el círculo aporta el área de pulsación, y el color sigue las reglas del texto: apagado en reposo, verde al pasar el cursor. Abajo, los componentes reales.",
+    "iconCaption": "Los enlaces sociales reales y el conmutador de tema real."
   },
   "tagsChips": {
     "seoTitle": "Etiquetas y chips | Sistema de diseño | Warren de Leon",

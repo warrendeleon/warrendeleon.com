@@ -1,4 +1,6 @@
 ---
+import SocialLinks from '../../../../components/SocialLinks.astro';
+import ThemeToggle from '../../../../components/ThemeToggle.astro';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import { md } from '../../../../lib/inline-markup';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
@@ -80,6 +82,18 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
   <section id="content">
     <h2>{b.contentHeading}</h2>
     <p set:html={md(b.contentBody)} />
+  </section>
+
+
+  <section id="icon">
+    <h2>{b.iconHeading}</h2>
+    <p set:html={md(b.iconBody)} />
+    <SpecimenCard label={b.iconCaption}>
+      <div class="ds-iconbtn-row">
+        <SocialLinks locale={locale} />
+        <ThemeToggle locale={locale} />
+      </div>
+    </SpecimenCard>
   </section>
 
   <section id="rules">
@@ -168,4 +182,5 @@ const currentPath = getLocalePath(locale, '/design/components/buttons/');
     opacity: 0.35;
     cursor: default;
   }
+  .ds-iconbtn-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
 </style>

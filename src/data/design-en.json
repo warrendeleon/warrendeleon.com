@@ -690,6 +690,10 @@
         "label": "Content"
       },
       {
+        "id": "icon",
+        "label": "Icon buttons"
+      },
+      {
         "id": "rules",
         "label": "When to use"
       }
@@ -722,7 +726,10 @@
       "Grey out a disabled button so hard it stops looking like the control."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Inline: .btn with .btn-primary or .btn-outline. Pills: .hero-cta with .hero-cta-solid or .hero-cta-outline, grouped in .hero-ctas."
+    "whereBody": "Inline: .btn with .btn-primary or .btn-outline. Pills: .hero-cta with .hero-cta-solid or .hero-cta-outline, grouped in .hero-ctas.",
+    "iconHeading": "Icon buttons",
+    "iconBody": "Some buttons are a glyph, not a word: the round social circles on the hero, the theme toggle, the reading bar’s controls. The glyph stays at 15 to 20 pixels while the circle provides the hit area, and colour follows the text rules — muted at rest, green on hover. Below, the real components.",
+    "iconCaption": "The live social links and the real theme toggle."
   },
   "tagsChips": {
     "seoTitle": "Tags & chips | Design system | Warren de Leon",
