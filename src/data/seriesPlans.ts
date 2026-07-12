@@ -17,10 +17,6 @@ export interface PlannedPart {
 
 const seriesPlans: Record<string, PlannedPart[]> = {
   'React Native Module Federation': [
-    { title: 'One shared RTK Query store + real PokeAPI (server state)', date: '2026-07-20' },
-    { title: 'Cross-module state: slice injection and dispatch (client state)', date: '2026-07-27' },
-    { title: 'State stacks compared under federation', date: '2026-08-03' },
-    { title: 'Two backends, one client? RTK Query vs Apollo', date: '2026-08-10' },
     { title: 'The design system as a federated singleton', date: '2026-08-17' },
     { title: 'Accessibility testing across federated remotes', date: '2026-08-24' },
     { title: 'shell.navigateTo: RN ↔ native handoff', date: '2026-08-31' },
