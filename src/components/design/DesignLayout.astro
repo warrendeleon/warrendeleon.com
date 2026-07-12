@@ -47,15 +47,26 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
   <section class="section">
     <div class="container">
       <div class="ds-content">
-        <nav class="ds-breadcrumb" aria-label={d.breadcrumbLabel}>
-          <a href={rootPath}>{d.designLabel}</a>
-          {groupLabel && (
-            <>
-              <span class="ds-crumb-sep" aria-hidden="true">/</span>
-              <span>{groupLabel}</span>
-            </>
-          )}
-        </nav>
+        {!isHub && (
+          <a href={rootPath} class="blog-back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            {d.backToDesign}
+          </a>
+        )}
+        {!isHub && (
+          <nav class="ds-breadcrumb" aria-label={d.breadcrumbLabel}>
+            <a href={rootPath}>{d.designLabel}</a>
+            {groupLabel && (
+              <>
+                <span class="ds-crumb-sep" aria-hidden="true">/</span>
+                <span>{groupLabel}</span>
+              </>
+            )}
+          </nav>
+        )}
 
         <header class="ds-header">
           <h1 class="section-title">{title}</h1>
@@ -255,6 +266,23 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
      rule), scoped by the sheet's presence so the hub keeps its dock. */
   @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
     html:has(#ds-toc-sheet) nav.tab-bar[aria-label] { display: none; }
+  }
+
+  /* Same back affordance as blog posts: desktop-only, because mobile/tablet
+     already get the top-bar chevron and both showing doubles it. */
+  .blog-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    transition: color 0.2s ease, gap 0.2s ease;
+  }
+  .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .blog-back-link { display: none; }
   }
 
   .ds-breadcrumb {
