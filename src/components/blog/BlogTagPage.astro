@@ -8,6 +8,7 @@ import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug } from '../../utils/blogHelpers';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
+import Breadcrumb from '../Breadcrumb.astro';
 
 interface Props {
   locale: Locale;
@@ -44,13 +45,13 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
   <section class="section">
     <div class="container">
       <div class="tag-page-header">
-        <a href={blogPath} class="blog-back-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          {i18n.blog.backToBlog}
-        </a>
+        <Breadcrumb
+          label={i18n.a11y.breadcrumb}
+          items={[
+            { label: i18n.nav.blog, href: blogPath },
+            { label: i18n.blog.tagsCrumb, href: getLocalePath(locale, '/blog/tags/') },
+          ]}
+        />
         <!-- Design: the tag name renders in the mono face. -->
         <h1 class="section-title tag-page-title">{i18n.blog.postsTagged} <span class="blog-mono">{tagLabel}</span></h1>
         <p class="tag-page-count">{posts.length} {posts.length === 1 ? i18n.blog.post : i18n.blog.posts}</p>
@@ -126,14 +127,7 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
 
 <style is:global>
   .tag-page-header { margin-bottom: 2rem; }
-  .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
-  .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
 
-  /* Design: the in-body back link is desktop-only — mobile/tablet use the
-     top bar chevron. */
-  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
-    .tag-page-header .blog-back-link { display: none; }
-  }
   .tag-page-count { font-size: 1rem; color: var(--text-muted); margin-top: 0.75rem; }
 
   /* Detail-page title (design): 26px mobile, 30px from tablet up. */

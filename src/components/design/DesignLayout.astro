@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import ReadingBar from '../blog/ReadingBar.astro';
 import ReadingProgress from '../blog/ReadingProgress.astro';
 import Toc from '../blog/Toc.astro';
+import Breadcrumb from '../Breadcrumb.astro';
 import { t, getLocalePath, type Locale } from '../../i18n/index';
 import { getDesignData } from '../../lib/design-data';
 import { DESIGN_ROOT, type DesignGroup } from '../../lib/design-ia';
@@ -48,24 +49,13 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     <div class="container">
       <div class="ds-content">
         {!isHub && (
-          <a href={rootPath} class="blog-back-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            {d.backToDesign}
-          </a>
-        )}
-        {!isHub && (
-          <nav class="ds-breadcrumb" aria-label={d.breadcrumbLabel}>
-            <a href={rootPath}>{d.designLabel}</a>
-            {groupLabel && (
-              <>
-                <span class="ds-crumb-sep" aria-hidden="true">/</span>
-                <span>{groupLabel}</span>
-              </>
-            )}
-          </nav>
+          <Breadcrumb
+            label={d.breadcrumbLabel}
+            items={[
+              { label: d.designLabel, href: rootPath },
+              ...(groupLabel ? [{ label: groupLabel }] : []),
+            ]}
+          />
         )}
 
         <header class="ds-header">
@@ -267,39 +257,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
   @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
     html:has(#ds-toc-sheet) nav.tab-bar[aria-label] { display: none; }
   }
-
-  /* Same back affordance as blog posts: desktop-only, because mobile/tablet
-     already get the top-bar chevron and both showing doubles it. */
-  .blog-back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    transition: color 0.2s ease, gap 0.2s ease;
-  }
-  .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
-  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
-    .blog-back-link { display: none; }
-  }
-
-  .ds-breadcrumb {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin-bottom: 1rem;
-  }
-  .ds-breadcrumb a { color: var(--text-muted); }
-  .ds-breadcrumb a:hover { color: var(--color-green-text); }
-  .ds-crumb-sep { opacity: 0.5; }
 
   .ds-header { margin-bottom: 2rem; }
   .ds-intro {

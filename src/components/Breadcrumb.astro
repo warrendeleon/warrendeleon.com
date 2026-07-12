@@ -1,0 +1,48 @@
+---
+// The site breadcrumb: small mono caps above a page title. Segments name
+// places, never the current page (that's the h1 below). Each segment is
+// capped with an ellipsis so a long name can't wrap the trail.
+interface Item {
+  label: string;
+  href?: string;
+}
+interface Props {
+  items: Item[];
+  label: string;
+}
+const { items, label } = Astro.props;
+---
+
+<nav class="breadcrumb" aria-label={label}>
+  {items.map((item, i) => (
+    <>
+      {i > 0 && <span class="breadcrumb-sep" aria-hidden="true">/</span>}
+      {item.href ? <a href={item.href}>{item.label}</a> : <span class="breadcrumb-here">{item.label}</span>}
+    </>
+  ))}
+</nav>
+
+<style>
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+  .breadcrumb a,
+  .breadcrumb-here {
+    max-width: 28ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .breadcrumb a { color: var(--text-muted); }
+  .breadcrumb a:hover { color: var(--color-green-text); }
+  .breadcrumb-sep { opacity: 0.5; }
+</style>

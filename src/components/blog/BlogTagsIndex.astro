@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSearch from './BlogSearch.astro';
+import Breadcrumb from '../Breadcrumb.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getPostsForLocale } from '../../utils/blogHelpers';
@@ -39,13 +40,10 @@ const tags = [...tagCounts.entries()]
   <section class="section">
     <div class="container">
       <div class="tag-page-header">
-        <a href={blogPath} class="blog-back-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          {i18n.blog.backToBlog}
-        </a>
+        <Breadcrumb
+          label={i18n.a11y.breadcrumb}
+          items={[{ label: i18n.nav.blog, href: blogPath }]}
+        />
         <h1 class="section-title">{i18n.blog.browseByTag}</h1>
         <p class="tags-subtitle">{i18n.blog.tagsSubtitle.replace('{t}', String(tags.length)).replace('{p}', String(posts.length))}</p>
       </div>
@@ -66,14 +64,7 @@ const tags = [...tagCounts.entries()]
 
 <style is:global>
   .tag-page-header { margin-bottom: 2rem; }
-  .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
-  .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
 
-  /* Design: the in-body back link is desktop-only — mobile/tablet use the
-     top bar chevron. */
-  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
-    .tag-page-header .blog-back-link { display: none; }
-  }
 
   .tags-subtitle { margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); }
 

@@ -138,7 +138,9 @@
     "planned": "Nakaplano",
     "tagsSubtitle": "{t} tag sa {p} post. I-tap ang isang tag para makita ang lahat ng post nito.",
     "companionCode": "Kasamang code",
-    "viewSeries": "Tingnan ang series"
+    "viewSeries": "Tingnan ang series",
+    "tagsCrumb": "Mga tag",
+    "seriesCrumb": "Mga serye"
   },
   "education": {
     "heading": "Edukasyon",
@@ -252,7 +254,8 @@
     "image": "Larawan",
     "opensInNewTab": "(bubukas sa bagong tab)",
     "skipToContent": "Lumaktaw sa nilalaman",
-    "close": "Isara"
+    "close": "Isara",
+    "breadcrumb": "Breadcrumb"
   },
   "notFound": {
     "title": "Hindi natagpuan ang pahina",

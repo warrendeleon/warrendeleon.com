@@ -6,8 +6,9 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, getSeriesSlug, publishSlot, type ScheduledPost } from '../../utils/blogHelpers';
+import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, getSeriesSlug, shortenSeriesName, publishSlot, type ScheduledPost } from '../../utils/blogHelpers';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
+import Breadcrumb from '../Breadcrumb.astro';
 import type { MarkdownHeading } from 'astro';
 import popularity from '../../data/popularity.json';
 import AuthorCard from './AuthorCard.astro';
@@ -178,13 +179,15 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
 
   <section class="post-hero section-alt" aria-label={i18n.a11y.postHeader}>
     <div class="container">
-      <a href={blogPath} class="blog-back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="19" y1="12" x2="5" y2="12"></line>
-          <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        {i18n.blog.backToBlog}
-      </a>
+      <Breadcrumb
+        label={i18n.a11y.breadcrumb}
+        items={[
+          { label: i18n.nav.blog, href: blogPath },
+          ...(post.data.series
+            ? [{ label: shortenSeriesName(post.data.series), href: getLocalePath(locale, `/blog/series/${getSeriesSlug(post.data.series)}/`) }]
+            : []),
+        ]}
+      />
 
       <h1>{post.data.title}</h1>
 
@@ -889,14 +892,6 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   .post-layout > .prose { grid-column: 1; grid-row: 1; min-width: 0; }
   /* .toc visual styles live in Toc.astro (shared with the design docs);
      the .post-layout grid rules for it stay here. */
-  .blog-back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
-  .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
-
-  /* Design: the in-body back link is desktop-only — mobile/tablet use the
-     top bar chevron, so both showing doubles the affordance. */
-  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
-    .blog-back-link { display: none; }
-  }
   /* .author-card styles live in AuthorCard.astro (shared with the design docs). */
   .share-links { display: flex; align-items: center; gap: 0.75rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); flex-wrap: wrap; }
   .share-links > span { font-size: 0.9rem; color: var(--text-muted); font-weight: 600; }

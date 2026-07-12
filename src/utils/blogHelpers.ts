@@ -71,6 +71,21 @@ export async function getPostsForLocale(locale: Locale, includeFuture = import.m
     if (inherited) post.data.series = inherited;
   }
 
+  // Posts in a series share one hero colour by convention, but the hex lives in
+  // each post's frontmatter, so a copy-paste slip ships a mismatched series.
+  // Fail the build instead, naming both posts.
+  const seriesHex = new Map<string, { hex: string; id: string }>();
+  for (const post of all) {
+    if ((post.data.locale || 'en') !== 'en' || !post.data.series || !post.data.heroBgColor) continue;
+    const seen = seriesHex.get(post.data.series);
+    if (seen && seen.hex !== post.data.heroBgColor) {
+      throw new Error(
+        `Series "${post.data.series}" has two hero colours: ${seen.hex} ("${seen.id}") vs ${post.data.heroBgColor} ("${post.id}").`
+      );
+    }
+    if (!seen) seriesHex.set(post.data.series, { hex: post.data.heroBgColor, id: post.id });
+  }
+
   return all
     .filter((post): post is ScheduledPost =>
       post.data.publishDate instanceof Date &&

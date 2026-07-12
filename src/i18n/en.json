@@ -138,7 +138,9 @@
     "planned": "Planned",
     "tagsSubtitle": "{t} tags across {p} posts. Tap a tag to see every post that carries it.",
     "companionCode": "Companion code",
-    "viewSeries": "View series"
+    "viewSeries": "View series",
+    "tagsCrumb": "Tags",
+    "seriesCrumb": "Series"
   },
   "education": {
     "heading": "Education",
@@ -252,7 +254,8 @@
     "image": "Image",
     "opensInNewTab": "(opens in new tab)",
     "skipToContent": "Skip to content",
-    "close": "Close"
+    "close": "Close",
+    "breadcrumb": "Breadcrumb"
   },
   "notFound": {
     "title": "Page not found",

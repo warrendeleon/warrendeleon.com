@@ -138,7 +138,9 @@
     "planned": "Programat",
     "tagsSubtitle": "{t} etiquetes en {p} articles. Toca una etiqueta per veure tots els seus articles.",
     "companionCode": "Codi del projecte",
-    "viewSeries": "Veure la sèrie"
+    "viewSeries": "Veure la sèrie",
+    "tagsCrumb": "Etiquetes",
+    "seriesCrumb": "Sèries"
   },
   "education": {
     "heading": "Formació",
@@ -252,7 +254,8 @@
     "image": "Imatge",
     "opensInNewTab": "(s'obre en una pestanya nova)",
     "skipToContent": "Salta al contingut",
-    "close": "Tancar"
+    "close": "Tancar",
+    "breadcrumb": "Ruta de navegació"
   },
   "notFound": {
     "title": "Pàgina no trobada",

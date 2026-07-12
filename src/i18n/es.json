@@ -138,7 +138,9 @@
     "planned": "Programado",
     "tagsSubtitle": "{t} etiquetas en {p} artículos. Toca una etiqueta para ver todos sus artículos.",
     "companionCode": "Código del proyecto",
-    "viewSeries": "Ver la serie"
+    "viewSeries": "Ver la serie",
+    "tagsCrumb": "Etiquetas",
+    "seriesCrumb": "Series"
   },
   "education": {
     "heading": "Formación",
@@ -252,7 +254,8 @@
     "image": "Imagen",
     "opensInNewTab": "(se abre en una pestaña nueva)",
     "skipToContent": "Saltar al contenido",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "breadcrumb": "Ruta de navegación"
   },
   "notFound": {
     "title": "Página no encontrada",

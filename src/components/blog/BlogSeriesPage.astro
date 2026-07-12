@@ -9,6 +9,7 @@ import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug, getPostsForLo
 import { getSeriesDescription, getSeriesRepo } from '../../i18n/seriesDescriptions';
 import { getSeriesPlan } from '../../data/seriesPlans';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
+import Breadcrumb from '../Breadcrumb.astro';
 
 interface Props {
   locale: Locale;
@@ -145,13 +146,13 @@ const itemListJsonLd = {
         </div>
       )}
       <div class="tag-page-header">
-        <a href={blogPath} class="blog-back-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-          </svg>
-          {i18n.blog.backToBlog}
-        </a>
+        <Breadcrumb
+          label={i18n.a11y.breadcrumb}
+          items={[
+            { label: i18n.nav.blog, href: blogPath },
+            { label: i18n.blog.seriesCrumb, href: getLocalePath(locale, '/blog/series/') },
+          ]}
+        />
         <p class="series-page-eyebrow blog-mono">{i18n.blog.seriesLabel} &middot; {totalParts} {i18n.blog.parts} &middot; {nextPlannedDate ? i18n.blog.inProgress : i18n.blog.seriesComplete}</p>
         <h1 class="section-heading">{seriesName}</h1>
         <p class="series-page-lede">{lede}</p>
@@ -247,14 +248,7 @@ const itemListJsonLd = {
 
 <style is:global>
   .tag-page-header { margin-bottom: 2rem; }
-  .tag-page-header .blog-back-link { display: flex; width: fit-content; align-items: center; gap: 0.4rem; font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 1.5rem; transition: color 0.2s ease, gap 0.2s ease; }
-  .tag-page-header .blog-back-link:hover { color: var(--color-green-text); gap: 0.6rem; }
 
-  /* Design: the in-body back link is desktop-only — mobile/tablet use the
-     top bar chevron. */
-  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
-    .tag-page-header .blog-back-link { display: none; }
-  }
   .tag-page-count { font-size: 1rem; color: var(--text-muted); margin-top: 0.75rem; }
 
   /* Detail-page title (design): 26px mobile, 30px from tablet up. */
