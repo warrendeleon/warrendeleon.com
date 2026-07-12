@@ -196,17 +196,17 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
 
       // Sheet open/close — the post sheet's is-open transition dance.
       const desktopToc = window.matchMedia('(min-width: 1024px)');
-      function openSheet() {
+      const openSheet = () => {
         if (desktopToc.matches) return; // the pinned sidebar covers it there
         sheet.hidden = false;
         requestAnimationFrame(() => sheet.classList.add('is-open'));
         tocBtn?.setAttribute('aria-expanded', 'true');
-      }
-      function closeSheet() {
+      };
+      const closeSheet = () => {
         sheet.classList.remove('is-open');
         tocBtn?.setAttribute('aria-expanded', 'false');
         window.setTimeout(() => { sheet.hidden = true; }, 300);
-      }
+      };
       tocBtn?.addEventListener('click', () => (sheet.hidden ? openSheet() : closeSheet()));
       sheet.querySelector('[data-overlay-close]')?.addEventListener('click', closeSheet);
       sheet.querySelectorAll('[data-sheet-close]').forEach((a) => a.addEventListener('click', closeSheet));
