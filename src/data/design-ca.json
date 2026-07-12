@@ -329,7 +329,8 @@
       "sectionHeading": "Capçalera de secció: una barra fixa de 60px. Classe .section-heading.",
       "articleHeading": "Capçalera d'article: un subratllat complet a l'amplada del text. .prose h2.",
       "browline": "Browline de detall: text verd, sense marca. .prose h3."
-    }
+    },
+    "aboutNote": "Un matís acompanya el rol de cos: a la portada, el primer paràgraf del text de presentació puja a color primari i pes mitjà, un tractament d’entradeta discret."
   },
   "layout": {
     "seoTitle": "Disposició | Sistema de disseny | Warren de Leon",
@@ -766,7 +767,8 @@
       "Amuntegar tantes píndoles en una fila que no se'n pugui llegir cap."
     ],
     "whereHeading": "On es troba",
-    "whereBody": "Distintiu: .badge (agrupat a .badge-group). Etiqueta d'entrada: .post-tag (agrupat a .post-tags). Tots dos comparteixen la parella neutra `--badge-bg` / `--badge-text`."
+    "whereBody": "Distintiu: .badge (agrupat a .badge-group). Etiqueta d'entrada: .post-tag (agrupat a .post-tags). Tots dos comparteixen la parella neutra `--badge-bg` / `--badge-text`.",
+    "familyNote": "Dues cosines completen la família de píndoles: la píndola del núvol d’etiquetes a la pàgina d’exploració, un objectiu tàctil de 44 píxels amb etiqueta mono i bombolla de recompte tintada; i el xip de sèrie, un disc d’art al costat d’una etiqueta, usat per la paleta de cerca i la fila d’exploració del blog."
   },
   "cards": {
     "seoTitle": "Targetes | Sistema de disseny | Warren de Leon",
@@ -896,6 +898,10 @@
         "label": "Fil d’Ariadna"
       },
       {
+        "id": "chrome",
+        "label": "Peces menors"
+      },
+      {
         "id": "rules",
         "label": "Quan utilitzar-ho"
       }
@@ -929,7 +935,9 @@
     "railBody": "La navegació d'aquesta secció segueix l'anatomia de l'article del blog en lloc d'inventar-ne una de pròpia: al mòbil la barra superior canvia el logo per un xebró de tornada a l'inici de Disseny amb un títol plegable, la barra de lectura substitueix el dock i el seu botó d'anell obre els continguts com un full inferior, i a escriptori els continguts queden fixats a la dreta com el ToC de l'article, ressaltant la secció on ets. El fil d'Ariadna anomena el grup, i la pàgina d'inici de la secció és l'índex.",
     "crumbHeading": "Fil d’Ariadna",
     "crumbBody": "Un petit rastre en versaletes mono sobre el títol de la pàgina. Anomena llocs, mai la pàgina mateixa: això ho fa el títol de sota, així que el rastre acaba un nivell per sobre. Cada segment es talla amb punts suspensius, i els noms llargs de sèrie s’escurcen a l’origen (“React Native” passa a “RN”), de manera que el rastre no es pot partir en dues línies.",
-    "crumbWhere": "Apareix als articles (Blog i després la sèrie), a les pàgines d’etiquetes i sèries, i en aquesta documentació. Al mòbil conviu amb el xebró de la barra superior: el xebró et porta enrere, el rastre et diu on ets."
+    "crumbWhere": "Apareix als articles (Blog i després la sèrie), a les pàgines d’etiquetes i sèries, i en aquesta documentació. Al mòbil conviu amb el xebró de la barra superior: el xebró et porta enrere, el rastre et diu on ets.",
+    "chromeHeading": "Peces menors",
+    "chromeBody": "Quatre peces menors completen el conjunt de navegació. Una barra de progrés verda fixa de 3 píxels corona cada article i cada pàgina d’aquesta documentació. Un botó rodó de tornar amunt apareix flotant quan la pàgina és prou llarga. El feed del blog pagina amb enllaços numerats a escriptori i una única píndola de carregar-ne més al mòbil. I la pàgina 404 manté la mateixa veu: un 404 gran, una línia, i botons de contorn de tornada a Inici, Blog i Feina."
   },
   "sheetsOverlays": {
     "seoTitle": "Fulls i superposicions | Sistema de disseny | Warren de Leon",
@@ -948,6 +956,10 @@
       {
         "id": "rules",
         "label": "Quan utilitzar-ho"
+      },
+      {
+        "id": "palette",
+        "label": "Paleta de cerca"
       }
     ],
     "anatomyHeading": "Anatomia",
@@ -978,7 +990,11 @@
       "Atrapar el lector: un toc al teló de fons tanca el full."
     ],
     "whereHeading": "On es troba",
-    "whereBody": "La família .post-sheet a global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, amb .sheet-active a la fila actual."
+    "whereBody": "La família .post-sheet a global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, amb .sheet-active a la fila actual.",
+    "paletteHeading": "Paleta de cerca",
+    "paletteBody": "La cerca del blog és l’únic overlay que no és ni full ni desplegable: una paleta d’ordres centrada sobre un fons desenfocat, oberta des de la barra superior o amb Cmd K, governada del tot des del teclat. Ofereix recomanacions i xips de sèries i etiquetes abans d’escriure, ressalta les coincidències en teclejar, i anomena la seva pròpia sortida. Entre 700 i 1279 píxels el selector d’idioma manlleva aquesta forma de panell centrat, en comptes del full inferior del mòbil.",
+    "consentHeading": "Consentiment",
+    "consentBody": "L’avís de galetes és una barra fixa amb tres opcions iguals — acceptar, rebutjar, personalitzar — i la ruta de personalitzar obre una targeta de preferències amb el focus atrapat i un únic commutador d’analítica. Rebutjar és tan fàcil com acceptar, i la pàgina de privadesa pot reobrir la decisió en qualsevol moment."
   },
   "articlePatterns": {
     "seoTitle": "Patrons d'article | Sistema de disseny | Warren de Leon",
@@ -1222,7 +1238,8 @@
     "heroColourBody": "**El model mai tria la paleta.** Cada il·lustració agafa uns quants colors d’un repertori compartit de deu (la llima de la marca, i després blau marí, corall, verd blavós, pruna, ambre, rosa pàl·lid, cel, carbó i sorra), i l’accent llima sempre hi és. Així no hi ha dues capçaleres amb la mateixa barreja, però totes es queden dins de la mateixa família.",
     "heroCaption": "Una capçalera real: uns quants colors de la paleta compartida sobre el fons de la seva sèrie.",
     "heroMore": "La paleta i els fons per sèrie estan documentats amb la resta del sistema de color a",
-    "heroMoreLink": "la pàgina de Color"
+    "heroMoreLink": "la pàgina de Color",
+    "heroPageNote": "A la pàgina d’un article, la capçalera reposa sobre una còpia ampliada i desenfocada d’ella mateixa, una banda de fons que s’adapta a qualsevol proporció; el mòbil treu el desenfocament i mostra la imatge tal qual. Les captures altes a la prosa es dibuixen a mitja amplada, amb un topall de 340 píxels, perquè una imatge amb forma de telèfon mai domini el text."
   },
   "timeline": {
     "seoTitle": "Cronologia | Sistema de disseny | Warren de Leon",
@@ -1271,7 +1288,8 @@
         "title": "Enginyer sènior",
         "desc": "Un càrrec de mostra anterior, amb un rang de dates tancat i la mateixa targeta compacta."
       }
-    ]
+    ],
+    "relativesNote": "El llenguatge del rail té dos parents. Una pàgina de sèrie recorre una cronologia vertical numerada de les seves parts: les publicades enllacen, les planificades queden atenuades amb les seves dates. I la pàgina del CV tanca amb la llista de formació: files de titulació amb institució, dates i enllaços a certificats, separades per línies molt fines."
   },
   "writing": {
     "seoTitle": "Redacció | Sistema de disseny | Warren de Leon",

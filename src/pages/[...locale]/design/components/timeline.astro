@@ -100,7 +100,9 @@ const sample = t.sample.map((co, i) => ({
     </div>
     <h3>{t.whereHeading}</h3>
     <p set:html={md(t.whereBody)} />
+    <p set:html={md(t.relativesNote)} />
   </section>
+
 </DesignLayout>
 
 <style>

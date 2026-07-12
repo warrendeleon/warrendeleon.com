@@ -44,6 +44,7 @@ const heroExample = [...posts].reverse().find(p => p.data.series === 'React Nati
       </SpecimenCard>
     )}
     <p>{m.heroMore} <a href={colourHref}>{m.heroMoreLink}</a>.</p>
+    <p set:html={md(m.heroPageNote)} />
   </section>
 
   <section id="carousel">

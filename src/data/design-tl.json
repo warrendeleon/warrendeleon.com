@@ -329,7 +329,8 @@
       "sectionHeading": "Section heading: fixed na 60px na bar. Class .section-heading.",
       "articleHeading": "Article heading: buong underline sa lapad ng teksto. .prose h2.",
       "browline": "Detail browline: green na teksto, walang marka. .prose h3."
-    }
+    },
+    "aboutNote": "May isang nuance ang body role: sa home page, ang unang talata ng about text ay tumataas sa primary colour at medium weight, isang tahimik na lede treatment."
   },
   "layout": {
     "seoTitle": "Layout | Disenyo | Warren de Leon",
@@ -766,7 +767,8 @@
       "Punuin ang isang hanay ng napakaraming pill kaya walang mababasa."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Badge: .badge (nakagrupo sa .badge-group). Post tag: .post-tag (nakagrupo sa .post-tags). Parehong ginagamit ang neutral na pares na `--badge-bg` / `--badge-text`."
+    "whereBody": "Badge: .badge (nakagrupo sa .badge-group). Post tag: .post-tag (nakagrupo sa .post-tags). Parehong ginagamit ang neutral na pares na `--badge-bg` / `--badge-text`.",
+    "familyNote": "Dalawang pinsan ang kumukumpleto sa pamilya ng mga pill: ang tag-cloud pill sa browse page, 44-pixel na tap target na may mono label at tinted na count bubble; at ang series chip, art disc sa tabi ng label, ginagamit ng search palette at ng browse row ng blog."
   },
   "cards": {
     "seoTitle": "Mga card | Disenyo | Warren de Leon",
@@ -896,6 +898,10 @@
         "label": "Breadcrumb"
       },
       {
+        "id": "chrome",
+        "label": "Maliliit na chrome"
+      },
+      {
         "id": "rules",
         "label": "Kailan gagamitin"
       }
@@ -929,7 +935,9 @@
     "railBody": "Ang navigation ng section na ito ay sumusunod sa anatomy ng blog post sa halip na mag-imbento ng sarili: sa phone, pinapalitan ng top bar ang logo ng back chevron pabalik sa Design hub na may nagko-collapse na pamagat, pinapalitan ng reading action bar ang dock at binubuksan ng ring button nito ang contents bilang bottom sheet, at sa desktop naka-pin ang contents sa kanan bilang ToC ng artikulo, na hina-highlight ang section kung nasaan ka. Pinangangalanan ng breadcrumb ang grupo, at ang hub page ang index.",
     "crumbHeading": "Breadcrumb",
     "crumbBody": "Isang maliit na mono-caps na trail sa itaas ng page title. Mga lugar ang pinapangalanan nito, hindi kailanman ang page mismo: ang title sa ibaba na ang bahala doon, kaya nagtatapos ang trail isang level pataas. Bawat segment ay pinuputol ng ellipsis, at ang mahahabang pangalan ng serye ay pinapaikli sa pinagmulan (“React Native” ay nagiging “RN”), kaya hindi kayang mag-wrap ng trail.",
-    "crumbWhere": "Nasa mga artikulo ito (Blog, tapos ang serye), sa mga tag at series page, at sa docs na ito. Sa phone, katrabaho nito ang chevron ng top bar: ang chevron ang nagbabalik sa iyo, ang trail ang nagsasabi kung nasaan ka."
+    "crumbWhere": "Nasa mga artikulo ito (Blog, tapos ang serye), sa mga tag at series page, at sa docs na ito. Sa phone, katrabaho nito ang chevron ng top bar: ang chevron ang nagbabalik sa iyo, ang trail ang nagsasabi kung nasaan ka.",
+    "chromeHeading": "Maliliit na chrome",
+    "chromeBody": "Apat na maliliit na piraso ang kumukumpleto sa navigation set. Isang fixed na 3-pixel na berdeng progress bar ang nasa itaas ng bawat artikulo at docs page. Isang round na back-to-top button ang lumulutang kapag sapat na ang haba ng page. Ang blog feed ay nagpa-page gamit ang mga numerong link sa desktop at iisang load-more pill sa phone. At ang 404 page ay may parehong boses: malaking 404, isang linya, at mga outline button pabalik sa Home, Blog at Work."
   },
   "sheetsOverlays": {
     "seoTitle": "Mga sheet at overlay | Disenyo | Warren de Leon",
@@ -948,6 +956,10 @@
       {
         "id": "rules",
         "label": "Kailan gagamitin"
+      },
+      {
+        "id": "palette",
+        "label": "Search palette"
       }
     ],
     "anatomyHeading": "Anatomya",
@@ -978,7 +990,11 @@
       "Bitagin ang mambabasa: ang pagpindot sa backdrop ay nagsasara ng sheet."
     ],
     "whereHeading": "Kung saan ito matatagpuan",
-    "whereBody": "Ang pamilyang .post-sheet sa global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, na may .sheet-active sa kasalukuyang hanay."
+    "whereBody": "Ang pamilyang .post-sheet sa global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, na may .sheet-active sa kasalukuyang hanay.",
+    "paletteHeading": "Search palette",
+    "paletteBody": "Ang blog search ang tanging overlay na hindi sheet o dropdown: nakagitnang command palette sa ibabaw ng blurred na backdrop, binubuksan mula sa top bar o gamit ang Cmd K, buong keyboard ang kontrol. Nag-aalok ito ng mga rekomendasyon at mga series at tag chip bago pa mag-type, hina-highlight ang mga tugma habang nagta-type, at pinapangalanan ang sarili nitong labasan. Sa pagitan ng 700 at 1279 pixels, hinihiram din ng language picker ang nakagitnang panel na anyo, sa halip na bottom sheet ng phone.",
+    "consentHeading": "Consent",
+    "consentBody": "Ang cookie banner ay fixed bar na may tatlong pantay na pagpipilian — accept, decline, customise — at ang customise ay nagbubukas ng focus-trapped na preferences card na may iisang analytics toggle. Kasindali ng pag-accept ang pag-decline, at maaaring buksan muli ng privacy page ang desisyon anumang oras."
   },
   "articlePatterns": {
     "seoTitle": "Mga pattern ng artikulo | Disenyo | Warren de Leon",
@@ -1222,7 +1238,8 @@
     "heroColourBody": "**Hindi kailanman ang model ang pumipili ng palette.** Bawat illustration ay kumukuha ng ilang kulay mula sa iisang shared pool na sampung kulay (ang brand lime, tapos navy, coral, teal, plum, amber, blush, sky, charcoal at sand)at laging kasama ang lime accent. Kaya walang dalawang hero na eksaktong pareho ang timpla, pero lahat ay nananatili sa iisang pamilya.",
     "heroCaption": "Isang totoong post hero: ilang kulay mula sa shared palette sa background ng serye nito.",
     "heroMore": "Ang palette at ang mga background ng serye ay nakadokumento kasama ng buong colour system sa",
-    "heroMoreLink": "Colour page"
+    "heroMoreLink": "Colour page",
+    "heroPageNote": "Sa artikulo, ang hero ay nakapatong sa blurred at pinalaking kopya ng sarili nito, backdrop band na umaangkop sa anumang aspect ratio; tinatanggal ng phone ang blur at ipinapakita ang imahe nang simple. Ang matataas na screenshot sa prose ay lumalabas sa kalahating lapad, hanggang 340 pixels, para hindi kailanman matabunan ng imaheng hugis-telepono ang teksto."
   },
   "timeline": {
     "seoTitle": "Timeline | Disenyo | Warren de Leon",
@@ -1271,7 +1288,8 @@
         "title": "Senior Engineer",
         "desc": "Mas naunang placeholder na role, may saradong hanay ng petsa at parehong compact na card."
       }
-    ]
+    ],
+    "relativesNote": "May dalawang kamag-anak ang wika ng rail. Ang series page ay may numerong vertical timeline ng mga bahagi nito — naka-link ang mga na-publish, naka-dim ang mga nakaplano kasama ang kanilang mga petsa. At ang CV page ay nagsasara sa education list: mga row ng kwalipikasyon na may institusyon, mga petsa at certificate link, hinihiwalay ng napakanipis na linya."
   },
   "writing": {
     "seoTitle": "Pagsulat | Disenyo | Warren de Leon",

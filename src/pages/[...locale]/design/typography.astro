@@ -103,6 +103,7 @@ const specimens = [
   <section id="mapping">
     <h2>{ty.mappingHeading}</h2>
     <p set:html={md(ty.mappingBody)} />
+    <p set:html={md(ty.aboutNote)} />
     <ul class="ds-list">
       {ty.mapping.map((m) => (
         <li><strong>{m.role}.</strong> {m.where}</li>

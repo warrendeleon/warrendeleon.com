@@ -329,7 +329,8 @@
       "sectionHeading": "Encabezado de sección: una barra fija de 60px. Clase .section-heading.",
       "articleHeading": "Encabezado de artículo: un subrayado completo a lo ancho del texto. .prose h2.",
       "browline": "Browline de detalle: texto verde, sin marca. .prose h3."
-    }
+    },
+    "aboutNote": "Un matiz acompaña al rol de cuerpo: en la portada, el primer párrafo del texto de presentación sube a color primario y peso medio, un tratamiento de entradilla discreto."
   },
   "layout": {
     "seoTitle": "Maquetación | Sistema de diseño | Warren de Leon",
@@ -766,7 +767,8 @@
       "Saturar una fila con tantas píldoras que ninguna se pueda leer."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "Insignia: .badge (agrupadas en .badge-group). Etiqueta de post: .post-tag (agrupadas en .post-tags). Ambas comparten el par neutro `--badge-bg` / `--badge-text`."
+    "whereBody": "Insignia: .badge (agrupadas en .badge-group). Etiqueta de post: .post-tag (agrupadas en .post-tags). Ambas comparten el par neutro `--badge-bg` / `--badge-text`.",
+    "familyNote": "Dos primas completan la familia de píldoras: la píldora de la nube de etiquetas en la página de exploración, un objetivo táctil de 44 píxeles con etiqueta mono y burbuja de recuento tintada; y el chip de serie, un disco de arte junto a una etiqueta, usado por la paleta de búsqueda y la fila de exploración del blog."
   },
   "cards": {
     "seoTitle": "Tarjetas | Sistema de diseño | Warren de Leon",
@@ -896,6 +898,10 @@
         "label": "Miga de pan"
       },
       {
+        "id": "chrome",
+        "label": "Piezas menores"
+      },
+      {
         "id": "rules",
         "label": "Cuándo usarlo"
       }
@@ -929,7 +935,9 @@
     "railBody": "La navegación de esta sección sigue la anatomía del artículo del blog en lugar de inventar la suya: en el móvil la barra superior cambia el logo por un chevrón de vuelta a la portada de Diseño con un título plegable, la barra de lectura sustituye al dock y su botón de anillo abre los contenidos como una hoja inferior, y en escritorio los contenidos quedan fijados a la derecha como el ToC del artículo, resaltando la sección en la que estás. La miga de pan nombra el grupo, y la página de inicio de la sección es el índice.",
     "crumbHeading": "Miga de pan",
     "crumbBody": "Un pequeño rastro en versalitas mono sobre el título de la página. Nombra lugares, nunca la propia página: eso lo hace el título de debajo, así que el rastro termina un nivel por encima. Cada segmento se corta con puntos suspensivos, y los nombres largos de serie se acortan en origen (“React Native” pasa a “RN”), de modo que el rastro no puede partirse en dos líneas.",
-    "crumbWhere": "Aparece en los artículos (Blog y después la serie), en las páginas de etiquetas y series, y en esta documentación. En el móvil convive con el chevrón de la barra superior: el chevrón te lleva atrás, el rastro te dice dónde estás."
+    "crumbWhere": "Aparece en los artículos (Blog y después la serie), en las páginas de etiquetas y series, y en esta documentación. En el móvil convive con el chevrón de la barra superior: el chevrón te lleva atrás, el rastro te dice dónde estás.",
+    "chromeHeading": "Piezas menores",
+    "chromeBody": "Cuatro piezas menores completan el conjunto de navegación. Una barra de progreso verde fija de 3 píxeles corona cada artículo y cada página de esta documentación. Un botón redondo de volver arriba aparece flotando cuando la página es lo bastante larga. El feed del blog pagina con enlaces numerados en escritorio y una única píldora de cargar más en el móvil. Y la página 404 mantiene la misma voz: un 404 grande, una línea, y botones de contorno de vuelta a Inicio, Blog y Trabajo."
   },
   "sheetsOverlays": {
     "seoTitle": "Hojas y superposiciones | Sistema de diseño | Warren de Leon",
@@ -948,6 +956,10 @@
       {
         "id": "rules",
         "label": "Cuándo usarlo"
+      },
+      {
+        "id": "palette",
+        "label": "Paleta de búsqueda"
       }
     ],
     "anatomyHeading": "Anatomía",
@@ -978,7 +990,11 @@
       "Atrapar al lector: un toque en el fondo cierra la hoja."
     ],
     "whereHeading": "Dónde vive",
-    "whereBody": "La familia .post-sheet en global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, con .sheet-active en la fila actual."
+    "whereBody": "La familia .post-sheet en global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, con .sheet-active en la fila actual.",
+    "paletteHeading": "Paleta de búsqueda",
+    "paletteBody": "La búsqueda del blog es el único overlay que no es ni hoja ni desplegable: una paleta de comandos centrada sobre un fondo desenfocado, abierta desde la barra superior o con Cmd K, gobernada por completo desde el teclado. Ofrece recomendaciones y chips de series y etiquetas antes de escribir, resalta las coincidencias al teclear, y nombra su propia salida. Entre 700 y 1279 píxeles el selector de idioma toma prestada esta forma de panel centrado, en vez de la hoja inferior del móvil.",
+    "consentHeading": "Consentimiento",
+    "consentBody": "El aviso de cookies es una barra fija con tres opciones iguales — aceptar, rechazar, personalizar — y la ruta de personalizar abre una tarjeta de preferencias con el foco atrapado y un único conmutador de analítica. Rechazar es tan fácil como aceptar, y la página de privacidad puede reabrir la decisión en cualquier momento."
   },
   "articlePatterns": {
     "seoTitle": "Patrones de artículo | Sistema de diseño | Warren de Leon",
@@ -1222,7 +1238,8 @@
     "heroColourBody": "**El modelo nunca elige la paleta.** Cada ilustración toma unos pocos colores de un repertorio compartido de diez (la lima de la marca, y después azul marino, coral, verde azulado, ciruela, ámbar, rosa pálido, celeste, carbón y arena), y el acento lima siempre está entre ellos. Así no hay dos cabeceras con la misma mezcla, pero todas se quedan dentro de la misma familia.",
     "heroCaption": "Una cabecera real: unos pocos colores de la paleta compartida sobre el fondo de su serie.",
     "heroMore": "La paleta y los fondos por serie están documentados con el resto del sistema de color en",
-    "heroMoreLink": "la página de Color"
+    "heroMoreLink": "la página de Color",
+    "heroPageNote": "En la página de un artículo, la cabecera se apoya sobre una copia ampliada y desenfocada de sí misma, una banda de fondo que se adapta a cualquier proporción; el móvil quita el desenfoque y muestra la imagen tal cual. Las capturas altas en la prosa se dibujan a mitad de ancho, con un tope de 340 píxeles, para que una imagen con forma de teléfono nunca domine el texto."
   },
   "timeline": {
     "seoTitle": "Cronología | Sistema de diseño | Warren de Leon",
@@ -1271,7 +1288,8 @@
         "title": "Ingeniero sénior",
         "desc": "Un puesto de relleno anterior, con un rango de fechas cerrado y la misma tarjeta compacta."
       }
-    ]
+    ],
+    "relativesNote": "El lenguaje del raíl tiene dos parientes. Una página de serie recorre una cronología vertical numerada de sus partes: las publicadas enlazan, las planificadas quedan atenuadas con sus fechas. Y la página del CV cierra con la lista de formación: filas de titulación con institución, fechas y enlaces a certificados, separadas por líneas muy finas."
   },
   "writing": {
     "seoTitle": "Redacción | Sistema de diseño | Warren de Leon",

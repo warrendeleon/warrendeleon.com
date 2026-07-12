@@ -110,6 +110,13 @@ const sample = s.sheetSample;
     <h3>{s.whereHeading}</h3>
     <p set:html={md(s.whereBody)} />
   </section>
+
+  <section id="palette">
+    <h2>{s.paletteHeading}</h2>
+    <p set:html={md(s.paletteBody)} />
+    <h3>{s.consentHeading}</h3>
+    <p set:html={md(s.consentBody)} />
+  </section>
 </DesignLayout>
 
 <style>

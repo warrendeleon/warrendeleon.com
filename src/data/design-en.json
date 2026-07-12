@@ -329,7 +329,8 @@
       "sectionHeading": "Section heading: a fixed 60px bar. Class .section-heading.",
       "articleHeading": "Article heading: a full underline across the text. .prose h2.",
       "browline": "Detail browline: green text, no mark. .prose h3."
-    }
+    },
+    "aboutNote": "One nuance rides the body role: on the home page, the first paragraph of the about text steps up to primary colour and medium weight, a quiet lede treatment."
   },
   "layout": {
     "seoTitle": "Layout | Design system | Warren de Leon",
@@ -766,7 +767,8 @@
       "Crowd a row with so many pills that none can be read."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "Badge: .badge (grouped in .badge-group). Post tag: .post-tag (grouped in .post-tags). Both share the neutral `--badge-bg` / `--badge-text` pair."
+    "whereBody": "Badge: .badge (grouped in .badge-group). Post tag: .post-tag (grouped in .post-tags). Both share the neutral `--badge-bg` / `--badge-text` pair.",
+    "familyNote": "Two cousins complete the pill family: the tag-cloud pill on the browse page, a 44-pixel tap target with a mono label and a tinted count bubble; and the series chip, an art disc beside a label, used by the search palette and the blog’s browse row."
   },
   "cards": {
     "seoTitle": "Cards | Design system | Warren de Leon",
@@ -896,6 +898,10 @@
         "label": "Breadcrumb"
       },
       {
+        "id": "chrome",
+        "label": "Smaller chrome"
+      },
+      {
         "id": "rules",
         "label": "When to use"
       }
@@ -929,7 +935,9 @@
     "whereBody": "Nav.astro (.nav), TabBar.astro, ReadingBar.astro and Footer.astro (.footer). The dock and reading bar above are those components rendered live; the frames show the top bar in place.",
     "crumbHeading": "Breadcrumb",
     "crumbBody": "A small mono-caps trail above a page title. It names places, never the page itself: the title below does that, so the trail ends one level up. Every segment is capped with an ellipsis, and long series names are shortened at the source (“React Native” becomes “RN”), so the trail cannot wrap.",
-    "crumbWhere": "It sits on articles (Blog, then the series), on tag and series pages, and on these docs. On phones it works alongside the top-bar chevron: the chevron takes you back, the trail tells you where you are."
+    "crumbWhere": "It sits on articles (Blog, then the series), on tag and series pages, and on these docs. On phones it works alongside the top-bar chevron: the chevron takes you back, the trail tells you where you are.",
+    "chromeHeading": "Smaller chrome",
+    "chromeBody": "Four smaller pieces complete the navigation set. A fixed 3-pixel green progress bar tops every article and docs page. A round back-to-top button floats in once a page is long enough. The blog feed pages with numbered links on desktop and a single load-more pill on phones. And the 404 page keeps the same voice: a large 404, one line, and outline buttons back to Home, Blog and Work."
   },
   "sheetsOverlays": {
     "seoTitle": "Sheets & overlays | Design system | Warren de Leon",
@@ -948,6 +956,10 @@
       {
         "id": "rules",
         "label": "When to use"
+      },
+      {
+        "id": "palette",
+        "label": "Search palette"
       }
     ],
     "anatomyHeading": "Anatomy",
@@ -978,7 +990,11 @@
       "Trap the reader: a tap on the backdrop closes the sheet."
     ],
     "whereHeading": "Where it lives",
-    "whereBody": "The .post-sheet family in global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, with .sheet-active on the current row."
+    "whereBody": "The .post-sheet family in global.css: .post-sheet-panel, .post-sheet-grabber, .post-sheet-head, .post-sheet-list, with .sheet-active on the current row.",
+    "paletteHeading": "Search palette",
+    "paletteBody": "The blog search is the one overlay that is neither sheet nor dropdown: a centred command palette over a blurred backdrop, opened from the top bar or with Cmd K, fully keyboard-driven. It offers recommendations and series and tag chips before a query, highlights matches as you type, and names its own escape hatch. Between 700 and 1279 pixels the language picker borrows this centred-panel form too, rather than the phone’s bottom sheet.",
+    "consentHeading": "Consent",
+    "consentBody": "The cookie banner is a fixed bar with three equal choices — accept, decline, customise — and the customise route opens a focus-trapped preferences card with one analytics toggle. Declining is as easy as accepting, and the privacy page can reopen the choice at any time."
   },
   "articlePatterns": {
     "seoTitle": "Article patterns | Design system | Warren de Leon",
@@ -1222,7 +1238,8 @@
     "heroColourBody": "**The model never chooses the palette.** Every illustration picks a few colours from one shared ten-colour pool — the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand — and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
     "heroCaption": "A real post hero: a few of the shared palette on its series’ ground.",
     "heroMore": "The palette and the series grounds are documented with the rest of the colour system on",
-    "heroMoreLink": "the Colour page"
+    "heroMoreLink": "the Colour page",
+    "heroPageNote": "On an article page the hero sits on a blurred, enlarged copy of itself, a backdrop band that adapts to any aspect ratio; phones drop the blur and show the image plain. Tall screenshots in prose render at half width, capped at 340 pixels, so a phone-shaped image never towers over the text."
   },
   "timeline": {
     "seoTitle": "Timeline | Design system | Warren de Leon",
@@ -1271,7 +1288,8 @@
         "title": "Senior Engineer",
         "desc": "An earlier placeholder role, with a closed date range and the same compact card."
       }
-    ]
+    ],
+    "relativesNote": "The rail language has two relatives. A series page runs a numbered vertical timeline of its parts — published parts link, planned parts sit dimmed with their dates. And the CV page closes with the education list: qualification rows with institution, dates and certificate links, divided by hairlines."
   },
   "writing": {
     "seoTitle": "Writing | Design system | Warren de Leon",
