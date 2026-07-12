@@ -1219,6 +1219,10 @@
         "label": "Mga pangalan ng brand"
       },
       {
+        "id": "crosslinks",
+        "label": "Cross-linking"
+      },
+      {
         "id": "disagreeing",
         "label": "Pagtutol sa sulat"
       },
@@ -1279,7 +1283,11 @@
       "Walang exclamation mark, at walang rhetorical question bilang pang-akit.",
       "First person singular, isinulat mula sa senior authority: walang self-deprecation, walang imbentong war story.",
       "Hindi kailanman pinapangalanan ang mga employer o internal project."
-    ]
+    ],
+    "crossHeading": "Cross-linking",
+    "crossBody1": "Malayang nagtuturo ang mga post sa isa’t isa: ang pangungusap na bumabanggit sa token-refresh post ay naka-link doon, at pinapangalanan ng link text ang pupuntahan gaya sa itaas. Puwede pang tumuro ang mga link sa mga post na hindi pa lumalabas. Sa build time, ang link sa hindi pa na-publish na post ay pinapalitan ng sarili nitong plain text, kaya walang kailanman nagre-404; kapag na-publish ang pupuntahan, ang susunod na build ang magbabalik ng mga salitang iyon bilang link. Ang mga forward reference ay isinusulat nang isang beses at nareresolba nang kusa.",
+    "crossBody2": "Bawat post ay maaaring pumili ng hanggang tatlong related post sa front matter nito; ang mga walang pinili ay babagsak sa mga shared tag. May further-reading shelf na nagdadagdag ng mas tahimik na mga post na malamang hindi pa nakikita ng mambabasa, na may tope na siyam sa kabuuan, para manatili itong rekomendasyon at hindi archive.",
+    "crossBody3": "Sa loob ng isang serye, ang previous at next ay nananatili sa loob ng serye: ang part five ay tumuturo sa parts four at six, hindi kailanman sa walang kaugnayang post na nagkataong lumabas katabi nito. Sa mga dulo lang ng serye babagsak ang mga arrow sa katabing post ayon sa petsa."
   },
   "translation": {
     "seoTitle": "Pagsasalin | Disenyo | Warren de Leon",

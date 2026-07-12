@@ -1219,6 +1219,10 @@
         "label": "Noms de marca"
       },
       {
+        "id": "crosslinks",
+        "label": "Enllaços creuats"
+      },
+      {
         "id": "disagreeing",
         "label": "Discrepar per escrit"
       },
@@ -1279,7 +1283,11 @@
       "Sense signes d’exclamació i sense preguntes retòriques com a ganxo.",
       "Primera persona del singular, escrita des de l’autoritat sènior: sense autocrítica de cara a la galeria ni batalletes inventades.",
       "Mai no s’anomenen ocupadors ni projectes interns."
-    ]
+    ],
+    "crossHeading": "Enllaços creuats",
+    "crossBody1": "Els posts s’apunten entre si amb llibertat: una frase que esmenta el post del refresc de tokens hi enllaça, amb el text de l’enllaç anomenant la destinació com més amunt. Els enllaços poden fins i tot apuntar a posts que encara no han sortit. En compilar, un enllaç a un post sense publicar se substitueix pel seu propi text pla, així que res no dona mai un 404; quan la destinació es publica, la compilació següent torna a convertir aquelles paraules en enllaç. Les referències endavant s’escriuen una vegada i es resolen soles.",
+    "crossBody2": "Cada post pot triar a mà fins a tres posts relacionats al seu front matter; els que no trien cauen a les etiquetes compartides. Una prestatgeria de lectures addicionals ho completa amb posts més discrets que el lector probablement no coneix, amb un topall de nou en total, perquè continuï sent una recomanació i no un arxiu.",
+    "crossBody3": "Dins d’una sèrie, anterior i següent es queden dins de la sèrie: la part cinc apunta a les parts quatre i sis, mai a un post sense relació que es va publicar al costat. Només als extrems d’una sèrie les fletxes cauen al post veí per data."
   },
   "translation": {
     "seoTitle": "Traducció | Sistema de disseny | Warren de Leon",

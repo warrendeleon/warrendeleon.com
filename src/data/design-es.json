@@ -1219,6 +1219,10 @@
         "label": "Nombres de marca"
       },
       {
+        "id": "crosslinks",
+        "label": "Enlaces cruzados"
+      },
+      {
         "id": "disagreeing",
         "label": "Discrepar por escrito"
       },
@@ -1279,7 +1283,11 @@
       "Sin signos de exclamación y sin preguntas retóricas como gancho.",
       "Primera persona del singular, escrita desde la autoridad senior: sin autocrítica de cara a la galería ni batallitas inventadas.",
       "Nunca se nombran empleadores ni proyectos internos."
-    ]
+    ],
+    "crossHeading": "Enlaces cruzados",
+    "crossBody1": "Los posts se apuntan entre sí con libertad: una frase que menciona el post del refresco de tokens enlaza con él, con el texto del enlace nombrando el destino como arriba. Los enlaces pueden incluso apuntar a posts que aún no han salido. Al compilar, un enlace a un post sin publicar se sustituye por su propio texto plano, así que nada da nunca un 404; cuando el destino se publica, la siguiente compilación vuelve a convertir esas palabras en enlace. Las referencias hacia delante se escriben una vez y se resuelven solas.",
+    "crossBody2": "Cada post puede elegir a mano hasta tres posts relacionados en su front matter; los que no eligen caen en las etiquetas compartidas. Una estantería de lecturas adicionales completa eso con posts más discretos que el lector probablemente no conoce, con un tope de nueve en total, para que siga siendo una recomendación y no un archivo.",
+    "crossBody3": "Dentro de una serie, anterior y siguiente se quedan dentro de la serie: la parte cinco apunta a las partes cuatro y seis, nunca a un post sin relación que se publicó al lado. Solo en los extremos de una serie las flechas caen al post vecino por fecha."
   },
   "translation": {
     "seoTitle": "Traducción | Sistema de diseño | Warren de Leon",
