@@ -14,15 +14,16 @@
 /sky /work-experience/sky/ 301
 /sky/ /work-experience/sky/ 301
 
-# Removed /hiring page → home
+# Removed /hiring page → home, each locale to its own home so the visitor
+# keeps the language they arrived in.
 /hiring / 301
 /hiring/ / 301
-/es/hiring / 301
-/es/hiring/ / 301
-/ca/hiring / 301
-/ca/hiring/ / 301
-/tl/hiring / 301
-/tl/hiring/ / 301
+/es/hiring /es/ 301
+/es/hiring/ /es/ 301
+/ca/hiring /ca/ 301
+/ca/hiring/ /ca/ 301
+/tl/hiring /tl/ 301
+/tl/hiring/ /tl/ 301
 
 # /cv/ and /education/ folded into /work-experience/ (2026-07). The PDF
 # download and the qualifications section live there now.

@@ -23,18 +23,22 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Keep the /blog/tags/ index (a real browse hub) but drop the thin
-      // individual tag pages and the old /blog/tag/ redirect stubs, to protect
-      // crawl budget. Locale pages stay out; they're discoverable via hreflang.
-      // /design/ is the internal design-system reference — 20 pages nobody
-      // searches for, which was 30% of the sitemap. Still reachable, just not
-      // submitted.
-      filter: (page) =>
-        !/\/blog\/tags?\/[^/]+\//.test(page) &&
-        !/\/(cv|education)\/$/.test(page) &&
-        !/\/design\//.test(page) &&
-        !page.includes('/ca/') &&
-        !page.includes('/es/') &&
-        !page.includes('/tl/'),
+      // individual tag pages, to protect crawl budget. Locale pages stay out;
+      // they're discoverable via hreflang. /design/ is the internal design
+      // system reference — 19 pages nobody searches for, which took 19 of the
+      // 67 sitemap URLs. Still reachable, just not submitted.
+      //
+      // Matched against the pathname, not the whole URL, so a post ever slugged
+      // `design`, `es` or `tags` is judged on its real path rather than on a
+      // substring that happens to look like a section.
+      filter: (page) => {
+        const path = new URL(page).pathname;
+        return (
+          !/^\/(es|ca|tl)\//.test(path) &&
+          !/^\/design\//.test(path) &&
+          !/^\/blog\/tags?\/[^/]+\//.test(path)
+        );
+      },
     }),
     // Indexes only pages carrying `data-pagefind-body` (the blog posts), so
     // search is scoped to the blog and nothing else. Must run last so the
