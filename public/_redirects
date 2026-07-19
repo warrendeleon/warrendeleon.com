@@ -1,12 +1,53 @@
+# Every legacy path lives here rather than in astro.config.mjs `redirects:`.
+# Astro's static redirects emit a 200 HTML stub carrying a meta refresh and a
+# noindex tag; Cloudflare Pages reads this file at the edge and answers with a
+# real 301. Search Console counts the stubs as "Excluded by 'noindex'" and the
+# chains as "Redirect error", so anything a crawler might still hold belongs
+# here. _redirects wins over a matching static file, so both can coexist.
+
 # Old /work/ and /work-xp/ paths → /work-experience/
 /work/* /work-experience/:splat 301
 /work-xp/* /work-experience/:splat 301
+/es/work/* /es/work-experience/:splat 301
+/ca/work/* /ca/work-experience/:splat 301
+/tl/work/* /tl/work-experience/:splat 301
 /sky /work-experience/sky/ 301
 /sky/ /work-experience/sky/ 301
 
 # Removed /hiring page → home
 /hiring / 301
 /hiring/ / 301
+/es/hiring / 301
+/es/hiring/ / 301
+/ca/hiring / 301
+/ca/hiring/ / 301
+/tl/hiring / 301
+/tl/hiring/ / 301
+
+# /cv/ and /education/ folded into /work-experience/ (2026-07). The PDF
+# download and the qualifications section live there now.
+/cv /work-experience/ 301
+/cv/ /work-experience/ 301
+/education /work-experience/ 301
+/education/ /work-experience/ 301
+/es/cv /es/work-experience/ 301
+/es/cv/ /es/work-experience/ 301
+/es/education /es/work-experience/ 301
+/es/education/ /es/work-experience/ 301
+/ca/cv /ca/work-experience/ 301
+/ca/cv/ /ca/work-experience/ 301
+/ca/education /ca/work-experience/ 301
+/ca/education/ /ca/work-experience/ 301
+/tl/cv /tl/work-experience/ 301
+/tl/cv/ /tl/work-experience/ 301
+/tl/education /tl/work-experience/ 301
+/tl/education/ /tl/work-experience/ 301
+
+# Tag pages moved from /blog/tag/:tag to /blog/tags/:tag
+/blog/tag/* /blog/tags/:splat 301
+/es/blog/tag/* /es/blog/tags/:splat 301
+/ca/blog/tag/* /ca/blog/tags/:splat 301
+/tl/blog/tag/* /tl/blog/tags/:splat 301
 
 # Legacy blog URL rename
 /blog/why-i-replaced-our-react-native-tech-test-in-my-first-week/ /blog/why-i-redesigned-our-react-native-tech-test-in-my-first-week/ 301

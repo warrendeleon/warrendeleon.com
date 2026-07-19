@@ -6,22 +6,6 @@ import rehypeTableWrapper from './src/lib/rehype-table-wrapper.mjs';
 import rehypeMermaidPrerendered from './src/lib/rehype-mermaid-prerendered.mjs';
 import pagefind from './src/lib/astro-pagefind.mjs';
 
-// Old work-experience URLs (`/work/:slug`) that Google still has indexed and 404ing,
-// mapped to the current `/work-experience/:slug`. A fixed historical slug set; literal
-// redirects per locale (Astro can't resolve a dynamic destination into the [...locale]
-// route). Keep in sync with the company slugs under /work-experience/.
-const WORK_SLUGS = [
-  'all-now-europe-sl', 'altran', 'bp', 'candide', 'concentrix-tigerspike',
-  'desigual', 'edenic-games', 'everis-ntt-data', 'fanduel', 'hargreaves-lansdown',
-  'lexel-software-ltd', 'nucleus-central', 'openhealth-group', 'shell', 'sky',
-  'stadion', 'teknon-uroclnica-barcelona', 'wonderbill', 'xdesign', 'zonal',
-];
-const workRedirects = Object.fromEntries(
-  ['', '/es', '/ca', '/tl'].flatMap((prefix) =>
-    WORK_SLUGS.map((slug) => [`${prefix}/work/${slug}`, `${prefix}/work-experience/${slug}`]),
-  ),
-);
-
 // ```ts title="src/file.ts" — surfaces the file path as a bar above the code
 // block (styled from global.css via pre[data-filename]).
 /** @type {import('shiki').ShikiTransformer} */
@@ -41,9 +25,13 @@ export default defineConfig({
       // Keep the /blog/tags/ index (a real browse hub) but drop the thin
       // individual tag pages and the old /blog/tag/ redirect stubs, to protect
       // crawl budget. Locale pages stay out; they're discoverable via hreflang.
+      // /design/ is the internal design-system reference — 20 pages nobody
+      // searches for, which was 30% of the sitemap. Still reachable, just not
+      // submitted.
       filter: (page) =>
         !/\/blog\/tags?\/[^/]+\//.test(page) &&
         !/\/(cv|education)\/$/.test(page) &&
+        !/\/design\//.test(page) &&
         !page.includes('/ca/') &&
         !page.includes('/es/') &&
         !page.includes('/tl/'),
@@ -77,25 +65,10 @@ export default defineConfig({
   ],
   output: 'static',
   trailingSlash: 'always',
-  // Tag pages moved from /blog/tag/:tag to /blog/tags/:tag. Keep the old paths
-  // working for any external or bookmarked links.
-  redirects: {
-    '/blog/tag/[tag]': '/blog/tags/[tag]',
-    '/es/blog/tag/[tag]': '/es/blog/tags/[tag]',
-    '/ca/blog/tag/[tag]': '/ca/blog/tags/[tag]',
-    '/tl/blog/tag/[tag]': '/tl/blog/tags/[tag]',
-    // /cv/ and /education/ folded into /work-experience/ (2026-07). The PDF
-    // download and the qualifications section live there now.
-    '/cv': '/work-experience/',
-    '/es/cv': '/es/work-experience/',
-    '/ca/cv': '/ca/work-experience/',
-    '/tl/cv': '/tl/work-experience/',
-    '/education': '/work-experience/',
-    '/es/education': '/es/work-experience/',
-    '/ca/education': '/ca/work-experience/',
-    '/tl/education': '/tl/work-experience/',
-    ...workRedirects,
-  },
+  // Legacy paths (/work/, /hiring/, /cv/, /education/, /blog/tag/) redirect from
+  // public/_redirects instead of here. Astro's static redirects emit a 200 stub
+  // with a meta refresh and a noindex tag; Cloudflare Pages answers _redirects
+  // with a real 301, which is what a crawler needs to follow the move.
   markdown: {
     // Leave ```mermaid blocks unhighlighted so rehype-mermaid-prerendered
     // still sees the raw source to swap for the pre-rendered SVG.
