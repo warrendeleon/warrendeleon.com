@@ -99,23 +99,13 @@ const privacyHref = getLocalePath(locale, '/privacy/');
       }
     }
 
-    // Mirror BaseLayout's loader so a runtime "Accept" brings GA up without a
-    // page reload. Guarded to production so dev never loads GA.
-    function loadGA() {
-      if (!PROD || window.gtag) return;
-      window.dataLayer = window.dataLayer || [];
-      window.gtag = function () { window.dataLayer.push(arguments); };
-      gtag('js', new Date());
-      gtag('config', GA_ID);
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-      document.head.appendChild(s);
-    }
-
+    // Under Consent Mode the tag is already on the page in a denied state, so a
+    // choice is a consent *update*, not a second injection — injecting again
+    // would double-count the pageview.
     function applyGA(on) {
-      window['ga-disable-' + GA_ID] = !on;
-      if (on) loadGA();
+      if (typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', { analytics_storage: on ? 'granted' : 'denied' });
+      }
     }
 
     function setConsent(on) {

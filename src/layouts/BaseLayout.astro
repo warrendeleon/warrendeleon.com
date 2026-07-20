@@ -117,12 +117,20 @@ const cleanPath = getCleanPath(currentPath);
       <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     )}
 
-    <!-- Google Analytics (production only, consent-gated) -->
+    <!-- Google Analytics with Consent Mode v2 (production only).
+         Blocking the tag until someone clicks Accept cost us ~96% of sessions
+         when the banner shipped on 26 June: GA went from ~25/day to 7 across
+         four days, then zero. Consent Mode is Google's answer to that — the tag
+         always loads, but the default state denies storage, so pre-consent
+         visits send cookieless pings with no identifiers. Accepting upgrades
+         the same page to full measurement without a reload.
+         The owner opt-out (umami.disabled) still suppresses GA outright. -->
     <script is:inline>
       if (location.hostname === 'warrendeleon.com') {
-        // GA is non-essential: load it only on a still-valid opt-in (set by the
-        // cookie banner, expires after ~6 months), and still honour the owner
-        // opt-out flag.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+
         var ccOk = false;
         try {
           var ccRaw = localStorage.getItem('cc-analytics');
@@ -131,17 +139,26 @@ const cleanPath = getCleanPath(currentPath);
             if (cc && cc.v === 'on' && cc.ts && (Date.now() - cc.ts) < 1000 * 60 * 60 * 24 * 183) ccOk = true;
           }
         } catch (e) {}
-        if (ccOk && !localStorage.getItem('umami.disabled')) {
+
+        // The owner opt-out is absolute — no tag, no pings.
+        if (localStorage.getItem('umami.disabled')) {
+          window['ga-disable-G-8FWR6HT36Y'] = true;
+        } else {
+          // Default state must be set before the tag loads, or the first hit
+          // escapes ungoverned.
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: ccOk ? 'granted' : 'denied',
+            wait_for_update: 500
+          });
           var s = document.createElement('script');
           s.async = true;
           s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8FWR6HT36Y';
           document.head.appendChild(s);
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', 'G-8FWR6HT36Y');
-        } else {
-          window['ga-disable-G-8FWR6HT36Y'] = true;
         }
       }
     </script>
