@@ -457,7 +457,7 @@ document.querySelectorAll('.prose blockquote').forEach(function(bq) {
 /* Copy link button */
 document.querySelectorAll('.copy-link-btn').forEach(function(btn) {
   btn.addEventListener('click', function() {
-    navigator.clipboard.writeText(btn.dataset.url);
+    navigator.clipboard.writeText(btn.dataset.url).catch(function() {});
     t('blog_copy_link', { url: btn.dataset.url });
     var label = btn.querySelector('span');
     if (label) {
@@ -501,7 +501,6 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   /* Hide line numbers for plain text blocks */
   if (isPlain && code) {
     code.querySelectorAll('.line').forEach(function(line) {
-      var before = window.getComputedStyle(line, '::before');
       line.style.setProperty('--hide-line-num', '1');
     });
     pre.classList.add('plain-code');
@@ -523,7 +522,7 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   btn.setAttribute('aria-label', i18nData.copy || 'Copy');
   btn.addEventListener('click', function() {
     var text = code ? code.textContent : pre.textContent;
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text).catch(function() {});
     t('code_copy', { language: lang });
     btn.querySelector('span').textContent = i18nData.copied || 'Copied!';
     setTimeout(function() { btn.querySelector('span').textContent = i18nData.copy || 'Copy'; }, 2000);
@@ -635,6 +634,9 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
     var scrollTop = window.scrollY;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     var pct = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+    /* Fractional scrollTop on hi-dpi screens can leave pct at 99.97 forever,
+       so the 100% milestone would never fire for those readers. */
+    if (pct > 99.5) pct = 100;
 
     if (bar) bar.style.width = pct + '%';
     if (progressEl) progressEl.setAttribute('aria-valuenow', String(Math.round(pct)));
@@ -738,7 +740,9 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
 
 /* External link clicks */
 (function() {
-  document.querySelector('.prose').addEventListener('click', function(e) {
+  var prose = document.querySelector('.prose');
+  if (!prose) return;
+  prose.addEventListener('click', function(e) {
     var link = e.target.closest('a[href]');
     if (!link) return;
     var href = link.getAttribute('href');

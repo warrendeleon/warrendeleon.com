@@ -176,6 +176,12 @@ const cleanPath = getCleanPath(currentPath);
       function t(e, d) {
         if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
         if (window.umami) {
+          // Flush anything queued before umami arrived (covers a load that
+          // beats the event but outlives the retry timer).
+          if (window.__tq && window.__tq.length) {
+            window.__tq.forEach(function(a) { umami.track(a[0], a[1]); });
+            window.__tq = [];
+          }
           umami.track(e, d);
         } else {
           (window.__tq = window.__tq || []).push([e, d]);
