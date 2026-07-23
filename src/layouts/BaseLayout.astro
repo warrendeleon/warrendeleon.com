@@ -126,7 +126,7 @@ const cleanPath = getCleanPath(currentPath);
          the same page to full measurement without a reload.
          The owner opt-out (umami.disabled) still suppresses GA outright. -->
     <script is:inline>
-      if (location.hostname === 'warrendeleon.com') {
+      if (location.hostname === 'warrendeleon.com' || location.hostname === 'www.warrendeleon.com') {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         window.gtag = gtag;
@@ -164,13 +164,35 @@ const cleanPath = getCleanPath(currentPath);
     </script>
 
     <!-- Umami Analytics (production only, first-party proxy) -->
-    <script is:inline async defer src="/a/s.js" data-website-id="b0b688d0-04ce-4773-a8d1-86d9980ed27e" data-host-url="/a" data-domains="warrendeleon.com"></script>
+    <script is:inline async defer src="/a/s.js" data-website-id="b0b688d0-04ce-4773-a8d1-86d9980ed27e" data-host-url="/a" data-domains="warrendeleon.com,www.warrendeleon.com"></script>
 
-    <!-- Event tracking helper (fires both GA + Umami) -->
+    <!-- Event tracking helper (fires both GA + Umami).
+         Umami loads async; events fired before it arrives are queued and
+         flushed once it exists. Without the queue, early events (a mobile
+         reader's first scroll milestones on a slow network) were silently
+         dropped. The queue gives up after 15s — an ad-blocked tracker should
+         not leave a timer spinning. -->
     <script is:inline>
       function t(e, d) {
         if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') return;
-        if (window.umami) umami.track(e, d);
+        if (window.umami) {
+          umami.track(e, d);
+        } else {
+          (window.__tq = window.__tq || []).push([e, d]);
+          if (!window.__tqTimer) {
+            window.__tqTicks = 0;
+            window.__tqTimer = setInterval(function() {
+              if (++window.__tqTicks > 60 && !window.umami) {
+                clearInterval(window.__tqTimer);
+                return;
+              }
+              if (!window.umami) return;
+              clearInterval(window.__tqTimer);
+              window.__tq.forEach(function(a) { umami.track(a[0], a[1]); });
+              window.__tq = [];
+            }, 250);
+          }
+        }
         if (window.gtag) gtag('event', e, d);
       }
     </script>

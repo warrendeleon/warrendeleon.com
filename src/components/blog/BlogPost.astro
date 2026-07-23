@@ -695,17 +695,45 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   update();
 })();
 
-/* Time on page */
+/* Time on page. Counts only time the tab is actually visible, capped at 30
+   minutes — the old wall-clock version recorded 19-day "reads" from abandoned
+   tabs. Sends at checkpoints while the page is alive because mobile browsers
+   kill beacons fired during teardown; waiting for unload lost nearly all
+   mobile dwell (2 events from 337 mobile sessions). Consumers should take the
+   MAX seconds per session, not the sum. */
 (function() {
-  var start = Date.now();
-  function sendTime() {
-    var seconds = Math.round((Date.now() - start) / 1000);
-    if (seconds > 3) t('time_on_page', { seconds: seconds });
+  var visStart = document.visibilityState === 'visible' ? Date.now() : null;
+  var totalMs = 0;
+  var sentSeconds = 0;
+  var CHECKPOINTS = [15, 60, 180, 600];
+  var next = 0;
+
+  function activeSeconds() {
+    var ms = totalMs + (visStart ? Date.now() - visStart : 0);
+    return Math.min(Math.round(ms / 1000), 1800);
   }
+  function send() {
+    var s = activeSeconds();
+    if (s > 3 && s > sentSeconds) {
+      sentSeconds = s;
+      t('time_on_page', { seconds: s });
+    }
+  }
+  setInterval(function() {
+    if (next < CHECKPOINTS.length && activeSeconds() >= CHECKPOINTS[next]) {
+      next++;
+      send();
+    }
+  }, 5000);
   document.addEventListener('visibilitychange', function() {
-    if (document.visibilityState === 'hidden') sendTime();
+    if (document.visibilityState === 'hidden') {
+      if (visStart) { totalMs += Date.now() - visStart; visStart = null; }
+      send();
+    } else if (!visStart) {
+      visStart = Date.now();
+    }
   });
-  window.addEventListener('beforeunload', sendTime);
+  window.addEventListener('beforeunload', send);
 })();
 
 /* External link clicks */
