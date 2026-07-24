@@ -27,3 +27,9 @@ publish-devto.sh
 # jetbrains setting folder
 .idea/
 .cv-pdf-build/
+
+# Article content lives in the private warrendeleon.com-content repo
+src/content/blog/
+public/images/blog/
+src/generated/mermaid/
+.content/
