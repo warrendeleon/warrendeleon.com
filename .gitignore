@@ -29,7 +29,9 @@ publish-devto.sh
 .cv-pdf-build/
 
 # Article content lives in the private warrendeleon.com-content repo
-src/content/blog/
-public/images/blog/
-src/generated/mermaid/
-.content/
+
+# Article content — lives in the private warrendeleon.com-content repo (symlinked in for local dev)
+src/content/blog
+public/images/blog
+src/generated/mermaid
+.content-repo
