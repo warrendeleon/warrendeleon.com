@@ -50,6 +50,17 @@ src/
 
 ## Blog
 
+> **Article content lives in a separate PRIVATE repo** (`warrendeleon.com-content`) — the markdown, images (`public/images/blog/`) and rendered diagrams (`src/generated/mermaid/`). This keeps unpublished posts out of the public repo where scrapers could harvest them. Those three paths are gitignored here.
+>
+> **Local setup** (one-time): clone the content repo nested and symlink the three paths — the build then sees content at its normal locations.
+> ```sh
+> git clone git@github.com:warrendeleon/warrendeleon.com-content.git .content-repo
+> ln -sfn ../../.content-repo/src/content/blog     src/content/blog
+> ln -sfn ../../.content-repo/public/images/blog   public/images/blog
+> ln -sfn ../../.content-repo/src/generated/mermaid src/generated/mermaid
+> ```
+> Edit articles in `src/content/blog/` as normal (writes land in `.content-repo`); commit and push there. The publisher fetches from the content repo on deploy.
+
 Posts are markdown files in `src/content/blog/`. Each post has a frontmatter schema defined in `src/content.config.ts` with required fields: `title`, `description`, `publishDate`, `tags`, `locale`, `campaign`.
 
 Posts with a future `publishDate` are visible on localhost but hidden in production. The client-side filter in `BlogListing.astro` handles this.
