@@ -580,6 +580,56 @@ document.querySelectorAll('.prose pre').forEach(function(pre) {
   syncScrollable();
 });
 
+/* Reader-quality signals. Raw pageviews can't be trusted — scrapers render
+   pages and even auto-scroll. These two events are what the dashboard should
+   actually be read from, because they need sustained attention AND a genuine
+   input device, which commodity scraping fleets don't produce:
+
+     read_complete — fired once when someone reaches the bottom of a post.
+                     Read ratio = read_complete / post pageviews (Medium's
+                     metric), countable natively in Umami with no SQL.
+     engaged_read  — fired once when a session clears all three bars:
+                     >=30s of ACTIVE (visible) attention, >=50% depth, and a
+                     real interaction. This is the bot-resistant reader count.
+
+   Interaction requires either a couple of pointer moves carrying real
+   movement deltas, or any touch/key/click/wheel — a synthetic single event
+   won't do it. Deliberately not a blocking mechanism: it changes what we
+   COUNT, never what we serve, so no reader is ever turned away. */
+var RQ = {
+  depth: 0,
+  secs: 0,
+  moves: 0,
+  interacted: false,
+  sentComplete: false,
+  sentEngaged: false,
+  check: function() {
+    if (!this.sentComplete && this.depth >= 100) {
+      this.sentComplete = true;
+      t('read_complete', { seconds: Math.round(this.secs) });
+    }
+    if (!this.sentEngaged && this.interacted && this.secs >= 30 && this.depth >= 50) {
+      this.sentEngaged = true;
+      t('engaged_read', { seconds: Math.round(this.secs), depth: Math.round(this.depth) });
+    }
+  }
+};
+(function() {
+  function mark() {
+    if (RQ.interacted) return;
+    RQ.interacted = true;
+    RQ.check();
+  }
+  ['touchstart', 'keydown', 'click', 'wheel'].forEach(function(ev) {
+    window.addEventListener(ev, mark, { passive: true, once: true });
+  });
+  window.addEventListener('pointermove', function(e) {
+    if (RQ.interacted) return;
+    if (!e.movementX && !e.movementY) return; // ignore zero-delta synthetic events
+    if (++RQ.moves >= 2) mark();
+  }, { passive: true });
+})();
+
 /* Consolidated scroll controller: one rAF-throttled listener drives the
    reading-progress bar, the mobile reading-bar ring/labels, the active
    section (sidebar TOC, bottom sheet, reading bar) and the scroll-depth

@@ -163,6 +163,25 @@ const cleanPath = getCleanPath(currentPath);
       }
     </script>
 
+    <!-- Cloudflare Web Analytics (production only).
+         Injected here rather than relying on Cloudflare's auto-install: the
+         zone-level injection never reached the page (Pages serves the HTML),
+         so the site sat configured-but-collecting-nothing from Feb to Jul.
+         Cookieless and no fingerprinting, so it needs no consent — same
+         footing as Umami. The owner opt-out still suppresses it.
+         Requires static.cloudflareinsights.com in script-src and
+         cloudflareinsights.com in connect-src (edge CSP transform rule). -->
+    <script is:inline>
+      if ((location.hostname === 'warrendeleon.com' || location.hostname === 'www.warrendeleon.com')
+          && !localStorage.getItem('umami.disabled')) {
+        var cfb = document.createElement('script');
+        cfb.defer = true;
+        cfb.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+        cfb.setAttribute('data-cf-beacon', '{"token": "f92b89c66d87475eaef5200eb2a8acfb"}');
+        document.head.appendChild(cfb);
+      }
+    </script>
+
     <!-- Umami Analytics (production only, first-party proxy) -->
     <script is:inline async defer src="/a/s.js" data-website-id="b0b688d0-04ce-4773-a8d1-86d9980ed27e" data-host-url="/a" data-domains="warrendeleon.com,www.warrendeleon.com"></script>
 
