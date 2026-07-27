@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Breadcrumb from '../../components/Breadcrumb.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../i18n/index';
 import { getFeedPostsForLocale, getPostSlug, getAllSeries, formatBlogDate, shortenSeriesName } from '../../utils/blogHelpers';
 import { getReadingTime } from '../../utils/readingTime';
@@ -66,15 +65,9 @@ const blogJsonLd = {
   currentPath={getLocalePath(locale, '/about/')}
   jsonLd={blogJsonLd}
   isProfilePage
-  mobileBack={{ href: getLocalePath(locale, '/'), title: a.heading, eyebrow: i18n.nav.home }}
 >
   <section class="section">
     <div class="container about-page">
-      <Breadcrumb
-        label={i18n.a11y.breadcrumb}
-        items={[{ label: i18n.nav.home, href: getLocalePath(locale, '/') }]}
-      />
-
       <!-- Profile hero: identity left, portrait right. -->
       <header class="about-hero">
         <div class="about-hero-text">
