@@ -224,13 +224,18 @@
     "privacyTitle": "Privacy | Warren de Leon",
     "privacyDescription": "Kung paano hinahawakan ng warrendeleon.com ang data mo: analytics na may respeto sa privacy, ang newsletter, cookies, at paano mag-opt out.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
-    "homeDescription": "Personal portfolio ni Warren de Leon, isang Software Engineering Manager na may mahigit isang dekada ng karanasan sa software development at team leadership.",
+    "homeDescription": "Warren de Leon, Software Engineering Manager na dalubhasa sa React Native, mobile architecture at team leadership. Dating nasa Hargreaves Lansdown at Sky.",
     "workExperienceTitle": "Karanasan sa Trabaho | Warren de Leon",
-    "workExperienceDescription": "Propesyonal na timeline ng karera ni Warren de Leon sa software engineering at management.",
+    "workExperienceDescription": "Mahigit 10 taon sa Sky, Shell, BP at Hargreaves Lansdown, mula React Native developer hanggang Engineering Manager na namumuno sa mobile platform teams.",
     "bookACallTitle": "Mag-book ng Tawag | Warren de Leon",
     "bookACallDescription": "Mag-iskedyul ng 30-minutong phone/video call kay Warren de Leon para sa mga oportunidad o kolaborasyon.",
     "blogTitle": "Blog | Warren de Leon",
-    "blogDescription": "Mga artikulo tungkol sa software engineering, team leadership, at mobile development."
+    "blogDescription": "Si Warren de Leon tungkol sa engineering management, hiring, React Native at pagbuo ng mobile teams: kung ano ang umuubra, isinulat mula sa mismong code.",
+    "blogPageDescription": "Pahina {n} ng blog ni Warren de Leon: engineering management, hiring, React Native, testing at mobile architecture.",
+    "blogTagsDescription": "Lahat ng paksa sa blog ni Warren de Leon, ayon sa tag: React Native, testing, security, state management, Module Federation at engineering leadership.",
+    "blogSeriesDescription": "Mga gabay na hinati sa parte sa blog ni Warren de Leon: Module Federation sa React Native, pagpapatibay ng Supabase stack, testing infrastructure at hiring.",
+    "tagDescription": "{n} {posts} na may tag na {tag} sa blog ni Warren de Leon, kasama ang {topics}. Pinakabago: {latest}.",
+    "tagDescriptionNoTopics": "{n} {posts} na may tag na {tag} sa blog ni Warren de Leon. Pinakabago: {latest}."
   },
   "a11y": {
     "mainNavigation": "Pangunahing nabigasyon",

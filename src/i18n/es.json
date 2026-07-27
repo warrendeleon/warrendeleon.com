@@ -224,13 +224,18 @@
     "privacyTitle": "Privacidad | Warren de Leon",
     "privacyDescription": "Cómo trata tus datos warrendeleon.com: analítica respetuosa con la privacidad, la newsletter, las cookies y cómo desactivarlo.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
-    "homeDescription": "Portfolio personal de Warren de Leon, Software Engineering Manager con más de una década de experiencia en desarrollo de software y liderazgo de equipos.",
+    "homeDescription": "Warren de Leon, Software Engineering Manager especializado en React Native, arquitectura móvil y liderazgo de equipos. Anteriormente en Hargreaves Lansdown y Sky.",
     "workExperienceTitle": "Experiencia Laboral | Warren de Leon",
-    "workExperienceDescription": "Cronología profesional de la carrera de Warren de Leon en ingeniería de software y gestión.",
+    "workExperienceDescription": "Más de 10 años en Sky, Shell, BP y Hargreaves Lansdown, de desarrollador React Native a Engineering Manager al frente de equipos de plataforma móvil.",
     "bookACallTitle": "Reservar Llamada | Warren de Leon",
     "bookACallDescription": "Programa una llamada telefónica/videollamada de 30 minutos con Warren de Leon para discutir oportunidades o colaboración.",
     "blogTitle": "Blog | Warren de Leon",
-    "blogDescription": "Artículos sobre ingeniería de software, liderazgo de equipos y desarrollo móvil."
+    "blogDescription": "Warren de Leon sobre gestión de ingeniería, contratación, React Native y construir equipos móviles: lo que funciona en la práctica, escrito desde el código.",
+    "blogPageDescription": "Página {n} del blog de Warren de Leon: gestión de ingeniería, contratación, React Native, testing y arquitectura móvil.",
+    "blogTagsDescription": "Todos los temas del blog de Warren de Leon, por etiqueta: React Native, testing, seguridad, gestión de estado, Module Federation y liderazgo de ingeniería.",
+    "blogSeriesDescription": "Guías por entregas en el blog de Warren de Leon: Module Federation en React Native, blindar un stack Supabase, infraestructura de testing y contratación.",
+    "tagDescription": "{n} {posts} con la etiqueta {tag} en el blog de Warren de Leon, junto a {topics}. Más reciente: {latest}.",
+    "tagDescriptionNoTopics": "{n} {posts} con la etiqueta {tag} en el blog de Warren de Leon. Más reciente: {latest}."
   },
   "a11y": {
     "mainNavigation": "Navegación principal",

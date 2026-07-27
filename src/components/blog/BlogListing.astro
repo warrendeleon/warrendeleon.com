@@ -58,7 +58,7 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
 
 <BaseLayout
   title={page.currentPage === 1 ? i18n.seo.blogTitle : i18n.blog.pageTitle.replace('{n}', String(page.currentPage))}
-  description={i18n.seo.blogDescription}
+  description={isFirstPage ? i18n.seo.blogDescription : i18n.seo.blogPageDescription.replace('{n}', String(page.currentPage))}
   locale={locale}
   currentPath={getLocalePath(locale, page.url.current.replace(/^\/(?:es|ca|tl)/, ''))}
 >

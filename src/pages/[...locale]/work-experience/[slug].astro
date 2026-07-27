@@ -88,11 +88,28 @@ const nextCompany = currentIndex < workxp.length - 1 ? workxp[currentIndex + 1] 
 // Design: a green "Latest" badge on the header when this is the current role
 // (same semantics as the home page: blank endDate = ongoing).
 const isLatestRole = !isClientPage && currentIndex === 0 && !company.positions[0].endDate?.trim();
+
+// Meta description: role, employer and dates ahead of the position blurb. Some
+// blurbs are a single line ("I was developing the new apps for…"), which on its
+// own is too thin for Google to use — it falls back to scraping the page.
+// Some role titles already name the employer ("Android Teacher in Edenic
+// Games"), so only append the name when it isn't in there already.
+const metaPeriod = formatDateRange(positions[0].startDate, positions[0].endDate, locale);
+const metaRole = positions[0].title.includes(displayName)
+  ? positions[0].title
+  : `${positions[0].title}, ${displayName}`;
+// Name first: these pages answer "Warren de Leon" plus an employer, so the name
+// is part of the query rather than decoration.
+// A colon, not a dash: some role titles carry their own em-dash ("Engineering
+// Manager — Mobile Platform") and two in a row read as a mistake.
+const metaLead = `Warren de Leon: ${metaRole} (${metaPeriod}).`;
+const metaBlurb = stripSimpleMarkdown(positions[0].description || '');
+const metaDescription = truncateAtWord(metaBlurb ? `${metaLead} ${metaBlurb}` : metaLead, 160);
 ---
 
 <BaseLayout
   title={`${displayName} | Warren de Leon`}
-  description={truncateAtWord(stripSimpleMarkdown(positions[0].description || `${displayName} — Warren de Leon`), 160)}
+  description={metaDescription}
   locale={locale}
   currentPath={getLocalePath(locale, `/work-experience/${slugify(displayName)}/`)}
   mobileBack={{ href: backLink, title: displayName, eyebrow: i18n.workExperience.title }}

@@ -224,13 +224,18 @@
     "privacyTitle": "Privacy | Warren de Leon",
     "privacyDescription": "How warrendeleon.com handles your data: privacy-friendly analytics, the newsletter, cookies, and how to opt out.",
     "homeTitle": "Warren de Leon | Software Engineering Manager",
-    "homeDescription": "Warren de Leon is a Software Engineering Manager specialising in React Native, team leadership, and mobile architecture. Most recently led the Mobile Platform team at Hargreaves Lansdown; previously at Sky.",
+    "homeDescription": "Warren de Leon, Software Engineering Manager specialising in React Native, mobile architecture and team leadership. Previously at Hargreaves Lansdown and Sky.",
     "workExperienceTitle": "Work Experience | Warren de Leon",
-    "workExperienceDescription": "10+ years in software engineering across Sky, Shell, BP, and Hargreaves Lansdown. From React Native developer to Engineering Manager leading mobile platform teams.",
+    "workExperienceDescription": "10+ years across Sky, Shell, BP and Hargreaves Lansdown, from React Native developer to Engineering Manager leading mobile platform teams.",
     "bookACallTitle": "Book a Call | Warren de Leon",
     "bookACallDescription": "Schedule a 30-minute phone/video call with Warren de Leon to discuss engineering leadership, React Native, or career opportunities.",
     "blogTitle": "Blog | Warren de Leon",
-    "blogDescription": "Writing about engineering management, hiring, React Native, and building mobile teams. By Warren de Leon, Software Engineering Manager at Hargreaves Lansdown."
+    "blogDescription": "Warren de Leon on engineering management, hiring, React Native and building mobile teams: what works in practice, written from the codebase up.",
+    "blogPageDescription": "Page {n} of the Warren de Leon blog: engineering management, hiring, React Native, testing and mobile architecture.",
+    "blogTagsDescription": "Every topic on the Warren de Leon blog, by tag: React Native, testing, security, state management, Module Federation, hiring and engineering leadership.",
+    "blogSeriesDescription": "Multi-part guides on the Warren de Leon blog: Module Federation in React Native, hardening a Supabase stack, testing infrastructure, and hiring engineers.",
+    "tagDescription": "{n} {posts} tagged {tag} on the Warren de Leon blog, alongside {topics}. Most recent: {latest}.",
+    "tagDescriptionNoTopics": "{n} {posts} tagged {tag} on the Warren de Leon blog. Most recent: {latest}."
   },
   "a11y": {
     "mainNavigation": "Main navigation",

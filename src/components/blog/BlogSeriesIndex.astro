@@ -24,7 +24,7 @@ const series = await Promise.all(seriesBase.map(async (s) => {
 
 <BaseLayout
   title={`${i18n.blog.browseBySeries} | Warren de Leon`}
-  description={i18n.blog.browseBySeries}
+  description={i18n.seo.blogSeriesDescription}
   locale={locale}
   currentPath={getLocalePath(locale, '/blog/series/')}
   mobileBack={{ href: blogPath, title: i18n.blog.browseBySeries, eyebrow: 'Blog' }}

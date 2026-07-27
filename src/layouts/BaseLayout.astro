@@ -4,6 +4,7 @@ import TabBar from '../components/TabBar.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { locales, getLocalePath, t, type Locale } from '../i18n/index';
+import { truncateAtWord } from '../utils/text';
 import '../styles/global.css';
 
 interface Props {
@@ -46,6 +47,12 @@ function getCleanPath(path: string): string {
 }
 
 const cleanPath = getCleanPath(currentPath);
+
+// Google cuts the search snippet around 160 characters, mid-phrase. Post and
+// series descriptions are page copy first and run longer, so cap the search
+// meta here at a word boundary. og:/twitter: keep the full text — social cards
+// have their own, longer budget.
+const metaDescription = truncateAtWord(description, 160);
 ---
 
 <!DOCTYPE html>
@@ -75,7 +82,7 @@ const cleanPath = getCleanPath(currentPath);
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
 
     <link rel="alternate" type="application/rss+xml" title="Warren de Leon | Blog" href="/rss.xml" />

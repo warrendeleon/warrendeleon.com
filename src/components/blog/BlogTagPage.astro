@@ -5,6 +5,7 @@ import SubscribeForm from '../SubscribeForm.astro';
 import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
+import { getTagDescription } from '../../i18n/tagDescriptions';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug } from '../../utils/blogHelpers';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
@@ -29,7 +30,7 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
 
 <BaseLayout
   title={`${i18n.blog.postsTagged} ${tagLabel} | Warren de Leon`}
-  description={`${i18n.blog.postsTagged} ${tagLabel}`}
+  description={getTagDescription(tag, locale, posts)}
   locale={locale}
   currentPath={getLocalePath(locale, `/blog/tags/${tag}/`)}
   mobileBack={{ href: getLocalePath(locale, '/blog/tags/'), title: tagLabel, eyebrow: i18n.blog.browseByTag }}
