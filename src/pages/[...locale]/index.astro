@@ -26,22 +26,6 @@ const latestPosition = currentRole.positions[0];
 // Same "current" semantics as formatDateRange: null, missing or blank endDate.
 const roleIsCurrent = !latestPosition.endDate?.trim();
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Warren de Leon",
-  "alternateName": ["Warren de Leon Ofalla", "Warren de Leon LTD", "warren_deleon", "warrendeleon", "warren.deleon"],
-  "jobTitle": "Software Engineering Manager",
-  "url": "https://warrendeleon.com",
-  "image": "https://warrendeleon.com/images/warren-deleon-headshot.webp",
-  "sameAs": [
-    "https://linkedin.com/in/warrendeleon",
-    "https://x.com/warren_deleon",
-    "https://instagram.com/warrendeleon",
-    "https://facebook.com/warren.deleon",
-    "https://github.com/warrendeleon"
-  ]
-};
 ---
 
 <BaseLayout
@@ -49,7 +33,7 @@ const jsonLd = {
   description={i18n.seo.homeDescription}
   locale={locale}
   currentPath={getLocalePath(locale, '/')}
-  jsonLd={jsonLd}
+  isProfilePage
   preloadImage="/images/photos/warren-1.webp"
 >
   <section class="hero section">

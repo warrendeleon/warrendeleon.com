@@ -18,6 +18,7 @@ import ReadingProgress from './ReadingProgress.astro';
 import RelatedCard from './RelatedCard.astro';
 import Shelf from './Shelf.astro';
 import Toc from './Toc.astro';
+import { personRef } from '../../lib/person';
 
 interface Props {
   locale: Locale;
@@ -49,27 +50,19 @@ const nextCandidate = currentIndex < sortedAsc.length - 1 ? sortedAsc[currentInd
 const prevPost = prevCandidate && publishSlot(prevCandidate.data.publishDate) <= now ? prevCandidate : null;
 const nextPost = nextCandidate && publishSlot(nextCandidate.data.publishDate) <= now ? nextCandidate : null;
 
+// No @context: BaseLayout carries this inside the site-wide @graph, where the
+// author and publisher refs resolve against the Person node on the same page.
 const blogPostingJsonLd = {
-  '@context': 'https://schema.org',
   '@type': 'BlogPosting',
+  '@id': `https://warrendeleon.com${postPath}#article`,
   headline: post.data.title,
   description: post.data.description,
   image: post.data.heroImage ? `https://warrendeleon.com${post.data.heroImage}` : undefined,
   datePublished: post.data.publishDate.toISOString(),
   inLanguage: locale,
-  author: {
-    '@type': 'Person',
-    name: 'Warren de Leon',
-    url: 'https://warrendeleon.com',
-  },
-  publisher: {
-    '@type': 'Person',
-    name: 'Warren de Leon',
-  },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': `https://warrendeleon.com${postPath}`,
-  },
+  author: personRef,
+  publisher: personRef,
+  mainEntityOfPage: { '@id': `https://warrendeleon.com${postPath}#webpage` },
 };
 
 const manualRelated = post.data.relatedPosts || [];

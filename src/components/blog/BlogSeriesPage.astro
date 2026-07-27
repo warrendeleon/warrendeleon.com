@@ -10,6 +10,7 @@ import { getSeriesDescription, getSeriesRepo } from '../../i18n/seriesDescriptio
 import { getSeriesPlan } from '../../data/seriesPlans';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import Breadcrumb from '../Breadcrumb.astro';
+import { personRef } from '../../lib/person';
 
 interface Props {
   locale: Locale;
@@ -101,10 +102,11 @@ const repoUrl = getSeriesRepo(seriesName);
 // ItemList structured data: tells search engines this is an ordered, multi-part guide
 // and makes the parts eligible for a list/carousel rich result.
 const itemListJsonLd = {
-  '@context': 'https://schema.org',
   '@type': 'ItemList',
+  '@id': `${siteUrl}${seriesPath}#serieslist`,
   name: seriesName,
   description: lede,
+  author: personRef,
   numberOfItems: publishedParts.length,
   itemListElement: publishedParts.map((post, i) => ({
     '@type': 'ListItem',

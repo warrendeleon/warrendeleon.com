@@ -110,6 +110,7 @@ const metaDescription = truncateAtWord(metaBlurb ? `${metaLead} ${metaBlurb}` : 
 <BaseLayout
   title={`${displayName} | Warren de Leon`}
   description={metaDescription}
+  isProfilePage
   locale={locale}
   currentPath={getLocalePath(locale, `/work-experience/${slugify(displayName)}/`)}
   mobileBack={{ href: backLink, title: displayName, eyebrow: i18n.workExperience.title }}

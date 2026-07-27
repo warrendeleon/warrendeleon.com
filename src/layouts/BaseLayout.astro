@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { locales, getLocalePath, t, type Locale } from '../i18n/index';
 import { truncateAtWord } from '../utils/text';
+import { buildPageGraph } from '../lib/person';
 import '../styles/global.css';
 
 interface Props {
@@ -13,7 +14,13 @@ interface Props {
   locale: Locale;
   currentPath: string;
   canonicalPath?: string;
+  /* Page-specific structured data (BlogPosting, ItemList). Carried inside the
+     site-wide @graph rather than emitted on its own, so it can reference the
+     Person and WebSite nodes by @id. Omit the @context — the graph owns it. */
   jsonLd?: object;
+  /* Pages that are about Warren rather than merely written by him: the home
+     page and the work-experience pages. Adds ProfilePage and `about`. */
+  isProfilePage?: boolean;
   ogImage?: string;
   ogType?: string;
   preloadImage?: string;
@@ -24,7 +31,7 @@ interface Props {
   mobileBack?: { href: string; title: string; eyebrow?: string };
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, ogImage, ogType, preloadImage, hreflangLocales, mobileBack } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, isProfilePage, ogImage, ogType, preloadImage, hreflangLocales, mobileBack } = Astro.props;
 
 // Default to every locale; pages that only exist in some locales (e.g. an
 // untranslated blog post) pass the subset that actually exists, so we never
@@ -53,6 +60,18 @@ const cleanPath = getCleanPath(currentPath);
 // meta here at a word boundary. og:/twitter: keep the full text — social cards
 // have their own, longer budget.
 const metaDescription = truncateAtWord(description, 160);
+
+// Every page carries the whole entity: the page, the site, and the person who
+// wrote both. A crawler that only ever fetches one page still gets the full
+// picture, and every page states its author instead of leaving it implied.
+const pageGraph = buildPageGraph({
+  url: canonical,
+  name: title,
+  description,
+  locale,
+  isProfilePage,
+  extra: jsonLd,
+});
 ---
 
 <!DOCTYPE html>
@@ -120,9 +139,7 @@ const metaDescription = truncateAtWord(description, 160);
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-400-normal.woff2" crossorigin />
     <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-800-normal.woff2" crossorigin />
 
-    {jsonLd && (
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-    )}
+    <script type="application/ld+json" set:html={JSON.stringify(pageGraph)} />
 
     <!-- Google Analytics with Consent Mode v2 (production only).
          Blocking the tag until someone clicks Accept cost us ~96% of sessions
