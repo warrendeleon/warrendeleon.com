@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { t, getLocalePath, localeStaticPaths, locales, type Locale } from '../../i18n/index';
+import { getFeedPostsForLocale, getPostSlug, getAllSeries, formatBlogDate, shortenSeriesName } from '../../utils/blogHelpers';
+import { getReadingTime } from '../../utils/readingTime';
+import { SITE_URL, personRef } from '../../lib/person';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const i18n = t(locale);
+const a = i18n.about;
+
+// Every published post for this locale, English masters included where a
+// translation doesn't exist — the same set the blog feed shows, so this page
+// is the complete index rather than a subset of it.
+const posts = await getFeedPostsForLocale(locale);
+const series = await getAllSeries(locale);
+
+// The stat band states the body of work in numbers a reader can check:
+// every figure below is derived from the posts, never typed in.
+const totalMinutes = posts.reduce((sum, p) => sum + getReadingTime(p.body ?? ''), 0);
+
+const years = [...new Set(posts.map((p) => p.data.publishDate.getFullYear()))]
+  .sort((x, y) => y - x)
+  .map((year) => ({ year, posts: posts.filter((p) => p.data.publishDate.getFullYear() === year) }));
+
+// Same render path as the home page About section and /privacy/: paragraphs on
+// a blank line, **bold** to <strong>. Own trusted copy, not user input.
+const md = (s: string) => s.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+const postUrl = (post: (typeof posts)[number]) =>
+  post.enFallback ? `/blog/${getPostSlug(post.id)}/` : getLocalePath(locale, `/blog/${getPostSlug(post.id)}/`);
+
+// Short day-month for the index rows; the year lives in the group marker.
+const shortDate = (d: Date) => formatBlogDate(d, locale).replace(/\s*\d{4}$/, '');
+
+// The article set as one node the Person owns. Each entry reuses the @id the
+// post page emits for itself, so the two resolve to the same BlogPosting
+// instead of Google seeing a list of unrelated look-alikes.
+const blogJsonLd = {
+  '@type': 'Blog',
+  '@id': `${SITE_URL}/#blog`,
+  name: i18n.seo.blogTitle,
+  description: i18n.seo.blogDescription,
+  url: `${SITE_URL}${getLocalePath(locale, '/blog/')}`,
+  inLanguage: locale,
+  author: personRef,
+  publisher: personRef,
+  blogPost: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    '@id': `${SITE_URL}${postUrl(post)}#article`,
+    headline: post.data.title,
+    url: `${SITE_URL}${postUrl(post)}`,
+    datePublished: post.data.publishDate.toISOString(),
+    author: personRef,
+  })),
+};
+---
+
+<BaseLayout
+  title={i18n.seo.aboutTitle}
+  description={i18n.seo.aboutDescription}
+  locale={locale}
+  currentPath={getLocalePath(locale, '/about/')}
+  jsonLd={blogJsonLd}
+  isProfilePage
+  mobileBack={{ href: getLocalePath(locale, '/'), title: a.heading, eyebrow: i18n.nav.home }}
+>
+  <section class="section">
+    <div class="container about-page">
+      <Breadcrumb
+        label={i18n.a11y.breadcrumb}
+        items={[{ label: i18n.nav.home, href: getLocalePath(locale, '/') }]}
+      />
+
+      <!-- Profile hero: identity left, portrait right. -->
+      <header class="about-hero">
+        <div class="about-hero-text">
+          <p class="about-eyebrow blog-mono">{i18n.home.subtitle}</p>
+          <h1 class="section-title">{a.heading}</h1>
+          <div class="about-bio">
+            {a.intro.split('\n\n').map((par) => <p set:html={md(par)} />)}
+          </div>
+          <div class="about-ctas">
+            <a href={getLocalePath(locale, '/work-experience/')} class="hero-cta hero-cta-solid">
+              {i18n.home.viewWorkExperience}
+            </a>
+            <a href={getLocalePath(locale, '/book-a-call/')} class="hero-cta hero-cta-outline">
+              {i18n.nav.bookACall}
+            </a>
+          </div>
+        </div>
+        <img
+          src="/images/warren-deleon-headshot.webp"
+          alt="Warren de Leon"
+          class="about-portrait"
+          width="230"
+          height="230"
+        />
+      </header>
+
+      <!-- Every number here is derived from the posts, never hand-typed. -->
+      <p class="about-stats blog-mono" aria-label={a.writingHeading}>
+        <span><strong>{posts.length}</strong> {a.statsPosts}</span>
+        <span><strong>{series.length}</strong> {a.statsSeries}</span>
+        <span><strong>{totalMinutes}</strong> {a.statsMinutes}</span>
+        <span><strong>{locales.length}</strong> {a.statsLanguages}</span>
+      </p>
+
+      <h2 class="about-writing-heading">{a.writingHeading}</h2>
+      <p class="about-writing-intro">{a.writingIntro.replace('{n}', String(posts.length))}</p>
+
+      <!-- The index: an author's publication record, not a browsing feed.
+           Dense rows scan in seconds; the post's artwork appears on row hover
+           (pointer devices only — see the script below). -->
+      {years.map(({ year, posts: yearPosts }) => (
+        <section class="roster-group">
+          <h3 class="roster-year blog-mono">{year}</h3>
+          <ul class="roster">
+            {yearPosts.map((post) => (
+              <li>
+                <a
+                  href={postUrl(post)}
+                  class="roster-row"
+                  hreflang={post.enFallback ? 'en' : undefined}
+                  data-art={post.data.heroImage || undefined}
+                >
+                  <span class="roster-date blog-mono">{shortDate(post.data.publishDate)}</span>
+                  <span class="roster-title" lang={post.enFallback ? 'en' : undefined}>{post.data.title}</span>
+                  <span class="roster-meta blog-mono">
+                    {post.data.series && <span class="roster-series">{shortenSeriesName(post.data.series)}</span>}
+                    {post.enFallback && <span class="roster-lang">{i18n.blog.inEnglish}</span>}
+                  </span>
+                  <span class="roster-min blog-mono">{getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      <!-- Floating artwork preview, driven by .roster-row[data-art] hover. -->
+      <div class="roster-art" aria-hidden="true"><img alt="" loading="lazy" /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Artwork preview on row hover. Only wired up when hovering is a real input
+  // and motion is allowed; on touch the artwork simply lives on the post page.
+  const art = document.querySelector('.roster-art') as HTMLElement | null;
+  const img = art?.querySelector('img');
+  // Checked per event, not at load: a viewport that starts narrow (or a tablet
+  // rotating) would otherwise be stuck with the load-time decision.
+  const wantsHover = window.matchMedia('(hover: hover) and (min-width: 1100px)');
+  const okMotion = window.matchMedia('(prefers-reduced-motion: no-preference)');
+  if (art && img) {
+    document.querySelectorAll<HTMLElement>('.roster-row[data-art]').forEach((row) => {
+      row.addEventListener('mouseenter', () => {
+        if (!wantsHover.matches || !okMotion.matches) return;
+        img.src = row.dataset.art!;
+        art.classList.add('roster-art-visible');
+      });
+      row.addEventListener('mouseleave', () => art.classList.remove('roster-art-visible'));
+    });
+  }
+</script>
+
+<style>
+  /* ---- Hero ---- */
+  .about-hero {
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+  }
+  .about-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-green-text);
+    margin-bottom: 0.5rem;
+  }
+  /* Prose keeps a readable measure; the index below runs the full container. */
+  .about-bio { max-width: 62ch; }
+  .about-bio p { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem; }
+  .about-ctas { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 1.6rem; }
+  .about-portrait {
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 3px solid var(--border-color);
+    box-shadow: var(--shadow);
+  }
+
+  /* ---- Stat band ---- */
+  .about-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 2.4rem;
+    padding: 1.1rem 0;
+    margin-bottom: 3rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .about-stats strong { color: var(--color-green-text); font-weight: 700; margin-right: 0.3rem; }
+
+  .about-writing-heading { font-size: 1.5rem; margin-bottom: 0.35rem; }
+  .about-writing-intro { color: var(--text-secondary); margin-bottom: 2.5rem; }
+
+  /* ---- The index ---- */
+  .roster-group { margin-bottom: 2.5rem; }
+  .roster-year {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.14em;
+    margin-bottom: 0.4rem;
+  }
+  .roster { list-style: none; margin: 0; padding: 0; }
+  .roster li { border-top: 1px solid var(--border-color); }
+  .roster li:last-child { border-bottom: 1px solid var(--border-color); }
+
+  /* Fixed columns keep every row the same shape: a long title wraps inside
+     its own cell and the chips stay put on the right. */
+  .roster-row {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr auto auto;
+    gap: 1.5rem;
+    align-items: baseline;
+    padding: 0.95rem 0.6rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease;
+  }
+  .roster-row:hover { background: var(--bg-secondary); }
+  .roster-date { font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+  .roster-title { font-weight: 600; font-size: 1.02rem; min-width: 0; transition: color 0.2s ease; }
+  .roster-row:hover .roster-title { color: var(--color-green-text); }
+  .roster-meta { display: flex; gap: 0.8rem; font-size: 0.78rem; }
+  .roster-series { color: var(--color-green-text); white-space: nowrap; }
+  .roster-lang {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    border-radius: 999px;
+    padding: 0.05rem 0.55rem;
+    white-space: nowrap;
+  }
+  .roster-min { font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+
+  /* ---- Hover artwork ---- */
+  .roster-art {
+    position: fixed;
+    right: 4vw;
+    top: 50%;
+    transform: translateY(-50%) rotate(-2deg) scale(0.97);
+    width: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-hover);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 5;
+  }
+  .roster-art img { display: block; width: 100%; height: auto; }
+  .roster-art-visible { opacity: 1; transform: translateY(-50%) rotate(-2deg) scale(1); }
+  /* The preview is a pointer-hover affordance only. */
+  @media (hover: none), (max-width: 1099px), (prefers-reduced-motion: reduce) {
+    .roster-art { display: none; }
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 768px) {
+    .about-hero { flex-direction: column-reverse; align-items: center; gap: 1.5rem; }
+    /* Portrait centres; the prose stays left-aligned for reading. */
+    .about-hero-text { text-align: left; width: 100%; }
+    .about-portrait { width: 140px; height: 140px; }
+    .about-ctas .hero-cta { flex: 1; text-align: center; }
+    .about-stats { gap: 0.5rem 1.6rem; margin-bottom: 2.25rem; }
+
+    .roster-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas: 'date min' 'title title' 'meta meta';
+      row-gap: 0.35rem;
+      padding: 0.85rem 0.2rem;
+    }
+    .roster-date { grid-area: date; }
+    .roster-min { grid-area: min; }
+    .roster-title { grid-area: title; }
+    .roster-meta { grid-area: meta; }
+  }
+</style>

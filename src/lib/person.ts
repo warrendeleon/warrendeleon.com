@@ -25,6 +25,9 @@ export const personNode = {
   jobTitle: 'Software Engineering Manager',
   url: SITE_URL,
   image: `${SITE_URL}/images/warren-deleon-headshot.webp`,
+  // The author page: the one page that is about him and lists everything he
+  // has written. Names the canonical entry for the entity.
+  mainEntityOfPage: { '@id': `${SITE_URL}/about/#webpage` },
   sameAs: [
     'https://linkedin.com/in/warrendeleon',
     'https://x.com/warren_deleon',
@@ -74,8 +77,12 @@ export function buildPageGraph({ url, name, description, locale, isProfilePage, 
     publisher: personRef,
     copyrightHolder: personRef,
   };
-  // A ProfilePage states its subject; every other page is only authored by him.
-  if (isProfilePage) webPage.about = personRef;
+  // A ProfilePage states its subject; every other page is only authored by
+  // him. Google's ProfilePage guidance reads mainEntity, so set both.
+  if (isProfilePage) {
+    webPage.about = personRef;
+    webPage.mainEntity = personRef;
+  }
 
   const extras = extra ? (Array.isArray(extra) ? extra : [extra]) : [];
   return {

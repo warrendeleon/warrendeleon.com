@@ -22,7 +22,7 @@ const { href, publishDate, hreflang, textLang, thumb, metaText, series, langLabe
 const hasThumbSlot = Astro.slots.has('thumb');
 ---
 
-<a href={href} class="feed-post" data-publish-date={publishDate} hreflang={hreflang}>
+<a href={href} class="feed-post" data-publish-date={publishDate} hreflang={hreflang} data-no-thumb={hasThumbSlot || thumb ? undefined : true}>
   {(hasThumbSlot || thumb) && (
     <div class="feed-post-thumb">
       {hasThumbSlot ? <slot name="thumb" /> : <img src={thumb!.src} alt={thumb!.alt} loading="lazy" />}

@@ -18,6 +18,7 @@ const year = new Date().getFullYear();
   <div class="footer-inner">
     <nav class="footer-nav" aria-label={i18n.a11y.footerNavigation}>
       <ul>
+        <li><a href={getLocalePath(locale, '/about/')}>{i18n.nav.about}</a></li>
         <li><a href={getLocalePath(locale, '/work-experience/')}>{i18n.nav.workExperience}</a></li>
         <li><a href={getLocalePath(locale, '/blog/')}>{i18n.nav.blog}</a></li>
         <li><a href={getLocalePath(locale, '/book-a-call/')}>{i18n.nav.bookACall}</a></li>

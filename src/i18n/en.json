@@ -5,7 +5,8 @@
     "bookACall": "Book a Call",
     "blog": "Blog",
     "education": "Education",
-    "design": "Design"
+    "design": "Design",
+    "about": "About"
   },
   "home": {
     "title": "Warren de Leon",
@@ -146,6 +147,16 @@
     "heading": "Education",
     "viewCertificate": "View certificate"
   },
+  "about": {
+    "heading": "About Warren de Leon",
+    "intro": "I'm Warren de Leon, a Software Engineering Manager. I lead mobile teams and I still work in the codebase, mostly **React Native**.\n\nSince 2017 I've built and led teams shipping apps for **Sky, Shell, BP and Chelsea FC**, and most recently led the Mobile Platform team at **Hargreaves Lansdown**. Before the UK I started out in **Barcelona**, where I was born, and taught Android development across Europe on an international employability programme.\n\nEverything I write is below. It comes out of work I have actually done: React Native architecture, testing, mobile security, state management, Module Federation, and how to run a hiring process that doesn't waste everyone's time. Build-alongs and post-mortems, not think-pieces.",
+    "writingHeading": "Everything I've written",
+    "writingIntro": "{n} posts, newest first.",
+    "statsPosts": "posts",
+    "statsSeries": "series",
+    "statsMinutes": "min of reading",
+    "statsLanguages": "languages"
+  },
   "privacy": {
     "heading": "Privacy",
     "updated": "Last updated 26 June 2026",
@@ -235,7 +246,9 @@
     "blogTagsDescription": "Every topic on the Warren de Leon blog, by tag: React Native, testing, security, state management, Module Federation, hiring and engineering leadership.",
     "blogSeriesDescription": "Multi-part guides on the Warren de Leon blog: Module Federation in React Native, hardening a Supabase stack, testing infrastructure, and hiring engineers.",
     "tagDescription": "{n} {posts} tagged {tag} on the Warren de Leon blog, alongside {topics}. Most recent: {latest}.",
-    "tagDescriptionNoTopics": "{n} {posts} tagged {tag} on the Warren de Leon blog. Most recent: {latest}."
+    "tagDescriptionNoTopics": "{n} {posts} tagged {tag} on the Warren de Leon blog. Most recent: {latest}.",
+    "aboutTitle": "About Warren de Leon | Software Engineering Manager",
+    "aboutDescription": "Warren de Leon is a Software Engineering Manager: React Native since 2017, previously Sky and Hargreaves Lansdown. Every article he has written, newest first."
   },
   "a11y": {
     "mainNavigation": "Main navigation",
