@@ -1410,7 +1410,7 @@
       "Employers and internal projects are never named."
     ],
     "crossHeading": "Cross-linking",
-    "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet: the words simply **render as plain text**, so nothing ever 404s, and they become a link on their own when the target publishes. Forward references are written once and resolve themselves.",
+    "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet: the words **render as plain text**, so nothing ever 404s, and they become a link on their own when the target publishes. Forward references are written once and resolve themselves.",
     "crossBody2": "Each post can hand-pick up to three related posts; posts without picks fall back to shared tags. A further-reading shelf tops that up with quieter posts the reader has probably not met, capped at nine in total, so it stays a recommendation rather than an archive.",
     "crossBody3": "Inside a series, previous and next stay inside the series: part five points at parts four and six, never at an unrelated post that happened to publish next to it. Only at the ends of a series do the arrows fall back to the neighbouring post by date.",
     "sentencesHeading": "Sentences",
