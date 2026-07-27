@@ -151,7 +151,7 @@
   },
   "about": {
     "heading": "About Warren de Leon",
-    "intro": "I'm Warren de Leon, a Software Engineering Manager. I lead mobile teams and I still work in the codebase, mostly **React Native**.\n\nSince 2017 I've built and led teams shipping apps for **Sky, Shell, BP and Chelsea FC**, and most recently led the Mobile Platform team at **Hargreaves Lansdown**. Before the UK I started out in **Barcelona**, where I was born, and taught Android development across Europe on an international employability programme.\n\nEverything I write is below. It comes out of work I have actually done: React Native architecture, testing, mobile security, state management, Module Federation, and how to run a hiring process that doesn't waste everyone's time. Build-alongs and post-mortems, not think-pieces.",
+    "intro": "I'm Warren de Leon, a Software Engineering Manager. I lead mobile teams and I still work in the codebase, mostly **React Native**.\n\nEverything I write is below. It comes out of work I have actually done: React Native architecture, testing, mobile security, state management, Module Federation, and how to run a hiring process that doesn't waste everyone's time. Build-alongs and post-mortems, not think-pieces.",
     "writingHeading": "Everything I've written",
     "writingIntro": "{n} posts, newest first.",
     "statsPosts": "posts",

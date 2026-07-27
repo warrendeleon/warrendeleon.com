@@ -151,7 +151,7 @@
   },
   "about": {
     "heading": "Sobre Warren de Leon",
-    "intro": "Soy Warren de Leon, Software Engineering Manager. Dirijo equipos móviles y sigo trabajando en el código, sobre todo en **React Native**.\n\nDesde 2017 he construido y liderado equipos que han entregado apps para **Sky, Shell, BP y el Chelsea FC**, y hasta hace poco dirigí el equipo de Mobile Platform en **Hargreaves Lansdown**. Antes del Reino Unido empecé en **Barcelona**, donde nací, y enseñé desarrollo Android por toda Europa dentro de un programa internacional de empleabilidad.\n\nTodo lo que escribo está aquí abajo. Sale de trabajo que he hecho de verdad: arquitectura en React Native, testing, seguridad móvil, gestión de estado, Module Federation y cómo llevar un proceso de contratación que no haga perder el tiempo a nadie. Tutoriales paso a paso y análisis de lo que salió mal, no artículos de opinión.",
+    "intro": "Soy Warren de Leon, Software Engineering Manager. Dirijo equipos móviles y sigo trabajando en el código, sobre todo en **React Native**.\n\nTodo lo que escribo está aquí abajo. Sale de trabajo que he hecho de verdad: arquitectura en React Native, testing, seguridad móvil, gestión de estado, Module Federation y cómo llevar un proceso de contratación que no haga perder el tiempo a nadie. Tutoriales paso a paso y análisis de lo que salió mal, no artículos de opinión.",
     "writingHeading": "Todo lo que he escrito",
     "writingIntro": "{n} artículos, del más reciente al más antiguo.",
     "statsPosts": "artículos",
