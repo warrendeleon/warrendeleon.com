@@ -71,7 +71,6 @@ const blogJsonLd = {
       <!-- Profile hero: identity left, portrait right. -->
       <header class="about-hero">
         <div class="about-hero-text">
-          <p class="about-eyebrow blog-mono">{i18n.home.subtitle}</p>
           <h1 class="section-title">{a.heading}</h1>
           <div class="about-bio">
             {a.intro.split('\n\n').map((par) => <p set:html={md(par)} />)}
@@ -168,13 +167,6 @@ const blogJsonLd = {
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 2.5rem;
-  }
-  .about-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-green-text);
-    margin-bottom: 0.5rem;
   }
   /* Prose keeps a readable measure; the index below runs the full container. */
   .about-bio { max-width: 62ch; }
