@@ -28,7 +28,9 @@
     "allExperience": "All experience",
     "designTitle": "Designed in the open",
     "designBody": "The design system this site is built from is documented publicly — colour, type, layout and components, generated from the live stylesheet.",
-    "designCta": "Explore the design system"
+    "designCta": "Explore the design system",
+    "writingBody": "Every post on one page: React Native, testing, state management, hiring and engineering leadership, grouped by year.",
+    "writingCta": "Read it all"
   },
   "workExperience": {
     "title": "Work Experience",

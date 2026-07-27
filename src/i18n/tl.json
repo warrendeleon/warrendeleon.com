@@ -28,7 +28,9 @@
     "allExperience": "Lahat ng karanasan",
     "designTitle": "Dinisenyo nang hayagan",
     "designBody": "Ang design system na pinagbuuan ng site na ito ay pampublikong nakadokumento — kulay, tipograpiya, layout at mga component, na ginawa mula sa live na stylesheet.",
-    "designCta": "Galugarin ang design system"
+    "designCta": "Galugarin ang design system",
+    "writingBody": "Lahat ng post sa isang pahina: React Native, testing, state management, hiring at engineering leadership, nakapangkat ayon sa taon.",
+    "writingCta": "Basahin lahat"
   },
   "workExperience": {
     "title": "Karanasan sa Trabaho",

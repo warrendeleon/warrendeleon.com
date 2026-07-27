@@ -126,18 +126,37 @@ const roleIsCurrent = !latestPosition.endDate?.trim();
 
   <!-- Design-system pointer: quiet closing card; the section's primary home
        is the footer link, this is the portfolio nudge. -->
+  <!-- Closing pair: the writing roster and the design system, equal weight.
+       One card alone read as an afterthought; two matched cards close the
+       page in balance. -->
   <section class="section">
     <div class="container">
-      <div class="cta-band">
-        <h2 class="cta-band-heading">{i18n.home.designTitle}</h2>
-        <p>{i18n.home.designBody}</p>
-        <a href={getLocalePath(locale, '/design/')} class="btn btn-outline">{i18n.home.designCta}</a>
+      <div class="cta-band-pair">
+        <div class="cta-band">
+          <h2 class="cta-band-heading">{i18n.about.writingHeading}</h2>
+          <p>{i18n.home.writingBody}</p>
+          <a href={getLocalePath(locale, '/about/')} class="btn btn-outline">{i18n.home.writingCta}</a>
+        </div>
+        <div class="cta-band">
+          <h2 class="cta-band-heading">{i18n.home.designTitle}</h2>
+          <p>{i18n.home.designBody}</p>
+          <a href={getLocalePath(locale, '/design/')} class="btn btn-outline">{i18n.home.designCta}</a>
+        </div>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style is:global>
+
+  /* ===== Closing pair (mobile-first: stacked, columns from 900px) ===== */
+  .cta-band-pair { display: grid; gap: 16px; }
+  /* Paired cards fill their columns; the 640px solo cap would unbalance them. */
+  .cta-band-pair .cta-band { max-width: none; margin: 0; }
+  @media (min-width: 900px) {
+    .cta-band-pair { grid-template-columns: 1fr 1fr; gap: 20px; }
+    /* The band's own copy cap (46ch) keeps lines readable inside each card. */
+  }
 
   /* ===== Hero per design ===== */
   .hero-eyebrow {
