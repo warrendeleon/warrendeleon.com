@@ -1543,29 +1543,59 @@
         "label": "El disseny del correu"
       },
       {
+        "id": "why",
+        "label": "Per què el títol va doblat"
+      },
+      {
         "id": "copy",
         "label": "Què diu el correu"
       }
     ],
     "designHeading": "El disseny del correu",
-    "designBody1": "Una sola columna de 600 píxels: una targeta blanca sobre una pàgina gris suau, una barra d’accent llima de quatre píxels a la part superior, el logotip a sota, i Inter a cada línia. Els enllaços fan servir el verd llegible de text i les cantonades de la targeta van a 14 píxels. És el web, traduït al que els clients de correu permeten.",
-    "designBody2": "El mode fosc segueix la preferència del lector, amb la mateixa idea de valors aparellats que els tokens del web: la pàgina passa a gairebé negre, la targeta a gris fosc, el logotip canvia a la seva versió clara, i els verds pugen un punt per continuar sent llegibles. El botó fa servir el verd fosc de hover perquè el text blanc superi el llistó de contrast.",
+    "designBody1": "Una sola columna de 600 píxels: una targeta blanca sobre una pàgina gris suau, una barra d'accent llima de quatre píxels a la part superior, el logotip a sota i Inter a cada línia. Després, la banda: la il·lustració del post, enfosquida, amb un gran numeral verd de la part i el títol en blanc. Els enllaços usen el verd llegible de text i les cantonades de la targeta queden a 14 píxels. És el web, traduït al que permeten els clients de correu.",
+    "designBody2": "La banda és una imatge generada — una per post i per idioma — així que es veu igual a tots els clients, i el títol es repeteix a sota com a text real: qui llegeixi amb imatges desactivades, amb lletra més gran o amb un lector de pantalla no perd res més que l'atmosfera. El mode fosc segueix la preferència del lector, amb la mateixa idea de valors aparellats que els tokens del web: la pàgina passa a gairebé negre, la targeta a gris fosc, el logotip canvia a la seva versió clara i els verds pugen per continuar sent llegibles. La banda ja és fosca per disseny, així que és l'únic element que no necessita canvi.",
     "copyHeading": "Què diu el correu",
     "copyBody1": "El correu reutilitza les **pròpies paraules** del post, així que res no s’escriu dues vegades i res no pot contradir el web. Un post de sèrie rep l’eyebrow de la sèrie i el seu número de part, el cos és la mateixa descripció del post, i el botó és l’única acció.",
     "copyRules": [
       "Assumpte de sèrie: «Nou a la sèrie: {títol} (Part N)», amb el títol tallat al primer signe de dos punts perquè la línia quedi curta.",
       "Assumpte de post solt: «Nou article: {títol}».",
       "Un sol botó verd, «Llegir el post →». El correu demana exactament un clic.",
-      "Un post de sèrie tanca anomenant la sèrie i enllaçant la part anterior, perquè un subscriptor nou pugui caminar enrere.",
-      "La campanya de cada idioma va a la seva pròpia llista, i només quan la traducció existeix."
+      "Un post de sèrie tanca anomenant la sèrie i enllaçant la part anterior, perquè un subscriptor nou pugui arribar a les parts anteriors.",
+      "La campanya de cada idioma va a la seva pròpia llista, i només quan la traducció existeix.",
+      "El títol apareix dues vegades a propòsit: compost a la imatge de la banda i de nou com a titular de text. La banda és presentació; el titular de text és el que realment rep un lector de pantalla o un client sense imatges."
     ],
     "mockLabel": "El correu, reconstruït amb els valors d’un post real.",
     "mockSubject": "Nou a la sèrie: La closca del host (Part 4)",
-    "mockEyebrow": "Module Federation · Part 4",
+    "mockEyebrow": "Part 4",
     "mockTitle": "La closca del host: remotes federats com a pestanyes a React Native",
     "mockDesc": "Converteix el host d'una sola pantalla en una closca d'app: té la tab bar i la navegació, i cada pestanya és un remote construït, desplegat i carregat a part.",
     "mockButton": "Llegir el post →",
     "mockNav": "Forma part de la sèrie React Native Module Federation i continua la part 3, el contracte de singletons compartits.",
-    "mockSubjectLabel": "Assumpte"
+    "mockSubjectLabel": "Assumpte",
+    "mockBandSeries": "Module Federation",
+    "mockBandPart": "04",
+    "whyHeading": "Per què el títol va doblat",
+    "whyIntro": "La banda i el titular mostren el mateix títol a lectors diferents. Cada raó de sota és un lector que el disseny perdria altrament.",
+    "whyReasons": [
+      "**Qui escaneja se salta els bàners.** Un bloc gràfic estilitzat a l'inici d'un correu es llegeix com a publicitat — el patró s'anomena ceguesa als bàners — i un lector amb pressa salta directe al primer text. Si el títol visqués només a la banda, aquest lector no el veuria. El titular de text és on aterra la seva mirada.",
+      "**L'Outlook corporatiu bloqueja les imatges remotes per defecte**, i els lectors d'aquest butlletí són enginyers, justament el públic amb més probabilitat d'usar-lo. Amb el títol com a text, un correu amb totes les imatges bloquejades continua dient de què va; el text alternatiu de la banda repeteix la sèrie, la part i el títol per la mateixa raó.",
+      "**Els lectors de pantalla naveguen el correu per titulars**, i un títol dins d'una imatge no és un titular. La lletra ampliada pel lector escala el text, mai les imatges. Les WCAG (les pautes d'accessibilitat per al contingut web) demanen el mateix al punt 1.4.5: res d'imatges de text on el text real pot fer la feina.",
+      "**El doblat es mesura, no se suposa.** La banda i el botó enllacen al mateix post amb valors diferents de `utm_content`, així que les dades de clics mostren si la banda es guanya el lloc o si el botó fa la feina."
+    ],
+    "whySourcesLabel": "Fonts",
+    "whySources": [
+      {
+        "label": "Nielsen Norman Group — la ceguesa als bàners, la recerca amb seguiment ocular",
+        "href": "https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/"
+      },
+      {
+        "label": "Litmus — el bloqueig d'imatges al correu, client a client",
+        "href": "https://www.litmus.com/blog/the-ultimate-guide-to-email-image-blocking"
+      },
+      {
+        "label": "W3C — entenent la WCAG 1.4.5, imatges de text",
+        "href": "https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html"
+      }
+    ]
   }
 }

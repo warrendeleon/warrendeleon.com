@@ -1543,29 +1543,59 @@
         "label": "Ang disenyo ng email"
       },
       {
+        "id": "why",
+        "label": "Bakit dinoble ang titulo"
+      },
+      {
         "id": "copy",
         "label": "Ano ang sinasabi ng email"
       }
     ],
     "designHeading": "Ang disenyo ng email",
-    "designBody1": "Isang 600-pixel na column: puting card sa malambot na kulay-abo na page, apat-na-pixel na lime accent bar sa itaas, ang wordmark sa ilalim nito, at Inter sa bawat linya. Ang mga link ay gumagamit ng nababasang text green at ang mga kanto ng card ay nasa 14 pixels. Ito ang site, isinalin sa kung ano ang pinapayagan ng mga email client.",
-    "designBody2": "Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark grey, ang logo ay napapalitan ng light na bersyon, at ang mga berde ay tumataas para manatiling nababasa. Ang button ay gumagamit ng mas madilim na hover green para pumasa sa contrast bar ang puting text.",
+    "designBody1": "Isang 600-pixel na column: puting card sa malambot na kulay-abo na page, apat-na-pixel na lime accent bar sa itaas, ang wordmark sa ilalim nito, at Inter sa bawat linya. Pagkatapos, ang band: ang hero artwork ng post, pinadilim, may malaking berdeng numeral ng bahagi at ang titulo sa puti. Gumagamit ang mga link ng nababasang berde ng teksto at ang mga kanto ng card ay nasa 14 pixels. Ito ang site, isinalin sa kung ano ang pinapayagan ng mga email client.",
+    "designBody2": "Ang band ay isang generated na imahe — isa bawat post, bawat wika — kaya pareho ang itsura nito sa lahat ng client, at ang titulo ay inuulit sa ilalim bilang totoong teksto: ang mambabasang naka-off ang mga imahe, mas malaki ang letra, o gumagamit ng screen reader ay walang nawawala kundi ang atmospera. Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark gray, ang logo ay nagpapalit sa maliwanag na bersyon nito, at ang mga berde ay tumataas para manatiling nababasa. Madilim na ang band sa disenyo, kaya ito ang tanging elementong hindi nangangailangan ng pagpapalit.",
     "copyHeading": "Ano ang sinasabi ng email",
     "copyBody1": "Muling ginagamit ng email ang **sariling mga salita** ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
     "copyRules": [
       "Series subject: “Bago sa serye: {title} (Bahagi N)”, na pinuputol ang title sa unang colon para manatiling maikli ang linya.",
       "Standalone subject: “Bagong post: {title}”.",
       "Isang berdeng button, “Basahin ang post →”. Eksaktong isang click ang hinihingi ng email.",
-      "Ang series post ay nagsasara sa pagbanggit ng serye at pag-link sa nakaraang bahagi, para makapag-backtrack ang bagong subscriber.",
-      "Ang campaign ng bawat wika ay pumupunta sa sariling list, at ipinapadala lang kapag may translation."
+      "Ang series post ay nagsasara sa pagbanggit ng serye at pag-link sa nakaraang bahagi, para maabot ng bagong subscriber ang mga naunang bahagi.",
+      "Ang campaign ng bawat wika ay pumupunta sa sariling list, at ipinapadala lang kapag may translation.",
+      "Lumalabas ang titulo nang dalawang beses nang sinasadya: nakabuo sa imahe ng band at muli bilang text heading. Ang band ay presentasyon; ang text heading ang talagang natatanggap ng screen reader o ng client na naka-off ang mga imahe."
     ],
     "mockLabel": "Ang email, muling binuo gamit ang mga totoong value ng isang post.",
     "mockSubject": "Bago sa serye: Ang host shell (Bahagi 4)",
-    "mockEyebrow": "Module Federation · Bahagi 4",
+    "mockEyebrow": "Bahagi 4",
     "mockTitle": "Ang host shell: mga federated remote bilang tabs sa React Native",
     "mockDesc": "Gawing tunay na app shell ang host: ito ang may-ari ng tab bar at navigation, at bawat tab ay remote na binuo, na-ship at nilo-load nang mag-isa.",
     "mockButton": "Basahin ang post →",
     "mockNav": "Bahagi ng seryeng React Native Module Federation, kasunod ng bahagi 3, ang shared-singleton contract.",
-    "mockSubjectLabel": "Subject"
+    "mockSubjectLabel": "Subject",
+    "mockBandSeries": "Module Federation",
+    "mockBandPart": "04",
+    "whyHeading": "Bakit dinoble ang titulo",
+    "whyIntro": "Parehong titulo ang ipinapakita ng band at ng heading, pero para sa magkaibang mambabasa. Bawat dahilan sa ibaba ay isang mambabasang mawawala sana sa disenyo.",
+    "whyReasons": [
+      "**Nilalaktawan ng mga nag-i-scan ang mga banner.** Ang naka-istilong graphic block sa itaas ng email ay mukhang patalastas — banner blindness ang tawag sa pattern — at ang nagmamadaling mambabasa ay dumidiretso sa unang teksto. Kung nasa band lang ang titulo, hindi ito makikita ng mambabasang iyon. Ang text heading ang dinadapuan ng kanilang mata.",
+      "**Naka-block ang mga remote na imahe sa corporate Outlook bilang default**, at mga inhinyero ang mambabasa ng newsletter na ito, ang audience na pinakamalamang na gumagamit nito. Dahil teksto ang titulo, kahit naka-block ang lahat ng imahe ay sinasabi pa rin ng email kung tungkol saan ito; inuulit din ng alt text ng band ang serye, bahagi at titulo sa parehong dahilan.",
+      "**Nagna-navigate ang mga screen reader sa email gamit ang mga heading**, at ang titulong nasa loob ng imahe ay hindi heading. Ang pinalaking letra ng mambabasa ay nagpapalaki ng teksto, hindi kailanman ng mga imahe. Pareho ang hinihingi ng WCAG (ang Web Content Accessibility Guidelines) sa punto 1.4.5: walang imahe ng teksto kung kaya ng totoong teksto ang trabaho.",
+      "**Sinusukat ang pagdoble, hindi ipinagpapalagay.** Iisang post ang naka-link sa band at sa button pero magkaiba ang `utm_content`, kaya ipinapakita ng click data kung ang band ang kumikita ng lugar nito o ang button ang gumagawa ng trabaho."
+    ],
+    "whySourcesLabel": "Mga pinagmulan",
+    "whySources": [
+      {
+        "label": "Nielsen Norman Group — banner blindness, ang eyetracking na pananaliksik",
+        "href": "https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/"
+      },
+      {
+        "label": "Litmus — pag-block ng imahe sa email, bawat client",
+        "href": "https://www.litmus.com/blog/the-ultimate-guide-to-email-image-blocking"
+      },
+      {
+        "label": "W3C — pag-unawa sa WCAG 1.4.5, mga imahe ng teksto",
+        "href": "https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html"
+      }
+    ]
   }
 }

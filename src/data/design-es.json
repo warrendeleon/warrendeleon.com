@@ -1543,29 +1543,59 @@
         "label": "El diseño del correo"
       },
       {
+        "id": "why",
+        "label": "Por qué el título va doblado"
+      },
+      {
         "id": "copy",
         "label": "Qué dice el correo"
       }
     ],
     "designHeading": "El diseño del correo",
-    "designBody1": "Una sola columna de 600 píxeles: una tarjeta blanca sobre una página gris suave, una barra de acento lima de cuatro píxeles en la parte superior, el logotipo debajo, e Inter en cada línea. Los enlaces usan el verde legible de texto y las esquinas de la tarjeta van a 14 píxeles. Es el sitio, traducido a lo que los clientes de correo permiten.",
-    "designBody2": "El modo oscuro sigue la preferencia del lector, con la misma idea de valores emparejados que los tokens del sitio: la página pasa a casi negro, la tarjeta a gris oscuro, el logotipo cambia a su versión clara, y los verdes suben un punto para seguir siendo legibles. El botón usa el verde oscuro de hover para que el texto blanco supere el listón de contraste.",
+    "designBody1": "Una sola columna de 600 píxeles: una tarjeta blanca sobre una página gris suave, una barra de acento lima de cuatro píxeles en la parte superior, el logotipo debajo y Inter en cada línea. Después, la banda: la ilustración del post, oscurecida, con un gran numeral verde de la parte y el título en blanco. Los enlaces usan el verde legible de texto y las esquinas de la tarjeta quedan a 14 píxeles. Es el sitio, traducido a lo que permiten los clientes de correo.",
+    "designBody2": "La banda es una imagen generada — una por post y por idioma — así que se ve igual en todos los clientes, y el título se repite debajo como texto real: quien lea con imágenes desactivadas, con letra más grande o con un lector de pantalla no pierde nada más que la atmósfera. El modo oscuro sigue la preferencia del lector, con la misma idea de valores emparejados que los tokens del sitio: la página pasa a casi negro, la tarjeta a gris oscuro, el logotipo cambia a su versión clara y los verdes suben para seguir siendo legibles. La banda ya es oscura por diseño, así que es el único elemento que no necesita cambio.",
     "copyHeading": "Qué dice el correo",
     "copyBody1": "El correo reutiliza las **propias palabras** del post, así que nada se escribe dos veces y nada puede contradecir al sitio. Un post de serie recibe el eyebrow de la serie y su número de parte, el cuerpo es la propia descripción del post, y el botón es la única acción.",
     "copyRules": [
       "Asunto de serie: «Nuevo en la serie: {título} (Parte N)», con el título cortado en el primer signo de dos puntos para que la línea quede corta.",
       "Asunto de post suelto: «Nuevo artículo: {título}».",
       "Un solo botón verde, «Leer el post →». El correo pide exactamente un clic.",
-      "Un post de serie cierra nombrando la serie y enlazando la parte anterior, para que un suscriptor nuevo pueda caminar hacia atrás.",
-      "La campaña de cada idioma va a su propia lista, y solo cuando la traducción existe."
+      "Un post de serie cierra nombrando la serie y enlazando la parte anterior, para que un suscriptor nuevo pueda llegar a las partes anteriores.",
+      "La campaña de cada idioma va a su propia lista, y solo cuando la traducción existe.",
+      "El título aparece dos veces a propósito: compuesto en la imagen de la banda y de nuevo como titular de texto. La banda es presentación; el titular de texto es lo que realmente recibe un lector de pantalla o un cliente sin imágenes."
     ],
     "mockLabel": "El correo, reconstruido con los valores de un post real.",
     "mockSubject": "Nuevo en la serie: La cáscara del host (Parte 4)",
-    "mockEyebrow": "Module Federation · Parte 4",
+    "mockEyebrow": "Parte 4",
     "mockTitle": "La cáscara del host: remotes federados como pestañas en React Native",
     "mockDesc": "El host pasa de una pantalla a cáscara de la app: es dueño de la tab bar y la navegación, y cada pestaña es un remote construido, desplegado y cargado aparte.",
     "mockButton": "Leer el post →",
     "mockNav": "Forma parte de la serie React Native Module Federation y continúa la parte 3, el contrato de singletons compartidos.",
-    "mockSubjectLabel": "Asunto"
+    "mockSubjectLabel": "Asunto",
+    "mockBandSeries": "Module Federation",
+    "mockBandPart": "04",
+    "whyHeading": "Por qué el título va doblado",
+    "whyIntro": "La banda y el titular muestran el mismo título a lectores distintos. Cada razón de abajo es un lector que el diseño perdería de otro modo.",
+    "whyReasons": [
+      "**Quien escanea se salta los banners.** Un bloque gráfico estilizado al inicio de un correo se lee como publicidad — el patrón se llama ceguera ante los banners — y un lector con prisa salta directo al primer texto. Si el título viviera solo en la banda, ese lector no lo vería. El titular de texto es donde aterriza su mirada.",
+      "**El Outlook corporativo bloquea las imágenes remotas por defecto**, y los lectores de este boletín son ingenieros, justo el público con más probabilidad de usarlo. Con el título como texto, un correo con todas las imágenes bloqueadas sigue diciendo de qué va; el texto alternativo de la banda repite la serie, la parte y el título por la misma razón.",
+      "**Los lectores de pantalla navegan el correo por titulares**, y un título dentro de una imagen no es un titular. La letra ampliada por el lector escala el texto, nunca las imágenes. Las WCAG (las pautas de accesibilidad para el contenido web) piden lo mismo en el punto 1.4.5: nada de imágenes de texto donde el texto real puede hacer el trabajo.",
+      "**El doblado se mide, no se supone.** La banda y el botón enlazan al mismo post con valores distintos de `utm_content`, así que los datos de clics muestran si la banda se gana su sitio o si el botón hace el trabajo."
+    ],
+    "whySourcesLabel": "Fuentes",
+    "whySources": [
+      {
+        "label": "Nielsen Norman Group — la ceguera ante los banners, la investigación con seguimiento ocular",
+        "href": "https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/"
+      },
+      {
+        "label": "Litmus — el bloqueo de imágenes en correo, cliente a cliente",
+        "href": "https://www.litmus.com/blog/the-ultimate-guide-to-email-image-blocking"
+      },
+      {
+        "label": "W3C — entendiendo la WCAG 1.4.5, imágenes de texto",
+        "href": "https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html"
+      }
+    ]
   }
 }

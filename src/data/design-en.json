@@ -1543,29 +1543,59 @@
         "label": "The email design"
       },
       {
+        "id": "why",
+        "label": "Why the title is doubled"
+      },
+      {
         "id": "copy",
         "label": "What the email says"
       }
     ],
     "designHeading": "The email design",
-    "designBody1": "One 600-pixel column: a white card on a soft grey page, a four-pixel lime accent bar across the top, the wordmark beneath it, and Inter for every line. Links use the readable text green and the card corners sit at 14 pixels. It is the site, translated into what email clients allow.",
-    "designBody2": "Dark mode follows the reader’s preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The button uses the darker hover green so white text on it clears the contrast bar.",
+    "designBody1": "One 600-pixel column: a white card on a soft grey page, a four-pixel lime accent bar across the top, the wordmark beneath it, and Inter for every line. Then the band: the post's hero artwork, darkened, with a large green part numeral and the title in white. Links use the readable text green and the card corners sit at 14 pixels. It is the site, translated into what email clients allow.",
+    "designBody2": "The band is a generated image — one per post, per language — so it renders the same in every client, and the title under it is repeated as real text: a reader with images off, larger type, or a screen reader loses nothing but mood. Dark mode follows the reader's preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The band is dark by design, so it is the one element that needs no swap.",
     "copyHeading": "What the email says",
     "copyBody1": "The email reuses the post’s **own words**, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
     "copyRules": [
       "Series subject: “New in the series: {title} (Part N)”, with the title cut at its first colon so the line stays short.",
       "Standalone subject: “New post: {title}”.",
       "One green button, “Read the post →”. The email asks for exactly one click.",
-      "A series post closes by naming the series and linking the previous part, so a new subscriber can walk backwards.",
-      "Each language’s campaign goes to its own list, and only when the translation exists."
+      "A series post closes by naming the series and linking the previous part, so a new subscriber can reach the earlier parts.",
+      "Each language’s campaign goes to its own list, and only when the translation exists.",
+      "The title appears twice on purpose: composed in the band image and again as a text heading. The band is presentation; the text heading is what a screen reader or an images-off client actually gets."
     ],
     "mockLabel": "The email, reconstructed with a real post’s values.",
     "mockSubject": "New in the series: The host shell (Part 4)",
-    "mockEyebrow": "Module Federation · Part 4",
+    "mockEyebrow": "Part 4",
     "mockTitle": "The host shell: federated remotes as tabs in React Native",
     "mockDesc": "Turn the host from a single screen into a real app shell: it owns the tab bar and navigation, and each tab is a remote built, shipped and loaded on its own.",
     "mockButton": "Read the post →",
     "mockNav": "Part of the React Native Module Federation series, building on part 3, the shared-singleton contract.",
-    "mockSubjectLabel": "Subject"
+    "mockSubjectLabel": "Subject",
+    "mockBandSeries": "Module Federation",
+    "mockBandPart": "04",
+    "whyHeading": "Why the title is doubled",
+    "whyIntro": "The band and the heading show the same title to different readers. Each reason below is a reader the design would otherwise lose.",
+    "whyReasons": [
+      "**Scanners skip banners.** A styled graphic block at the top of an email reads as an advert — the pattern is called banner blindness — and a reader in a hurry jumps past it to the first text. If the title lived only in the band, that reader would not see it. The text heading is where their eye lands.",
+      "**Corporate Outlook blocks remote images by default**, and this newsletter's readers are engineers, the audience most likely to sit behind it. With the title as text, an email with every image blocked still says what it is about; the band's alt text restates the series, part and title for the same reason.",
+      "**Screen readers navigate email by headings**, and a title inside an image is not a heading. Reader-set larger type scales text, never images. WCAG (the Web Content Accessibility Guidelines) makes the same demand in point 1.4.5: no images of text where real text can do the job.",
+      "**The doubling is measured, not assumed.** The band and the button link the same post with different `utm_content` values, so the click data shows whether the band earns its place or the button does the work."
+    ],
+    "whySourcesLabel": "Sources",
+    "whySources": [
+      {
+        "label": "Nielsen Norman Group — banner blindness, the eyetracking research",
+        "href": "https://www.nngroup.com/articles/banner-blindness-old-and-new-findings/"
+      },
+      {
+        "label": "Litmus — email image blocking, client by client",
+        "href": "https://www.litmus.com/blog/the-ultimate-guide-to-email-image-blocking"
+      },
+      {
+        "label": "W3C — Understanding WCAG 1.4.5, images of text",
+        "href": "https://www.w3.org/WAI/WCAG21/Understanding/images-of-text.html"
+      }
+    ]
   }
 }
