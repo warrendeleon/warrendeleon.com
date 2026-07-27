@@ -870,7 +870,7 @@
     "ctabandHeading": "CTA band",
     "ctabandBody": "Ang nakasentrong pansarang banda: may tint, may border, 16-pixel na kanto, maikling heading at isa o dalawang call to action, hanggang 640 pixels. Mag-isa nitong sinasara ang CV page; ang home page ay nagsasara na may dalawa sa isang `cta-band-pair` grid — nakapatong sa maliliit na screen, magkatabi mula 900 pixels, tinanggal ang solong width cap para balanse ang pares.",
     "statbandHeading": "Stat band",
-    "statbandBody": "Isang mono na linya ng mga bilang sa pagitan ng dalawang manipis na linya — mga post, serye, minuto ng pagbabasa, wika. Berdeng numero, muted na label. Bawat numero ay hinango mula sa content sa build time, hindi kailanman tinatype, kaya hindi maaaring lumihis ang banda sa aktwal na laman ng site.",
+    "statbandBody": "Isang mono na linya ng mga bilang sa pagitan ng dalawang manipis na linya — mga post, serye, minuto ng pagbabasa. Berdeng numero, muted na label. Bawat numero ay hinango mula sa content sa build time, hindi kailanman tinatype, kaya hindi maaaring lumihis ang banda sa aktwal na laman ng site.",
     "pnHeading": "Prev / next tiles",
     "pnBody": "Dalawang tinted tile sa paanan ng detail page: berdeng uppercase na direction label at title ng pupuntahan, naka-right-align ang next tile. Magkabahagi ang mga artikulo at company page sa mga `pn-nav` class; sa phone, nagsasalansan ang mga tile.",
     "homeBlogNote": "Ang home page ay bumubuo rin ng dalawang bespoke card mula sa mga pirasong ito: current-series card na may progress bar sa tabi ng pinakabagong post. Sa phone, kapwa sila nagbibigay-daan sa standard na feed rows."

@@ -156,8 +156,7 @@
     "writingIntro": "{n} posts, newest first.",
     "statsPosts": "posts",
     "statsSeries": "series",
-    "statsMinutes": "min of reading",
-    "statsLanguages": "languages"
+    "statsMinutes": "min of reading"
   },
   "privacy": {
     "heading": "Privacy",

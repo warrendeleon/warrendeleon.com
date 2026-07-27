@@ -870,7 +870,7 @@
     "ctabandHeading": "CTA band",
     "ctabandBody": "The centred closing band: tinted, bordered, 16-pixel corners, a short heading and one or two calls to action, capped at 640 pixels. It closes the CV page on its own; the home page closes with two of them in a `cta-band-pair` grid — stacked on small screens, side by side from 900 pixels, the solo width cap lifted so the pair balances.",
     "statbandHeading": "Stat band",
-    "statbandBody": "A mono line of counted facts between two hairlines — posts, series, minutes of reading, languages. Green figures, muted labels. Every number is derived from the content at build time, never typed in, so the band cannot drift from what the site actually holds.",
+    "statbandBody": "A mono line of counted facts between two hairlines — posts, series, minutes of reading. Green figures, muted labels. Every number is derived from the content at build time, never typed in, so the band cannot drift from what the site actually holds.",
     "pnHeading": "Prev / next tiles",
     "pnBody": "Two tinted tiles at the foot of a detail page: a green uppercase direction label and the destination’s title, the next tile right-aligned. Articles and company pages share the `pn-nav` classes; on phones the tiles stack.",
     "homeBlogNote": "The home page also composes two bespoke cards from these parts: a current-series card with its progress bar beside the latest post. On phones both give way to the standard feed rows."

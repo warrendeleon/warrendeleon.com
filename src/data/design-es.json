@@ -870,7 +870,7 @@
     "ctabandHeading": "Banda CTA",
     "ctabandBody": "La banda de cierre centrada: tintada, con borde, esquinas de 16 píxeles, un encabezado corto y una o dos llamadas a la acción, con tope de 640 píxeles. Cierra la página del CV por sí sola; la página de inicio cierra con dos de ellas en una cuadrícula `cta-band-pair` — apiladas en pantallas pequeñas, lado a lado desde 900 píxeles, sin el tope de ancho individual para que el par quede equilibrado.",
     "statbandHeading": "Banda de cifras",
-    "statbandBody": "Una línea mono de cifras contadas entre dos líneas finas — artículos, series, minutos de lectura, idiomas. Cifras en verde, etiquetas apagadas. Cada número se deriva del contenido al compilar, nunca se escribe a mano, así que la banda no puede desviarse de lo que el sitio realmente contiene.",
+    "statbandBody": "Una línea mono de cifras contadas entre dos líneas finas — artículos, series, minutos de lectura. Cifras en verde, etiquetas apagadas. Cada número se deriva del contenido al compilar, nunca se escribe a mano, así que la banda no puede desviarse de lo que el sitio realmente contiene.",
     "pnHeading": "Fichas anterior / siguiente",
     "pnBody": "Dos fichas tintadas al pie de una página de detalle: una etiqueta verde de dirección en mayúsculas y el título del destino, con la ficha siguiente alineada a la derecha. Los artículos y las páginas de empresa comparten las clases `pn-nav`; en el móvil las fichas se apilan.",
     "homeBlogNote": "La portada compone además dos tarjetas a medida con estas piezas: una tarjeta de serie en curso con su barra de progreso junto al último post. En el móvil ambas ceden el sitio a las filas estándar del feed."

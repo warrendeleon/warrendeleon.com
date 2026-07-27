@@ -156,8 +156,7 @@
     "writingIntro": "{n} artículos, del más reciente al más antiguo.",
     "statsPosts": "artículos",
     "statsSeries": "series",
-    "statsMinutes": "min de lectura",
-    "statsLanguages": "idiomas"
+    "statsMinutes": "min de lectura"
   },
   "privacy": {
     "heading": "Privacidad",
