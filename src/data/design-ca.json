@@ -785,6 +785,10 @@
         "label": "Post del feed"
       },
       {
+        "id": "roster",
+        "label": "Índex de publicacions"
+      },
+      {
         "id": "series-hero",
         "label": "Targeta hero de sèrie"
       },
@@ -813,6 +817,10 @@
         "label": "Banda CTA"
       },
       {
+        "id": "statband",
+        "label": "Banda de xifres"
+      },
+      {
         "id": "pn",
         "label": "Fitxes anterior / següent"
       },
@@ -828,8 +836,10 @@
     "baseHeading": "Targeta base",
     "baseBody": "Una superfície arrodonida de 12 píxels sobre el fons de la targeta, emmarcada per una línia fina i elevada per una ombra suau. En passar-hi el cursor, s'eleva una mica més. És l'estructura sobre la qual es construeix gairebé qualsevol altra targeta.",
     "feedHeading": "Post del feed",
-    "feedBody": "La targeta del llistat del blog: el component FeedPostCard real, aquí amb un marcador de posició on va la imatge hero. A escriptori és una miniatura al costat d'un títol, una línia de metadades i un resum de dues línies; en mòbils es replega en una fila compacta.",
+    "feedBody": "La targeta del llistat del blog: el component FeedPostCard real, aquí amb un marcador de posició on va la imatge hero. A escriptori és una miniatura al costat d'un títol, una línia de metadades i un resum de dues línies; en mòbils es replega en una fila compacta. Sense art, un post del feed es marca `data-no-thumb` i passa a una columna, perquè el cos mai quedi al costat d'una pista d'imatge buida.",
     "wholeLinkNote": "Tota la targeta és un únic enllaç, no pas un enllaç al títol amb un «llegeix-ne més» a part. En passar-hi el cursor, s'eleva la targeta i el títol es torna verd alhora.",
+    "rosterHeading": "Índex de publicacions",
+    "rosterBody": "El germà dens del post del feed: una fila de línia fina per article — data en mono, títol, sèrie, temps de lectura — agrupades sota un marcador d'any en mono. Una targeta de feed ven un article; l'índex demostra una obra, així que l'art queda fora del flux. Amb punter en amples d'escriptori, passar per una fila fa aparèixer l'art del post com una petita previsualització girada; en tàctil o amb moviment reduït només hi ha les files. Una implementació, les classes `roster`; corre a la pàgina about i mai es pagina.",
     "rulesHeading": "Quan utilitzar-ho",
     "dos": [
       "Fes que tota la targeta sigui un únic enllaç quan apunti a un sol lloc.",
@@ -858,7 +868,9 @@
     "iconcardHeading": "Targeta d’enllaç amb icona",
     "iconcardBody": "Una targeta base que és un únic enllaç: un glif Feather i un títol a la fila de capçalera, un resum a sota. Icona i títol es tornen verds junts en passar-hi per sobre. Va néixer com la targeta d’índex d’aquesta documentació i es va promocionar al web: les classes `icon-card` sobre `card`.",
     "ctabandHeading": "Banda CTA",
-    "ctabandBody": "La banda de tancament centrada: tintada, amb vora, cantonades de 16 píxels, una capçalera curta i una o dues crides a l’acció, amb un topall de 640 píxels. Tanca la portada i la pàgina del CV: una sola implementació, les classes `cta-band`.",
+    "ctabandBody": "La banda de tancament centrada: tintada, amb vora, cantonades de 16 píxels, un encapçalament curt i una o dues crides a l'acció, amb topall de 640 píxels. Tanca la pàgina del CV tota sola; la pàgina d'inici tanca amb dues en una graella `cta-band-pair` — apilades en pantalles petites, costat a costat des de 900 píxels, sense el topall d'amplada individual perquè el parell quedi equilibrat.",
+    "statbandHeading": "Banda de xifres",
+    "statbandBody": "Una línia mono de xifres comptades entre dues línies fines — articles, sèries, minuts de lectura, idiomes. Xifres en verd, etiquetes apagades. Cada número es deriva del contingut en compilar, mai s'escriu a mà, així que la banda no pot desviar-se del que el lloc realment conté.",
     "pnHeading": "Fitxes anterior / següent",
     "pnBody": "Dues fitxes tintades al peu d’una pàgina de detall: una etiqueta verda de direcció en majúscules i el títol de la destinació, amb la fitxa següent alineada a la dreta. Els articles i les pàgines d’empresa comparteixen les classes `pn-nav`; al mòbil les fitxes s’apilen.",
     "homeBlogNote": "La portada compon a més dues targetes a mida amb aquestes peces: una targeta de sèrie en curs amb la seva barra de progrés al costat de l’últim post. Al mòbil totes dues cedeixen el lloc a les files estàndard del feed."

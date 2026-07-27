@@ -785,6 +785,10 @@
         "label": "Feed post"
       },
       {
+        "id": "roster",
+        "label": "Talaan ng publikasyon"
+      },
+      {
         "id": "series-hero",
         "label": "Series hero card"
       },
@@ -813,6 +817,10 @@
         "label": "CTA band"
       },
       {
+        "id": "statband",
+        "label": "Stat band"
+      },
+      {
         "id": "pn",
         "label": "Prev / next tiles"
       },
@@ -828,8 +836,10 @@
     "baseHeading": "Base card",
     "baseBody": "Isang bilog na 12-pixel na ibabaw sa background ng card, nakabalangkas ng manipis na linya at itinaas ng malambot na anino. Kapag hini-hover, kaunti pa itong itinataas. Ito ang shell na pinagtatayuan ng halos lahat ng ibang card.",
     "feedHeading": "Feed post",
-    "feedBody": "Ang card ng blog listing: ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row.",
+    "feedBody": "Ang card ng blog listing: ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row. Kapag walang artwork, minamarkahan ng feed post ang sarili ng `data-no-thumb` at bumabagsak sa isang column, para hindi tumabi ang body sa walang lamang image track.",
     "wholeLinkNote": "Ang buong card ay isang link, hindi isang title link na may hiwalay na “read more”. Ang hover ay magkasabay na nagtataas ng card at nag-be-berde sa pamagat.",
+    "rosterHeading": "Talaan ng publikasyon",
+    "rosterBody": "Ang siksik na kapatid ng feed post: isang manipis na hilera bawat post — mono na petsa, pamagat, serye, oras ng pagbabasa — nakapangkat sa ilalim ng mono na year marker. Ang feed card ay nagbebenta ng isang post; ang index ay nagpapatunay ng katawan ng akda, kaya walang artwork sa daloy. Sa pointer sa desktop na lapad, ang pag-hover sa isang hilera ay nagpapalutang ng art ng post bilang maliit na nakatagilid na preview; sa touch at reduced-motion, mga hilera lang. Isang implementasyon, ang mga `roster` class; tumatakbo ito sa about page at hindi kailanman pina-paginate.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
       "Gawing isang link ang buong card kapag tumuturo ito sa isang lugar.",
@@ -858,7 +868,9 @@
     "iconcardHeading": "Icon link card",
     "iconcardBody": "Isang base card na iisang link: Feather glyph at title sa head row, blurb sa ibaba. Sabay na nagiging berde ang icon at title kapag naka-hover. Ipinanganak bilang index card ng docs na ito at na-promote sa site — ang mga `icon-card` class sa ibabaw ng `card`.",
     "ctabandHeading": "CTA band",
-    "ctabandBody": "Ang nakagitnang closing band: may tint, may border, 16-pixel na kanto, maikling heading at isa o dalawang call to action, hanggang 640 pixels. Nagsasara ito ng home page at ng CV page — iisang implementation, ang mga `cta-band` class.",
+    "ctabandBody": "Ang nakasentrong pansarang banda: may tint, may border, 16-pixel na kanto, maikling heading at isa o dalawang call to action, hanggang 640 pixels. Mag-isa nitong sinasara ang CV page; ang home page ay nagsasara na may dalawa sa isang `cta-band-pair` grid — nakapatong sa maliliit na screen, magkatabi mula 900 pixels, tinanggal ang solong width cap para balanse ang pares.",
+    "statbandHeading": "Stat band",
+    "statbandBody": "Isang mono na linya ng mga bilang sa pagitan ng dalawang manipis na linya — mga post, serye, minuto ng pagbabasa, wika. Berdeng numero, muted na label. Bawat numero ay hinango mula sa content sa build time, hindi kailanman tinatype, kaya hindi maaaring lumihis ang banda sa aktwal na laman ng site.",
     "pnHeading": "Prev / next tiles",
     "pnBody": "Dalawang tinted tile sa paanan ng detail page: berdeng uppercase na direction label at title ng pupuntahan, naka-right-align ang next tile. Magkabahagi ang mga artikulo at company page sa mga `pn-nav` class; sa phone, nagsasalansan ang mga tile.",
     "homeBlogNote": "Ang home page ay bumubuo rin ng dalawang bespoke card mula sa mga pirasong ito: current-series card na may progress bar sa tabi ng pinakabagong post. Sa phone, kapwa sila nagbibigay-daan sa standard na feed rows."

@@ -74,6 +74,42 @@ const demoDesc =
     <p set:html={md(c.wholeLinkNote)} />
   </section>
 
+  <section id="roster">
+    <h2>{c.rosterHeading}</h2>
+    <p set:html={md(c.rosterBody)} />
+    <SpecimenCard plain>
+      <div class="roster-group">
+        <h3 class="roster-year blog-mono">2026</h3>
+        <ul class="roster">
+          <li>
+            <a class="roster-row" href="#roster">
+              <span class="roster-date blog-mono">8 Jun</span>
+              <span class="roster-title">{demoTitle}</span>
+              <span class="roster-meta blog-mono"><span class="roster-series">RN Module Federation</span></span>
+              <span class="roster-min blog-mono">10 {i18n.blog.minRead}</span>
+            </a>
+          </li>
+          <li>
+            <a class="roster-row" href="#roster">
+              <span class="roster-date blog-mono">1 Jun</span>
+              <span class="roster-title">Module Federation in React Native</span>
+              <span class="roster-meta blog-mono"><span class="roster-series">RN Module Federation</span></span>
+              <span class="roster-min blog-mono">7 {i18n.blog.minRead}</span>
+            </a>
+          </li>
+          <li>
+            <a class="roster-row" href="#roster">
+              <span class="roster-date blog-mono">18 May</span>
+              <span class="roster-title">Detox + Cucumber BDD for React Native E2E testing</span>
+              <span class="roster-meta blog-mono"><span class="roster-series">RN Foundations</span></span>
+              <span class="roster-min blog-mono">10 {i18n.blog.minRead}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </SpecimenCard>
+  </section>
+
   <section id="series-hero">
     <h2>{c.seriesHeroHeading}</h2>
     <p set:html={md(c.seriesHeroBody)} />
@@ -170,6 +206,19 @@ const demoDesc =
           <span class="btn btn-outline">{c.pnHeading}</span>
         </div>
       </div>
+    </SpecimenCard>
+  </section>
+
+  <section id="statband">
+    <h2>{c.statbandHeading}</h2>
+    <p set:html={md(c.statbandBody)} />
+    <SpecimenCard plain>
+      <p class="stat-band blog-mono" style="margin-bottom: 0;" aria-hidden="true">
+        <span><strong>18</strong> {i18n.about.statsPosts}</span>
+        <span><strong>4</strong> {i18n.about.statsSeries}</span>
+        <span><strong>159</strong> {i18n.about.statsMinutes}</span>
+        <span><strong>4</strong> {i18n.about.statsLanguages}</span>
+      </p>
     </SpecimenCard>
   </section>
 

@@ -785,6 +785,10 @@
         "label": "Feed post"
       },
       {
+        "id": "roster",
+        "label": "Publication index"
+      },
+      {
         "id": "series-hero",
         "label": "Series hero card"
       },
@@ -813,6 +817,10 @@
         "label": "CTA band"
       },
       {
+        "id": "statband",
+        "label": "Stat band"
+      },
+      {
         "id": "pn",
         "label": "Prev / next tiles"
       },
@@ -828,8 +836,10 @@
     "baseHeading": "Base card",
     "baseBody": "A rounded 12-pixel surface on the card background, framed by a hairline and lifted by a soft shadow. On hover it lifts a little more. It is the shell almost every other card is built on.",
     "feedHeading": "Feed post",
-    "feedBody": "The blog listing card — the real FeedPostCard component, here with a placeholder where the hero image goes. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row.",
+    "feedBody": "The blog listing card — the real FeedPostCard component, here with a placeholder where the hero image goes. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row. Without artwork a feed post marks itself `data-no-thumb` and drops to one column, so the body never sits beside an empty image track.",
     "wholeLinkNote": "The entire card is a single link, not a title link with a separate “read more”. Hover lifts the card and greens the title together.",
+    "rosterHeading": "Publication index",
+    "rosterBody": "The feed post's dense sibling: one hairline row per post — mono date, title, series, reading time — grouped under a mono year marker. A feed card sells one post; the index proves a body of work, so artwork stays out of the flow. On a pointer at desktop widths, hovering a row floats the post's art in as a small rotated preview; touch and reduced-motion readers just get the rows. One implementation, the `roster` classes; it runs on the about page and is never paginated.",
     "seriesHeroHeading": "Series hero card",
     "seriesHeroBody": "The blog home's current-series card, rendered live: hero art beside the series pitch, with the published-of-total progress bar. On phones it stacks and gains a solid View series button.",
     "leadHeading": "The lead post & viewports",
@@ -858,7 +868,9 @@
     "iconcardHeading": "Icon link card",
     "iconcardBody": "A base card that is one link: a Feather glyph and a title on the head row, a blurb below. Icon and title green together on hover. Born as this documentation’s own index card and promoted to the site — the `icon-card` classes on top of `card`.",
     "ctabandHeading": "CTA band",
-    "ctabandBody": "The centred closing band: tinted, bordered, 16-pixel corners, a short heading and one or two calls to action, capped at 640 pixels. It closes the home page and the CV page — one implementation, the `cta-band` classes.",
+    "ctabandBody": "The centred closing band: tinted, bordered, 16-pixel corners, a short heading and one or two calls to action, capped at 640 pixels. It closes the CV page on its own; the home page closes with two of them in a `cta-band-pair` grid — stacked on small screens, side by side from 900 pixels, the solo width cap lifted so the pair balances.",
+    "statbandHeading": "Stat band",
+    "statbandBody": "A mono line of counted facts between two hairlines — posts, series, minutes of reading, languages. Green figures, muted labels. Every number is derived from the content at build time, never typed in, so the band cannot drift from what the site actually holds.",
     "pnHeading": "Prev / next tiles",
     "pnBody": "Two tinted tiles at the foot of a detail page: a green uppercase direction label and the destination’s title, the next tile right-aligned. Articles and company pages share the `pn-nav` classes; on phones the tiles stack.",
     "homeBlogNote": "The home page also composes two bespoke cards from these parts: a current-series card with its progress bar beside the latest post. On phones both give way to the standard feed rows."

@@ -785,6 +785,10 @@
         "label": "Post del feed"
       },
       {
+        "id": "roster",
+        "label": "Índice de publicaciones"
+      },
+      {
         "id": "series-hero",
         "label": "Tarjeta hero de serie"
       },
@@ -813,6 +817,10 @@
         "label": "Banda CTA"
       },
       {
+        "id": "statband",
+        "label": "Banda de cifras"
+      },
+      {
         "id": "pn",
         "label": "Fichas anterior / siguiente"
       },
@@ -828,8 +836,10 @@
     "baseHeading": "Tarjeta base",
     "baseBody": "Una superficie redondeada de 12 píxeles sobre el fondo de la tarjeta, enmarcada por una línea muy fina y elevada por una sombra suave. Al hacer hover se eleva un poco más. Es el armazón sobre el que se construye casi cualquier otra tarjeta.",
     "feedHeading": "Post del feed",
-    "feedBody": "La tarjeta del listado del blog, el componente FeedPostCard real, aquí con un marcador de posición donde va la imagen hero. En escritorio es una miniatura junto a un título, una línea de metadatos y un resumen de dos líneas; en teléfonos se pliega a una fila compacta.",
+    "feedBody": "La tarjeta del listado del blog, el componente FeedPostCard real, aquí con un marcador de posición donde va la imagen hero. En escritorio es una miniatura junto a un título, una línea de metadatos y un resumen de dos líneas; en teléfonos se pliega a una fila compacta. Sin arte, un post del feed se marca `data-no-thumb` y pasa a una columna, para que el cuerpo nunca quede junto a una pista de imagen vacía.",
     "wholeLinkNote": "Toda la tarjeta es un único enlace, no un enlace en el título con un «leer más» aparte. El hover eleva la tarjeta y vuelve verde el título a la vez.",
+    "rosterHeading": "Índice de publicaciones",
+    "rosterBody": "El hermano denso del post del feed: una fila de línea fina por artículo — fecha en mono, título, serie, tiempo de lectura — agrupadas bajo un marcador de año en mono. Una tarjeta de feed vende un artículo; el índice demuestra una obra, así que el arte queda fuera del flujo. Con puntero en anchos de escritorio, pasar por una fila hace aparecer el arte del post como una pequeña vista previa girada; en táctil o con movimiento reducido solo están las filas. Una implementación, las clases `roster`; corre en la página about y nunca se pagina.",
     "rulesHeading": "Cuándo usarlo",
     "dos": [
       "Hacer que toda la tarjeta sea un único enlace cuando apunta a un solo sitio.",
@@ -858,7 +868,9 @@
     "iconcardHeading": "Tarjeta de enlace con icono",
     "iconcardBody": "Una tarjeta base que es un único enlace: un glifo Feather y un título en la fila de cabecera, un resumen debajo. Icono y título se ponen verdes juntos al pasar el cursor. Nació como la tarjeta de índice de esta documentación y se promocionó al sitio: las clases `icon-card` sobre `card`.",
     "ctabandHeading": "Banda CTA",
-    "ctabandBody": "La banda de cierre centrada: tintada, con borde, esquinas de 16 píxeles, un encabezado corto y una o dos llamadas a la acción, con un tope de 640 píxeles. Cierra la portada y la página del CV: una sola implementación, las clases `cta-band`.",
+    "ctabandBody": "La banda de cierre centrada: tintada, con borde, esquinas de 16 píxeles, un encabezado corto y una o dos llamadas a la acción, con tope de 640 píxeles. Cierra la página del CV por sí sola; la página de inicio cierra con dos de ellas en una cuadrícula `cta-band-pair` — apiladas en pantallas pequeñas, lado a lado desde 900 píxeles, sin el tope de ancho individual para que el par quede equilibrado.",
+    "statbandHeading": "Banda de cifras",
+    "statbandBody": "Una línea mono de cifras contadas entre dos líneas finas — artículos, series, minutos de lectura, idiomas. Cifras en verde, etiquetas apagadas. Cada número se deriva del contenido al compilar, nunca se escribe a mano, así que la banda no puede desviarse de lo que el sitio realmente contiene.",
     "pnHeading": "Fichas anterior / siguiente",
     "pnBody": "Dos fichas tintadas al pie de una página de detalle: una etiqueta verde de dirección en mayúsculas y el título del destino, con la ficha siguiente alineada a la derecha. Los artículos y las páginas de empresa comparten las clases `pn-nav`; en el móvil las fichas se apilan.",
     "homeBlogNote": "La portada compone además dos tarjetas a medida con estas piezas: una tarjeta de serie en curso con su barra de progreso junto al último post. En el móvil ambas ceden el sitio a las filas estándar del feed."

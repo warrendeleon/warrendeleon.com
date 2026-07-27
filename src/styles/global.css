@@ -1721,6 +1721,98 @@ ul.dot-list {
   .cta-band-actions .hero-cta { flex: 1; }
 }
 
+/* Stat band: a mono line of counted facts between two hairlines. Green
+   figures, muted labels; every number is derived from the content at build
+   time. Runs on the about page; documented on /design/components/cards/. */
+.stat-band {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.6rem;
+  padding: 1.1rem 0;
+  margin-bottom: 2.25rem;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.stat-band strong { color: var(--color-green-text); font-weight: 700; margin-right: 0.3rem; }
+@media (min-width: 769px) {
+  .stat-band { gap: 0.6rem 2.4rem; margin-bottom: 3rem; }
+}
+
+/* Publication index: the feed post's dense sibling — one hairline row per
+   post under a mono year marker. Mobile-first: rows stack date/min, title,
+   meta; from 769px the row is a fixed four-column grid so a long title wraps
+   inside its own cell and the chips stay put. */
+.roster-group { margin-bottom: 2.5rem; }
+.roster-year {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.14em;
+  margin-bottom: 0.4rem;
+}
+.roster { list-style: none; margin: 0; padding: 0; }
+.roster li { border-top: 1px solid var(--border-color); }
+.roster li:last-child { border-bottom: 1px solid var(--border-color); }
+
+.roster-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'date min' 'title title' 'meta meta';
+  row-gap: 0.35rem;
+  align-items: baseline;
+  padding: 0.85rem 0.2rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s ease;
+}
+.roster-row:hover { background: var(--bg-secondary); }
+.roster-date { grid-area: date; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+.roster-title { grid-area: title; font-weight: 600; font-size: 1.02rem; min-width: 0; transition: color 0.2s ease; }
+.roster-row:hover .roster-title { color: var(--color-green-text); }
+.roster-meta { grid-area: meta; display: flex; gap: 0.8rem; font-size: 0.78rem; }
+.roster-series { color: var(--color-green-text); white-space: nowrap; }
+.roster-lang {
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  border-radius: 999px;
+  padding: 0.05rem 0.55rem;
+  white-space: nowrap;
+}
+.roster-min { grid-area: min; font-size: 0.85rem; color: var(--text-muted); white-space: nowrap; }
+
+@media (min-width: 769px) {
+  .roster-row {
+    grid-template-columns: 6.5rem 1fr auto auto;
+    grid-template-areas: none;
+    gap: 1.5rem;
+    padding: 0.95rem 0.6rem;
+  }
+  .roster-date, .roster-title, .roster-meta, .roster-min { grid-area: auto; }
+}
+
+/* Hover artwork: the index's preview card, a pointer-hover affordance only. */
+.roster-art {
+  position: fixed;
+  right: 4vw;
+  top: 50%;
+  transform: translateY(-50%) rotate(-2deg) scale(0.97);
+  width: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-hover);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 5;
+}
+.roster-art img { display: block; width: 100%; height: auto; }
+.roster-art-visible { opacity: 1; transform: translateY(-50%) rotate(-2deg) scale(1); }
+@media (hover: none), (max-width: 1099px), (prefers-reduced-motion: reduce) {
+  .roster-art { display: none; }
+}
+
 /* Series chip: art disc + label pill, used by the search overlay and the
  blog browse section. */
 .blog-series-chip {
