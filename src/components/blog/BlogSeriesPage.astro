@@ -390,6 +390,12 @@ const itemListJsonLd = {
     flex-direction: column;
     gap: 10px;
   }
+  /* The repo URL is one long unbreakable token; the shared eyebrow link is
+     nowrap for short labels, so un-pin it here and let the URL wrap. */
+  .series-repo-card .blog-eyebrow-link {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
   .series-repo-head {
     font-size: 0.78rem;
     font-weight: 700;

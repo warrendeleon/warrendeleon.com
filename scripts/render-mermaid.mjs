@@ -34,14 +34,18 @@ export function hashDiagram(source) {
 }
 
 const blocks = new Map(); // hash -> source
+const byPost = {}; // "<locale>/<slug>" or "<slug>" -> [hash, ...], in document order
 // Recursive: translated posts live in locale subdirectories (es/, ca/, tl/)
 // and their diagrams hash differently (translated labels), so a flat scan
 // left them without SVGs and every locale post with a diagram failed to build.
 for (const file of readdirSync(contentDir, { recursive: true }).filter((f) => String(f).endsWith('.md'))) {
   const text = readFileSync(join(contentDir, String(file)), 'utf8');
+  const key = String(file).replace(/\.md$/, '');
   for (const m of text.matchAll(/^```mermaid[ \t]*\r?\n([\s\S]*?)^```/gm)) {
     const source = m[1].replace(/\r\n/g, '\n');
-    blocks.set(hashDiagram(source), source);
+    const hash = hashDiagram(source);
+    blocks.set(hash, source);
+    (byPost[key] ??= []).push(hash);
   }
 }
 
@@ -80,6 +84,12 @@ for (const f of readdirSync(outDir).filter((f) => f.endsWith('.svg'))) {
     pruned += 1;
   }
 }
+
+// The filename is a content hash, so editing a post renames its SVG and the old
+// one is pruned. Anything outside a post that wants a real rendered diagram —
+// the /design specimen page — looks it up here by post instead, so an ordinary
+// edit moves the pointer rather than breaking the build.
+writeFileSync(join(outDir, 'manifest.json'), `${JSON.stringify(byPost, null, 2)}\n`);
 
 console.log(`mermaid: ${blocks.size} diagram(s), ${rendered} rendered, ${pruned} pruned.`);
 if (blocks.size > 0 && !existsSync(outDir)) process.exit(1);

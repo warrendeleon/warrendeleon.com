@@ -1,7 +1,6 @@
 ---
-import { readFileSync } from 'node:fs';
 import { md } from '../../../../lib/inline-markup';
-import { resolve } from 'node:path';
+import { specimenDiagram } from '../../../../lib/mermaid-specimen';
 import { Code } from 'astro:components';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
@@ -16,10 +15,10 @@ export const getStaticPaths = localeStaticPaths;
 // A real pre-rendered diagram from a published article, inlined with the
 // exact markup the rehype plugin emits on post pages — so the global.css
 // theming and MediaZoom's fullscreen control apply unchanged.
-const diagramSvg = readFileSync(
-  resolve(process.cwd(), 'src/generated/mermaid/9f5da757f9a0.svg'),
-  'utf8',
-);
+//
+// Named by post, not by SVG filename: those are content hashes, so editing the
+// article would otherwise rename the file and break this page.
+const diagramSvg = specimenDiagram('feature-first-project-structure-react-native');
 
 const { locale } = Astro.props as { locale: Locale };
 const d = getDesignData(locale);

@@ -40,13 +40,21 @@ export async function getPostsForLocale(locale: Locale, includeFuture = import.m
 
   // English is the single source of truth for scheduling. Build a slug -> date map
   // from the English posts, then fill every translation's date from its master.
+  // The draft flag inherits the same way: translations never set it, so without
+  // this a translation of a draft goes live the moment the master's date passes,
+  // while the English stays hidden.
   const masterDate = new Map<string, Date>();
+  const masterDraft = new Set<string>();
   for (const post of all) {
     if ((post.data.locale || 'en') === 'en' && post.data.publishDate) {
       masterDate.set(getPostSlug(post.id), post.data.publishDate);
+      if (post.data.draft) masterDraft.add(getPostSlug(post.id));
     }
   }
   for (const post of all) {
+    if ((post.data.locale || 'en') !== 'en' && masterDraft.has(getPostSlug(post.id))) {
+      post.data.draft = true;
+    }
     if (post.data.publishDate) continue;
     const inherited = masterDate.get(getPostSlug(post.id));
     if (!inherited) {
