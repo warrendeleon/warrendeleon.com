@@ -214,7 +214,7 @@
       "Sand"
     ],
     "heroSwatchHeading": "One ground per series",
-    "heroSwatchBody": "**Backgrounds deliberately sit off the palette**: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed — its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
+    "heroSwatchBody": "**Backgrounds deliberately sit off the palette**: soft, near-white tints that read as ground rather than as one of the ten. Each published series keeps its own tint, so a series reads as a set in the feed: its identity lives in that ground. Below, the whole pool sits on each ground: the mix changes per image, the family never does.",
     "illosMore": "How the heroes are drawn is on",
     "illosMoreLink": "the Media page"
   },
@@ -609,7 +609,7 @@
       "Mix stroke and fill styles within the interface set.",
       "Shrink the tappable area to the size of the drawing."
     ],
-    "hitCaption": "The hit area, annotated: a 20px glyph centred in a 44px square — the hatched ring is the tappable padding.",
+    "hitCaption": "The hit area, annotated: a 20px glyph centred in a 44px square: the hatched ring is the tappable padding.",
     "hitLabels": {
       "area": "Hit area",
       "glyph": "Glyph",
@@ -671,7 +671,7 @@
     "tablet": "Tablet",
     "desktop": "Desktop"
   },
-  "frameThemeNote": "The frames below are the real pages rendered at real widths, scripts off — so they always show the light theme and no analytics run inside them.",
+  "frameThemeNote": "The frames below are the real pages rendered at real widths, scripts off, so they always show the light theme and no analytics run inside them.",
   "buttons": {
     "seoTitle": "Buttons | Design system | Warren de Leon",
     "seoDescription": "The two button tiers on warrendeleon.com: inline buttons for forms and actions, and pill CTAs for page-level calls to action, with states and content rules.",
@@ -722,7 +722,7 @@
       "Label with a verb and a noun: “Download CV”, “Book a call”."
     ],
     "donts": [
-      "Stack two solid-green buttons side by side — nothing leads.",
+      "Stack two solid-green buttons side by side: nothing leads.",
       "Write “Click here” or “Submit”; say what the button does.",
       "Grey out a disabled button so hard it stops looking like the control."
     ],
@@ -929,7 +929,7 @@
     "actionProgressText": "12 min left · 45%",
     "actionDemoTitle": "One shared store across remotes",
     "footerHeading": "Footer",
-    "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever — the top bar already carries it. The live footer is at the bottom of this very page.",
+    "footerBody": "A single centred column on every screen: the section links, one flat row of social marks with RSS, and the copyright. No logo, ever: the top bar already carries it. The live footer is at the bottom of this very page.",
     "railHeading": "Docs navigation",
     "railBody": "This section's own navigation follows the blog post's anatomy rather than inventing its own: on a phone the top bar swaps the logo for a back chevron to the Design hub with a collapsing page title, the reading action bar replaces the dock and its ring button opens the contents as a bottom sheet, and on desktop the contents pin to the right as the article ToC, highlighting the section you are in. The breadcrumb names the group, and the hub page is the index.",
     "rulesHeading": "When to use",
@@ -1072,7 +1072,7 @@
       "info": "Info gives neutral context or points elsewhere."
     },
     "quoteHeading": "Blockquote",
-    "quoteBody": "A pulled quote, set off by a green left rule on a tinted panel. Used for a real quotation, not for emphasis — emphasis is what bold is for.",
+    "quoteBody": "A pulled quote, set off by a green left rule on a tinted panel. Used for a real quotation, not for emphasis: emphasis is what bold is for.",
     "quoteSample": "The best engineering leaders never fully leave the craft.",
     "codeHeading": "Code",
     "codeBody": "Inline code sits in a tinted chip. Blocks get a header with the language and Copy and Expand controls, syntax-highlighted with Shiki in a light and a dark theme, and they run full-bleed to the screen edges on a phone so a wide line has room.",
@@ -1193,7 +1193,7 @@
     "whereHeading": "Where it lives",
     "whereBody": "global.css: .prose blockquote.callout-*, .code-block-* and .prose pre, the .dt-card family, plus SubscribeForm.astro.",
     "diagramsHeading": "Diagrams",
-    "diagramsBody": "Architecture diagrams are static images drawn in the site's own tokens — no diagram library ever ships to the reader. The tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:",
+    "diagramsBody": "Architecture diagrams are static images drawn in the site's own tokens: no diagram library ever ships to the reader. The tokens theme the result (green nodes, neutral arrows), so it re-colours with the theme like everything else, and the corner control opens it full screen. This is a real diagram from a published article:",
     "adviceHeading": "Advice cards",
     "adviceBody": "Born in these docs and promoted to the site: a Do and a Don’t card pair for giving advice without a wall of text. Each card is a `figure` with a labelled head, an example stage and a caption. Available to articles as plain HTML with the `dodont` classes.",
     "adviceCode": "<div class=\"dodont-grid\">\n  <figure class=\"dodont dodont-do\">\n    <p class=\"dodont-head\">Do</p>\n    <div class=\"dodont-stage\">…example…</div>\n    <figcaption class=\"dodont-caption\">Why this works.</figcaption>\n  </figure>\n  …\n</div>",
@@ -1206,7 +1206,7 @@
     "codeFilenameNote": "A code block can also carry a file-path header: a mono strip above the code naming the file it belongs to. On phones a third control joins Copy and Expand: Wrap, which soft-wraps long lines instead of scrolling them.",
     "adviceDemoDo": "A short, specific rule.",
     "adviceDemoDont": "The same rule, buried in a paragraph.",
-    "stackBody": "When a row carries more than three or four columns, do not let it scroll sideways: add `table-stack` and give every cell a `data-label`. From 700 pixels it is the same table; on a phone the header row hides and each row stacks into label-value pairs — the type scale on the Typography page reads this way. Mark the row’s title cell `stack-lead` and a trailing note `stack-end`. And when even pairs are too wide, give up the table: the colour swatches render as a wrapping list instead.",
+    "stackBody": "When a row carries more than three or four columns, do not let it scroll sideways: add `table-stack` and give every cell a `data-label`. From 700 pixels it is the same table; on a phone the header row hides and each row stacks into label-value pairs: the type scale on the Typography page reads this way. Mark the row’s title cell `stack-lead` and a trailing note `stack-end`. And when even pairs are too wide, give up the table: the colour swatches render as a wrapping list instead.",
     "stackCode": "<div class=\"table-mini-wrap\">\n  <table class=\"table-mini table-stack\">\n    <thead>…</thead>\n    <tbody>\n      <tr>\n        <td class=\"stack-lead\"><code>--fs-h1</code></td>\n        <td data-label=\"Desktop\">34px</td>\n        <td data-label=\"Mobile\">30px</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
   },
   "media": {
@@ -1259,7 +1259,7 @@
     "seoTitle": "Timeline | Design system | Warren de Leon",
     "seoDescription": "The work-experience timeline on warrendeleon.com: a vertical rail of logo dots and cards, with a Latest tag and a per-screen dot scale.",
     "title": "Timeline",
-    "intro": "The work-experience rail: a vertical line with a company logo riding it at each stop, and a card beside each logo. Below is the real component fed placeholder entries — on the live page it carries the real employment record.",
+    "intro": "The work-experience rail: a vertical line with a company logo riding it at each stop, and a card beside each logo. Below is the real component fed placeholder entries: on the live page it carries the real employment record.",
     "toc": [
       {
         "id": "specimen",
@@ -1303,7 +1303,7 @@
         "desc": "An earlier placeholder role, with a closed date range and the same compact card."
       }
     ],
-    "relativesNote": "The rail language has two relatives. A series page runs a numbered vertical timeline of its parts — published parts link, planned parts sit dimmed with their dates. And the CV page closes with the education list: qualification rows with institution, dates and certificate links, divided by hairlines."
+    "relativesNote": "The rail language has two relatives. A series page runs a numbered vertical timeline of its parts: published parts link, planned parts sit dimmed with their dates. And the CV page closes with the education list: qualification rows with institution, dates and certificate links, divided by hairlines."
   },
   "writing": {
     "seoTitle": "Writing | Design system | Warren de Leon",
@@ -1361,7 +1361,7 @@
     "spellingGood": "behaviour · colour · organise · optimise",
     "spellingBad": "behavior · color · organize · optimize",
     "spellingCaption": "British spelling in prose. Code identifiers and terms of art keep their own form.",
-    "spellingBadCaption": "Not American spellings in prose — those belong to code alone.",
+    "spellingBadCaption": "Not American spellings in prose: those belong to code alone.",
     "caseHeading": "Case",
     "caseBody": "Sentence case is the house style: page titles, section headings, article headings, buttons and labels capitalise the first word and any proper nouns, and nothing else. The top navigation is the one standing exception, kept in title case.",
     "caseGood": "Download CV · Back to blog · Browse by tag",
@@ -1375,7 +1375,7 @@
     "datesCaption": "Full month for article dates, abbreviated for ranges; open ranges say Present.",
     "datesBadCaption": "Not numeric, not American order, not an ordinal.",
     "punctuationHeading": "Punctuation",
-    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside takes a spaced em-dash, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences. An em-dash earns its place setting off an aside, an appositive, or a term and its definition; it never splices two independent sentences together — that joint takes a full stop or a colon. Each dash is judged by its job, never by a count.",
+    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside takes a spaced em-dash, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences. An em-dash earns its place setting off an aside, an appositive, or a term and its definition; it never splices two independent sentences together: that joint takes a full stop or a colon. Each dash is judged by its job, never by a count.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Serial comma, the ellipsis character, a spaced em-dash, a middot between meta.",
@@ -1549,7 +1549,7 @@
     "quotesHeading": "Quotation marks",
     "quotesBody": "Spanish and Catalan quote with guillemets: «así». Tagalog follows the English convention. Each language keeps its own typography instead of inheriting English marks through the translation.",
     "hedgeHeading": "Hedges do not calque",
-    "hedgeBody": "The tone rules ask for steelmanning and for softened absolutes, and those cross the language barrier as content: the strongest version of the opposing view is translated in full. The softening itself is not copied word for word — a Spanish or Catalan mirror of an English hedge reads stilted, so those languages state the same argument in their naturally more direct voice."
+    "hedgeBody": "The tone rules ask for steelmanning and for softened absolutes, and those cross the language barrier as content: the strongest version of the opposing view is translated in full. The softening itself is not copied word for word: a Spanish or Catalan mirror of an English hedge reads stilted, so those languages state the same argument in their naturally more direct voice."
   },
   "accessibility": {
     "seoTitle": "Accessibility | Design system | Warren de Leon",

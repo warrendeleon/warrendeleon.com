@@ -1375,7 +1375,7 @@
     "datesCaption": "Mes completo para las fechas de artículo, abreviado para los rangos; los rangos abiertos dicen Present.",
     "datesBadCaption": "Ni numérico, ni orden estadounidense, ni ordinal.",
     "punctuationHeading": "Puntuación",
-    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. El truncamiento y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases. Una raya se gana su sitio abriendo un inciso, una aposición o un término con su definición; nunca empalma dos frases independientes — esa juntura pide un punto o dos puntos. Cada raya se juzga por su trabajo, nunca por recuento.",
+    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. El truncamiento y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases. Una raya se gana su sitio abriendo un inciso, una aposición o un término con su definición; nunca empalma dos frases independientes: esa juntura pide un punto o dos puntos. Cada raya se juzga por su trabajo, nunca por recuento.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Coma serial, el carácter de puntos suspensivos, una raya con espacios, un punto medio entre metadatos.",

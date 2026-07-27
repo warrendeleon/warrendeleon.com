@@ -1206,7 +1206,7 @@
     "codeFilenameNote": "Ang code block ay maaari ring may file-path header: mono strip sa itaas ng code na nagpapangalan sa file na kinabibilangan nito. Sa phone, may pangatlong control na sumasama sa Copy at Expand: Wrap, na nagti-tiklop ng mahahabang linya sa halip na i-scroll ang mga ito.",
     "adviceDemoDo": "Maikli at espesipikong rule.",
     "adviceDemoDont": "Ang parehong rule, nakabaon sa isang talata.",
-    "stackBody": "Kapag ang isang row ay may higit sa tatlo o apat na column, huwag itong hayaang mag-scroll pagilid: magdagdag ng `table-stack` at bigyan ang bawat cell ng `data-label`. Mula 700 pixels, pareho pa rin ang table; sa phone, nagtatago ang header row at bawat row ay nagsasalansan sa label-value pairs — ganito binabasa ang type scale sa Typography page. Markahan ang title cell ng row ng `stack-lead` at ang panghuling note ng `stack-end`. At kapag maging ang pairs ay masyadong malapad, bitawan ang table: ang mga colour swatch ay lumalabas bilang wrapping list.",
+    "stackBody": "Kapag ang isang row ay may higit sa tatlo o apat na column, huwag itong hayaang mag-scroll pagilid: magdagdag ng `table-stack` at bigyan ang bawat cell ng `data-label`. Mula 700 pixels, pareho pa rin ang table; sa phone, nagtatago ang header row at bawat row ay nagsasalansan sa label-value pairs: ganito binabasa ang type scale sa Typography page. Markahan ang title cell ng row ng `stack-lead` at ang panghuling note ng `stack-end`. At kapag maging ang pairs ay masyadong malapad, bitawan ang table: ang mga colour swatch ay lumalabas bilang wrapping list.",
     "stackCode": "<div class=\"table-mini-wrap\">\n  <table class=\"table-mini table-stack\">\n    <thead>…</thead>\n    <tbody>\n      <tr>\n        <td class=\"stack-lead\"><code>--fs-h1</code></td>\n        <td data-label=\"Desktop\">34px</td>\n        <td data-label=\"Mobile\">30px</td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
   },
   "media": {
@@ -1303,7 +1303,7 @@
         "desc": "Mas naunang placeholder na role, may saradong hanay ng petsa at parehong compact na card."
       }
     ],
-    "relativesNote": "May dalawang kamag-anak ang wika ng rail. Ang series page ay may numerong vertical timeline ng mga bahagi nito — naka-link ang mga na-publish, naka-dim ang mga nakaplano kasama ang kanilang mga petsa. At ang CV page ay nagsasara sa education list: mga row ng kwalipikasyon na may institusyon, mga petsa at certificate link, hinihiwalay ng napakanipis na linya."
+    "relativesNote": "May dalawang kamag-anak ang wika ng rail. Ang series page ay may numerong vertical timeline ng mga bahagi nito: naka-link ang mga na-publish, naka-dim ang mga nakaplano kasama ang kanilang mga petsa. At ang CV page ay nagsasara sa education list: mga row ng kwalipikasyon na may institusyon, mga petsa at certificate link, hinihiwalay ng napakanipis na linya."
   },
   "writing": {
     "seoTitle": "Pagsulat | Disenyo | Warren de Leon",
@@ -1375,7 +1375,7 @@
     "datesCaption": "Buong buwan para sa petsa ng artikulo, pinaikli para sa mga saklaw; ang bukás na saklaw ay nagsasabi ng Present.",
     "datesBadCaption": "Hindi numeriko, hindi American na pagkakasunod, hindi ordinal.",
     "punctuationHeading": "Bantas",
-    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay naghihiwalay ng mga bahagi nito gamit ang middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap. Nararapat ang em-dash sa pagbubukas ng singit na kaisipan, ng aposisyon, o ng terminong may kahulugan; hindi nito kailanman pinagdudugtong ang dalawang malayang pangungusap — tuldok o kolon ang bagay doon. Bawat dash ay hinuhusgahan ayon sa trabaho nito, hindi sa bilang.",
+    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay naghihiwalay ng mga bahagi nito gamit ang middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap. Nararapat ang em-dash sa pagbubukas ng singit na kaisipan, ng aposisyon, o ng terminong may kahulugan; hindi nito kailanman pinagdudugtong ang dalawang malayang pangungusap: tuldok o kolon ang bagay doon. Bawat dash ay hinuhusgahan ayon sa trabaho nito, hindi sa bilang.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Serial comma, ang ellipsis character, isang spaced em-dash, isang middot sa pagitan ng meta.",
