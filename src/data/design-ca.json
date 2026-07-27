@@ -1312,6 +1312,14 @@
     "intro": "Com es fixen les paraules del lloc. Són les convencions que l'escriptura ja segueix, llegides des del mateix lloc: l'estàndard públic de sortida, no el procés que hi ha al darrere.",
     "toc": [
       {
+        "id": "sentences",
+        "label": "Frases"
+      },
+      {
+        "id": "words",
+        "label": "Paraules planes"
+      },
+      {
         "id": "spelling",
         "label": "Ortografia"
       },
@@ -1367,7 +1375,7 @@
     "datesCaption": "Mes sencer per a les dates d'article, abreujat per als rangs; els rangs oberts diuen Present.",
     "datesBadCaption": "No numèriques, no en ordre americà, no amb ordinals.",
     "punctuationHeading": "Puntuació",
-    "punctuationBody": "La coma final de sèrie és l'opció per defecte: labels, hints, and states. Els signes d'exclamació queden fora de la prosa. La truncació i els estats de càrrega fan servir el caràcter únic de punts suspensius, un incís pren un guió llarg amb espais, i una fila de metadades separa les seves parts amb un punt volat. Tres punts seguits pertanyen al codi, no a les frases.",
+    "punctuationBody": "La coma final de sèrie és l'opció per defecte: labels, hints, and states. Els signes d'exclamació queden fora de la prosa. La truncació i els estats de càrrega fan servir el caràcter únic de punts suspensius, un incís pren un guió llarg amb espais, i una fila de metadades separa les seves parts amb un punt volat. Tres punts seguits pertanyen al codi, no a les frases. Un guionet llarg es guanya el lloc obrint un incís, una aposició o un terme amb la seva definició; mai no empalma dues frases independents — aquella juntura demana un punt o dos punts. Cada guionet es jutja per la seva feina, mai per recompte.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Coma final de sèrie, el caràcter de punts suspensius, un guió llarg amb espais, un punt volat entre metadades.",
@@ -1404,7 +1412,59 @@
     "crossHeading": "Enllaços creuats",
     "crossBody1": "Els posts s’apunten entre si amb llibertat: una frase que esmenta el post del refresc de tokens hi enllaça, amb el text de l’enllaç anomenant la destinació com més amunt. Els enllaços poden fins i tot apuntar a posts que encara no han sortit. Un enllaç a un post sense publicar simplement es **mostra com a text pla**, així que res no dona mai un 404, i aquelles paraules es converteixen soles en enllaç quan la destinació es publica. Les referències endavant s’escriuen una vegada i es resolen soles.",
     "crossBody2": "Cada post pot triar a mà fins a tres posts relacionats ; els que no trien cauen a les etiquetes compartides. Una prestatgeria de lectures addicionals ho completa amb posts més discrets que el lector probablement no coneix, amb un topall de nou en total, perquè continuï sent una recomanació i no un arxiu.",
-    "crossBody3": "Dins d’una sèrie, anterior i següent es queden dins de la sèrie: la part cinc apunta a les parts quatre i sis, mai a un post sense relació que es va publicar al costat. Només als extrems d’una sèrie les fletxes cauen al post veí per data."
+    "crossBody3": "Dins d’una sèrie, anterior i següent es queden dins de la sèrie: la part cinc apunta a les parts quatre i sis, mai a un post sense relació que es va publicar al costat. Només als extrems d’una sèrie les fletxes cauen al post veí per data.",
+    "sentencesHeading": "Frases",
+    "sentencesBody1": "La frase per defecte posa primer el subjecte, després el verb, després l’objecte, i para. La majoria de frases del lloc es construeixen així a propòsit: l’escriptura serveix quatre idiomes, i molts lectors la llegeixen en una llengua que no és la seva. Una frase plana no els demana res extra; la construcció enginyosa es reserva per al moment de cada secció on l’argument arriba al punt més alt.",
+    "sentencesHabits": [
+      "**Obertures invertides.** Una frase que reté el seu subjecte fa esperar el lector. «El tercer arranjament es converteix en una factura de manteniment» guanya a «el que es converteix en silenci en una factura de manteniment és el tercer arranjament».",
+      "**Abstraccions animades.** Una raó no dóna fruits i una release no es fa a un costat. Les coses sense vida es descriuen, no reben verbs de persona: «acabes construint a mà el que una biblioteca et donaria gratis».",
+      "**Cues decoratives.** Quan el punt ja ha aterrat, una clàusula ornamental penjada al final porta ritme però no informació, i crida l’atenció sobre l’escriptura. Es talla.",
+      "**El paràgraf que no deixa de demostrar-se.** Punt, evidència, continuar. Un paràgraf que reformula el seu punt amb altres paraules es llegeix com a desconfiança cap al lector. Tapa la seva última frase: si el paràgraf segueix aterrant, aquella frase sobra."
+    ],
+    "sentencesBody2": "La prova és llegir el paràgraf en veu alta. Qualsevol frase que et faci tornar enrere a buscar el subjecte s’aplana, i una inversió per secció, col·locada on se la guanya, és el sostre.",
+    "sentencesGood": "La tercera opció és un store fent les dues feines. Ningú no la tria a propòsit.",
+    "sentencesCaption": "Subjecte primer, verb aviat, punt.",
+    "sentencesBad": "El que es converteix en silenci en una factura de manteniment és el tercer arranjament que ningú no tria a propòsit.",
+    "sentencesBadCaption": "El subjecte arriba al final, i el lector sosté tota la frase oberta.",
+    "wordsHeading": "Paraules planes",
+    "wordsBody1": "Les paraules curtes i comunes guanyen a les inflades. El vocabulari de màrqueting — *robust*, *sense fissures*, *d’avantguarda* — afirma qualitat en lloc de mostrar-la, així que un fet concret n’ocupa el lloc. Les transicions de farciment i l’encoixinat llatinitzant segueixen el mateix camí: *fer servir* abans que *utilitzar*, *després* abans que *posteriorment*.",
+    "wordsTableHeaders": {
+      "avoid": "S’evita",
+      "use": "Es fa servir"
+    },
+    "wordsRows": [
+      {
+        "avoid": "robust, sense fissures, provat en batalla",
+        "use": "la mesura, o el fet"
+      },
+      {
+        "avoid": "així mateix, addicionalment",
+        "use": "i, també"
+      },
+      {
+        "avoid": "per consegüent, en conseqüència",
+        "use": "així que"
+      },
+      {
+        "avoid": "apalancar, utilitzar",
+        "use": "fer servir"
+      },
+      {
+        "avoid": "submergir-se en, aprofundir en",
+        "use": "mirar"
+      },
+      {
+        "avoid": "en última instància",
+        "use": "al final"
+      }
+    ],
+    "wordsBody2": "Una paraula recupera el seu lloc quan és el terme tècnic literal: un *framework* de software és un framework, el dispatch *dinàmic* és dinàmic. El sentit de màrqueting de la mateixa paraula no qualifica mai.",
+    "wordsBody3": "Tres regles menors viatgen amb aquesta. Els modismes se substitueixen pel seu significat literal — *difereix* abans que «pren camins separats» — perquè un lector en segona llengua no hagi de desplegar mai una frase doblegada. Les sigles i els noms d’eines es despleguen al primer ús: «SWC (el Speedy Web Compiler)». I la construcció de balancí — «no és X, és Y» — es reformula com l’afirmació positiva, la meitat que porta la informació.",
+    "wordsGood": "El build acaba en quatre segons i el bundle es queda per sota de 2 MB.",
+    "wordsCaption": "El fet fa la persuasió.",
+    "wordsBad": "Un pipeline robust i provat en batalla entrega un rendiment sense fissures.",
+    "wordsBadCaption": "Tres afirmacions, cap evidència.",
+    "disagreeBody3": "Tres hàbits més mantenen honestos els arguments. Una decisió de disseny s’anomena com a decisió, mai vestida de llei natural: «el host és amo de la navegació» és una tria d’aquesta build, i dir-ho convida el lector a seguir el raonament en lloc de buscar contraexemples. El «perquè» es reserva per a la causalitat que el text ha mostrat; on una afirmació descansa en inferència o convenció, l’escriptura diu «el que suggereix» o «la raó habitual és». I els encapçalaments descriuen encaix, no fracàs: «On X té límits» abans que «Per què X falla»."
   },
   "translation": {
     "seoTitle": "Traducció | Sistema de disseny | Warren de Leon",
@@ -1419,6 +1479,18 @@
       {
         "id": "scope",
         "label": "Què es tradueix"
+      },
+      {
+        "id": "glossary",
+        "label": "Un glossari per sèrie"
+      },
+      {
+        "id": "fixtures",
+        "label": "Mobiliari fix"
+      },
+      {
+        "id": "terms",
+        "label": "Termes d’ofici"
       },
       {
         "id": "voice",
@@ -1457,10 +1529,27 @@
     "angliHeading": "Els anglicismes es queden",
     "angliBody": "El castellà i el català conserven l’anglès tècnic que els desenvolupadors fan servir de debò: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Alguns són anglicismes que cap diccionari beneiria, i es queden igualment. Traduir runtime com a «temps d’execució» és correcte segons el diccionari i sona a llibre de text; l’objectiu és sonar a company d’equip.",
     "taglishHeading": "El tagal és taglish",
-    "taglishBody": "Els posts en tagal són taglish idiomàtic: la frase flueix en filipí amb el vocabulari tècnic intacte en anglès, tal com parlen de feina els desenvolupadors filipins. Un tagal tècnic traduït del tot seria més difícil de llegir, no més fàcil.",
+    "taglishBody": "Els posts en tagal són taglish idiomàtic: la frase flueix en filipí amb el vocabulari tècnic intacte en anglès, tal com parlen de feina els desenvolupadors filipins. Un tagal tècnic traduït del tot seria més difícil de llegir, no més fàcil. Dos límits el mantenen honest. On el taglish parlat conservaria la paraula anglesa, la paraula anglesa es queda; buscar un sinònim tagal literari puja el registre més enllà del post. I un terme tècnic mai no manlleva una paraula tagala quotidiana que ja té un altre significat: *data plumbing* es queda en anglès, perquè la paraula quotidiana més propera, *tubero*, anomena el lampista i no la metàfora.",
     "fillerHeading": "Les mateixes prohibicions viatgen",
     "fillerBody": "Les regles d’escriptura creuen la barrera de l’idioma, i una s’endureix: l’incís amb guió llarg que la prosa anglesa permet desapareix del tot a les traduccions; el castellà, el català i el tagal fan servir coma, dos punts o parèntesis. Cada idioma prohibeix a més el seu propi farciment de màrqueting, els cosins locals de la llista anglesa: en català, per exemple, queden fora d’avantguarda, sense fissures, holístic i disruptiu.",
-    "scopeNote": "No tots els posts existeixen en els quatre idiomes. Quan falta una traducció, el feed d’aquell idioma mostra el post en anglès en comptes d’amagar-lo, i qui visita l’arrel del web per primera vegada és enviat un cop a la llengua del seu navegador."
+    "scopeNote": "No tots els posts existeixen en els quatre idiomes. Quan falta una traducció, el feed d’aquell idioma mostra el post en anglès en comptes d’amagar-lo, i qui visita l’arrel del web per primera vegada és enviat un cop a la llengua del seu navegador.",
+    "glossaryHeading": "Un glossari per sèrie",
+    "glossaryBody1": "Una sèrie llarga decideix el seu vocabulari una vegada i el reutilitza a cada part: les paraules que el lector troba a la part dos han de seguir sent les de la part nou. Els termes disputats reben una entrada la primera vegada que apareixen, i cada traducció posterior la segueix.",
+    "glossaryTableHeaders": {
+      "en": "Anglès",
+      "es": "Espanyol",
+      "ca": "Català",
+      "tl": "Tagal"
+    },
+    "glossaryBody2": "Un canvi d’opinió té la seva pròpia regla. Quan una paraula millor guanya a mitja sèrie — aquest lloc va passar de *cáscara* i *closca* a *shell* — la paraula nova s’aplica a cada part ja publicada en la mateixa edició, no només a les que queden per venir. Un glossari que només apunta endavant parteix la sèrie en dues.",
+    "fixturesHeading": "Mobiliari fix",
+    "fixturesBody": "El mobiliari recurrent de les pàgines es tradueix una vegada, es registra, i no s’improvisa mai més. L’encapçalament de fonts és *Fuentes* en espanyol, *Fonts* en català i *Mga Sanggunian* en tagal, a cada post; les etiquetes de tests i passos mantenen una forma per idioma; els noms de sèrie es queden en anglès a tot arreu. Tres posts amb tres paraules diferents per al mateix encapçalament és com un catàleg es va separant.",
+    "termsHeading": "Termes d’ofici",
+    "termsBody": "Un terme que la mateixa indústria usa en anglès — *inner source*, *code owner*, *pull request* — es queda en anglès en els quatre idiomes i es glossa a la frase que l’envolta la primera vegada que apareix. La versió de diccionari d’un terme d’ofici canvia un nom que el lector pot buscar per una frase que no ha vist mai. Els noms de marques i productes no es tradueixen ni s’escurcen mai.",
+    "quotesHeading": "Cometes",
+    "quotesBody": "L’espanyol i el català citen amb cometes angulars: «així». El tagal segueix la convenció anglesa. Cada idioma conserva la seva pròpia tipografia en lloc d’heretar les cometes angleses a través de la traducció.",
+    "hedgeHeading": "Els matisos no es calquen",
+    "hedgeBody": "Les regles de to demanen steelmanning i absoluts suavitzats, i això creua la barrera de l’idioma com a contingut: la versió més forta de la postura contrària es tradueix sencera. La suavització en si no es copia paraula per paraula — un calc espanyol o català d’un matis anglès es llegeix encarcarat —, així que aquests idiomes exposen el mateix argument amb la seva veu naturalment més directa."
   },
   "accessibility": {
     "seoTitle": "Accessibilitat | Sistema de disseny | Warren de Leon",

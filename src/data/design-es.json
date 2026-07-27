@@ -1312,6 +1312,14 @@
     "intro": "Cómo se componen las palabras del sitio. Son las convenciones que la redacción ya sigue, leídas del propio sitio: el estándar público de salida, no el proceso que hay detrás.",
     "toc": [
       {
+        "id": "sentences",
+        "label": "Frases"
+      },
+      {
+        "id": "words",
+        "label": "Palabras llanas"
+      },
+      {
         "id": "spelling",
         "label": "Ortografía"
       },
@@ -1367,7 +1375,7 @@
     "datesCaption": "Mes completo para las fechas de artículo, abreviado para los rangos; los rangos abiertos dicen Present.",
     "datesBadCaption": "Ni numérico, ni orden estadounidense, ni ordinal.",
     "punctuationHeading": "Puntuación",
-    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. El truncamiento y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases.",
+    "punctuationBody": "La coma serial es la opción por defecto: labels, hints, and states. Los signos de exclamación se quedan fuera de la prosa. El truncamiento y los estados de carga usan el carácter único de puntos suspensivos, un inciso lleva una raya con espacios y una fila de metadatos separa sus partes con un punto medio. Tres puntos seguidos pertenecen al código, no a las frases. Una raya se gana su sitio abriendo un inciso, una aposición o un término con su definición; nunca empalma dos frases independientes — esa juntura pide un punto o dos puntos. Cada raya se juzga por su trabajo, nunca por recuento.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Coma serial, el carácter de puntos suspensivos, una raya con espacios, un punto medio entre metadatos.",
@@ -1404,7 +1412,59 @@
     "crossHeading": "Enlaces cruzados",
     "crossBody1": "Los posts se apuntan entre sí con libertad: una frase que menciona el post del refresco de tokens enlaza con él, con el texto del enlace nombrando el destino como arriba. Los enlaces pueden incluso apuntar a posts que aún no han salido. Un enlace a un post sin publicar simplemente se **muestra como texto plano**, así que nada da nunca un 404, y esas palabras se convierten solas en enlace cuando el destino se publica. Las referencias hacia delante se escriben una vez y se resuelven solas.",
     "crossBody2": "Cada post puede elegir a mano hasta tres posts relacionados ; los que no eligen recurren a las etiquetas compartidas. Una estantería de lecturas adicionales completa eso con posts más discretos que el lector probablemente no conoce, con un tope de nueve en total, para que siga siendo una recomendación y no un archivo.",
-    "crossBody3": "Dentro de una serie, anterior y siguiente se quedan dentro de la serie: la parte cinco apunta a las partes cuatro y seis, nunca a un post sin relación que se publicó al lado. Solo en los extremos de una serie las flechas pasan al post vecino por fecha."
+    "crossBody3": "Dentro de una serie, anterior y siguiente se quedan dentro de la serie: la parte cinco apunta a las partes cuatro y seis, nunca a un post sin relación que se publicó al lado. Solo en los extremos de una serie las flechas pasan al post vecino por fecha.",
+    "sentencesHeading": "Frases",
+    "sentencesBody1": "La frase por defecto pone primero el sujeto, luego el verbo, luego el objeto, y para. La mayoría de las frases del sitio se construyen así a propósito: la escritura sirve a cuatro idiomas, y muchos lectores la leen en una lengua que no es la suya. Una frase llana no les pide nada extra; la construcción ingeniosa se reserva para el momento de cada sección donde el argumento llega a su punto más alto.",
+    "sentencesHabits": [
+      "**Aperturas invertidas.** Una frase que retiene su sujeto hace esperar al lector. «El tercer arreglo se convierte en una factura de mantenimiento» gana a «lo que se convierte en silencio en una factura de mantenimiento es el tercer arreglo».",
+      "**Abstracciones animadas.** Una razón no rinde frutos y una release no se aparta. Las cosas sin vida se describen, no reciben verbos de persona: «acabas construyendo a mano lo que una biblioteca te daría gratis».",
+      "**Colas decorativas.** Cuando el punto ya ha aterrizado, una cláusula ornamental colgada al final lleva ritmo pero no información, y llama la atención sobre la escritura. Se corta.",
+      "**El párrafo que no deja de demostrarse.** Punto, evidencia, seguir. Un párrafo que reformula su punto con otras palabras se lee como desconfianza hacia el lector. Tapa su última frase: si el párrafo sigue aterrizando, esa frase sobra."
+    ],
+    "sentencesBody2": "La prueba es leer el párrafo en voz alta. Cualquier frase que te haga volver atrás a buscar su sujeto se aplana, y una inversión por sección, colocada donde se la gana, es el techo.",
+    "sentencesGood": "La tercera opción es un store haciendo los dos trabajos. Nadie la elige a propósito.",
+    "sentencesCaption": "Sujeto primero, verbo pronto, punto.",
+    "sentencesBad": "Lo que se convierte en silencio en una factura de mantenimiento es el tercer arreglo que nadie elige a propósito.",
+    "sentencesBadCaption": "El sujeto llega al final, y el lector sostiene toda la frase abierta.",
+    "wordsHeading": "Palabras llanas",
+    "wordsBody1": "Las palabras cortas y comunes ganan a las infladas. El vocabulario de marketing — *robusto*, *sin fisuras*, *de vanguardia* — afirma calidad en vez de mostrarla, así que un hecho concreto ocupa su lugar. Las transiciones de relleno y el acolchado latinizante siguen el mismo camino: *usar* antes que *utilizar* o *apalancar*, *luego* antes que *posteriormente*.",
+    "wordsTableHeaders": {
+      "avoid": "Se evita",
+      "use": "Se usa"
+    },
+    "wordsRows": [
+      {
+        "avoid": "robusto, sin fisuras, probado en batalla",
+        "use": "la medición, o el hecho"
+      },
+      {
+        "avoid": "asimismo, adicionalmente",
+        "use": "y, también"
+      },
+      {
+        "avoid": "por consiguiente, en consecuencia",
+        "use": "así que"
+      },
+      {
+        "avoid": "apalancar, utilizar",
+        "use": "usar"
+      },
+      {
+        "avoid": "sumergirse en, profundizar en",
+        "use": "mirar"
+      },
+      {
+        "avoid": "en última instancia",
+        "use": "al final"
+      }
+    ],
+    "wordsBody2": "Una palabra recupera su sitio cuando es el término técnico literal: un *framework* de software es un framework, el dispatch *dinámico* es dinámico. El sentido de marketing de la misma palabra no califica nunca.",
+    "wordsBody3": "Tres reglas menores viajan con esta. Los modismos se sustituyen por su significado literal — *difiere* antes que «toma caminos separados» — para que un lector en segunda lengua nunca tenga que desplegar una frase doblada. Las siglas y los nombres de herramientas se deletrean en su primer uso: «SWC (el Speedy Web Compiler)». Y la construcción de balancín — «no es X, es Y» — se reformula como la afirmación positiva, la mitad que lleva la información.",
+    "wordsGood": "El build termina en cuatro segundos y el bundle se queda por debajo de 2 MB.",
+    "wordsCaption": "El hecho hace la persuasión.",
+    "wordsBad": "Un pipeline robusto y probado en batalla entrega un rendimiento sin fisuras.",
+    "wordsBadCaption": "Tres afirmaciones, ninguna evidencia.",
+    "disagreeBody3": "Tres hábitos más mantienen honestos los argumentos. Una decisión de diseño se nombra como decisión, nunca vestida de ley natural: «el host es dueño de la navegación» es una elección de esta build, y decirlo invita al lector a seguir el razonamiento en vez de buscar contraejemplos. El «porque» se reserva para la causalidad que el texto ha mostrado; donde una afirmación descansa en inferencia o convención, la escritura dice «lo que sugiere» o «la razón habitual es». Y los encabezados describen encaje, no fracaso: «Dónde X tiene límites» antes que «Por qué X falla»."
   },
   "translation": {
     "seoTitle": "Traducción | Sistema de diseño | Warren de Leon",
@@ -1419,6 +1479,18 @@
       {
         "id": "scope",
         "label": "Qué se traduce"
+      },
+      {
+        "id": "glossary",
+        "label": "Un glosario por serie"
+      },
+      {
+        "id": "fixtures",
+        "label": "Mobiliario fijo"
+      },
+      {
+        "id": "terms",
+        "label": "Términos de oficio"
       },
       {
         "id": "voice",
@@ -1457,10 +1529,27 @@
     "angliHeading": "Los anglicismos se quedan",
     "angliBody": "El español y el catalán conservan el inglés técnico que los desarrolladores usan de verdad: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Algunos son anglicismos que ningún diccionario bendeciría, y se quedan igualmente. Traducir runtime como «tiempo de ejecución» es correcto según el diccionario y suena a libro de texto; el objetivo es sonar a compañero de equipo.",
     "taglishHeading": "El tagalo es taglish",
-    "taglishBody": "Los posts en tagalo son taglish idiomático: la frase fluye en filipino con el vocabulario técnico intacto en inglés, tal como hablan de trabajo los desarrolladores filipinos. Un tagalo técnico traducido del todo sería más difícil de leer, no más fácil.",
+    "taglishBody": "Los posts en tagalo son taglish idiomático: la frase fluye en filipino con el vocabulario técnico intacto en inglés, tal como hablan de trabajo los desarrolladores filipinos. Un tagalo técnico traducido del todo sería más difícil de leer, no más fácil. Dos límites lo mantienen honesto. Donde el taglish hablado conservaría la palabra inglesa, la palabra inglesa se queda; buscar un sinónimo tagalo literario sube el registro más allá del post. Y un término técnico nunca toma prestada una palabra tagala cotidiana que ya tiene otro significado: *data plumbing* se queda en inglés, porque la palabra cotidiana más cercana, *tubero*, nombra al fontanero y no a la metáfora.",
     "fillerHeading": "Las mismas prohibiciones viajan",
     "fillerBody": "Las reglas de escritura cruzan la barrera del idioma, y una se endurece: el inciso con raya que la prosa inglesa permite desaparece por completo en las traducciones; el español, el catalán y el tagalo usan coma, dos puntos o paréntesis. Cada idioma prohíbe además su propio relleno de marketing, los primos locales de la lista inglesa: en catalán, por ejemplo, quedan fuera d’avantguarda, sense fissures, holístic y disruptiu.",
-    "scopeNote": "No todos los posts existen en los cuatro idiomas. Cuando falta una traducción, el feed de ese idioma muestra el post en inglés en vez de ocultarlo, y quien visita la raíz del sitio por primera vez es enviado una vez al idioma de su navegador."
+    "scopeNote": "No todos los posts existen en los cuatro idiomas. Cuando falta una traducción, el feed de ese idioma muestra el post en inglés en vez de ocultarlo, y quien visita la raíz del sitio por primera vez es enviado una vez al idioma de su navegador.",
+    "glossaryHeading": "Un glosario por serie",
+    "glossaryBody1": "Una serie larga decide su vocabulario una vez y lo reutiliza en cada parte: las palabras que el lector encuentra en la parte dos deben seguir siendo las de la parte nueve. Los términos disputados reciben una entrada la primera vez que aparecen, y cada traducción posterior la sigue.",
+    "glossaryTableHeaders": {
+      "en": "Inglés",
+      "es": "Español",
+      "ca": "Catalán",
+      "tl": "Tagalo"
+    },
+    "glossaryBody2": "Un cambio de opinión tiene su propia regla. Cuando una palabra mejor gana a mitad de serie — este sitio pasó de *cáscara* y *closca* a *shell* — la palabra nueva se aplica a cada parte ya publicada en la misma edición, no solo a las que quedan por venir. Un glosario que solo apunta hacia delante parte la serie en dos.",
+    "fixturesHeading": "Mobiliario fijo",
+    "fixturesBody": "El mobiliario recurrente de las páginas se traduce una vez, se registra, y no se improvisa nunca más. El encabezado de fuentes es *Fuentes* en español, *Fonts* en catalán y *Mga Sanggunian* en tagalo, en cada post; las etiquetas de tests y pasos mantienen una forma por idioma; los nombres de serie se quedan en inglés en todas partes. Tres posts con tres palabras distintas para el mismo encabezado es como un catálogo se va separando.",
+    "termsHeading": "Términos de oficio",
+    "termsBody": "Un término que la propia industria usa en inglés — *inner source*, *code owner*, *pull request* — se queda en inglés en los cuatro idiomas y se glosa en la frase que lo rodea la primera vez que aparece. La versión de diccionario de un término de oficio cambia un nombre que el lector puede buscar por una frase que nunca ha visto. Los nombres de marcas y productos no se traducen ni se acortan nunca.",
+    "quotesHeading": "Comillas",
+    "quotesBody": "El español y el catalán citan con comillas angulares: «así». El tagalo sigue la convención inglesa. Cada idioma conserva su propia tipografía en vez de heredar las comillas inglesas a través de la traducción.",
+    "hedgeHeading": "Los matices no se calcan",
+    "hedgeBody": "Las reglas de tono piden steelmanning y absolutos suavizados, y eso cruza la barrera del idioma como contenido: la versión más fuerte de la postura contraria se traduce entera. La suavización en sí no se copia palabra por palabra — un calco español o catalán de un matiz inglés se lee acartonado —, así que estos idiomas exponen el mismo argumento con su voz naturalmente más directa."
   },
   "accessibility": {
     "seoTitle": "Accesibilidad | Sistema de diseño | Warren de Leon",

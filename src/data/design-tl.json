@@ -1312,6 +1312,14 @@
     "intro": "Kung paano itinatakda ang mga salita sa site. Ito ang mga kombensiyong sinusunod na ng pagsulat, na binasa mula mismo sa site: ang pampublikong pamantayan ng output, hindi ang prosesong nasa likod nito.",
     "toc": [
       {
+        "id": "sentences",
+        "label": "Mga pangungusap"
+      },
+      {
+        "id": "words",
+        "label": "Simpleng salita"
+      },
+      {
         "id": "spelling",
         "label": "Pagbaybay"
       },
@@ -1367,7 +1375,7 @@
     "datesCaption": "Buong buwan para sa petsa ng artikulo, pinaikli para sa mga saklaw; ang bukás na saklaw ay nagsasabi ng Present.",
     "datesBadCaption": "Hindi numeriko, hindi American na pagkakasunod, hindi ordinal.",
     "punctuationHeading": "Bantas",
-    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay naghihiwalay ng mga bahagi nito gamit ang middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap.",
+    "punctuationBody": "Ang serial comma ang default: labels, hints, and states. Ang mga tandang padamdam ay hindi ginagamit sa prosa. Ang truncation at loading state ay gumagamit ng iisang ellipsis character, ang isang aside ay gumagamit ng spaced em-dash, at ang isang metadata row ay naghihiwalay ng mga bahagi nito gamit ang middot. Ang tatlong tuldok na magkakasunod ay para sa code, hindi sa mga pangungusap. Nararapat ang em-dash sa pagbubukas ng singit na kaisipan, ng aposisyon, o ng terminong may kahulugan; hindi nito kailanman pinagdudugtong ang dalawang malayang pangungusap — tuldok o kolon ang bagay doon. Bawat dash ay hinuhusgahan ayon sa trabaho nito, hindi sa bilang.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Serial comma, ang ellipsis character, isang spaced em-dash, isang middot sa pagitan ng meta.",
@@ -1404,7 +1412,59 @@
     "crossHeading": "Cross-linking",
     "crossBody1": "Malayang nagtuturo ang mga post sa isa’t isa: ang pangungusap na bumabanggit sa token-refresh post ay naka-link doon, at pinapangalanan ng link text ang pupuntahan gaya sa itaas. Puwede pang tumuro ang mga link sa mga post na hindi pa lumalabas. Ang link sa hindi pa na-publish na post ay simpleng **lumalabas bilang plain text**, kaya walang kailanman nagre-404, at kusang nagiging link ang mga salitang iyon kapag na-publish ang pupuntahan. Ang mga forward reference ay isinusulat nang isang beses at nareresolba nang kusa.",
     "crossBody2": "Bawat post ay maaaring pumili ng hanggang tatlong related post ; ang mga walang pinili ay babagsak sa mga shared tag. May further-reading shelf na nagdadagdag ng mas tahimik na mga post na malamang hindi pa nakikita ng mambabasa, na may tope na siyam sa kabuuan, para manatili itong rekomendasyon at hindi archive.",
-    "crossBody3": "Sa loob ng isang serye, ang previous at next ay nananatili sa loob ng serye: ang part five ay tumuturo sa parts four at six, hindi kailanman sa walang kaugnayang post na nagkataong lumabas katabi nito. Sa mga dulo lang ng serye babagsak ang mga arrow sa katabing post ayon sa petsa."
+    "crossBody3": "Sa loob ng isang serye, ang previous at next ay nananatili sa loob ng serye: ang part five ay tumuturo sa parts four at six, hindi kailanman sa walang kaugnayang post na nagkataong lumabas katabi nito. Sa mga dulo lang ng serye babagsak ang mga arrow sa katabing post ayon sa petsa.",
+    "sentencesHeading": "Mga pangungusap",
+    "sentencesBody1": "Ang default na pangungusap ay naglalagay muna ng subject, tapos ang verb, tapos ang object, at humihinto. Karamihan sa mga pangungusap sa site ay sadyang ganito ang pagkakabuo: apat na wika ang sineserbisyuhan ng pagsusulat, at maraming mambabasa ang bumabasa nito sa wikang hindi nila una. Walang extra na hinihingi ang isang simpleng pangungusap; ang magarbong konstruksyon ay inilalaan para sa iisang sandali sa bawat seksyon kung saan tumataas ang argumento.",
+    "sentencesHabits": [
+      "**Baligtad na bukas.** Ang pangungusap na nagtatago ng subject ay nagpapahintay sa mambabasa. Mas maganda ang “Nagiging maintenance bill ang pangatlong ayos” kaysa sa “ang tahimik na nagiging maintenance bill ay ang pangatlong ayos”.",
+      "**Mga abstraction na binuhay.** Ang isang dahilan ay hindi nagbubunga at ang isang release ay hindi tumatabi. Ang mga bagay na walang buhay ay inilalarawan, hindi binibigyan ng verb ng tao: “ikaw na mismo ang gagawa nang mano-mano ng ibibigay sana ng library nang libre”.",
+      "**Dekorasyong buntot.** Kapag lumapag na ang punto, ang palamuting clause na nakasabit sa dulo ay may dalang ritmo pero walang impormasyon, at itinutuon ang pansin sa pagsusulat. Tinatanggal ito.",
+      "**Ang talatang paulit-ulit na nagpapatunay.** Punto, ebidensya, usad. Ang talatang inuulit ang punto nito sa ibang salita ay mababasang kawalan ng tiwala sa mambabasa. Takpan ang huling pangungusap: kung lumalapag pa rin ang talata, tanggalin ang pangungusap na iyon."
+    ],
+    "sentencesBody2": "Ang pagsusulit ay basahin ang talata nang malakas. Ang anumang pangungusap na magpapabalik sa iyo para hanapin ang subject ay pinapatag, at isang inversion bawat seksyon, nakalagay kung saan ito karapat-dapat, ang siyang hangganan.",
+    "sentencesGood": "Ang pangatlong opsyon ay isang store na gumagawa ng dalawang trabaho. Walang pumipili nito nang sinasadya.",
+    "sentencesCaption": "Subject muna, maagang verb, tuldok.",
+    "sentencesBad": "Ang tahimik na nagiging maintenance bill ay ang pangatlong ayos na walang pumipili nang sinasadya.",
+    "sentencesBadCaption": "Huli dumarating ang subject, kaya bitbit ng mambabasa ang buong pangungusap nang nakabukas.",
+    "wordsHeading": "Simpleng salita",
+    "wordsBody1": "Panalo ang maikli at karaniwang salita laban sa pinalobo. Ang marketing na bokabularyo — *robust*, *seamless*, *cutting-edge* — ay nag-aangkin ng kalidad sa halip na ipakita ito, kaya isang konkretong katotohanan ang pumapalit. Ganoon din ang mga pampuno at pormal na padding: *gamitin* sa halip na *i-leverage*.",
+    "wordsTableHeaders": {
+      "avoid": "Iniiwasan",
+      "use": "Ginagamit"
+    },
+    "wordsRows": [
+      {
+        "avoid": "robust, seamless, battle-tested",
+        "use": "ang sukat, o ang katotohanan"
+      },
+      {
+        "avoid": "moreover, furthermore, additionally",
+        "use": "at, saka"
+      },
+      {
+        "avoid": "therefore, thus, consequently",
+        "use": "kaya"
+      },
+      {
+        "avoid": "leverage, utilise",
+        "use": "gamitin"
+      },
+      {
+        "avoid": "delve into, dive into",
+        "use": "tingnan"
+      },
+      {
+        "avoid": "ultimately",
+        "use": "sa huli"
+      }
+    ],
+    "wordsBody2": "Nababawi ng isang salita ang puwesto nito kapag ito ang literal na teknikal na termino: ang software *framework* ay framework, ang *dynamic* dispatch ay dynamic. Ang marketing na kahulugan ng parehong salita ay hindi kailanman pumapasa.",
+    "wordsBody3": "Tatlong mas maliit na panuntunan ang kasama nito. Ang mga idyoma ay pinapalitan ng literal nilang kahulugan para hindi na kailanganing buksan ng mambabasa sa pangalawang wika ang nakatiklop na parirala. Ang mga acronym at pangalan ng tool ay binabaybay sa unang paggamit: “SWC (ang Speedy Web Compiler)”. At ang timbangang konstruksyon — “hindi ito X, ito ay Y” — ay muling sinasabi bilang positibong pahayag, ang kalahating may dala ng impormasyon.",
+    "wordsGood": "Natatapos ang build sa apat na segundo at nananatiling wala pang 2 MB ang bundle.",
+    "wordsCaption": "Ang katotohanan ang nanghihikayat.",
+    "wordsBad": "Ang robust at battle-tested na pipeline ay naghahatid ng seamless na performance.",
+    "wordsBadCaption": "Tatlong pag-aangkin, walang ebidensya.",
+    "disagreeBody3": "Tatlo pang gawi ang nagpapanatiling tapat sa mga argumento. Ang desisyon sa disenyo ay pinapangalanang desisyon, hindi dinadamitan ng batas ng kalikasan: ang “ang host ang may-ari ng navigation” ay pili ng build na ito, at ang pagsasabi nito ay nag-aanyaya sa mambabasa na sundan ang pangangatwiran sa halip na maghanap ng kontra-halimbawa. Ang “dahil” ay inilalaan para sa sanhi na naipakita na ng teksto; kung ang pahayag ay nakasandal sa hinuha o kaugalian, sinasabi ng pagsusulat na “nagmumungkahi ito” o “ang karaniwang dahilan ay”. At ang mga heading ay naglalarawan ng bagay na akma, hindi ng kabiguan: “Kung saan may hangganan ang X” sa halip na “Bakit bumabagsak ang X”."
   },
   "translation": {
     "seoTitle": "Pagsasalin | Disenyo | Warren de Leon",
@@ -1419,6 +1479,18 @@
       {
         "id": "scope",
         "label": "Ano ang naisasalin"
+      },
+      {
+        "id": "glossary",
+        "label": "Isang glossary bawat series"
+      },
+      {
+        "id": "fixtures",
+        "label": "Nakapirming kasangkapan"
+      },
+      {
+        "id": "terms",
+        "label": "Mga termino ng industriya"
       },
       {
         "id": "voice",
@@ -1457,10 +1529,27 @@
     "angliHeading": "Nananatili ang mga hiram na salita",
     "angliBody": "Sa Spanish at Catalan, nananatili ang technical English na talagang ginagamit ng mga developer: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Ang ilan dito ay mga anglicism na hindi bebendisyunan ng anumang diksyunaryo, pero nananatili pa rin. Ang pagsasalin ng runtime bilang “tiempo de ejecución” ay tama ayon sa diksyunaryo pero parang textbook ang dating; ang layunin ay tumunog na parang katrabaho.",
     "taglishHeading": "Taglish ang Tagalog",
-    "taglishBody": "Ang mga post sa Tagalog ay idiomatic Taglish: Filipino ang daloy ng pangungusap pero nasa English pa rin ang technical vocabulary, kung paano talaga mag-usap ang mga Filipino developer tungkol sa trabaho. Ang buong-salin na technical Tagalog ay mas mahirap basahin, hindi mas madali.",
+    "taglishBody": "Ang mga post sa Tagalog ay idiomatic Taglish: Filipino ang daloy ng pangungusap pero nasa English pa rin ang technical vocabulary, kung paano talaga mag-usap ang mga Filipino developer tungkol sa trabaho. Ang buong-salin na technical Tagalog ay mas mahirap basahin, hindi mas madali. Dalawang hangganan ang nagpapanatili nitong tapat. Kung saan pananatilihin ng sinasalitang Taglish ang salitang Ingles, mananatili ang salitang Ingles; ang pag-abot sa pampanitikang kasingkahulugan sa Tagalog ay nagtataas ng rehistro lampas sa post. At ang teknikal na termino ay hindi kailanman nanghihiram ng pang-araw-araw na salitang Tagalog na may sarili nang ibang kahulugan: ang *data plumbing* ay nananatiling Ingles, dahil ang pinakamalapit na pang-araw-araw na salita, *tubero*, ay nagpapangalan sa manggagawa at hindi sa metapora.",
     "fillerHeading": "Tumatawid ang mga parehong bawal",
     "fillerBody": "Ang mga writing rule ay tumatawid sa wika, at isa ang humihigpit: ang spaced em-dash na pinapayagan ng English prose ay tuluyang nawawala sa mga translation; comma, colon o parentheses ang gamit ng Spanish, Catalan at Tagalog. Bawat wika ay may sariling bawal na marketing filler din, ang mga lokal na pinsan ng English list: sa Catalan, halimbawa, bawal ang d’avantguarda, sense fissures, holístic at disruptiu.",
-    "scopeNote": "Hindi lahat ng post ay umiiral sa apat na wika. Kapag walang translation, ipinapakita ng feed ng wikang iyon ang English na post sa halip na itago ito, at ang unang beses na bisita sa root ng site ay dinadala nang isang beses sa wika ng kanyang browser."
+    "scopeNote": "Hindi lahat ng post ay umiiral sa apat na wika. Kapag walang translation, ipinapakita ng feed ng wikang iyon ang English na post sa halip na itago ito, at ang unang beses na bisita sa root ng site ay dinadala nang isang beses sa wika ng kanyang browser.",
+    "glossaryHeading": "Isang glossary bawat series",
+    "glossaryBody1": "Ang mahabang series ay minsanang nagpapasya ng bokabularyo nito at ginagamit itong muli sa bawat bahagi: ang mga salitang makikilala ng mambabasa sa part two ay dapat pa ring ang mga salita sa part nine. Ang mga pinagtatalunang termino ay tumatanggap ng entry sa unang paglitaw, at sinusunod ito ng bawat susunod na translation.",
+    "glossaryTableHeaders": {
+      "en": "Ingles",
+      "es": "Espanyol",
+      "ca": "Catalan",
+      "tl": "Tagalog"
+    },
+    "glossaryBody2": "May sariling panuntunan ang pagbabago ng isip. Kapag nanalo ang mas magandang salita sa kalagitnaan ng series — lumipat ang site na ito mula sa *cáscara* at *closca* patungo sa *shell* — ang bagong salita ay inilalapat sa bawat nailathala nang bahagi sa iisang edit, hindi lang sa mga darating pa. Ang glossary na pasulong lang ang tinuturo ay humahati sa series sa dalawa.",
+    "fixturesHeading": "Nakapirming kasangkapan",
+    "fixturesBody": "Ang paulit-ulit na kasangkapan ng mga pahina ay minsanang isinasalin, itinatala, at hindi na kailanman iniimbento ulit. Ang heading ng mga pinagmulan ay *Fuentes* sa Espanyol, *Fonts* sa Catalan at *Mga Sanggunian* sa Tagalog, sa bawat post; ang mga label ng test at hakbang ay may iisang anyo bawat wika; ang mga pangalan ng series ay nananatiling Ingles kahit saan. Ang tatlong post na may tatlong magkaibang salita para sa parehong heading ang dahilan kung bakit unti-unting naghihiwalay ang isang katalogo.",
+    "termsHeading": "Mga termino ng industriya",
+    "termsBody": "Ang terminong ginagamit mismo ng industriya sa Ingles — *inner source*, *code owner*, *pull request* — ay nananatiling Ingles sa apat na wika at ipinapaliwanag sa nakapalibot na pangungusap sa unang paglapag nito. Ang diksyunaryong salin ng termino ng industriya ay nagpapalit ng pangalang kayang hanapin ng mambabasa ng pariralang hindi pa nila nakita kailanman. Ang mga pangalan ng brand at produkto ay hindi isinasalin at hindi pinaiikli kailanman.",
+    "quotesHeading": "Mga panipi",
+    "quotesBody": "Ang Espanyol at Catalan ay nagbabanggit gamit ang mga guillemet: «ganito». Sinusunod ng Tagalog ang kombensyong Ingles. Bawat wika ay may sariling tipograpiya sa halip na manahin ang mga panipi ng Ingles sa pamamagitan ng translation.",
+    "hedgeHeading": "Hindi kinokopya ang mga pampalambot",
+    "hedgeBody": "Ang mga panuntunan sa tono ay humihingi ng steelmanning at ng pinalambot na mga absolute, at tumatawid iyon sa hangganan ng wika bilang nilalaman: ang pinakamalakas na bersyon ng kabilang panig ay isinasalin nang buo. Ang mismong pagpapalambot ay hindi kinokopya nang salita por salita — ang Espanyol o Catalan na salamin ng pampalambot na Ingles ay mababasang tigang — kaya ang mga wikang iyon ay naglalahad ng parehong argumento sa likas nilang mas direktang boses."
   },
   "accessibility": {
     "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",

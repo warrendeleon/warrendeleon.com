@@ -32,6 +32,56 @@ const sections = [
   intro={w.intro}
   toc={w.toc}
 >
+  <section id="sentences">
+    <h2>{w.sentencesHeading}</h2>
+    <p set:html={md(w.sentencesBody1)} />
+    <ul class="ds-list">
+      {w.sentencesHabits.map((h) => <li set:html={md(h)} />)}
+    </ul>
+    <p set:html={md(w.sentencesBody2)} />
+    <div class="dodont-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={w.sentencesCaption}>
+        <span class="ds-sample">{w.sentencesGood}</span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={w.sentencesBadCaption}>
+        <span class="ds-sample ds-sample-bad">{w.sentencesBad}</span>
+      </GuidanceCard>
+    </div>
+  </section>
+
+  <section id="words">
+    <h2>{w.wordsHeading}</h2>
+    <p set:html={md(w.wordsBody1)} />
+    <div class="table-mini-wrap">
+      <table class="table-mini">
+        <thead>
+          <tr>
+            <th>{w.wordsTableHeaders.avoid}</th>
+            <th>{w.wordsTableHeaders.use}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {w.wordsRows.map((r) => (
+            <tr>
+              <td>{r.avoid}</td>
+              <td>{r.use}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p set:html={md(w.wordsBody2)} />
+    <p set:html={md(w.wordsBody3)} />
+    <div class="dodont-grid">
+      <GuidanceCard kind="do" label={d.doLabel} caption={w.wordsCaption}>
+        <span class="ds-sample">{w.wordsGood}</span>
+      </GuidanceCard>
+      <GuidanceCard kind="dont" label={d.dontLabel} caption={w.wordsBadCaption}>
+        <span class="ds-sample ds-sample-bad">{w.wordsBad}</span>
+      </GuidanceCard>
+    </div>
+  </section>
+
   {sections.map((s) => (
     <section id={s.id}>
       <h2>{s.heading}</h2>
@@ -66,6 +116,7 @@ const sections = [
       </GuidanceCard>
     </div>
     <p set:html={md(w.disagreeBody2)} />
+    <p set:html={md(w.disagreeBody3)} />
   </section>
 
   <section id="social">

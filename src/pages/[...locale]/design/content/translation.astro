@@ -18,6 +18,17 @@ const localeRows: { code: string; path: string }[] = [
   { code: 'ca', path: '/ca/' },
   { code: 'tl', path: '/tl/' },
 ];
+
+// The settled series vocabulary. Rows are words in their own languages, the same on
+// every locale's page, so they live here rather than in the per-locale data files.
+const glossaryRows: { en: string; es: string; ca: string; tl: string }[] = [
+  { en: 'shell', es: 'shell', ca: 'shell', tl: 'shell' },
+  { en: 'seam', es: 'costura', ca: 'costura', tl: 'seam' },
+  { en: 'deployable', es: 'desplegable', ca: 'desplegable', tl: 'deployable' },
+  { en: 'boundary', es: 'frontera', ca: 'frontera', tl: 'boundary' },
+  { en: 'grid', es: 'cuadrícula', ca: 'graella', tl: 'grid' },
+  { en: 'release train', es: 'tren de releases', ca: 'tren de releases', tl: 'release train' },
+];
 ---
 
 <DesignLayout
@@ -71,13 +82,55 @@ const localeRows: { code: string; path: string }[] = [
     <p set:html={md(tr.scopeNote)} />
   </section>
 
+  <section id="glossary">
+    <h2>{tr.glossaryHeading}</h2>
+    <p set:html={md(tr.glossaryBody1)} />
+    <div class="table-mini-wrap">
+      <table class="table-mini">
+        <thead>
+          <tr>
+            <th>{tr.glossaryTableHeaders.en}</th>
+            <th>{tr.glossaryTableHeaders.es}</th>
+            <th>{tr.glossaryTableHeaders.ca}</th>
+            <th>{tr.glossaryTableHeaders.tl}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {glossaryRows.map((r) => (
+            <tr>
+              <td>{r.en}</td>
+              <td>{r.es}</td>
+              <td>{r.ca}</td>
+              <td>{r.tl}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p set:html={md(tr.glossaryBody2)} />
+  </section>
+
+  <section id="fixtures">
+    <h2>{tr.fixturesHeading}</h2>
+    <p set:html={md(tr.fixturesBody)} />
+  </section>
+
+  <section id="terms">
+    <h2>{tr.termsHeading}</h2>
+    <p set:html={md(tr.termsBody)} />
+  </section>
+
   <section id="voice">
     <h2>{tr.voiceHeading}</h2>
     <p set:html={md(tr.voiceBody)} />
+    <h3>{tr.hedgeHeading}</h3>
+    <p set:html={md(tr.hedgeBody)} />
     <h3>{tr.angliHeading}</h3>
     <p set:html={md(tr.angliBody)} />
     <h3>{tr.taglishHeading}</h3>
     <p set:html={md(tr.taglishBody)} />
+    <h3>{tr.quotesHeading}</h3>
+    <p set:html={md(tr.quotesBody)} />
     <h3>{tr.fillerHeading}</h3>
     <p set:html={md(tr.fillerBody)} />
   </section>

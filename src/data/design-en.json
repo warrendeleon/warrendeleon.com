@@ -1312,6 +1312,14 @@
     "intro": "How the words on the site are set. These are the conventions the writing already follows, read back from the site itself — the public output standard, not the process behind it.",
     "toc": [
       {
+        "id": "sentences",
+        "label": "Sentences"
+      },
+      {
+        "id": "words",
+        "label": "Plain words"
+      },
+      {
         "id": "spelling",
         "label": "Spelling"
       },
@@ -1367,7 +1375,7 @@
     "datesCaption": "Full month for article dates, abbreviated for ranges; open ranges say Present.",
     "datesBadCaption": "Not numeric, not American order, not an ordinal.",
     "punctuationHeading": "Punctuation",
-    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside takes a spaced em-dash, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences.",
+    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside takes a spaced em-dash, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences. An em-dash earns its place setting off an aside, an appositive, or a term and its definition; it never splices two independent sentences together — that joint takes a full stop or a colon. Each dash is judged by its job, never by a count.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Serial comma, the ellipsis character, a spaced em-dash, a middot between meta.",
@@ -1404,7 +1412,59 @@
     "crossHeading": "Cross-linking",
     "crossBody1": "Posts point at each other freely: a sentence that mentions the token-refresh post links to it, with the link text naming the destination as above. Links may even point at posts that have not shipped yet: the words simply **render as plain text**, so nothing ever 404s, and they become a link on their own when the target publishes. Forward references are written once and resolve themselves.",
     "crossBody2": "Each post can hand-pick up to three related posts; posts without picks fall back to shared tags. A further-reading shelf tops that up with quieter posts the reader has probably not met, capped at nine in total, so it stays a recommendation rather than an archive.",
-    "crossBody3": "Inside a series, previous and next stay inside the series: part five points at parts four and six, never at an unrelated post that happened to publish next to it. Only at the ends of a series do the arrows fall back to the neighbouring post by date."
+    "crossBody3": "Inside a series, previous and next stay inside the series: part five points at parts four and six, never at an unrelated post that happened to publish next to it. Only at the ends of a series do the arrows fall back to the neighbouring post by date.",
+    "sentencesHeading": "Sentences",
+    "sentencesBody1": "The default sentence puts its subject first, then the verb, then the object, and stops. Most sentences on the site are built that way on purpose: the writing serves four languages, and many readers take it in a language that is not their first. A plain sentence asks nothing extra of them; the clever construction is saved for the one moment in a section where the argument peaks.",
+    "sentencesHabits": [
+      "**Inverted openings.** A sentence that withholds its subject makes the reader wait for it. “The third arrangement grows into a maintenance bill” beats “what quietly turns into a maintenance bill is the third arrangement”.",
+      "**Animated abstractions.** A reason does not pay off and a release does not step aside. Lifeless things are described, not handed verbs that belong to people: “you end up building by hand what a library would give you for free”.",
+      "**Decorative tails.** Once the point has landed, an ornamental clause hung on the end carries rhythm but no information, and draws attention to the writing. It gets cut.",
+      "**The paragraph that keeps proving itself.** Point, evidence, move on. A paragraph that restates its point in new words reads as distrust of the reader. Cover its last sentence: if the paragraph still lands, that sentence goes."
+    ],
+    "sentencesBody2": "The test is to read the paragraph aloud. Any sentence that makes you double back to find its subject gets flattened, and one inversion per section, placed where it earns its keep, is the ceiling.",
+    "sentencesGood": "The third option is one store doing both jobs. Nobody picks it on purpose.",
+    "sentencesCaption": "Subject first, verb early, full stop.",
+    "sentencesBad": "What quietly turns into a maintenance bill is the third arrangement nobody chooses on purpose.",
+    "sentencesBadCaption": "The subject arrives last, so the reader holds the whole sentence open.",
+    "wordsHeading": "Plain words",
+    "wordsBody1": "Short, common words beat inflated ones. Marketing vocabulary — *robust*, *seamless*, *cutting-edge*, *battle-tested* — claims quality instead of showing it, so a concrete fact takes its place. Filler transitions (*moreover*, *furthermore*, *additionally*) and Latinate padding go the same way: *use* over *utilise* and *leverage*, *then* over *subsequently*, *so* over *therefore*.",
+    "wordsTableHeaders": {
+      "avoid": "Avoided",
+      "use": "Used instead"
+    },
+    "wordsRows": [
+      {
+        "avoid": "robust, seamless, battle-tested",
+        "use": "the measurement, or the fact"
+      },
+      {
+        "avoid": "moreover, furthermore, additionally",
+        "use": "and, also"
+      },
+      {
+        "avoid": "therefore, thus, consequently",
+        "use": "so"
+      },
+      {
+        "avoid": "leverage, utilise",
+        "use": "use"
+      },
+      {
+        "avoid": "delve into, dive into",
+        "use": "look at"
+      },
+      {
+        "avoid": "ultimately",
+        "use": "in the end"
+      }
+    ],
+    "wordsBody2": "A word earns its place back when it is the literal technical term: a software *framework* is a framework, *dynamic* dispatch is dynamic. The marketing sense of the same word never qualifies.",
+    "wordsBody3": "Three smaller rules travel with this one. Idioms are replaced with their literal meaning — *differs* rather than *parts company* — so a reader in a second language never has to unpack a folded phrase. Acronyms and tool names are spelled out on first use: “SWC (the Speedy Web Compiler)”. And the seesaw construction — “it is not X, it is Y” — is restated as the positive claim, the half that carries the information.",
+    "wordsGood": "The build finishes in four seconds and the bundle stays under 2 MB.",
+    "wordsCaption": "The fact does the persuading.",
+    "wordsBad": "A robust, battle-tested pipeline delivers seamless performance.",
+    "wordsBadCaption": "Three claims, no evidence.",
+    "disagreeBody3": "Three more habits keep arguments honest. A design choice is named as a choice, never dressed as a law of nature: “the host owns navigation” is a decision this build makes, and saying so invites the reader to follow the reasoning instead of hunting for counter-examples. *Because* is reserved for causality the text has shown; where a claim rests on inference or convention, the writing says “which suggests” or “the usual reason is”. And headings describe fit rather than failure: “Where X has limits” over “Why X fails”."
   },
   "translation": {
     "seoTitle": "Translation | Design system | Warren de Leon",
@@ -1419,6 +1479,18 @@
       {
         "id": "scope",
         "label": "What translates"
+      },
+      {
+        "id": "glossary",
+        "label": "One glossary per series"
+      },
+      {
+        "id": "fixtures",
+        "label": "Fixed furniture"
+      },
+      {
+        "id": "terms",
+        "label": "Terms of art"
       },
       {
         "id": "voice",
@@ -1457,10 +1529,27 @@
     "angliHeading": "Borrowed words stay",
     "angliBody": "Spanish and Catalan keep the technical English that developers actually use: `runtime`, `bundle`, `host`, `remote`, `build`, `deploy`. Some of these are anglicisms no dictionary would bless, and they stay anyway. Translating runtime as “tiempo de ejecución” is dictionary-correct and reads like a textbook; the goal is to read like a colleague.",
     "taglishHeading": "Tagalog is Taglish",
-    "taglishBody": "The Tagalog posts are idiomatic Taglish: Filipino sentence flow with the technical vocabulary left in English, the way Filipino developers talk shop. A fully translated technical Tagalog would be harder to read, not easier.",
+    "taglishBody": "The Tagalog posts are idiomatic Taglish: Filipino sentence flow with the technical vocabulary left in English, the way Filipino developers talk shop. A fully translated technical Tagalog would be harder to read, not easier. Two boundaries keep it honest. Where spoken Taglish would keep the English word, the English word stays; reaching for a literary Tagalog synonym raises the register beyond the post. And a technical term never borrows an everyday Tagalog word that already owns another meaning: *data plumbing* stays in English, because the nearest everyday word, *tubero*, names the tradesman rather than the metaphor.",
     "fillerHeading": "The same bans travel",
     "fillerBody": "The writing rules cross the language barrier, and one gets stricter: the spaced em-dash aside that English prose allows is dropped entirely in translation; Spanish, Catalan and Tagalog reach for a comma, a colon or parentheses instead. Each language also bans its own marketing filler, the local cousins of the English list: in Catalan, for instance, d’avantguarda, sense fissures, holístic and disruptiu are out.",
-    "scopeNote": "Not every post exists in all four languages. Where a translation is missing, that language’s feed shows the English post rather than hiding it, and a first-time visitor to the site root is sent to their browser’s language."
+    "scopeNote": "Not every post exists in all four languages. Where a translation is missing, that language’s feed shows the English post rather than hiding it, and a first-time visitor to the site root is sent to their browser’s language.",
+    "glossaryHeading": "One glossary per series",
+    "glossaryBody1": "A long series decides its vocabulary once and reuses it in every part: the words a reader meets in part two must still be the words in part nine. Contested terms get an entry the first time they appear, and every later translation follows it.",
+    "glossaryTableHeaders": {
+      "en": "English",
+      "es": "Spanish",
+      "ca": "Catalan",
+      "tl": "Tagalog"
+    },
+    "glossaryBody2": "A change of mind has a rule of its own. When a better word wins mid-series — this site moved from *cáscara* and *closca* to *shell* — the new word is applied to every published part in the same edit, not only the parts still to come. A glossary that only points forward splits the series in two.",
+    "fixturesHeading": "Fixed furniture",
+    "fixturesBody": "Recurring page furniture is translated once, recorded, and never improvised again. The sources heading is *Fuentes* in Spanish, *Fonts* in Catalan and *Mga Sanggunian* in Tagalog, in every post; test and step labels keep one form per language; series names stay in English everywhere. Three posts with three different words for the same heading is how a catalogue drifts apart.",
+    "termsHeading": "Terms of art",
+    "termsBody": "A term the industry itself uses in English — *inner source*, *code owner*, *pull request* — stays in English in all four languages and is glossed in the surrounding sentence the first time it lands. A dictionary rendering of a term of art trades a name readers can search for a phrase they have never seen. Brand and product names are never translated and never shortened.",
+    "quotesHeading": "Quotation marks",
+    "quotesBody": "Spanish and Catalan quote with guillemets: «así». Tagalog follows the English convention. Each language keeps its own typography instead of inheriting English marks through the translation.",
+    "hedgeHeading": "Hedges do not calque",
+    "hedgeBody": "The tone rules ask for steelmanning and for softened absolutes, and those cross the language barrier as content: the strongest version of the opposing view is translated in full. The softening itself is not copied word for word — a Spanish or Catalan mirror of an English hedge reads stilted, so those languages state the same argument in their naturally more direct voice."
   },
   "accessibility": {
     "seoTitle": "Accessibility | Design system | Warren de Leon",
