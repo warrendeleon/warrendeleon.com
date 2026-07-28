@@ -839,7 +839,7 @@
     "feedBody": "La targeta del llistat del blog: el component FeedPostCard real, aquí amb un marcador de posició on va la imatge hero. A escriptori és una miniatura al costat d'un títol, una línia de metadades i un resum de dues línies; en mòbils es replega en una fila compacta. Sense art, un post del feed es marca `data-no-thumb` i passa a una columna, perquè el cos mai quedi al costat d'una pista d'imatge buida.",
     "wholeLinkNote": "Tota la targeta és un únic enllaç, no pas un enllaç al títol amb un «llegeix-ne més» a part. En passar-hi el cursor, s'eleva la targeta i el títol es torna verd alhora.",
     "rosterHeading": "Índex de publicacions",
-    "rosterBody": "El germà dens del post del feed: una fila de línia fina per article — data en mono, títol, sèrie, temps de lectura — agrupades sota un marcador d'any en mono. Una targeta de feed ven un article; l'índex demostra una obra, així que l'art queda fora del flux. Amb punter en amples d'escriptori, passar per una fila fa aparèixer l'art del post com una petita previsualització girada; en tàctil o amb moviment reduït només hi ha les files. Una implementació, les classes `roster`; corre a la pàgina about i mai es pagina.",
+    "rosterBody": "El germà dens del post del feed: una fila de línia fina per article (data en mono, títol, sèrie, temps de lectura), agrupades sota un marcador d'any en mono. Una targeta de feed ven un article; l'índex demostra una obra, així que l'art queda fora del flux. Amb punter en amples d'escriptori, passar per una fila fa aparèixer l'art del post com una petita previsualització girada; en tàctil o amb moviment reduït només hi ha les files. Una implementació, les classes `roster`; corre a la pàgina about i mai es pagina.",
     "rulesHeading": "Quan utilitzar-ho",
     "dos": [
       "Fes que tota la targeta sigui un únic enllaç quan apunti a un sol lloc.",
@@ -868,9 +868,9 @@
     "iconcardHeading": "Targeta d’enllaç amb icona",
     "iconcardBody": "Una targeta base que és un únic enllaç: un glif Feather i un títol a la fila de capçalera, un resum a sota. Icona i títol es tornen verds junts en passar-hi per sobre. Va néixer com la targeta d’índex d’aquesta documentació i es va promocionar al web: les classes `icon-card` sobre `card`.",
     "ctabandHeading": "Banda CTA",
-    "ctabandBody": "La banda de tancament centrada: tintada, amb vora, cantonades de 16 píxels, un encapçalament curt i una o dues crides a l'acció, amb topall de 640 píxels. Tanca la pàgina del CV tota sola; la pàgina d'inici tanca amb dues en una graella `cta-band-pair` — apilades en pantalles petites, costat a costat des de 900 píxels, sense el topall d'amplada individual perquè el parell quedi equilibrat.",
+    "ctabandBody": "La banda de tancament centrada: tintada, amb vora, cantonades de 16 píxels, un encapçalament curt i una o dues crides a l'acció, amb topall de 640 píxels. Tanca la pàgina del CV tota sola; la pàgina d'inici tanca amb dues en una graella `cta-band-pair`: apilades en pantalles petites, costat a costat des de 900 píxels, sense el topall d'amplada individual perquè el parell quedi equilibrat.",
     "statbandHeading": "Banda de xifres",
-    "statbandBody": "Una línia mono de xifres comptades entre dues línies fines — articles, sèries, minuts de lectura. Xifres en verd, etiquetes apagades. Cada número es deriva del contingut en compilar, mai s'escriu a mà, així que la banda no pot desviar-se del que el lloc realment conté.",
+    "statbandBody": "Una línia mono de xifres comptades entre dues línies fines: articles, sèries, minuts de lectura. Xifres en verd, etiquetes apagades. Cada número es deriva del contingut en compilar, mai s'escriu a mà, així que la banda no pot desviar-se del que el lloc realment conté.",
     "pnHeading": "Fitxes anterior / següent",
     "pnBody": "Dues fitxes tintades al peu d’una pàgina de detall: una etiqueta verda de direcció en majúscules i el títol de la destinació, amb la fitxa següent alineada a la dreta. Els articles i les pàgines d’empresa comparteixen les classes `pn-nav`; al mòbil les fitxes s’apilen.",
     "homeBlogNote": "La portada compon a més dues targetes a mida amb aquestes peces: una targeta de sèrie en curs amb la seva barra de progrés al costat de l’últim post. Al mòbil totes dues cedeixen el lloc a les files estàndard del feed."
@@ -1006,7 +1006,7 @@
     "paletteHeading": "Paleta de cerca",
     "paletteBody": "La cerca del blog és l’únic overlay que no és ni full ni desplegable: una paleta d’ordres centrada sobre un fons desenfocat, oberta des de la barra superior o amb Cmd K, governada del tot des del teclat. Ofereix recomanacions i xips de sèries i etiquetes abans d’escriure, ressalta les coincidències en teclejar, i anomena la seva pròpia sortida. Entre 700 i 1279 píxels el selector d’idioma manlleva aquesta forma de panell centrat, en comptes del full inferior del mòbil.",
     "consentHeading": "Consentiment",
-    "consentBody": "L’avís de galetes és una barra fixa amb tres opcions iguals — acceptar, rebutjar, personalitzar — i la ruta de personalitzar obre una targeta de preferències amb el focus atrapat i un únic commutador d’analítica. Rebutjar és tan fàcil com acceptar, i la pàgina de privadesa pot reobrir la decisió en qualsevol moment."
+    "consentBody": "L’avís de galetes és una barra fixa amb tres opcions iguals (acceptar, rebutjar, personalitzar), i la ruta de personalitzar obre una targeta de preferències amb el focus atrapat i un únic commutador d’analítica. Rebutjar és tan fàcil com acceptar, i la pàgina de privadesa pot reobrir la decisió en qualsevol moment."
   },
   "articlePatterns": {
     "seoTitle": "Patrons d'article | Sistema de disseny | Warren de Leon",
@@ -1437,7 +1437,7 @@
     "sentencesBad": "El que es converteix en silenci en una factura de manteniment és el tercer arranjament que ningú no tria a propòsit.",
     "sentencesBadCaption": "El subjecte arriba al final, i el lector sosté tota la frase oberta.",
     "wordsHeading": "Paraules planes",
-    "wordsBody1": "Les paraules curtes i comunes guanyen a les inflades. El vocabulari de màrqueting — *robust*, *sense fissures*, *d’avantguarda* — afirma qualitat en lloc de mostrar-la, així que un fet concret n’ocupa el lloc. Les transicions de farciment i l’encoixinat llatinitzant segueixen el mateix camí: *fer servir* abans que *utilitzar*, *després* abans que *posteriorment*.",
+    "wordsBody1": "Les paraules curtes i comunes guanyen a les inflades. El vocabulari de màrqueting (*robust*, *sense fissures*, *d’avantguarda*) afirma qualitat en lloc de mostrar-la, així que un fet concret n’ocupa el lloc. Les transicions de farciment i l’encoixinat llatinitzant segueixen el mateix camí: *fer servir* abans que *utilitzar*, *després* abans que *posteriorment*.",
     "wordsTableHeaders": {
       "avoid": "S’evita",
       "use": "Es fa servir"
@@ -1469,7 +1469,7 @@
       }
     ],
     "wordsBody2": "Una paraula recupera el seu lloc quan és el terme tècnic literal: un *framework* de software és un framework, el dispatch *dinàmic* és dinàmic. El sentit de màrqueting de la mateixa paraula no qualifica mai.",
-    "wordsBody3": "Tres regles menors viatgen amb aquesta. Els modismes se substitueixen pel seu significat literal — *difereix* abans que «pren camins separats» — perquè un lector en segona llengua no hagi de desplegar mai una frase doblegada. Les sigles i els noms d’eines es despleguen al primer ús: «SWC (el Speedy Web Compiler)». I la construcció de balancí — «no és X, és Y» — es reformula com l’afirmació positiva, la meitat que porta la informació.",
+    "wordsBody3": "Tres regles menors viatgen amb aquesta. Els modismes se substitueixen pel seu significat literal (*difereix* abans que «pren camins separats»), perquè un lector en segona llengua no hagi de desplegar mai una frase doblegada. Les sigles i els noms d’eines es despleguen al primer ús: «SWC (el Speedy Web Compiler)». I la construcció de balancí, «no és X, és Y», es reformula com l’afirmació positiva, la meitat que porta la informació.",
     "wordsGood": "El build acaba en quatre segons i el bundle es queda per sota de 2 MB.",
     "wordsCaption": "El fet fa la persuasió.",
     "wordsBad": "Un pipeline robust i provat en batalla entrega un rendiment sense fissures.",
@@ -1551,15 +1551,15 @@
       "ca": "Català",
       "tl": "Tagal"
     },
-    "glossaryBody2": "Un canvi d’opinió té la seva pròpia regla. Quan una paraula millor guanya a mitja sèrie — aquest lloc va passar de *cáscara* i *closca* a *shell* — la paraula nova s’aplica a cada part ja publicada en la mateixa edició, no només a les que queden per venir. Un glossari que només apunta endavant parteix la sèrie en dues.",
+    "glossaryBody2": "Un canvi d’opinió té la seva pròpia regla. Quan una paraula millor guanya a mitja sèrie (aquest lloc va passar de *cáscara* i *closca* a *shell*), la paraula nova s’aplica a cada part ja publicada en la mateixa edició, no només a les que queden per venir. Un glossari que només apunta endavant parteix la sèrie en dues.",
     "fixturesHeading": "Mobiliari fix",
     "fixturesBody": "El mobiliari recurrent de les pàgines es tradueix una vegada, es registra, i no s’improvisa mai més. L’encapçalament de fonts és *Fuentes* en espanyol, *Fonts* en català i *Mga Sanggunian* en tagal, a cada post; les etiquetes de tests i passos mantenen una forma per idioma; els noms de sèrie es queden en anglès a tot arreu. Tres posts amb tres paraules diferents per al mateix encapçalament és com un catàleg es va separant.",
     "termsHeading": "Termes d’ofici",
-    "termsBody": "Un terme que la mateixa indústria usa en anglès — *inner source*, *code owner*, *pull request* — es queda en anglès en els quatre idiomes i es glossa a la frase que l’envolta la primera vegada que apareix. La versió de diccionari d’un terme d’ofici canvia un nom que el lector pot buscar per una frase que no ha vist mai. Els noms de marques i productes no es tradueixen ni s’escurcen mai.",
+    "termsBody": "Un terme que la mateixa indústria usa en anglès (*inner source*, *code owner*, *pull request*) es queda en anglès en els quatre idiomes i es glossa a la frase que l’envolta la primera vegada que apareix. La versió de diccionari d’un terme d’ofici canvia un nom que el lector pot buscar per una frase que no ha vist mai. Els noms de marques i productes no es tradueixen ni s’escurcen mai.",
     "quotesHeading": "Cometes",
     "quotesBody": "L’espanyol i el català citen amb cometes angulars: «així». El tagal segueix la convenció anglesa. Cada idioma conserva la seva pròpia tipografia en lloc d’heretar les cometes angleses a través de la traducció.",
     "hedgeHeading": "Els matisos no es calquen",
-    "hedgeBody": "Les regles de to demanen steelmanning i absoluts suavitzats, i això creua la barrera de l’idioma com a contingut: la versió més forta de la postura contrària es tradueix sencera. La suavització en si no es copia paraula per paraula — un calc espanyol o català d’un matis anglès es llegeix encarcarat —, així que aquests idiomes exposen el mateix argument amb la seva veu naturalment més directa."
+    "hedgeBody": "Les regles de to demanen steelmanning i absoluts suavitzats, i això creua la barrera de l’idioma com a contingut: la versió més forta de la postura contrària es tradueix sencera. La suavització en si no es copia paraula per paraula (un calc espanyol o català d’un matis anglès es llegeix encarcarat), així que aquests idiomes exposen el mateix argument amb la seva veu naturalment més directa."
   },
   "accessibility": {
     "seoTitle": "Accessibilitat | Sistema de disseny | Warren de Leon",
@@ -1652,7 +1652,7 @@
     ],
     "designHeading": "El disseny del correu",
     "designBody1": "Una sola columna de 600 píxels: una targeta blanca sobre una pàgina gris suau, una barra d'accent llima de quatre píxels a la part superior, el logotip a sota i Inter a cada línia. Després, la banda: la il·lustració del post, enfosquida, amb un gran numeral verd de la part i el títol en blanc. Els enllaços usen el verd llegible de text i les cantonades de la targeta queden a 14 píxels. És el web, traduït al que permeten els clients de correu.",
-    "designBody2": "La banda és una imatge generada — una per post i per idioma — així que es veu igual a tots els clients, i el títol es repeteix a sota com a text real: qui llegeixi amb imatges desactivades, amb lletra més gran o amb un lector de pantalla no perd res més que l'atmosfera. El mode fosc segueix la preferència del lector, amb la mateixa idea de valors aparellats que els tokens del web: la pàgina passa a gairebé negre, la targeta a gris fosc, el logotip canvia a la seva versió clara i els verds pugen per continuar sent llegibles. La banda ja és fosca per disseny, així que és l'únic element que no necessita canvi.",
+    "designBody2": "La banda és una imatge generada (una per post i per idioma), així que es veu igual a tots els clients, i el títol es repeteix a sota com a text real: qui llegeixi amb imatges desactivades, amb lletra més gran o amb un lector de pantalla no perd res més que l'atmosfera. El mode fosc segueix la preferència del lector, amb la mateixa idea de valors aparellats que els tokens del web: la pàgina passa a gairebé negre, la targeta a gris fosc, el logotip canvia a la seva versió clara i els verds pugen per continuar sent llegibles. La banda ja és fosca per disseny, així que és l'únic element que no necessita canvi.",
     "copyHeading": "Què diu el correu",
     "copyBody1": "El correu reutilitza les **pròpies paraules** del post, així que res no s’escriu dues vegades i res no pot contradir el web. Un post de sèrie rep l’eyebrow de la sèrie i el seu número de part, el cos és la mateixa descripció del post, i el botó és l’única acció.",
     "copyRules": [
@@ -1664,9 +1664,9 @@
       "El títol apareix dues vegades a propòsit: compost a la imatge de la banda i de nou com a titular de text. La banda és presentació; el titular de text és el que realment rep un lector de pantalla o un client sense imatges."
     ],
     "mockLabel": "El correu, reconstruït amb els valors d’un post real.",
-    "mockSubject": "Nou a la sèrie: La closca del host (Part 4)",
+    "mockSubject": "Nou a la sèrie: El shell del host (Part 4)",
     "mockEyebrow": "Part 4",
-    "mockTitle": "La closca del host: remotes federats com a pestanyes a React Native",
+    "mockTitle": "El shell del host: remotes federats com a pestanyes a React Native",
     "mockDesc": "Converteix el host d'una sola pantalla en un shell d'app: té la tab bar i la navegació, i cada pestanya és un remote construït, desplegat i carregat a part.",
     "mockButton": "Llegir el post →",
     "mockNav": "Forma part de la sèrie React Native Module Federation i continua la part 3, el contracte de singletons compartits.",
@@ -1676,7 +1676,7 @@
     "whyHeading": "Per què el títol va doblat",
     "whyIntro": "La banda i el titular mostren el mateix títol a lectors diferents. Cada raó de sota és un lector que el disseny perdria altrament.",
     "whyReasons": [
-      "**Qui escaneja se salta els bàners.** Un bloc gràfic estilitzat a l'inici d'un correu es llegeix com a publicitat — el patró s'anomena ceguesa als bàners — i un lector amb pressa salta directe al primer text. Si el títol visqués només a la banda, aquest lector no el veuria. El titular de text és on aterra la seva mirada.",
+      "**Qui escaneja se salta els bàners.** Un bloc gràfic estilitzat a l'inici d'un correu es llegeix com a publicitat (el patró s'anomena ceguesa als bàners), i un lector amb pressa salta directe al primer text. Si el títol visqués només a la banda, aquest lector no el veuria. El titular de text és on aterra la seva mirada.",
       "**L'Outlook corporatiu bloqueja les imatges remotes per defecte**, i els lectors d'aquest butlletí són enginyers, justament el públic amb més probabilitat d'usar-lo. Amb el títol com a text, un correu amb totes les imatges bloquejades continua dient de què va; el text alternatiu de la banda repeteix la sèrie, la part i el títol per la mateixa raó.",
       "**Els lectors de pantalla naveguen el correu per titulars**, i un títol dins d'una imatge no és un titular. La lletra ampliada pel lector escala el text, mai les imatges. Les WCAG (les pautes d'accessibilitat per al contingut web) demanen el mateix al punt 1.4.5: res d'imatges de text on el text real pot fer la feina.",
       "**El doblat es mesura, no se suposa.** La banda i el botó enllacen al mateix post amb valors diferents de `utm_content`, així que les dades de clics mostren si la banda es guanya el lloc o si el botó fa la feina."

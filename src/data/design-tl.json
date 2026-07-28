@@ -839,7 +839,7 @@
     "feedBody": "Ang card ng blog listing: ang totoong FeedPostCard component, dito may placeholder sa pwesto ng hero image. Sa desktop, ito ay thumbnail sa tabi ng pamagat, meta line, at dalawang-linyang buod; sa phone, lumiliit ito sa isang compact na row. Kapag walang artwork, minamarkahan ng feed post ang sarili ng `data-no-thumb` at bumabagsak sa isang column, para hindi tumabi ang body sa walang lamang image track.",
     "wholeLinkNote": "Ang buong card ay isang link, hindi isang title link na may hiwalay na “read more”. Ang hover ay magkasabay na nagtataas ng card at nag-be-berde sa pamagat.",
     "rosterHeading": "Talaan ng publikasyon",
-    "rosterBody": "Ang siksik na kapatid ng feed post: isang manipis na hilera bawat post — mono na petsa, pamagat, serye, oras ng pagbabasa — nakapangkat sa ilalim ng mono na year marker. Ang feed card ay nagbebenta ng isang post; ang index ay nagpapatunay ng katawan ng akda, kaya walang artwork sa daloy. Sa pointer sa desktop na lapad, ang pag-hover sa isang hilera ay nagpapalutang ng art ng post bilang maliit na nakatagilid na preview; sa touch at reduced-motion, mga hilera lang. Isang implementasyon, ang mga `roster` class; tumatakbo ito sa about page at hindi kailanman pina-paginate.",
+    "rosterBody": "Ang siksik na kapatid ng feed post: isang manipis na hilera bawat post (mono na petsa, pamagat, serye, oras ng pagbabasa), nakapangkat sa ilalim ng mono na year marker. Ang feed card ay nagbebenta ng isang post; ang index ay nagpapatunay ng katawan ng akda, kaya walang artwork sa daloy. Sa pointer sa desktop na lapad, ang pag-hover sa isang hilera ay nagpapalutang ng art ng post bilang maliit na nakatagilid na preview; sa touch at reduced-motion, mga hilera lang. Isang implementasyon, ang mga `roster` class; tumatakbo ito sa about page at hindi kailanman pina-paginate.",
     "rulesHeading": "Kailan gagamitin",
     "dos": [
       "Gawing isang link ang buong card kapag tumuturo ito sa isang lugar.",
@@ -866,11 +866,11 @@
     "roleHeading": "Current-role card",
     "roleBody": "Ang latest-role card ng home page: logo disc sa tabi ng kumpanya at role, may paglalarawan sa ibaba. Naka-render mula sa tunay na classes na may placeholder na content.",
     "iconcardHeading": "Icon link card",
-    "iconcardBody": "Isang base card na iisang link: Feather glyph at title sa head row, blurb sa ibaba. Sabay na nagiging berde ang icon at title kapag naka-hover. Ipinanganak bilang index card ng docs na ito at na-promote sa site — ang mga `icon-card` class sa ibabaw ng `card`.",
+    "iconcardBody": "Isang base card na iisang link: Feather glyph at title sa head row, blurb sa ibaba. Sabay na nagiging berde ang icon at title kapag naka-hover. Ipinanganak bilang index card ng docs na ito at na-promote sa site: ang mga `icon-card` class sa ibabaw ng `card`.",
     "ctabandHeading": "CTA band",
-    "ctabandBody": "Ang nakasentrong pansarang banda: may tint, may border, 16-pixel na kanto, maikling heading at isa o dalawang call to action, hanggang 640 pixels. Mag-isa nitong sinasara ang CV page; ang home page ay nagsasara na may dalawa sa isang `cta-band-pair` grid — nakapatong sa maliliit na screen, magkatabi mula 900 pixels, tinanggal ang solong width cap para balanse ang pares.",
+    "ctabandBody": "Ang nakasentrong pansarang banda: may tint, may border, 16-pixel na kanto, maikling heading at isa o dalawang call to action, hanggang 640 pixels. Mag-isa nitong sinasara ang CV page; ang home page ay nagsasara na may dalawa sa isang `cta-band-pair` grid: nakapatong sa maliliit na screen, magkatabi mula 900 pixels, tinanggal ang solong width cap para balanse ang pares.",
     "statbandHeading": "Stat band",
-    "statbandBody": "Isang mono na linya ng mga bilang sa pagitan ng dalawang manipis na linya — mga post, serye, minuto ng pagbabasa. Berdeng numero, muted na label. Bawat numero ay hinango mula sa content sa build time, hindi kailanman tinatype, kaya hindi maaaring lumihis ang banda sa aktwal na laman ng site.",
+    "statbandBody": "Isang mono na linya ng mga bilang sa pagitan ng dalawang manipis na linya: mga post, serye, minuto ng pagbabasa. Berdeng numero, muted na label. Bawat numero ay hinango mula sa content sa build time, hindi kailanman tinatype, kaya hindi maaaring lumihis ang banda sa aktwal na laman ng site.",
     "pnHeading": "Prev / next tiles",
     "pnBody": "Dalawang tinted tile sa paanan ng detail page: berdeng uppercase na direction label at title ng pupuntahan, naka-right-align ang next tile. Magkabahagi ang mga artikulo at company page sa mga `pn-nav` class; sa phone, nagsasalansan ang mga tile.",
     "homeBlogNote": "Ang home page ay bumubuo rin ng dalawang bespoke card mula sa mga pirasong ito: current-series card na may progress bar sa tabi ng pinakabagong post. Sa phone, kapwa sila nagbibigay-daan sa standard na feed rows."
@@ -1006,7 +1006,7 @@
     "paletteHeading": "Search palette",
     "paletteBody": "Ang blog search ang tanging overlay na hindi sheet o dropdown: nakagitnang command palette sa ibabaw ng blurred na backdrop, binubuksan mula sa top bar o gamit ang Cmd K, buong keyboard ang kontrol. Nag-aalok ito ng mga rekomendasyon at mga series at tag chip bago pa mag-type, hina-highlight ang mga tugma habang nagta-type, at pinapangalanan ang sarili nitong labasan. Sa pagitan ng 700 at 1279 pixels, hinihiram din ng language picker ang nakagitnang panel na anyo, sa halip na bottom sheet ng phone.",
     "consentHeading": "Consent",
-    "consentBody": "Ang cookie banner ay fixed bar na may tatlong pantay na pagpipilian — accept, decline, customise — at ang customise ay nagbubukas ng focus-trapped na preferences card na may iisang analytics toggle. Kasindali ng pag-accept ang pag-decline, at maaaring buksan muli ng privacy page ang desisyon anumang oras."
+    "consentBody": "Ang cookie banner ay fixed bar na may tatlong pantay na pagpipilian (accept, decline, customise), at ang customise ay nagbubukas ng focus-trapped na preferences card na may iisang analytics toggle. Kasindali ng pag-accept ang pag-decline, at maaaring buksan muli ng privacy page ang desisyon anumang oras."
   },
   "articlePatterns": {
     "seoTitle": "Mga pattern ng artikulo | Disenyo | Warren de Leon",
@@ -1202,7 +1202,7 @@
     "minitableHeading": "Simpleng table",
     "minitableBody": "Ang magaan na table ng docs na ito: mono uppercase na header strip sa badge tint, napakanipis na row divider, nakabalot sa rounded na scrollable card. Para sa token-at-value na data na kasya sa tatlo o apat na column; ang mas malapad ay para sa mga bespoke table pattern sa itaas. Ang mga `table-mini` class.",
     "listsHeading": "Mga divider at dot list",
-    "listsBody": "Ang horizontal rule sa isang artikulo ay lumalabas bilang maikling nakagitnang berdeng bar, ang section divider. At ang green-dot list — ang bullet ng mga role description at ng booking page — ay available sa mga artikulo bilang `dot-list`.",
+    "listsBody": "Ang horizontal rule sa isang artikulo ay lumalabas bilang maikling nakagitnang berdeng bar, ang section divider. At ang green-dot list (ang bullet ng mga role description at ng booking page) ay available sa mga artikulo bilang `dot-list`.",
     "codeFilenameNote": "Ang code block ay maaari ring may file-path header: mono strip sa itaas ng code na nagpapangalan sa file na kinabibilangan nito. Sa phone, may pangatlong control na sumasama sa Copy at Expand: Wrap, na nagti-tiklop ng mahahabang linya sa halip na i-scroll ang mga ito.",
     "adviceDemoDo": "Maikli at espesipikong rule.",
     "adviceDemoDont": "Ang parehong rule, nakabaon sa isang talata.",
@@ -1437,7 +1437,7 @@
     "sentencesBad": "Ang tahimik na nagiging maintenance bill ay ang pangatlong ayos na walang pumipili nang sinasadya.",
     "sentencesBadCaption": "Huli dumarating ang subject, kaya bitbit ng mambabasa ang buong pangungusap nang nakabukas.",
     "wordsHeading": "Simpleng salita",
-    "wordsBody1": "Panalo ang maikli at karaniwang salita laban sa pinalobo. Ang marketing na bokabularyo — *robust*, *seamless*, *cutting-edge* — ay nag-aangkin ng kalidad sa halip na ipakita ito, kaya isang konkretong katotohanan ang pumapalit. Ganoon din ang mga pampuno at pormal na padding: *gamitin* sa halip na *i-leverage*.",
+    "wordsBody1": "Panalo ang maikli at karaniwang salita laban sa pinalobo. Ang marketing na bokabularyo (*robust*, *seamless*, *cutting-edge*) ay nag-aangkin ng kalidad sa halip na ipakita ito, kaya isang konkretong katotohanan ang pumapalit. Ganoon din ang mga pampuno at pormal na padding: *gamitin* sa halip na *i-leverage*.",
     "wordsTableHeaders": {
       "avoid": "Iniiwasan",
       "use": "Ginagamit"
@@ -1469,7 +1469,7 @@
       }
     ],
     "wordsBody2": "Nababawi ng isang salita ang puwesto nito kapag ito ang literal na teknikal na termino: ang software *framework* ay framework, ang *dynamic* dispatch ay dynamic. Ang marketing na kahulugan ng parehong salita ay hindi kailanman pumapasa.",
-    "wordsBody3": "Tatlong mas maliit na panuntunan ang kasama nito. Ang mga idyoma ay pinapalitan ng literal nilang kahulugan para hindi na kailanganing buksan ng mambabasa sa pangalawang wika ang nakatiklop na parirala. Ang mga acronym at pangalan ng tool ay binabaybay sa unang paggamit: “SWC (ang Speedy Web Compiler)”. At ang timbangang konstruksyon — “hindi ito X, ito ay Y” — ay muling sinasabi bilang positibong pahayag, ang kalahating may dala ng impormasyon.",
+    "wordsBody3": "Tatlong mas maliit na panuntunan ang kasama nito. Ang mga idyoma ay pinapalitan ng literal nilang kahulugan para hindi na kailanganing buksan ng mambabasa sa pangalawang wika ang nakatiklop na parirala. Ang mga acronym at pangalan ng tool ay binabaybay sa unang paggamit: “SWC (ang Speedy Web Compiler)”. At ang timbangang konstruksyon, “hindi ito X, ito ay Y”, ay muling sinasabi bilang positibong pahayag, ang kalahating may dala ng impormasyon.",
     "wordsGood": "Natatapos ang build sa apat na segundo at nananatiling wala pang 2 MB ang bundle.",
     "wordsCaption": "Ang katotohanan ang nanghihikayat.",
     "wordsBad": "Ang robust at battle-tested na pipeline ay naghahatid ng seamless na performance.",
@@ -1551,15 +1551,15 @@
       "ca": "Catalan",
       "tl": "Tagalog"
     },
-    "glossaryBody2": "May sariling panuntunan ang pagbabago ng isip. Kapag nanalo ang mas magandang salita sa kalagitnaan ng series — lumipat ang site na ito mula sa *cáscara* at *closca* patungo sa *shell* — ang bagong salita ay inilalapat sa bawat nailathala nang bahagi sa iisang edit, hindi lang sa mga darating pa. Ang glossary na pasulong lang ang tinuturo ay humahati sa series sa dalawa.",
+    "glossaryBody2": "May sariling panuntunan ang pagbabago ng isip. Kapag nanalo ang mas magandang salita sa kalagitnaan ng series (lumipat ang site na ito mula sa *cáscara* at *closca* patungo sa *shell*), ang bagong salita ay inilalapat sa bawat nailathala nang bahagi sa iisang edit, hindi lang sa mga darating pa. Ang glossary na pasulong lang ang tinuturo ay humahati sa series sa dalawa.",
     "fixturesHeading": "Nakapirming kasangkapan",
     "fixturesBody": "Ang paulit-ulit na kasangkapan ng mga pahina ay minsanang isinasalin, itinatala, at hindi na kailanman iniimbento ulit. Ang heading ng mga pinagmulan ay *Fuentes* sa Espanyol, *Fonts* sa Catalan at *Mga Sanggunian* sa Tagalog, sa bawat post; ang mga label ng test at hakbang ay may iisang anyo bawat wika; ang mga pangalan ng series ay nananatiling Ingles kahit saan. Ang tatlong post na may tatlong magkaibang salita para sa parehong heading ang dahilan kung bakit unti-unting naghihiwalay ang isang katalogo.",
     "termsHeading": "Mga termino ng industriya",
-    "termsBody": "Ang terminong ginagamit mismo ng industriya sa Ingles — *inner source*, *code owner*, *pull request* — ay nananatiling Ingles sa apat na wika at ipinapaliwanag sa nakapalibot na pangungusap sa unang paglapag nito. Ang diksyunaryong salin ng termino ng industriya ay nagpapalit ng pangalang kayang hanapin ng mambabasa ng pariralang hindi pa nila nakita kailanman. Ang mga pangalan ng brand at produkto ay hindi isinasalin at hindi pinaiikli kailanman.",
+    "termsBody": "Ang terminong ginagamit mismo ng industriya sa Ingles (*inner source*, *code owner*, *pull request*) ay nananatiling Ingles sa apat na wika at ipinapaliwanag sa nakapalibot na pangungusap sa unang paglapag nito. Ang diksyunaryong salin ng termino ng industriya ay nagpapalit ng pangalang kayang hanapin ng mambabasa ng pariralang hindi pa nila nakita kailanman. Ang mga pangalan ng brand at produkto ay hindi isinasalin at hindi pinaiikli kailanman.",
     "quotesHeading": "Mga panipi",
     "quotesBody": "Ang Espanyol at Catalan ay nagbabanggit gamit ang mga guillemet: «ganito». Sinusunod ng Tagalog ang kombensyong Ingles. Bawat wika ay may sariling tipograpiya sa halip na manahin ang mga panipi ng Ingles sa pamamagitan ng translation.",
     "hedgeHeading": "Hindi kinokopya ang mga pampalambot",
-    "hedgeBody": "Ang mga panuntunan sa tono ay humihingi ng steelmanning at ng pinalambot na mga absolute, at tumatawid iyon sa hangganan ng wika bilang nilalaman: ang pinakamalakas na bersyon ng kabilang panig ay isinasalin nang buo. Ang mismong pagpapalambot ay hindi kinokopya nang salita por salita — ang Espanyol o Catalan na salamin ng pampalambot na Ingles ay mababasang tigang — kaya ang mga wikang iyon ay naglalahad ng parehong argumento sa likas nilang mas direktang boses."
+    "hedgeBody": "Ang mga panuntunan sa tono ay humihingi ng steelmanning at ng pinalambot na mga absolute, at tumatawid iyon sa hangganan ng wika bilang nilalaman: ang pinakamalakas na bersyon ng kabilang panig ay isinasalin nang buo. Ang mismong pagpapalambot ay hindi kinokopya nang salita por salita (ang Espanyol o Catalan na salamin ng pampalambot na Ingles ay mababasang tigang), kaya ang mga wikang iyon ay naglalahad ng parehong argumento sa likas nilang mas direktang boses."
   },
   "accessibility": {
     "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",
@@ -1652,7 +1652,7 @@
     ],
     "designHeading": "Ang disenyo ng email",
     "designBody1": "Isang 600-pixel na column: puting card sa malambot na kulay-abo na page, apat-na-pixel na lime accent bar sa itaas, ang wordmark sa ilalim nito, at Inter sa bawat linya. Pagkatapos, ang band: ang hero artwork ng post, pinadilim, may malaking berdeng numeral ng bahagi at ang titulo sa puti. Gumagamit ang mga link ng nababasang berde ng teksto at ang mga kanto ng card ay nasa 14 pixels. Ito ang site, isinalin sa kung ano ang pinapayagan ng mga email client.",
-    "designBody2": "Ang band ay isang generated na imahe — isa bawat post, bawat wika — kaya pareho ang itsura nito sa lahat ng client, at ang titulo ay inuulit sa ilalim bilang totoong teksto: ang mambabasang naka-off ang mga imahe, mas malaki ang letra, o gumagamit ng screen reader ay walang nawawala kundi ang atmospera. Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark gray, ang logo ay nagpapalit sa maliwanag na bersyon nito, at ang mga berde ay tumataas para manatiling nababasa. Madilim na ang band sa disenyo, kaya ito ang tanging elementong hindi nangangailangan ng pagpapalit.",
+    "designBody2": "Ang band ay isang generated na imahe (isa bawat post, bawat wika), kaya pareho ang itsura nito sa lahat ng client, at ang titulo ay inuulit sa ilalim bilang totoong teksto: ang mambabasang naka-off ang mga imahe, mas malaki ang letra, o gumagamit ng screen reader ay walang nawawala kundi ang atmospera. Sinusunod ng dark mode ang preference ng mambabasa, gamit ang parehong paired-values na ideya ng mga token ng site: ang page ay nagiging halos itim, ang card ay dark gray, ang logo ay nagpapalit sa maliwanag na bersyon nito, at ang mga berde ay tumataas para manatiling nababasa. Madilim na ang band sa disenyo, kaya ito ang tanging elementong hindi nangangailangan ng pagpapalit.",
     "copyHeading": "Ano ang sinasabi ng email",
     "copyBody1": "Muling ginagamit ng email ang **sariling mga salita** ng post, kaya walang isinusulat nang dalawang beses at walang maaaring sumalungat sa site. Ang series post ay may series eyebrow at part number nito, ang body ay ang mismong description ng post, at ang button ang tanging aksyon.",
     "copyRules": [
@@ -1676,7 +1676,7 @@
     "whyHeading": "Bakit dinoble ang titulo",
     "whyIntro": "Parehong titulo ang ipinapakita ng band at ng heading, pero para sa magkaibang mambabasa. Bawat dahilan sa ibaba ay isang mambabasang mawawala sana sa disenyo.",
     "whyReasons": [
-      "**Nilalaktawan ng mga nag-i-scan ang mga banner.** Ang naka-istilong graphic block sa itaas ng email ay mukhang patalastas — banner blindness ang tawag sa pattern — at ang nagmamadaling mambabasa ay dumidiretso sa unang teksto. Kung nasa band lang ang titulo, hindi ito makikita ng mambabasang iyon. Ang text heading ang dinadapuan ng kanilang mata.",
+      "**Nilalaktawan ng mga nag-i-scan ang mga banner.** Ang naka-istilong graphic block sa itaas ng email ay mukhang patalastas (banner blindness ang tawag sa pattern), at ang nagmamadaling mambabasa ay dumidiretso sa unang teksto. Kung nasa band lang ang titulo, hindi ito makikita ng mambabasang iyon. Ang text heading ang dinadapuan ng kanilang mata.",
       "**Naka-block ang mga remote na imahe sa corporate Outlook bilang default**, at mga inhinyero ang mambabasa ng newsletter na ito, ang audience na pinakamalamang na gumagamit nito. Dahil teksto ang titulo, kahit naka-block ang lahat ng imahe ay sinasabi pa rin ng email kung tungkol saan ito; inuulit din ng alt text ng band ang serye, bahagi at titulo sa parehong dahilan.",
       "**Nagna-navigate ang mga screen reader sa email gamit ang mga heading**, at ang titulong nasa loob ng imahe ay hindi heading. Ang pinalaking letra ng mambabasa ay nagpapalaki ng teksto, hindi kailanman ng mga imahe. Pareho ang hinihingi ng WCAG (ang Web Content Accessibility Guidelines) sa punto 1.4.5: walang imahe ng teksto kung kaya ng totoong teksto ang trabaho.",
       "**Sinusukat ang pagdoble, hindi ipinagpapalagay.** Iisang post ang naka-link sa band at sa button pero magkaiba ang `utm_content`, kaya ipinapakita ng click data kung ang band ang kumikita ng lugar nito o ang button ang gumagawa ng trabaho."

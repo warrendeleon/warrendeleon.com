@@ -67,7 +67,7 @@
       "cards": "From the base card to the blog's lead and series cards.",
       "navigation": "One chrome set reshaping across three viewports.",
       "sheets-overlays": "The bottom-sheet primitive behind every picker.",
-      "article-patterns": "Callouts, code, tables, contents — the long-form kit.",
+      "article-patterns": "Callouts, code, tables, contents: the long-form kit.",
       "timeline": "The work-experience rail, logo dots and all.",
       "media": "Post heroes, the photo carousel, the device frame, and placeholders."
     },
@@ -323,7 +323,7 @@
       }
     ],
     "headingsHeading": "Heading treatments",
-    "headingsBody": "Two green marks, two jobs. Page and section titles carry a short green bar under the first words — a fixed-width accent that does not stretch with the text. Article headings instead take a full underline that runs the width of the words. If the mark spans the text, you are inside an article; if it is a short bar, you are looking at a page or section title.",
+    "headingsBody": "Two green marks, two jobs. Page and section titles carry a short green bar under the first words, a fixed-width accent that does not stretch with the text. Article headings instead take a full underline that runs the width of the words. If the mark spans the text, you are inside an article; if it is a short bar, you are looking at a page or section title.",
     "headingsLabels": {
       "pageTitle": "Page title: the bar is --bar-h1 wide, never the text width. Class .section-title.",
       "sectionHeading": "Section heading: a fixed 60px bar. Class .section-heading.",
@@ -419,7 +419,7 @@
     },
     "nestingBody": "The rhythm nests: section, then card, then group, then element, each with less air than the one around it.",
     "targetsHeading": "Touch targets",
-    "targetsBody": "Primary touch controls hold a 44-pixel floor: the dock tabs, the reading bar's controls, the footer icons on a phone. The glyph inside stays 15 to 20 pixels; padding does the rest. Compact, pointer-first controls — the shelf and series arrows, the top bar's search — sit at 38 to 42 pixels with clear space around them.",
+    "targetsBody": "Primary touch controls hold a 44-pixel floor: the dock tabs, the reading bar's controls, the footer icons on a phone. The glyph inside stays 15 to 20 pixels; padding does the rest. Compact, pointer-first controls (the shelf and series arrows, the top bar's search) sit at 38 to 42 pixels with clear space around them.",
     "logoHeading": "Logo in a circle",
     "logoBody": "The mark sits in a circular frame, filling roughly two-thirds of it with a hairline ring around the edge. It appears at 48 pixels beside a role, 96 in a card, and 120 as a timeline anchor.",
     "annotatedHeading": "The rhythm, annotated",
@@ -430,14 +430,14 @@
       "card": "The base card’s padding: a fixed 24px on every side.",
       "buttons": "Stacked pill CTAs: a fixed 10px gap."
     },
-    "perBandCaption": "Each token at its mobile, tablet and desktop size — the parsed values side by side, whatever device you are on. The figures below then resize live with your viewport.",
+    "perBandCaption": "Each token at its mobile, tablet and desktop size: the parsed values side by side, whatever device you are on. The figures below then resize live with your viewport.",
     "targetLabels": {
       "compact": "compact · arrows, search",
       "floor": "the floor · dock, footer",
       "bar": "reading bar"
     },
     "targetsCaption": "Three real sizes from the chrome, glyphs at 18px: padding carries the target, not bigger drawings.",
-    "logoCaption": "The mark fills roughly two-thirds of a white disc with a hairline green ring — 48px beside a role or on the phone timeline, 96 in a card, 120 as the desktop timeline anchor. Live in .timeline-logo and .current-role-logo."
+    "logoCaption": "The mark fills roughly two-thirds of a white disc with a hairline green ring: 48px beside a role or on the phone timeline, 96 in a card, 120 as the desktop timeline anchor. Live in .timeline-logo and .current-role-logo."
   },
   "shapeElevation": {
     "seoTitle": "Shape & elevation | Design system | Warren de Leon",
@@ -703,7 +703,7 @@
     "inlineHeading": "Inline buttons",
     "inlineBody": "The default control: an 8-pixel-radius button for actions inside forms, cards and prose. Solid green for the primary action, outlined green for the secondary. One primary per group.",
     "pillHeading": "Pill CTAs",
-    "pillBody": "Taller 48-pixel pills for the page-level calls to action — the ones a visitor should see from across the room, like “Download CV” or “Book a call”. Solid and outline, same green pair.",
+    "pillBody": "Taller 48-pixel pills for the page-level calls to action: the ones a visitor should see from across the room, like “Download CV” or “Book a call”. Solid and outline, same green pair.",
     "statesHeading": "States",
     "statesBody": "Every state, rendered. Hover deepens the green; focus draws the shared 2-pixel green ring; a disabled control drops to a low opacity without changing hue, so it still reads as the same control. The hover and focus columns show those states applied, since a static page cannot hold a cursor over itself.",
     "states": {
@@ -729,7 +729,7 @@
     "whereHeading": "Where it lives",
     "whereBody": "Inline: .btn with .btn-primary or .btn-outline. Pills: .hero-cta with .hero-cta-solid or .hero-cta-outline, grouped in .hero-ctas.",
     "iconHeading": "Icon buttons",
-    "iconBody": "Some buttons are a glyph, not a word: the round social circles on the hero, the theme toggle, the reading bar’s controls. The glyph stays at 15 to 20 pixels while the circle provides the hit area, and colour follows the text rules — muted at rest, green on hover. Below, the real components.",
+    "iconBody": "Some buttons are a glyph, not a word: the round social circles on the hero, the theme toggle, the reading bar’s controls. The glyph stays at 15 to 20 pixels while the circle provides the hit area, and colour follows the text rules: muted at rest, green on hover. Below, the real components.",
     "iconCaption": "The live social links and the real theme toggle."
   },
   "tagsChips": {
@@ -836,14 +836,14 @@
     "baseHeading": "Base card",
     "baseBody": "A rounded 12-pixel surface on the card background, framed by a hairline and lifted by a soft shadow. On hover it lifts a little more. It is the shell almost every other card is built on.",
     "feedHeading": "Feed post",
-    "feedBody": "The blog listing card — the real FeedPostCard component, here with a placeholder where the hero image goes. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row. Without artwork a feed post marks itself `data-no-thumb` and drops to one column, so the body never sits beside an empty image track.",
+    "feedBody": "The blog listing card: the real FeedPostCard component, here with a placeholder where the hero image goes. On desktop it is a thumbnail beside a title, meta line and two-line summary; on phones it collapses to a compact row. Without artwork a feed post marks itself `data-no-thumb` and drops to one column, so the body never sits beside an empty image track.",
     "wholeLinkNote": "The entire card is a single link, not a title link with a separate “read more”. Hover lifts the card and greens the title together.",
     "rosterHeading": "Publication index",
-    "rosterBody": "The feed post's dense sibling: one hairline row per post — mono date, title, series, reading time — grouped under a mono year marker. A feed card sells one post; the index proves a body of work, so artwork stays out of the flow. On a pointer at desktop widths, hovering a row floats the post's art in as a small rotated preview; touch and reduced-motion readers just get the rows. One implementation, the `roster` classes; it runs on the about page and is never paginated.",
+    "rosterBody": "The feed post's dense sibling: one hairline row per post (mono date, title, series, reading time) grouped under a mono year marker. A feed card sells one post; the index proves a body of work, so artwork stays out of the flow. On a pointer at desktop widths, hovering a row floats the post's art in as a small rotated preview; touch and reduced-motion readers just get the rows. One implementation, the `roster` classes; it runs on the about page and is never paginated.",
     "seriesHeroHeading": "Series hero card",
     "seriesHeroBody": "The blog home's current-series card, rendered live: hero art beside the series pitch, with the published-of-total progress bar. On phones it stacks and gains a solid View series button.",
     "leadHeading": "The lead post & viewports",
-    "leadBody": "The newest post gets a larger lead treatment, and the whole feed reshapes per band — a big lead card over compact rows on a phone, a two-column grid on a tablet, thumbnail rows with a sidebar on desktop. The frames below are the real blog page at each width.",
+    "leadBody": "The newest post gets a larger lead treatment, and the whole feed reshapes per band: a big lead card over compact rows on a phone, a two-column grid on a tablet, thumbnail rows with a sidebar on desktop. The frames below are the real blog page at each width.",
     "rulesHeading": "When to use",
     "dos": [
       "Make the whole card one link when it points at one place.",
@@ -862,15 +862,15 @@
     "relatedHeading": "Related-post card",
     "relatedBody": "The More-from-the-blog shelf card that closes a post: image, date, title, and the whole surface one link. The real RelatedCard component.",
     "authorHeading": "Author card",
-    "authorBody": "The bio card at the end of every post — avatar, name, bio, profile link. The real AuthorCard component, rendered live.",
+    "authorBody": "The bio card at the end of every post: avatar, name, bio, profile link. The real AuthorCard component, rendered live.",
     "roleHeading": "Current-role card",
     "roleBody": "The home page's latest-role card: a logo disc beside the company and role, description below. Rendered from the real classes with placeholder content.",
     "iconcardHeading": "Icon link card",
-    "iconcardBody": "A base card that is one link: a Feather glyph and a title on the head row, a blurb below. Icon and title green together on hover. Born as this documentation’s own index card and promoted to the site — the `icon-card` classes on top of `card`.",
+    "iconcardBody": "A base card that is one link: a Feather glyph and a title on the head row, a blurb below. Icon and title green together on hover. Born as this documentation’s own index card and promoted to the site: the `icon-card` classes on top of `card`.",
     "ctabandHeading": "CTA band",
-    "ctabandBody": "The centred closing band: tinted, bordered, 16-pixel corners, a short heading and one or two calls to action, capped at 640 pixels. It closes the CV page on its own; the home page closes with two of them in a `cta-band-pair` grid — stacked on small screens, side by side from 900 pixels, the solo width cap lifted so the pair balances.",
+    "ctabandBody": "The centred closing band: tinted, bordered, 16-pixel corners, a short heading and one or two calls to action, capped at 640 pixels. It closes the CV page on its own; the home page closes with two of them in a `cta-band-pair` grid: stacked on small screens, side by side from 900 pixels, the solo width cap lifted so the pair balances.",
     "statbandHeading": "Stat band",
-    "statbandBody": "A mono line of counted facts between two hairlines — posts, series, minutes of reading. Green figures, muted labels. Every number is derived from the content at build time, never typed in, so the band cannot drift from what the site actually holds.",
+    "statbandBody": "A mono line of counted facts between two hairlines: posts, series, minutes of reading. Green figures, muted labels. Every number is derived from the content at build time, never typed in, so the band cannot drift from what the site actually holds.",
     "pnHeading": "Prev / next tiles",
     "pnBody": "Two tinted tiles at the foot of a detail page: a green uppercase direction label and the destination’s title, the next tile right-aligned. Articles and company pages share the `pn-nav` classes; on phones the tiles stack.",
     "homeBlogNote": "The home page also composes two bespoke cards from these parts: a current-series card with its progress bar beside the latest post. On phones both give way to the standard feed rows."
@@ -923,7 +923,7 @@
     "barHeading": "Top bar",
     "barBody": "A sticky bar carrying the logo and the utility controls (language, theme, and blog search). It stands 64 pixels tall on desktop, 60 on tablet and 56 on a phone. On desktop it also holds the three section links; below 1280 those move to the dock.",
     "dockHeading": "Tab dock",
-    "dockBody": "The primary section navigation on phone and tablet: four tabs — Home, Blog, Work, Book a call. It is a single element with one breakpoint, not two components. The frames below are the real page cropped to the dock: edge-to-edge at 390 with the active tab in green text alone, a floating pill at 768 where the active tab gains a tinted fill. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
+    "dockBody": "The primary section navigation on phone and tablet: four tabs (Home, Blog, Work, Book a call), a single element with one breakpoint rather than two components. The frames below are the real page cropped to the dock: edge-to-edge at 390 with the active tab in green text alone, a floating pill at 768 where the active tab gains a tinted fill. Four tabs is structural; a fifth would not fit the grid, which is why this design-system section lives in the footer.",
     "actionHeading": "Reading action bar",
     "actionBody": "On a reading page the dock is replaced, not joined, by a contextual action bar: a progress ring with the current section opens the contents sheet, then share and back-to-top. This is the real ReadingBar component, shown mid-article. One bar at a time: browse chrome or read chrome, never both.",
     "actionProgressText": "12 min left · 45%",
@@ -1006,7 +1006,7 @@
     "paletteHeading": "Search palette",
     "paletteBody": "The blog search is the one overlay that is neither sheet nor dropdown: a centred command palette over a blurred backdrop, opened from the top bar or with Cmd K, fully keyboard-driven. It offers recommendations and series and tag chips before a query, highlights matches as you type, and names its own escape hatch. Between 700 and 1279 pixels the language picker borrows this centred-panel form too, rather than the phone’s bottom sheet.",
     "consentHeading": "Consent",
-    "consentBody": "The cookie banner is a fixed bar with three equal choices — accept, decline, customise — and the customise route opens a focus-trapped preferences card with one analytics toggle. Declining is as easy as accepting, and the privacy page can reopen the choice at any time."
+    "consentBody": "The cookie banner is a fixed bar with three equal choices (accept, decline, customise), and the customise route opens a focus-trapped preferences card with one analytics toggle. Declining is as easy as accepting, and the privacy page can reopen the choice at any time."
   },
   "articlePatterns": {
     "seoTitle": "Article patterns | Design system | Warren de Leon",
@@ -1179,7 +1179,7 @@
       "Content"
     ],
     "seriesNavHeading": "Series navigation",
-    "seriesNavBody": "A post that belongs to a series opens with a horizontal shelf of numbered part cards — the current part outlined green, the rest linking across the series. Mobile scrolls the shelf freely; desktop adds arrow controls.",
+    "seriesNavBody": "A post that belongs to a series opens with a horizontal shelf of numbered part cards: the current part outlined green, the rest linking across the series. Mobile scrolls the shelf freely; desktop adds arrow controls.",
     "seriesNavSeries": "Module Federation in React Native",
     "seriesNavPart": "Part 3 of 8",
     "seriesNavTitles": [
@@ -1202,7 +1202,7 @@
     "minitableHeading": "Simple table",
     "minitableBody": "The docs’ own light table: a mono uppercase header strip on the badge tint, hairline row dividers, wrapped in a rounded scrollable card. For token-and-value data that fits three or four columns; anything wider belongs to the bespoke table patterns above. The `table-mini` classes.",
     "listsHeading": "Dividers & dot lists",
-    "listsBody": "A horizontal rule in an article renders as a short centred green bar, the section divider. And the green-dot list — the bullet used by role descriptions and the booking page — is available to articles as `dot-list`.",
+    "listsBody": "A horizontal rule in an article renders as a short centred green bar, the section divider. And the green-dot list (the bullet used by role descriptions and the booking page) is available to articles as `dot-list`.",
     "codeFilenameNote": "A code block can also carry a file-path header: a mono strip above the code naming the file it belongs to. On phones a third control joins Copy and Expand: Wrap, which soft-wraps long lines instead of scrolling them.",
     "adviceDemoDo": "A short, specific rule.",
     "adviceDemoDont": "The same rule, buried in a paragraph.",
@@ -1247,19 +1247,19 @@
     "deviceBody": "App screenshots in articles sit inside a flat phone frame drawn in CSS: a brand-green rail, a thin black bezel, side buttons drawn just outside the rail, and a theme-aware shadow. It holds to the blog's flat aesthetic rather than a photoreal render.",
     "deviceCaption": "The .device-frame pattern, here with a placeholder where the screenshot goes.",
     "demoHeading": "Animated demos",
-    "demoBody1": "When a screenshot cannot carry an interaction — a tap that pushes a screen, a counter that ticks — the article uses a short animated WebP inside the same device frame. It is built from a handful of key states rather than a screen recording: a before frame, a frame with a drawn tap indicator, and the result, each held long enough to read. The loop weighs a few tens of kilobytes and restarts on its own.",
+    "demoBody1": "When a screenshot cannot carry an interaction (a tap that pushes a screen, a counter that ticks), the article uses a short animated WebP inside the same device frame. It is built from a handful of key states rather than a screen recording: a before frame, a frame with a drawn tap indicator, and the result, each held long enough to read. The loop weighs a few tens of kilobytes and restarts on its own.",
     "demoBody2": "The tap indicator is part of the design: a translucent navy disc with a ring, composited where the finger lands, so the reader sees the cause as well as the effect. Every frame shares one status bar, so nothing jumps between states except the change the demo exists to show.",
     "demoMotionNote": "One honest limit: an animated image ignores the system's reduced-motion preference, because a looping WebP has no pause control. Demos are kept short and gentle for that reason, and everything they show is also stated in the surrounding prose.",
     "demoCaption": "A real demo from a published article: key states and a drawn tap indicator, looping inside the device frame.",
     "demoAlt": "Tapping a tab in the demo app and the screen changing, shown as a looping animation",
     "zoomHeading": "Full-screen zoom",
-    "zoomBody": "Images and diagrams in articles open in a full-screen lightbox on tap — the one overlay that behaves the same on every device. Diagrams re-theme inside it, so a dark-mode reader zooms into a dark-mode diagram.",
+    "zoomBody": "Images and diagrams in articles open in a full-screen lightbox on tap, the one overlay that behaves the same on every device. Diagrams re-theme inside it, so a dark-mode reader zooms into a dark-mode diagram.",
     "placeholderHeading": "Placeholder",
     "placeholderBody": "Specimens on these docs that would carry a photo use a neutral placeholder rather than a borrowed image, so the layout is honest about what is content and what is chrome.",
     "placeholderCaption": "The placeholder at card-thumbnail and hero ratios.",
     "heroHeading": "Post hero illustrations",
-    "heroBody": "Every post opens with a rich but flat isometric illustration: detailed, layered vector scenes with no gradients, no readable text and no logos, on a soft near-white ground. Each one is generated with Cloudflare AI from a short written concept describing the post’s idea as objects — a tab bar pulling in panels, a mesh sorting arrows into trays.",
-    "heroColourBody": "**The model never chooses the palette.** Every illustration picks a few colours from one shared ten-colour pool — the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand — and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
+    "heroBody": "Every post opens with a rich but flat isometric illustration: detailed, layered vector scenes with no gradients, no readable text and no logos, on a soft near-white ground. Each one is generated with Cloudflare AI from a short written concept describing the post’s idea as objects: a tab bar pulling in panels, a mesh sorting arrows into trays.",
+    "heroColourBody": "**The model never chooses the palette.** Every illustration picks a few colours from one shared ten-colour pool (the brand lime, then navy, coral, teal, plum, amber, blush, sky, charcoal and sand), and the lime accent is always among them. So no two heroes wear quite the same mix, but every one stays inside the same family.",
     "heroCaption": "A real post hero: a few of the shared palette on its series’ ground.",
     "heroMore": "The palette and the series grounds are documented with the rest of the colour system on",
     "heroMoreLink": "the Colour page",
@@ -1286,8 +1286,8 @@
     ],
     "specimenHeading": "The rail",
     "anatomyHeading": "Anatomy",
-    "anatomyBody": "A logo circle sits on the rail at each company, ringed in green — 120 pixels on desktop, 92 on tablet, 48 on a phone. A green “Latest” tag caps the top. Each card carries the company in green, a monospace date range, the role, a short summary and a row of tech chips; a chevron marks it as a link. On a phone the card compacts to logo, company, role and date.",
-    "detailNote": "On a company's own page the logo dot anchors the page title directly — the one place a page heading drops its green bar, because the dot already marks it.",
+    "anatomyBody": "A logo circle sits on the rail at each company, ringed in green: 120 pixels on desktop, 92 on tablet, 48 on a phone. A green “Latest” tag caps the top. Each card carries the company in green, a monospace date range, the role, a short summary and a row of tech chips; a chevron marks it as a link. On a phone the card compacts to logo, company, role and date.",
+    "detailNote": "On a company's own page the logo dot anchors the page title directly: the one place a page heading drops its green bar, because the dot already marks it.",
     "rulesHeading": "When to use",
     "dos": [
       "Use the timeline for a sequence of dated entries on one rail.",
@@ -1319,7 +1319,7 @@
     "seoTitle": "Writing | Design system | Warren de Leon",
     "seoDescription": "The editorial conventions warrendeleon.com is written to: British English, sentence case, dates, punctuation, links and brand names.",
     "title": "Writing",
-    "intro": "How the words on the site are set. These are the conventions the writing already follows, read back from the site itself — the public output standard, not the process behind it.",
+    "intro": "How the words on the site are set. These are the conventions the writing already follows, read back from the site itself: the public output standard, not the process behind it.",
     "toc": [
       {
         "id": "sentences",
@@ -1367,7 +1367,7 @@
       }
     ],
     "spellingHeading": "Spelling",
-    "spellingBody": "Prose is British English: behaviour, colour, organise, licence. The two exceptions are deliberate and both live in code, not prose. A code identifier keeps whatever spelling its API uses, so a color property stays color. And across the Module Federation writing, artifact is a term of art — a published, versioned module — so it keeps that spelling while ordinary prose still writes artefact.",
+    "spellingBody": "Prose is British English: behaviour, colour, organise, licence. The two exceptions are deliberate and both live in code, not prose. A code identifier keeps whatever spelling its API uses, so a color property stays color. And across the Module Federation writing, artifact is a term of art (a published, versioned module), so it keeps that spelling while ordinary prose still writes artefact.",
     "spellingGood": "behaviour · colour · organise · optimise",
     "spellingBad": "behavior · color · organize · optimize",
     "spellingCaption": "British spelling in prose. Code identifiers and terms of art keep their own form.",
@@ -1379,7 +1379,7 @@
     "caseCaption": "Sentence case for headings, buttons and labels.",
     "caseBadCaption": "Not title case, not all caps, outside the top nav.",
     "datesHeading": "Dates",
-    "datesBody": "Dates are British. An article date spells the month in full — 29 March 2026. A role range abbreviates the month and keeps the year — Mar 2016 to the present — and an open range closes with the word Present, never a trailing dash.",
+    "datesBody": "Dates are British. An article date spells the month in full: 29 March 2026. A role range abbreviates the month and keeps the year (Mar 2016 to the present), and an open range closes with the word Present, never a trailing dash.",
     "datesGood": "29 March 2026 · Mar 2016 - Present",
     "datesBad": "03/29/2026 · March 29th · 2016–now",
     "datesCaption": "Full month for article dates, abbreviated for ranges; open ranges say Present.",
@@ -1469,7 +1469,7 @@
       }
     ],
     "wordsBody2": "A word earns its place back when it is the literal technical term: a software *framework* is a framework, *dynamic* dispatch is dynamic. The marketing sense of the same word never qualifies.",
-    "wordsBody3": "Three smaller rules travel with this one. Idioms are replaced with their literal meaning — *differs* rather than *parts company* — so a reader in a second language never has to unpack a folded phrase. Acronyms and tool names are spelled out on first use: “SWC (the Speedy Web Compiler)”. And the seesaw construction — “it is not X, it is Y” — is restated as the positive claim, the half that carries the information.",
+    "wordsBody3": "Three smaller rules travel with this one. Idioms are replaced with their literal meaning (*differs* rather than *parts company*), so a reader in a second language never has to unpack a folded phrase. Acronyms and tool names are spelled out on first use: “SWC (the Speedy Web Compiler)”. And the seesaw construction, “it is not X, it is Y”, is restated as the positive claim, the half that carries the information.",
     "wordsGood": "The build finishes in four seconds and the bundle stays under 2 MB.",
     "wordsCaption": "The fact does the persuading.",
     "wordsBad": "A robust, battle-tested pipeline delivers seamless performance.",
@@ -1508,7 +1508,7 @@
       }
     ],
     "localesHeading": "Four locales",
-    "localesBody": "English is served at the root with no prefix. Spanish, Catalan and Tagalog each live under their own prefix. Dates and month names format per region — British English, European Spanish, Catalan and Filipino.",
+    "localesBody": "English is served at the root with no prefix. Spanish, Catalan and Tagalog each live under their own prefix. Dates and month names format per region: British English, European Spanish, Catalan and Filipino.",
     "localesTableHeaders": {
       "locale": "Locale",
       "prefix": "Path",
@@ -1551,11 +1551,11 @@
       "ca": "Catalan",
       "tl": "Tagalog"
     },
-    "glossaryBody2": "A change of mind has a rule of its own. When a better word wins mid-series — this site moved from *cáscara* and *closca* to *shell* — the new word is applied to every published part in the same edit, not only the parts still to come. A glossary that only points forward splits the series in two.",
+    "glossaryBody2": "A change of mind has a rule of its own. When a better word wins mid-series (this site moved from *cáscara* and *closca* to *shell*), the new word is applied to every published part in the same edit, not only the parts still to come. A glossary that only points forward splits the series in two.",
     "fixturesHeading": "Fixed furniture",
     "fixturesBody": "Recurring page furniture is translated once, recorded, and never improvised again. The sources heading is *Fuentes* in Spanish, *Fonts* in Catalan and *Mga Sanggunian* in Tagalog, in every post; test and step labels keep one form per language; series names stay in English everywhere. Three posts with three different words for the same heading is how a catalogue drifts apart.",
     "termsHeading": "Terms of art",
-    "termsBody": "A term the industry itself uses in English — *inner source*, *code owner*, *pull request* — stays in English in all four languages and is glossed in the surrounding sentence the first time it lands. A dictionary rendering of a term of art trades a name readers can search for a phrase they have never seen. Brand and product names are never translated and never shortened.",
+    "termsBody": "A term the industry itself uses in English (*inner source*, *code owner*, *pull request*) stays in English in all four languages and is glossed in the surrounding sentence the first time it lands. A dictionary rendering of a term of art trades a name readers can search for a phrase they have never seen. Brand and product names are never translated and never shortened.",
     "quotesHeading": "Quotation marks",
     "quotesBody": "Spanish and Catalan quote with guillemets: «así». Tagalog follows the English convention. Each language keeps its own typography instead of inheriting English marks through the translation.",
     "hedgeHeading": "Hedges do not calque",
@@ -1565,7 +1565,7 @@
     "seoTitle": "Accessibility | Design system | Warren de Leon",
     "seoDescription": "The accessibility standards warrendeleon.com holds itself to: landmarks, a visible focus ring, generous targets, reduced motion, and the readable-green trade.",
     "title": "Accessibility",
-    "intro": "The standards the site is built to, measured against WCAG 2.2 with AA as the target. What follows is what the code actually does — including the one place the brand green forced an honest trade.",
+    "intro": "The standards the site is built to, measured against WCAG 2.2 with AA as the target. What follows is what the code actually does, including the one place the brand green forced an honest trade.",
     "toc": [
       {
         "id": "standards",
@@ -1594,7 +1594,7 @@
       },
       {
         "title": "Target size",
-        "body": "Primary touch controls — the tab dock, sheet rows, the call-to-action pills — are 44 to 48 pixels; the smallest pointer control still clears 24. So every control meets the AA minimum, and the touch controls meet the stricter AAA size.",
+        "body": "Primary touch controls (the tab dock, sheet rows, the call-to-action pills) are 44 to 48 pixels; the smallest pointer control still clears 24. So every control meets the AA minimum, and the touch controls meet the stricter AAA size.",
         "sc": "2.5.8 AA · 2.5.5 AAA"
       },
       {
@@ -1614,7 +1614,7 @@
       }
     ],
     "contrastHeading": "The readable-green trade",
-    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1 — below even the 3-to-1 bar for large text. That is why a second token exists: `--color-green-text` steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
+    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1, below even the 3-to-1 bar for large text. That is why a second token exists: `--color-green-text` steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "On white",
@@ -1626,7 +1626,7 @@
       "fail": "Fails the bar"
     },
     "contrastSampleText": "A green link",
-    "contrastLimitation": "The honest part: at body reading size on a light background, a green link sits at about 3.2 to 1 — past the large-text bar, short of the 4.5-to-1 bar for normal text. The site accepts that trade to keep its one brand colour, and softens it two ways. Article links are underlined, so colour is never the only signal; and dark mode resolves it outright, where the same lime on near-black reads at about 8.6 to 1. Body copy itself is always neutral, and always passes.",
+    "contrastLimitation": "The honest part: at body reading size on a light background, a green link sits at about 3.2 to 1, past the large-text bar but short of the 4.5-to-1 bar for normal text. The site accepts that trade to keep its one brand colour, and softens it two ways. Article links are underlined, so colour is never the only signal; and dark mode resolves it outright, where the same lime on near-black reads at about 8.6 to 1. Body copy itself is always neutral, and always passes.",
     "scopeHeading": "Scope",
     "scopeBody": "This covers the website. The React Native app and the email templates are their own surfaces, with their own standards, and are not documented here."
   },
@@ -1652,7 +1652,7 @@
     ],
     "designHeading": "The email design",
     "designBody1": "One 600-pixel column: a white card on a soft grey page, a four-pixel lime accent bar across the top, the wordmark beneath it, and Inter for every line. Then the band: the post's hero artwork, darkened, with a large green part numeral and the title in white. Links use the readable text green and the card corners sit at 14 pixels. It is the site, translated into what email clients allow.",
-    "designBody2": "The band is a generated image — one per post, per language — so it renders the same in every client, and the title under it is repeated as real text: a reader with images off, larger type, or a screen reader loses nothing but mood. Dark mode follows the reader's preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The band is dark by design, so it is the one element that needs no swap.",
+    "designBody2": "The band is a generated image (one per post, per language), so it renders the same in every client, and the title under it is repeated as real text: a reader with images off, larger type, or a screen reader loses nothing but mood. Dark mode follows the reader's preference, with the same paired-values idea as the site tokens: the page flips to near-black, the card to dark grey, the logo swaps for its light version, and the greens step up to stay readable. The band is dark by design, so it is the one element that needs no swap.",
     "copyHeading": "What the email says",
     "copyBody1": "The email reuses the post’s **own words**, so nothing is written twice and nothing can disagree with the site. A series post gets the series eyebrow and its part number, the body is the post’s own description, and the button is the one action.",
     "copyRules": [
@@ -1676,7 +1676,7 @@
     "whyHeading": "Why the title is doubled",
     "whyIntro": "The band and the heading show the same title to different readers. Each reason below is a reader the design would otherwise lose.",
     "whyReasons": [
-      "**Scanners skip banners.** A styled graphic block at the top of an email reads as an advert — the pattern is called banner blindness — and a reader in a hurry jumps past it to the first text. If the title lived only in the band, that reader would not see it. The text heading is where their eye lands.",
+      "**Scanners skip banners.** A styled graphic block at the top of an email reads as an advert (the pattern is called banner blindness), and a reader in a hurry jumps past it to the first text. If the title lived only in the band, that reader would not see it. The text heading is where their eye lands.",
       "**Corporate Outlook blocks remote images by default**, and this newsletter's readers are engineers, the audience most likely to sit behind it. With the title as text, an email with every image blocked still says what it is about; the band's alt text restates the series, part and title for the same reason.",
       "**Screen readers navigate email by headings**, and a title inside an image is not a heading. Reader-set larger type scales text, never images. WCAG (the Web Content Accessibility Guidelines) makes the same demand in point 1.4.5: no images of text where real text can do the job.",
       "**The doubling is measured, not assumed.** The band and the button link the same post with different `utm_content` values, so the click data shows whether the band earns its place or the button does the work."

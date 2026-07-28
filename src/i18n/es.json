@@ -126,7 +126,7 @@
     "clientProjects": "Proyectos para clientes",
     "pageTitle": "Blog — Página {n} | Warren de Leon",
     "seriesComplete": "Serie completa",
-    "seriesOngoing": "En curso — próxima parte: {date}",
+    "seriesOngoing": "En curso · próxima parte: {date}",
     "startSeries": "Empieza por la parte 1",
     "wrap": "Ajustar",
     "expand": "Ampliar",
