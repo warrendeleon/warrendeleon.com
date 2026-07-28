@@ -149,4 +149,31 @@ const CALENDLY_BASE = 'https://calendly.com/warrendeleon/30min?hide_event_type_d
       iframe.src = themedSrc();
     }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
+
+  // Booking funnel. A cross-origin iframe can't be read, but Calendly posts
+  // its own progress out to the parent window, so we can count the steps
+  // without touching its contents. Before this, 31 sessions had viewed this
+  // page and there was no way to tell whether anyone actually booked — the
+  // closest thing the site has to a payoff was entirely unmeasured.
+  declare function t(event: string, data?: Record<string, unknown>): void;
+
+  const CALENDLY_STEPS: Record<string, string> = {
+    'calendly.event_type_viewed': 'calendly_loaded',
+    'calendly.date_and_time_selected': 'calendly_slot_picked', // real intent
+    'calendly.event_scheduled': 'call_booked',                 // the conversion
+  };
+  const seen = new Set<string>();
+
+  window.addEventListener('message', (e: MessageEvent) => {
+    // Origin check is the whole security model here: without it any page
+    // could postMessage a fake booking and inflate the conversion count.
+    if (e.origin !== 'https://calendly.com') return;
+    const name = e.data && typeof e.data === 'object' ? (e.data as any).event : null;
+    if (typeof name !== 'string') return;
+    const mapped = CALENDLY_STEPS[name];
+    // Once per pageview: Calendly re-emits steps when a user goes back.
+    if (!mapped || seen.has(mapped)) return;
+    seen.add(mapped);
+    if (typeof t === 'function') t(mapped, { locale: document.documentElement.lang || 'en' });
+  });
 </script>
