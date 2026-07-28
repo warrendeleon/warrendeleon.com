@@ -1228,6 +1228,10 @@
         "label": "Marc de dispositiu"
       },
       {
+        "id": "demo",
+        "label": "Demos animades"
+      },
+      {
         "id": "zoom",
         "label": "Zoom a pantalla completa"
       },
@@ -1242,6 +1246,12 @@
     "deviceHeading": "Marc de dispositiu",
     "deviceBody": "Les captures d'app als articles van dins d'un marc de mòbil pla dibuixat amb CSS: un carril del verd de la marca, un bisell negre fi, botons laterals dibuixats just fora del carril i una ombra que s'adapta al tema. Es manté fidel a l'estètica plana del blog en lloc d'un render fotorealista.",
     "deviceCaption": "El patró .device-frame, aquí amb un marcador de posició on va la captura.",
+    "demoHeading": "Demos animades",
+    "demoBody1": "Quan una captura no pot explicar una interacció (un toc que empeny una pantalla, un comptador que puja), l'article fa servir un WebP animat curt dins del mateix marc de telèfon. Es construeix amb uns quants estats clau, no amb una gravació de pantalla: un fotograma d'abans, un amb l'indicador de toc dibuixat i el resultat, cadascun en pantalla el temps just per llegir-se. El bucle pesa unes desenes de kilobytes i es reinicia sol.",
+    "demoBody2": "L'indicador de toc forma part del disseny: un disc blau marí translúcid amb un anell, compost just on cau el dit, perquè el lector vegi la causa a més de l'efecte. Tots els fotogrames comparteixen la mateixa barra d'estat, així que entre estats no salta res llevat del canvi que la demo existeix per ensenyar.",
+    "demoMotionNote": "Un límit honest: una imatge animada ignora la preferència de moviment reduït del sistema, perquè un WebP en bucle no té control de pausa. Per això les demos són curtes i suaus, i tot el que mostren també queda explicat a la prosa que les envolta.",
+    "demoCaption": "Una demo real d'un article publicat: estats clau i un indicador de toc dibuixat, en bucle dins del marc de telèfon.",
+    "demoAlt": "Un toc en una pestanya de l'app de demostració i el canvi de pantalla, mostrat com a animació en bucle",
     "zoomHeading": "Zoom a pantalla completa",
     "zoomBody": "Les imatges i els diagrames dels articles s'obren en una lightbox a pantalla completa en tocar-los: l'única superposició que es comporta igual a tots els dispositius. Els diagrames es retematitzen a dins, així que un lector en mode fosc fa zoom sobre un diagrama en mode fosc.",
     "placeholderHeading": "Marcador de posició",

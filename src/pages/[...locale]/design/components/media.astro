@@ -70,6 +70,26 @@ const heroExample = [...posts].reverse().find(p => p.data.series === 'React Nati
     </SpecimenCard>
   </section>
 
+  <section id="demo">
+    <h2>{m.demoHeading}</h2>
+    <p set:html={md(m.demoBody1)} />
+    <p set:html={md(m.demoBody2)} />
+    <SpecimenCard label={m.demoCaption}>
+      <div class="prose ds-device-demo">
+        <div class="device-frame">
+          <img
+            src="/images/blog/host-shell-federated-tabs-react-native-app.webp"
+            alt={m.demoAlt}
+            width="600"
+            height="1304"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </SpecimenCard>
+    <p set:html={md(m.demoMotionNote)} />
+  </section>
+
   <section id="zoom">
     <h2>{m.zoomHeading}</h2>
     <p set:html={md(m.zoomBody)} />

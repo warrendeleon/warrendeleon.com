@@ -1228,6 +1228,10 @@
         "label": "Device frame"
       },
       {
+        "id": "demo",
+        "label": "Mga animated demo"
+      },
+      {
         "id": "zoom",
         "label": "Full-screen zoom"
       },
@@ -1242,6 +1246,12 @@
     "deviceHeading": "Device frame",
     "deviceBody": "Ang mga app screenshot sa mga artikulo ay nakalagay sa loob ng flat na phone frame na iginuhit sa CSS: isang brand-green na rail, isang manipis na itim na bezel, mga side button na iginuhit sa labas mismo ng rail, at isang shadow na sumusunod sa theme. Nananatili ito sa flat na estetika ng blog sa halip na photoreal na render.",
     "deviceCaption": "Ang .device-frame pattern, dito may placeholder sa pwesto ng screenshot.",
+    "demoHeading": "Mga animated demo",
+    "demoBody1": "Kapag hindi kayang dalhin ng screenshot ang isang interaction (isang tap na nagpu-push ng screen, isang counter na tumataas), gumagamit ang artikulo ng maikling animated WebP sa loob ng parehong device frame. Binubuo ito mula sa ilang key state, hindi mula sa screen recording: isang frame ng before, isang frame na may drawing ng tap indicator, at ang resulta, bawat isa ay nakatigil nang sapat para mabasa. Ilang sampung kilobytes lang ang bigat ng loop, at kusa itong umuulit.",
+    "demoBody2": "Bahagi ng disenyo ang tap indicator: isang translucent na navy na disc na may ring, inilalagay mismo kung saan dadapo ang daliri, para makita ng mambabasa ang sanhi at hindi lang ang epekto. Iisa ang status bar ng lahat ng frame, kaya walang tumatalon sa pagitan ng mga estado maliban sa pagbabagong ipinapakita ng demo.",
+    "demoMotionNote": "Isang tapat na limitasyon: binabalewala ng animated na imahe ang reduced-motion na kagustuhan ng system, dahil walang pause control ang umuulit na WebP. Kaya pinapanatiling maikli at banayad ang mga demo, at lahat ng ipinapakita nito ay nakasulat din sa prosang nakapalibot.",
+    "demoCaption": "Totoong demo mula sa na-publish na artikulo: mga key state at drawing ng tap indicator, umuulit sa loob ng device frame.",
+    "demoAlt": "Pag-tap sa isang tab ng demo app at ang pagbabago ng screen, ipinapakita bilang umuulit na animation",
     "zoomHeading": "Full-screen zoom",
     "zoomBody": "Ang mga larawan at diagram sa mga artikulo ay bumubukas sa isang full-screen lightbox kapag na-tap: ang nag-iisang overlay na pare-pareho ang kilos sa bawat device. Nagre-re-theme ang mga diagram sa loob nito, kaya ang mambabasa sa dark mode ay nagzu-zoom sa dark-mode na diagram.",
     "placeholderHeading": "Placeholder",
