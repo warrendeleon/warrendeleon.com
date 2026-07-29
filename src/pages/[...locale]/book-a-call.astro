@@ -132,12 +132,47 @@ const CALENDLY_BASE = 'https://calendly.com/warrendeleon/30min?hide_event_type_d
   const iframe = embed?.querySelector('iframe');
   const base = embed?.dataset.calendlyBase;
 
+  // Attribution passed to Calendly, so a booking records what earned it.
+  // Follows the site's UTM conventions (see wiki utm-conventions):
+  //   source/medium  — the visit's FIRST-TOUCH inbound values, captured in
+  //                    BaseLayout and carried in sessionStorage; falls back to
+  //                    website/internal for someone who arrived untagged.
+  //   campaign       — passed through only if a real push set one. Never invented.
+  //   content        — the internal page that sent them here (e.g. a post slug).
+  //                    Extends "which variant" to "which page drove the booking";
+  //                    Calendly-only, so the site's own UTM panels stay clean.
+  function attribution(): string {
+    const p = new URLSearchParams();
+    let first: Record<string, string> = {};
+    try {
+      first = JSON.parse(sessionStorage.getItem('utm.first') || '{}');
+    } catch (e) { /* ignore */ }
+
+    p.set('utm_source', first.utm_source || 'website');
+    p.set('utm_medium', first.utm_medium || 'internal');
+    if (first.utm_campaign) p.set('utm_campaign', first.utm_campaign);
+
+    // Internal referrer -> which page drove the booking. Same-origin only:
+    // an external referrer is already represented by source/medium.
+    let from = '';
+    try {
+      const r = document.referrer ? new URL(document.referrer) : null;
+      if (r && r.origin === location.origin) from = r.pathname;
+    } catch (e) { /* ignore */ }
+    if (from && from !== location.pathname) {
+      p.set('utm_content', from.replace(/^\/|\/$/g, '').slice(0, 100) || 'home');
+    } else if (first.utm_content) {
+      p.set('utm_content', first.utm_content);
+    }
+    return p.toString();
+  }
+
   function themedSrc(): string {
     const dark = document.documentElement.getAttribute('data-theme') === 'dark';
     const colours = dark
       ? 'background_color=222222&text_color=f0f0f0&primary_color=6dc402'
       : 'background_color=ffffff&text_color=0e0c19&primary_color=5aa302';
-    return `${base}&${colours}`;
+    return `${base}&${colours}&${attribution()}`;
   }
 
   if (embed && iframe && base) {
@@ -174,6 +209,17 @@ const CALENDLY_BASE = 'https://calendly.com/warrendeleon/30min?hide_event_type_d
     // Once per pageview: Calendly re-emits steps when a user goes back.
     if (!mapped || seen.has(mapped)) return;
     seen.add(mapped);
-    if (typeof t === 'function') t(mapped, { locale: document.documentElement.lang || 'en' });
+    // Same attribution on the Umami event, so "what earned this booking" is
+    // answerable from our own dashboard, not just Calendly's.
+    const a = new URLSearchParams(attribution());
+    if (typeof t === 'function') {
+      t(mapped, {
+        locale: document.documentElement.lang || 'en',
+        source: a.get('utm_source') || '',
+        medium: a.get('utm_medium') || '',
+        campaign: a.get('utm_campaign') || '',
+        from: a.get('utm_content') || '',
+      });
+    }
   });
 </script>
