@@ -1354,6 +1354,10 @@
         "label": "Brand names"
       },
       {
+        "id": "skim",
+        "label": "The skim layer"
+      },
+      {
         "id": "crosslinks",
         "label": "Cross-linking"
       },
@@ -1402,6 +1406,12 @@
     "brandsBad": "react native · Pokedex · module federation",
     "brandsCaption": "Match the official form, accents and all.",
     "brandsBadCaption": "Not lowercased, not stripped of accents.",
+    "skimHeading": "The skim layer",
+    "skimBody": "Long technical pieces are skimmed before they are read, and consulted again afterwards. Bold marks the decision points, so a reader crossing the page at speed still leaves with the conclusions. Links carry each claim to the piece that supports it. One pulled-out line per article holds its sharpest rule, placed where the prose runs thickest. No stretch runs past a few hundred words without a break: a code block, a table, an image, or that one pulled line. Emphasis spent everywhere is emphasis spent nowhere.",
+    "skimGood": "**Both backends live:** run one client.",
+    "skimBad": "**Every** sentence **carries** its **own** emphasis.",
+    "skimCaption": "Bold on the decision itself, so the fast pass still delivers it.",
+    "skimBadCaption": "Bold as decoration loses the reader's trust in bold.",
     "disagreeHeading": "Disagreeing in print",
     "disagreeBody1": "Technical writing here disagrees a lot: with defaults, with popular libraries, with received wisdom. The rule is to **steelman first**. State the opposing view in its strongest form, credit what it gets right, then show where it stops working for the case at hand. The disagreement lands as an observation about fit, not a condemnation.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",

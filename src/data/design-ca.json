@@ -1354,6 +1354,10 @@
         "label": "Noms de marca"
       },
       {
+        "id": "skim",
+        "label": "Lectura ràpida"
+      },
+      {
         "id": "crosslinks",
         "label": "Enllaços creuats"
       },
@@ -1402,6 +1406,12 @@
     "brandsBad": "react native · Pokedex · module federation",
     "brandsCaption": "Respecta la forma oficial, accents inclosos.",
     "brandsBadCaption": "No en minúscules ni sense accents.",
+    "skimHeading": "La capa de lectura ràpida",
+    "skimBody": "Els textos tècnics llargs es fullegen abans de llegir-se, i es tornen a consultar després. La negreta marca les decisions, perquè qui recorre la pàgina en diagonal se n'endugui igualment les conclusions. Els enllaços porten cada afirmació a la peça que la sosté. Una sola línia destacada per article guarda la seva regla més esmolada, col·locada on la prosa es fa més densa. Cap tram no passa d'uns quants centenars de paraules sense un respir: un bloc de codi, una taula, una imatge o aquesta línia destacada. L'èmfasi repartit pertot arreu no emfasitza res.",
+    "skimGood": "**Amb els dos backends actius:** fes servir un sol client.",
+    "skimBad": "**Cada** frase **porta** el **seu** èmfasi.",
+    "skimCaption": "La negreta va a la decisió, i la lectura en diagonal se l'enduu igualment.",
+    "skimBadCaption": "La negreta com a ornament fa que el lector deixi de refiar-se'n.",
     "disagreeHeading": "Discrepar per escrit",
     "disagreeBody1": "L’escriptura tècnica d’aquí discrepa molt: dels valors per defecte, de llibreries populars, d’idees heretades. La regla és **reforçar primer la postura contrària**. S’exposa l’opció rival en la seva millor versió, se li reconeix el que fa bé, i després es mostra on deixa de funcionar per al cas concret. La discrepància arriba com una observació sobre encaix, no com una condemna.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",

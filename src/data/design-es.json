@@ -1354,6 +1354,10 @@
         "label": "Nombres de marca"
       },
       {
+        "id": "skim",
+        "label": "Lectura rápida"
+      },
+      {
         "id": "crosslinks",
         "label": "Enlaces cruzados"
       },
@@ -1402,6 +1406,12 @@
     "brandsBad": "react native · Pokedex · module federation",
     "brandsCaption": "Respeta la forma oficial, con tildes incluidas.",
     "brandsBadCaption": "Ni en minúsculas ni sin tildes.",
+    "skimHeading": "La capa de lectura rápida",
+    "skimBody": "Los textos técnicos largos se hojean antes de leerse, y se vuelven a consultar después. La negrita marca las decisiones, para que quien recorre la página en diagonal se lleve igualmente las conclusiones. Los enlaces llevan cada afirmación a la pieza que la sostiene. Una sola línea destacada por artículo guarda su regla más afilada, colocada donde la prosa se hace más densa. Ningún tramo pasa de unos cientos de palabras sin un respiro: un bloque de código, una tabla, una imagen o esa línea destacada. El énfasis repartido por todas partes no enfatiza nada.",
+    "skimGood": "**Con los dos backends activos:** usa un solo cliente.",
+    "skimBad": "**Cada** frase **lleva** su **propio** énfasis.",
+    "skimCaption": "La negrita va en la decisión, y la lectura en diagonal se la lleva igualmente.",
+    "skimBadCaption": "La negrita como adorno hace que el lector deje de fiarse de ella.",
     "disagreeHeading": "Discrepar por escrito",
     "disagreeBody1": "La escritura técnica de aquí discrepa mucho: de los valores por defecto, de librerías populares, de ideas heredadas. La regla es **reforzar primero la postura contraria**. Se expone la opción rival en su mejor versión, se reconoce lo que hace bien, y después se muestra dónde deja de funcionar para el caso concreto. La discrepancia llega como una observación sobre encaje, no como una condena.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",
