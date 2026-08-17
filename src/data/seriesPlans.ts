@@ -17,16 +17,13 @@ export interface PlannedPart {
 
 const seriesPlans: Record<string, PlannedPart[]> = {
   'React Native Module Federation': [
-    { title: 'The design system as a federated singleton', date: '2026-08-17' },
-    { title: 'Accessibility testing across federated remotes', date: '2026-08-24' },
-    { title: 'shell.navigateTo: RN ↔ native handoff', date: '2026-08-31' },
-    { title: 'The production build and the three modes', date: '2026-09-07' },
-    { title: 'Loading remotes from a CDN + version resolution', date: '2026-09-14' },
-    { title: 'The live two-version flip', date: '2026-09-21' },
-    { title: 'Offline fallback baked into the binary', date: '2026-09-28' },
-    { title: 'In-session fallback when a remote fails', date: '2026-10-05' },
-    { title: 'Signing the version-map + replay/rollback guard', date: '2026-10-12' },
-    { title: 'Health-based cross-launch auto-rollback', date: '2026-10-19' },
+    { title: 'The design system as a federated singleton', date: '2026-08-24' },
+    { title: 'Accessibility testing across federated remotes', date: '2026-08-31' },
+    { title: 'shell.navigateTo: RN ↔ native handoff', date: '2026-09-07' },
+    { title: 'The production build and the three modes', date: '2026-09-14' },
+    { title: 'CDN delivery: the version map, the resolver, and the live flip', date: '2026-09-21' },
+    { title: 'Fallback: the copy in the binary and the net in the session', date: '2026-09-28' },
+    { title: 'The signed map and the app that rolls itself back', date: '2026-10-05' },
   ],
 };
 
