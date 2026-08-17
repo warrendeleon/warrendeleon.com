@@ -44,6 +44,25 @@
 /tl/education /tl/work-experience/ 301
 /tl/education/ /tl/work-experience/ 301
 
+# Translated tag slugs, retired by 60f0226 (content repo) when tags became
+# English in every locale. These MUST sit above the /blog/tag/* wildcards
+# below: rules match in file order, and the wildcard would otherwise rewrite
+# `contratación` to /es/blog/tags/contratación/, a slug that has never
+# existed — a 301 into a 404. That dead end is why the Search Console "Not
+# found" bucket kept failing validation: the URL still ended in a 404, so
+# every re-validation reported the same error.
+#
+# Spelled percent-encoded, which is what actually reaches the edge — a
+# browser and a crawler both send /es/blog/tag/contrataci%C3%B3n/ on the
+# wire, never the literal accented path.
+/es/blog/tag/consejos-de-carrera/ /es/blog/tags/career-advice/ 301
+/es/blog/tag/contrataci%C3%B3n/ /es/blog/tags/hiring/ 301
+/es/blog/tag/gesti%C3%B3n-de-ingenier%C3%ADa/ /es/blog/tags/engineering-management/ 301
+/ca/blog/tag/consells-de-carrera/ /ca/blog/tags/career-advice/ 301
+/ca/blog/tag/contractaci%C3%B3/ /ca/blog/tags/hiring/ 301
+/ca/blog/tag/gesti%C3%B3-d-enginyeria/ /ca/blog/tags/engineering-management/ 301
+/tl/blog/tag/pagkuha-ng-empleyado/ /tl/blog/tags/hiring/ 301
+
 # Tag pages moved from /blog/tag/:tag to /blog/tags/:tag
 /blog/tag/* /blog/tags/:splat 301
 /es/blog/tag/* /es/blog/tags/:splat 301
