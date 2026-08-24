@@ -29,11 +29,19 @@ function* mdFiles(dir) {
 }
 for (const p of mdFiles(contentDir)) {
   const src = readFileSync(p, 'utf8');
-  const fences = [...src.matchAll(/^```mermaid\n([\s\S]*?)^```/gm)];
+  // The fence regex matches scripts/render-mermaid.mjs exactly, so the validator and the
+  // renderer can never disagree about what counts as a diagram.
+  const fences = [...src.matchAll(/^```mermaid[ \t]*\r?\n([\s\S]*?)^```/gm)];
   for (const m of fences) {
     const hash = createHash('sha256').update(configText).update(m[1].trim()).digest('hex').slice(0, 12);
-    if (!existsSync(join(mermaidDir, `${hash}.svg`))) {
+    const svgPath = join(mermaidDir, `${hash}.svg`);
+    if (!existsSync(svgPath)) {
       failures.push(`${p.replace(root + '/', '')}: mermaid fence has no ${hash}.svg — run: npm run mermaid`);
+      continue;
+    }
+    const svg = readFileSync(svgPath, 'utf8');
+    if (!svg.trimStart().startsWith('<svg') || svg.length < 200) {
+      failures.push(`${p.replace(root + '/', '')}: ${hash}.svg is not a usable diagram — re-run: npm run mermaid`);
     }
   }
 }
@@ -49,10 +57,48 @@ for (const locale of locales) {
     const srcPath = join(contentDir, locale, `${e.name}.md`);
     if (!existsSync(srcPath)) continue; // hub pages, non-post routes
     const srcH2 = (readFileSync(srcPath, 'utf8').match(/^## /gm) || []).length;
-    const distH2 = (readFileSync(page, 'utf8').match(/<h2/g) || []).length;
+    const html = readFileSync(page, 'utf8');
+    // Scope to the article so global page headings can never mask missing sections.
+    const artStart = html.indexOf('<article');
+    const artEnd = html.indexOf('</article>', artStart);
+    const scope = artStart > -1 && artEnd > -1 ? html.slice(artStart, artEnd) : html;
+    const distH2 = (scope.match(/<h2/g) || []).length;
     if (distH2 < srcH2) {
-      failures.push(`${locale || 'en'}/${e.name}: built page has ${distH2} <h2> for ${srcH2} source sections — body did not render`);
+      failures.push(`${locale || 'en'}/${e.name}: article carries ${distH2} <h2> for ${srcH2} source sections — body did not render`);
     }
+  }
+}
+
+// --- 3. Every due post has a route at all: a page astro never emitted would otherwise
+// slip past the per-directory checks above. ---
+function frontmatter(src) {
+  const m = src.match(/^---\n([\s\S]*?)\n---/);
+  const fm = {};
+  if (m) for (const line of m[1].split('\n')) {
+    const kv = line.match(/^(\w+):\s*"?([^"\n]*)"?\s*$/);
+    if (kv) fm[kv[1]] = kv[2];
+  }
+  return fm;
+}
+const now = new Date();
+for (const p of mdFiles(contentDir)) {
+  const rel = p.replace(contentDir + '/', '');
+  const parts = rel.split('/');
+  const locale = parts.length > 1 ? parts[0] : '';
+  const slug = parts[parts.length - 1].replace(/\.md$/, '');
+  const fm = frontmatter(readFileSync(p, 'utf8'));
+  if (fm.draft === 'true') continue;
+  // Translations inherit the English master's date; resolve it for the slot check.
+  let dateStr = fm.publishDate;
+  if (!dateStr && locale) {
+    const master = join(contentDir, `${slug}.md`);
+    if (existsSync(master)) dateStr = frontmatter(readFileSync(master, 'utf8')).publishDate;
+  }
+  if (!dateStr) continue;
+  if (new Date(`${dateStr}T08:30:00`) > now) continue;
+  const page = join(root, 'dist', locale, 'blog', slug, 'index.html');
+  if (!existsSync(page)) {
+    failures.push(`${locale || 'en'}/${slug}: due since ${dateStr} but the built site has no route for it`);
   }
 }
 
