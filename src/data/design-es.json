@@ -1358,6 +1358,10 @@
         "label": "Lectura rápida"
       },
       {
+        "id": "revision",
+        "label": "Editar después del borrador"
+      },
+      {
         "id": "crosslinks",
         "label": "Enlaces cruzados"
       },
@@ -1412,6 +1416,13 @@
     "skimBad": "**Cada** frase **lleva** su **propio** énfasis.",
     "skimCaption": "La negrita va en la decisión, y la lectura en diagonal se la lleva igualmente.",
     "skimBadCaption": "La negrita como adorno hace que el lector deje de fiarse de ella.",
+    "revisionHeading": "Editar después del borrador",
+    "revisionBody": "Un borrador técnicamente correcto puede conservar el andamiaje del editor. El historial de versiones, las alternativas descartadas y los detalles de verificación solo se quedan cuando cambian lo que el lector construye, diagnostica o decide.",
+    "revisionRules": [
+      "**Un mecanismo o una decisión por párrafo.** La evidencia y la consecuencia pueden acompañarlos; una segunda cadena causal empieza otro párrafo.",
+      "**Repite la revisión de lectura rápida después del último recorte.** Al acortar cambia qué decisiones merecen negrita, y un énfasis anterior puede convertirse en una repetición.",
+      "**Vincula las Fuentes a las afirmaciones que sobreviven.** Cuando una afirmación sale del cuerpo, elimina también su fuente; la lista documenta lo publicado, no el historial de navegación del editor."
+    ],
     "disagreeHeading": "Discrepar por escrito",
     "disagreeBody1": "La escritura técnica de aquí discrepa mucho: de los valores por defecto, de librerías populares, de ideas heredadas. La regla es **reforzar primero la postura contraria**. Se expone la opción rival en su mejor versión, se reconoce lo que hace bien, y después se muestra dónde deja de funcionar para el caso concreto. La discrepancia llega como una observación sobre encaje, no como una condena.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",

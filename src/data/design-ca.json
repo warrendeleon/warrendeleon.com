@@ -1358,6 +1358,10 @@
         "label": "Lectura ràpida"
       },
       {
+        "id": "revision",
+        "label": "Editar després de l'esborrany"
+      },
+      {
         "id": "crosslinks",
         "label": "Enllaços creuats"
       },
@@ -1412,6 +1416,13 @@
     "skimBad": "**Cada** frase **porta** el **seu** èmfasi.",
     "skimCaption": "La negreta va a la decisió, i la lectura en diagonal se l'enduu igualment.",
     "skimBadCaption": "La negreta com a ornament fa que el lector deixi de refiar-se'n.",
+    "revisionHeading": "Editar després de l'esborrany",
+    "revisionBody": "Un esborrany tècnicament correcte encara pot conservar la bastida de l'editor. L'historial de versions, les alternatives descartades i els detalls de verificació només es queden quan canvien allò que el lector construeix, diagnostica o decideix.",
+    "revisionRules": [
+      "**Un mecanisme o una decisió per paràgraf.** L'evidència i la conseqüència poden acompanyar-los; una segona cadena causal comença un altre paràgraf.",
+      "**Repeteix la revisió de lectura ràpida després de l'última retallada.** Escurçar canvia quines decisions mereixen negreta, i un èmfasi anterior es pot convertir en una repetició.",
+      "**Lliga les Fonts a les afirmacions que sobreviuen.** Quan una afirmació surt del cos, elimina'n també la font; la llista documenta allò publicat, no l'historial de navegació de l'editor."
+    ],
     "disagreeHeading": "Discrepar per escrit",
     "disagreeBody1": "L’escriptura tècnica d’aquí discrepa molt: dels valors per defecte, de llibreries populars, d’idees heretades. La regla és **reforçar primer la postura contrària**. S’exposa l’opció rival en la seva millor versió, se li reconeix el que fa bé, i després es mostra on deixa de funcionar per al cas concret. La discrepància arriba com una observació sobre encaix, no com una condemna.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",

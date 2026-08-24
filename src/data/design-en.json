@@ -1358,6 +1358,10 @@
         "label": "The skim layer"
       },
       {
+        "id": "revision",
+        "label": "Editing after the draft"
+      },
+      {
         "id": "crosslinks",
         "label": "Cross-linking"
       },
@@ -1412,6 +1416,13 @@
     "skimBad": "**Every** sentence **carries** its **own** emphasis.",
     "skimCaption": "Bold on the decision itself, so the fast pass still delivers it.",
     "skimBadCaption": "Bold as decoration loses the reader's trust in bold.",
+    "revisionHeading": "Editing after the draft",
+    "revisionBody": "A technically correct draft can still carry the editor's scaffolding. Version history, rejected alternatives and verification detail stay only when they change how the reader builds, diagnoses or decides.",
+    "revisionRules": [
+      "**One mechanism or decision per paragraph.** Evidence and consequence may stay with it; a second causal chain starts a new paragraph.",
+      "**Run the skim pass after the last cut.** Trimming changes which decisions deserve bold and can turn an old anchor into a restatement.",
+      "**Keep Sources tied to surviving claims.** When a claim leaves the body, remove its source row; the list records published claims, not the editor's browsing history."
+    ],
     "disagreeHeading": "Disagreeing in print",
     "disagreeBody1": "Technical writing here disagrees a lot: with defaults, with popular libraries, with received wisdom. The rule is to **steelman first**. State the opposing view in its strongest form, credit what it gets right, then show where it stops working for the case at hand. The disagreement lands as an observation about fit, not a condemnation.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",

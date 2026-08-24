@@ -98,6 +98,14 @@ const sections = [
     </section>
   ))}
 
+  <section id="revision">
+    <h2>{w.revisionHeading}</h2>
+    <p set:html={md(w.revisionBody)} />
+    <ul class="ds-list">
+      {w.revisionRules.map((r) => <li set:html={md(r)} />)}
+    </ul>
+  </section>
+
   <section id="crosslinks">
     <h2>{w.crossHeading}</h2>
     <p set:html={md(w.crossBody1)} />

@@ -1358,6 +1358,10 @@
         "label": "Skim layer"
       },
       {
+        "id": "revision",
+        "label": "Pag-edit pagkatapos ng draft"
+      },
+      {
         "id": "crosslinks",
         "label": "Cross-linking"
       },
@@ -1412,6 +1416,13 @@
     "skimBad": "**Bawat** pangungusap **may** sariling **diin**.",
     "skimCaption": "Nasa mismong desisyon ang bold, kaya dala ito kahit ng mabilisang basa.",
     "skimBadCaption": "Kapag dekorasyon na lang ang bold, hindi na ito pagkakatiwalaan ng mambabasa.",
+    "revisionHeading": "Pag-edit pagkatapos ng draft",
+    "revisionBody": "Maaaring tama sa teknikal na bahagi ang draft pero dala pa rin nito ang scaffolding ng editor. Mananatili lang ang version history, mga alternatibong tinanggihan at verification detail kapag binabago ng mga iyon ang ibini-build, dini-diagnose o pinagpapasyahan ng mambabasa.",
+    "revisionRules": [
+      "**Isang mechanism o desisyon bawat talata.** Maaaring sumama rito ang ebidensya at resulta; magsisimula sa bagong talata ang pangalawang causal chain.",
+      "**Ulitin ang skim pass pagkatapos ng huling pagputol.** Binabago ng pag-ikli kung aling mga desisyon ang karapat-dapat sa bold, at maaaring maging pag-uulit ang dating anchor.",
+      "**Itali ang Mga Sanggunian sa mga claim na nanatili.** Kapag inalis ang claim sa body, alisin din ang source row nito; itinatala ng listahan ang mga nailathalang claim, hindi ang browsing history ng editor."
+    ],
     "disagreeHeading": "Pagtutol sa sulat",
     "disagreeBody1": "Maraming tinututulan ang technical writing dito: mga default, mga sikat na library, mga minanang paniniwala. Ang rule ay **i-steelman muna**. Ilahad ang kabilang panig sa pinakamalakas nitong bersyon, kilalanin ang tama nito, saka ipakita kung saan ito huminto sa paggana para sa kasong pinag-uusapan. Ang pagtutol ay dumadating bilang obserbasyon tungkol sa akma, hindi bilang paghatol.",
     "disagreeGood": "Why not MSW, Mirage, or a mock server?",
