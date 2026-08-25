@@ -1064,7 +1064,7 @@
       }
     ],
     "calloutsHeading": "Callouts",
-    "calloutsBody": "Four flags for a trap, a tip, a caution or a neutral note, each with its own colour and icon. They pull a single important point out of the flow without breaking it.",
+    "calloutsBody": "Four flags for a trap, an optional technique, a caution or a neutral note, each with its own colour and icon. Each callout pulls one useful point out of the flow. There is no article-wide limit: use as many as the material needs when every block performs its named job, and remove any that merely repeats the surrounding prose.",
     "calloutSamples": {
       "danger": "A red flag stops you on a mistake worth avoiding.",
       "tip": "A tip offers a helpful aside you can take or leave.",
@@ -1072,7 +1072,7 @@
       "info": "Info gives neutral context or points elsewhere."
     },
     "quoteHeading": "Blockquote",
-    "quoteBody": "A pulled quote, set off by a green left rule on a tinted panel. Used for a real quotation, not for emphasis: emphasis is what bold is for.",
+    "quoteBody": "An unclassed blockquote, set off by a green left rule on a tinted panel. Use it for a cited quotation or for one earned line that distils a dense stretch of the article. Ordinary emphasis belongs in bold, and semantic advice belongs in the matching callout.",
     "quoteSample": "The best engineering leaders never fully leave the craft.",
     "codeHeading": "Code",
     "codeBody": "Inline code sits in a tinted chip. Blocks get a header with the language and Copy and Expand controls, syntax-highlighted with Shiki in a light and a dark theme, and they run full-bleed to the screen edges on a phone so a wide line has room.",
@@ -1411,7 +1411,7 @@
     "brandsCaption": "Match the official form, accents and all.",
     "brandsBadCaption": "Not lowercased, not stripped of accents.",
     "skimHeading": "The skim layer",
-    "skimBody": "Long technical pieces are skimmed before they are read, and consulted again afterwards. Bold marks the decision points, so a reader crossing the page at speed still leaves with the conclusions. Links carry each claim to the piece that supports it. One pulled-out line per article holds its sharpest rule, placed where the prose runs thickest. That line earns its place by distilling the stretch around it. A pulled line that repeats the paragraph beside it is padding dressed as emphasis; better none than one unearned. No stretch runs past a few hundred words without a break: a code block, a table, an image, or that one pulled line. Emphasis spent everywhere is emphasis spent nowhere.",
+    "skimBody": "Long technical pieces are skimmed before they are read, and consulted again afterwards. Bold marks the decision points, so a reader crossing the page at speed still leaves with the conclusions. Links carry each claim to the piece that supports it. An article may use one decorative pulled line for its sharpest rule, placed where the prose runs thickest. That line earns its place by distilling the stretch around it. A pulled line that repeats the paragraph beside it is padding dressed as emphasis; better none than one unearned. Semantic danger, tip, warning and info callouts are separate: use as many as the material needs when each performs its named job. A prose run of a few hundred words deserves a check: keep it intact if it carries one coherent job, or break it with a useful code block, table, image, callout or earned pulled line. Emphasis spent everywhere is emphasis spent nowhere.",
     "skimGood": "**Both backends live:** run one client.",
     "skimBad": "**Every** sentence **carries** its **own** emphasis.",
     "skimCaption": "Bold on the decision itself, so the fast pass still delivers it.",

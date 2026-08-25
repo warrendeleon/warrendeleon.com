@@ -1064,7 +1064,7 @@
       }
     ],
     "calloutsHeading": "Avisos",
-    "calloutsBody": "Cuatro señales para una trampa, un consejo, una precaución o una nota neutra, cada una con su propio color e icono. Extraen un único punto importante del flujo sin romperlo.",
+    "calloutsBody": "Cuatro señales para una trampa, una técnica opcional, una precaución o una nota neutra, cada una con su propio color e icono. Cada aviso extrae un punto útil del flujo. No hay un límite por artículo: usa tantos como pida el contenido cuando cada bloque cumpla su función, y elimina los que solo repitan la prosa que los rodea.",
     "calloutSamples": {
       "danger": "Una señal roja te detiene ante un error que conviene evitar.",
       "tip": "Un consejo ofrece un apunte útil que puedes tomar o dejar.",
@@ -1072,7 +1072,7 @@
       "info": "La información aporta contexto neutro o remite a otro lugar."
     },
     "quoteHeading": "Cita en bloque",
-    "quoteBody": "Una cita destacada, resaltada por una línea verde a la izquierda sobre un panel con tinte. Se usa para una cita real, no para enfatizar; para eso está la negrita.",
+    "quoteBody": "Un bloque de cita sin clasificar, resaltado por una línea verde a la izquierda sobre un panel con tinte. Úsalo para una cita con su fuente o para una única línea que condense un tramo denso del artículo y se haya ganado ese lugar. La negrita sirve para el énfasis normal; los consejos y advertencias van en el aviso correspondiente.",
     "quoteSample": "Los mejores líderes de ingeniería nunca abandonan del todo el oficio.",
     "codeHeading": "Código",
     "codeBody": "El código en línea va en un chip con tinte. Los bloques llevan una cabecera con el lenguaje y los controles Copiar y Expandir, con resaltado de sintaxis mediante Shiki en un tema claro y uno oscuro, y se extienden a sangre hasta los bordes de la pantalla en el móvil para que una línea larga tenga espacio.",
@@ -1411,7 +1411,7 @@
     "brandsCaption": "Respeta la forma oficial, con tildes incluidas.",
     "brandsBadCaption": "Ni en minúsculas ni sin tildes.",
     "skimHeading": "La capa de lectura rápida",
-    "skimBody": "Los textos técnicos largos se hojean antes de leerse, y se vuelven a consultar después. La negrita marca las decisiones, para que quien recorre la página en diagonal se lleve igualmente las conclusiones. Los enlaces llevan cada afirmación a la pieza que la sostiene. Una sola línea destacada por artículo guarda su regla más afilada, colocada donde la prosa se hace más densa. Esa línea se gana el sitio condensando el tramo que la rodea. Una línea destacada que repite el párrafo de al lado es relleno disfrazado de énfasis; mejor ninguna que una que no se lo haya ganado. Ningún tramo pasa de unos cientos de palabras sin un respiro: un bloque de código, una tabla, una imagen o esa línea destacada. El énfasis repartido por todas partes no enfatiza nada.",
+    "skimBody": "Los textos técnicos largos se hojean antes de leerse, y se vuelven a consultar después. La negrita marca las decisiones, para que quien recorre la página en diagonal se lleve igualmente las conclusiones. Los enlaces llevan cada afirmación a la pieza que la sostiene. Un artículo puede usar una sola línea destacada decorativa para su regla más afilada, colocada donde la prosa se hace más densa. Esa línea se gana el sitio condensando el tramo que la rodea. Si repite el párrafo de al lado, es relleno disfrazado de énfasis; mejor ninguna que una que no se lo haya ganado. Los bloques semánticos de peligro, consejo, advertencia e información son otra cosa: usa tantos como pida el contenido cuando cada uno cumpla su función. Un tramo de varios cientos de palabras merece una revisión: déjalo intacto si cumple una sola función coherente, o divídelo con un bloque de código, una tabla, una imagen, un aviso o una línea destacada que aporte algo. El énfasis repartido por todas partes no enfatiza nada.",
     "skimGood": "**Con los dos backends activos:** usa un solo cliente.",
     "skimBad": "**Cada** frase **lleva** su **propio** énfasis.",
     "skimCaption": "La negrita va en la decisión, y la lectura en diagonal se la lleva igualmente.",

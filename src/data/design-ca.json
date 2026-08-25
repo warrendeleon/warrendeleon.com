@@ -1064,7 +1064,7 @@
       }
     ],
     "calloutsHeading": "Avisos",
-    "calloutsBody": "Quatre indicadors per a un parany, un consell, una advertència o una nota neutra, cadascun amb el seu color i la seva icona. Extreuen un únic punt important del flux sense trencar-lo.",
+    "calloutsBody": "Quatre indicadors per a un parany, una tècnica opcional, una advertència o una nota neutra, cadascun amb el seu color i la seva icona. Cada avís extreu un punt útil del flux. No hi ha cap límit per article: fes-ne servir tants com demani el contingut quan cada bloc compleixi la seva funció, i elimina els que només repeteixin la prosa que els envolta.",
     "calloutSamples": {
       "danger": "Un indicador vermell t'atura davant d'un error que val la pena evitar.",
       "tip": "Un consell ofereix un aclariment útil que pots seguir o no.",
@@ -1072,7 +1072,7 @@
       "info": "La informació dona context neutre o remet a un altre lloc."
     },
     "quoteHeading": "Cita en bloc",
-    "quoteBody": "Una cita destacada, separada per una línia verda a l'esquerra sobre un panell amb tint. S'utilitza per a una citació real, no per emfatitzar; per emfatitzar hi ha la negreta.",
+    "quoteBody": "Un bloc de citació sense classificar, separat per una línia verda a l'esquerra sobre un panell amb tint. Fes-lo servir per a una citació amb la font o per a una única línia que condensi un tram dens de l'article i s'hagi guanyat aquest lloc. La negreta serveix per a l'èmfasi normal; els consells i advertiments van a l'avís corresponent.",
     "quoteSample": "Els millors líders d'enginyeria mai no abandonen del tot l'ofici.",
     "codeHeading": "Codi",
     "codeBody": "El codi en línia va dins d'un xip amb tint. Els blocs tenen una capçalera amb el llenguatge i els controls de Copia i Amplia, amb ressaltat de sintaxi fet amb Shiki en un tema clar i un de fosc, i s'estenen fins a les vores de la pantalla en un telèfon perquè una línia ampla tingui espai.",
@@ -1411,7 +1411,7 @@
     "brandsCaption": "Respecta la forma oficial, accents inclosos.",
     "brandsBadCaption": "No en minúscules ni sense accents.",
     "skimHeading": "La capa de lectura ràpida",
-    "skimBody": "Els textos tècnics llargs es fullegen abans de llegir-se, i es tornen a consultar després. La negreta marca les decisions, perquè qui recorre la pàgina en diagonal se n'endugui igualment les conclusions. Els enllaços porten cada afirmació a la peça que la sosté. Una sola línia destacada per article guarda la seva regla més esmolada, col·locada on la prosa es fa més densa. Aquesta línia es guanya el lloc condensant el tram que l'envolta. Una línia destacada que repeteix el paràgraf del costat és farciment disfressat d'èmfasi; millor cap que una que no se l'hagi guanyat. Cap tram no passa d'uns quants centenars de paraules sense un respir: un bloc de codi, una taula, una imatge o aquesta línia destacada. L'èmfasi repartit pertot arreu no emfasitza res.",
+    "skimBody": "Els textos tècnics llargs es fullegen abans de llegir-se, i es tornen a consultar després. La negreta marca les decisions, perquè qui recorre la pàgina en diagonal se n'endugui igualment les conclusions. Els enllaços porten cada afirmació a la peça que la sosté. Un article pot fer servir una sola línia destacada decorativa per a la seva regla més esmolada, col·locada on la prosa es fa més densa. Aquesta línia es guanya el lloc condensant el tram que l'envolta. Si repeteix el paràgraf del costat, és farciment disfressat d'èmfasi; millor cap que una que no se l'hagi guanyat. Els avisos semàntics de perill, consell, advertència i informació són una altra cosa: fes-ne servir tants com demani el contingut quan cadascun compleixi la seva funció. Un tram d'uns quants centenars de paraules mereix una revisió: deixa'l intacte si compleix una sola funció coherent, o divideix-lo amb un bloc de codi, una taula, una imatge, un avís o una línia destacada que aporti alguna cosa. L'èmfasi repartit pertot arreu no emfasitza res.",
     "skimGood": "**Amb els dos backends actius:** fes servir un sol client.",
     "skimBad": "**Cada** frase **porta** el **seu** èmfasi.",
     "skimCaption": "La negreta va a la decisió, i la lectura en diagonal se l'enduu igualment.",

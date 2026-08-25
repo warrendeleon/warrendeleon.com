@@ -1064,7 +1064,7 @@
       }
     ],
     "calloutsHeading": "Mga callout",
-    "calloutsBody": "Apat na bandila para sa isang bitag, isang tip, isang babala o isang neutral na tala, bawat isa ay may sariling kulay at icon. Hinihila nila ang isang mahalagang punto palabas ng daloy nang hindi ito sinisira.",
+    "calloutsBody": "Apat na bandila para sa isang bitag, optional na technique, babala o neutral na tala, bawat isa ay may sariling kulay at icon. Isang kapaki-pakinabang na punto ang inilalabas ng bawat callout mula sa daloy. Walang limitasyon sa dami sa isang artikulo: gumamit ng dami na kailangan ng nilalaman kapag malinaw ang trabaho ng bawat block, at alisin ang inuulit lang ang katabing prose.",
     "calloutSamples": {
       "danger": "Isang pulang bandila ang pumipigil sa iyo sa isang pagkakamaling dapat iwasan.",
       "tip": "Ang isang tip ay nag-aalok ng kapaki-pakinabang na paalala na maaari mong tanggapin o iwan.",
@@ -1072,7 +1072,7 @@
       "info": "Ang info ay nagbibigay ng neutral na konteksto o tumuturo sa ibang lugar."
     },
     "quoteHeading": "Blockquote",
-    "quoteBody": "Isang hinugot na sipi, ipinakita sa pamamagitan ng isang berdeng linya sa kaliwa sa isang may-tint na panel. Ginagamit para sa isang tunay na sipi, hindi para sa diin: ang diin ay para sa bold.",
+    "quoteBody": "Isang blockquote na walang class, ipinakita sa pamamagitan ng berdeng linya sa kaliwa sa isang may-tint na panel. Gamitin ito para sa siping may source o sa isang karapat-dapat na linyang bumubuod sa siksik na bahagi ng artikulo. Para sa karaniwang diin ang bold; sa katumbas na callout napupunta ang mga tip at babala.",
     "quoteSample": "Ang pinakamahuhusay na engineering leader ay hindi kailanman lubusang umaalis sa craft.",
     "codeHeading": "Code",
     "codeBody": "Ang inline code ay nasa isang may-tint na chip. Ang mga block ay may header na may wika at mga kontrol na Copy at Expand, may syntax highlight gamit ang Shiki sa isang light at isang dark na tema, at umaabot sila nang full-bleed sa mga gilid ng screen sa isang telepono kaya may puwang ang isang malapad na linya.",
@@ -1411,7 +1411,7 @@
     "brandsCaption": "Tumbas sa opisyal na anyo, pati na ang mga accent.",
     "brandsBadCaption": "Hindi ini-lowercase, hindi inaalis ang mga accent.",
     "skimHeading": "Ang skim layer",
-    "skimBody": "Ang mahahabang technical na artikulo ay sini-skim muna bago basahin, at binabalikan pagkatapos. Ang bold ang nagmamarka ng mga desisyon, para kahit mabilisang dumaan ang mambabasa sa page, dala pa rin niya ang mga konklusyon. Dinadala ng mga link ang bawat claim sa artikulong sumusuporta rito. Isang naka-highlight na linya bawat artikulo ang may hawak ng pinakamatalas nitong panuntunan, nakalagay kung saan pinakasiksik ang prose. Nagiging karapat-dapat sa puwesto ang linyang iyon kapag binubuod nito ang buong bahaging nakapaligid dito. Kung inuulit lang nito ang katabing talata, palamuti itong nagpapanggap na diin; mas mabuti pang wala kaysa sa isang hindi nararapat. Walang bahaging lalampas sa ilang daang salita nang walang pahinga: isang code block, table, larawan, o ang linyang iyon. Ang diin na nasa lahat ng dako ay walang binibigyang-diin.",
+    "skimBody": "Ang mahahabang technical na artikulo ay sini-skim muna bago basahin, at binabalikan pagkatapos. Ang bold ang nagmamarka ng mga desisyon, para kahit mabilisang dumaan ang mambabasa sa page, dala pa rin niya ang mga konklusyon. Dinadala ng mga link ang bawat claim sa artikulong sumusuporta rito. Puwedeng gumamit ang isang artikulo ng isang decorative na naka-highlight na linya para sa pinakamatalas nitong panuntunan, sa bahagi kung saan pinakasiksik ang prose. Karapat-dapat lang ito sa puwesto kapag binubuod nito ang buong bahaging nakapaligid dito. Kung inuulit lang nito ang katabing talata, palamuti itong nagpapanggap na diin; mas mabuti pang wala kaysa sa isang hindi nararapat. Iba ang mga semantic callout para sa panganib, tip, babala at impormasyon: gumamit ng dami na kailangan ng nilalaman kapag malinaw ang trabaho ng bawat isa. Dapat suriin ang tuloy-tuloy na prose na umaabot sa ilang daang salita: panatilihin ito kung iisa at malinaw ang trabaho nito, o hatiin gamit ang kapaki-pakinabang na code block, table, larawan, callout o naka-highlight na linya. Ang diin na nasa lahat ng dako ay walang binibigyang-diin.",
     "skimGood": "**Kapag parehong buhay ang dalawang backend:** isang client lang ang gamitin.",
     "skimBad": "**Bawat** pangungusap **may** sariling **diin**.",
     "skimCaption": "Nasa mismong desisyon ang bold, kaya dala ito kahit ng mabilisang basa.",
