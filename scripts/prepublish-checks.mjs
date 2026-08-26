@@ -13,8 +13,14 @@ import ts from 'typescript';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(root, 'src/content/blog');
 
-// Employer-identifying terms per the April 2026 disclosure incident.
-const DISCLOSURE = [/\bsquads?\b/i, /hl-ik/, /Hargreaves/, /\bUCX-Core\b/i, /on the 23rd/];
+// Employer-identifying terms per the April 2026 disclosure incident. The
+// second row is the finance-desk vocabulary its outstanding-review section
+// flagged: a dealing desk names the domain, so the worked examples stay on
+// neutral ground (catalogue/orders, not dealing/portfolio).
+const DISCLOSURE = [
+  /\bsquads?\b/i, /hl-ik/, /Hargreaves/, /\bUCX-Core\b/i, /on the 23rd/,
+  /\bdealing\b(?!\s+with)/i, /\bexecuteTrade\b/i, /\bgetPortfolio\b/i, /\bholdings\b/i,
+];
 // Words the corpus deliberately never uses (subset of the wiki avoid-list).
 const BANNED = /\b(however|moreover|furthermore|therefore|additionally|leverages?d?|robust|seamless(ly)?|delve|foster)\b|it's important to note|that being said|in conclusion/i;
 
