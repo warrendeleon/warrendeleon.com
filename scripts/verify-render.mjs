@@ -17,6 +17,10 @@ const mermaidDir = join(root, 'src/generated/mermaid');
 const configText = readFileSync(join(root, 'scripts/mermaid.config.json'), 'utf8');
 const locales = ['', 'es', 'ca', 'tl'];
 
+function stripCodeFences(text) {
+  return text.replace(/^```[\s\S]*?^```\s*$/gm, '');
+}
+
 const failures = [];
 
 // --- 1. Every mermaid fence in every source has its SVG. ---
@@ -56,7 +60,10 @@ for (const locale of locales) {
     if (!existsSync(page)) continue;
     const srcPath = join(contentDir, locale, `${e.name}.md`);
     if (!existsSync(srcPath)) continue; // hub pages, non-post routes
-    const srcH2 = (readFileSync(srcPath, 'utf8').match(/^## /gm) || []).length;
+    // Count only real headings. A fenced block can legitimately contain lines that start with
+    // "## " — a post quoting generated Markdown, for instance — and counting those made the gate
+    // demand more <h2> than the page could ever render.
+    const srcH2 = (stripCodeFences(readFileSync(srcPath, 'utf8')).match(/^## /gm) || []).length;
     const html = readFileSync(page, 'utf8');
     // Scope to the article so global page headings can never mask missing sections.
     const artStart = html.indexOf('<article');
