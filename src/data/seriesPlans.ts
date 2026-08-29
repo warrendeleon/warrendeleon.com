@@ -32,7 +32,7 @@ const seriesPlans: Record<string, PlannedPart[]> = {
     { title: 'State stacks under federation: the same React Native app built twice', date: '2026-08-10' },
     { title: 'Two backends, one client? RTK Query vs Apollo in React Native', date: '2026-08-17' },
     { title: 'The design system as a federated singleton in React Native', date: '2026-08-25' },
-    { title: 'Accessibility testing across federated remotes', date: '2026-08-31' },
+    { title: 'Accessibility testing across federated remotes in React Native', date: '2026-08-31' },
     { title: 'shell.navigateTo: RN ↔ native handoff', date: '2026-09-07' },
     { title: 'The production build and the three modes', date: '2026-09-14' },
     { title: 'CDN delivery: the version map, the resolver, and the live flip', date: '2026-09-21' },
