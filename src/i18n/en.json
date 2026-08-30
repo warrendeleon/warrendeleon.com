@@ -274,7 +274,9 @@
     "opensInNewTab": "(opens in new tab)",
     "skipToContent": "Skip to content",
     "close": "Close",
-    "breadcrumb": "Breadcrumb"
+    "breadcrumb": "Breadcrumb",
+    "tableNamed": "Table: {name}",
+    "table": "Table"
   },
   "notFound": {
     "title": "Page not found",

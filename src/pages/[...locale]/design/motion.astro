@@ -3,6 +3,7 @@ import { Code } from 'astro:components';
 import { md } from '../../../lib/inline-markup';
 import DesignLayout from '../../../components/design/DesignLayout.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { tableLabel } from '../../../lib/table-label';
 import { getDesignData } from '../../../lib/design-data';
 
 export const getStaticPaths = localeStaticPaths;
@@ -35,7 +36,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
   <section id="durations">
     <h2>{mo.durationsHeading}</h2>
     <p set:html={md(mo.durationsBody)} />
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, mo.durationsHeaders.move)}>
       <table class="table-mini">
         <thead>
           <tr>

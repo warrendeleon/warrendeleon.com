@@ -274,7 +274,9 @@
     "opensInNewTab": "(s'obre en una pestanya nova)",
     "skipToContent": "Salta al contingut",
     "close": "Tancar",
-    "breadcrumb": "Ruta de navegació"
+    "breadcrumb": "Ruta de navegació",
+    "tableNamed": "Taula: {name}",
+    "table": "Taula"
   },
   "notFound": {
     "title": "Pàgina no trobada",

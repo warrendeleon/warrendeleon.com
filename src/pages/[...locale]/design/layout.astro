@@ -3,6 +3,7 @@ import DesignLayout from '../../../components/design/DesignLayout.astro';
 import { md } from '../../../lib/inline-markup';
 import TokenTable from '../../../components/design/TokenTable.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { tableLabel } from '../../../lib/table-label';
 import { getDesignData } from '../../../lib/design-data';
 import { getDesignTokens } from '../../../lib/design-tokens.mjs';
 
@@ -35,7 +36,7 @@ const bandLabel = (name: string) => {
   <section id="columns">
     <h2>{ly.columnsHeading}</h2>
     <p set:html={md(ly.columnsBody)} />
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, ly.columnsHeaders.band)}>
       <table class="table-mini">
         <thead>
           <tr>
@@ -62,7 +63,7 @@ const bandLabel = (name: string) => {
   <section id="breakpoints">
     <h2>{ly.breakpointsHeading}</h2>
     <p set:html={md(ly.breakpointsBody)} />
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, ly.breakpointsHeading)}>
       <table class="table-mini">
         <tbody>
           {ly.breakpointsRows.map((r) => (

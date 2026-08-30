@@ -4,6 +4,7 @@ import { md } from '../../../lib/inline-markup';
 import SwatchTable from '../../../components/design/SwatchTable.astro';
 import GuidanceCard from '../../../components/design/GuidanceCard.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { tableLabel } from '../../../lib/table-label';
 import { getDesignData } from '../../../lib/design-data';
 import { pickColors } from '../../../lib/design-tokens.mjs';
 import { getPostsForLocale, shortenSeriesName } from '../../../utils/blogHelpers';
@@ -36,6 +37,7 @@ const greens = pickColors([
   '--color-green-light',
   '--color-green-text',
   '--color-green-text-hover',
+  '--color-focus-ring',
   '--color-white',
 ]);
 
@@ -100,7 +102,7 @@ const calloutRows = [
   <section id="interaction">
     <h2>{c.interactionHeading}</h2>
     <p set:html={md(c.interactionBody)} />
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, c.interactionHeaders.state)}>
       <table class="table-mini">
         <thead>
           <tr>
@@ -129,7 +131,7 @@ const calloutRows = [
   <section id="callouts">
     <h2>{c.calloutsHeading}</h2>
     <p set:html={md(c.calloutsBody)} />
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, c.calloutsHeaders.type)}>
       <table class="table-mini">
         <thead>
           <tr>

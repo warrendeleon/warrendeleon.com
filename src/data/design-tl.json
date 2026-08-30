@@ -123,7 +123,7 @@
       "usage": "Ginagamit para sa"
     },
     "usage": {
-      "--color-green": "Ang tanging accent: mga primary button, aktibong tab, ang title bar, mga focus ring.",
+      "--color-green": "Ang tanging accent: mga primary button, aktibong tab, ang title bar.",
       "--color-green-dark": "Hover at pressed na berde sa mga solid button.",
       "--color-green-light": "Isang mas magaan na tint, ginagamit nang matipid.",
       "--color-green-text": "Berde para sa text at mga link: nababasa sa light, brand lime sa dark.",
@@ -142,7 +142,8 @@
       "--code-bg": "Background ng inline at block code.",
       "--timeline-line": "Ang timeline rail ng karanasan sa trabaho.",
       "--device-edge": "Ang panlabas na ring sa phone frame.",
-      "--device-button": "Ang mga side button ng phone frame."
+      "--device-button": "Ang mga side button ng phone frame.",
+      "--color-focus-ring": "Ang focus ring, iisang halaga sa parehong tema dahil iginuguhit ito sa mga pundong hindi sumusunod sa tema. Lumalampas sa 3:1 sa lahat ng ito."
     },
     "brandHeading": "Brand green",
     "brandBody": "Ang berde ang **tanging accent**. Pinupuno nito ang mga primary button, minamarkahan ang aktibong tab, ginuguhit ang bar sa ilalim ng title ng pahina at pumapalibot bilang ring sa isang focused na control. Dahil iyon lang ang ibig sabihin nito, natututunan ng mambabasa na basahin ang berde bilang “may ginagawa ito”.",

@@ -28,8 +28,25 @@ function firstHeading(table) {
   return found;
 }
 
+// The accessible name is localised, because every other accessible name on a translated page is.
+// The locale comes from the file's own path: src/content/blog/<locale>/… for a translation, and
+// the top level for English.
+const LABEL = {
+  en: name => (name ? `Table: ${name}` : 'Table'),
+  es: name => (name ? `Tabla: ${name}` : 'Tabla'),
+  ca: name => (name ? `Taula: ${name}` : 'Taula'),
+  tl: name => (name ? `Talahanayan: ${name}` : 'Talahanayan'),
+};
+
+function localeOf(file) {
+  const path = file?.history?.[0] ?? file?.path ?? '';
+  const found = /src\/content\/blog\/(es|ca|tl)\//.exec(path);
+  return found ? found[1] : 'en';
+}
+
 export default function rehypeTableWrapper() {
-  return (tree) => {
+  return (tree, file) => {
+    const label = LABEL[localeOf(file)] ?? LABEL.en;
     const walk = (node) => {
       if (!node.children) return;
       for (let i = 0; i < node.children.length; i++) {
@@ -54,7 +71,7 @@ export default function rehypeTableWrapper() {
               className: ['table-wrapper'],
               tabindex: '0',
               role: 'region',
-              'aria-label': heading ? `Table: ${heading}` : 'Table',
+              'aria-label': label(heading),
             },
             children: [child],
           };

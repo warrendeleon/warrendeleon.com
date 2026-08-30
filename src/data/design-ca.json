@@ -123,7 +123,7 @@
       "usage": "S'usa per a"
     },
     "usage": {
-      "--color-green": "L'únic accent: botons primaris, pestanya activa, la barra de títol, anells de focus.",
+      "--color-green": "L'únic accent: botons primaris, pestanya activa, la barra de títol.",
       "--color-green-dark": "Verd en passar-hi per sobre i en prémer als botons sòlids.",
       "--color-green-light": "Un to més clar, usat amb moderació.",
       "--color-green-text": "Verd per a text i enllaços: llegible en clar, verd llima de marca en fosc.",
@@ -142,7 +142,8 @@
       "--code-bg": "Fons de codi en línia i en bloc.",
       "--timeline-line": "El carril de la cronologia d'experiència laboral.",
       "--device-edge": "L'anell exterior del marc del telèfon.",
-      "--device-button": "Els botons laterals del marc del telèfon."
+      "--device-button": "Els botons laterals del marc del telèfon.",
+      "--color-focus-ring": "L'anell de focus, un sol valor en tots dos temes perquè es dibuixa sobre fons que no segueixen el tema. Supera 3:1 en tots ells."
     },
     "brandHeading": "Verd de marca",
     "brandBody": "El verd és **l'únic accent**. Omple els botons primaris, marca la pestanya activa, dibuixa la barra sota el títol d'una pàgina i envolta un control enfocat. Com que només significa aquestes coses, el lector aprèn a llegir el verd com a «això fa alguna cosa».",

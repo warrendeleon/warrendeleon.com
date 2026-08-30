@@ -274,7 +274,9 @@
     "opensInNewTab": "(se abre en una pestaña nueva)",
     "skipToContent": "Saltar al contenido",
     "close": "Cerrar",
-    "breadcrumb": "Ruta de navegación"
+    "breadcrumb": "Ruta de navegación",
+    "tableNamed": "Tabla: {name}",
+    "table": "Tabla"
   },
   "notFound": {
     "title": "Página no encontrada",

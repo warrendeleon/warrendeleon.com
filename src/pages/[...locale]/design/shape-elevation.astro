@@ -3,6 +3,7 @@ import DesignLayout from '../../../components/design/DesignLayout.astro';
 import { md } from '../../../lib/inline-markup';
 import SwatchTable from '../../../components/design/SwatchTable.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import { tableLabel } from '../../../lib/table-label';
 import { getDesignData } from '../../../lib/design-data';
 import { getDesignTokens } from '../../../lib/design-tokens.mjs';
 
@@ -39,7 +40,7 @@ const radiusChips = [5, 8, 12, 16, 20];
         </div>
       ))}
     </div>
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, se.radiusHeaders.radius)}>
       <table class="table-mini">
         <thead>
           <tr>

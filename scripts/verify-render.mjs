@@ -126,6 +126,7 @@ for (const p of mdFiles(contentDir)) {
   const distDir = join(root, 'dist');
   if (existsSync(distDir)) walk(distDir);
   let bare = 0;
+  let unwrapped = 0;
   for (const page of pages) {
     const html = readFileSync(page, 'utf8');
     for (const m of html.matchAll(/<div class="table-wrapper"([^>]*)>/g)) {
@@ -133,11 +134,28 @@ for (const p of mdFiles(contentDir)) {
         bare++;
       }
     }
+    // Count, not just quality. Checking only the wrappers that exist cannot see the plugin's
+    // output vanishing altogether, which is the other half of the same stale-cache fault: a
+    // build with the plugin disabled emitted 84 raw <table> elements on 63 pages — no scroll
+    // container, no keyboard reach, no region — and this gate printed that everything was fine.
+    // Every table inside an article body must have a wrapper as its parent.
+    const article = /<article[\s\S]*?<\/article>/.exec(html);
+    if (article) {
+      for (const m of article[0].matchAll(/(<div class="table-wrapper"[^>]*>\s*)?<table/g)) {
+        if (!m[1]) unwrapped++;
+      }
+    }
   }
   if (bare) {
     failures.push(
       `${bare} table wrapper(s) built without tabindex/role/aria-label — stale content cache? ` +
         'remove node_modules/.astro and rebuild',
+    );
+  }
+  if (unwrapped) {
+    failures.push(
+      `${unwrapped} article table(s) built with no .table-wrapper parent — the rehype plugin's ` +
+        'output is missing entirely; remove node_modules/.astro and rebuild',
     );
   }
 }

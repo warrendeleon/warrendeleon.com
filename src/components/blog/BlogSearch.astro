@@ -572,8 +572,17 @@ const tryChips = [...tagCounts.entries()]
     caret-color: var(--color-green);
   }
 
+  /* The overlay itself signals that the field has focus, so a pointer focus needs no ring — but
+     a keyboard user gets one, because the design system's rule is that every control does and
+     this input is a control. Suppressing :focus alone also suppressed :focus-visible, which wins
+     on specificity over the site-wide rule. */
   .bso-input:focus {
     outline: none;
+  }
+
+  .bso-input:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
   }
 
   .bso-input::placeholder {

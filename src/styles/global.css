@@ -36,10 +36,15 @@
      Theme-aware: dark backgrounds keep the bright lime. */
   --color-green-text: #5aa302;
   --color-green-text-hover: #4a8601;
-  /* The focus ring has its own token because it is drawn on more grounds than any other green.
-     outline-offset paints it on the parent's background, and most focusable controls sit on
-     --code-bg, --badge-bg or --bg-secondary rather than on white. SC 1.4.11 asks 3:1 of every
-     one of those: #5aa302 gives 2.76 on the darkest of them, #4a8601 gives 3.92. */
+  /* The focus ring has its own token because it is drawn on more grounds than any other green,
+     and it is deliberately the SAME value in both themes.
+     outline-offset paints the ring on the parent's background, and a focusable control does not
+     only sit on a theme token: the design pages put Copy buttons on fixed colour swatches that
+     keep their colour in dark mode, so a dark-theme ring cannot assume a dark ground. Measured
+     across every ground a ring is painted on in this site, in both themes, #4a8601's worst case
+     is 3.38:1 on the palest swatch and 4.23:1 on the dark page — SC 1.4.11 asks 3:1. The brand
+     lime clears the dark page at 8.58:1 and fails those swatches at 1.66:1, which is why it is
+     not used here and why there is no dark override below. */
   --color-focus-ring: #4a8601;
   --color-white: #ffffff;
 
@@ -104,8 +109,6 @@
   --border-color: #333333;
   --color-green-text: var(--color-green);
   --color-green-text-hover: var(--color-green-dark);
-  /* On the dark grounds the brand lime is 7.58:1 at worst, so the ring keeps the brand colour. */
-  --color-focus-ring: var(--color-green);
   --device-edge: rgba(0, 0, 0, 0.5);
   --device-shadow: 0 16px 40px rgba(255, 255, 255, 0.08); /* faint light lift on the dark page */
   --shadow: 0 2px 10px rgba(255, 255, 255, 0.05);

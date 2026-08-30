@@ -123,7 +123,7 @@
       "usage": "Se usa para"
     },
     "usage": {
-      "--color-green": "El único acento: botones primarios, pestaña activa, la barra del título y los anillos de foco.",
+      "--color-green": "El único acento: botones primarios, pestaña activa y la barra del título.",
       "--color-green-dark": "Verde al pasar el cursor y al pulsar en botones sólidos.",
       "--color-green-light": "Un tono más claro, usado con moderación.",
       "--color-green-text": "Verde para texto y enlaces: legible en claro, lima de marca en oscuro.",
@@ -142,7 +142,8 @@
       "--code-bg": "Fondo de código en línea y en bloque.",
       "--timeline-line": "El raíl de la cronología de experiencia laboral.",
       "--device-edge": "El anillo exterior del marco del teléfono.",
-      "--device-button": "Los botones laterales del marco del teléfono."
+      "--device-button": "Los botones laterales del marco del teléfono.",
+      "--color-focus-ring": "El anillo de foco, un solo valor en ambos temas porque se dibuja sobre fondos que no siguen el tema. Supera 3:1 en todos ellos."
     },
     "brandHeading": "Verde de marca",
     "brandBody": "El verde es **el único acento**. Rellena los botones primarios, marca la pestaña activa, dibuja la barra bajo el título de una página y rodea un control enfocado. Como solo significa esas cosas, el lector aprende a leer el verde como «esto hace algo».",

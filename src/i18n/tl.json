@@ -274,7 +274,9 @@
     "opensInNewTab": "(bubukas sa bagong tab)",
     "skipToContent": "Lumaktaw sa nilalaman",
     "close": "Isara",
-    "breadcrumb": "Breadcrumb"
+    "breadcrumb": "Breadcrumb",
+    "tableNamed": "Talahanayan: {name}",
+    "table": "Talahanayan"
   },
   "notFound": {
     "title": "Hindi natagpuan ang pahina",

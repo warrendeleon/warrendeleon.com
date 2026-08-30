@@ -123,7 +123,7 @@
       "usage": "Used for"
     },
     "usage": {
-      "--color-green": "The one accent: primary buttons, active tab, the title bar, focus rings.",
+      "--color-green": "The one accent: primary buttons, active tab, the title bar.",
       "--color-green-dark": "Hover and pressed green on solid buttons.",
       "--color-green-light": "A lighter tint, used sparingly.",
       "--color-green-text": "Green for text and links: readable on light, brand lime on dark.",
@@ -142,7 +142,8 @@
       "--code-bg": "Inline and block code background.",
       "--timeline-line": "The work-experience timeline rail.",
       "--device-edge": "The outer ring on the phone frame.",
-      "--device-button": "The phone frame's side buttons."
+      "--device-button": "The phone frame's side buttons.",
+      "--color-focus-ring": "The focus ring, one value in both themes because a ring is drawn on grounds that do not follow the theme. Clears 3:1 on every one of them."
     },
     "brandHeading": "Brand green",
     "brandBody": "The green is **the single accent**. It fills primary buttons, marks the active tab, draws the bar under a page title and rings a focused control. Because it means only those things, a reader learns to read green as “this does something”.",

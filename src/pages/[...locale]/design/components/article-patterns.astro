@@ -8,6 +8,7 @@ import MediaZoom from '../../../../components/MediaZoom.astro';
 import SubscribeForm from '../../../../components/SubscribeForm.astro';
 import Toc from '../../../../components/blog/Toc.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../../i18n/index';
+import { tableLabel } from '../../../../lib/table-label';
 import { getDesignData } from '../../../../lib/design-data';
 
 export const getStaticPaths = localeStaticPaths;
@@ -175,7 +176,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
   <section id="minitable">
     <h2>{a.minitableHeading}</h2>
     <p set:html={md(a.minitableBody)} />
-    <div class="table-mini-wrap">
+    <div class="table-mini-wrap" tabindex="0" role="region" aria-label={tableLabel(locale, 'Token')}>
       <table class="table-mini">
         <thead><tr><th>Token</th><th>Light</th><th>Dark</th></tr></thead>
         <tbody>
