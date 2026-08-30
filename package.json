@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "mermaid": "node scripts/render-mermaid.mjs",
-    "prepublish-checks": "node scripts/prepublish-checks.mjs"
+    "prepublish-checks": "node scripts/prepublish-checks.mjs",
+    "prebuild": "node -e \"require('fs').rmSync('node_modules/.astro',{recursive:true,force:true})\""
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",

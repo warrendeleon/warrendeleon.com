@@ -7,7 +7,8 @@ import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getTagDescription } from '../../i18n/tagDescriptions';
 import { getReadingTime } from '../../utils/readingTime';
-import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug } from '../../utils/blogHelpers';
+import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug, getPostsForLocale } from '../../utils/blogHelpers';
+import { locales } from '../../i18n/index';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import Breadcrumb from '../Breadcrumb.astro';
 
@@ -22,6 +23,19 @@ const i18n = t(locale);
 const blogPath = getLocalePath(locale, '/blog/');
 const tagLabel = getTagLabel(tag, locale);
 
+// A tag route is only built in a locale that has a post carrying it, so the alternates have to
+// be the locales where that is true. Defaulting to all four emitted hreflang links and language
+// switcher entries for three routes that 404: post 12 is the first published post tagged
+// `accessibility` and `wcag`, and it is English-only until its translations land.
+const tagLocales = (
+  await Promise.all(
+    locales.map(async (l: Locale) => {
+      const localePosts = await getPostsForLocale(l);
+      return localePosts.some((p: any) => p.data.tags?.includes(tag)) ? l : null;
+    }),
+  )
+).filter(Boolean) as Locale[];
+
 // Thin tag pages are near dead ends; the series these posts belong to are the
 // natural next hop, so surface them as chips under the header.
 const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Boolean))]
@@ -33,6 +47,7 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
   description={getTagDescription(tag, locale, posts)}
   locale={locale}
   currentPath={getLocalePath(locale, `/blog/tags/${tag}/`)}
+  hreflangLocales={tagLocales}
   mobileBack={{ href: getLocalePath(locale, '/blog/tags/'), title: tagLabel, eyebrow: i18n.blog.browseByTag }}
 >
   <BlogSearch locale={locale} />

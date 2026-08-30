@@ -17,11 +17,12 @@
   padding: 0;
 }
 
-/* SC 1.4.11 asks 3:1 of a focus indicator against its ground. --color-green is the brand
-   lime at 2.20:1 on white; --color-green-text resolves to #5aa302 (3.15:1) on light and back
-   to the lime on dark, where the lime already measures 8.58:1. */
+/* SC 1.4.11 asks 3:1 of a focus indicator against the ground it is drawn on, and outline-offset
+   means that ground is the parent's, not the page's. See --color-focus-ring below for the
+   measurements. Every other rule that paints a focus ring uses the same token; two that did not
+   overrode this one on specificity and shipped a 2.02:1 ring on the subscribe band. */
 :focus-visible {
-  outline: 2px solid var(--color-green-text);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
@@ -35,6 +36,11 @@
      Theme-aware: dark backgrounds keep the bright lime. */
   --color-green-text: #5aa302;
   --color-green-text-hover: #4a8601;
+  /* The focus ring has its own token because it is drawn on more grounds than any other green.
+     outline-offset paints it on the parent's background, and most focusable controls sit on
+     --code-bg, --badge-bg or --bg-secondary rather than on white. SC 1.4.11 asks 3:1 of every
+     one of those: #5aa302 gives 2.76 on the darkest of them, #4a8601 gives 3.92. */
+  --color-focus-ring: #4a8601;
   --color-white: #ffffff;
 
   --bg-primary: #ffffff;
@@ -98,6 +104,8 @@
   --border-color: #333333;
   --color-green-text: var(--color-green);
   --color-green-text-hover: var(--color-green-dark);
+  /* On the dark grounds the brand lime is 7.58:1 at worst, so the ring keeps the brand colour. */
+  --color-focus-ring: var(--color-green);
   --device-edge: rgba(0, 0, 0, 0.5);
   --device-shadow: 0 16px 40px rgba(255, 255, 255, 0.08); /* faint light lift on the dark page */
   --shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
@@ -1457,11 +1465,11 @@ a.series-card-inner:hover {
   border-radius: 12px;
 }
 
-/* The wrapper is focusable so a keyboard can scroll it, so it needs a visible focus ring.
-   --color-green-text, not --color-green: the lime is 2.20:1 on a light ground and SC 1.4.11
-   asks 3:1 of a focus indicator. The token is theme-aware and keeps the lime in dark. */
+/* The wrapper is focusable so a keyboard can scroll it, so it needs a visible focus ring. This
+   rule is redundant with the universal one above and kept only as documentation of that; it uses
+   the same token, so the two cannot drift. */
 .prose .table-wrapper:focus-visible {
-  outline: 2px solid var(--color-green-text);
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 

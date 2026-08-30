@@ -109,6 +109,39 @@ for (const p of mdFiles(contentDir)) {
   }
 }
 
+// Every built table wrapper must carry the keyboard attributes the rehype plugin gives it.
+// This is here because a plugin change does not invalidate Astro's content-layer store, which is
+// keyed on content digests: an incremental build re-emitted 84 wrappers with the plugin's own
+// output missing, and no gate noticed. The prebuild step now clears that store, and this is the
+// check that would have caught it either way.
+{
+  const pages = [];
+  const walk = dir => {
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) walk(p);
+      else if (e.name === 'index.html') pages.push(p);
+    }
+  };
+  const distDir = join(root, 'dist');
+  if (existsSync(distDir)) walk(distDir);
+  let bare = 0;
+  for (const page of pages) {
+    const html = readFileSync(page, 'utf8');
+    for (const m of html.matchAll(/<div class="table-wrapper"([^>]*)>/g)) {
+      if (!/tabindex="0"/.test(m[1]) || !/role="region"/.test(m[1]) || !/aria-label=/.test(m[1])) {
+        bare++;
+      }
+    }
+  }
+  if (bare) {
+    failures.push(
+      `${bare} table wrapper(s) built without tabindex/role/aria-label — stale content cache? ` +
+        'remove node_modules/.astro and rebuild',
+    );
+  }
+}
+
 if (failures.length) {
   console.error(`verify-render: ${failures.length} failure(s)`);
   for (const f of failures) console.error('  ✖ ' + f);

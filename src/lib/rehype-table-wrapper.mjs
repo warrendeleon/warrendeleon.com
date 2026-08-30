@@ -2,6 +2,32 @@
 // The .prose grid column is min-width:0, so an unwrapped wide table would
 // overflow the viewport and stretch the page on narrow screens. The wrapper
 // keeps the table at its natural width and scrolls it within the column.
+
+/** The text of a node and everything under it, flattened and squeezed. */
+function textOf(node) {
+  if (!node) return '';
+  if (node.type === 'text') return node.value ?? '';
+  return (node.children ?? []).map(textOf).join('');
+}
+
+/** The first header cell, which is what distinguishes one table from the next on a page. */
+function firstHeading(table) {
+  let found = '';
+  const walk = node => {
+    if (found || !node?.children) return;
+    for (const child of node.children) {
+      if (child.type === 'element' && child.tagName === 'th') {
+        found = textOf(child).replace(/\s+/g, ' ').trim();
+        return;
+      }
+      walk(child);
+      if (found) return;
+    }
+  };
+  walk(table);
+  return found;
+}
+
 export default function rehypeTableWrapper() {
   return (tree) => {
     const walk = (node) => {
@@ -9,6 +35,13 @@ export default function rehypeTableWrapper() {
       for (let i = 0; i < node.children.length; i++) {
         const child = node.children[i];
         if (child.type === 'element' && child.tagName === 'table') {
+          // The name comes from the table's own first header cell. A constant label gave every
+          // wrapper on a page the same name — one article shipped eight regions all called
+          // "Table, scrollable" — and landmarks of the same role need distinguishable names.
+          // It also no longer asserts scrolling: whether the wrapper overflows depends on the
+          // viewport, and most of them do not at desktop widths, so seven of those eight were
+          // announcing a behaviour that was not there.
+          const heading = firstHeading(child);
           node.children[i] = {
             type: 'element',
             tagName: 'div',
@@ -21,7 +54,7 @@ export default function rehypeTableWrapper() {
               className: ['table-wrapper'],
               tabindex: '0',
               role: 'region',
-              'aria-label': 'Table, scrollable',
+              'aria-label': heading ? `Table: ${heading}` : 'Table',
             },
             children: [child],
           };
