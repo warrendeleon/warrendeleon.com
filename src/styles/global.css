@@ -1454,6 +1454,12 @@ a.series-card-inner:hover {
   border-radius: 12px;
 }
 
+/* The wrapper is focusable so a keyboard can scroll it, so it needs a visible focus ring. */
+.prose .table-wrapper:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 2px;
+}
+
 /* ---- Shared documentation patterns. Born in the design docs, promoted here
    so articles can use them as raw HTML and the docs ride the same classes.
    Do/don't guidance cards, compare columns, the small mono-headed table,

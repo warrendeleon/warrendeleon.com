@@ -12,7 +12,17 @@ export default function rehypeTableWrapper() {
           node.children[i] = {
             type: 'element',
             tagName: 'div',
-            properties: { className: ['table-wrapper'] },
+            // tabindex and a named region, because the wrapper scrolls. A scrollable container
+            // that no keyboard can reach fails WCAG 2.1.1 Keyboard at Level A: a table wider
+            // than the viewport has content only a mouse or a finger can get to. Every code
+            // block on the site already carries tabindex="0" for the same reason; the table
+            // wrapper was the one scroller that did not.
+            properties: {
+              className: ['table-wrapper'],
+              tabindex: '0',
+              role: 'region',
+              'aria-label': 'Table, scrollable',
+            },
             children: [child],
           };
         }
