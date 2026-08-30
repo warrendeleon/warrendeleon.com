@@ -1587,7 +1587,7 @@
     "seoTitle": "Accessibilitat | Sistema de disseny | Warren de Leon",
     "seoDescription": "Els estàndards d'accessibilitat que compleix warrendeleon.com: regions de referència, un anell de focus visible, àrees d'interacció generoses, moviment reduït i el compromís del verd llegible.",
     "title": "Accessibilitat",
-    "intro": "Els estàndards amb què s'ha construït el lloc, mesurats segons la WCAG 2.2 amb l'AA com a objectiu. El que segueix és el que fa realment el codi, inclòs l'únic punt on el verd de marca ha forçat un compromís honest.",
+    "intro": "Els estàndards amb què està construït el lloc, mesurats contra WCAG 2.2 amb AA com a objectiu. El que segueix és el que fa realment el codi, inclòs on el verd de marca va obligar a un compromís honest.",
     "toc": [
       {
         "id": "standards",
@@ -1636,7 +1636,7 @@
       }
     ],
     "contrastHeading": "El compromís del verd llegible",
-    "contrastBody": "El verd de marca és un llima brillant, i el llima brillant no es llegeix com a text sobre blanc. Mesurat segons la WCAG, #6dc402 sobre blanc és d'uns 2,2:1, per sota fins i tot del llindar de 3:1 per al text gran. Per això existeix un segon token: `--color-green-text` rebaixa el verd fins a #5aa302, que supera el 3:1. Amb això n'hi ha prou per al text gran o en negreta, per als encapçalaments i per als accents d'interfície com l'anell de focus, i s'utilitza per a això, no per al text del cos.",
+    "contrastBody": "El verd de marca és una llima brillant, i la llima brillant no es llegeix com a text sobre blanc: --color-green mesura 2,2:1 allà. D'aquí surten dues decisions. El text que ha d'anar sobre el verd fa servir --color-on-green, una tinta gairebé negra a 8,8:1, i per això cap botó ni enllaç de salt pinta blanc sobre la llima. I el verd fet servir com a text fa servir --color-green-text, que supera el llindar de 3:1 per a text gran i interfície sobre blanc amb 3,2:1 — només sobre blanc. Sobre les bandes tintades baixa a 2,8:1, així que és un color per a fons blancs, no un accent general.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sobre blanc",

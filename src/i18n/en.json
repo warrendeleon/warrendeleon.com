@@ -276,7 +276,8 @@
     "close": "Close",
     "breadcrumb": "Breadcrumb",
     "tableNamed": "Table: {name}",
-    "table": "Table"
+    "table": "Table",
+    "code": "Code"
   },
   "notFound": {
     "title": "Page not found",

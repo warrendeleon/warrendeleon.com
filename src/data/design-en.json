@@ -1587,7 +1587,7 @@
     "seoTitle": "Accessibility | Design system | Warren de Leon",
     "seoDescription": "The accessibility standards warrendeleon.com holds itself to: landmarks, a visible focus ring, generous targets, reduced motion, and the readable-green trade.",
     "title": "Accessibility",
-    "intro": "The standards the site is built to, measured against WCAG 2.2 with AA as the target. What follows is what the code actually does, including the one place the brand green forced an honest trade.",
+    "intro": "The standards the site is built to, measured against WCAG 2.2 with AA as the target. What follows is what the code actually does, including where the brand green forced an honest trade.",
     "toc": [
       {
         "id": "standards",
@@ -1636,7 +1636,7 @@
       }
     ],
     "contrastHeading": "The readable-green trade",
-    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white. Measured against WCAG, #6dc402 on white is about 2.2 to 1, below even the 3-to-1 bar for large text. That is why a second token exists: `--color-green-text` steps the green down to #5aa302, which clears 3 to 1. That is enough for large or bold text, for headings, and for interface accents like the focus ring, and it is used for those, not for body copy.",
+    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white: --color-green measures 2.2:1 there. Two decisions follow. Text that must sit on the green takes --color-on-green, a near-black ink at 8.8:1, which is why no button or skip link paints white on the lime. And green used as text takes --color-green-text, which clears the 3:1 large-text and UI bar on white at 3.2:1 — on white only. On the tinted bands it drops to 2.8:1, so it is a colour for white grounds, not a general accent.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "On white",

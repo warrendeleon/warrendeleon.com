@@ -158,6 +158,35 @@ for (const p of mdFiles(contentDir)) {
         'output is missing entirely; remove node_modules/.astro and rebuild',
     );
   }
+
+  // The diagram has to reach the page, not merely exist on disk. The check above this file's
+  // first section proves the SVG was generated; nothing proved it was inserted. With a no-op
+  // inliner the build stayed green and a post shipped its only diagram as a raw markdown fence,
+  // which is the same count-the-output fault the table check exists for, on the sibling asset.
+  let rawFences = 0;
+  let emptyBlocks = 0;
+  for (const page of pages) {
+    const html = readFileSync(page, 'utf8');
+    // A fence that never went through the inliner survives as Shiki-highlighted markdown.
+    for (const _ of html.matchAll(/<pre[^>]*class="[^"]*astro-code[^"]*"[^>]*data-language="mermaid"/g)) rawFences++;
+    for (const _ of html.matchAll(/<code[^>]*class="[^"]*language-mermaid[^"]*"/g)) rawFences++;
+    // A prerendered block that carries no inline SVG is an empty frame.
+    for (const m of html.matchAll(/<pre[^>]*class="[^"]*\bmermaid\b[^"]*"[^>]*>([\s\S]*?)<\/pre>/g)) {
+      if (!/<svg[\s>]/.test(m[1])) emptyBlocks++;
+    }
+  }
+  if (rawFences) {
+    failures.push(
+      `${rawFences} mermaid fence(s) shipped as raw markdown — the prerender plugin did not run; ` +
+        'remove node_modules/.astro and rebuild',
+    );
+  }
+  if (emptyBlocks) {
+    failures.push(
+      `${emptyBlocks} prerendered mermaid block(s) carry no inline <svg> — the SVG exists on disk ` +
+        'but was not inserted into the page',
+    );
+  }
 }
 
 if (failures.length) {

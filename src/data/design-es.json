@@ -1587,7 +1587,7 @@
     "seoTitle": "Accesibilidad | Sistema de diseño | Warren de Leon",
     "seoDescription": "Los estándares de accesibilidad que cumple warrendeleon.com: puntos de referencia, un anillo de foco visible, objetivos táctiles generosos, movimiento reducido y la concesión del verde legible.",
     "title": "Accesibilidad",
-    "intro": "Los estándares con los que está construido el sitio, medidos frente a WCAG 2.2 con AA como objetivo. Lo que sigue es lo que el código hace en realidad, incluido el único punto en el que el verde de marca obligó a una concesión honesta.",
+    "intro": "Los estándares con los que está construido el sitio, medidos contra WCAG 2.2 con AA como objetivo. Lo que sigue es lo que hace el código realmente, incluido dónde el verde de marca obligó a un compromiso honesto.",
     "toc": [
       {
         "id": "standards",
@@ -1636,7 +1636,7 @@
       }
     ],
     "contrastHeading": "La concesión del verde legible",
-    "contrastBody": "El verde de marca es un lima brillante, y un lima brillante no se lee como texto sobre blanco. Medido frente a WCAG, #6dc402 sobre blanco da unos 2,2:1, por debajo incluso del umbral de 3:1 para texto grande. Por eso existe un segundo token: `--color-green-text` baja el verde a #5aa302, que supera el 3:1. Eso basta para el texto grande o en negrita, para los encabezados y para los acentos de interfaz como el anillo de foco, y se usa para eso, no para el cuerpo de texto.",
+    "contrastBody": "El verde de marca es una lima brillante, y la lima brillante no se lee como texto sobre blanco: --color-green mide 2,2:1 ahí. De ahí salen dos decisiones. El texto que debe ir sobre el verde usa --color-on-green, una tinta casi negra a 8,8:1, y por eso ningún botón ni enlace de salto pinta blanco sobre la lima. Y el verde usado como texto usa --color-green-text, que supera el listón de 3:1 para texto grande e interfaz sobre blanco con 3,2:1 — solo sobre blanco. Sobre las bandas tintadas baja a 2,8:1, así que es un color para fondos blancos, no un acento general.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sobre blanco",

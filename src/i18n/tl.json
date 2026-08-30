@@ -276,7 +276,8 @@
     "close": "Isara",
     "breadcrumb": "Breadcrumb",
     "tableNamed": "Talahanayan: {name}",
-    "table": "Talahanayan"
+    "table": "Talahanayan",
+    "code": "Code"
   },
   "notFound": {
     "title": "Hindi natagpuan ang pahina",

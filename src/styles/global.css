@@ -46,6 +46,12 @@
      lime clears the dark page at 8.58:1 and fails those swatches at 1.66:1, which is why it is
      not used here and why there is no dark override below. */
   --color-focus-ring: #4a8601;
+  /* Ink for text sitting ON the brand green. The lime is a fill, not a background for white:
+     white on it is 2.20:1 and on --color-green-dark 3.15:1, both under the 4.5:1 normal text
+     needs — and the skip link, every primary button and the cookie Accept were all painting it.
+     This value is the light theme's own --text-primary, and it is deliberately NOT theme-aware,
+     because the green it sits on is not either: 8.80:1 on the lime, 6.15:1 on green-dark. */
+  --color-on-green: #0e0c19;
   --color-white: #ffffff;
 
   --bg-primary: #ffffff;
@@ -435,12 +441,12 @@ h4 { font-size: var(--fs-h4); }
 
 .btn-primary {
   background: var(--color-green);
-  color: var(--color-white);
+  color: var(--color-on-green);
 }
 
 .btn-primary:hover {
   background: var(--color-green-dark);
-  color: var(--color-white);
+  color: var(--color-on-green);
 }
 
 .btn-outline {
@@ -451,7 +457,7 @@ h4 { font-size: var(--fs-h4); }
 
 .btn-outline:hover {
   background: var(--color-green);
-  color: var(--color-white);
+  color: var(--color-on-green);
 }
 
 /* Card */
@@ -511,12 +517,12 @@ h4 { font-size: var(--fs-h4); }
 
 .hero-cta-solid {
   background: var(--color-green);
-  color: #fff;
+  color: var(--color-on-green);
 }
 
 .hero-cta-solid:hover {
   background: var(--color-green-dark);
-  color: #fff;
+  color: var(--color-on-green);
 }
 
 .hero-cta-outline {
@@ -1867,7 +1873,7 @@ ul.dot-list {
   padding: 0 0.4rem;
   border-radius: 12px;
   background: var(--color-green);
-  color: #fff;
+  color: var(--color-on-green);
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -2145,7 +2151,7 @@ ul.dot-list {
   top: -100%;
   left: 0;
   background: var(--color-green);
-  color: white;
+  color: var(--color-on-green);
   padding: 0.75rem 1.5rem;
   z-index: 100;
   font-weight: 600;

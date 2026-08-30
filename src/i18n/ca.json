@@ -276,7 +276,8 @@
     "close": "Tancar",
     "breadcrumb": "Ruta de navegació",
     "tableNamed": "Taula: {name}",
-    "table": "Taula"
+    "table": "Taula",
+    "code": "Codi"
   },
   "notFound": {
     "title": "Pàgina no trobada",

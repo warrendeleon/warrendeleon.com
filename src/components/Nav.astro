@@ -37,7 +37,7 @@ const navLinks = [
         <div class="nav-back-heading">{mobileBack.title}</div>
       </div>
     )}
-    <a href={getLocalePath(locale, '/')} class="nav-logo" aria-label="Warren de Leon, home">
+    <a href={getLocalePath(locale, '/')} class="nav-logo" aria-label={`Warren de Leon, ${i18n.nav.home.toLowerCase()}`}>
       <img src="/images/logo.gif" alt="Warren de Leon" class="nav-logo-img" />
     </a>
 

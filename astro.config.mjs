@@ -8,6 +8,25 @@ import pagefind from './src/lib/astro-pagefind.mjs';
 
 // ```ts title="src/file.ts" — surfaces the file path as a bar above the code
 // block (styled from global.css via pre[data-filename]).
+// GitHub's own comment grey fails AA on both our code grounds: #6A737D is 4.42:1 on the light
+// code background and 3.61:1 on the dark one, where normal text needs 4.5:1. Comments are the one
+// token in a code block that carries prose, and on a post that publishes a WCAG bar they should
+// meet it. Both replacements keep the same hue and stay within GitHub's palette family.
+const COMMENT_GREY = /^#6A737D$/i;
+const READABLE = { light: '#5F6873', dark: '#8B949E' };
+
+/** @type {import('shiki').ShikiTransformer} */
+const readableComments = {
+  name: 'readable-comments',
+  span(node) {
+    const style = node.properties?.style;
+    if (typeof style !== 'string') return;
+    node.properties.style = style
+      .replace(/color:(#6A737D)/i, `color:${READABLE.light}`)
+      .replace(/--shiki-dark:(#6A737D)/i, `--shiki-dark:${READABLE.dark}`);
+  },
+};
+
 /** @type {import('shiki').ShikiTransformer} */
 const codeFilename = {
   name: 'code-filename',
@@ -82,7 +101,7 @@ export default defineConfig({
         light: 'github-light',
         dark: 'github-dark',
       },
-      transformers: [codeFilename],
+      transformers: [codeFilename, readableComments],
     },
     // Mermaid diagrams are pre-rendered to SVG at authoring time
     // (scripts/render-mermaid.mjs); the rehype plugin inlines them at build,

@@ -1587,7 +1587,7 @@
     "seoTitle": "Aksesibilidad | Disenyo | Warren de Leon",
     "seoDescription": "Ang mga pamantayan sa aksesibilidad na sinusunod ng warrendeleon.com: mga landmark, isang nakikitang focus ring, maluwag na mga target, reduced motion, at ang trade-off para sa nababasang green.",
     "title": "Aksesibilidad",
-    "intro": "Ang mga pamantayang ginamit sa pagbuo ng site, sinukat laban sa WCAG 2.2 na may AA bilang target. Ang mga sumusunod ay kung ano talaga ang ginagawa ng code: kabilang ang isang lugar kung saan pinilit ng brand green ang isang tapat na trade-off.",
+    "intro": "Ang mga pamantayang pinagbatayan ng site, sinukat laban sa WCAG 2.2 na may AA bilang target. Ang sumusunod ay kung ano talaga ang ginagawa ng code, kasama kung saan napilitan ang brand green sa isang tapat na kompromiso.",
     "toc": [
       {
         "id": "standards",
@@ -1636,7 +1636,7 @@
       }
     ],
     "contrastHeading": "Ang trade-off para sa nababasang green",
-    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti. Sinukat laban sa WCAG, ang #6dc402 sa puti ay mga 2.2 to 1: mas mababa pa sa 3-to-1 na pamantayan para sa malaking teksto. Kaya't may umiiral na pangalawang token: ibinababa ng `--color-green-text` ang green sa #5aa302, na lumalampas sa 3 to 1. Sapat na iyon para sa malaki o bold na teksto, para sa mga heading, at para sa mga interface accent tulad ng focus ring, at ginagamit iyon para sa mga iyon, hindi para sa body copy.",
+    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti: 2.2:1 ang sukat ng --color-green doon. Dalawang desisyon ang sumusunod. Ang tekstong kailangang nakapatong sa berde ay gumagamit ng --color-on-green, isang halos itim na tinta sa 8.8:1, kaya walang button o skip link na nagpipinta ng puti sa lime. At ang berdeng ginagamit bilang teksto ay gumagamit ng --color-green-text, na lumalampas sa 3:1 na pamantayan para sa malaking teksto at interface sa puti sa 3.2:1 — sa puti lamang. Sa mga tinted na banda ay bumababa ito sa 2.8:1, kaya kulay ito para sa puting pundo, hindi pangkalahatang accent.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sa puti",

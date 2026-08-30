@@ -20,6 +20,14 @@ function hashDiagram(source) {
   return createHash('sha256').update(configText).update(source.trim()).digest('hex').slice(0, 12);
 }
 
+const DIAGRAM = { en: 'Diagram', es: 'Diagrama', ca: 'Diagrama', tl: 'Larawan' };
+
+function localeOf(file) {
+  const path = file?.history?.[0] ?? file?.path ?? '';
+  const found = /src\/content\/blog\/(es|ca|tl)\//.exec(path);
+  return found ? found[1] : 'en';
+}
+
 export default function rehypeMermaidPrerendered() {
   return (tree, file) => {
     visit(tree, 'element', (node, index, parent) => {
@@ -47,7 +55,16 @@ export default function rehypeMermaidPrerendered() {
       parent.children[index] = {
         type: 'element',
         tagName: 'pre',
-        properties: { className: ['mermaid'], 'data-processed': 'true', 'data-prerendered': 'true' },
+        // The inlined SVG carries role="graphics-document document" and no name of its own, so
+        // the block is named here. Assistive tech otherwise announces an unnamed graphic; the
+        // prose after each diagram carries the detail, this just says what the thing is.
+        properties: {
+          className: ['mermaid'],
+          'data-processed': 'true',
+          'data-prerendered': 'true',
+          role: 'img',
+          'aria-label': DIAGRAM[localeOf(file)] ?? DIAGRAM.en,
+        },
         children: svgTree.children,
       };
     });

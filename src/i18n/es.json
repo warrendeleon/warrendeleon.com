@@ -276,7 +276,8 @@
     "close": "Cerrar",
     "breadcrumb": "Ruta de navegación",
     "tableNamed": "Tabla: {name}",
-    "table": "Tabla"
+    "table": "Tabla",
+    "code": "Código"
   },
   "notFound": {
     "title": "Página no encontrada",

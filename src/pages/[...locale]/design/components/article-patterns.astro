@@ -83,7 +83,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
     <p set:html={md(a.tablesBody)} />
     <div class="prose ds-prose-demo">
       <!-- 1. Classic table card: sticky first column, mono header strip. -->
-      <div class="table-wrapper" tabindex="0" role="region" aria-label="Table: Element">
+      <div class="table-wrapper" tabindex="0" role="region" aria-label={tableLabel(locale, 'Element')}>
         <table>
           <thead>
             <tr>{a.tableClassic.headers.map((h) => <th>{h}</th>)}</tr>
