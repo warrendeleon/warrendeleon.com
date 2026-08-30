@@ -17,7 +17,7 @@ const currentPath = getLocalePath(locale, '/design/accessibility/');
 // global.css); status is 'pass' | 'partial' | 'fail'. Literals, not prose.
 const contrastRows = [
   { token: '--color-green', hex: '#6dc402', white: '2.2:1', whiteStatus: 'fail', dark: '8.6:1', darkStatus: 'pass' },
-  { token: '--color-green-text', hex: '#5aa302', white: '3.2:1', whiteStatus: 'partial', dark: '6.0:1', darkStatus: 'pass' },
+  { token: '--color-green-text', hex: '#427401', white: '5.6:1', whiteStatus: 'pass', dark: '8.6:1', darkStatus: 'pass' },
   { token: '--color-on-green', hex: '#0e0c19', white: '8.8:1', whiteStatus: 'pass', dark: '6.2:1', darkStatus: 'pass' },
 ] as const;
 ---
@@ -56,8 +56,8 @@ const contrastRows = [
     <div class="ds-contrast-demo">
       <div class="ds-contrast-stage ds-cs-light">
         <span style="color: #6dc402;">{a.contrastSampleText}</span>
-        <span style="color: #5aa302; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>
-        <span class="ds-cs-hexes"><CopyHex value="#6dc402" label={d.copyLabel} /> <CopyHex value="#5aa302" label={d.copyLabel} /></span>
+        <span style="color: #427401; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>
+        <span class="ds-cs-hexes"><CopyHex value="#6dc402" label={d.copyLabel} /> <CopyHex value="#427401" label={d.copyLabel} /></span>
       </div>
       <div class="ds-contrast-stage ds-cs-dark">
         <span style="color: #6dc402; text-decoration: underline; text-underline-offset: 2px;">{a.contrastSampleText}</span>

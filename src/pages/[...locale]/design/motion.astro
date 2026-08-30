@@ -1,5 +1,6 @@
 ---
 import { Code } from 'astro:components';
+import readableTokens from '../../../lib/shiki-readable-tokens.mjs';
 import { md } from '../../../lib/inline-markup';
 import DesignLayout from '../../../components/design/DesignLayout.astro';
 import { getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
@@ -60,7 +61,7 @@ const reducedCss = `@media (prefers-reduced-motion: reduce) {
     <h2>{mo.reducedHeading}</h2>
     <p set:html={md(mo.reducedBody)} />
     <figure class="ds-codeblock">
-      <Code code={reducedCss} lang="css" themes={{ light: 'github-light', dark: 'github-dark' }} />
+      <Code code={reducedCss} lang="css" themes={{ light: 'github-light', dark: 'github-dark' }} transformers={[readableTokens]} />
       <figcaption>{mo.reducedCaption}</figcaption>
     </figure>
   </section>

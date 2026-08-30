@@ -1635,8 +1635,8 @@
         "sc": "1.4.1 Use of Colour · A"
       }
     ],
-    "contrastHeading": "Ang trade-off para sa nababasang green",
-    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti: 2.2:1 ang sukat ng --color-green doon. Dalawang desisyon ang sumusunod. Ang tekstong kailangang nakapatong sa berde ay gumagamit ng --color-on-green, isang halos itim na tinta sa 8.8:1, kaya walang button o skip link na nagpipinta ng puti sa lime. At ang berdeng ginagamit bilang teksto ay gumagamit ng --color-green-text, na lumalampas sa 3:1 na pamantayan para sa malaking teksto at interface sa puti sa 3.2:1 — sa puti lamang. Sa mga tinted na banda ay bumababa ito sa 2.8:1, kaya kulay ito para sa puting pundo, hindi pangkalahatang accent.",
+    "contrastHeading": "Ang nababasang green",
+    "contrastBody": "Ang brand green ay isang maliwanag na lime, at ang maliwanag na lime ay hindi nababasa bilang teksto sa puti: 2.2:1 ang sukat ng --color-green doon. Dalawang desisyon ang sumusunod. Ang tekstong kailangang nakapatong sa berde ay gumagamit ng --color-on-green, isang halos itim na tinta sa 8.8:1, kaya walang button o skip link na nagpipinta ng puti sa lime. At ang berdeng ginagamit bilang teksto ay gumagamit ng --color-green-text, isang mas malalim na berde na lumalampas sa 4.5:1 na pamantayan para sa normal na teksto sa lahat ng maliwanag na pundong dinadapuan nito: 5.6:1 sa puti, 5.2:1 sa mga tinted na banda at 4.9:1 sa laman ng badge. Pinapanatili ng dark mode ang brand lime, na nababasa sa 8.6:1 sa pahina.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sa puti",
@@ -1648,7 +1648,7 @@
       "fail": "Bumabagsak sa pamantayan"
     },
     "contrastSampleText": "Isang green na link",
-    "contrastLimitation": "Ang tapat na bahagi: sa laki ng pagbabasa ng body sa isang maliwanag na background, ang isang green na link ay nasa mga 3.2 to 1: lampas sa pamantayan para sa malaking teksto, kulang sa 4.5-to-1 na pamantayan para sa normal na teksto. Tinatanggap ng site ang trade-off na iyon upang mapanatili ang iisa nitong brand na kulay, at pinapalambot ito sa dalawang paraan. Ang mga link sa artikulo ay may salungguhit, kaya ang kulay ay hindi kailanman ang tanging senyas; at ganap itong nireresolba ng dark mode, kung saan ang parehong lime sa halos itim ay nababasa sa mga 8.6 to 1. Ang body copy mismo ay laging neutral, at laging pumapasa.",
+    "contrastLimitation": "Hanggang Agosto 2026, isa itong trade-off. Ang --color-green-text ay mas maputlang berde na lumalampas lamang sa 3:1 na pamantayan para sa malaking teksto at interface, at sa puti lamang; sa mga tinted na banda ay bumababa ito sa 2.9:1, at doon mismo nakalagay ang author card, ang mga label na nakaraan at susunod, at ang privacy link ng subscribe form. Ang isang token na ginagamit sa mga isandaang lugar ay hindi napoprotektahan ng isang pangungusap na naglalarawan kung saan ito nababagay, kaya ang halaga ang inilipat sa halip na ang dokumentasyon, at ngayon ay lumalampas na ang bawat gamit sa pamantayan para sa normal na teksto sa parehong tema. Nananatiling may salungguhit ang mga link sa artikulo, kaya hindi kailanman ang kulay lamang ang senyas, at nananatiling neutral ang body copy.",
     "scopeHeading": "Saklaw",
     "scopeBody": "Sinasaklaw nito ang website. Ang React Native app at ang mga email template ay sarili nilang mga surface, na may sarili nilang mga pamantayan, at hindi dokumentado rito."
   },

@@ -32,10 +32,16 @@
   --color-green-dark: #5aa302;
   --color-green-light: #8fd640;
   /* Readable green for text on light backgrounds (lime itself is ~2.2:1).
-     #5aa302 clears the 3:1 bar (large/bold text + UI) and stays close to the brand lime.
-     Theme-aware: dark backgrounds keep the bright lime. */
-  --color-green-text: #5aa302;
-  --color-green-text-hover: #4a8601;
+     This used to be #5aa302, which cleared only the 3:1 large-text and UI bar, and then only on
+     white: on the tinted bands it was 2.89:1. The 2026-08-30 audit found it painting the author
+     card's profile link, the prev/next labels and the subscribe form's Privacy link — all normal
+     text, all on --bg-secondary, all needing 4.5:1. A token used in about a hundred places cannot
+     be scoped by documentation, so the value moved instead of the prose: #427401 is 5.63:1 on
+     white, 5.17:1 on --bg-secondary and 4.94:1 on --badge-bg, the palest grounds it lands on.
+     Theme-aware: dark backgrounds keep the bright lime, 7.58:1 on --bg-secondary and 8.58:1 on
+     the page. */
+  --color-green-text: #427401;
+  --color-green-text-hover: #365e01;
   /* The focus ring has its own token because it is drawn on more grounds than any other green,
      and it is deliberately the SAME value in both themes.
      outline-offset paints the ring on the parent's background, and a focusable control does not

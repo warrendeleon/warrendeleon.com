@@ -1635,8 +1635,8 @@
         "sc": "1.4.1 Uso del color · A"
       }
     ],
-    "contrastHeading": "La concesión del verde legible",
-    "contrastBody": "El verde de marca es una lima brillante, y la lima brillante no se lee como texto sobre blanco: --color-green mide 2,2:1 ahí. De ahí salen dos decisiones. El texto que debe ir sobre el verde usa --color-on-green, una tinta casi negra a 8,8:1, y por eso ningún botón ni enlace de salto pinta blanco sobre la lima. Y el verde usado como texto usa --color-green-text, que supera el listón de 3:1 para texto grande e interfaz sobre blanco con 3,2:1 — solo sobre blanco. Sobre las bandas tintadas baja a 2,8:1, así que es un color para fondos blancos, no un acento general.",
+    "contrastHeading": "El verde legible",
+    "contrastBody": "El verde de marca es una lima brillante, y la lima brillante no se lee como texto sobre blanco: --color-green mide 2,2:1 ahí. De ahí salen dos decisiones. El texto que debe ir sobre el verde usa --color-on-green, una tinta casi negra a 8,8:1, y por eso ningún botón ni enlace de salto pinta blanco sobre la lima. Y el verde usado como texto usa --color-green-text, un verde más profundo que supera el listón de 4,5:1 para texto normal en todos los fondos claros donde aparece: 5,6:1 sobre blanco, 5,2:1 sobre las bandas tintadas y 4,9:1 sobre el relleno de las etiquetas. El modo oscuro conserva la lima de marca, que se lee a 8,6:1 en la página.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sobre blanco",
@@ -1648,7 +1648,7 @@
       "fail": "No alcanza el umbral"
     },
     "contrastSampleText": "Un enlace verde",
-    "contrastLimitation": "La parte honesta: al tamaño de lectura del cuerpo sobre un fondo claro, un enlace verde se queda en torno a 3,2:1, por encima del umbral de texto grande pero por debajo del umbral de 4,5:1 para texto normal. El sitio acepta esa concesión para conservar su único color de marca, y la suaviza de dos maneras. Los enlaces de los artículos van subrayados, así que el color nunca es la única señal; y el modo oscuro lo resuelve del todo, donde el mismo lima sobre casi negro se lee en torno a 8,6:1. El cuerpo de texto en sí siempre es neutro, y siempre cumple.",
+    "contrastLimitation": "Hasta agosto de 2026 esto era una concesión. --color-green-text era un verde más claro que solo superaba el listón de 3:1 para texto grande e interfaz, y solo sobre blanco; sobre las bandas tintadas bajaba a 2,9:1, que es justo donde están la tarjeta del autor, las etiquetas de anterior y siguiente y el enlace de privacidad del formulario de suscripción. Un token que se usa en un centenar de sitios no se protege con una frase que explique dónde corresponde, así que se movió el valor en lugar de la documentación, y ahora todos los usos superan el listón de texto normal en ambos temas. Los enlaces de los artículos siguen subrayados, así que el color nunca es la única señal, y el cuerpo de texto sigue siendo neutro.",
     "scopeHeading": "Alcance",
     "scopeBody": "Esto cubre el sitio web. La aplicación de React Native y las plantillas de correo son superficies propias, con sus propios estándares, y no se documentan aquí."
   },

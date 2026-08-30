@@ -1635,8 +1635,8 @@
         "sc": "1.4.1 Use of Colour · A"
       }
     ],
-    "contrastHeading": "El compromís del verd llegible",
-    "contrastBody": "El verd de marca és una llima brillant, i la llima brillant no es llegeix com a text sobre blanc: --color-green mesura 2,2:1 allà. D'aquí surten dues decisions. El text que ha d'anar sobre el verd fa servir --color-on-green, una tinta gairebé negra a 8,8:1, i per això cap botó ni enllaç de salt pinta blanc sobre la llima. I el verd fet servir com a text fa servir --color-green-text, que supera el llindar de 3:1 per a text gran i interfície sobre blanc amb 3,2:1 — només sobre blanc. Sobre les bandes tintades baixa a 2,8:1, així que és un color per a fons blancs, no un accent general.",
+    "contrastHeading": "El verd llegible",
+    "contrastBody": "El verd de marca és una llima brillant, i la llima brillant no es llegeix com a text sobre blanc: --color-green mesura 2,2:1 allà. D'aquí surten dues decisions. El text que ha d'anar sobre el verd fa servir --color-on-green, una tinta gairebé negra a 8,8:1, i per això cap botó ni enllaç de salt pinta blanc sobre la llima. I el verd fet servir com a text fa servir --color-green-text, un verd més profund que supera el llindar de 4,5:1 per al text normal en tots els fons clars on apareix: 5,6:1 sobre blanc, 5,2:1 sobre les bandes tintades i 4,9:1 sobre l'emplenat de les etiquetes. El mode fosc conserva la llima de marca, que es llegeix a 8,6:1 a la pàgina.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "Sobre blanc",
@@ -1648,7 +1648,7 @@
       "fail": "No arriba al llindar"
     },
     "contrastSampleText": "Un enllaç verd",
-    "contrastLimitation": "La part honesta: a la mida de lectura del cos sobre un fons clar, un enllaç verd se situa a uns 3,2:1, per sobre del llindar del text gran però per sota del llindar de 4,5:1 per al text normal. El lloc accepta aquest compromís per conservar el seu únic color de marca, i el suavitza de dues maneres. Els enllaços dels articles estan subratllats, de manera que el color mai no és l'únic senyal; i el mode fosc ho resol del tot, on el mateix llima sobre gairebé negre es llegeix a uns 8,6:1. El text del cos, en si mateix, sempre és neutre, i sempre compleix.",
+    "contrastLimitation": "Fins a l'agost del 2026 això era un compromís. --color-green-text era un verd més clar que només superava el llindar de 3:1 per a text gran i interfície, i només sobre blanc; sobre les bandes tintades baixava a 2,9:1, que és precisament on hi ha la targeta de l'autor, les etiquetes d'anterior i següent i l'enllaç de privadesa del formulari de subscripció. Un token que es fa servir en un centenar de llocs no es protegeix amb una frase que expliqui on pertoca, així que es va moure el valor en comptes de la documentació, i ara tots els usos superen el llindar de text normal en tots dos temes. Els enllaços dels articles continuen subratllats, de manera que el color mai no és l'únic senyal, i el text del cos continua sent neutre.",
     "scopeHeading": "Abast",
     "scopeBody": "Això cobreix el lloc web. L'aplicació de React Native i les plantilles de correu són superfícies pròpies, amb els seus propis estàndards, i no es documenten aquí."
   },

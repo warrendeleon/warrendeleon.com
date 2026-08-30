@@ -2,6 +2,7 @@
 import { md } from '../../../../lib/inline-markup';
 import { specimenDiagram } from '../../../../lib/mermaid-specimen';
 import { Code } from 'astro:components';
+import readableTokens from '../../../../lib/shiki-readable-tokens.mjs';
 import SpecimenCard from '../../../../components/design/SpecimenCard.astro';
 import DesignLayout from '../../../../components/design/DesignLayout.astro';
 import MediaZoom from '../../../../components/MediaZoom.astro';
@@ -72,7 +73,7 @@ const tocHeadings = a.contentsRows.map((text) => ({ slug: 'contents', text, dept
           <span class="code-block-lang">{a.codeSampleLang}</span>
         </div>
         <!-- Shiki-highlighted like a real article block, line numbers included. -->
-        <Code code={a.codeSample} lang="tsx" themes={{ light: 'github-light', dark: 'github-dark' }} />
+        <Code code={a.codeSample} lang="tsx" themes={{ light: 'github-light', dark: 'github-dark' }} transformers={[readableTokens]} />
       </div>
     </div>
     <p set:html={md(a.codeFilenameNote)} />

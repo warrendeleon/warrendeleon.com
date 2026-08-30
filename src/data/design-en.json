@@ -1635,8 +1635,8 @@
         "sc": "1.4.1 Use of Colour · A"
       }
     ],
-    "contrastHeading": "The readable-green trade",
-    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white: --color-green measures 2.2:1 there. Two decisions follow. Text that must sit on the green takes --color-on-green, a near-black ink at 8.8:1, which is why no button or skip link paints white on the lime. And green used as text takes --color-green-text, which clears the 3:1 large-text and UI bar on white at 3.2:1 — on white only. On the tinted bands it drops to 2.8:1, so it is a colour for white grounds, not a general accent.",
+    "contrastHeading": "The readable green",
+    "contrastBody": "The brand green is a bright lime, and bright lime does not read as text on white: --color-green measures 2.2:1 there. Two decisions follow. Text that must sit on the green takes --color-on-green, a near-black ink at 8.8:1, which is why no button or skip link paints white on the lime. And green used as text takes --color-green-text, a deeper green that clears the 4.5:1 normal-text bar on every light ground it lands on: 5.6:1 on white, 5.2:1 on the tinted bands and 4.9:1 on the badge fill. Dark mode keeps the brand lime, which reads at 8.6:1 on the page.",
     "contrastTableHeaders": {
       "token": "Token",
       "white": "On white",
@@ -1648,7 +1648,7 @@
       "fail": "Fails the bar"
     },
     "contrastSampleText": "A green link",
-    "contrastLimitation": "The honest part: at body reading size on a light background, a green link sits at about 3.2 to 1, past the large-text bar but short of the 4.5-to-1 bar for normal text. The site accepts that trade to keep its one brand colour, and softens it two ways. Article links are underlined, so colour is never the only signal; and dark mode resolves it outright, where the same lime on near-black reads at about 8.6 to 1. Body copy itself is always neutral, and always passes.",
+    "contrastLimitation": "This was a trade until August 2026. --color-green-text was a lighter green that cleared only the 3:1 large-text and interface bar, and only on white; on the tinted bands it dropped to 2.9:1, which is where the author card, the previous and next labels and the subscribe form's privacy link all sit. A token used in roughly a hundred places cannot be kept safe by a sentence describing where it belongs, so the value moved rather than the documentation, and every use now clears the normal-text bar in both themes. Article links stay underlined, so colour is never the only signal, and body copy itself stays neutral.",
     "scopeHeading": "Scope",
     "scopeBody": "This covers the website. The React Native app and the email templates are their own surfaces, with their own standards, and are not documented here."
   },

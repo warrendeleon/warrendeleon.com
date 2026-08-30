@@ -3,6 +3,7 @@
 // classes. The default slot is real markup (e.g. <button class="btn btn-primary">),
 // so what you see is what ships — never a lookalike restyled here.
 import { Code } from 'astro:components';
+import readableTokens from '../../lib/shiki-readable-tokens.mjs';
 
 interface Props {
   label?: string;
@@ -27,7 +28,7 @@ const { label, code, lang = 'html', align = 'center', plain = false } = Astro.pr
     <div class="ds-specimen-code">
       <!-- Same Shiki dual-theme pair the article pipeline uses; the global
            [data-theme="dark"] .astro-code rule swaps the palette. -->
-      <Code code={code} lang={lang as any} themes={{ light: 'github-light', dark: 'github-dark' }} />
+      <Code code={code} lang={lang as any} themes={{ light: 'github-light', dark: 'github-dark' }} transformers={[readableTokens]} />
     </div>
   )}
 </figure>
