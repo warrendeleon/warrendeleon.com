@@ -15,6 +15,9 @@ const blog = defineCollection({
     publishDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     locale: z.enum(['en', 'es', 'ca', 'tl']).default('en'),
+    // Editorial readiness belongs to each language file. Git records the evidence;
+    // this field is the complete current state, with no separate lock document.
+    status: z.enum(['candidate', 'locked', 'reopened']),
     draft: z.boolean().default(false),
     heroImage: z.string().optional(),
     heroAlt: z.string().optional(),
