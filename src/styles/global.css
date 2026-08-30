@@ -17,8 +17,11 @@
   padding: 0;
 }
 
+/* SC 1.4.11 asks 3:1 of a focus indicator against its ground. --color-green is the brand
+   lime at 2.20:1 on white; --color-green-text resolves to #5aa302 (3.15:1) on light and back
+   to the lime on dark, where the lime already measures 8.58:1. */
 :focus-visible {
-  outline: 2px solid var(--color-green);
+  outline: 2px solid var(--color-green-text);
   outline-offset: 2px;
 }
 
@@ -1454,9 +1457,11 @@ a.series-card-inner:hover {
   border-radius: 12px;
 }
 
-/* The wrapper is focusable so a keyboard can scroll it, so it needs a visible focus ring. */
+/* The wrapper is focusable so a keyboard can scroll it, so it needs a visible focus ring.
+   --color-green-text, not --color-green: the lime is 2.20:1 on a light ground and SC 1.4.11
+   asks 3:1 of a focus indicator. The token is theme-aware and keeps the lime in dark. */
 .prose .table-wrapper:focus-visible {
-  outline: 2px solid var(--color-green);
+  outline: 2px solid var(--color-green-text);
   outline-offset: 2px;
 }
 
