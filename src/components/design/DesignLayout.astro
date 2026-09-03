@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ReadingBar from '../blog/ReadingBar.astro';
-import ReadingProgress from '../blog/ReadingProgress.astro';
+import PageContents from '../PageContents.astro';
 import Toc from '../blog/Toc.astro';
 import Breadcrumb from '../Breadcrumb.astro';
 import { md } from '../../lib/inline-markup';
@@ -84,32 +83,13 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
   </section>
 
   {hasReadingBar && (
-    <>
-      <ReadingProgress locale={locale} />
-      <ReadingBar locale={locale} title={title} hidden={false} />
-
-      <!-- Contents bottom sheet — the post's own pattern and classes. -->
-      <div class="post-sheet" id="ds-toc-sheet" role="dialog" aria-modal="true" aria-label={i18n.blog.contents} hidden>
-        <div class="post-sheet-backdrop" data-overlay-close></div>
-        <div class="post-sheet-panel">
-          <div class="post-sheet-grabber" aria-hidden="true"></div>
-          <div class="post-sheet-head">
-            <span class="post-sheet-title">{i18n.blog.contents}</span>
-            <span class="post-sheet-meta" data-sheet-progress></span>
-          </div>
-          <ul class="post-sheet-list">
-            {toc.map((item, i) => (
-              <li data-sheet-item={item.id}>
-                <a href={`#${item.id}`} data-sheet-close>
-                  <span class="sheet-num" aria-hidden="true">{i + 1}</span>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </>
+    <PageContents
+      locale={locale}
+      title={title}
+      toc={toc}
+      sectionSelector=".ds-body > section[id]"
+      tocLinkSelector=".ds-contents [data-toc-link]"
+    />
   )}
 </BaseLayout>
 
@@ -126,113 +106,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     }).catch(() => { /* clipboard blocked; the value is still visible to select */ });
   });
 </script>
-
-{hasReadingBar && (
-  <script>
-    // The post reading-bar behaviour, for docs pages: ring progress, current
-    // section label, contents sheet, share, back-to-top. Same affordances as
-    // BlogPost's wiring, driven by the docs' own section anchors.
-    const bar = document.querySelector<HTMLElement>('.post-reading-bar');
-    const sheet = document.getElementById('ds-toc-sheet');
-    if (bar && sheet) {
-      const RING = 75.4;
-      const ringFill = bar.querySelector<SVGCircleElement>('.prb-ring-fill');
-      const secLabel = bar.querySelector<HTMLElement>('[data-prb-section]');
-      const progLabel = bar.querySelector<HTMLElement>('[data-prb-progress]');
-      const tocBtn = bar.querySelector<HTMLButtonElement>('[data-toc-open]');
-      const shareBtn = bar.querySelector<HTMLButtonElement>('[data-share-open]');
-      const topBtn = bar.querySelector<HTMLButtonElement>('[data-prb-top]');
-      const topBar = document.querySelector<HTMLElement>('.reading-progress-bar');
-      const tocLinks = [...document.querySelectorAll<HTMLAnchorElement>('.ds-contents [data-toc-link]')];
-      const sections = [...document.querySelectorAll<HTMLElement>('.ds-body > section[id]')];
-      const pageTitle = secLabel?.textContent ?? '';
-
-      // A ToC click pins its target as the current section: a late section
-      // often cannot reach the reading line (the page bottoms out first), so
-      // the spy would hand the highlight to a section below the one chosen.
-      // The pin holds until the user scrolls on their own.
-      let pinnedId: string | null = null;
-      const pinFrom = (link: Element) => {
-        pinnedId = (link.getAttribute('href') ?? '').slice(1) || null;
-      };
-      document.querySelectorAll('.ds-contents [data-toc-link], #ds-toc-sheet [data-sheet-close]').forEach((link) => {
-        link.addEventListener('click', () => pinFrom(link));
-      });
-      for (const evt of ['wheel', 'touchstart', 'keydown'] as const) {
-        window.addEventListener(evt, () => { pinnedId = null; }, { passive: true });
-      }
-
-      let ticking = false;
-      function paint() {
-        ticking = false;
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-        if (ringFill) ringFill.style.strokeDashoffset = String((RING * (1 - p)).toFixed(1));
-        if (progLabel) progLabel.textContent = `${Math.round(p * 100)}%`;
-        if (topBar) topBar.style.width = `${(p * 100).toFixed(1)}%`;
-        let current: HTMLElement | null = null;
-        if (pinnedId) {
-          current = sections.find((s) => s.id === pinnedId) ?? null;
-        }
-        if (!current) {
-          // The reading line sinks down the viewport with progress (same cure
-          // as BlogPost's spy): a fixed line never reaches short sections the
-          // page cannot scroll past at the end.
-          const line = 120 + Math.max(0, window.innerHeight - 240) * p;
-          for (const s of sections) {
-            if (s.getBoundingClientRect().top <= line) current = s;
-          }
-          if (max > 0 && window.scrollY >= max - 2 && sections.length) {
-            current = sections[sections.length - 1];
-          }
-        }
-        if (secLabel) secLabel.textContent = current?.querySelector('h2')?.textContent?.trim() || pageTitle;
-        // Pinned-ToC scroll-spy, the post's own .toc-active highlight.
-        for (const link of tocLinks) {
-          link.classList.toggle('toc-active', !!current && link.getAttribute('href') === `#${current.id}`);
-        }
-      }
-      window.addEventListener('scroll', () => {
-        if (ticking) return;
-        ticking = true;
-        requestAnimationFrame(paint);
-      }, { passive: true });
-      paint();
-
-      // Sheet open/close — the post sheet's is-open transition dance.
-      const desktopToc = window.matchMedia('(min-width: 1024px)');
-      const openSheet = () => {
-        if (desktopToc.matches) return; // the pinned sidebar covers it there
-        sheet.hidden = false;
-        requestAnimationFrame(() => sheet.classList.add('is-open'));
-        tocBtn?.setAttribute('aria-expanded', 'true');
-      };
-      const closeSheet = () => {
-        sheet.classList.remove('is-open');
-        tocBtn?.setAttribute('aria-expanded', 'false');
-        window.setTimeout(() => { sheet.hidden = true; }, 300);
-      };
-      tocBtn?.addEventListener('click', () => (sheet.hidden ? openSheet() : closeSheet()));
-      sheet.querySelector('[data-overlay-close]')?.addEventListener('click', closeSheet);
-      sheet.querySelectorAll('[data-sheet-close]').forEach((a) => a.addEventListener('click', closeSheet));
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !sheet.hidden) closeSheet();
-      });
-
-      // Share: the native sheet where it exists, copy-the-link otherwise.
-      shareBtn?.addEventListener('click', async () => {
-        const data = { title: document.title, url: window.location.href };
-        if (navigator.share) {
-          try { await navigator.share(data); } catch { /* dismissed */ }
-        } else {
-          try { await navigator.clipboard.writeText(data.url); } catch { /* blocked */ }
-        }
-      });
-
-      topBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    }
-  </script>
-)}
 
 <style is:global>
   /* Two-column docs shell: sticky section rail + content. Below 1280px the
@@ -262,15 +135,6 @@ const tocHeadings = toc.map((i) => ({ slug: i.id, text: i.label, depth: 2 }));
     .ds-has-toc .ds-body { grid-column: 1; grid-row: 1; }
     .ds-has-toc .ds-contents { display: block; grid-column: 2; grid-row: 1; }
     /* The Toc's own styles already pin it: sticky, top 5rem, capped height. */
-
-    /* The pinned sidebar covers contents here, as on a post. */
-    #ds-toc-sheet { display: none; }
-  }
-
-  /* On design content pages the reading bar REPLACES the dock (the post
-     rule), scoped by the sheet's presence so the hub keeps its dock. */
-  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
-    html:has(#ds-toc-sheet) nav.tab-bar[aria-label] { display: none; }
   }
 
   .ds-header { margin-bottom: 2rem; }
