@@ -6,7 +6,8 @@
     "blog": "Blog",
     "education": "Edukasyon",
     "design": "Disenyo",
-    "about": "Tungkol sa Akin"
+    "about": "Tungkol sa Akin",
+    "manual": "Paano Ako Katrabaho"
   },
   "home": {
     "title": "Warren de Leon",
@@ -249,7 +250,9 @@
     "tagDescription": "{n} {posts} na may tag na {tag} sa blog ni Warren de Leon, kasama ang {topics}. Pinakabago: {latest}.",
     "tagDescriptionNoTopics": "{n} {posts} na may tag na {tag} sa blog ni Warren de Leon. Pinakabago: {latest}.",
     "aboutTitle": "Tungkol kay Warren de Leon | Software Engineering Manager",
-    "aboutDescription": "Si Warren de Leon ay Software Engineering Manager: React Native mula 2017, dating nasa Sky at Hargreaves Lansdown. Lahat ng artikulong isinulat niya, pinakabago muna."
+    "aboutDescription": "Si Warren de Leon ay Software Engineering Manager: React Native mula 2017, dating nasa Sky at Hargreaves Lansdown. Lahat ng artikulong isinulat niya, pinakabago muna.",
+    "manualTitle": "Paano Ako Katrabaho",
+    "manualDescription": "Kung paano katrabaho si Warren de Leon: paano siya makokontak, saan siya makakatulong, paano magbigay ng feedback, at ano ang inaasahan kapag may pressure."
   },
   "a11y": {
     "mainNavigation": "Pangunahing nabigasyon",
@@ -288,5 +291,120 @@
     "blog": "Blog",
     "work": "Trabaho",
     "book": "Tawag"
+  },
+  "manual": {
+    "heading": "Paano Ako Katrabaho",
+    "lead": "Ganito ako magtrabaho, dito ako makakatulong, at ganito ako makokontak. Sinulat ko ito para hindi mo na kailangan pang hulaan.",
+    "updated": "Huling na-update noong Setyembre 2026",
+    "contents": "Nasa pahinang ito",
+    "portraitAlt": "Warren de Leon",
+    "routing": {
+      "heading": "Kung may kailangan ka",
+      "intro": "Hanapin ang row na tugma sa sitwasyon mo. Maaasahan mo ang response times na nakalagay dito; hindi lang sila target.",
+      "colNeed": "Ang sitwasyon mo",
+      "colChannel": "Saan ako kokontakin",
+      "colReply": "Kailan ka masasagot",
+      "rows": [
+        {
+          "icon": "slack",
+          "need": "Mabilisang tanong, o gusto mong mag-pair tayo sa isang bagay",
+          "channel": "Slack",
+          "reply": "Wala pang isang oras, sa oras ng trabaho"
+        },
+        {
+          "icon": "whatsapp",
+          "need": "Hindi ito puwedeng ipagpabukas",
+          "channel": "WhatsApp",
+          "channelNote": "o tawagan mo ang parehong number",
+          "reply": "Pagkakita ko rito, araw man o gabi",
+          "channelHref": "https://wa.me/447510084239"
+        },
+        {
+          "icon": "calendar",
+          "need": "Kailangan mo akong makausap nang isang buong oras",
+          "channel": "Mag-book ng tawag",
+          "channelHref": "/book-a-call/",
+          "reply": "Karaniwan, sa linggo ring iyon"
+        },
+        {
+          "icon": "oneToOne",
+          "need": "Tungkol ito sa trabaho mo, sa growth mo, o sa isang bagay na bumabagabag sa iyo",
+          "channel": "Ang 1:1 natin",
+          "reply": "Huwag mong hintayin ang susunod, lapitan mo ako agad"
+        },
+        {
+          "icon": "mail",
+          "need": "Kailangang may written record",
+          "channel": "Email",
+          "reply": "Sa loob ng isang working day"
+        },
+        {
+          "icon": "slack",
+          "need": "Hindi mo alam kung kanino ka lalapit",
+          "channel": "Slack",
+          "reply": "Aalamin ko kung sino ang may hawak nito at babalikan kita"
+        }
+      ]
+    },
+    "strengths": {
+      "heading": "Kailan ako lapitan",
+      "intro": "Sa akin nagre-report ang senior, mid-level, at associate software engineers sa team, at hands-on pa rin ako sa code halos araw-araw. Gumagamit ako ng TypeScript at React Native mula noong 2017. Sa mga naunang trabaho ko, namuno ako ng mga mobile team sa Sky at sa Hargreaves Lansdown. Dalhin mo sa akin ang:",
+      "items": [
+        "Malalim na kaalaman sa TypeScript at JavaScript, pati na ang mga type-level na problema na hindi na tungkol sa syntax",
+        "Arkitektura ng React at React Native, at kung paano ma-release ang malaking app ayon sa maaasahang schedule",
+        "Paghahati ng codebase sa maraming team nang hindi ito nagiging imposibleng i-maintain",
+        "Testing strategy, CI, at release process na talagang pinagkakatiwalaan ng team",
+        "Design system at accessibility, pati na kung paano panatilihin ang iisang standard sa maraming team",
+        "Technical direction: alin sa tatlong makatuwirang opsyon ang pipiliin, at bakit",
+        "Mentoring at coaching: mag-pair sa mahirap na problema o pag-usapan kung ano ang gusto mong mangyari sa susunod na dalawang taon",
+        "Career development, promotion cases, at hiring"
+      ]
+    },
+    "expectations": {
+      "heading": "Ano ang inaasahan ko sa iyo",
+      "paras": [
+        "Dalhin mo sa akin ang problema bago mo pa tapusin ang buong solusyon. Mas madali kong matutulungan ang ideyang hindi pa tapos kaysa sa tapos na pero mali na ang direksyon.",
+        "Sabihin mo kung ano na ang na-try mo. Alam kong pinag-isipan mo ito, kaya doon tayo magsimula at hindi sa umpisa.",
+        "Kontrahin mo ako sa harap ng lahat. Kung mali ako, mas gusto kong marinig iyon sa iyo kaysa malaman ko na lang sa production."
+      ]
+    },
+    "working": {
+      "heading": "Paano ako nagtatrabaho",
+      "hoursLabel": "Oras ng trabaho",
+      "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m.",
+      "triage": "Email at Slack muna",
+      "core": "Pinakamainam na oras para lapitan ako",
+      "paras": [
+        "Gumagana lang nang maayos ang utak ko kapag tumalab na ang kape, bandang 9:30. Napupunta ang unang kalahating oras sa email, sa Slack, at sa pag-alam kung ano talaga ang mahalaga sa araw na iyon.",
+        "Sa office, madalas mo akong makikitang naka-headphone. Pang-filter lang iyon ng ingay, hindi ibig sabihin na bawal akong istorbohin, kaya kausapin mo lang ako kung kailangan mo.",
+        "Mas maganda ang output ko kapag tahimik ang paligid at maayos ang audio at video setup, kaya mas gusto kong mag-work from home kapag puwede.",
+        "Sa tingin ko, halos lahat ng mahihirap na problema ay nareresolba sa maayos na plano at sa pagtutulungan. Malaki ang tiwala ko sa pair programming: mas gusto ko ang isang oras na kausap ka kaysa labindalawang message sa Slack."
+      ]
+    },
+    "feedback": {
+      "heading": "Paano magbigay ng feedback sa akin",
+      "paras": [
+        "Isulat mo. Gusto ko ng oras para pag-isipan ito at makasagot nang mahinahon, hindi nang depensiba.",
+        "Mas epektibo ang specific na feedback. Sabihin mo kung ano ang hindi gumana at kung ano ang mas gusto mong mangyari, at seseryosohin ko iyon.",
+        "Sana tungkol ito sa trabaho at hindi sa tao. Puwede mong sabihin na mali ang isang desisyon, minadali ang isang review, o hindi gumana ang isang plano. Mas gusto kong sabihin mo sa akin nang diretso ang totoong problema kaysa marinig ko ito bilang biro tungkol sa pagiging propesyonal ko."
+      ]
+    },
+    "pressure": {
+      "heading": "Sa ilalim ng pressure",
+      "paras": [
+        "Nakakapagtrabaho ako nang maayos kapag may pressure, pero may limitasyon iyon. Sasabihin ko sa iyo kapag naabot ko na iyon sa halip na tiisin ko na lang. Asahan mong maaga akong magsasabi, magpapahinga sandali, at hihingi ng tulong.",
+        "Kung tumahimik ako at malapit na ang deadline, tanungin mo ako nang diretso. Mas gusto kong tanungin mo ako kaysa basta mong isipin na okay lang ako."
+      ]
+    },
+    "offWork": {
+      "heading": "Sa labas ng trabaho",
+      "para": "Napakarami kong napapanood na Korean series, at may ilang BL series din mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke, mas malakas ang loob kaysa boses. Ipinanganak at lumaki ako sa Barcelona sa mga magulang na Pilipino. Nakatira ako sa United Kingdom mula noong 2016, at nasa Dartford ako ngayon.",
+      "photoAlt": "Si Warren de Leon, sa labas ng trabaho"
+    },
+    "cta": {
+      "heading": "Mas gusto mo bang mag-usap na lang tayo?",
+      "body": "Mas mabisa ang kalahating oras sa calendar kaysa sa mahabang thread.",
+      "action": "Mag-book ng tawag"
+    }
   }
 }

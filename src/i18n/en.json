@@ -6,7 +6,8 @@
     "blog": "Blog",
     "education": "Education",
     "design": "Design",
-    "about": "About"
+    "about": "About",
+    "manual": "Manual of Me"
   },
   "home": {
     "title": "Warren de Leon",
@@ -249,7 +250,9 @@
     "tagDescription": "{n} {posts} tagged {tag} on the Warren de Leon blog, alongside {topics}. Most recent: {latest}.",
     "tagDescriptionNoTopics": "{n} {posts} tagged {tag} on the Warren de Leon blog. Most recent: {latest}.",
     "aboutTitle": "About Warren de Leon | Software Engineering Manager",
-    "aboutDescription": "Warren de Leon is a Software Engineering Manager: React Native since 2017, previously Sky and Hargreaves Lansdown. Every article he has written, newest first."
+    "aboutDescription": "Warren de Leon is a Software Engineering Manager: React Native since 2017, previously Sky and Hargreaves Lansdown. Every article he has written, newest first.",
+    "manualTitle": "Manual of Me",
+    "manualDescription": "How Warren de Leon works: how to reach him, what he's useful for, how to give him feedback, and what to expect under pressure."
   },
   "a11y": {
     "mainNavigation": "Main navigation",
@@ -288,5 +291,120 @@
     "blog": "Blog",
     "work": "Work",
     "book": "Book a call"
+  },
+  "manual": {
+    "heading": "Manual of Me",
+    "lead": "This is how I work, what I'm useful for, and how to reach me, so you don't have to work it out by trial and error.",
+    "updated": "Updated September 2026",
+    "contents": "On this page",
+    "routing": {
+      "heading": "If you need something",
+      "intro": "Pick the row that matches your situation. These reply times are commitments, not aspirations.",
+      "colNeed": "Your situation",
+      "colChannel": "Where to go",
+      "colReply": "When you'll hear back",
+      "rows": [
+        {
+          "icon": "slack",
+          "need": "A quick question, or you want to pair on something",
+          "channel": "Slack",
+          "reply": "Within the hour, during working hours"
+        },
+        {
+          "icon": "whatsapp",
+          "need": "It can't wait until tomorrow",
+          "channel": "WhatsApp",
+          "channelNote": "or call the same number",
+          "reply": "As soon as I see it, day or night",
+          "channelHref": "https://wa.me/447510084239"
+        },
+        {
+          "icon": "calendar",
+          "need": "You want a proper hour of my time",
+          "channel": "Book a call",
+          "channelHref": "/book-a-call/",
+          "reply": "Usually the same week"
+        },
+        {
+          "icon": "oneToOne",
+          "need": "It's about your work, your growth, or something that's bothering you",
+          "channel": "Our 1:1",
+          "reply": "Don't wait for the next one, grab me sooner"
+        },
+        {
+          "icon": "mail",
+          "need": "It needs a written record",
+          "channel": "Email",
+          "reply": "Within a working day"
+        },
+        {
+          "icon": "slack",
+          "need": "You're not sure who to ask",
+          "channel": "Slack",
+          "reply": "I'll find out who owns it and come back to you"
+        }
+      ]
+    },
+    "strengths": {
+      "heading": "When to come to me",
+      "intro": "The senior, mid-level and associate software engineers on the team report to me, and I'm still in the codebase most days. I've been building with TypeScript and React Native since 2017. In earlier roles, I ran mobile teams at Sky and Hargreaves Lansdown. Bring me:",
+      "items": [
+        "Deep TypeScript and JavaScript expertise, including type-level problems that go beyond syntax",
+        "React and React Native architecture, and getting a large app to ship on a predictable schedule",
+        "Splitting a codebase across several teams without it becoming impossible to maintain",
+        "Testing strategy, CI, and a release process people actually trust",
+        "Design systems and accessibility, including how to maintain one standard across several teams",
+        "Technical direction: which of three reasonable options to take, and why",
+        "Mentoring and coaching: pairing on something hard or working out what you want the next two years to look like",
+        "Career development, promotion cases and hiring"
+      ]
+    },
+    "expectations": {
+      "heading": "What I'll expect from you",
+      "paras": [
+        "Bring me the problem before you've built the whole answer. A half-formed idea is far easier to help with than a finished one that went the wrong way.",
+        "Tell me what you've already tried. I'll assume you've thought about it, so start there rather than at the beginning.",
+        "Disagree with me in the room. If I've got something wrong, I'd much rather hear it from you than discover it in production."
+      ]
+    },
+    "working": {
+      "heading": "How I work",
+      "hoursLabel": "Working hours",
+      "hoursValue": "Monday to Friday, 9:00am to 5:30pm",
+      "triage": "Email and Slack first",
+      "core": "Best time to reach me",
+      "paras": [
+        "My head works properly once the coffee has landed, around half nine. The first half hour goes on email, Slack and working out what actually matters today.",
+        "In the office you'll usually see me with headphones on. That's noise filtering, not a do-not-disturb sign, so interrupt me if you need to.",
+        "I do my best work somewhere quiet with a good audio and video setup, which is why I lean towards working from home when the work allows it.",
+        "I think most hard problems get solved with planning and collaboration. I'm a strong advocate of pair programming, and I'd rather spend an hour on a call with you than trade twelve Slack messages."
+      ]
+    },
+    "feedback": {
+      "heading": "Giving me feedback",
+      "paras": [
+        "Write it down. I want time to sit with it and respond thoughtfully rather than defensively.",
+        "Specific feedback lands best. Tell me what didn't work and what you'd rather see, and I'll take it seriously.",
+        "Keep it about the work rather than making it personal. You can tell me that a decision was wrong, a review was rushed or a plan didn't hold up. I'd rather hear the real concern directly than through a joke about my professionalism."
+      ]
+    },
+    "pressure": {
+      "heading": "Under pressure",
+      "paras": [
+        "I work well under pressure up to a point, and I'll tell you when I've reached it rather than quietly absorbing it. Expect me to flag it early, take a short break, and ask for help.",
+        "If I've gone quiet and the deadline is close, ask me directly. I'd rather you asked than assumed I was fine."
+      ]
+    },
+    "offWork": {
+      "heading": "Away from the keyboard",
+      "para": "I watch a great deal of Korean television, and some BL series from elsewhere in Asia. I sing karaoke with more enthusiasm than talent. I was born and raised in Barcelona to Filipino parents. I've lived in the UK since 2016 and am currently in Dartford.",
+      "photoAlt": "Warren de Leon, away from the desk"
+    },
+    "cta": {
+      "heading": "Rather just talk?",
+      "body": "Half an hour in the diary usually beats a long thread.",
+      "action": "Book a call"
+    },
+    "portraitAlt": "Warren de Leon"
   }
 }

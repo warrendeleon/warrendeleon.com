@@ -68,7 +68,10 @@ const icons: Record<string, string> = {
     max-width: 430px;
     z-index: 60;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    /* Auto-flow rather than a fixed column count: the bar stays one row and
+       divides evenly however many tabs there are. */
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     padding: 8px 8px calc(14px + var(--safe-bottom));
     background: var(--bg-nav);
     backdrop-filter: blur(14px);

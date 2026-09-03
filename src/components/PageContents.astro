@@ -1,0 +1,166 @@
+---
+// The blog post's mobile contents chrome — top progress bar, reading action
+// bar, and the contents bottom sheet — for ordinary pages that have their own
+// in-page sections rather than markdown headings.
+//
+// The desktop half of the pattern is the blog's own <Toc>, which the calling
+// page places in its layout grid; this component covers everything that sits
+// at page level. DesignLayout.astro carries the same wiring inline and predates
+// this extraction, so it is the obvious next caller if it is ever touched.
+import ReadingBar from './blog/ReadingBar.astro';
+import ReadingProgress from './blog/ReadingProgress.astro';
+import { t, type Locale } from '../i18n/index';
+
+interface Props {
+  locale: Locale;
+  /** Fallback label for the bar, shown until a section is in view. */
+  title: string;
+  /** In-page anchors, in document order. */
+  toc: { id: string; label: string }[];
+  /** Selector for the sections the spy tracks. */
+  sectionSelector: string;
+  /** Selector for the desktop Toc's links, kept in sync with the sheet. */
+  tocLinkSelector: string;
+}
+
+const { locale, title, toc, sectionSelector, tocLinkSelector } = Astro.props;
+const i18n = t(locale);
+---
+
+<ReadingProgress locale={locale} />
+<ReadingBar locale={locale} title={title} hidden={false} />
+
+<div class="post-sheet" id="page-toc-sheet" role="dialog" aria-modal="true" aria-label={i18n.blog.contents} hidden>
+  <div class="post-sheet-backdrop" data-overlay-close></div>
+  <div class="post-sheet-panel">
+    <div class="post-sheet-grabber" aria-hidden="true"></div>
+    <div class="post-sheet-head">
+      <span class="post-sheet-title">{i18n.blog.contents}</span>
+      <span class="post-sheet-meta" data-sheet-progress></span>
+    </div>
+    <ul class="post-sheet-list">
+      {toc.map((item, i) => (
+        <li data-sheet-item={item.id}>
+          <a href={`#${item.id}`} data-sheet-close>
+            <span class="sheet-num" aria-hidden="true">{i + 1}</span>
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<script define:vars={{ sectionSelector, tocLinkSelector }}>
+  // Ring progress, current-section label, contents sheet, share and
+  // back-to-top: the same affordances a post has, driven by the page's own
+  // section anchors instead of markdown headings.
+  const bar = document.querySelector('.post-reading-bar');
+  const sheet = document.getElementById('page-toc-sheet');
+  if (bar && sheet) {
+    const RING = 75.4;
+    const ringFill = bar.querySelector('.prb-ring-fill');
+    const secLabel = bar.querySelector('[data-prb-section]');
+    const progLabel = bar.querySelector('[data-prb-progress]');
+    const tocBtn = bar.querySelector('[data-toc-open]');
+    const shareBtn = bar.querySelector('[data-share-open]');
+    const topBtn = bar.querySelector('[data-prb-top]');
+    const topBar = document.querySelector('.reading-progress-bar');
+    const tocLinks = [...document.querySelectorAll(tocLinkSelector)];
+    const sections = [...document.querySelectorAll(sectionSelector)];
+    const pageTitle = secLabel?.textContent ?? '';
+
+    // A contents click pins its target: a late section often cannot reach the
+    // reading line because the page bottoms out first, so the spy would hand
+    // the highlight to a section below the one chosen. The pin holds until the
+    // reader scrolls under their own steam.
+    let pinnedId = null;
+    const pinFrom = (link) => {
+      pinnedId = (link.getAttribute('href') ?? '').slice(1) || null;
+    };
+    document
+      .querySelectorAll(`${tocLinkSelector}, #page-toc-sheet [data-sheet-close]`)
+      .forEach((link) => link.addEventListener('click', () => pinFrom(link)));
+    for (const evt of ['wheel', 'touchstart', 'keydown']) {
+      window.addEventListener(evt, () => { pinnedId = null; }, { passive: true });
+    }
+
+    let ticking = false;
+    function paint() {
+      ticking = false;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (ringFill) ringFill.style.strokeDashoffset = String((RING * (1 - p)).toFixed(1));
+      if (progLabel) progLabel.textContent = `${Math.round(p * 100)}%`;
+      if (topBar) topBar.style.width = `${(p * 100).toFixed(1)}%`;
+
+      let current = null;
+      if (pinnedId) current = sections.find((s) => s.id === pinnedId) ?? null;
+      if (!current) {
+        // The reading line sinks down the viewport as progress grows: a fixed
+        // line never reaches short sections the page cannot scroll past.
+        const line = 120 + Math.max(0, window.innerHeight - 240) * p;
+        for (const s of sections) {
+          if (s.getBoundingClientRect().top <= line) current = s;
+        }
+        if (max > 0 && window.scrollY >= max - 2 && sections.length) {
+          current = sections[sections.length - 1];
+        }
+      }
+      if (secLabel) {
+        secLabel.textContent = current?.querySelector('h2')?.textContent?.trim() || pageTitle;
+      }
+      for (const link of tocLinks) {
+        link.classList.toggle('toc-active', !!current && link.getAttribute('href') === `#${current.id}`);
+      }
+    }
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(paint);
+    }, { passive: true });
+    paint();
+
+    const desktopToc = window.matchMedia('(min-width: 1024px)');
+    const openSheet = () => {
+      if (desktopToc.matches) return; // the pinned sidebar covers it there
+      sheet.hidden = false;
+      requestAnimationFrame(() => sheet.classList.add('is-open'));
+      tocBtn?.setAttribute('aria-expanded', 'true');
+    };
+    const closeSheet = () => {
+      sheet.classList.remove('is-open');
+      tocBtn?.setAttribute('aria-expanded', 'false');
+      window.setTimeout(() => { sheet.hidden = true; }, 300);
+    };
+    tocBtn?.addEventListener('click', () => (sheet.hidden ? openSheet() : closeSheet()));
+    sheet.querySelector('[data-overlay-close]')?.addEventListener('click', closeSheet);
+    sheet.querySelectorAll('[data-sheet-close]').forEach((a) => a.addEventListener('click', closeSheet));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !sheet.hidden) closeSheet();
+    });
+
+    shareBtn?.addEventListener('click', async () => {
+      const data = { title: document.title, url: window.location.href };
+      if (navigator.share) {
+        try { await navigator.share(data); } catch { /* dismissed */ }
+      } else {
+        try { await navigator.clipboard.writeText(data.url); } catch { /* blocked */ }
+      }
+    });
+
+    topBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+</script>
+
+<style is:global>
+  /* The pinned sidebar covers contents from 1024px, exactly as on a post. */
+  @media (min-width: 1024px) {
+    #page-toc-sheet { display: none; }
+  }
+
+  /* Below that the reading bar REPLACES the dock, the post's own rule. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    html:has(#page-toc-sheet) nav.tab-bar[aria-label] { display: none; }
+  }
+</style>

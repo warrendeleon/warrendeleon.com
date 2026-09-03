@@ -6,7 +6,8 @@
     "blog": "Blog",
     "education": "Formació",
     "design": "Disseny",
-    "about": "Sobre mi"
+    "about": "Sobre mi",
+    "manual": "Manual d'ús"
   },
   "home": {
     "title": "Warren de Leon",
@@ -249,7 +250,9 @@
     "tagDescription": "{n} {posts} amb l'etiqueta {tag} al blog de Warren de Leon, al costat de {topics}. Més recent: {latest}.",
     "tagDescriptionNoTopics": "{n} {posts} amb l'etiqueta {tag} al blog de Warren de Leon. Més recent: {latest}.",
     "aboutTitle": "Sobre Warren de Leon | Software Engineering Manager",
-    "aboutDescription": "Warren de Leon és Software Engineering Manager: React Native des del 2017, abans a Sky i Hargreaves Lansdown. Tots els seus articles, del més recent al primer."
+    "aboutDescription": "Warren de Leon és Software Engineering Manager: React Native des del 2017, abans a Sky i Hargreaves Lansdown. Tots els seus articles, del més recent al primer.",
+    "manualTitle": "Manual d'ús",
+    "manualDescription": "Manual d'ús de Warren de Leon: com localitzar-lo, en què et pot ajudar, com donar-li feedback i què esperar quan hi ha pressió."
   },
   "a11y": {
     "mainNavigation": "Navegació principal",
@@ -288,5 +291,120 @@
     "blog": "Blog",
     "work": "Feina",
     "book": "Trucada"
+  },
+  "manual": {
+    "heading": "Manual d'ús",
+    "lead": "Aquí explico com treballo, en què et puc ajudar i com localitzar-me, perquè no ho hagis d'endevinar a base de prova i error.",
+    "updated": "Actualitzat el setembre del 2026",
+    "contents": "En aquesta pàgina",
+    "portraitAlt": "Warren de Leon",
+    "routing": {
+      "heading": "Si necessites alguna cosa",
+      "intro": "Busca la fila que s'assembli al teu cas. Aquests temps de resposta són compromisos, no bones intencions.",
+      "colNeed": "La teva situació",
+      "colChannel": "On escriure",
+      "colReply": "Quan tindràs resposta",
+      "rows": [
+        {
+          "icon": "slack",
+          "need": "Un dubte ràpid, o vols que fem pair en alguna cosa",
+          "channel": "Slack",
+          "reply": "En menys d'una hora, dins l'horari laboral"
+        },
+        {
+          "icon": "whatsapp",
+          "need": "No pot esperar a demà",
+          "channel": "WhatsApp",
+          "channelNote": "o truca al mateix número",
+          "reply": "Tan bon punt ho vegi, de dia o de nit",
+          "channelHref": "https://wa.me/447510084239"
+        },
+        {
+          "icon": "calendar",
+          "need": "Vols una hora sencera del meu temps",
+          "channel": "Reserva una trucada",
+          "channelHref": "/book-a-call/",
+          "reply": "Gairebé sempre la mateixa setmana"
+        },
+        {
+          "icon": "oneToOne",
+          "need": "És sobre la teva feina, el teu creixement o alguna cosa que et preocupa",
+          "channel": "El nostre 1:1",
+          "reply": "No esperis al següent, busca'm abans"
+        },
+        {
+          "icon": "mail",
+          "need": "Cal que quedi per escrit",
+          "channel": "Correu",
+          "reply": "En el termini d'un dia feiner"
+        },
+        {
+          "icon": "slack",
+          "need": "No saps a qui preguntar",
+          "channel": "Slack",
+          "reply": "Esbrino qui ho porta i et dic alguna cosa"
+        }
+      ]
+    },
+    "strengths": {
+      "heading": "Quan venir a buscar-me",
+      "intro": "Els enginyers de software senior, mid-level i associate de l'equip depenen de mi, i jo encara estic ficat al codi gairebé cada dia. Treballo amb TypeScript i React Native des del 2017. En càrrecs anteriors, vaig dirigir equips de mòbil a Sky i a Hargreaves Lansdown. Porta'm:",
+      "items": [
+        "Coneixement profund de TypeScript i JavaScript, inclosos els problemes de tipus que ja no van de sintaxi",
+        "Arquitectura de React i React Native, i aconseguir que una app gran es pugui publicar segons un calendari fiable",
+        "Repartir un codi base entre diversos equips sense que es faci impossible de mantenir",
+        "Estratègia de tests, CI i un procés de release en què la gent confiï de debò",
+        "Sistemes de disseny i accessibilitat, inclosa la manera de mantenir un mateix estàndard en diversos equips",
+        "Direcció tècnica: quina de tres opcions raonables triar, i per què",
+        "Mentoring i coaching: fer pair en alguna cosa difícil o pensar plegats com vols que siguin els teus propers dos anys",
+        "Desenvolupament de carrera, processos de promoció i selecció"
+      ]
+    },
+    "expectations": {
+      "heading": "Què espero de tu",
+      "paras": [
+        "Porta'm el problema abans d'haver construït la resposta sencera. Amb una idea a mig fer et puc ajudar moltíssim més que amb una de ja acabada que ha anat en la direcció equivocada.",
+        "Explica'm què has provat ja. Dono per fet que hi has pensat, així que comença per aquí i no pel principi.",
+        "Porta'm la contrària davant de tothom. Si m'he equivocat en alguna cosa, prefereixo mil vegades sentir-ho de tu que no pas descobrir-ho en producció."
+      ]
+    },
+    "working": {
+      "heading": "Com treballo",
+      "hoursLabel": "Horari",
+      "hoursValue": "De dilluns a divendres, de 9:00 a 17:30",
+      "triage": "Primer correu i Slack",
+      "core": "Millor moment per localitzar-me",
+      "paras": [
+        "El cap em funciona quan el cafè fa efecte, cap a dos quarts de deu. La primera mitja hora se'n va en correu, Slack i decidir què importa avui de debò.",
+        "A l'oficina em veuràs gairebé sempre amb auriculars. És per filtrar el soroll, no un cartell de no molestar: si em necessites, interromp-me.",
+        "Rendeixo més en un lloc tranquil i amb un bon equip d'àudio i vídeo, així que tiro cap al teletreball sempre que la feina ho permeti.",
+        "Crec que gairebé tots els problemes difícils es resolen amb planificació i col·laboració. Defenso molt el pair programming: prefereixo una hora amb tu en una trucada que dotze missatges de Slack."
+      ]
+    },
+    "feedback": {
+      "heading": "Com donar-me feedback",
+      "paras": [
+        "Per escrit. Vull temps per pensar-hi i respondre amb calma en comptes de posar-me a la defensiva.",
+        "El feedback concret és el que funciona millor. Digues-me què no ha anat bé i què preferiries veure, i m'ho prendré seriosament.",
+        "Que vagi sobre la feina i no sobre la persona. Em pots dir que una decisió va ser dolenta, que una revisió va anar de pressa o que un pla no funcionava. Prefereixo que em diguis directament què et preocupa que no pas que ho disfressis de broma sobre la meva professionalitat."
+      ]
+    },
+    "pressure": {
+      "heading": "Sota pressió",
+      "paras": [
+        "Aguanto bé la pressió fins a cert punt, i prefereixo dir-ho quan hi arribo en comptes d'empassar-m'ho. Compta que avisaré aviat, faré una pausa curta i demanaré ajuda.",
+        "Si m'he quedat callat i queda poc per al lliurament, pregunta'm directament com estic. Prefereixo que m'ho preguntis que no pas que donis per fet que vaig bé."
+      ]
+    },
+    "offWork": {
+      "heading": "Fora del teclat",
+      "para": "Miro moltíssima televisió coreana, i alguna sèrie BL d'altres països d'Àsia. Canto karaoke amb més entusiasme que oïda. Vaig néixer i créixer a Barcelona, de pares filipins. Visc al Regne Unit des del 2016, actualment a Dartford.",
+      "photoAlt": "Warren de Leon, fora de l'escriptori"
+    },
+    "cta": {
+      "heading": "Prefereixes que en parlem?",
+      "body": "Mitja hora a l'agenda sol ser més útil que un fil inacabable.",
+      "action": "Reservar una trucada"
+    }
   }
 }
