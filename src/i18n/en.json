@@ -347,13 +347,13 @@
     },
     "strengths": {
       "heading": "When to come to me",
-      "intro": "I've been building with TypeScript and React Native since 2017. In earlier roles, I ran mobile teams at Sky and Hargreaves Lansdown. Bring me:",
+      "intro": "I've been building with TypeScript and React Native since 2017, and I ran mobile teams at Sky and Hargreaves Lansdown before that. Mobile is where my depth is, so read the list with that in mind:",
       "items": [
         "Deep TypeScript and JavaScript expertise, including type-level problems that go beyond syntax",
         "React and React Native architecture, and getting a large app to ship on a predictable schedule",
-        "Splitting a codebase across several teams without it becoming impossible to maintain",
-        "Testing strategy, CI, and a release process people actually trust",
-        "Design systems and accessibility, including how to maintain one standard across several teams",
+        "Splitting a mobile codebase across several teams without it becoming impossible to maintain",
+        "Mobile testing strategy, CI, and a release process people actually trust",
+        "Design systems and accessibility on mobile, including how to hold one standard across several teams",
         "Mentoring and coaching: pairing on something hard, or talking an approach through before you commit to it"
       ]
     },

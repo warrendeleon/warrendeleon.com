@@ -348,13 +348,13 @@
     },
     "strengths": {
       "heading": "Kailan ako lapitan",
-      "intro": "Gumagamit ako ng TypeScript at React Native mula noong 2017. Sa mga naunang trabaho ko, namuno ako ng mga mobile team sa Sky at sa Hargreaves Lansdown. Dalhin mo sa akin ang:",
+      "intro": "Gumagamit ako ng TypeScript at React Native mula noong 2017, at bago iyon ay namuno ako ng mga mobile team sa Sky at sa Hargreaves Lansdown. Mobile ang pinakamalalim kong larangan, kaya basahin mo ang listahan nang nasa isip iyon:",
       "items": [
         "Malalim na kaalaman sa TypeScript at JavaScript, pati na ang mga type-level na problema na hindi na tungkol sa syntax",
         "Arkitektura ng React at React Native, at kung paano ma-release ang malaking app ayon sa maaasahang schedule",
-        "Paghahati ng codebase sa maraming team nang hindi ito nagiging imposibleng i-maintain",
-        "Testing strategy, CI, at release process na talagang pinagkakatiwalaan ng team",
-        "Design system at accessibility, pati na kung paano panatilihin ang iisang standard sa maraming team",
+        "Paghahati ng mobile codebase sa maraming team nang hindi ito nagiging imposibleng i-maintain",
+        "Testing strategy sa mobile, CI, at release process na talagang pinagkakatiwalaan ng team",
+        "Design system at accessibility sa mobile, pati na kung paano panatilihin ang iisang standard sa maraming team",
         "Mentoring at coaching: mag-pair sa mahirap na problema, o pag-usapan ang isang approach bago mo ito simulan"
       ]
     },

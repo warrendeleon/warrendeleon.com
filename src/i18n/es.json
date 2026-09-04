@@ -348,13 +348,13 @@
     },
     "strengths": {
       "heading": "Cuándo acudir a mí",
-      "intro": "Llevo desde 2017 trabajando con TypeScript y React Native. En puestos anteriores, dirigí equipos de móvil en Sky y en Hargreaves Lansdown. Tráeme:",
+      "intro": "Llevo desde 2017 trabajando con TypeScript y React Native, y antes de eso dirigí equipos de móvil en Sky y en Hargreaves Lansdown. Mi fuerte es el móvil, así que lee la lista teniéndolo en cuenta:",
       "items": [
         "Conocimiento profundo de TypeScript y JavaScript, incluidos los problemas de tipos que ya no van de sintaxis",
         "Arquitectura de React y React Native, y conseguir que una app grande se publique según un calendario previsible",
-        "Repartir un código base entre varios equipos sin que se vuelva imposible de mantener",
-        "Estrategia de tests, CI y un proceso de release en el que la gente confíe de verdad",
-        "Sistemas de diseño y accesibilidad, incluida la forma de mantener un mismo estándar en varios equipos",
+        "Repartir un código base de móvil entre varios equipos sin que se vuelva imposible de mantener",
+        "Estrategia de tests en móvil, CI y un proceso de release en el que la gente confíe de verdad",
+        "Sistemas de diseño y accesibilidad en móvil, incluida la forma de mantener un mismo estándar en varios equipos",
         "Mentoring y coaching: hacer pair en algo difícil, o comentar un enfoque antes de que te comprometas con él"
       ]
     },

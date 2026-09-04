@@ -348,13 +348,13 @@
     },
     "strengths": {
       "heading": "Quan venir a buscar-me",
-      "intro": "Treballo amb TypeScript i React Native des del 2017. En càrrecs anteriors, vaig dirigir equips de mòbil a Sky i a Hargreaves Lansdown. Porta'm:",
+      "intro": "Treballo amb TypeScript i React Native des del 2017, i abans d'això vaig dirigir equips de mòbil a Sky i a Hargreaves Lansdown. El meu fort és el mòbil, així que llegeix la llista tenint-ho present:",
       "items": [
         "Coneixement profund de TypeScript i JavaScript, inclosos els problemes de tipus que ja no van de sintaxi",
         "Arquitectura de React i React Native, i aconseguir que una app gran es pugui publicar segons un calendari fiable",
-        "Repartir un codi base entre diversos equips sense que es faci impossible de mantenir",
-        "Estratègia de tests, CI i un procés de release en què la gent confiï de debò",
-        "Sistemes de disseny i accessibilitat, inclosa la manera de mantenir un mateix estàndard en diversos equips",
+        "Repartir un codi base de mòbil entre diversos equips sense que es faci impossible de mantenir",
+        "Estratègia de tests al mòbil, CI i un procés de release en què la gent confiï de debò",
+        "Sistemes de disseny i accessibilitat al mòbil, inclosa la manera de mantenir un mateix estàndard en diversos equips",
         "Mentoring i coaching: fer pair en alguna cosa difícil, o comentar un enfocament abans que t'hi comprometis"
       ]
     },
