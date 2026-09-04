@@ -294,12 +294,67 @@
   },
   "manual": {
     "heading": "Manual of Me",
-    "lead": "This is how I work, what I'm useful for, and how to reach me, so you don't have to work it out by trial and error.",
+    "lead": "How I work, what I'm useful for, and how to reach me, so you don't have to work it out by trial and error.",
     "updated": "Updated September 2026",
     "contents": "On this page",
+    "portraitAlt": "Warren de Leon",
+    "cover": {
+      "edition": "Edition 1",
+      "date": "September 2026",
+      "tagline": "Read before use",
+      "photoAlt": "Warren de Leon in a denim jacket against a sunlit white wall"
+    },
+    "spec": {
+      "heading": "Specifications",
+      "note": "Every figure is real. The framing is not.",
+      "after": "After coffee",
+      "before": "Before coffee",
+      "rows": [
+        [
+          "Model",
+          "ISFP (Adventurer)",
+          "Unresponsive"
+        ],
+        [
+          "Operating hours",
+          "Mon–Fri, 09:00–17:30",
+          "Not yet"
+        ],
+        [
+          "Warm-up time",
+          "About 30 minutes and one latte",
+          "In progress"
+        ],
+        [
+          "Based in",
+          "Dartford, England",
+          "Wherever the kettle is"
+        ],
+        [
+          "Optimal environment",
+          "Quiet, good audio, headphones on",
+          "Silence"
+        ],
+        [
+          "Best used for",
+          "Mobile and React Native",
+          "Holding a latte"
+        ],
+        [
+          "Not covered by warranty",
+          "Jokes about my professionalism",
+          "Anything before 09:30"
+        ]
+      ],
+      "languagesLabel": "Languages",
+      "languagesBefore": "Nods",
+      "historyLabel": "Service history",
+      "historyAfter": "[Sky](/work-experience/sky/), [Hargreaves Lansdown](/work-experience/hargreaves-lansdown/) and [the rest](/work-experience/)",
+      "historyBefore": "Classified"
+    },
     "routing": {
       "heading": "If you need something",
-      "intro": "Pick the row that matches your situation. These reply times are commitments, not aspirations.",
+      "intro": "Find your situation. The reply times are commitments, not aspirations.",
       "colNeed": "Your situation",
       "colChannel": "Where to go",
       "colReply": "When you'll hear back",
@@ -322,8 +377,8 @@
           "icon": "calendar",
           "need": "You want a proper hour of my time",
           "channel": "Book a call",
-          "channelHref": "/book-a-call/",
-          "reply": "Usually the same week"
+          "reply": "Usually the same week",
+          "channelHref": "/book-a-call/"
         },
         {
           "icon": "oneToOne",
@@ -343,27 +398,25 @@
           "channel": "Slack",
           "reply": "I'll find out who owns it and come back to you"
         }
-      ]
+      ],
+      "sub": "Pick your row. The times are real."
     },
-    "strengths": {
-      "heading": "When to come to me",
-      "intro": "I've been building with TypeScript and React Native since 2017, and I ran mobile teams at Sky and Hargreaves Lansdown before that. Mobile is where my depth is, so read the list with that in mind:",
-      "items": [
-        "Deep TypeScript and JavaScript expertise, including type-level problems that go beyond syntax",
-        "React and React Native architecture, and getting a large app to ship on a predictable schedule",
-        "Splitting a mobile codebase across several teams without it becoming impossible to maintain",
-        "Mobile testing strategy, CI, and a release process people actually trust",
-        "Design systems and accessibility on mobile, including how to hold one standard across several teams",
-        "Mentoring and coaching: pairing on something hard, or talking an approach through before you commit to it"
-      ]
-    },
-    "expectations": {
-      "heading": "What I'll expect from you",
-      "paras": [
-        "Bring me the problem before you've built the whole answer. A half-formed idea is far easier to help with than a finished one that went the wrong way.",
-        "Tell me what you've already tried. I'll assume you've thought about it, so start there rather than at the beginning.",
-        "Disagree with me in the room. If a decision or a design is wrong, say so while we're all still in it, because I'd much rather hear it from you than discover it in production. Feedback about me is a different thing: send that privately, in writing."
-      ]
+    "howTo": {
+      "heading": "How to work with me",
+      "helpsHead": "This helps",
+      "helps": [
+        "Say what you actually need up front. The blunt version saves us both a round trip.",
+        "Interrupt me when I'm in headphones. They filter the office out, they're not a wall.",
+        "Book half an hour instead of writing the twelfth message in a thread.",
+        "Show me the half-formed version. It's easier to help with than a finished one that went the wrong way."
+      ],
+      "hurtsHead": "This doesn't",
+      "hurts": [
+        "Jokes at the expense of my professionalism. If something has annoyed you, say the actual thing.",
+        "Assuming I'm fine because I've gone quiet.",
+        "Calling out of the blue for something that could have waited until tomorrow."
+      ],
+      "sub": "Small things, mostly. They're what make a week easier."
     },
     "working": {
       "heading": "How I work",
@@ -372,45 +425,60 @@
       "triage": "Email and Slack first",
       "core": "Best time to reach me",
       "paras": [
-        "My head works properly once the coffee has landed, around half nine. The first half hour goes on email, Slack and working out what actually matters today.",
-        "In the office you'll usually see me with headphones on. That's noise filtering, not a do-not-disturb sign, so interrupt me if you need to.",
-        "I do my best work somewhere quiet with a good audio and video setup, which is why I lean towards working from home when the work allows it.",
-        "I think most hard problems get solved with planning and collaboration. I'm a strong advocate of pair programming, and I'd rather spend an hour on a call with you than trade twelve Slack messages."
-      ]
+        "My head works properly once the coffee has landed, around half nine. The first half hour goes on email, Slack and working out what actually matters today."
+      ],
+      "sub": "The coffee is not a metaphor."
+    },
+    "feedback": {
+      "heading": "Feedback",
+      "paras": [
+        "Write it down, so I can sit with it and answer properly rather than defensively. Be specific. And keep it about the work: disagree with me in the room, but anything about me goes privately.",
+        "Under pressure I'll tell you when I've reached my limit rather than go quiet. If I have gone quiet near a deadline, ask me outright."
+      ],
+      "sub": "In writing, please. I'm better on paper than on the spot."
     },
     "personality": {
       "heading": "My personality profile",
       "type": "ISFP",
       "typeNote": "Adventurer, on the Myers-Briggs scale",
-      "body": "I approach people and new situations with an open mind and a fair amount of warmth, and I'm comfortable staying in the moment rather than forcing a plan onto it. In practice that means I'd rather understand your problem than jump straight to an answer, and I'll take a decision on its merits rather than because it's how we did it last time.",
+      "body": "I approach people and new situations with an open mind and a fair amount of warmth, and I'm comfortable staying in the moment rather than forcing a plan onto it. In practice that means I'd rather understand your problem than jump straight to an answer.",
       "linkLabel": "Read more about the type",
-      "linkHref": "https://www.16personalities.com/isfp-personality"
-    },
-    "feedback": {
-      "heading": "Giving me feedback",
-      "paras": [
-        "Write it down. I want time to sit with it and respond thoughtfully rather than defensively.",
-        "Specific feedback lands best. Tell me what didn't work and what you'd rather see, and I'll take it seriously.",
-        "Keep it about the work rather than making it personal. You can tell me that a decision was wrong, a review was rushed or a plan didn't hold up. I'd rather hear the real concern directly than through a joke about my professionalism."
-      ]
-    },
-    "pressure": {
-      "heading": "Under pressure",
-      "paras": [
-        "I work well under pressure up to a point, and I'll tell you when I've reached it rather than quietly absorbing it. Expect me to flag it early, take a short break, and ask for help.",
-        "If I've gone quiet and the deadline is close, ask me directly. I'd rather you asked than assumed I was fine."
-      ]
+      "linkHref": "https://www.16personalities.com/isfp-personality",
+      "letters": [
+        [
+          "I",
+          "Introverted"
+        ],
+        [
+          "S",
+          "Sensing"
+        ],
+        [
+          "F",
+          "Feeling"
+        ],
+        [
+          "P",
+          "Perceiving"
+        ]
+      ],
+      "sub": "Four letters from one questionnaire. Take them lightly."
     },
     "offWork": {
-      "heading": "Away from the keyboard",
-      "para": "I watch a great deal of Korean television, and some BL series from elsewhere in Asia. I sing karaoke with more enthusiasm than talent. I was born and raised in Barcelona to Filipino parents. I've lived in the UK since 2016 and am currently in Dartford.",
-      "photoAlt": "Warren de Leon, away from the desk"
-    },
-    "cta": {
-      "heading": "Rather just talk?",
-      "body": "Half an hour in the diary usually beats a long thread.",
-      "action": "Book a call"
-    },
-    "portraitAlt": "Warren de Leon"
+      "heading": "Off the clock",
+      "para": "I watch a great deal of Korean television, and some BL series from elsewhere in Asia. I sing karaoke with more enthusiasm than talent. I write a [blog](/blog/) about React Native and how mobile teams actually ship. I was born and raised in Barcelona to Filipino parents, and I've lived in the UK since 2016.",
+      "photoAlt": "Warren de Leon, away from the desk",
+      "asksHead": "Always safe to ask me about",
+      "asks": [
+        "Korean series worth starting",
+        "Karaoke",
+        "The blog",
+        "React Native",
+        "Growing up in Barcelona",
+        "Moving countries"
+      ],
+      "socialLabel": "Find me on",
+      "sub": "The part that isn't in the job description."
+    }
   }
 }

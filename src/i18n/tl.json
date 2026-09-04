@@ -298,9 +298,63 @@
     "updated": "Huling na-update noong Setyembre 2026",
     "contents": "Nasa pahinang ito",
     "portraitAlt": "Warren de Leon",
+    "cover": {
+      "edition": "Edisyon 1",
+      "date": "Setyembre 2026",
+      "tagline": "Basahin bago gamitin",
+      "photoAlt": "Si Warren de Leon na naka-denim jacket sa harap ng puting pader na naaarawan"
+    },
+    "spec": {
+      "heading": "Mga espesipikasyon",
+      "note": "Totoo lahat ng datos dito. Ang pagkakabalot, hindi.",
+      "after": "Pagkatapos ng kape",
+      "before": "Bago ang kape",
+      "rows": [
+        [
+          "Model",
+          "ISFP (Adventurer)",
+          "Walang tugon"
+        ],
+        [
+          "Oras ng trabaho",
+          "Lun–Bye, 09:00–17:30",
+          "Hindi pa"
+        ],
+        [
+          "Oras ng pag-init",
+          "Mga 30 minuto at isang latte",
+          "Umiinit pa"
+        ],
+        [
+          "Nakabase sa",
+          "Dartford, England",
+          "Kung nasaan ang kape"
+        ],
+        [
+          "Pinakamainam na kapaligiran",
+          "Tahimik, maayos na audio, naka-headphone",
+          "Katahimikan"
+        ],
+        [
+          "Pinakamainam na gamit",
+          "Mobile at React Native",
+          "Paghawak ng latte"
+        ],
+        [
+          "Wala sa warranty",
+          "Mga biro tungkol sa pagiging propesyonal ko",
+          "Kahit ano bago mag-9:30"
+        ]
+      ],
+      "languagesLabel": "Mga wika",
+      "languagesBefore": "Tango lang",
+      "historyLabel": "Service history",
+      "historyAfter": "[Sky](/work-experience/sky/), [Hargreaves Lansdown](/work-experience/hargreaves-lansdown/) at [ang iba pa](/work-experience/)",
+      "historyBefore": "Classified"
+    },
     "routing": {
       "heading": "Kung may kailangan ka",
-      "intro": "Hanapin ang row na tugma sa sitwasyon mo. Maaasahan mo ang response times na nakalagay dito; hindi lang sila target.",
+      "intro": "Hanapin ang sitwasyon mo. Maaasahan mo ang response times na nakalagay dito; hindi lang sila target.",
       "colNeed": "Ang sitwasyon mo",
       "colChannel": "Saan ako kokontakin",
       "colReply": "Kailan ka masasagot",
@@ -323,8 +377,8 @@
           "icon": "calendar",
           "need": "Kailangan mo akong makausap nang isang buong oras",
           "channel": "Mag-book ng tawag",
-          "channelHref": "/book-a-call/",
-          "reply": "Karaniwan, sa linggo ring iyon"
+          "reply": "Karaniwan, sa linggo ring iyon",
+          "channelHref": "/book-a-call/"
         },
         {
           "icon": "oneToOne",
@@ -344,27 +398,25 @@
           "channel": "Slack",
           "reply": "Aalamin ko kung sino ang may hawak nito at babalikan kita"
         }
-      ]
+      ],
+      "sub": "Hanapin ang row mo. Totoo ang mga oras."
     },
-    "strengths": {
-      "heading": "Kailan ako lapitan",
-      "intro": "Gumagamit ako ng TypeScript at React Native mula noong 2017, at bago iyon ay namuno ako ng mga mobile team sa Sky at sa Hargreaves Lansdown. Mobile ang pinakamalalim kong larangan, kaya basahin mo ang listahan nang nasa isip iyon:",
-      "items": [
-        "Malalim na kaalaman sa TypeScript at JavaScript, pati na ang mga type-level na problema na hindi na tungkol sa syntax",
-        "Arkitektura ng React at React Native, at kung paano ma-release ang malaking app ayon sa maaasahang schedule",
-        "Paghahati ng mobile codebase sa maraming team nang hindi ito nagiging imposibleng i-maintain",
-        "Testing strategy sa mobile, CI, at release process na talagang pinagkakatiwalaan ng team",
-        "Design system at accessibility sa mobile, pati na kung paano panatilihin ang iisang standard sa maraming team",
-        "Mentoring at coaching: mag-pair sa mahirap na problema, o pag-usapan ang isang approach bago mo ito simulan"
-      ]
-    },
-    "expectations": {
-      "heading": "Ano ang inaasahan ko sa iyo",
-      "paras": [
-        "Dalhin mo sa akin ang problema bago mo pa tapusin ang buong solusyon. Mas madali kong matutulungan ang ideyang hindi pa tapos kaysa sa tapos na pero mali na ang direksyon.",
-        "Sabihin mo kung ano na ang na-try mo. Alam kong pinag-isipan mo ito, kaya doon tayo magsimula at hindi sa umpisa.",
-        "Kontrahin mo ako sa harap ng lahat. Kung mali ang isang desisyon o disenyo, sabihin mo habang nandoon pa tayong lahat, dahil mas gusto kong marinig iyon sa iyo kaysa malaman ko na lang sa production. Iba naman ang feedback tungkol sa akin: iyon ay ipadala mo nang pribado at nakasulat."
-      ]
+    "howTo": {
+      "heading": "Paano makitrabaho sa akin",
+      "helpsHead": "Nakakatulong ito",
+      "helps": [
+        "Sabihin mo agad kung ano talaga ang kailangan mo. Nakakatipid sa ating dalawa ang diretsong bersyon.",
+        "Istorbohin mo ako kahit naka-headphone ako. Pang-filter iyon ng ingay sa office, hindi pader.",
+        "Mag-book ng kalahating oras sa halip na isulat ang ikalabindalawang message sa isang thread.",
+        "Ipakita mo sa akin ang hindi pa tapos. Mas madaling tulungan iyon kaysa sa tapos na pero mali na ang direksyon."
+      ],
+      "hurtsHead": "Hindi ito nakakatulong",
+      "hurts": [
+        "Biro na nakabuntong sa pagiging propesyonal ko. Kung may ikinainis ka, sabihin mo nang diretso.",
+        "Ipagpalagay na okay lang ako dahil tumahimik ako.",
+        "Tumawag nang biglaan para sa isang bagay na kayang hintayin hanggang bukas."
+      ],
+      "sub": "Maliliit na bagay, halos lahat. Iyon ang nagpapadali ng isang linggo."
     },
     "working": {
       "heading": "Paano ako nagtatrabaho",
@@ -373,44 +425,60 @@
       "triage": "Email at Slack muna",
       "core": "Pinakamainam na oras para lapitan ako",
       "paras": [
-        "Gumagana lang nang maayos ang utak ko kapag tumalab na ang kape, bandang 9:30. Napupunta ang unang kalahating oras sa email, sa Slack, at sa pag-alam kung ano talaga ang mahalaga sa araw na iyon.",
-        "Sa office, madalas mo akong makikitang naka-headphone. Pang-filter lang iyon ng ingay, hindi ibig sabihin na bawal akong istorbohin, kaya kausapin mo lang ako kung kailangan mo.",
-        "Mas maganda ang output ko kapag tahimik ang paligid at maayos ang audio at video setup, kaya mas gusto kong mag-work from home kapag puwede.",
-        "Sa tingin ko, halos lahat ng mahihirap na problema ay nareresolba sa maayos na plano at sa pagtutulungan. Malaki ang tiwala ko sa pair programming: mas gusto ko ang isang oras na kausap ka kaysa labindalawang message sa Slack."
-      ]
+        "Gumagana lang nang maayos ang utak ko kapag tumalab na ang kape, bandang 9:30. Napupunta ang unang kalahating oras sa email, sa Slack, at sa pag-alam kung ano talaga ang mahalaga sa araw na iyon."
+      ],
+      "sub": "Hindi metapora ang kape."
+    },
+    "feedback": {
+      "heading": "Feedback",
+      "paras": [
+        "Isulat mo, para mapag-isipan ko at masagot nang maayos, hindi nang depensiba. Maging specific. At tungkol sana sa trabaho: kontrahin mo ako sa harap ng lahat, pero kung tungkol sa akin, pribado.",
+        "Kapag may pressure, sasabihin ko kapag naabot ko na ang limitasyon ko sa halip na tumahimik. Kung tumahimik ako malapit sa deadline, tanungin mo ako nang diretso."
+      ],
+      "sub": "Nakasulat, kung puwede. Mas magaling ako sa papel kaysa sa biglaan."
     },
     "personality": {
       "heading": "Ang personality profile ko",
       "type": "ISFP",
       "typeNote": "Adventurer, sa Myers-Briggs scale",
-      "body": "Bukas ang isip ko at medyo mainit ang pakikitungo ko sa mga tao at sa mga bagong sitwasyon, at kampante akong manatili sa sandaling iyon kaysa pilitin ang isang plano rito. Sa praktika, ibig sabihin nito ay mas gusto kong maintindihan muna ang problema mo bago tumalon sa sagot, at pinapasyahan ko ang isang bagay batay sa halaga nito at hindi dahil ganoon ang ginawa natin noong huli.",
+      "body": "Bukas ang isip ko at medyo mainit ang pakikitungo ko sa mga tao at sa mga bagong sitwasyon, at kampante akong manatili sa sandaling iyon kaysa pilitin ang isang plano rito. Sa praktika, ibig sabihin nito ay mas gusto kong maintindihan muna ang problema mo bago tumalon sa sagot.",
       "linkLabel": "Magbasa pa tungkol sa type",
-      "linkHref": "https://www.16personalities.com/isfp-personality"
-    },
-    "feedback": {
-      "heading": "Paano magbigay ng feedback sa akin",
-      "paras": [
-        "Isulat mo. Gusto ko ng oras para pag-isipan ito at makasagot nang mahinahon, hindi nang depensiba.",
-        "Mas epektibo ang specific na feedback. Sabihin mo kung ano ang hindi gumana at kung ano ang mas gusto mong mangyari, at seseryosohin ko iyon.",
-        "Sana tungkol ito sa trabaho at hindi sa tao. Puwede mong sabihin na mali ang isang desisyon, minadali ang isang review, o hindi gumana ang isang plano. Mas gusto kong sabihin mo sa akin nang diretso ang totoong problema kaysa marinig ko ito bilang biro tungkol sa pagiging propesyonal ko."
-      ]
-    },
-    "pressure": {
-      "heading": "Sa ilalim ng pressure",
-      "paras": [
-        "Nakakapagtrabaho ako nang maayos kapag may pressure, pero may limitasyon iyon. Sasabihin ko sa iyo kapag naabot ko na iyon sa halip na tiisin ko na lang. Asahan mong maaga akong magsasabi, magpapahinga sandali, at hihingi ng tulong.",
-        "Kung tumahimik ako at malapit na ang deadline, tanungin mo ako nang diretso. Mas gusto kong tanungin mo ako kaysa basta mong isipin na okay lang ako."
-      ]
+      "linkHref": "https://www.16personalities.com/isfp-personality",
+      "letters": [
+        [
+          "I",
+          "Introverted"
+        ],
+        [
+          "S",
+          "Sensing"
+        ],
+        [
+          "F",
+          "Feeling"
+        ],
+        [
+          "P",
+          "Perceiving"
+        ]
+      ],
+      "sub": "Apat na letra mula sa isang questionnaire. Huwag masyadong seryosohin."
     },
     "offWork": {
-      "heading": "Sa labas ng trabaho",
-      "para": "Napakarami kong napapanood na Korean series, at may ilang BL series din mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke, mas malakas ang loob kaysa boses. Ipinanganak at lumaki ako sa Barcelona sa mga magulang na Pilipino. Nakatira ako sa United Kingdom mula noong 2016, at nasa Dartford ako ngayon.",
-      "photoAlt": "Si Warren de Leon, sa labas ng trabaho"
-    },
-    "cta": {
-      "heading": "Mas gusto mo bang mag-usap na lang tayo?",
-      "body": "Mas mabisa ang kalahating oras sa calendar kaysa sa mahabang thread.",
-      "action": "Mag-book ng tawag"
+      "heading": "Pagkatapos ng trabaho",
+      "para": "Napakarami kong napapanood na Korean series, at may ilang BL series din mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke, mas malakas ang loob kaysa boses. May [blog](/blog/) ako tungkol sa React Native at sa kung paano talaga nagre-release ang mga mobile team. Ipinanganak at lumaki ako sa Barcelona sa mga magulang na Pilipino, at nakatira ako sa United Kingdom mula noong 2016.",
+      "photoAlt": "Si Warren de Leon, sa labas ng trabaho",
+      "asksHead": "Puwede mo akong tanungin tungkol sa",
+      "asks": [
+        "Korean series na puwedeng simulan",
+        "Karaoke",
+        "Ang blog",
+        "React Native",
+        "Paglaki sa Barcelona",
+        "Paglipat ng bansa"
+      ],
+      "socialLabel": "Hanapin mo ako sa",
+      "sub": "Ang bahaging wala sa job description."
     }
   }
 }

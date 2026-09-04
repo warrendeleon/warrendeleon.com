@@ -298,9 +298,63 @@
     "updated": "Actualitzat el setembre del 2026",
     "contents": "En aquesta pàgina",
     "portraitAlt": "Warren de Leon",
+    "cover": {
+      "edition": "Edició 1",
+      "date": "Setembre del 2026",
+      "tagline": "Llegeix-ho abans d'usar",
+      "photoAlt": "Warren de Leon amb jaqueta texana davant d'una paret blanca assolellada"
+    },
+    "spec": {
+      "heading": "Especificacions",
+      "note": "Totes les dades són reals. L'embolcall no.",
+      "after": "Després del cafè",
+      "before": "Abans del cafè",
+      "rows": [
+        [
+          "Model",
+          "ISFP (Aventurer)",
+          "No respon"
+        ],
+        [
+          "Horari",
+          "Dl–Dv, 09:00–17:30",
+          "Encara no"
+        ],
+        [
+          "Temps d'arrencada",
+          "Uns 30 minuts i un cafè amb llet",
+          "En curs"
+        ],
+        [
+          "Ubicació",
+          "Dartford, Anglaterra",
+          "On sigui la cafetera"
+        ],
+        [
+          "Entorn òptim",
+          "Silenci, bon àudio, auriculars posats",
+          "Silenci"
+        ],
+        [
+          "Millor ús",
+          "Mòbil i React Native",
+          "Aguantar un cafè"
+        ],
+        [
+          "Fora de garantia",
+          "Les bromes sobre la meva professionalitat",
+          "Qualsevol cosa abans de les 9:30"
+        ]
+      ],
+      "languagesLabel": "Idiomes",
+      "languagesBefore": "Assenteix",
+      "historyLabel": "Historial de servei",
+      "historyAfter": "[Sky](/work-experience/sky/), [Hargreaves Lansdown](/work-experience/hargreaves-lansdown/) i [la resta](/work-experience/)",
+      "historyBefore": "Classificat"
+    },
     "routing": {
       "heading": "Si necessites alguna cosa",
-      "intro": "Busca la fila que s'assembli al teu cas. Aquests temps de resposta són compromisos, no bones intencions.",
+      "intro": "Busca la teva situació. Aquests temps de resposta són compromisos, no bones intencions.",
       "colNeed": "La teva situació",
       "colChannel": "On escriure",
       "colReply": "Quan tindràs resposta",
@@ -323,8 +377,8 @@
           "icon": "calendar",
           "need": "Vols una hora sencera del meu temps",
           "channel": "Reserva una trucada",
-          "channelHref": "/book-a-call/",
-          "reply": "Gairebé sempre la mateixa setmana"
+          "reply": "Gairebé sempre la mateixa setmana",
+          "channelHref": "/book-a-call/"
         },
         {
           "icon": "oneToOne",
@@ -344,27 +398,25 @@
           "channel": "Slack",
           "reply": "Esbrino qui ho porta i et dic alguna cosa"
         }
-      ]
+      ],
+      "sub": "Busca la teva fila. Els temps són reals."
     },
-    "strengths": {
-      "heading": "Quan venir a buscar-me",
-      "intro": "Treballo amb TypeScript i React Native des del 2017, i abans d'això vaig dirigir equips de mòbil a Sky i a Hargreaves Lansdown. El meu fort és el mòbil, així que llegeix la llista tenint-ho present:",
-      "items": [
-        "Coneixement profund de TypeScript i JavaScript, inclosos els problemes de tipus que ja no van de sintaxi",
-        "Arquitectura de React i React Native, i aconseguir que una app gran es pugui publicar segons un calendari fiable",
-        "Repartir un codi base de mòbil entre diversos equips sense que es faci impossible de mantenir",
-        "Estratègia de tests al mòbil, CI i un procés de release en què la gent confiï de debò",
-        "Sistemes de disseny i accessibilitat al mòbil, inclosa la manera de mantenir un mateix estàndard en diversos equips",
-        "Mentoring i coaching: fer pair en alguna cosa difícil, o comentar un enfocament abans que t'hi comprometis"
-      ]
-    },
-    "expectations": {
-      "heading": "Què espero de tu",
-      "paras": [
-        "Porta'm el problema abans d'haver construït la resposta sencera. Amb una idea a mig fer et puc ajudar moltíssim més que amb una de ja acabada que ha anat en la direcció equivocada.",
-        "Explica'm què has provat ja. Dono per fet que hi has pensat, així que comença per aquí i no pel principi.",
-        "Porta'm la contrària davant de tothom. Si una decisió o un disseny no funcionen, digues-ho mentre encara hi som tots, perquè prefereixo mil vegades sentir-ho de tu que no pas descobrir-ho en producció. El feedback sobre mi és una altra cosa: això envia-me'l en privat i per escrit."
-      ]
+    "howTo": {
+      "heading": "Com treballar amb mi",
+      "helpsHead": "Això ajuda",
+      "helps": [
+        "Digues-me des del principi què necessites de debò. La versió directa ens estalvia una volta a tots dos.",
+        "Interromp-me quan porti auriculars. Filtren l'oficina, no són un mur.",
+        "Reserva mitja hora en comptes d'escriure el dotzè missatge d'un fil.",
+        "Ensenya'm la versió a mig fer. És més fàcil d'ajudar que una d'acabada que ha anat en la direcció equivocada."
+      ],
+      "hurtsHead": "Això no",
+      "hurts": [
+        "Les bromes a costa de la meva professionalitat. Si alguna cosa t'ha molestat, digues-la tal com és.",
+        "Donar per fet que estic bé perquè m'he quedat callat.",
+        "Trucar-me de sobte per alguna cosa que podia esperar a demà."
+      ],
+      "sub": "Detalls petits, gairebé tots. Són els que fan que una setmana sigui més fàcil."
     },
     "working": {
       "heading": "Com treballo",
@@ -373,44 +425,60 @@
       "triage": "Primer correu i Slack",
       "core": "Millor moment per localitzar-me",
       "paras": [
-        "El cap em funciona quan el cafè fa efecte, cap a dos quarts de deu. La primera mitja hora se'n va en correu, Slack i decidir què importa avui de debò.",
-        "A l'oficina em veuràs gairebé sempre amb auriculars. És per filtrar el soroll, no un cartell de no molestar: si em necessites, interromp-me.",
-        "Rendeixo més en un lloc tranquil i amb un bon equip d'àudio i vídeo, així que tiro cap al teletreball sempre que la feina ho permeti.",
-        "Crec que gairebé tots els problemes difícils es resolen amb planificació i col·laboració. Defenso molt el pair programming: prefereixo una hora amb tu en una trucada que dotze missatges de Slack."
-      ]
+        "El cap em funciona quan el cafè fa efecte, cap a dos quarts de deu. La primera mitja hora se'n va en correu, Slack i decidir què importa avui de debò."
+      ],
+      "sub": "El cafè no és cap metàfora."
+    },
+    "feedback": {
+      "heading": "Feedback",
+      "paras": [
+        "Per escrit, per poder pensar-hi i respondre bé en comptes de posar-me a la defensiva. Sigues concret. I que vagi sobre la feina: porta'm la contrària davant de tothom, però el que sigui sobre mi, en privat.",
+        "Sota pressió et diré quan arribi al meu límit en comptes de quedar-me callat. Si m'he quedat callat a prop d'un lliurament, pregunta-m'ho directament."
+      ],
+      "sub": "Per escrit, si us plau. Se'm dona millor el paper que el moment."
     },
     "personality": {
       "heading": "El meu perfil de personalitat",
       "type": "ISFP",
       "typeNote": "Aventurer, a l'escala Myers-Briggs",
-      "body": "M'acosto a la gent i a les situacions noves amb la ment oberta i força escalf, i estic còmode quedant-me al moment en comptes de forçar-hi un pla. A la pràctica, això vol dir que prefereixo entendre el teu problema abans de saltar a una resposta, i que prenc una decisió pel que val i no perquè sigui com ho vam fer l'última vegada.",
+      "body": "M'acosto a la gent i a les situacions noves amb la ment oberta i força escalf, i estic còmode quedant-me al moment en comptes de forçar-hi un pla. A la pràctica, això vol dir que prefereixo entendre el teu problema abans de saltar a una resposta.",
       "linkLabel": "Llegir més sobre el tipus",
-      "linkHref": "https://www.16personalities.com/es/personalidad-isfp"
-    },
-    "feedback": {
-      "heading": "Com donar-me feedback",
-      "paras": [
-        "Per escrit. Vull temps per pensar-hi i respondre amb calma en comptes de posar-me a la defensiva.",
-        "El feedback concret és el que funciona millor. Digues-me què no ha anat bé i què preferiries veure, i m'ho prendré seriosament.",
-        "Que vagi sobre la feina i no sobre la persona. Em pots dir que una decisió va ser dolenta, que una revisió va anar de pressa o que un pla no funcionava. Prefereixo que em diguis directament què et preocupa que no pas que ho disfressis de broma sobre la meva professionalitat."
-      ]
-    },
-    "pressure": {
-      "heading": "Sota pressió",
-      "paras": [
-        "Aguanto bé la pressió fins a cert punt, i prefereixo dir-ho quan hi arribo en comptes d'empassar-m'ho. Compta que avisaré aviat, faré una pausa curta i demanaré ajuda.",
-        "Si m'he quedat callat i queda poc per al lliurament, pregunta'm directament com estic. Prefereixo que m'ho preguntis que no pas que donis per fet que vaig bé."
-      ]
+      "linkHref": "https://www.16personalities.com/es/personalidad-isfp",
+      "letters": [
+        [
+          "I",
+          "Introvertit"
+        ],
+        [
+          "S",
+          "Sensorial"
+        ],
+        [
+          "F",
+          "Sentimental"
+        ],
+        [
+          "P",
+          "Perceptiu"
+        ]
+      ],
+      "sub": "Quatre lletres d'un qüestionari. Pren-te-les amb calma."
     },
     "offWork": {
-      "heading": "Fora del teclat",
-      "para": "Miro moltíssima televisió coreana, i alguna sèrie BL d'altres països d'Àsia. Canto karaoke amb més entusiasme que oïda. Vaig néixer i créixer a Barcelona, de pares filipins. Visc al Regne Unit des del 2016, actualment a Dartford.",
-      "photoAlt": "Warren de Leon, fora de l'escriptori"
-    },
-    "cta": {
-      "heading": "Prefereixes que en parlem?",
-      "body": "Mitja hora a l'agenda sol ser més útil que un fil inacabable.",
-      "action": "Reservar una trucada"
+      "heading": "Fora d'horari",
+      "para": "Miro moltíssima televisió coreana, i alguna sèrie BL d'altres països d'Àsia. Canto karaoke amb més entusiasme que oïda. Escric un [blog](/blog/) sobre React Native i sobre com publiquen de debò els equips de mòbil. Vaig néixer i créixer a Barcelona, de pares filipins, i visc al Regne Unit des del 2016.",
+      "photoAlt": "Warren de Leon, fora de l'escriptori",
+      "asksHead": "Sempre em pots preguntar per",
+      "asks": [
+        "Sèries coreanes per començar",
+        "Karaoke",
+        "El blog",
+        "React Native",
+        "Créixer a Barcelona",
+        "Canviar de país"
+      ],
+      "socialLabel": "Troba'm a",
+      "sub": "La part que no surt a la descripció del lloc."
     }
   }
 }

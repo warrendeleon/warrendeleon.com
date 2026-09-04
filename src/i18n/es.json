@@ -298,9 +298,63 @@
     "updated": "Actualizado en septiembre de 2026",
     "contents": "En esta página",
     "portraitAlt": "Warren de Leon",
+    "cover": {
+      "edition": "Edición 1",
+      "date": "Septiembre de 2026",
+      "tagline": "Léelo antes de usar",
+      "photoAlt": "Warren de Leon con chaqueta vaquera ante una pared blanca al sol"
+    },
+    "spec": {
+      "heading": "Especificaciones",
+      "note": "Todos los datos son reales. El envoltorio no.",
+      "after": "Después del café",
+      "before": "Antes del café",
+      "rows": [
+        [
+          "Modelo",
+          "ISFP (Aventurero)",
+          "No responde"
+        ],
+        [
+          "Horario",
+          "Lun–Vie, 09:00–17:30",
+          "Todavía no"
+        ],
+        [
+          "Tiempo de arranque",
+          "Unos 30 minutos y un café con leche",
+          "En curso"
+        ],
+        [
+          "Ubicación",
+          "Dartford, Inglaterra",
+          "Donde esté la cafetera"
+        ],
+        [
+          "Entorno óptimo",
+          "Silencio, buen audio, auriculares puestos",
+          "Silencio"
+        ],
+        [
+          "Mejor uso",
+          "Móvil y React Native",
+          "Sujetar un café"
+        ],
+        [
+          "Fuera de garantía",
+          "Las bromas sobre mi profesionalidad",
+          "Cualquier cosa antes de las 9:30"
+        ]
+      ],
+      "languagesLabel": "Idiomas",
+      "languagesBefore": "Asiente",
+      "historyLabel": "Historial de servicio",
+      "historyAfter": "[Sky](/work-experience/sky/), [Hargreaves Lansdown](/work-experience/hargreaves-lansdown/) y [el resto](/work-experience/)",
+      "historyBefore": "Clasificado"
+    },
     "routing": {
       "heading": "Si necesitas algo",
-      "intro": "Busca la fila que se parezca a tu caso. Estos tiempos de respuesta son compromisos, no buenas intenciones.",
+      "intro": "Busca tu situación. Estos tiempos de respuesta son compromisos, no buenas intenciones.",
       "colNeed": "Tu situación",
       "colChannel": "Dónde escribir",
       "colReply": "Cuándo tendrás respuesta",
@@ -323,8 +377,8 @@
           "icon": "calendar",
           "need": "Quieres una hora entera de mi tiempo",
           "channel": "Reserva una llamada",
-          "channelHref": "/book-a-call/",
-          "reply": "Casi siempre esa misma semana"
+          "reply": "Casi siempre esa misma semana",
+          "channelHref": "/book-a-call/"
         },
         {
           "icon": "oneToOne",
@@ -344,27 +398,25 @@
           "channel": "Slack",
           "reply": "Averiguo quién lo lleva y te digo algo"
         }
-      ]
+      ],
+      "sub": "Busca tu fila. Los tiempos son reales."
     },
-    "strengths": {
-      "heading": "Cuándo acudir a mí",
-      "intro": "Llevo desde 2017 trabajando con TypeScript y React Native, y antes de eso dirigí equipos de móvil en Sky y en Hargreaves Lansdown. Mi fuerte es el móvil, así que lee la lista teniéndolo en cuenta:",
-      "items": [
-        "Conocimiento profundo de TypeScript y JavaScript, incluidos los problemas de tipos que ya no van de sintaxis",
-        "Arquitectura de React y React Native, y conseguir que una app grande se publique según un calendario previsible",
-        "Repartir un código base de móvil entre varios equipos sin que se vuelva imposible de mantener",
-        "Estrategia de tests en móvil, CI y un proceso de release en el que la gente confíe de verdad",
-        "Sistemas de diseño y accesibilidad en móvil, incluida la forma de mantener un mismo estándar en varios equipos",
-        "Mentoring y coaching: hacer pair en algo difícil, o comentar un enfoque antes de que te comprometas con él"
-      ]
-    },
-    "expectations": {
-      "heading": "Qué espero de ti",
-      "paras": [
-        "Tráeme el problema antes de haber construido la respuesta entera. Con una idea a medio hacer puedo ayudarte muchísimo más que con una ya terminada que ha ido en la dirección equivocada.",
-        "Cuéntame qué has probado ya. Doy por hecho que lo has pensado, así que empieza por ahí y no por el principio.",
-        "Llévame la contraria delante de todos. Si una decisión o un diseño están mal, dilo mientras seguimos todos dentro, porque prefiero mil veces oírlo de ti que descubrirlo en producción. El feedback sobre mí es otra cosa: eso mándamelo en privado y por escrito."
-      ]
+    "howTo": {
+      "heading": "Cómo trabajar conmigo",
+      "helpsHead": "Esto ayuda",
+      "helps": [
+        "Dime desde el principio qué necesitas de verdad. La versión directa nos ahorra una vuelta a los dos.",
+        "Interrúmpeme cuando lleve auriculares. Filtran la oficina, no son un muro.",
+        "Reserva media hora en vez de escribir el duodécimo mensaje de un hilo.",
+        "Enséñame la versión a medio hacer. Es más fácil de ayudar que una terminada que fue en la dirección equivocada."
+      ],
+      "hurtsHead": "Esto no",
+      "hurts": [
+        "Las bromas a costa de mi profesionalidad. Si algo te ha molestado, dilo tal cual.",
+        "Dar por hecho que estoy bien porque me he quedado callado.",
+        "Llamarme de repente por algo que podía esperar a mañana."
+      ],
+      "sub": "Detalles pequeños, casi todos. Son los que hacen que una semana sea más fácil."
     },
     "working": {
       "heading": "Cómo trabajo",
@@ -373,44 +425,60 @@
       "triage": "Primero correo y Slack",
       "core": "Mejor momento para localizarme",
       "paras": [
-        "La cabeza me funciona cuando el café hace efecto, sobre las nueve y media. La primera media hora se va en correo, Slack y decidir qué importa hoy de verdad.",
-        "En la oficina me verás casi siempre con auriculares. Es para filtrar el ruido, no un cartel de no molestar: si me necesitas, interrúmpeme.",
-        "Rindo mejor en un sitio tranquilo y con un buen equipo de audio y vídeo, así que tiro hacia el teletrabajo siempre que la tarea lo permita.",
-        "Creo que casi todos los problemas difíciles se resuelven con planificación y colaboración. Defiendo mucho el pair programming: prefiero una hora contigo en una llamada que doce mensajes de Slack."
-      ]
+        "La cabeza me funciona cuando el café hace efecto, sobre las nueve y media. La primera media hora se va en correo, Slack y decidir qué importa hoy de verdad."
+      ],
+      "sub": "El café no es una metáfora."
+    },
+    "feedback": {
+      "heading": "Feedback",
+      "paras": [
+        "Por escrito, para poder pensarlo y responder bien en lugar de a la defensiva. Sé concreto. Y que vaya sobre el trabajo: llévame la contraria delante de todos, pero lo que sea sobre mí, en privado.",
+        "Bajo presión te diré cuando llegue a mi límite en vez de quedarme callado. Si me he quedado callado cerca de una entrega, pregúntamelo directamente."
+      ],
+      "sub": "Por escrito, por favor. Se me da mejor el papel que el momento."
     },
     "personality": {
       "heading": "Mi perfil de personalidad",
       "type": "ISFP",
       "typeNote": "Aventurero, en la escala Myers-Briggs",
-      "body": "Me acerco a la gente y a las situaciones nuevas con la mente abierta y bastante calidez, y estoy cómodo quedándome en el momento en vez de forzar un plan. En la práctica, eso significa que prefiero entender tu problema antes que saltar a una respuesta, y que tomo una decisión por lo que vale y no porque sea como lo hicimos la última vez.",
+      "body": "Me acerco a la gente y a las situaciones nuevas con la mente abierta y bastante calidez, y estoy cómodo quedándome en el momento en vez de forzar un plan. En la práctica, eso significa que prefiero entender tu problema antes que saltar a una respuesta.",
       "linkLabel": "Leer más sobre el tipo",
-      "linkHref": "https://www.16personalities.com/es/personalidad-isfp"
-    },
-    "feedback": {
-      "heading": "Cómo darme feedback",
-      "paras": [
-        "Por escrito. Quiero tiempo para pensarlo y responder con calma en lugar de a la defensiva.",
-        "El feedback concreto es el que mejor funciona. Dime qué no ha salido bien y qué preferirías ver, y me lo tomaré en serio.",
-        "Que vaya sobre el trabajo y no sobre la persona. Puedes decirme que una decisión estuvo mal, que una revisión fue apresurada o que un plan no se sostenía. Prefiero que me digas directamente qué te preocupa a que lo disfraces de broma sobre mi profesionalidad."
-      ]
-    },
-    "pressure": {
-      "heading": "Bajo presión",
-      "paras": [
-        "Aguanto bien la presión hasta cierto punto, y prefiero decirlo cuando llego a ese punto en vez de tragármelo. Cuenta con que avisaré pronto, haré una pausa corta y pediré ayuda.",
-        "Si me he quedado callado y queda poco para la entrega, pregúntame directamente. Prefiero que me preguntes a que des por hecho que voy bien."
-      ]
+      "linkHref": "https://www.16personalities.com/es/personalidad-isfp",
+      "letters": [
+        [
+          "I",
+          "Introvertido"
+        ],
+        [
+          "S",
+          "Sensorial"
+        ],
+        [
+          "F",
+          "Sentimental"
+        ],
+        [
+          "P",
+          "Perceptivo"
+        ]
+      ],
+      "sub": "Cuatro letras de un cuestionario. Tómatelas con calma."
     },
     "offWork": {
-      "heading": "Fuera del teclado",
-      "para": "Veo muchísima televisión coreana, y alguna serie BL de otros países de Asia. Canto karaoke con más entusiasmo que oído. Nací y crecí en Barcelona, de padres filipinos. Vivo en el Reino Unido desde 2016, actualmente en Dartford.",
-      "photoAlt": "Warren de Leon, fuera del escritorio"
-    },
-    "cta": {
-      "heading": "¿Prefieres que hablemos?",
-      "body": "Media hora en la agenda suele ser más útil que un hilo interminable.",
-      "action": "Reservar una llamada"
+      "heading": "Fuera de horario",
+      "para": "Veo muchísima televisión coreana, y alguna serie BL de otros países de Asia. Canto karaoke con más entusiasmo que oído. Escribo un [blog](/blog/) sobre React Native y sobre cómo publican de verdad los equipos de móvil. Nací y crecí en Barcelona, de padres filipinos, y vivo en el Reino Unido desde 2016.",
+      "photoAlt": "Warren de Leon, fuera del escritorio",
+      "asksHead": "Puedes preguntarme siempre por",
+      "asks": [
+        "Series coreanas para empezar",
+        "Karaoke",
+        "El blog",
+        "React Native",
+        "Crecer en Barcelona",
+        "Mudarse de país"
+      ],
+      "socialLabel": "Encuéntrame en",
+      "sub": "La parte que no sale en la descripción del puesto."
     }
   }
 }

@@ -29,9 +29,12 @@ interface Props {
      logo and a two-line title (eyebrow + title) fades in once the reader
      scrolls past the hero. Desktop nav is unaffected. */
   mobileBack?: { href: string; title: string; eyebrow?: string };
+  /* Standalone pages (the Manual of Me) drop the nav, footer and mobile dock
+     and carry their own links instead. Consent and analytics stay. */
+  chrome?: boolean;
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, isProfilePage, ogImage, ogType, preloadImage, hreflangLocales, mobileBack } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, isProfilePage, ogImage, ogType, preloadImage, hreflangLocales, mobileBack, chrome = true } = Astro.props;
 
 // Default to every locale; pages that only exist in some locales (e.g. an
 // untranslated blog post) pass the subset that actually exists, so we never
@@ -268,12 +271,12 @@ const pageGraph = buildPageGraph({
   </head>
   <body>
     <a href="#main-content" class="skip-link">{t(locale).a11y.skipToContent}</a>
-    <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} mobileBack={mobileBack} />
+    {chrome && <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} mobileBack={mobileBack} />}
     <main id="main-content">
       <slot />
     </main>
-    <Footer locale={locale} />
-    <TabBar locale={locale} currentPath={currentPath} />
+    {chrome && <Footer locale={locale} />}
+    {chrome && <TabBar locale={locale} currentPath={currentPath} />}
     <CookieConsent locale={locale} />
 
     <script is:inline>
