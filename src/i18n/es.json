@@ -381,6 +381,14 @@
         "Creo que casi todos los problemas difíciles se resuelven con planificación y colaboración. Defiendo mucho el pair programming: prefiero una hora contigo en una llamada que doce mensajes de Slack."
       ]
     },
+    "personality": {
+      "heading": "Mi perfil de personalidad",
+      "type": "ISFP",
+      "typeNote": "Aventurero, en la escala Myers-Briggs",
+      "body": "Me acerco a la gente y a las situaciones nuevas con la mente abierta y bastante calidez, y estoy cómodo quedándome en el momento en vez de forzar un plan. En la práctica, eso significa que prefiero entender tu problema antes que saltar a una respuesta, y que tomo una decisión por lo que vale y no porque sea como lo hicimos la última vez.",
+      "linkLabel": "Leer más sobre el tipo",
+      "linkHref": "https://www.16personalities.com/es/personalidad-isfp"
+    },
     "feedback": {
       "heading": "Cómo darme feedback",
       "paras": [

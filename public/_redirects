@@ -77,3 +77,14 @@
 
 # Old CV PDF → current CV
 /pdf/CV_WARRENDELEON_2025.pdf /pdf/CV_WARRENDELEON_2026.pdf 301
+
+# /manual/ → /manual-of-me/ (renamed 2026-09-03, hours after first publish).
+# The slug now matches the page's own name in the nav, footer and <h1>.
+/manual /manual-of-me/ 301
+/manual/ /manual-of-me/ 301
+/es/manual /es/manual-of-me/ 301
+/es/manual/ /es/manual-of-me/ 301
+/ca/manual /ca/manual-of-me/ 301
+/ca/manual/ /ca/manual-of-me/ 301
+/tl/manual /tl/manual-of-me/ 301
+/tl/manual/ /tl/manual-of-me/ 301

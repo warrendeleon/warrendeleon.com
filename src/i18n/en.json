@@ -380,6 +380,14 @@
         "I think most hard problems get solved with planning and collaboration. I'm a strong advocate of pair programming, and I'd rather spend an hour on a call with you than trade twelve Slack messages."
       ]
     },
+    "personality": {
+      "heading": "My personality profile",
+      "type": "ISFP",
+      "typeNote": "Adventurer, on the Myers-Briggs scale",
+      "body": "I approach people and new situations with an open mind and a fair amount of warmth, and I'm comfortable staying in the moment rather than forcing a plan onto it. In practice that means I'd rather understand your problem than jump straight to an answer, and I'll take a decision on its merits rather than because it's how we did it last time.",
+      "linkLabel": "Read more about the type",
+      "linkHref": "https://www.16personalities.com/isfp-personality"
+    },
     "feedback": {
       "heading": "Giving me feedback",
       "paras": [

@@ -20,6 +20,7 @@ const sections = [
   { id: 'strengths', label: m.strengths.heading },
   { id: 'expectations', label: m.expectations.heading },
   { id: 'working', label: m.working.heading },
+  { id: 'personality', label: m.personality.heading },
   { id: 'feedback', label: m.feedback.heading },
   { id: 'pressure', label: m.pressure.heading },
   { id: 'off-work', label: m.offWork.heading },
@@ -68,7 +69,7 @@ const tocHeadings = sections.map((s) => ({ slug: s.id, text: s.label, depth: 2 }
 
 const jsonLd = {
   '@type': 'WebPage',
-  '@id': `${SITE_URL}${getLocalePath(locale, '/manual/')}#webpage`,
+  '@id': `${SITE_URL}${getLocalePath(locale, '/manual-of-me/')}#webpage`,
   name: m.heading,
   description: i18n.seo.manualDescription,
   inLanguage: locale,
@@ -81,7 +82,7 @@ const jsonLd = {
   title={i18n.seo.manualTitle}
   description={i18n.seo.manualDescription}
   locale={locale}
-  currentPath={getLocalePath(locale, '/manual/')}
+  currentPath={getLocalePath(locale, '/manual-of-me/')}
   jsonLd={jsonLd}
   isProfilePage
 >
@@ -208,6 +209,20 @@ const jsonLd = {
             </div>
           </figure>
           {m.working.paras.map((p) => <p>{p}</p>)}
+        </section>
+
+        <section id="personality" class="manual-block manual-section">
+          <h2 class="section-heading">{m.personality.heading}</h2>
+          <p class="mbti">
+            <span class="mbti-type">{m.personality.type}</span>
+            <span class="mbti-note">{m.personality.typeNote}</span>
+          </p>
+          <p>{m.personality.body}</p>
+          <p>
+            <a href={m.personality.linkHref} target="_blank" rel="noopener noreferrer">
+              {m.personality.linkLabel}
+            </a>
+          </p>
         </section>
 
         <section id="feedback" class="manual-block manual-section">
@@ -615,6 +630,25 @@ const jsonLd = {
       var(--color-green) 3px 6px
     );
   }
+
+  /* The type code carries the weight; the gloss beside it stays quiet, so the
+     block reads as one line rather than a badge with a caption. */
+  .mbti {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.7rem;
+    align-items: baseline;
+    margin-bottom: 1rem !important;
+  }
+
+  .mbti-type {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  .mbti-note { font-size: 0.9rem; color: var(--text-muted); }
 
   .manual-cta-body {
     color: var(--text-secondary);

@@ -381,6 +381,14 @@
         "Crec que gairebé tots els problemes difícils es resolen amb planificació i col·laboració. Defenso molt el pair programming: prefereixo una hora amb tu en una trucada que dotze missatges de Slack."
       ]
     },
+    "personality": {
+      "heading": "El meu perfil de personalitat",
+      "type": "ISFP",
+      "typeNote": "Aventurer, a l'escala Myers-Briggs",
+      "body": "M'acosto a la gent i a les situacions noves amb la ment oberta i força escalf, i estic còmode quedant-me al moment en comptes de forçar-hi un pla. A la pràctica, això vol dir que prefereixo entendre el teu problema abans de saltar a una resposta, i que prenc una decisió pel que val i no perquè sigui com ho vam fer l'última vegada.",
+      "linkLabel": "Llegir més sobre el tipus",
+      "linkHref": "https://www.16personalities.com/es/personalidad-isfp"
+    },
     "feedback": {
       "heading": "Com donar-me feedback",
       "paras": [

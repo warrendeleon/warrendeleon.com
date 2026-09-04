@@ -381,6 +381,14 @@
         "Sa tingin ko, halos lahat ng mahihirap na problema ay nareresolba sa maayos na plano at sa pagtutulungan. Malaki ang tiwala ko sa pair programming: mas gusto ko ang isang oras na kausap ka kaysa labindalawang message sa Slack."
       ]
     },
+    "personality": {
+      "heading": "Ang personality profile ko",
+      "type": "ISFP",
+      "typeNote": "Adventurer, sa Myers-Briggs scale",
+      "body": "Bukas ang isip ko at medyo mainit ang pakikitungo ko sa mga tao at sa mga bagong sitwasyon, at kampante akong manatili sa sandaling iyon kaysa pilitin ang isang plano rito. Sa praktika, ibig sabihin nito ay mas gusto kong maintindihan muna ang problema mo bago tumalon sa sagot, at pinapasyahan ko ang isang bagay batay sa halaga nito at hindi dahil ganoon ang ginawa natin noong huli.",
+      "linkLabel": "Magbasa pa tungkol sa type",
+      "linkHref": "https://www.16personalities.com/isfp-personality"
+    },
     "feedback": {
       "heading": "Paano magbigay ng feedback sa akin",
       "paras": [
