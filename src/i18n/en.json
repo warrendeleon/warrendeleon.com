@@ -354,9 +354,7 @@
         "Splitting a codebase across several teams without it becoming impossible to maintain",
         "Testing strategy, CI, and a release process people actually trust",
         "Design systems and accessibility, including how to maintain one standard across several teams",
-        "Technical direction: which of three reasonable options to take, and why",
-        "Mentoring and coaching: pairing on something hard or working out what you want the next two years to look like",
-        "Career development, promotion cases and hiring"
+        "Mentoring and coaching: pairing on something hard, or talking an approach through before you commit to it"
       ]
     },
     "expectations": {
@@ -364,7 +362,7 @@
       "paras": [
         "Bring me the problem before you've built the whole answer. A half-formed idea is far easier to help with than a finished one that went the wrong way.",
         "Tell me what you've already tried. I'll assume you've thought about it, so start there rather than at the beginning.",
-        "Disagree with me in the room. If I've got something wrong, I'd much rather hear it from you than discover it in production."
+        "Disagree with me in the room. If a decision or a design is wrong, say so while we're all still in it, because I'd much rather hear it from you than discover it in production. Feedback about me is a different thing: send that privately, in writing."
       ]
     },
     "working": {

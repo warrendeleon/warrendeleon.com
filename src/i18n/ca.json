@@ -355,9 +355,7 @@
         "Repartir un codi base entre diversos equips sense que es faci impossible de mantenir",
         "Estratègia de tests, CI i un procés de release en què la gent confiï de debò",
         "Sistemes de disseny i accessibilitat, inclosa la manera de mantenir un mateix estàndard en diversos equips",
-        "Direcció tècnica: quina de tres opcions raonables triar, i per què",
-        "Mentoring i coaching: fer pair en alguna cosa difícil o pensar plegats com vols que siguin els teus propers dos anys",
-        "Desenvolupament de carrera, processos de promoció i selecció"
+        "Mentoring i coaching: fer pair en alguna cosa difícil, o comentar un enfocament abans que t'hi comprometis"
       ]
     },
     "expectations": {
@@ -365,7 +363,7 @@
       "paras": [
         "Porta'm el problema abans d'haver construït la resposta sencera. Amb una idea a mig fer et puc ajudar moltíssim més que amb una de ja acabada que ha anat en la direcció equivocada.",
         "Explica'm què has provat ja. Dono per fet que hi has pensat, així que comença per aquí i no pel principi.",
-        "Porta'm la contrària davant de tothom. Si m'he equivocat en alguna cosa, prefereixo mil vegades sentir-ho de tu que no pas descobrir-ho en producció."
+        "Porta'm la contrària davant de tothom. Si una decisió o un disseny no funcionen, digues-ho mentre encara hi som tots, perquè prefereixo mil vegades sentir-ho de tu que no pas descobrir-ho en producció. El feedback sobre mi és una altra cosa: això envia-me'l en privat i per escrit."
       ]
     },
     "working": {

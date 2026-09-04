@@ -355,9 +355,7 @@
         "Paghahati ng codebase sa maraming team nang hindi ito nagiging imposibleng i-maintain",
         "Testing strategy, CI, at release process na talagang pinagkakatiwalaan ng team",
         "Design system at accessibility, pati na kung paano panatilihin ang iisang standard sa maraming team",
-        "Technical direction: alin sa tatlong makatuwirang opsyon ang pipiliin, at bakit",
-        "Mentoring at coaching: mag-pair sa mahirap na problema o pag-usapan kung ano ang gusto mong mangyari sa susunod na dalawang taon",
-        "Career development, promotion cases, at hiring"
+        "Mentoring at coaching: mag-pair sa mahirap na problema, o pag-usapan ang isang approach bago mo ito simulan"
       ]
     },
     "expectations": {
@@ -365,7 +363,7 @@
       "paras": [
         "Dalhin mo sa akin ang problema bago mo pa tapusin ang buong solusyon. Mas madali kong matutulungan ang ideyang hindi pa tapos kaysa sa tapos na pero mali na ang direksyon.",
         "Sabihin mo kung ano na ang na-try mo. Alam kong pinag-isipan mo ito, kaya doon tayo magsimula at hindi sa umpisa.",
-        "Kontrahin mo ako sa harap ng lahat. Kung mali ako, mas gusto kong marinig iyon sa iyo kaysa malaman ko na lang sa production."
+        "Kontrahin mo ako sa harap ng lahat. Kung mali ang isang desisyon o disenyo, sabihin mo habang nandoon pa tayong lahat, dahil mas gusto kong marinig iyon sa iyo kaysa malaman ko na lang sa production. Iba naman ang feedback tungkol sa akin: iyon ay ipadala mo nang pribado at nakasulat."
       ]
     },
     "working": {

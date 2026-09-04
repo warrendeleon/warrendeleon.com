@@ -355,9 +355,7 @@
         "Repartir un código base entre varios equipos sin que se vuelva imposible de mantener",
         "Estrategia de tests, CI y un proceso de release en el que la gente confíe de verdad",
         "Sistemas de diseño y accesibilidad, incluida la forma de mantener un mismo estándar en varios equipos",
-        "Dirección técnica: cuál de tres opciones razonables elegir, y por qué",
-        "Mentoring y coaching: hacer pair en algo difícil o pensar juntos cómo quieres que sean tus próximos dos años",
-        "Desarrollo de carrera, procesos de promoción y selección"
+        "Mentoring y coaching: hacer pair en algo difícil, o comentar un enfoque antes de que te comprometas con él"
       ]
     },
     "expectations": {
@@ -365,7 +363,7 @@
       "paras": [
         "Tráeme el problema antes de haber construido la respuesta entera. Con una idea a medio hacer puedo ayudarte muchísimo más que con una ya terminada que ha ido en la dirección equivocada.",
         "Cuéntame qué has probado ya. Doy por hecho que lo has pensado, así que empieza por ahí y no por el principio.",
-        "Llévame la contraria delante de todos. Si me he equivocado en algo, prefiero mil veces oírlo de ti que descubrirlo en producción."
+        "Llévame la contraria delante de todos. Si una decisión o un diseño están mal, dilo mientras seguimos todos dentro, porque prefiero mil veces oírlo de ti que descubrirlo en producción. El feedback sobre mí es otra cosa: eso mándamelo en privado y por escrito."
       ]
     },
     "working": {
