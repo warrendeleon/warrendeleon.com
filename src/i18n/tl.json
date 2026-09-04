@@ -439,30 +439,80 @@
     },
     "personality": {
       "heading": "Ang personality profile ko",
-      "type": "ISFP",
-      "typeNote": "Adventurer, sa Myers-Briggs scale",
-      "body": "Bukas ang isip ko at medyo mainit ang pakikitungo ko sa mga tao at sa mga bagong sitwasyon, at kampante akong manatili sa sandaling iyon kaysa pilitin ang isang plano rito. Sa praktika, ibig sabihin nito ay mas gusto kong maintindihan muna ang problema mo bago tumalon sa sagot.",
-      "linkLabel": "Magbasa pa tungkol sa type",
-      "linkHref": "https://www.16personalities.com/isfp-personality",
+      "sub": "Simula ng usapan, hindi hatol.",
+      "source": "Lahat ng numero sa ibaba ay galing sa sarili kong profile sa 16Personalities. Ang pangunahing test ay kinuha noong 4 Setyembre 2026.",
       "letters": [
         [
-          "I",
-          "Introverted"
+          "E",
+          "Extraverted"
         ],
         [
-          "S",
-          "Sensing"
+          "N",
+          "Intuitive"
         ],
         [
-          "F",
-          "Feeling"
+          "T",
+          "Thinking"
         ],
         [
-          "P",
-          "Perceiving"
+          "J",
+          "Judging"
         ]
       ],
-      "sub": "Apat na letra mula sa isang questionnaire. Huwag masyadong seryosohin."
+      "typeName": "Commander (ENTJ-A)",
+      "traits": [
+        {
+          "dim": "Enerhiya",
+          "value": 56,
+          "label": "Extraverted",
+          "opposite": "Introverted"
+        },
+        {
+          "dim": "Isip",
+          "value": 60,
+          "label": "Intuitive",
+          "opposite": "Observant"
+        },
+        {
+          "dim": "Ugali",
+          "value": 54,
+          "label": "Thinking",
+          "opposite": "Feeling"
+        },
+        {
+          "dim": "Taktika",
+          "value": 57,
+          "label": "Judging",
+          "opposite": "Prospecting"
+        },
+        {
+          "dim": "Pagkatao",
+          "value": 61,
+          "label": "Assertive",
+          "opposite": "Turbulent"
+        }
+      ],
+      "traitsNote": "Ang tuldok-tuldok na linya ang hati sa gitna. Apat sa lima ay wala pang pitong puntos ang layo rito, kaya wala ritong matibay na basa. Ang pinakahalata sa trabaho ay ang huli: hindi ako basta natitinag kapag may sumablay, at mas gusto kong sabihin mo agad sa akin kaysa ilihim mo para hindi ako mabahala.",
+      "locusHeading": "Saan ko iniisip na nanggagaling ang resulta sa trabaho",
+      "locusSource": "Mula sa Locus of Control test nila, hiwalay sa pangunahing test. Ito ang bahaging pantrabaho; hindi ko isinama ang personal at panlipunan, dahil sa dalawang iyon ay hindi tugma ang sarili nilang numero sa sarili nilang konklusyon.",
+      "locus": [
+        {
+          "label": "Sa akin",
+          "value": 75
+        },
+        {
+          "label": "Sa ibang tao",
+          "value": 62
+        },
+        {
+          "label": "Sa suwerte at timing",
+          "value": 49
+        }
+      ],
+      "locusNote": "Papasok ang turo ng akin. Inaako kong nasa akin ang resulta at doon ako nagpaplano, na mabuti kapag may kailangang mag-ako at hindi na kapag may nag-aako na. Halata ito sa pagiging mabagal kong bitawan ang mga bagay. Kung hawak ko ang dapat ay sa iyo, sabihin mo lang at bibitawan ko.",
+      "typeNote": "Dalawang taon na ang nakalipas, Adventurer (ISFP) ang sabi ng parehong questionnaire, kaya may ideya ka na kung gaano kabigat dapat ang label. Ang sulit basahin ay ang mga numero sa ibaba nito.",
+      "linkLabel": "Tingnan ang type sa 16Personalities",
+      "linkHref": "https://www.16personalities.com/entj-personality"
     },
     "offWork": {
       "heading": "Pagkatapos ng trabaho",

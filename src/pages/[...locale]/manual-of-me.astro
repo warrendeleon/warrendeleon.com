@@ -267,7 +267,9 @@ const jsonLd = {
         <section id="personality" class="manual-block manual-section">
           <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('personality')}</span>{m.personality.heading}</h2>
           <p class="chapter-sub">{m.personality.sub}</p>
-          <div class="mbti" role="img" aria-label={`${m.personality.type}: ${m.personality.letters.map(([, w]) => w).join(', ')}`}>
+          <p class="source-note">{m.personality.source}</p>
+
+          <div class="mbti" role="img" aria-label={`${m.personality.typeName}: ${m.personality.letters.map(([, w]) => w).join(', ')}`}>
             {m.personality.letters.map(([letter, word]) => (
               <span class="mbti-letter">
                 <span class="mbti-big">{letter}</span>
@@ -275,8 +277,40 @@ const jsonLd = {
               </span>
             ))}
           </div>
-          <p class="mbti-note">{m.personality.typeNote}</p>
-          <p>{m.personality.body}</p>
+          <p class="type-caption">{m.personality.typeName}</p>
+
+          <ul class="traits" role="list">
+            {m.personality.traits.map((t) => (
+              <li class="trait">
+                <span class="trait-dim">{t.dim}</span>
+                <span class="trait-score"><strong>{t.value}%</strong> {t.label}</span>
+                <span class="trait-track" aria-hidden="true">
+                  <span class="trait-fill" style={`width:${t.value}%`}></span>
+                </span>
+                <span class="trait-poles" aria-hidden="true">
+                  <span>{t.label}</span><span>{t.opposite}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p class="scale-note">{m.personality.traitsNote}</p>
+
+          <h3 class="locus-heading">{m.personality.locusHeading}</h3>
+          <p class="source-note">{m.personality.locusSource}</p>
+          <ul class="traits traits--locus" role="list">
+            {m.personality.locus.map((l) => (
+              <li class="trait">
+                <span class="trait-dim">{l.label}</span>
+                <span class="trait-score"><strong>{l.value}%</strong></span>
+                <span class="trait-track" aria-hidden="true">
+                  <span class="trait-fill" style={`width:${l.value}%`}></span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p class="scale-note">{m.personality.locusNote}</p>
+
+          <p class="type-note">{m.personality.typeNote}</p>
           <p><a href={m.personality.linkHref} target="_blank" rel="noopener noreferrer">{m.personality.linkLabel}</a></p>
         </section>
       </div>
@@ -778,10 +812,10 @@ const jsonLd = {
   .avail-key { display: flex; align-items: center; gap: 0.45rem; margin: 0.7rem 0 0 !important; font-size: 0.8rem !important; color: var(--text-muted) !important; }
   .avail-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, var(--color-green) 3px 6px); }
 
-  /* ISFP as four letters you can read, each with its meaning underneath. */
+  /* The type as four letters you can read, each with its meaning underneath. */
   /* Each letter centred over its own word, so the four read as one word with
-     an even rhythm rather than an I stranded at the left of a wide column. */
-  .mbti { display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; margin: 0.25rem 0 0.75rem; }
+     an even rhythm rather than an E stranded at the left of a wide column. */
+  .mbti { display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; margin: 0.5rem 0 0.6rem; }
   .mbti-letter { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .mbti-big {
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
@@ -793,7 +827,48 @@ const jsonLd = {
     color: var(--text-primary);
   }
   .mbti-word { margin-top: 0.35rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-green-text); }
-  .mbti-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin-bottom: 1rem !important; }
+  .type-caption { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 1.4rem !important; }
+
+  /* Attribution. Every number in this chapter is someone else's measurement,
+     so the source sits next to the numbers rather than in a footnote. */
+  .source-note { font-size: 0.88rem !important; color: var(--text-muted) !important; }
+
+  /* Trait scales. The score is real text on the top line, so the bar itself is
+     aria-hidden decoration: a screen reader gets "56% Extraverted", not a
+     progressbar it has to interpret. The dotted centre line is the point of the
+     whole block, since every score here sits close to it. */
+  .traits { list-style: none; margin: 0.5rem 0 0.9rem; padding: 0; display: flex; flex-direction: column; gap: 1.05rem; }
+  .trait { display: grid; grid-template-columns: 1fr auto; gap: 0.3rem 1rem; align-items: baseline; }
+  .trait-dim { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-green-text); }
+  .trait-score { font-size: 0.92rem; color: var(--text-muted); text-align: right; }
+  .trait-score strong { font-weight: 700; color: var(--text-primary); }
+  .trait-track {
+    grid-column: 1 / -1;
+    position: relative;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--border-color);
+    overflow: hidden;
+  }
+  /* Halfway mark. Inside the track and above the fill, so it reads as a
+     threshold the bar crosses rather than a tick floating over the row. */
+  .trait-track::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px dotted var(--text-muted);
+    opacity: 0.85;
+    z-index: 1;
+  }
+  .trait-fill { display: block; height: 100%; border-radius: 999px 0 0 999px; background: var(--color-green); }
+  .traits--locus .trait-track::after { content: none; }   /* independent 0–100 scales: no midpoint to cross */
+  .trait-poles { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+  .locus-heading { font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.2rem; color: var(--text-primary); }
+  .scale-note { font-size: 0.9rem !important; color: var(--text-muted) !important; }
+  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin-bottom: 1rem !important; }
 
   .offclock-chip { transition: transform 0.15s ease, background 0.15s ease; }
   .offclock-chip:hover { transform: translateY(-2px); background: rgba(14, 12, 25, 0.08); }
@@ -851,7 +926,11 @@ const jsonLd = {
     .board-time { display: none; }
     .board-row.is-open .board-time { display: block; }
     .hd { grid-template-columns: 1fr; gap: 1.5rem; }
-    .mbti { gap: 0 1.4rem; }
+    /* The four letters have to read as one word, so they must not wrap. The
+       words underneath are what overflow first (EXTRAVERTIDO, ORGANITZAT), so
+       they set the size, not the letters. Checked against the longest locale. */
+    .mbti { gap: 0 0.8rem; flex-wrap: nowrap; justify-content: space-between; }
+    .mbti-word { font-size: 0.68rem; letter-spacing: 0.04em; }
     .board-gate { font-size: 0.78rem; }
     .board-note { display: inline; margin: 0 0 0 0.4rem; }
     .board-time { text-align: left; font-size: 0.86rem; color: rgba(240, 240, 240, 0.85); }

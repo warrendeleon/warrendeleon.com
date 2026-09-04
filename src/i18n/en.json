@@ -439,30 +439,80 @@
     },
     "personality": {
       "heading": "My personality profile",
-      "type": "ISFP",
-      "typeNote": "Adventurer, on the Myers-Briggs scale",
-      "body": "I approach people and new situations with an open mind and a fair amount of warmth, and I'm comfortable staying in the moment rather than forcing a plan onto it. In practice that means I'd rather understand your problem than jump straight to an answer.",
-      "linkLabel": "Read more about the type",
-      "linkHref": "https://www.16personalities.com/isfp-personality",
+      "sub": "A place to start a conversation, not a verdict.",
+      "source": "All the figures below come from my own profile on 16Personalities. Main test taken on 4 September 2026.",
       "letters": [
         [
-          "I",
-          "Introverted"
+          "E",
+          "Extraverted"
         ],
         [
-          "S",
-          "Sensing"
+          "N",
+          "Intuitive"
         ],
         [
-          "F",
-          "Feeling"
+          "T",
+          "Thinking"
         ],
         [
-          "P",
-          "Perceiving"
+          "J",
+          "Judging"
         ]
       ],
-      "sub": "Four letters from one questionnaire. Take them lightly."
+      "typeName": "Commander (ENTJ-A)",
+      "traits": [
+        {
+          "dim": "Energy",
+          "value": 56,
+          "label": "Extraverted",
+          "opposite": "Introverted"
+        },
+        {
+          "dim": "Mind",
+          "value": 60,
+          "label": "Intuitive",
+          "opposite": "Observant"
+        },
+        {
+          "dim": "Nature",
+          "value": 54,
+          "label": "Thinking",
+          "opposite": "Feeling"
+        },
+        {
+          "dim": "Tactics",
+          "value": 57,
+          "label": "Judging",
+          "opposite": "Prospecting"
+        },
+        {
+          "dim": "Identity",
+          "value": 61,
+          "label": "Assertive",
+          "opposite": "Turbulent"
+        }
+      ],
+      "traitsNote": "The dotted line is the halfway mark. Four of the five sit within seven points of it, so none of this is a strong reading. The one that shows up most at work is the last: I stay fairly level when things go wrong, and I would rather be told early than protected from it.",
+      "locusHeading": "Where I think work outcomes come from",
+      "locusSource": "From their Locus of Control test, taken separately from the main one. This is the work section of it; I have left the personal and social sections off, because on those two their own numbers disagree with their own conclusions.",
+      "locus": [
+        {
+          "label": "Me",
+          "value": 75
+        },
+        {
+          "label": "Other people",
+          "value": 62
+        },
+        {
+          "label": "Luck and timing",
+          "value": 49
+        }
+      ],
+      "locusNote": "Mine points inward. I treat a result as mine to influence and I plan accordingly, which is useful when something needs owning and less useful when it is already owned by someone else. It shows up as being slow to hand things over. If I am holding something that should be yours, say so and I will let go of it.",
+      "typeNote": "Two years ago the same questionnaire said Adventurer (ISFP), which tells you roughly how much weight the label deserves. The numbers underneath it are the part worth reading.",
+      "linkLabel": "See the type on 16Personalities",
+      "linkHref": "https://www.16personalities.com/entj-personality"
     },
     "offWork": {
       "heading": "Off the clock",

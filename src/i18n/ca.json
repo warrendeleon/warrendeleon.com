@@ -439,30 +439,80 @@
     },
     "personality": {
       "heading": "El meu perfil de personalitat",
-      "type": "ISFP",
-      "typeNote": "Aventurer, a l'escala Myers-Briggs",
-      "body": "M'acosto a la gent i a les situacions noves amb la ment oberta i força escalf, i estic còmode quedant-me al moment en comptes de forçar-hi un pla. A la pràctica, això vol dir que prefereixo entendre el teu problema abans de saltar a una resposta.",
-      "linkLabel": "Llegir més sobre el tipus",
-      "linkHref": "https://www.16personalities.com/es/personalidad-isfp",
+      "sub": "Un punt de partida per a una conversa, no pas un veredicte.",
+      "source": "Totes les xifres de sota surten del meu perfil a 16Personalities. El test principal el vaig fer el 4 de setembre del 2026.",
       "letters": [
         [
-          "I",
-          "Introvertit"
+          "E",
+          "Extravertit"
         ],
         [
-          "S",
-          "Sensorial"
+          "N",
+          "Intuïtiu"
         ],
         [
-          "F",
-          "Sentimental"
+          "T",
+          "Racional"
         ],
         [
-          "P",
-          "Perceptiu"
+          "J",
+          "Organitzat"
         ]
       ],
-      "sub": "Quatre lletres d'un qüestionari. Pren-te-les amb calma."
+      "typeName": "Comandant (ENTJ-A)",
+      "traits": [
+        {
+          "dim": "Energia",
+          "value": 56,
+          "label": "Extravertit",
+          "opposite": "Introvertit"
+        },
+        {
+          "dim": "Ment",
+          "value": 60,
+          "label": "Intuïtiu",
+          "opposite": "Observador"
+        },
+        {
+          "dim": "Caràcter",
+          "value": 54,
+          "label": "Racional",
+          "opposite": "Emocional"
+        },
+        {
+          "dim": "Tàctiques",
+          "value": 57,
+          "label": "Organitzat",
+          "opposite": "Improvisador"
+        },
+        {
+          "dim": "Identitat",
+          "value": 61,
+          "label": "Assertiu",
+          "opposite": "Torbat"
+        }
+      ],
+      "traitsNote": "La línia de punts marca la meitat. Quatre dels cinc valors es queden a menys de set punts, així que cap no diu gaire cosa. El que més es nota a la feina és l'últim: aguanto prou bé quan alguna cosa es torça, i prefereixo que m'ho diguis aviat que no pas que me'n protegeixis.",
+      "locusHeading": "D'on crec que surten els resultats a la feina",
+      "locusSource": "Del seu test de Locus de Control, que es fa a part del principal. Aquí hi ha la part de la feina; he deixat fora la personal i la social, perquè en aquestes dues els seus propis números no quadren amb les seves pròpies conclusions.",
+      "locus": [
+        {
+          "label": "De mi",
+          "value": 75
+        },
+        {
+          "label": "Dels altres",
+          "value": 62
+        },
+        {
+          "label": "De la sort i el moment",
+          "value": 49
+        }
+      ],
+      "locusNote": "El meu apunta cap endins. Dono per fet que el resultat depèn de mi i ho planifico així, cosa que va bé quan alguna cosa necessita amo i pitjor quan ja en té. Es nota que trigo a deixar anar les coses. Si tinc agafat alguna cosa que et toca a tu, digue-m'ho i la deixo anar.",
+      "typeNote": "Fa dos anys el mateix qüestionari deia Aventurer (ISFP), cosa que et dona una idea del pes que mereix l'etiqueta. El que val la pena llegir són els números de sota.",
+      "linkLabel": "Veure el tipus a 16Personalities",
+      "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },
     "offWork": {
       "heading": "Fora d'horari",

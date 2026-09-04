@@ -439,30 +439,80 @@
     },
     "personality": {
       "heading": "Mi perfil de personalidad",
-      "type": "ISFP",
-      "typeNote": "Aventurero, en la escala Myers-Briggs",
-      "body": "Me acerco a la gente y a las situaciones nuevas con la mente abierta y bastante calidez, y estoy cómodo quedándome en el momento en vez de forzar un plan. En la práctica, eso significa que prefiero entender tu problema antes que saltar a una respuesta.",
-      "linkLabel": "Leer más sobre el tipo",
-      "linkHref": "https://www.16personalities.com/es/personalidad-isfp",
+      "sub": "Un punto de partida para una conversación, no un veredicto.",
+      "source": "Todas las cifras de abajo salen de mi perfil en 16Personalities. El test principal lo hice el 4 de septiembre de 2026.",
       "letters": [
         [
-          "I",
-          "Introvertido"
+          "E",
+          "Extravertido"
         ],
         [
-          "S",
-          "Sensorial"
+          "N",
+          "Intuitivo"
         ],
         [
-          "F",
-          "Sentimental"
+          "T",
+          "Racional"
         ],
         [
-          "P",
-          "Perceptivo"
+          "J",
+          "Organizado"
         ]
       ],
-      "sub": "Cuatro letras de un cuestionario. Tómatelas con calma."
+      "typeName": "Comandante (ENTJ-A)",
+      "traits": [
+        {
+          "dim": "Energía",
+          "value": 56,
+          "label": "Extravertido",
+          "opposite": "Introvertido"
+        },
+        {
+          "dim": "Mente",
+          "value": 60,
+          "label": "Intuitivo",
+          "opposite": "Observador"
+        },
+        {
+          "dim": "Carácter",
+          "value": 54,
+          "label": "Racional",
+          "opposite": "Emocional"
+        },
+        {
+          "dim": "Tácticas",
+          "value": 57,
+          "label": "Organizado",
+          "opposite": "Improvisador"
+        },
+        {
+          "dim": "Identidad",
+          "value": 61,
+          "label": "Asertivo",
+          "opposite": "Turbulento"
+        }
+      ],
+      "traitsNote": "La línea de puntos marca la mitad. Cuatro de los cinco valores se quedan a menos de siete puntos de ella, así que ninguno dice gran cosa. El que más se nota en el trabajo es el último: aguanto bastante bien cuando algo se tuerce, y prefiero que me lo cuentes pronto a que me protejas de ello.",
+      "locusHeading": "De dónde creo que salen los resultados en el trabajo",
+      "locusSource": "De su test de Locus de Control, que se hace aparte del principal. Aquí está la parte del trabajo; he dejado fuera la personal y la social, porque en esas dos sus propios números no cuadran con sus propias conclusiones.",
+      "locus": [
+        {
+          "label": "De mí",
+          "value": 75
+        },
+        {
+          "label": "De los demás",
+          "value": 62
+        },
+        {
+          "label": "De la suerte y el momento",
+          "value": 49
+        }
+      ],
+      "locusNote": "El mío apunta hacia dentro. Doy por hecho que el resultado depende de mí y planifico en consecuencia, lo cual va bien cuando algo necesita dueño y peor cuando ya lo tiene. Se nota en que tardo en soltar las cosas. Si estoy sujetando algo que te toca a ti, dímelo y lo suelto.",
+      "typeNote": "Hace dos años el mismo cuestionario decía Aventurero (ISFP), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de debajo.",
+      "linkLabel": "Ver el tipo en 16Personalities",
+      "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },
     "offWork": {
       "heading": "Fuera de horario",
