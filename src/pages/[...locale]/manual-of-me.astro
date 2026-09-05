@@ -296,7 +296,9 @@ const jsonLd = {
             <figure class="avail">
               <figcaption class="avail-caption">
                 <span class="avail-label">{m.working.hoursLabel}</span>
-                <span class="avail-value">{m.working.hoursValue}</span>
+                <span class="avail-value" data-avail-hours data-here={m.working.hoursValueHere}>{m.working.hoursValue}</span>
+                <span class="avail-now" data-avail-now data-tpl-in={m.working.nowIn} data-tpl-out={m.working.nowOut} data-tpl-in-here={m.working.nowInHere} data-tpl-out-here={m.working.nowOutHere} data-locale={locale === 'tl' ? 'fil' : locale} hidden></span>
+                <span class="avail-local" data-avail-local data-line={m.working.localLine} data-line-same={m.working.localLineSameDay} data-locale={locale === 'tl' ? 'fil' : locale} hidden></span>
               </figcaption>
               <div class="avail-chart" aria-hidden="true">
                 <div class="avail-track">
@@ -304,7 +306,9 @@ const jsonLd = {
                   <div class="avail-triage"></div>
                 </div>
                 <div class="avail-scale">
-                  {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'].map((tick, i) => <span class="avail-tick" style={`--t:${i}`}>{tick}</span>)}
+                  {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'].map((tick, i) => (
+                    <span class="avail-tick" style={`--t:${i}`} data-hour={8 + i * 2}>{tick}<span class="avail-tick-local" hidden></span></span>
+                  ))}
                 </div>
                 <p class="avail-key"><span class="avail-swatch"></span>{m.working.triage}</p>
               </div>
@@ -1025,6 +1029,11 @@ const jsonLd = {
   .avail { margin: 0 0 1.75rem; padding: 1.1rem 1.2rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; }
   .avail-caption { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; align-items: baseline; margin-bottom: 1rem; }
   .avail-label { font-size: 0.85rem; color: var(--text-muted); }
+  .avail-now, .avail-local { flex-basis: 100%; font-size: 0.88rem; color: var(--text-secondary); }
+  .avail-now { font-weight: 600; color: var(--text-primary); }
+  .avail-tick-local { display: block; margin-top: 0.1rem; font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+  .avail-tick-local[hidden] { display: none; }
+  .avail-tick-day { margin-left: 0.25em; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-green-text); }
   .avail-value {
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
     font-optical-sizing: auto;
@@ -1038,6 +1047,7 @@ const jsonLd = {
   .avail-core span { position: relative; z-index: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .avail-triage { position: absolute; inset-block: 0; left: 10%; width: 5%; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, transparent 3px 6px); }
   .avail-scale { position: relative; height: 1.1rem; margin-top: 0.4rem; }
+  .avail-scale.has-local { height: 2.3rem; }
   .avail-tick { position: absolute; top: 0; left: calc(var(--t) * 20%); transform: translateX(-50%); font-size: 0.72rem; color: var(--text-muted); }
   .avail-tick:first-child { transform: none; }
   .avail-tick:last-child { transform: translateX(-100%); }
@@ -1363,6 +1373,120 @@ const jsonLd = {
     update();
     // Choosing a chapter closes the menu; the browser does the jump.
     links.forEach((a) => a.addEventListener('click', () => { if (menu) menu.open = false; }));
+  }
+
+  // Working hours, made local. Three things share one decision about where
+  // the reader is: the hours line drops "UK time" for a reader on UK time,
+  // the live clock says "in the UK" only to readers elsewhere, and readers
+  // elsewhere get the hours in their own zone. A browser that hides its zone
+  // (UTC, GMT, Etc/…) or has none gets the safe wording and nothing more.
+  //
+  // Conversion is from real instants, never a fixed offset: each London
+  // wall-clock time on the next working day is turned into an instant by
+  // reading London's offset at that instant (re-checked once across a DST
+  // change), then formatted in the reader's zone. The bar never moves: a
+  // zone shift changes labels, not geometry.
+  const hoursOut = document.querySelector<HTMLElement>('[data-avail-hours]');
+  const nowOut = document.querySelector<HTMLElement>('[data-avail-now]');
+  const localOut = document.querySelector<HTMLElement>('[data-avail-local]');
+  if (nowOut && localOut && typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
+    try {
+      const LONDON = 'Europe/London';
+      const lang = nowOut.dataset.locale || 'en-GB';
+      const parts = (d: Date, tz: string) => {
+        const p = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', weekday: 'short' }).formatToParts(d);
+        const get = (t: string) => p.find((x) => x.type === t)?.value ?? '';
+        return { y: +get('year'), m: +get('month'), d: +get('day'), h: +get('hour'), min: +get('minute'), wd: get('weekday') };
+      };
+      const londonInstant = (y: number, m: number, d: number, h: number, min: number) => {
+        let t = Date.UTC(y, m - 1, d, h, min);
+        for (let i = 0; i < 2; i++) {
+          const q = parts(new Date(t), LONDON);
+          t += Date.UTC(y, m - 1, d, h, min) - Date.UTC(q.y, q.m - 1, q.d, q.h, q.min);
+        }
+        return new Date(t);
+      };
+      const nowL = parts(new Date(), LONDON);
+      const probe = new Date(Date.UTC(nowL.y, nowL.m - 1, nowL.d, 12));
+      const dow = probe.getUTCDay();
+      probe.setUTCDate(probe.getUTCDate() + (dow === 6 ? 2 : dow === 0 ? 1 : 0));
+      const day = { y: probe.getUTCFullYear(), m: probe.getUTCMonth() + 1, d: probe.getUTCDate() };
+      const start = londonInstant(day.y, day.m, day.d, 9, 0);
+      const end = londonInstant(day.y, day.m, day.d, 17, 30);
+
+      // Where the reader is, if the browser will say.
+      let zone = '';
+      try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch { zone = ''; }
+      const zoneKnown = !!zone && !/^(UTC|GMT|Etc\/)/i.test(zone);
+      const time = new Intl.DateTimeFormat('en-GB', { timeZone: zoneKnown ? zone : LONDON, hourCycle: 'h23', hour: '2-digit', minute: '2-digit' });
+      const onUkTime = zoneKnown && time.format(start) === '09:00' && time.format(end) === '17:30' && parts(start, zone).d === parts(start, LONDON).d;
+
+      // 1. The hours line loses its qualifier for a reader on UK time.
+      if (onUkTime && hoursOut?.dataset.here) hoursOut.textContent = hoursOut.dataset.here;
+
+      // 2. The UK clock, live, refreshed on the minute; from London's zone, so
+      //    it is right even in a browser that hides its own.
+      const clock = new Intl.DateTimeFormat('en-GB', { timeZone: LONDON, hourCycle: 'h23', hour: '2-digit', minute: '2-digit' });
+      const dayName = new Intl.DateTimeFormat(lang, { timeZone: LONDON, weekday: 'long' });
+      const paint = () => {
+        const now = new Date();
+        const hm = clock.format(now);
+        const wd = parts(now, LONDON).wd;
+        const minutes = Number(hm.slice(0, 2)) * 60 + Number(hm.slice(3, 5));
+        const working = !['Sat', 'Sun'].includes(wd) && minutes >= 9 * 60 && minutes < 17 * 60 + 30;
+        const d = nowOut.dataset;
+        const tpl = (onUkTime ? (working ? d.tplInHere : d.tplOutHere) : (working ? d.tplIn : d.tplOut)) || '';
+        nowOut.textContent = tpl.replace('{time}', hm).replace('{day}', dayName.format(now));
+        nowOut.hidden = false;
+      };
+      paint();
+      const tick = () => { paint(); window.setTimeout(tick, 60000 - (Date.now() % 60000)); };
+      window.setTimeout(tick, 60000 - (Date.now() % 60000));
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) paint(); });
+
+      // 3. Readers elsewhere get the hours in their zone, with the end day
+      //    only when it differs, and a local hour under each tick.
+      if (zoneKnown && !onUkTime) {
+        const weekday = new Intl.DateTimeFormat(lang, { timeZone: zone, weekday: 'long' });
+        const sd = parts(start, zone), ed = parts(end, zone);
+        const same = sd.y === ed.y && sd.m === ed.m && sd.d === ed.d;
+        const tpl = same ? (localOut.dataset.lineSame || '') : (localOut.dataset.line || '');
+        // The zone's generic name in the page's language; the city from the
+        // identifier if the runtime cannot produce one (Chrome reports Kolkata
+        // as "Calcutta") or produces a malformed one (Filipino's "HIlagang").
+        let zoneName = zone.split('/').pop()!.replace(/_/g, ' ');
+        try {
+          const named = new Intl.DateTimeFormat(lang, { timeZone: zone, timeZoneName: 'longGeneric' }).formatToParts(start).find((x) => x.type === 'timeZoneName')?.value;
+          if (named && !/^GMT|^UTC/.test(named) && !/[A-Z]{2}[a-z]/.test(named)) zoneName = named;
+        } catch { /* older runtime: keep the city */ }
+        localOut.textContent = tpl
+          .replace('{zone}', zoneName)
+          .replace('{startDay}', weekday.format(start))
+          .replace('{start}', time.format(start))
+          .replace('{endDay}', weekday.format(end))
+          .replace('{end}', time.format(end));
+        localOut.hidden = false;
+        const shortDay = new Intl.DateTimeFormat(lang, { timeZone: zone, weekday: 'short' });
+        const first = parts(londonInstant(day.y, day.m, day.d, 8, 0), zone);
+        document.querySelectorAll<HTMLElement>('.avail-tick').forEach((tickEl) => {
+          const at = londonInstant(day.y, day.m, day.d, Number(tickEl.dataset.hour), 0);
+          const local = tickEl.querySelector<HTMLElement>('.avail-tick-local');
+          if (!local) return;
+          const lp = parts(at, zone);
+          local.textContent = time.format(at);
+          if (lp.d !== first.d || lp.m !== first.m) {
+            const tag = document.createElement('span');
+            tag.className = 'avail-tick-day';
+            tag.textContent = shortDay.format(at).replace(/\.$/, '');
+            local.appendChild(tag);
+          }
+          local.hidden = false;
+        });
+        document.querySelector('.avail-scale')?.classList.add('has-local');
+      }
+    } catch {
+      // No Intl, or a zone the runtime cannot name: the page reads as served.
+    }
   }
 
   // The title assembles like the board, once, when the page opens.

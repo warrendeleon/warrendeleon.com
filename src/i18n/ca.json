@@ -422,6 +422,13 @@
       "heading": "Com treballo",
       "hoursLabel": "Horari",
       "hoursValue": "De dilluns a divendres, de 9:00 a 17:30 (hora del Regne Unit), amb pausa per dinar",
+      "hoursValueHere": "De dilluns a divendres, de 9:00 a 17:30, amb pausa per dinar",
+      "localLine": "On ets tu ({zone}), això és de {start} del {startDay} a {end} del {endDay}, cada dia feiner.",
+      "localLineSameDay": "On ets tu ({zone}), això és de {start} a {end} del {startDay}, cada dia feiner.",
+      "nowIn": "Ara mateix al Regne Unit són les {time} del {day}, dins l'horari laboral.",
+      "nowOut": "Ara mateix al Regne Unit són les {time} del {day}, fora de l'horari laboral.",
+      "nowInHere": "Ara mateix són les {time} del {day}, dins l'horari laboral.",
+      "nowOutHere": "Ara mateix són les {time} del {day}, fora de l'horari laboral.",
       "triage": "Primer correu i Slack",
       "core": "Millor moment per localitzar-me",
       "paras": [
