@@ -375,7 +375,7 @@
         },
         {
           "icon": "calendar",
-          "need": "Vols una hora sencera del meu temps",
+          "need": "Necessites una hora per parlar d'alguna cosa amb mi",
           "channel": "Reserva una trucada",
           "reply": "Normalment, la mateixa setmana",
           "channelHref": "/book-a-call/"
@@ -384,7 +384,7 @@
           "icon": "oneToOne",
           "need": "És sobre la teva feina, el teu desenvolupament professional o alguna cosa que et preocupa",
           "channel": "El nostre 1:1",
-          "reply": "No esperis al següent, busca'm abans"
+          "reply": "No cal que esperis al següent 1:1, busca'm abans"
         },
         {
           "icon": "mail",
@@ -396,25 +396,25 @@
           "icon": "slack",
           "need": "No saps a qui preguntar",
           "channel": "Slack",
-          "reply": "Esbrino qui ho porta i et dic alguna cosa"
+          "reply": "Esbrino qui se n'encarrega i t'ho dic"
         }
       ],
-      "sub": "Busca la teva situació. Aquests són els meus temps de resposta."
+      "sub": "Tria la situació que encaixi. Aquests són els meus compromisos de resposta."
     },
     "howTo": {
       "heading": "Com treballar amb mi",
       "helpsHead": "Això ajuda",
       "helps": [
-        "Digues-me d'entrada què necessites de debò. Anar al gra ens estalvia missatges amunt i avall.",
-        "Interromp-me encara que porti auriculars. M'aïllen del soroll de l'oficina, però no són cap mur.",
-        "Reserva mitja hora en comptes d'escriure el dotzè missatge d'un fil.",
-        "Ensenya'm la versió a mig fer. Em resulta més fàcil ajudar-te en aquest punt que quan ja està acabada i va pel camí equivocat."
+        "Comença dient-me què necessites. Ser directe ens estalvia temps a tots dos.",
+        "Interromp-me encara que porti auriculars. Només m'aïllen del soroll de l'oficina.",
+        "Si un fil de missatges s'està allargant, reserva una trucada de 30 minuts.",
+        "Ensenya'm la teva feina mentre encara li estàs donant forma. És més fàcil proposar canvis abans que l'acabis."
       ],
       "hurtsHead": "Això no",
       "hurts": [
-        "Les bromes a costa de la meva professionalitat. Si alguna cosa t'ha molestat, digues-la tal com és.",
+        "Les bromes sobre la meva professionalitat. Si alguna cosa que he fet t'ha molestat, digues-m'ho directament.",
         "Donar per fet que estic bé perquè m'he quedat callat.",
-        "Trucar-me de sobte per alguna cosa que podia esperar a demà."
+        "Trucar-me sense avisar per alguna cosa que pot esperar a demà."
       ],
       "sub": "Coses petites, gairebé totes. Són les que fan la setmana més lleugera."
     },
@@ -423,8 +423,8 @@
       "hoursLabel": "Horari",
       "hoursValue": "De dilluns a divendres, de 9:00 a 17:30 (hora del Regne Unit)",
       "hoursValueHere": "De dilluns a divendres, de 9:00 a 17:30",
-      "localLine": "On ets tu ({zone}), això és de {start} del {startDay} a {end} del {endDay}, cada dia feiner.",
-      "localLineSameDay": "On ets tu ({zone}), això és de {start} a {end} del {startDay}, cada dia feiner.",
+      "localLine": "El {date}, el meu horari és de {start} del {startDay} a {end} del {endDay} on ets tu ({zone}).",
+      "localLineSameDay": "El {date}, el meu horari és de {start} a {end} on ets tu ({zone}).",
       "nowIn": "Ara mateix al Regne Unit són les {time} del {day}, dins l'horari laboral.",
       "nowOut": "Ara mateix al Regne Unit són les {time} del {day}, fora de l'horari laboral.",
       "nowInHere": "Ara mateix són les {time} del {day}, dins l'horari laboral.",
@@ -432,21 +432,21 @@
       "triage": "Primer correu i Slack",
       "core": "Millor moment per localitzar-me",
       "paras": [
-        "El cap em funciona quan el cafè fa efecte, cap a dos quarts de deu. La primera mitja hora se'n va en correu, Slack i decidir què importa avui de debò."
+        "El cap em comença a funcionar bé després del primer cafè, cap a dos quarts de deu. La primera mitja hora la dedico al correu, a Slack i a decidir què és el més important avui."
       ],
       "sub": "El cafè no és cap metàfora."
     },
     "feedback": {
       "heading": "Feedback",
       "paras": [
-        "Escriu-m'ho perquè ho pugui pensar amb calma i respondre sense posar-me a la defensiva. Sigues concret i centra't en la feina: pots discrepar de mi en una reunió, però els comentaris sobre mi com a persona, en privat.",
-        "Quan estigui sota pressió, et diré si he arribat al meu límit en comptes de quedar-me callat. Si veus que callo quan s'acosta una data de lliurament, pregunta'm directament com estic."
+        "Dona'm el feedback per escrit, perquè tingui temps de pensar-hi abans de respondre. Sigues concret. Pots discrepar de les meves idees en una reunió de grup, però el que tingui a veure amb el meu comportament o el meu rendiment, parla'n amb mi en privat.",
+        "Quan estigui sota pressió, et diré si m'està costant. Si em veus més callat del normal quan s'acosta una data de lliurament, pregunta'm com ho porto."
       ],
-      "sub": "Per escrit, si us plau. M'explico millor amb calma que sobre la marxa."
+      "sub": "Per escrit, si us plau. Responc millor quan he tingut temps de pensar."
     },
     "personality": {
       "heading": "El meu perfil de personalitat",
-      "sub": "Un punt de partida per a una conversa, no pas un veredicte.",
+      "sub": "Aquests resultats ajuden a explicar com treballo, però no ho diuen tot de mi.",
       "source": "Les xifres d'aquesta secció provenen dels meus resultats a 16Personalities i a l'HEXACO-PI-R. Vaig fer el test principal de 16Personalities el 4 de setembre del 2026.",
       "letters": [
         [
@@ -499,12 +499,12 @@
           "opposite": "Turbulent"
         }
       ],
-      "traitsNote": "La línia de punts marca el punt mitjà. Quatre dels cinc valors són a deu punts o menys, de manera que no hi ha cap preferència gaire marcada. El tret que més es nota a la feina és l'últim: mantinc força la calma quan alguna cosa es torça i prefereixo que m'avisis aviat que no pas que m'amaguis un problema per estalviar-me el neguit.",
+      "traitsNote": "La línia de punts marca el 50 %. Quatre de les meves cinc puntuacions són a deu punts o menys d'aquesta línia, així que la majoria queden a prop del centre. El resultat que més reconec en la meva manera de treballar és Assertiu: normalment mantinc la calma quan sorgeixen problemes i prefereixo saber-los aviat.",
       "agreeHeading": "Patrons que reconec en tots dos resultats",
-      "agreeSource": "També vaig fer l'[HEXACO-PI-R](https://hexaco.org/hexaco-online) el 5 de setembre del 2026. Fa servir un model diferent, però hi ha dos patrons que reconec en tots dos resultats i en la meva manera de treballar. Les puntuacions de l'HEXACO es comparen amb una mitjana de 5,00, calculada sobre una mostra d'estudiants universitaris canadencs.",
+      "agreeSource": "També vaig fer l'[HEXACO-PI-R](https://hexaco.org/hexaco-online) el 5 de setembre del 2026. Fa servir un model diferent, però hi ha dos patrons que reconec en tots dos resultats i en la meva manera de treballar. HEXACO compara aquestes puntuacions amb les d'un grup d'estudiants universitaris canadencs. La puntuació mitjana d'aquest grup és 5,00.",
       "agree": [
         {
-          "claim": "Reviso les coses i persevero.",
+          "claim": "Reviso la meva feina amb cura i tiro endavant quan es complica.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -515,10 +515,10 @@
               "detail": "Responsabilitat: 6,43; perfeccionisme: 6,64."
             }
           ],
-          "means": "Revisaré la feina abans de passar-te-la. També em costa donar una cosa per acabada, així que digues-me quan ja està prou bé."
+          "means": "Reviso la meva feina abans de compartir-la. Puc passar massa temps polint detalls, així que digues-me quan compleix el que necessites."
         },
         {
-          "claim": "Soc directe i no deixo passar les coses.",
+          "claim": "Soc directe i prefereixo resoldre els desacords.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -529,7 +529,7 @@
               "detail": "Amabilitat: 3,54; capacitat de perdonar: 3,16."
             }
           ],
-          "means": "Digues-m'ho clar i ho encaixaré bé. Si hi ha hagut un problema entre nosaltres, parla'n amb mi en comptes d'esperar que passi tot sol: jo no l'hauré deixat enrere com si res."
+          "means": "Pots ser directe amb mi. Si hem tingut un desacord, prefereixo parlar-ne que deixar-lo sense resoldre."
         }
       ],
       "locusHeading": "Què influeix en els meus resultats a la feina",
@@ -550,17 +550,17 @@
       ],
       "locusNote": "Crec que el que faig influeix en els resultats de la feina, així que n'assumeixo la responsabilitat i planifico amb antelació. Però de vegades em quedo tasques o decisions que corresponen a una altra persona. Si ho estic fent amb la teva feina, digues-m'ho clarament i em faig enrere.",
       "locusCaveat": "L'informe assenyala l'atzar com a segon factor, però segons les puntuacions que mostra, el segon són les persones amb influència. He deixat fora els resultats personal i social perquè la categoria principal que indiquen tampoc no coincideix amb les seves puntuacions.",
-      "typeNote": "El setembre del 2024 el mateix qüestionari em va donar Aventurer (ISFP-A), cosa que et dona una idea del pes que mereix l'etiqueta. El que val la pena llegir són els números de sota.",
+      "typeNote": "El setembre del 2024, el mateix qüestionari em va donar Aventurer (ISFP-A). El meu resultat ha canviat, així que prenc el tipus com una descripció i no com una identitat fixa.",
       "linkLabel": "Consulta aquest tipus de personalitat a 16Personalities, en castellà",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },
     "offWork": {
       "heading": "Fora d'horari",
-      "para": "Miro moltíssima televisió coreana i algunes sèries BL d'altres països d'Àsia. Canto karaoke amb més entusiasme que talent. Escric un [blog](/blog/) sobre React Native i sobre com treballen els equips de desenvolupament mòbil per publicar les seves aplicacions. Vaig néixer i créixer a Barcelona, els meus pares són filipins i visc al Regne Unit des del 2016.",
+      "para": "Miro moltíssima televisió coreana i algunes sèries BL (boys' love) d'altres països d'Àsia. Canto karaoke amb més entusiasme que talent. Escric un [blog](/blog/) sobre React Native i sobre com els equips de desenvolupament mòbil creen i publiquen les seves aplicacions. Vaig néixer i créixer a Barcelona, els meus pares són filipins i visc al Regne Unit des del 2016.",
       "photoAlt": "Warren de Leon amb ulleres de sol i jaqueta clara, dret en un camp de tulipes vermelles, roses i blanques sota un cel blau",
-      "asksHead": "Sempre em pots preguntar per",
+      "asksHead": "Temes dels quals m'agrada parlar",
       "asks": [
-        "Sèries coreanes que valen la pena",
+        "Sèries coreanes que val la pena veure",
         "Karaoke",
         "El blog",
         "React Native",
@@ -571,7 +571,7 @@
       "sub": "La part que no surt a la descripció del lloc de treball."
     },
     "colophon": {
-      "note": "Edició 1, setembre del 2026. El reviso quan canvia la meva feina, no abans.",
+      "note": "Edició 1, setembre del 2026. L'actualitzo a mesura que canvien la meva feina i les meves preferències.",
       "languages": "Llegeix-lo en",
       "top": "Torna a l'inici",
       "home": "warrendeleon.com"

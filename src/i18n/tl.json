@@ -384,7 +384,7 @@
           "icon": "oneToOne",
           "need": "Tungkol ito sa trabaho mo, sa career growth mo, o sa isang bagay na bumabagabag sa iyo",
           "channel": "Ang 1:1 natin",
-          "reply": "Huwag mong hintayin ang susunod, lapitan mo ako agad"
+          "reply": "Hindi mo kailangang hintayin ang susunod nating 1:1, lapitan mo ako agad"
         },
         {
           "icon": "mail",
@@ -396,25 +396,25 @@
           "icon": "slack",
           "need": "Hindi mo alam kung kanino ka lalapit",
           "channel": "Slack",
-          "reply": "Aalamin ko kung sino ang may hawak nito at babalikan kita"
+          "reply": "Aalamin ko kung sino ang responsable at sasabihin ko sa iyo"
         }
       ],
-      "sub": "Hanapin ang sitwasyong tugma sa kailangan mo. Makikita mo rito kung gaano katagal bago ako sumagot."
+      "sub": "Piliin ang sitwasyong tugma sa iyo. Ito ang mga pangako ko kung gaano ako kabilis sumagot."
     },
     "howTo": {
       "heading": "Paano makipagtrabaho sa akin",
       "helpsHead": "Nakakatulong ito",
       "helps": [
-        "Sabihin mo agad kung ano talaga ang kailangan mo. Kapag diretso ang usapan, hindi na tayo magpapabalik-balik ng mga message.",
-        "Puwede mo akong istorbohin kahit naka-headphones ako. Para lang mabawasan ang ingay sa office, hindi para hindi ako kausapin.",
-        "Mag-book na lang tayo ng 30 minuto kaysa umabot pa sa pang-labindalawang message sa thread.",
-        "Ipakita mo sa akin kahit hindi pa tapos. Mas madali kitang matutulungan habang ginagawa pa lang kaysa kapag tapos na pero mali pala ang direksiyon."
+        "Simulan mo sa kung ano ang kailangan mo. Kapag diretso tayo, nakakatipid tayong dalawa ng oras.",
+        "Puwede mo akong istorbohin kahit naka-headphones ako. Pampatahimik lang iyon ng ingay sa office.",
+        "Kung humahaba na ang isang message thread, mag-book na lang ng 30 minutong tawag.",
+        "Ipakita mo sa akin ang trabaho mo habang ginagawa mo pa. Mas madaling magmungkahi ng mga pagbabago bago mo ito matapos."
       ],
       "hurtsHead": "Hindi ito nakakatulong",
       "hurts": [
-        "Mga birong nangmamaliit sa akin bilang propesyonal. Kung may ikinainis ka, sabihin mo nang diretso.",
+        "Mga biro tungkol sa pagiging propesyonal ko. Kung may ginawa akong ikinabahala mo, sabihin mo sa akin nang diretso.",
         "Ang pag-aakalang okay lang ako dahil tumahimik ako.",
-        "Ang biglaang pagtawag tungkol sa bagay na puwede namang ipagpabukas."
+        "Ang pagtawag nang walang abiso tungkol sa bagay na puwede namang ipagpabukas."
       ],
       "sub": "Maliliit na bagay lang ang karamihan, pero mas gumagaan ang linggo dahil sa mga ito."
     },
@@ -423,8 +423,8 @@
       "hoursLabel": "Oras ng trabaho",
       "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m. (UK time)",
       "hoursValueHere": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m.",
-      "localLine": "Kung nasaan ka ({zone}), {startDay} {start} hanggang {endDay} {end} iyon, bawat working day.",
-      "localLineSameDay": "Kung nasaan ka ({zone}), {startDay} {start} hanggang {end} iyon, bawat working day.",
+      "localLine": "Sa {date}, {start} ng {startDay} hanggang {end} ng {endDay} ang oras ng trabaho ko kung nasaan ka ({zone}).",
+      "localLineSameDay": "Sa {date}, {start} hanggang {end} ang oras ng trabaho ko kung nasaan ka ({zone}).",
       "nowIn": "Ngayon sa UK ay {time} ng {day}, sakop ng oras ng trabaho.",
       "nowOut": "Ngayon sa UK ay {time} ng {day}, labas sa oras ng trabaho.",
       "nowInHere": "Ngayon ay {time} ng {day}, sakop ng oras ng trabaho.",
@@ -432,21 +432,21 @@
       "triage": "Email at Slack muna",
       "core": "Pinakamagandang oras para kontakin ako",
       "paras": [
-        "Gumagana lang nang maayos ang utak ko kapag tumalab na ang kape, bandang 9:30. Sa unang kalahating oras, email at Slack muna, saka ko inaalam kung ano talaga ang kailangang unahin sa araw na iyon."
+        "Gumagana nang maayos ang utak ko pagkatapos ng unang kape, bandang 9:30. Ang unang kalahating oras ay para sa email, Slack, at pagpapasya kung ano ang pinakamahalaga sa araw na iyon."
       ],
       "sub": "Hindi metapora ang kape."
     },
     "feedback": {
       "heading": "Feedback",
       "paras": [
-        "Isulat mo para mapag-isipan ko at makasagot nang maayos, imbes na maging defensive. Maging specific at ituon ang feedback sa trabaho. Puwede kang hindi sumang-ayon sa akin sa meeting, pero kung tungkol sa akin bilang tao, sabihin mo sa akin nang pribado.",
-        "Kapag pressured ako at sagad na, sasabihin ko sa iyo sa halip na tumahimik. Kung mapansin mong tahimik ako habang papalapit ang deadline, tanungin mo ako nang diretso kung okay pa ako."
+        "Ibigay mo sa akin ang feedback nang nakasulat, para may oras akong mag-isip bago sumagot. Maging specific. Puwede kang hindi sumang-ayon sa mga ideya ko sa group discussion, pero kung tungkol sa ugali o performance ko, pag-usapan natin nang pribado.",
+        "Kapag pressured ako, sasabihin ko sa iyo kung nahihirapan ako. Kung mapansin mong mas tahimik ako kaysa karaniwan habang papalapit ang deadline, tanungin mo ako kung paano ko ito kinakaya."
       ],
       "sub": "Isulat mo na lang, kung puwede. Mas maayos akong sumagot kapag may oras akong mag-isip."
     },
     "personality": {
       "heading": "Ang personality profile ko",
-      "sub": "Simula ng usapan, hindi hatol.",
+      "sub": "Nakakatulong ang mga resultang ito para ipaliwanag kung paano ako magtrabaho, pero hindi nito nailalarawan ang lahat tungkol sa akin.",
       "source": "Galing sa mga resulta ko sa 16Personalities at HEXACO-PI-R ang mga numerong nasa seksiyong ito. Sinagutan ko ang pangunahing test ng 16Personalities noong Setyembre 4, 2026.",
       "letters": [
         [
@@ -499,12 +499,12 @@
           "opposite": "Turbulent"
         }
       ],
-      "traitsNote": "Ang tuldok-tuldok na linya ang gitna ng sukatan. Sa limang score, apat ang nasa pagitan ng 40 at 60, kaya wala ritong matinding pagkiling sa alinmang panig. Ang huling katangian ang pinakahalata sa trabaho: kalmado pa rin ako kapag may pumalpak, at mas gusto kong sabihin mo agad sa akin ang problema kaysa itago ito para hindi ako mag-alala.",
+      "traitsNote": "Ang tuldok-tuldok na linya ang 50%. Apat sa limang score ko ang nasa loob ng sampung puntos mula rito, kaya karamihan ay malapit sa gitna. Ang resultang Assertive ang pinakanakikita ko sa paraan ng pagtatrabaho ko: kadalasan, kalmado ako kapag may lumitaw na problema, at mas gusto kong malaman ito nang maaga.",
       "agreeHeading": "Mga pattern na nakikita ko sa dalawang resulta",
-      "agreeSource": "Sinagutan ko rin ang [HEXACO-PI-R](https://hexaco.org/hexaco-online) noong Setyembre 5, 2026. Iba ang modelo nito, pero may dalawang pattern na nakikita ko sa dalawang resulta at sa paraan ng pagtatrabaho ko. Ang mga HEXACO score ay ikinukumpara sa average na 5.00, batay sa sample ng mga estudyante sa unibersidad sa Canada.",
+      "agreeSource": "Sinagutan ko rin ang [HEXACO-PI-R](https://hexaco.org/hexaco-online) noong Setyembre 5, 2026. Iba ang modelo nito, pero may dalawang pattern na nakikita ko sa dalawang resulta at sa paraan ng pagtatrabaho ko. Ikinukumpara ng HEXACO ang mga score na ito sa isang grupo ng mga estudyante sa unibersidad sa Canada. 5.00 ang average score ng grupong iyon.",
       "agree": [
         {
-          "claim": "Sinisigurado kong maayos ang trabaho, at hindi ako basta sumusuko.",
+          "claim": "Maingat kong sinusuri ang trabaho ko, at nagpapatuloy ako kapag humihirap.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -515,10 +515,10 @@
               "detail": "Conscientiousness: 6.43; Perfectionism: 6.64."
             }
           ],
-          "means": "Lagi kong chine-check ang trabaho bago ko ito ipasa sa iyo. Pero nahihirapan din akong sabihing tapos na, kaya sabihin mo kapag sapat na ang nagawa ko."
+          "means": "Sinusuri ko ang trabaho ko bago ko ito ibahagi. Minsan, masyado akong nagtatagal sa pag-aayos ng mga detalye, kaya sabihin mo kapag sapat na ito sa kailangan mo."
         },
         {
-          "claim": "Direkta akong magsalita, at hindi ko basta pinalalampas ang mga bagay.",
+          "claim": "Direkta ako, at mas gusto kong resolbahin ang mga hindi pagkakasundo.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -529,7 +529,7 @@
               "detail": "Agreeableness: 3.54; Forgivingness: 3.16."
             }
           ],
-          "means": "Sabihin mo nang diretso; tatanggapin ko iyon nang maayos. Kung may naging problema sa pagitan natin, pag-usapan natin kaysa hintaying mawala na lang. Hindi porke tahimik ako, ayos na iyon para sa akin."
+          "means": "Puwede kang maging direkta sa akin. Kung nagkaroon tayo ng hindi pagkakasundo, mas gusto kong pag-usapan natin ito kaysa iwanang hindi naresolba."
         }
       ],
       "locusHeading": "Ano ang nakakaapekto sa mga resulta ko sa trabaho",
@@ -550,15 +550,15 @@
       ],
       "locusNote": "Naniniwala akong may naitutulong ang mga ginagawa ko sa resulta ng trabaho, kaya inaako ko ang responsibilidad at nagpaplano ako nang maaga. Pero minsan, hawak ko pa rin ang mga gawain o desisyon na dapat ay ibang tao na ang humahawak. Kung ganito ang nangyayari sa trabaho mo, sabihin mo sa akin nang diretso at aatras ako.",
       "locusCaveat": "Mali ang sinasabi ng report na tsansa ang pangalawang pinakamataas na factor; ayon sa mga score na ipinakita, ang mga taong may impluwensiya ang pangalawa. Hindi ko isinama ang personal at social na mga resulta dahil hindi rin tugma ang sinasabing pangunahing kategorya sa mga score nito.",
-      "typeNote": "Noong Setyembre 2024, Adventurer (ISFP-A) ang ibinigay sa akin ng parehong questionnaire. Kaya hindi ko masyadong sineseryoso ang label; mas mahalagang tingnan ang mga numero sa ibaba.",
+      "typeNote": "Noong Setyembre 2024, Adventurer (ISFP-A) ang ibinigay sa akin ng parehong questionnaire. Nagbago ang resulta ko, kaya itinuturing ko ang type bilang paglalarawan, hindi bilang permanenteng pagkakakilanlan.",
       "linkLabel": "Basahin ang tungkol sa personality type na ito sa 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
     },
     "offWork": {
       "heading": "Pagkatapos ng trabaho",
-      "para": "Marami akong pinapanood na Korean series, pati ilang BL series mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke; mas lamang ang gana kaysa talento. Nagsusulat ako sa [blog](/blog/) ko tungkol sa React Native at kung paano talaga nagre-release ng apps ang mga mobile team. Ipinanganak at lumaki ako sa Barcelona. Pilipino ang mga magulang ko, at nakatira ako sa UK mula noong 2016.",
+      "para": "Marami akong pinapanood na Korean series, pati ilang boys' love (BL) series mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke; mas lamang ang gana kaysa talento. Nagsusulat ako sa [blog](/blog/) ko tungkol sa React Native at kung paano gumagawa at naglalabas ng apps ang mga mobile team. Ipinanganak at lumaki ako sa Barcelona. Pilipino ang mga magulang ko, at nakatira ako sa UK mula noong 2016.",
       "photoAlt": "Si Warren de Leon, naka-sunglasses at naka-jacket, nakatayo sa gitna ng pula, pink at puting tulips sa ilalim ng asul na langit",
-      "asksHead": "Puwede mo akong tanungin tungkol sa",
+      "asksHead": "Mga bagay na gusto kong pag-usapan",
       "asks": [
         "Mga Korean series na sulit panoorin",
         "Karaoke",
@@ -571,7 +571,7 @@
       "sub": "Ang bahaging wala sa job description."
     },
     "colophon": {
-      "note": "Edisyon 1, Setyembre 2026. Babaguhin ko lang ito kapag nagbago ang trabaho ko.",
+      "note": "Edisyon 1, Setyembre 2026. Ina-update ko ito habang nagbabago ang trabaho at mga kagustuhan ko.",
       "languages": "Basahin sa",
       "top": "Balik sa itaas",
       "home": "warrendeleon.com"

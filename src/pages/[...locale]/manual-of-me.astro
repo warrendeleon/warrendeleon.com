@@ -1586,10 +1586,15 @@ const jsonLd = {
       window.setTimeout(tick, 60000 - (Date.now() % 60000));
       document.addEventListener('visibilitychange', () => { if (!document.hidden) paint(); });
 
-      // 3. Readers elsewhere get the hours in their zone, with the end day
-      //    only when it differs, and a local hour under each tick.
+      // 3. Readers elsewhere get the hours in their zone for one named working
+      //    day (the next one in London), with the end day only when it
+      //    differs, and a local hour under each tick. A dated line rather than
+      //    "each working day": the local times are only right for the day
+      //    they were converted for, since either zone may change its clocks.
       if (zoneKnown && !onUkTime) {
         const weekday = new Intl.DateTimeFormat(lang, { timeZone: zone, weekday: 'long' });
+        // The page's "en" is British English; plain "en" would print the date American-style.
+        const dateName = new Intl.DateTimeFormat(lang === 'en' ? 'en-GB' : lang, { timeZone: LONDON, weekday: 'long', day: 'numeric', month: 'long' });
         const sd = parts(start, zone), ed = parts(end, zone);
         const same = sd.y === ed.y && sd.m === ed.m && sd.d === ed.d;
         const tpl = same ? (localOut.dataset.lineSame || '') : (localOut.dataset.line || '');
@@ -1603,6 +1608,7 @@ const jsonLd = {
         } catch { /* older runtime: keep the city */ }
         localOut.textContent = tpl
           .replace('{zone}', zoneName)
+          .replace('{date}', dateName.format(start))
           .replace('{startDay}', weekday.format(start))
           .replace('{start}', time.format(start))
           .replace('{endDay}', weekday.format(end))

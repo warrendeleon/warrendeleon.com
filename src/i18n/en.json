@@ -306,7 +306,7 @@
     },
     "spec": {
       "heading": "Specifications",
-      "note": "Every figure is real. The framing is not.",
+      "note": "Real information, presented as a user manual.",
       "after": "After coffee",
       "before": "Before coffee",
       "rows": [
@@ -337,7 +337,7 @@
         ],
         [
           "Best used for",
-          "Mobile and React Native",
+          "Mobile development and React Native",
           "Holding a latte"
         ],
         [
@@ -361,9 +361,9 @@
       "rows": [
         {
           "icon": "slack",
-          "need": "A quick question, or you want to pair on something",
+          "need": "You have a quick question or want to work through something together",
           "channel": "Slack",
-          "reply": "Within the hour, during working hours"
+          "reply": "Within an hour, during working hours"
         },
         {
           "icon": "whatsapp",
@@ -375,7 +375,7 @@
         },
         {
           "icon": "calendar",
-          "need": "You want a proper hour of my time",
+          "need": "You need an hour to discuss something with me",
           "channel": "Book a call",
           "reply": "Usually the same week",
           "channelHref": "/book-a-call/"
@@ -384,7 +384,7 @@
           "icon": "oneToOne",
           "need": "It's about your work, your growth, or something that's bothering you",
           "channel": "Our 1:1",
-          "reply": "Don't wait for the next one, grab me sooner"
+          "reply": "No need to wait for our next 1:1, just contact me sooner"
         },
         {
           "icon": "mail",
@@ -396,25 +396,25 @@
           "icon": "slack",
           "need": "You're not sure who to ask",
           "channel": "Slack",
-          "reply": "I'll find out who owns it and come back to you"
+          "reply": "I'll find out who's responsible and let you know"
         }
       ],
-      "sub": "Pick your row. The times are real."
+      "sub": "Choose the situation that fits. These are my response commitments."
     },
     "howTo": {
       "heading": "How to work with me",
       "helpsHead": "This helps",
       "helps": [
-        "Say what you actually need up front. The blunt version saves us both a round trip.",
-        "Interrupt me even when I'm in headphones. They filter the office out, they're not a wall.",
-        "Book half an hour instead of writing the twelfth message in a thread.",
-        "Show me the half-formed version. It's easier to help with than a finished one that went the wrong way."
+        "Start by telling me what you need. Being direct saves us both time.",
+        "Interrupt me even when I'm wearing headphones. They only block out office noise.",
+        "If a message thread is getting long, book a 30-minute call.",
+        "Show me your work while it's still taking shape. It's easier to suggest changes before you've finished."
       ],
       "hurtsHead": "This doesn't",
       "hurts": [
-        "Jokes at the expense of my professionalism. If something has annoyed you, say the actual thing.",
+        "Jokes about my professionalism. If something I've done has bothered you, tell me directly.",
         "Assuming I'm fine because I've gone quiet.",
-        "Calling out of the blue for something that could have waited until tomorrow."
+        "Calling without warning about something that can wait until tomorrow."
       ],
       "sub": "Small things, mostly. They're what make a week easier."
     },
@@ -423,8 +423,8 @@
       "hoursLabel": "Working hours",
       "hoursValue": "Monday to Friday, 9am to 5.30pm UK time",
       "hoursValueHere": "Monday to Friday, 9am to 5.30pm",
-      "localLine": "Where you are ({zone}), that's {startDay} {start} to {endDay} {end}, each working day.",
-      "localLineSameDay": "Where you are ({zone}), that's {startDay} {start} to {end}, each working day.",
+      "localLine": "For {date}, my working hours are {start} on {startDay} to {end} on {endDay} where you are ({zone}).",
+      "localLineSameDay": "For {date}, my working hours are {start} to {end} where you are ({zone}).",
       "nowIn": "Right now in the UK it's {time} on {day}, within working hours.",
       "nowOut": "Right now in the UK it's {time} on {day}, outside working hours.",
       "nowInHere": "Right now it's {time} on {day}, within working hours.",
@@ -432,22 +432,22 @@
       "triage": "Email and Slack first",
       "core": "Best time to reach me",
       "paras": [
-        "My head works properly once the coffee has landed, around half nine. The first half hour goes on email, Slack and working out what actually matters today."
+        "My head starts working properly after the first coffee, around 9.30am. I spend the first half hour on email, Slack and deciding what matters most today."
       ],
       "sub": "The coffee is not a metaphor."
     },
     "feedback": {
       "heading": "Feedback",
       "paras": [
-        "Write it down, so I can sit with it and answer properly rather than defensively. Be specific. And keep it about the work: disagree with me in the room, but anything about me, in private.",
-        "Under pressure I'll tell you when I've reached my limit rather than go quiet. If I have gone quiet near a deadline, ask me outright."
+        "Give me feedback in writing so I have time to think before responding. Be specific. You can disagree with my ideas in a group discussion, but please discuss my behaviour or performance with me privately.",
+        "When I'm under pressure, I'll tell you if I'm struggling. If I become unusually quiet near a deadline, ask me how I'm managing."
       ],
-      "sub": "In writing, please. I'm better on paper than on the spot."
+      "sub": "In writing, please. I respond better when I've had time to think."
     },
     "personality": {
       "heading": "My personality profile",
-      "sub": "A place to start a conversation, not a verdict.",
-      "source": "The figures in this section come from my own results on 16Personalities and the HEXACO-PI-R. Main 16Personalities test taken on 4 September 2026.",
+      "sub": "These results can help explain how I work, but they don't describe everything about me.",
+      "source": "The figures in this section come from my own results on 16Personalities and the HEXACO-PI-R. I took the main 16Personalities questionnaire on 4 September 2026.",
       "letters": [
         [
           "E",
@@ -499,12 +499,12 @@
           "opposite": "Turbulent"
         }
       ],
-      "traitsNote": "The dotted line is the halfway mark. Four of the five sit within ten points of it, so none of this is a strong reading. The one that shows up most at work is the last: I stay fairly level when things go wrong, and I'd rather be told early than protected from it.",
+      "traitsNote": "The dotted line marks 50%. Four of my five scores are within ten percentage points of it, so most are close to the middle. I recognise the Assertive result most in how I work: I usually stay calm when problems arise and prefer to hear about them early.",
       "agreeHeading": "Patterns I recognise in both results",
-      "agreeSource": "I also took the [HEXACO-PI-R](https://hexaco.org/hexaco-online) on 5 September 2026. It uses a different model, but I recognise two patterns across the results and in how I work. HEXACO scores are set against a comparison-group average of 5.00, from a sample of Canadian university students.",
+      "agreeSource": "I also took the [HEXACO-PI-R](https://hexaco.org/hexaco-online) on 5 September 2026. It uses a different model, but I recognise two patterns across the results and in how I work. HEXACO compares these scores with a group of Canadian university students. The average score for that group is 5.00.",
       "agree": [
         {
-          "claim": "I check things, and I keep going.",
+          "claim": "I check my work carefully and persist when it gets difficult.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -515,10 +515,10 @@
               "detail": "Conscientiousness 6.43, Perfectionism 6.64"
             }
           ],
-          "means": "I'll have checked the work before it reaches you. I also find it hard to call a thing finished, so tell me when it's good enough."
+          "means": "I check my work before sharing it. I can spend too long improving details, so tell me when it meets what you need."
         },
         {
-          "claim": "I'm direct, and I don't let things drop.",
+          "claim": "I'm direct, and I prefer to resolve disagreements.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -529,7 +529,7 @@
               "detail": "Agreeableness 3.54, Forgivingness 3.16"
             }
           ],
-          "means": "Say it plainly and I'll take it well. If something has gone wrong between us, raise it rather than waiting for it to fade, because I won't have quietly moved on."
+          "means": "You can be direct with me. If we've had a disagreement, I'd rather discuss it than leave it unresolved."
         }
       ],
       "locusHeading": "What influences my results at work",
@@ -550,17 +550,17 @@
       ],
       "locusNote": "I believe my actions can make a difference at work, so I take responsibility and plan ahead. But I sometimes keep control of tasks or decisions that someone else should handle. If I'm doing that with your work, tell me directly and I'll step back.",
       "locusCaveat": "The report incorrectly identifies chance as the second-highest factor; the displayed scores put people with influence second. I've omitted the personal and social results because their stated primary categories also disagree with their scores.",
-      "typeNote": "In September 2024 the same questionnaire gave me Adventurer (ISFP-A), which tells you roughly how much weight the label deserves. The numbers underneath it are the part worth reading.",
+      "typeNote": "In September 2024, the same questionnaire gave me Adventurer (ISFP-A). My result has changed, so I treat the type as a description rather than a fixed identity.",
       "linkLabel": "See the type on 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
     },
     "offWork": {
       "heading": "Off the clock",
-      "para": "I watch a great deal of Korean television, and some BL series from elsewhere in Asia. I sing karaoke with more enthusiasm than talent. I write a [blog](/blog/) about React Native and how mobile teams actually ship. I was born and raised in Barcelona to Filipino parents, and I've lived in the UK since 2016.",
+      "para": "I watch a great deal of Korean television, and some boys' love (BL) series from elsewhere in Asia. I sing karaoke with more enthusiasm than talent. I write a [blog](/blog/) about React Native and how mobile teams build and release apps. I was born and raised in Barcelona to Filipino parents, and I've lived in the UK since 2016.",
       "photoAlt": "Warren de Leon in sunglasses and a cream jacket, standing in a field of red, pink and white tulips under a blue sky",
-      "asksHead": "Always safe to ask me about",
+      "asksHead": "Things I'm happy to talk about",
       "asks": [
-        "Korean series worth starting",
+        "Korean series worth watching",
         "Karaoke",
         "The blog",
         "React Native",
@@ -571,7 +571,7 @@
       "sub": "The part that isn't in the job description."
     },
     "colophon": {
-      "note": "Edition 1, September 2026. Revised when the job changes, not before.",
+      "note": "Edition 1, September 2026. Updated as my work and preferences change.",
       "languages": "Read this in",
       "top": "Back to the top",
       "home": "warrendeleon.com"
