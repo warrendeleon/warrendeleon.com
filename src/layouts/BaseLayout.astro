@@ -29,12 +29,14 @@ interface Props {
      logo and a two-line title (eyebrow + title) fades in once the reader
      scrolls past the hero. Desktop nav is unaffected. */
   mobileBack?: { href: string; title: string; eyebrow?: string };
-  /* Standalone pages (the Manual of Me) drop the nav, footer and mobile dock
-     and carry their own links instead. Consent and analytics stay. */
-  chrome?: boolean;
+  /* Standalone pages (the Manual of Me) drop the footer and carry their own
+     links instead; `false` drops the nav and mobile dock too. Consent and
+     analytics stay either way. */
+  chrome?: boolean | { nav?: boolean; footer?: boolean; tabBar?: boolean };
 }
 
 const { title, description, locale, currentPath, canonicalPath, jsonLd, isProfilePage, ogImage, ogType, preloadImage, hreflangLocales, mobileBack, chrome = true } = Astro.props;
+const chromeParts = typeof chrome === 'boolean' ? { nav: chrome, footer: chrome, tabBar: chrome } : { nav: true, footer: true, tabBar: true, ...chrome };
 
 // Default to every locale; pages that only exist in some locales (e.g. an
 // untranslated blog post) pass the subset that actually exists, so we never
@@ -271,12 +273,12 @@ const pageGraph = buildPageGraph({
   </head>
   <body>
     <a href="#main-content" class="skip-link">{t(locale).a11y.skipToContent}</a>
-    {chrome && <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} mobileBack={mobileBack} />}
+    {chromeParts.nav && <Nav locale={locale} currentPath={currentPath} availableLocales={altLocales} mobileBack={mobileBack} />}
     <main id="main-content">
       <slot />
     </main>
-    {chrome && <Footer locale={locale} />}
-    {chrome && <TabBar locale={locale} currentPath={currentPath} />}
+    {chromeParts.footer && <Footer locale={locale} />}
+    {chromeParts.tabBar && <TabBar locale={locale} currentPath={currentPath} />}
     <CookieConsent locale={locale} />
 
     <script is:inline>
@@ -297,23 +299,25 @@ const pageGraph = buildPageGraph({
       })();
     </script>
     <script>
+      // Every switch on the page (the nav's, and the Manual's second one on
+      // its spec plate) flips the same attribute and carries the same label.
+      const toggles = document.querySelectorAll<HTMLButtonElement>('.theme-toggle');
       function updateThemeToggleLabel() {
-        const toggle = document.getElementById('theme-toggle');
-        if (!toggle) return;
         const theme = document.documentElement.getAttribute('data-theme') || 'light';
-        const label = theme === 'dark' ? toggle.dataset.labelLight : toggle.dataset.labelDark;
-        if (label) toggle.setAttribute('aria-label', label);
+        toggles.forEach((toggle) => {
+          const label = theme === 'dark' ? toggle.dataset.labelLight : toggle.dataset.labelDark;
+          if (label) toggle.setAttribute('aria-label', label);
+        });
       }
 
-      const toggle = document.getElementById('theme-toggle');
-      toggle?.addEventListener('click', () => {
+      toggles.forEach((toggle) => toggle.addEventListener('click', () => {
         const current = document.documentElement.getAttribute('data-theme');
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
         updateThemeToggleLabel();
         t('theme_toggle', { theme: next });
-      });
+      }));
 
       updateThemeToggleLabel();
 

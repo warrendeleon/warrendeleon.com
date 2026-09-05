@@ -3,16 +3,19 @@ import { t, type Locale } from '../i18n/index';
 
 interface Props {
   locale: Locale;
+  /* A page that shows a second switch (the Manual's spec plate) gives it its
+     own id; BaseLayout binds every .theme-toggle, not one id. */
+  id?: string;
 }
 
-const { locale } = Astro.props;
+const { locale, id = 'theme-toggle' } = Astro.props;
 const i18n = t(locale);
 ---
 
 <!-- Design: a plain round icon button — moon in light mode (tap for dark),
      sun in dark mode (tap for light). Same #theme-toggle + data-label
      contract as before; BaseLayout's click handler is unchanged. -->
-<button class="theme-toggle" id="theme-toggle" type="button" aria-label={i18n.a11y.switchTheme} data-label-light={i18n.a11y.switchToLight} data-label-dark={i18n.a11y.switchToDark}>
+<button class="theme-toggle" id={id} type="button" aria-label={i18n.a11y.switchTheme} data-label-light={i18n.a11y.switchToLight} data-label-dark={i18n.a11y.switchToDark}>
   <svg class="theme-toggle-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
   </svg>

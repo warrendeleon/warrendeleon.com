@@ -82,7 +82,7 @@ const jsonLd = {
   jsonLd={jsonLd}
   isProfilePage
   preloadImage="/images/photos/profile-11.webp"
-  chrome={false}
+  chrome={{ footer: false }}
 >
   <!-- Cover. A white wall with hard sunlight, so the cover is light in both
        themes and the title sits in the empty left of the frame. -->
@@ -126,11 +126,13 @@ const jsonLd = {
             <h2 class="spec-title">{m.spec.heading}</h2>
             <p class="spec-note">{m.spec.note}</p>
           </div>
-          <!-- Two switches on the plate: the theme, then the edition. The theme
-               button is the site's own (same id, storage and labels, so the
-               choice follows the reader to every page) in the plate's clothes. -->
+          <!-- Two switches on the plate: the theme, then the edition, for the
+               phone and tablet layouts, where the site nav is not shown. On
+               desktop the nav carries both, so the row is hidden there
+               (Warren, 5 September). The theme button is the site's own
+               component with its own id; BaseLayout binds every switch. -->
           <div class="spec-controls">
-            <ThemeToggle locale={locale} />
+            <ThemeToggle locale={locale} id="theme-toggle-plate" />
             <nav class="seg" aria-label={i18n.a11y.selectLanguage}>
               {locales.map((l) => (
                 l === locale
@@ -483,6 +485,18 @@ const jsonLd = {
     --mt-label: 0.7rem;             /* mono uppercase labels */
   }
   @media (max-width: 1023px) { html { --mt-body: 16px; } }
+
+  /* Site chrome on this page, Warren's call of 5 September: the top nav on
+     desktop, the dock on phones and tablets, no site footer (the colophon is
+     the footer). Below the desktop breakpoint the nav is not shown; the spec
+     plate's theme switch and edition switch do its jobs there. The nav and
+     the dock take the page's paper ground in the light theme; the dark theme
+     already shares the site's tokens. */
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .nav { display: none; }
+  }
+  html:not([data-theme="dark"]) .nav,
+  html:not([data-theme="dark"]) .tab-bar { --bg-nav: rgba(244, 244, 242, 0.95); --border-color: #d6d5cf; --badge-bg: #eae9e5; }
 </style>
 
 <style>
@@ -969,6 +983,14 @@ const jsonLd = {
     }
     .contents { position: sticky; top: 2.5rem; }
   }
+  /* With the site nav on desktop (64px, sticky): the cover fits under it, the
+     rail sticks below it, and a chapter jump lands clear of it. */
+  @media (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+    .spec-controls { display: none; }   /* the nav has the theme and language switches */
+    .cover-photo { max-height: min(calc(92vh - 64px), 960px); }
+    .contents { top: calc(64px + 2.5rem); }
+    .manual-block .section-heading, .manual-section { scroll-margin-top: calc(64px + 2.5rem); }
+  }
 
   /* ============ Chapter list (jump bar + rail) ========================= */
   .jump-link { display: inline-flex; align-items: baseline; gap: 0.5rem; color: var(--text-muted); text-decoration: none; }
@@ -1316,6 +1338,9 @@ const jsonLd = {
     border-top: 1px solid var(--board-edge);
     padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2.75rem, 5vw, 4.5rem);
     margin-top: clamp(3rem, 6vw, 5rem);
+  }
+  @media (max-width: 1279px), (hover: none) and (pointer: coarse) {
+    .colophon { padding-bottom: calc(clamp(2.75rem, 5vw, 4.5rem) + 84px + var(--safe-bottom)); }
   }
   .colophon-inner {
     display: grid;
