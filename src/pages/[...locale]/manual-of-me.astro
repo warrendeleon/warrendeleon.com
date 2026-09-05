@@ -614,7 +614,11 @@ const jsonLd = {
     position: relative;
     z-index: 1;
     /* Pinned light tokens: every site component inside (spec plate, chart,
-       chips, socials) follows these instead of the dark theme. */
+       chips, socials) follows these instead of the dark theme. The ground
+       (#f4f4f2, #eae9e5, #d6d5cf) is a deliberate exception to the guide's
+       #ffffff / #f5f5f7 / #e0e0e0: it is the wall colour of the photograph,
+       so the cover and the sheet read as one piece of paper. Warren's call,
+       5 September 2026; the dark theme makes no such exception. */
     --bg-primary: #f4f4f2;
     --bg-secondary: #eae9e5;
     --bg-card: #ffffff;
@@ -632,12 +636,12 @@ const jsonLd = {
     --sheet-glass: rgba(244, 244, 242, 0.94);
     --sheet-lift: 0 -24px 60px rgba(0, 0, 0, 0.18);
     --board-edge: transparent;
-    --board-lift: 0 18px 48px rgba(14, 12, 25, 0.22);
+    --board-lift: 0 8px 32px rgba(0, 0, 0, 0.14);   /* the guide's --shadow-lift; the ground already separates the board */
     --figure-edge: #d6d5cf;
     --control-hover: #eae9e5;
     --menu-bg: #f4f4f2;
     --menu-lift: 0 18px 40px rgba(14, 12, 25, 0.14);
-    --object-bg: #0e0c19;   /* the board and the colophon: ink, the site's --color-on-green */
+    --object-bg: #111111;   /* the board and the colophon: the guide's dark page as a neutral object; the ink #0e0c19 is a text colour, not a surface */
     background: var(--bg-primary);
     color: var(--text-primary);
     box-shadow: var(--sheet-lift);
@@ -822,9 +826,9 @@ const jsonLd = {
   .manual-intro { max-width: 44rem; color: var(--text-secondary); margin: 0 0 1.75rem; }
 
   /* ============ Departures board ===================================== */
-  /* Ink on the light sheet, like the real thing (the site's --color-on-green,
-     an existing value, only pinned); a raised neutral panel on the dark one.
-     The type on it is light in both. */
+  /* A dark object in both themes, like the real thing: the guide's dark page
+     colour on the light sheet, a raised neutral panel on the dark one. The
+     type on it is light in both. */
   .board {
     background: var(--object-bg);
     color: #f0f0f0;
