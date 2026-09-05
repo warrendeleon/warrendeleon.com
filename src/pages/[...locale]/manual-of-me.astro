@@ -23,6 +23,15 @@ const sections = [
 ];
 const num = (id: string) => String(sections.findIndex((s) => s.id === id) + 1).padStart(2, '0');
 
+// Ring gauges for the locus block. One circle of radius 44 in a 100-unit box;
+// the arc is a dash of the circumference, rotated so 0% starts at twelve
+// o'clock. Only the locus scores get rings: they are independent 0–100
+// quantities. The five trait scales stay as two-ended bars because each one is
+// bipolar (56% Extraverted is also 44% Introverted) and a ring would hide that.
+const RING_R = 44;
+const RING_C = 2 * Math.PI * RING_R;
+const ringArc = (pct: number) => `${(pct / 100) * RING_C} ${RING_C}`;
+
 // UI marks reuse the outline set documented on /design/iconography/. Slack and
 // WhatsApp are brand marks, so they follow the SocialLinks convention instead:
 // the real glyph, filled with currentColor, never a brand colour.
@@ -313,14 +322,17 @@ const jsonLd = {
 
           <h3 class="locus-heading">{m.personality.locusHeading}</h3>
           <p class="source-note">{m.personality.locusSource}</p>
-          <ul class="traits traits--locus" role="list">
+          <ul class="rings" role="list">
             {m.personality.locus.map((l) => (
-              <li class="trait">
-                <span class="trait-dim">{l.label}</span>
-                <span class="trait-score"><strong>{l.value}%</strong></span>
-                <span class="trait-track" aria-hidden="true">
-                  <span class="trait-fill" style={`width:${l.value}%`}></span>
+              <li class="ring-item">
+                <span class="ring">
+                  <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                    <circle class="ring-track" cx="50" cy="50" r={RING_R} />
+                    <circle class="ring-arc" cx="50" cy="50" r={RING_R} stroke-dasharray={ringArc(l.value)} transform="rotate(-90 50 50)" />
+                  </svg>
+                  <span class="ring-num"><span class="ring-val">{l.value}<small>%</small></span></span>
                 </span>
+                <span class="ring-label">{l.label}</span>
               </li>
             ))}
           </ul>
@@ -880,8 +892,35 @@ const jsonLd = {
     z-index: 1;
   }
   .trait-fill { display: block; height: 100%; border-radius: 999px 0 0 999px; background: var(--color-green); }
-  .traits--locus .trait-track::after { content: none; }   /* independent 0–100 scales: no midpoint to cross */
   .trait-poles { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+
+  /* Locus rings. Independent 0–100 gauges, so a ring is honest here where it
+     would not be for the bipolar traits above. The number is real text laid
+     over the SVG; the drawing is aria-hidden. */
+  .rings { list-style: none; margin: 0.9rem 0 0.6rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem 0.8rem; }
+  .ring-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.3rem; }
+  .ring { position: relative; width: 100%; max-width: 7.5rem; aspect-ratio: 1; }
+  .ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .ring-track { fill: none; stroke: var(--border-color); stroke-width: 8; }
+  .ring-arc { fill: none; stroke: var(--color-green); stroke-width: 8; stroke-linecap: round; }
+  .ring-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-size: clamp(1.25rem, 5vw, 1.9rem);
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+  }
+  /* Number and % share one inline box, so they sit on a common baseline and the
+     flex parent centres the pair as a unit at any ring size. */
+  .ring-val { line-height: 1; white-space: nowrap; }
+  .ring-num small { font-size: 0.55em; font-weight: 700; margin-left: 0.05em; }
+  .ring-label { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); }
   .locus-heading { font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.2rem; color: var(--text-primary); }
 
   /* The two claims that two different instruments both produced. These are the
