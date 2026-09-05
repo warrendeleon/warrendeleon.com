@@ -30,7 +30,6 @@ const num = (id: string) => String(sections.findIndex((s) => s.id === id) + 1).p
 // bipolar (56% Extraverted is also 44% Introverted) and a ring would hide that.
 const RING_R = 44;
 const RING_C = 2 * Math.PI * RING_R;
-const ringArc = (pct: number) => `${(pct / 100) * RING_C} ${RING_C}`;
 
 // UI marks reuse the outline set documented on /design/iconography/. Slack and
 // WhatsApp are brand marks, so they follow the SocialLinks convention instead:
@@ -79,7 +78,7 @@ const jsonLd = {
 >
   <!-- Cover. A white wall with hard sunlight, so the cover is light in both
        themes and the title sits in the empty left of the frame. -->
-  <header class="cover">
+  <header class="cover" id="top">
     <!-- The blog hero's treatment: the same photo blurred behind, sharp copy
          at the container width in front, so a wide screen shows more wall
          rather than a tighter crop of the face. -->
@@ -134,18 +133,17 @@ const jsonLd = {
               <dd><span class="board-flap" data-flap={after}>{after}</span></dd>
             </div>
           ))}
-          <!-- The languages row is the language switch: each name links to
-               that locale's edition, the current one stays plain. -->
+          <!-- The languages row is a specification, not a switch: the segmented
+               control above and the colophon below already switch editions,
+               and a third set of links here was one too many. -->
           <div class="spec-row">
             <dt>{m.spec.languagesLabel}</dt>
             <dd>
               <span class="spec-langs">
                 {locales.map((l, i) => (
                   <>
-                    {i > 0 && <span class="spec-sep" aria-hidden="true">·</span>}
-                    {l === locale
-                      ? <span aria-current="page">{localeNames[l]}</span>
-                      : <a href={getLocalePath(l, '/manual-of-me/')} hreflang={l} lang={l}>{localeNames[l]}</a>}
+                    {i > 0 && <><span class="spec-sep" aria-hidden="true">·</span>{' '}</>}
+                    <span lang={l}>{localeNames[l]}</span>
                   </>
                 ))}
               </span>
@@ -227,123 +225,169 @@ const jsonLd = {
     </div>
   </section>
 
-  <section class="section">
+  <!-- The manual proper. From here the page is a documentation grid: a rail
+       on the left with the numeral, heading, deck and provenance, and a body
+       column on the right at a reading measure, wide enough for the objects
+       (chart, bars, rings) to sit in it. The rail is sticky on desktop so the
+       chapter name stays in view while its content scrolls. -->
+  <section class="section manual-grid">
     <div class="container">
       <div class="manual-prose">
         <section id="howto" class="manual-block manual-section">
-          <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('howto')}</span>{m.howTo.heading}</h2>
-          <p class="chapter-sub">{m.howTo.sub}</p>
-          <div class="hd">
-            <div class="hd-col">
-              <p class="hd-head">{m.howTo.helpsHead}</p>
-              <ul class="hd-list hd-yes">{m.howTo.helps.map((x) => <li>{x}</li>)}</ul>
-            </div>
-            <div class="hd-col">
-              <p class="hd-head">{m.howTo.hurtsHead}</p>
-              <ul class="hd-list hd-no">{m.howTo.hurts.map((x) => <li>{x}</li>)}</ul>
+          <div class="chapter-head">
+            <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('howto')}</span>{m.howTo.heading}</h2>
+            <p class="chapter-sub">{m.howTo.sub}</p>
+          </div>
+          <div class="chapter-body">
+            <div class="hd">
+              <div class="hd-col">
+                <p class="hd-head">{m.howTo.helpsHead}</p>
+                <ul class="hd-list hd-yes">{m.howTo.helps.map((x) => <li>{x}</li>)}</ul>
+              </div>
+              <div class="hd-col">
+                <p class="hd-head">{m.howTo.hurtsHead}</p>
+                <ul class="hd-list hd-no">{m.howTo.hurts.map((x) => <li>{x}</li>)}</ul>
+              </div>
             </div>
           </div>
         </section>
 
         <section id="working" class="manual-block manual-section">
-          <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('working')}</span>{m.working.heading}</h2>
-          <p class="chapter-sub">{m.working.sub}</p>
-          <figure class="avail">
-            <figcaption class="avail-caption">
-              <span class="avail-label">{m.working.hoursLabel}</span>
-              <span class="avail-value">{m.working.hoursValue}</span>
-            </figcaption>
-            <div class="avail-chart" aria-hidden="true">
-              <div class="avail-track">
-                <div class="avail-core"><span>{m.working.core}</span></div>
-                <div class="avail-triage"></div>
+          <div class="chapter-head">
+            <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('working')}</span>{m.working.heading}</h2>
+            <p class="chapter-sub">{m.working.sub}</p>
+          </div>
+          <div class="chapter-body">
+            <figure class="avail">
+              <figcaption class="avail-caption">
+                <span class="avail-label">{m.working.hoursLabel}</span>
+                <span class="avail-value">{m.working.hoursValue}</span>
+              </figcaption>
+              <div class="avail-chart" aria-hidden="true">
+                <div class="avail-track">
+                  <div class="avail-core"><span>{m.working.core}</span></div>
+                  <div class="avail-triage"></div>
+                </div>
+                <div class="avail-scale">
+                  {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'].map((tick) => <span class="avail-tick">{tick}</span>)}
+                </div>
+                <p class="avail-key"><span class="avail-swatch"></span>{m.working.triage}</p>
               </div>
-              <div class="avail-scale">
-                {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'].map((tick) => <span class="avail-tick">{tick}</span>)}
-              </div>
-              <p class="avail-key"><span class="avail-swatch"></span>{m.working.triage}</p>
-            </div>
-          </figure>
-          {m.working.paras.map((p) => <p>{p}</p>)}
+            </figure>
+            {m.working.paras.map((p) => <p>{p}</p>)}
+          </div>
         </section>
 
         <section id="feedback" class="manual-block manual-section">
-          <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('feedback')}</span>{m.feedback.heading}</h2>
-          <p class="chapter-sub">{m.feedback.sub}</p>
-          {m.feedback.paras.map((p) => <p>{p}</p>)}
+          <div class="chapter-head">
+            <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('feedback')}</span>{m.feedback.heading}</h2>
+            <p class="chapter-sub">{m.feedback.sub}</p>
+          </div>
+          <div class="chapter-body">
+            {m.feedback.paras.map((p) => <p>{p}</p>)}
+          </div>
         </section>
 
-        <section id="personality" class="manual-block manual-section">
-          <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('personality')}</span>{m.personality.heading}</h2>
-          <p class="chapter-sub">{m.personality.sub}</p>
-          <p class="source-note">{m.personality.source}</p>
-
-          <div class="mbti" role="img" aria-label={`${m.personality.typeName}: ${m.personality.letters.map(([, w]) => w).join(', ')}`}>
-            {m.personality.letters.map(([letter, word]) => (
-              <span class="mbti-letter">
-                <span class="mbti-big">{letter}</span>
-                <span class="mbti-word">{word}</span>
-              </span>
-            ))}
+        <section id="personality" class="manual-block manual-section" data-reveal>
+          <div class="chapter-head">
+            <h2 class="section-heading chapter"><span class="chapter-num" aria-hidden="true">{num('personality')}</span>{m.personality.heading}</h2>
+            <p class="chapter-sub">{m.personality.sub}</p>
+            <p class="source-note">{m.personality.source}</p>
           </div>
-          <p class="type-caption">{m.personality.typeName}</p>
-
-          <ul class="traits" role="list">
-            {m.personality.traits.map((t) => (
-              <li class="trait">
-                <span class="trait-dim">{t.dim}</span>
-                <span class="trait-score"><strong>{t.value}%</strong> {t.label}</span>
-                <span class="trait-track" aria-hidden="true">
-                  <span class="trait-fill" style={`width:${t.value}%`}></span>
+          <div class="chapter-body">
+            <div class="mbti" role="img" aria-label={`${m.personality.typeName}: ${m.personality.letters.map(([, w]) => w).join(', ')}`}>
+              {m.personality.letters.map(([letter, word]) => (
+                <span class="mbti-letter">
+                  <span class="mbti-big">{letter}</span>
+                  <span class="mbti-word">{word}</span>
                 </span>
-                <span class="trait-poles" aria-hidden="true">
-                  <span>{t.label}</span><span>{t.opposite}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p class="scale-note">{m.personality.traitsNote}</p>
+              ))}
+            </div>
+            <p class="type-caption">{m.personality.typeName}</p>
+            <p class="type-note">{m.personality.typeNote}</p>
 
-          <h3 class="locus-heading">{m.personality.agreeHeading}</h3>
-          <p class="source-note">{m.personality.agreeSource}</p>
-          <ul class="agree" role="list">
-            {m.personality.agree.map((a) => (
-              <li class="agree-item">
-                <p class="agree-claim">{a.claim}</p>
-                <ul class="agree-evidence" role="list">
-                  {a.evidence.map((e) => (
-                    <li><span class="agree-src">{e.source}</span>{e.detail}</li>
-                  ))}
-                </ul>
-                <p class="agree-means">{a.means}</p>
-              </li>
-            ))}
-          </ul>
+            <ul class="traits" role="list">
+              {m.personality.traits.map((t) => (
+                <li class="trait">
+                  <span class="trait-dim">{t.dim}</span>
+                  <span class="trait-score"><strong>{t.value}%</strong> {t.label}</span>
+                  <span class="trait-track" aria-hidden="true">
+                    <span class="trait-fill" style={`--v:${t.value}%`}></span>
+                  </span>
+                  <span class="trait-poles" aria-hidden="true">
+                    <span>{t.label}</span><span>{t.opposite}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p class="scale-note">{m.personality.traitsNote}</p>
 
-          <h3 class="locus-heading">{m.personality.locusHeading}</h3>
-          <p class="source-note">{m.personality.locusSource}</p>
-          <ul class="rings" role="list">
-            {m.personality.locus.map((l) => (
-              <li class="ring-item">
-                <span class="ring">
-                  <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-                    <circle class="ring-track" cx="50" cy="50" r={RING_R} />
-                    <circle class="ring-arc" cx="50" cy="50" r={RING_R} stroke-dasharray={ringArc(l.value)} transform="rotate(-90 50 50)" />
-                  </svg>
-                  <span class="ring-num"><span class="ring-val">{l.value}<small>%</small></span></span>
-                </span>
-                <span class="ring-label">{l.label}</span>
-              </li>
-            ))}
-          </ul>
-          <p class="scale-note">{m.personality.locusNote}</p>
+            <h3 class="sub-heading">{m.personality.agreeHeading}</h3>
+            <p class="source-note">{m.personality.agreeSource}</p>
+            <ul class="agree" role="list">
+              {m.personality.agree.map((a) => (
+                <li class="agree-item">
+                  <p class="agree-claim">{a.claim}</p>
+                  <ul class="agree-evidence" role="list">
+                    {a.evidence.map((e) => (
+                      <li><span class="agree-src">{e.source}</span>{e.detail}</li>
+                    ))}
+                  </ul>
+                  <p class="agree-means">{a.means}</p>
+                </li>
+              ))}
+            </ul>
 
-          <p class="type-note">{m.personality.typeNote}</p>
-          <p><a href={m.personality.linkHref} target="_blank" rel="noopener noreferrer">{m.personality.linkLabel}</a></p>
+            <h3 class="sub-heading">{m.personality.locusHeading}</h3>
+            <p class="source-note">{m.personality.locusSource}</p>
+            <ul class="rings" role="list">
+              {m.personality.locus.map((l) => (
+                <li class="ring-item">
+                  <span class="ring">
+                    <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                      <circle class="ring-track" cx="50" cy="50" r={RING_R} />
+                      <circle class="ring-arc" cx="50" cy="50" r={RING_R} style={`--arc:${(l.value / 100) * RING_C}; --c:${RING_C}`} transform="rotate(-90 50 50)" />
+                    </svg>
+                    <span class="ring-num"><span class="ring-val">{l.value}<small>%</small></span></span>
+                  </span>
+                  <span class="ring-label">{l.label}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="scale-note">{m.personality.locusNote}</p>
+            <p class="type-link"><a href={m.personality.linkHref} target="_blank" rel="noopener noreferrer">{m.personality.linkLabel}</a></p>
+          </div>
         </section>
       </div>
     </div>
   </section>
+
+  <!-- Colophon. The page opened on a cover; it should not stop dead on a link.
+       The board's dark ground returns here so the two dark objects bookend the
+       sheet, carrying the edition line, the other three editions, the way
+       home and the way back up. -->
+  <footer class="colophon">
+    <div class="container colophon-inner">
+      <div class="colophon-left">
+        <p class="colophon-title">{m.heading}</p>
+        <p class="colophon-note">{m.colophon.note}</p>
+      </div>
+      <div class="colophon-right">
+        <p class="colophon-langs">
+          <span class="colophon-label">{m.colophon.languages}</span>
+          {locales.map((l) => (
+            l === locale
+              ? <span class="colophon-lang is-current" aria-current="page" lang={l}>{localeNames[l]}</span>
+              : <a class="colophon-lang" href={getLocalePath(l, '/manual-of-me/')} hreflang={l} lang={l}>{localeNames[l]}</a>
+          ))}
+        </p>
+        <p class="colophon-links">
+          <a href={getLocalePath(locale, '/')}>{m.colophon.home}</a>
+          <a href="#top" class="colophon-top">{m.colophon.top} <span aria-hidden="true">↑</span></a>
+        </p>
+      </div>
+    </div>
+  </footer>
   </div>
 </BaseLayout>
 
@@ -719,13 +763,51 @@ const jsonLd = {
     overflow: hidden; clip-path: inset(50%); white-space: nowrap;
   }
 
-  /* ============ Body ================================================= */
-  /* Chapters fill the container like the band and the board above them. */
+  /* ============ Body: the documentation grid ========================== */
+  /* Chapters 03–06 are a rail and a body. The rail holds what identifies the
+     chapter (numeral, heading, deck, provenance) and stays put while the body
+     scrolls; the body is a reading column, so prose sits at about 70
+     characters a line instead of the 125 a full container gives, and the
+     objects (chart, bars, rings) fill that column edge to edge. */
+  .manual-grid { padding-top: 1rem; }
   .manual-prose { max-width: none; margin: 0; }
-  .hd { column-gap: clamp(2rem, 6vw, 5rem); }
-  .manual-block + .manual-block { margin-top: 3.5rem; }
+  .manual-block { padding: 3.25rem 0 0; }
+  .manual-block + .manual-block { margin-top: 3.25rem; border-top: 1px solid var(--border-color); }
   .manual-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-secondary); margin: 0 0 1rem; }
   .manual-block .section-heading { scroll-margin-top: 6rem; }
+  .chapter-body > :last-child { margin-bottom: 0 !important; }
+  .chapter-body { max-width: 44rem; container-type: inline-size; }
+
+  @media (min-width: 1024px) {
+    .manual-block {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      column-gap: clamp(2.5rem, 6vw, 5.5rem);
+      align-items: start;
+    }
+    .chapter-head { position: sticky; top: 2.5rem; }
+    .chapter-body { max-width: none; }
+    /* The rail is narrow, so the chapter heading steps down from the
+       full-width size the board and band use. Still Bricolage, still the
+       numeral, still the green bar: the same voice at a quieter volume. */
+    .manual-grid .chapter { font-size: clamp(1.7rem, 2.5vw, 2.3rem); }
+    .manual-grid .chapter-sub { margin-bottom: 0.9rem !important; }
+    .chapter-head .source-note { margin: 0.4rem 0 0 !important; max-width: 22rem; }
+  }
+
+  /* A sub-heading step between the chapter heading and body copy. At body
+     size and bold, an h3 read as an emphatic paragraph; at this size in the
+     display face it reads as what it is. */
+  .sub-heading {
+    margin: 2.4rem 0 0.35rem;
+    font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
 
   .manual-list { margin: 0 0 1.25rem; padding-left: 1.1rem; color: var(--text-secondary); }
   .manual-list li { font-size: var(--fs-body); line-height: var(--lh-body); margin-bottom: 0.5rem; }
@@ -778,7 +860,11 @@ const jsonLd = {
   }
 
   /* Helps / doesn't as two typographic lists with big marks, not cards. */
-  .hd { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem 3rem; margin: 0.5rem 0 1rem; }
+  .hd { display: grid; grid-template-columns: 1fr; gap: 1.75rem 3rem; margin: 0.25rem 0 0; }
+  /* Two columns only when the body column itself can give each list a
+     readable measure; a viewport breakpoint cannot know that once the rail
+     has taken its share. */
+  @container (min-width: 40rem) { .hd { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4cqw, 3.5rem); } }
   .hd-head {
     margin: 0 0 0.6rem !important;
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
@@ -830,7 +916,14 @@ const jsonLd = {
   .avail { margin: 0 0 1.75rem; padding: 1.1rem 1.2rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; }
   .avail-caption { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; align-items: baseline; margin-bottom: 1rem; }
   .avail-label { font-size: 0.85rem; color: var(--text-muted); }
-  .avail-value { font-size: 1.05rem; font-weight: 600; color: var(--text-primary); }
+  .avail-value {
+    font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
   .avail-track { position: relative; height: 40px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); overflow: hidden; }
   .avail-core { position: absolute; inset-block: 0; left: 9.09%; width: 77.27%; display: flex; align-items: center; padding-left: 0.7rem; background: var(--color-green); color: var(--color-on-green); font-size: 0.82rem; font-weight: 600; }
   .avail-core span { position: relative; z-index: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -855,7 +948,7 @@ const jsonLd = {
     color: var(--text-primary);
   }
   .mbti-word { margin-top: 0.35rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-green-text); }
-  .type-caption { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 1.4rem !important; }
+  .type-caption { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 0.2rem !important; }
 
   /* Attribution. Every number in this chapter is someone else's measurement,
      so the source sits next to the numbers rather than in a footnote. */
@@ -891,7 +984,12 @@ const jsonLd = {
     opacity: 0.85;
     z-index: 1;
   }
-  .trait-fill { display: block; height: 100%; border-radius: 999px 0 0 999px; background: var(--color-green); }
+  /* The fill width and the ring arc are CSS variables so the reveal below can
+     animate them: static at full value by default, drawn from zero once the
+     chapter is armed and then seen. No JS, no observer, old browser: full. */
+  .trait-fill { display: block; height: 100%; width: var(--v); border-radius: 999px 0 0 999px; background: var(--color-green); transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  [data-reveal].is-armed .trait-fill { width: 0; transition: none; }
+  [data-reveal].is-armed.is-in .trait-fill { width: var(--v); transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--i, 0) * 70ms); }
   .trait-poles { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
 
   /* Locus rings. Independent 0–100 gauges, so a ring is honest here where it
@@ -902,7 +1000,9 @@ const jsonLd = {
   .ring { position: relative; width: 100%; max-width: 7.5rem; aspect-ratio: 1; }
   .ring svg { display: block; width: 100%; height: 100%; overflow: visible; }
   .ring-track { fill: none; stroke: var(--border-color); stroke-width: 8; }
-  .ring-arc { fill: none; stroke: var(--color-green); stroke-width: 8; stroke-linecap: round; }
+  .ring-arc { fill: none; stroke: var(--color-green); stroke-width: 8; stroke-linecap: round; stroke-dasharray: var(--arc) var(--c); transition: stroke-dasharray 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  [data-reveal].is-armed .ring-arc { stroke-dasharray: 0 var(--c); transition: none; }
+  [data-reveal].is-armed.is-in .ring-arc { stroke-dasharray: var(--arc) var(--c); transition: stroke-dasharray 1s cubic-bezier(0.2, 0.7, 0.2, 1); }
   .ring-num {
     position: absolute;
     inset: 0;
@@ -921,7 +1021,6 @@ const jsonLd = {
   .ring-val { line-height: 1; white-space: nowrap; }
   .ring-num small { font-size: 0.55em; font-weight: 700; margin-left: 0.05em; }
   .ring-label { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); }
-  .locus-heading { font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.2rem; color: var(--text-primary); }
 
   /* The two claims that two different instruments both produced. These are the
      only measured statements on the page with corroboration, so each one shows
@@ -930,11 +1029,12 @@ const jsonLd = {
   .agree-item { border-left: 3px solid var(--color-green); padding-left: 1rem; }
   .agree-claim { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 0.45rem !important; }
   .agree-evidence { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
-  .agree-evidence li { font-size: 0.86rem; color: var(--text-muted); }
-  .agree-src { display: inline-block; min-width: 8.5rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
+  .agree-evidence li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; font-size: 0.86rem; line-height: 1.45; color: var(--text-muted); }
+  .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
   .scale-note { font-size: 0.9rem !important; color: var(--text-muted) !important; }
-  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin-bottom: 1rem !important; }
+  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin-bottom: 1.6rem !important; max-width: 40rem; }
+  .type-link { margin-top: 1.25rem !important; }
 
   .offclock-chip { transition: transform 0.15s ease, background 0.15s ease; }
   .offclock-chip:hover { transform: translateY(-2px); background: rgba(14, 12, 25, 0.08); }
@@ -946,11 +1046,61 @@ const jsonLd = {
      component-internal or set:html output, so they need :global. */
   .spec-row dd :global(a) { color: var(--color-green-text); text-decoration: none; border-bottom: 1px solid currentColor; }
   .spec-row dd :global(a:hover) { color: var(--color-green-text-hover); }
-  .spec-langs [aria-current] { color: var(--text-primary); }
-  .spec-sep { margin: 0 0.4rem; color: var(--text-muted); font-weight: 400; }
+  /* A space follows each dot in the markup so the row can wrap; without one
+     the four names are a single unbreakable run and overflow narrow cells. */
+  .spec-sep { margin: 0 0.15rem 0 0.4rem; color: var(--text-muted); font-weight: 400; }
   .offclock :global(.social-links) { flex-wrap: wrap; justify-content: flex-start; gap: 0.35rem; margin-left: -0.5rem; }
   .offclock :global(.social-link) { color: var(--color-on-green); opacity: 0.85; }
   .offclock :global(.social-link:hover) { opacity: 1; transform: translateY(-2px); }
+
+  /* ============ Colophon ============================================= */
+  .colophon {
+    background: #0e0c19;
+    color: #f0f0f0;
+    padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2.75rem, 5vw, 4.5rem);
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+  .colophon-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 2rem clamp(2rem, 6vw, 5rem);
+    align-items: end;
+  }
+  .colophon-title {
+    margin: 0 0 0.5rem;
+    font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
+    font-optical-sizing: auto;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+    color: #ffffff;
+  }
+  .colophon-note { margin: 0; max-width: 32rem; font-size: 0.95rem; line-height: 1.5; color: rgba(240, 240, 240, 0.7); }
+  .colophon-right { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+  @media (min-width: 700px) { .colophon-right { align-items: flex-end; text-align: right; } }
+  .colophon-langs, .colophon-links { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 1.1rem; }
+  .colophon-label {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(240, 240, 240, 0.5);
+    margin-right: 0.3rem;
+  }
+  .colophon-lang { font-weight: 600; color: rgba(240, 240, 240, 0.85); text-decoration: none; }
+  a.colophon-lang:hover { color: #8fd640; }
+  .colophon-lang.is-current { color: #6dc402; }
+  .colophon-links a {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6dc402;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(109, 196, 2, 0.5);
+  }
+  .colophon-links a:hover { color: #8fd640; border-bottom-color: #8fd640; }
 
   /* ============ Breakpoints ========================================== */
   @media (max-width: 900px) {
@@ -998,7 +1148,7 @@ const jsonLd = {
     .mbti { gap: 0 0.8rem; flex-wrap: nowrap; justify-content: space-between; }
     .mbti-word { font-size: 0.68rem; letter-spacing: 0.04em; }
     /* The source label sits above its detail on a phone rather than beside it. */
-    .agree-src { display: block; min-width: 0; margin-bottom: 0.1rem; }
+    .agree-evidence li { grid-template-columns: 1fr; row-gap: 0.1rem; }
     .agree-evidence { gap: 0.45rem; }
     .board-gate { font-size: 0.78rem; }
     .board-note { display: inline; margin: 0 0 0 0.4rem; }
@@ -1010,7 +1160,11 @@ const jsonLd = {
     .offclock-chips::-webkit-scrollbar { display: none; }
     .offclock-chip { white-space: nowrap; }
 
+    .manual-block { padding-top: 2.5rem; }
     .manual-block + .manual-block { margin-top: 2.5rem; }
+    .sub-heading { font-size: 1.2rem; margin-top: 2rem; }
+    .colophon-inner { grid-template-columns: 1fr; }
+    .colophon-label { flex-basis: 100%; margin: 0 0 0.1rem; }
     .avail-core span { display: none; }
     .avail-tick:nth-child(even) { display: none; }
   }
@@ -1020,6 +1174,9 @@ const jsonLd = {
     .cover-photo, .cover-edition, .cover-title, .cover-tagline { animation: none; }
     .board.is-armed .board-row { opacity: 1; transform: none; }
     .board.is-live .board-row { animation: none; }
+    [data-reveal].is-armed .trait-fill { width: var(--v); }
+    [data-reveal].is-armed .ring-arc { stroke-dasharray: var(--arc) var(--c); }
+    .trait-fill, .ring-arc { transition: none !important; }
     .seg-btn { transition: none; }
   }
 </style>
@@ -1076,6 +1233,31 @@ const jsonLd = {
       open();
     });
   });
+
+  // The data draws in once the personality chapter is on screen: bars fill,
+  // rings sweep. Same discipline as the board: armed only when the observer
+  // exists, released on a timer regardless, never under reduced motion.
+  const reveal = document.querySelector<HTMLElement>('[data-reveal]');
+  if (reveal && 'IntersectionObserver' in window && !reduce) {
+    reveal.querySelectorAll<HTMLElement>('.trait-fill').forEach((el, i) => el.style.setProperty('--i', String(i)));
+    reveal.classList.add('is-armed');
+    let shown = false;
+    const show = () => {
+      if (shown) return;
+      shown = true;
+      // A short timer rather than requestAnimationFrame: frames stop in a
+      // hidden tab, and a hidden tab must never be able to leave the data
+      // undrawn. The timer still fires, at worst late; the transition may be
+      // skipped, the final value is not.
+      window.setTimeout(() => reveal.classList.add('is-in'), 40);
+      ro.disconnect();
+    };
+    const ro = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) show();
+    }, { threshold: 0.2 });
+    ro.observe(reveal);
+    window.setTimeout(show, 2500);
+  }
 
   // The title assembles like the board, once, when the page opens.
   const title = document.querySelector<HTMLElement>('.cover-title');

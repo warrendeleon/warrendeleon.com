@@ -312,7 +312,7 @@
       "rows": [
         [
           "Model",
-          "ISFP (Adventurer)",
+          "ENTJ (Commander)",
           "Unresponsive"
         ],
         [
@@ -561,6 +561,12 @@
       ],
       "socialLabel": "Find me on",
       "sub": "The part that isn't in the job description."
+    },
+    "colophon": {
+      "note": "Edition 1, September 2026. Revised when the job changes, not before.",
+      "languages": "Read this in",
+      "top": "Back to the top",
+      "home": "warrendeleon.com"
     }
   }
 }

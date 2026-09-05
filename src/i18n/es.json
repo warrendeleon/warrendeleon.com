@@ -312,7 +312,7 @@
       "rows": [
         [
           "Modelo",
-          "ISFP (Aventurero)",
+          "ENTJ (Comandante)",
           "No responde"
         ],
         [
@@ -561,6 +561,12 @@
       ],
       "socialLabel": "Encuéntrame en",
       "sub": "La parte que no sale en la descripción del puesto."
+    },
+    "colophon": {
+      "note": "Edición 1, septiembre de 2026. Se revisa cuando cambia el trabajo, no antes.",
+      "languages": "Léelo en",
+      "top": "Volver arriba",
+      "home": "warrendeleon.com"
     }
   }
 }

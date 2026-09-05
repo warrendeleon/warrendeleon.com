@@ -312,7 +312,7 @@
       "rows": [
         [
           "Model",
-          "ISFP (Adventurer)",
+          "ENTJ (Commander)",
           "Walang tugon"
         ],
         [
@@ -561,6 +561,12 @@
       ],
       "socialLabel": "Hanapin mo ako sa",
       "sub": "Ang bahaging wala sa job description."
+    },
+    "colophon": {
+      "note": "Edisyon 1, Setyembre 2026. Binabago kapag nagbago ang trabaho, hindi bago niyon.",
+      "languages": "Basahin sa",
+      "top": "Balik sa itaas",
+      "home": "warrendeleon.com"
     }
   }
 }

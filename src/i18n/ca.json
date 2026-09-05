@@ -312,7 +312,7 @@
       "rows": [
         [
           "Model",
-          "ISFP (Aventurer)",
+          "ENTJ (Comandant)",
           "No respon"
         ],
         [
@@ -561,6 +561,12 @@
       ],
       "socialLabel": "Troba'm a",
       "sub": "La part que no surt a la descripció del lloc."
+    },
+    "colophon": {
+      "note": "Edició 1, setembre del 2026. Es revisa quan canvia la feina, no abans.",
+      "languages": "Llegeix-ho en",
+      "top": "Tornar a dalt",
+      "home": "warrendeleon.com"
     }
   }
 }
