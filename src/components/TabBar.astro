@@ -57,8 +57,10 @@ const icons: Record<string, string> = {
 </nav>
 
 <style>
-  /* ≤699px: full-width fixed tab bar. 700–1023px: floating pill dock.
-     ≥1024px: hidden — the sticky top nav takes over. */
+  /* ≤430px: full-width fixed tab bar. From 431px: the floating pill dock,
+     since the bar is capped at 430px and a capped bar on a wider screen
+     floated as a flat slab (Warren, on a 540px Surface Duo, 5 September).
+     ≥1280px with a mouse: hidden — the sticky top nav takes over. */
   .tab-bar {
     position: fixed;
     bottom: 0;
@@ -107,7 +109,7 @@ const icons: Record<string, string> = {
     line-height: 1.2;
   }
 
-  @media (min-width: 700px) {
+  @media (min-width: 431px) {
     .tab-bar {
       bottom: calc(16px + var(--safe-bottom));
       width: auto;
