@@ -69,6 +69,14 @@ export interface CreatedEvent {
 
 type Fetcher = typeof fetch;
 
+/**
+ * Workers binds `fetch` to the global object. Handing the bare function around
+ * and calling it as a method detaches that binding and the runtime throws
+ * "Illegal invocation", which a stubbed test never sees. Wrapping keeps the
+ * call site global.
+ */
+const globalFetch: Fetcher = (input, init) => fetch(input, init);
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
@@ -93,7 +101,7 @@ export class CalendarClient {
     email: string,
     refreshToken: string,
     credentials: GoogleCredentials,
-    fetchImpl: Fetcher = fetch,
+    fetchImpl: Fetcher = globalFetch,
     now: () => number = Date.now,
   ) {
     this.email = email;
