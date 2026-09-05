@@ -421,7 +421,7 @@
     "working": {
       "heading": "Paano ako nagtatrabaho",
       "hoursLabel": "Oras ng trabaho",
-      "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m.",
+      "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m. (UK time), may lunch break",
       "triage": "Email at Slack muna",
       "core": "Pinakamagandang oras para kontakin ako",
       "paras": [
@@ -493,8 +493,8 @@
         }
       ],
       "traitsNote": "Ang tuldok-tuldok na linya ang gitna ng sukatan. Sa limang score, apat ang nasa pagitan ng 40 at 60, kaya wala ritong matinding pagkiling sa alinmang panig. Ang huling katangian ang pinakahalata sa trabaho: kalmado pa rin ako kapag may pumalpak, at mas gusto kong sabihin mo agad sa akin ang problema kaysa itago ito para hindi ako mag-alala.",
-      "agreeHeading": "Kung saan nagtutugma ang dalawang test",
-      "agreeSource": "Sinagutan ko rin ang HEXACO-PI-R noong Setyembre 5, 2026. Ibang questionnaire ito na nakabatay sa ibang modelo. May dalawang bagay na parehong lumabas sa mga resulta, at sa dalawang iyon ko talaga nakikita ang sarili ko.",
+      "agreeHeading": "Mga pattern na nakikita ko sa dalawang resulta",
+      "agreeSource": "Sinagutan ko rin ang HEXACO-PI-R noong Setyembre 5, 2026. Iba ang modelo nito, pero may dalawang pattern na nakikita ko sa dalawang resulta at sa paraan ng pagtatrabaho ko. Ang mga HEXACO score ay ikinukumpara sa average na 5.00, batay sa sample ng mga estudyante sa unibersidad sa Canada.",
       "agree": [
         {
           "claim": "Sinisigurado kong maayos ang trabaho, at hindi ako basta sumusuko.",
@@ -505,7 +505,7 @@
             },
             {
               "source": "HEXACO",
-              "detail": "Conscientiousness: humigit-kumulang nasa 92nd percentile; Perfectionism: 6.64 (average: 5.00)."
+              "detail": "Conscientiousness: 6.43; Perfectionism: 6.64."
             }
           ],
           "means": "Lagi kong chine-check ang trabaho bago ko ito ipasa sa iyo. Pero nahihirapan din akong sabihing tapos na, kaya sabihin mo kapag sapat na ang nagawa ko."
@@ -515,34 +515,34 @@
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Mas mataas ang Thinking kaysa Feeling; kasama ang “overly critical” sa mga kahinaang nakalista sa report ko."
+              "detail": "Thinking kaysa Feeling: 54%."
             },
             {
               "source": "HEXACO",
-              "detail": "Agreeableness: humigit-kumulang nasa 7th percentile; Forgivingness: 3.16 (average: 5.00)."
+              "detail": "Agreeableness: 3.54; Forgivingness: 3.16."
             }
           ],
           "means": "Sabihin mo nang diretso; tatanggapin ko iyon nang maayos. Kung may naging problema sa pagitan natin, pag-usapan natin kaysa hintaying mawala na lang. Hindi porke tahimik ako, ayos na iyon para sa akin."
         }
       ],
       "locusHeading": "Saan nakasalalay ang mga resulta sa trabaho, para sa akin",
-      "locusSource": "Galing ito sa Locus of Control test ng 16Personalities, na sinagutan ko nang hiwalay sa pangunahing test. Bahagi lang tungkol sa trabaho ang ipinapakita ko rito. Hindi ko isinama ang personal at social na mga seksiyon dahil hindi tugma ang mga numero roon sa mga konklusyon ng report.",
+      "locusSource": "Ito ang mga resulta sa trabaho mula sa hiwalay na Locus of Control questionnaire ng 16Personalities. Hindi ko isinama ang personal at social na mga resulta dahil hindi tugma ang sinasabing pangunahing kategorya sa mga score. May mali rin sa label ng pangalawang kategorya sa work report; sinusunod ng mga numero sa ibaba ang mga score na ipinakita. Magkakahiwalay na score ang mga ito, hindi bahagi ng isang kabuuan, kaya hindi ito umaabot sa 100%.",
       "locus": [
         {
-          "label": "Sa akin",
+          "label": "Sa sarili kong mga aksyon",
           "value": 75
         },
         {
-          "label": "Sa ibang tao",
+          "label": "Sa mga taong may impluwensiya",
           "value": 62
         },
         {
-          "label": "Sa suwerte at timing",
+          "label": "Sa tsansa",
           "value": 49
         }
       ],
       "locusNote": "Mas naniniwala akong may magagawa ako para maimpluwensiyahan ang resulta, kaya iyon ang batayan ng mga plano ko. Nakakatulong ito kapag kailangan ng taong aako ng responsibilidad, pero hindi kapag may ibang taong namamahala na. Kaya minsan, nahihirapan akong mag-delegate. Kung may responsibilidad akong hawak na dapat sa iyo na, sabihin mo lang at ipapasa ko sa iyo.",
-      "typeNote": "Dalawang taon na ang nakalipas, Adventurer (ISFP) ang resulta ko sa parehong questionnaire. Kaya hindi ko masyadong sineseryoso ang label; mas mahalagang tingnan ang mga numero sa ibaba.",
+      "typeNote": "Noong Setyembre 2024, Adventurer (ISFP-A) ang ibinigay sa akin ng parehong questionnaire. Kaya hindi ko masyadong sineseryoso ang label; mas mahalagang tingnan ang mga numero sa ibaba.",
       "linkLabel": "Basahin ang tungkol sa personality type na ito sa 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
     },

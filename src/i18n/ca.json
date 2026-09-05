@@ -421,7 +421,7 @@
     "working": {
       "heading": "Com treballo",
       "hoursLabel": "Horari",
-      "hoursValue": "De dilluns a divendres, de 9:00 a 17:30",
+      "hoursValue": "De dilluns a divendres, de 9:00 a 17:30 (hora del Regne Unit), amb pausa per dinar",
       "triage": "Primer correu i Slack",
       "core": "Millor moment per localitzar-me",
       "paras": [
@@ -493,8 +493,8 @@
         }
       ],
       "traitsNote": "La línia de punts marca el punt mitjà. Quatre dels cinc valors són a deu punts o menys, de manera que no hi ha cap preferència gaire marcada. El tret que més es nota a la feina és l'últim: mantinc força la calma quan alguna cosa es torça i prefereixo que m'avisis aviat que no pas que m'amaguis un problema per estalviar-me el neguit.",
-      "agreeHeading": "En què coincideixen els dos tests",
-      "agreeSource": "També vaig fer l'HEXACO-PI-R el 5 de setembre del 2026. És un altre qüestionari, basat en un model diferent. Tots dos coincideixen en dues coses en què sí que em reconec.",
+      "agreeHeading": "Patrons que reconec en tots dos resultats",
+      "agreeSource": "També vaig fer l'HEXACO-PI-R el 5 de setembre del 2026. Fa servir un model diferent, però hi ha dos patrons que reconec en tots dos resultats i en la meva manera de treballar. Les puntuacions de l'HEXACO es comparen amb una mitjana de 5,00, calculada sobre una mostra d'estudiants universitaris canadencs.",
       "agree": [
         {
           "claim": "Reviso les coses i persevero.",
@@ -505,7 +505,7 @@
             },
             {
               "source": "HEXACO",
-              "detail": "Responsabilitat: al voltant del percentil 92; perfeccionisme: 6,64 (mitjana: 5,00)."
+              "detail": "Responsabilitat: 6,43; perfeccionisme: 6,64."
             }
           ],
           "means": "Revisaré la feina abans de passar-te-la. També em costa donar una cosa per acabada, així que digues-me quan ja està prou bé."
@@ -515,34 +515,34 @@
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Puntuació més alta en Racional que en Emocional; l'informe inclou «massa crític» entre els meus punts febles."
+              "detail": "Racional davant d'Emocional: 54 %."
             },
             {
               "source": "HEXACO",
-              "detail": "Amabilitat: al voltant del percentil 7; capacitat de perdonar: 3,16 (mitjana: 5,00)."
+              "detail": "Amabilitat: 3,54; capacitat de perdonar: 3,16."
             }
           ],
           "means": "Digues-m'ho clar i ho encaixaré bé. Si hi ha hagut un problema entre nosaltres, parla'n amb mi en comptes d'esperar que passi tot sol: jo no l'hauré deixat enrere com si res."
         }
       ],
       "locusHeading": "D'on crec que surten els resultats a la feina",
-      "locusSource": "Aquests resultats són del test de locus de control de 16Personalities, que vaig fer per separat. Aquí mostro la part laboral. He omès les seccions personal i social perquè, en totes dues, les xifres de l'informe no quadren amb les conclusions.",
+      "locusSource": "Aquests són els resultats laborals del test de locus de control de 16Personalities, que es fa per separat. He deixat fora els resultats personal i social perquè la categoria principal que indiquen no coincideix amb les seves puntuacions. L'informe laboral també etiqueta malament la categoria secundària; les xifres de sota segueixen les puntuacions mostrades. Són puntuacions independents, no parts d'un total, així que no sumen 100 %.",
       "locus": [
         {
-          "label": "De mi",
+          "label": "De les meves accions",
           "value": 75
         },
         {
-          "label": "Dels altres",
+          "label": "De persones amb influència",
           "value": 62
         },
         {
-          "label": "De la sort i el moment",
+          "label": "De l'atzar",
           "value": 49
         }
       ],
       "locusNote": "En el meu cas, predomina el control intern. Parteixo de la idea que puc influir en el resultat i planifico en conseqüència. Això ajuda quan cal que algú se'n responsabilitzi, però no tant quan ja hi ha una altra persona al capdavant. Em costa delegar. Si encara m'ocupo d'alguna cosa que et correspon a tu, digues-m'ho i te la passo.",
-      "typeNote": "Fa dos anys el mateix qüestionari deia Aventurer (ISFP), cosa que et dona una idea del pes que mereix l'etiqueta. El que val la pena llegir són els números de sota.",
+      "typeNote": "El setembre del 2024 el mateix qüestionari em va donar Aventurer (ISFP-A), cosa que et dona una idea del pes que mereix l'etiqueta. El que val la pena llegir són els números de sota.",
       "linkLabel": "Consulta aquest tipus de personalitat a 16Personalities, en castellà",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },

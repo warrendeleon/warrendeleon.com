@@ -304,7 +304,7 @@ const jsonLd = {
                   <div class="avail-triage"></div>
                 </div>
                 <div class="avail-scale">
-                  {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'].map((tick) => <span class="avail-tick">{tick}</span>)}
+                  {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00'].map((tick, i) => <span class="avail-tick" style={`--t:${i}`}>{tick}</span>)}
                 </div>
                 <p class="avail-key"><span class="avail-swatch"></span>{m.working.triage}</p>
               </div>
@@ -1018,8 +1018,10 @@ const jsonLd = {
   }
   .caution-text { font-size: 0.95rem; line-height: 1.5; color: var(--text-secondary); }
 
-  /* Availability: the working day to scale on an 08:00–19:00 track. Offsets
-     are minutes-from-08:00 over 660: 09:00 = 9.09%, 09:30 = 13.64%, 17:30 = 86.36%. */
+  /* Availability: the working day to scale on the 08:00–18:00 track the
+     labels draw. Offsets are minutes-from-08:00 over 600: 09:00 = 10%,
+     09:30 = 15%, 17:30 = 95%. Every tick is anchored to its own time, so
+     hiding ticks on a phone cannot move the ones that remain. */
   .avail { margin: 0 0 1.75rem; padding: 1.1rem 1.2rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; }
   .avail-caption { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; align-items: baseline; margin-bottom: 1rem; }
   .avail-label { font-size: 0.85rem; color: var(--text-muted); }
@@ -1032,11 +1034,13 @@ const jsonLd = {
     color: var(--text-primary);
   }
   .avail-track { position: relative; height: 40px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); overflow: hidden; }
-  .avail-core { position: absolute; inset-block: 0; left: 9.09%; width: 77.27%; display: flex; align-items: center; padding-left: 0.7rem; background: var(--color-green); color: var(--color-on-green); font-size: 0.82rem; font-weight: 600; }
+  .avail-core { position: absolute; inset-block: 0; left: 10%; width: 85%; display: flex; align-items: center; padding-left: 0.7rem; background: var(--color-green); color: var(--color-on-green); font-size: 0.82rem; font-weight: 600; }
   .avail-core span { position: relative; z-index: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .avail-triage { position: absolute; inset-block: 0; left: 9.09%; width: 4.55%; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, transparent 3px 6px); }
-  .avail-scale { display: flex; justify-content: space-between; margin-top: 0.4rem; }
-  .avail-tick { font-size: 0.72rem; color: var(--text-muted); }
+  .avail-triage { position: absolute; inset-block: 0; left: 10%; width: 5%; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, transparent 3px 6px); }
+  .avail-scale { position: relative; height: 1.1rem; margin-top: 0.4rem; }
+  .avail-tick { position: absolute; top: 0; left: calc(var(--t) * 20%); transform: translateX(-50%); font-size: 0.72rem; color: var(--text-muted); }
+  .avail-tick:first-child { transform: none; }
+  .avail-tick:last-child { transform: translateX(-100%); }
   .avail-key { display: flex; align-items: center; gap: 0.45rem; margin: 0.7rem 0 0 !important; font-size: 0.8rem !important; color: var(--text-muted) !important; }
   .avail-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, var(--color-green) 3px 6px); }
 
@@ -1262,7 +1266,7 @@ const jsonLd = {
     .colophon-inner { grid-template-columns: 1fr; }
     .colophon-label { flex-basis: 100%; margin: 0 0 0.1rem; }
     .avail-core span { display: none; }
-    .avail-tick:nth-child(even) { display: none; }
+    .avail-tick:nth-child(even) { display: none; }   /* 08:00, 12:00, 16:00 stay, where they are */
   }
 
   @media (prefers-reduced-motion: reduce) {

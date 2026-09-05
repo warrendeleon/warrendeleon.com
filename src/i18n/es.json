@@ -421,7 +421,7 @@
     "working": {
       "heading": "Cómo trabajo",
       "hoursLabel": "Horario",
-      "hoursValue": "De lunes a viernes, de 9:00 a 17:30",
+      "hoursValue": "De lunes a viernes, de 9:00 a 17:30 (hora del Reino Unido), con pausa para comer",
       "triage": "Primero correo y Slack",
       "core": "Mejor momento para localizarme",
       "paras": [
@@ -493,8 +493,8 @@
         }
       ],
       "traitsNote": "La línea de puntos marca el punto medio. Cuatro de los cinco valores están a diez puntos o menos, así que no hay ninguna preferencia muy marcada. El rasgo que más se nota en el trabajo es el último: mantengo bastante la calma cuando algo se tuerce y prefiero que me avises pronto a que me ocultes un problema para evitarme la preocupación.",
-      "agreeHeading": "En qué coinciden los dos tests",
-      "agreeSource": "También hice el HEXACO-PI-R el 5 de septiembre de 2026. Es otro cuestionario, basado en un modelo distinto. Ambos coinciden en dos cosas en las que sí me reconozco.",
+      "agreeHeading": "Patrones que reconozco en los dos resultados",
+      "agreeSource": "También hice el HEXACO-PI-R el 5 de septiembre de 2026. Usa un modelo distinto, pero hay dos patrones que reconozco en los dos resultados y en mi forma de trabajar. Las puntuaciones del HEXACO se comparan con una media de 5,00, calculada sobre una muestra de estudiantes universitarios canadienses.",
       "agree": [
         {
           "claim": "Reviso las cosas y persevero.",
@@ -505,7 +505,7 @@
             },
             {
               "source": "HEXACO",
-              "detail": "Responsabilidad: en torno al percentil 92; perfeccionismo: 6,64 (media: 5,00)."
+              "detail": "Responsabilidad: 6,43; perfeccionismo: 6,64."
             }
           ],
           "means": "Revisaré el trabajo antes de pasártelo. También me cuesta dar algo por terminado, así que dime cuándo ya está suficientemente bien."
@@ -515,34 +515,34 @@
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Mayor puntuación en Racional que en Emocional; el informe incluye «demasiado crítico» entre mis puntos débiles."
+              "detail": "Racional frente a Emocional: 54 %."
             },
             {
               "source": "HEXACO",
-              "detail": "Amabilidad: en torno al percentil 7; capacidad de perdonar: 3,16 (media: 5,00)."
+              "detail": "Amabilidad: 3,54; capacidad de perdonar: 3,16."
             }
           ],
           "means": "Dímelo claro y lo encajaré bien. Si ha habido un problema entre nosotros, háblalo conmigo en vez de esperar a que se pase solo: yo no lo habré dejado atrás sin más."
         }
       ],
       "locusHeading": "De dónde creo que salen los resultados en el trabajo",
-      "locusSource": "Estos resultados son del test de locus de control de 16Personalities, que hice por separado. Aquí muestro la parte laboral. He omitido las secciones personal y social porque, en ambas, las cifras del informe no cuadran con sus conclusiones.",
+      "locusSource": "Estos son los resultados laborales del test de locus de control de 16Personalities, que se hace por separado. He dejado fuera los resultados personal y social porque la categoría principal que indican no coincide con sus puntuaciones. El informe laboral también etiqueta mal la categoría secundaria; las cifras de abajo siguen las puntuaciones mostradas. Son puntuaciones independientes, no partes de un total, así que no suman 100 %.",
       "locus": [
         {
-          "label": "De mí",
+          "label": "De mis propias acciones",
           "value": 75
         },
         {
-          "label": "De los demás",
+          "label": "De personas con influencia",
           "value": 62
         },
         {
-          "label": "De la suerte y el momento",
+          "label": "Del azar",
           "value": 49
         }
       ],
       "locusNote": "En mi caso, predomina el control interno. Parto de que puedo influir en el resultado y planifico en consecuencia. Eso ayuda cuando hace falta que alguien se responsabilice, pero no tanto cuando ya hay otra persona al frente. Me cuesta delegar. Si sigo ocupándome de algo que te corresponde a ti, dímelo y te lo paso.",
-      "typeNote": "Hace dos años el mismo cuestionario decía Aventurero (ISFP), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de abajo.",
+      "typeNote": "En septiembre de 2024 el mismo cuestionario me dio Aventurero (ISFP-A), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de abajo.",
       "linkLabel": "Ver este tipo de personalidad en 16Personalities",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },
