@@ -377,7 +377,7 @@
           "icon": "calendar",
           "need": "Vols una hora sencera del meu temps",
           "channel": "Reserva una trucada",
-          "reply": "Normalment, aquella mateixa setmana",
+          "reply": "Normalment, la mateixa setmana",
           "channelHref": "/book-a-call/"
         },
         {
@@ -390,7 +390,7 @@
           "icon": "mail",
           "need": "Cal que quedi per escrit",
           "channel": "Correu",
-          "reply": "En el termini d'un dia feiner"
+          "reply": "En un dia feiner com a màxim"
         },
         {
           "icon": "slack",
@@ -416,7 +416,7 @@
         "Donar per fet que estic bé perquè m'he quedat callat.",
         "Trucar-me de sobte per alguna cosa que podia esperar a demà."
       ],
-      "sub": "Detalls petits, gairebé tots. Són els que fan que una setmana sigui més fàcil."
+      "sub": "Coses petites, gairebé totes. Són les que fan la setmana més lleugera."
     },
     "working": {
       "heading": "Com treballo",
@@ -511,7 +511,7 @@
           "means": "Revisaré la feina abans de passar-te-la. També em costa donar una cosa per acabada, així que digues-me quan ja està prou bé."
         },
         {
-          "claim": "Sóc directe i no deixo passar les coses.",
+          "claim": "Soc directe i no deixo passar les coses.",
           "evidence": [
             {
               "source": "16Personalities",

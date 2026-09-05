@@ -390,7 +390,7 @@
           "icon": "mail",
           "need": "Hace falta que quede por escrito",
           "channel": "Correo",
-          "reply": "En el plazo de un día laborable"
+          "reply": "En un día laborable como máximo"
         },
         {
           "icon": "slack",
@@ -416,7 +416,7 @@
         "Dar por hecho que estoy bien porque me he quedado callado.",
         "Llamarme de repente por algo que podía esperar a mañana."
       ],
-      "sub": "Detalles pequeños, casi todos. Son los que hacen que una semana sea más fácil."
+      "sub": "Cosas pequeñas, casi todas. Son las que hacen la semana más llevadera."
     },
     "working": {
       "heading": "Cómo trabajo",
@@ -542,7 +542,7 @@
         }
       ],
       "locusNote": "En mi caso, predomina el control interno. Parto de que puedo influir en el resultado y planifico en consecuencia. Eso ayuda cuando hace falta que alguien se responsabilice, pero no tanto cuando ya hay otra persona al frente. Me cuesta delegar. Si sigo ocupándome de algo que te corresponde a ti, dímelo y te lo paso.",
-      "typeNote": "Hace dos años el mismo cuestionario decía Aventurero (ISFP), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de debajo.",
+      "typeNote": "Hace dos años el mismo cuestionario decía Aventurero (ISFP), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de abajo.",
       "linkLabel": "Ver este tipo de personalidad en 16Personalities",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },

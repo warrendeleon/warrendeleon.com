@@ -421,7 +421,7 @@
     "working": {
       "heading": "How I work",
       "hoursLabel": "Working hours",
-      "hoursValue": "Monday to Friday, 9:00am to 5:30pm",
+      "hoursValue": "Monday to Friday, 9am to 5.30pm",
       "triage": "Email and Slack first",
       "core": "Best time to reach me",
       "paras": [
@@ -432,7 +432,7 @@
     "feedback": {
       "heading": "Feedback",
       "paras": [
-        "Write it down, so I can sit with it and answer properly rather than defensively. Be specific. And keep it about the work: disagree with me in the room, but anything about me goes privately.",
+        "Write it down, so I can sit with it and answer properly rather than defensively. Be specific. And keep it about the work: disagree with me in the room, but anything about me, in private.",
         "Under pressure I'll tell you when I've reached my limit rather than go quiet. If I have gone quiet near a deadline, ask me outright."
       ],
       "sub": "In writing, please. I'm better on paper than on the spot."
@@ -492,9 +492,9 @@
           "opposite": "Turbulent"
         }
       ],
-      "traitsNote": "The dotted line is the halfway mark. Four of the five sit within ten points of it, so none of this is a strong reading. The one that shows up most at work is the last: I stay fairly level when things go wrong, and I would rather be told early than protected from it.",
+      "traitsNote": "The dotted line is the halfway mark. Four of the five sit within ten points of it, so none of this is a strong reading. The one that shows up most at work is the last: I stay fairly level when things go wrong, and I'd rather be told early than protected from it.",
       "agreeHeading": "What both tests agree on",
-      "agreeSource": "I also took the HEXACO-PI-R on 5 September 2026, a different questionnaire built on a different model. Two things came out the same on both, and those are the ones I would stand behind.",
+      "agreeSource": "I also took the HEXACO-PI-R on 5 September 2026, a different questionnaire built on a different model. Two things came out the same on both, and those are the ones I'd stand behind.",
       "agree": [
         {
           "claim": "I check things, and I keep going.",
@@ -508,10 +508,10 @@
               "detail": "Conscientiousness around the 92nd percentile, Perfectionism 6.64 where 5.00 is average"
             }
           ],
-          "means": "Work will have been checked before it reaches you. You will also get someone who finds it hard to call a thing finished, so tell me when it is good enough."
+          "means": "I'll have checked the work before it reaches you. I also find it hard to call a thing finished, so tell me when it's good enough."
         },
         {
-          "claim": "I am direct, and I do not let things drop.",
+          "claim": "I'm direct, and I don't let things drop.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -522,11 +522,11 @@
               "detail": "Agreeableness around the 7th percentile, Forgivingness 3.16 where 5.00 is average"
             }
           ],
-          "means": "Say it plainly and I will take it well. If something has gone wrong between us, raise it rather than waiting for it to fade, because I will not have quietly moved on."
+          "means": "Say it plainly and I'll take it well. If something has gone wrong between us, raise it rather than waiting for it to fade, because I won't have quietly moved on."
         }
       ],
       "locusHeading": "Where I think work outcomes come from",
-      "locusSource": "From their Locus of Control test, taken separately from the main one. This is the work section of it; I have left the personal and social sections off, because on those two their own numbers disagree with their own conclusions.",
+      "locusSource": "From 16Personalities' Locus of Control test, taken separately from the main one. This is the work section; I've left the personal and social sections off, because on those two their own numbers disagree with their own conclusions.",
       "locus": [
         {
           "label": "Me",
@@ -541,7 +541,7 @@
           "value": 49
         }
       ],
-      "locusNote": "Mine points inward. I treat a result as mine to influence and I plan accordingly, which is useful when something needs owning and less useful when it is already owned by someone else. It shows up as being slow to hand things over. If I am holding something that should be yours, say so and I will let go of it.",
+      "locusNote": "Mine points inward. I treat a result as mine to influence and I plan accordingly, which is useful when something needs owning and less useful when it's already owned by someone else. It shows up as being slow to hand things over. If I'm holding something that should be yours, say so and I'll let go of it.",
       "typeNote": "Two years ago the same questionnaire said Adventurer (ISFP), which tells you roughly how much weight the label deserves. The numbers underneath it are the part worth reading.",
       "linkLabel": "See the type on 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
