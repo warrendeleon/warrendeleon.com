@@ -511,7 +511,7 @@
           "means": "Revisaré el trabajo antes de pasártelo. También me cuesta dar algo por terminado, así que dime cuándo ya está suficientemente bien."
         },
         {
-          "claim": "Soy directo, y no dejo las cosas pasar.",
+          "claim": "Soy directo y no dejo pasar las cosas.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -548,7 +548,7 @@
     },
     "offWork": {
       "heading": "Fuera de horario",
-      "para": "Veo muchísima televisión coreana y algunas series BL de otros países de Asia. Canto karaoke con más entusiasmo que talento. Escribo un [blog](/blog/) sobre React Native y sobre cómo los equipos de desarrollo móvil sacan sus aplicaciones adelante. Nací y crecí en Barcelona, mis padres son filipinos y vivo en el Reino Unido desde 2016.",
+      "para": "Veo muchísima televisión coreana y algunas series BL de otros países de Asia. Canto karaoke con más entusiasmo que talento. Escribo un [blog](/blog/) sobre React Native y sobre cómo trabajan los equipos de desarrollo móvil para publicar sus aplicaciones. Nací y crecí en Barcelona, mis padres son filipinos y vivo en el Reino Unido desde 2016.",
       "photoAlt": "Warren de Leon de pie junto a una pared iluminada por el sol",
       "asksHead": "Puedes preguntarme siempre por",
       "asks": [

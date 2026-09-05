@@ -511,7 +511,7 @@
           "means": "Revisaré la feina abans de passar-te-la. També em costa donar una cosa per acabada, així que digues-me quan ja està prou bé."
         },
         {
-          "claim": "Sóc directe, i no deixo passar les coses.",
+          "claim": "Sóc directe i no deixo passar les coses.",
           "evidence": [
             {
               "source": "16Personalities",
@@ -548,7 +548,7 @@
     },
     "offWork": {
       "heading": "Fora d'horari",
-      "para": "Miro moltíssima televisió coreana i algunes sèries BL d'altres països d'Àsia. Canto karaoke amb més entusiasme que talent. Escric un [blog](/blog/) sobre React Native i sobre com els equips de desenvolupament mòbil tiren endavant les seves aplicacions. Vaig néixer i créixer a Barcelona, els meus pares són filipins i visc al Regne Unit des del 2016.",
+      "para": "Miro moltíssima televisió coreana i algunes sèries BL d'altres països d'Àsia. Canto karaoke amb més entusiasme que talent. Escric un [blog](/blog/) sobre React Native i sobre com treballen els equips de desenvolupament mòbil per publicar les seves aplicacions. Vaig néixer i créixer a Barcelona, els meus pares són filipins i visc al Regne Unit des del 2016.",
       "photoAlt": "Warren de Leon dret al costat d'una paret il·luminada pel sol",
       "asksHead": "Sempre em pots preguntar per",
       "asks": [
