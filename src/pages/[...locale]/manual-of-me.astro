@@ -28,6 +28,10 @@ const num = (id: string) => String(sections.findIndex((s) => s.id === id) + 1).p
 // o'clock. Only the locus scores get rings: they are independent 0–100
 // quantities. The five trait scales stay as two-ended bars because each one is
 // bipolar (56% Extraverted is also 44% Introverted) and a ring would hide that.
+// Percent typography follows the edition: Spanish and Catalan set a non-breaking
+// space before the sign (56 %), English and Tagalog close it up (56%).
+const pctGap = locale === 'es' || locale === 'ca' ? '\u00a0' : '';
+
 const RING_R = 44;
 const RING_C = 2 * Math.PI * RING_R;
 
@@ -358,7 +362,7 @@ const jsonLd = {
               {m.personality.traits.map((t) => (
                 <li class="trait">
                   <span class="trait-dim">{t.dim}</span>
-                  <span class="trait-score"><strong>{t.value}%</strong> {t.label}</span>
+                  <span class="trait-score"><strong>{t.value}{pctGap}%</strong> {t.label}</span>
                   <span class="trait-track" aria-hidden="true">
                     <span class="trait-fill" style={`--v:${t.value}%`}></span>
                   </span>
@@ -382,7 +386,7 @@ const jsonLd = {
                       <circle class="ring-track" cx="50" cy="50" r={RING_R} />
                       <circle class="ring-arc" cx="50" cy="50" r={RING_R} style={`--arc:${(l.value / 100) * RING_C}; --c:${RING_C}`} transform="rotate(-90 50 50)" />
                     </svg>
-                    <span class="ring-num"><span class="ring-val">{l.value}<small>%</small></span></span>
+                    <span class="ring-num"><span class="ring-val">{l.value}{pctGap}<small>%</small></span></span>
                   </span>
                   <span class="ring-label">{l.label}</span>
                 </li>

@@ -301,12 +301,12 @@
     "cover": {
       "edition": "Edición 1",
       "date": "Septiembre de 2026",
-      "tagline": "Léelo antes de usar",
+      "tagline": "Leer antes de usar.",
       "photoAlt": "Warren de Leon con chaqueta vaquera ante una pared blanca al sol"
     },
     "spec": {
       "heading": "Especificaciones",
-      "note": "Todos los datos son reales. El envoltorio no.",
+      "note": "Los datos van en serio. Lo de tratarme como un producto, no.",
       "after": "Después del café",
       "before": "Antes del café",
       "rows": [
@@ -317,7 +317,7 @@
         ],
         [
           "Horario",
-          "Lun–Vie, 09:00–17:30",
+          "De lunes a viernes, de 9:00 a 17:30",
           "Todavía no"
         ],
         [
@@ -332,12 +332,12 @@
         ],
         [
           "Entorno óptimo",
-          "Silencio, buen audio, auriculares puestos",
+          "Un sitio tranquilo, buen sonido y auriculares",
           "Silencio"
         ],
         [
-          "Mejor uso",
-          "Móvil y React Native",
+          "Uso recomendado",
+          "Desarrollo móvil y React Native",
           "Sujetar un café"
         ],
         [
@@ -356,14 +356,14 @@
       "heading": "Si necesitas algo",
       "intro": "Busca tu situación. Estos tiempos de respuesta son compromisos, no buenas intenciones.",
       "colNeed": "Tu situación",
-      "colChannel": "Dónde escribir",
+      "colChannel": "Cómo contactar conmigo",
       "colReply": "Cuándo tendrás respuesta",
       "rows": [
         {
           "icon": "slack",
-          "need": "Una duda rápida, o quieres que hagamos pair en algo",
+          "need": "Tienes una duda rápida o quieres que trabajemos juntos en algo",
           "channel": "Slack",
-          "reply": "En menos de una hora, dentro del horario laboral"
+          "reply": "En una hora como máximo, dentro del horario laboral"
         },
         {
           "icon": "whatsapp",
@@ -377,12 +377,12 @@
           "icon": "calendar",
           "need": "Quieres una hora entera de mi tiempo",
           "channel": "Reserva una llamada",
-          "reply": "Casi siempre esa misma semana",
+          "reply": "Normalmente, esa misma semana",
           "channelHref": "/book-a-call/"
         },
         {
           "icon": "oneToOne",
-          "need": "Es sobre tu trabajo, tu crecimiento o algo que te preocupa",
+          "need": "Es sobre tu trabajo, tu desarrollo profesional o algo que te preocupa",
           "channel": "Nuestro 1:1",
           "reply": "No esperes al siguiente, búscame antes"
         },
@@ -399,16 +399,16 @@
           "reply": "Averiguo quién lo lleva y te digo algo"
         }
       ],
-      "sub": "Busca tu fila. Los tiempos son reales."
+      "sub": "Busca tu situación. Estos son mis tiempos de respuesta."
     },
     "howTo": {
       "heading": "Cómo trabajar conmigo",
       "helpsHead": "Esto ayuda",
       "helps": [
-        "Dime desde el principio qué necesitas de verdad. La versión directa nos ahorra una vuelta a los dos.",
-        "Interrúmpeme cuando lleve auriculares. Filtran la oficina, no son un muro.",
+        "Dime desde el principio qué necesitas de verdad. Ir al grano nos ahorra mensajes de ida y vuelta.",
+        "Interrúmpeme aunque lleve auriculares. Me aíslan del ruido de la oficina, pero no son un muro.",
         "Reserva media hora en vez de escribir el duodécimo mensaje de un hilo.",
-        "Enséñame la versión a medio hacer. Es más fácil de ayudar que una terminada que fue en la dirección equivocada."
+        "Enséñame la versión a medio hacer. Me resulta más fácil ayudarte en ese punto que cuando ya está terminada y va por el camino equivocado."
       ],
       "hurtsHead": "Esto no",
       "hurts": [
@@ -432,15 +432,15 @@
     "feedback": {
       "heading": "Feedback",
       "paras": [
-        "Por escrito, para poder pensarlo y responder bien en lugar de a la defensiva. Sé concreto. Y que vaya sobre el trabajo: llévame la contraria delante de todos, pero lo que sea sobre mí, en privado.",
-        "Bajo presión te diré cuando llegue a mi límite en vez de quedarme callado. Si me he quedado callado cerca de una entrega, pregúntamelo directamente."
+        "Escríbemelo para que pueda pensarlo con calma y responder sin ponerme a la defensiva. Sé concreto y céntrate en el trabajo: puedes discrepar conmigo en una reunión, pero los comentarios sobre mí como persona, en privado.",
+        "Cuando esté bajo presión, te diré si he llegado a mi límite en vez de quedarme callado. Si ves que me callo cuando se acerca una fecha de entrega, pregúntame directamente cómo estoy."
       ],
-      "sub": "Por escrito, por favor. Se me da mejor el papel que el momento."
+      "sub": "Por escrito, por favor. Me explico mejor con calma que sobre la marcha."
     },
     "personality": {
       "heading": "Mi perfil de personalidad",
       "sub": "Un punto de partida para una conversación, no un veredicto.",
-      "source": "Todas las cifras de abajo salen de mi perfil en 16Personalities. El test principal lo hice el 4 de septiembre de 2026.",
+      "source": "Las cifras de esta sección proceden de mis resultados en 16Personalities y HEXACO-PI-R. Hice el test principal de 16Personalities el 4 de septiembre de 2026.",
       "letters": [
         [
           "E",
@@ -492,41 +492,41 @@
           "opposite": "Turbulento"
         }
       ],
-      "traitsNote": "La línea de puntos marca la mitad. Cuatro de los cinco valores se quedan a menos de siete puntos de ella, así que ninguno dice gran cosa. El que más se nota en el trabajo es el último: aguanto bastante bien cuando algo se tuerce, y prefiero que me lo cuentes pronto a que me protejas de ello.",
+      "traitsNote": "La línea de puntos marca el punto medio. Cuatro de los cinco valores están a diez puntos o menos, así que no hay ninguna preferencia muy marcada. El rasgo que más se nota en el trabajo es el último: mantengo bastante la calma cuando algo se tuerce y prefiero que me avises pronto a que me ocultes un problema para evitarme la preocupación.",
       "agreeHeading": "En qué coinciden los dos tests",
-      "agreeSource": "También hice el HEXACO-PI-R el 5 de septiembre de 2026, otro cuestionario construido sobre un modelo distinto. Dos cosas salieron igual en los dos, y son las que defiendo.",
+      "agreeSource": "También hice el HEXACO-PI-R el 5 de septiembre de 2026. Es otro cuestionario, basado en un modelo distinto. Ambos coinciden en dos cosas en las que sí me reconozco.",
       "agree": [
         {
-          "claim": "Reviso las cosas, y no me paro.",
+          "claim": "Reviso las cosas y persevero.",
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Perfeccionismo 90%, Determinación 100%"
+              "detail": "Perfeccionismo: 90 %; determinación: 100 %."
             },
             {
               "source": "HEXACO",
-              "detail": "Responsabilidad por el percentil 92, Perfeccionismo 6,64 cuando la media es 5,00"
+              "detail": "Responsabilidad: en torno al percentil 92; perfeccionismo: 6,64 (media: 5,00)."
             }
           ],
-          "means": "Lo que te llegue habrá pasado una revisión. También tendrás a alguien al que le cuesta dar algo por terminado, así que dime tú cuándo ya está bien."
+          "means": "Revisaré el trabajo antes de pasártelo. También me cuesta dar algo por terminado, así que dime cuándo ya está suficientemente bien."
         },
         {
           "claim": "Soy directo, y no dejo las cosas pasar.",
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Racional antes que Emocional, y «demasiado crítico» en su propia lista de mis defectos"
+              "detail": "Mayor puntuación en Racional que en Emocional; el informe incluye «demasiado crítico» entre mis puntos débiles."
             },
             {
               "source": "HEXACO",
-              "detail": "Amabilidad por el percentil 7, capacidad de perdonar 3,16 cuando la media es 5,00"
+              "detail": "Amabilidad: en torno al percentil 7; capacidad de perdonar: 3,16 (media: 5,00)."
             }
           ],
-          "means": "Dímelo claro y lo encajaré bien. Si algo se ha torcido entre nosotros, sácalo en vez de esperar a que se diluya, porque yo no lo habré dejado atrás sin más."
+          "means": "Dímelo claro y lo encajaré bien. Si ha habido un problema entre nosotros, háblalo conmigo en vez de esperar a que se pase solo: yo no lo habré dejado atrás sin más."
         }
       ],
       "locusHeading": "De dónde creo que salen los resultados en el trabajo",
-      "locusSource": "De su test de Locus de Control, que se hace aparte del principal. Aquí está la parte del trabajo; he dejado fuera la personal y la social, porque en esas dos sus propios números no cuadran con sus propias conclusiones.",
+      "locusSource": "Estos resultados son del test de locus de control de 16Personalities, que hice por separado. Aquí muestro la parte laboral. He omitido las secciones personal y social porque, en ambas, las cifras del informe no cuadran con sus conclusiones.",
       "locus": [
         {
           "label": "De mí",
@@ -541,18 +541,18 @@
           "value": 49
         }
       ],
-      "locusNote": "El mío apunta hacia dentro. Doy por hecho que el resultado depende de mí y planifico en consecuencia, lo cual va bien cuando algo necesita dueño y peor cuando ya lo tiene. Se nota en que tardo en soltar las cosas. Si estoy sujetando algo que te toca a ti, dímelo y lo suelto.",
+      "locusNote": "En mi caso, predomina el control interno. Parto de que puedo influir en el resultado y planifico en consecuencia. Eso ayuda cuando hace falta que alguien se responsabilice, pero no tanto cuando ya hay otra persona al frente. Me cuesta delegar. Si sigo ocupándome de algo que te corresponde a ti, dímelo y te lo paso.",
       "typeNote": "Hace dos años el mismo cuestionario decía Aventurero (ISFP), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de debajo.",
-      "linkLabel": "Ver el tipo en 16Personalities",
+      "linkLabel": "Ver este tipo de personalidad en 16Personalities",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
     },
     "offWork": {
       "heading": "Fuera de horario",
-      "para": "Veo muchísima televisión coreana, y alguna serie BL de otros países de Asia. Canto karaoke con más entusiasmo que oído. Escribo un [blog](/blog/) sobre React Native y sobre cómo publican de verdad los equipos de móvil. Nací y crecí en Barcelona, de padres filipinos, y vivo en el Reino Unido desde 2016.",
-      "photoAlt": "Warren de Leon, fuera del escritorio",
+      "para": "Veo muchísima televisión coreana y algunas series BL de otros países de Asia. Canto karaoke con más entusiasmo que talento. Escribo un [blog](/blog/) sobre React Native y sobre cómo los equipos de desarrollo móvil sacan sus aplicaciones adelante. Nací y crecí en Barcelona, mis padres son filipinos y vivo en el Reino Unido desde 2016.",
+      "photoAlt": "Warren de Leon de pie junto a una pared iluminada por el sol",
       "asksHead": "Puedes preguntarme siempre por",
       "asks": [
-        "Series coreanas para empezar",
+        "Series coreanas que merecen la pena",
         "Karaoke",
         "El blog",
         "React Native",
@@ -563,7 +563,7 @@
       "sub": "La parte que no sale en la descripción del puesto."
     },
     "colophon": {
-      "note": "Edición 1, septiembre de 2026. Se revisa cuando cambia el trabajo, no antes.",
+      "note": "Edición 1, septiembre de 2026. Lo reviso cuando cambia mi trabajo, no antes.",
       "languages": "Léelo en",
       "top": "Volver arriba",
       "home": "warrendeleon.com"

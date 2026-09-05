@@ -252,7 +252,7 @@
     "aboutTitle": "Tungkol kay Warren de Leon | Software Engineering Manager",
     "aboutDescription": "Si Warren de Leon ay Software Engineering Manager: React Native mula 2017, dating nasa Sky at Hargreaves Lansdown. Lahat ng artikulong isinulat niya, pinakabago muna.",
     "manualTitle": "Paano Ako Katrabaho",
-    "manualDescription": "Kung paano katrabaho si Warren de Leon: paano siya makokontak, saan siya makakatulong, paano magbigay ng feedback, at ano ang inaasahan kapag may pressure."
+    "manualDescription": "Kilalanin si Warren de Leon bilang katrabaho: paano siya makokontak, saan siya makakatulong, paano siya bigyan ng feedback, at ano ang maaasahan sa kanya kapag may pressure."
   },
   "a11y": {
     "mainNavigation": "Pangunahing nabigasyon",
@@ -296,7 +296,7 @@
     "heading": "Paano Ako Katrabaho",
     "lead": "Ganito ako magtrabaho, dito ako makakatulong, at ganito ako makokontak. Sinulat ko ito para hindi mo na kailangan pang hulaan.",
     "updated": "Huling na-update noong Setyembre 2026",
-    "contents": "Nasa pahinang ito",
+    "contents": "Mga seksiyon",
     "portraitAlt": "Warren de Leon",
     "cover": {
       "edition": "Edisyon 1",
@@ -306,7 +306,7 @@
     },
     "spec": {
       "heading": "Mga espesipikasyon",
-      "note": "Totoo lahat ng datos dito. Ang pagkakabalot, hindi.",
+      "note": "Totoo ang lahat ng detalye rito. Biro lang ang pagiging produkto ko.",
       "after": "Pagkatapos ng kape",
       "before": "Bago ang kape",
       "rows": [
@@ -317,11 +317,11 @@
         ],
         [
           "Oras ng trabaho",
-          "Lun–Bye, 09:00–17:30",
+          "Lunes–Biyernes, 9:00 a.m.–5:30 p.m.",
           "Hindi pa"
         ],
         [
-          "Oras ng pag-init",
+          "Oras bago ako gumana",
           "Mga 30 minuto at isang latte",
           "Umiinit pa"
         ],
@@ -336,12 +336,12 @@
           "Katahimikan"
         ],
         [
-          "Pinakamainam na gamit",
-          "Mobile at React Native",
+          "Saan ako pinakakapaki-pakinabang",
+          "Mobile development at React Native",
           "Paghawak ng latte"
         ],
         [
-          "Wala sa warranty",
+          "Hindi sakop ng warranty",
           "Mga biro tungkol sa pagiging propesyonal ko",
           "Kahit ano bago mag-9:30"
         ]
@@ -361,16 +361,16 @@
       "rows": [
         {
           "icon": "slack",
-          "need": "Mabilisang tanong, o gusto mong mag-pair tayo sa isang bagay",
+          "need": "May mabilis kang tanong o gusto mong magtulungan tayo sa isang task",
           "channel": "Slack",
-          "reply": "Wala pang isang oras, sa oras ng trabaho"
+          "reply": "Sa loob ng isang oras, basta oras ng trabaho"
         },
         {
           "icon": "whatsapp",
           "need": "Hindi ito puwedeng ipagpabukas",
           "channel": "WhatsApp",
-          "channelNote": "o tawagan mo ang parehong number",
-          "reply": "Pagkakita ko rito, araw man o gabi",
+          "channelNote": "o tumawag sa numerong ito",
+          "reply": "Pagkabasa ko ng message mo, araw man o gabi",
           "channelHref": "https://wa.me/447510084239"
         },
         {
@@ -382,7 +382,7 @@
         },
         {
           "icon": "oneToOne",
-          "need": "Tungkol ito sa trabaho mo, sa growth mo, o sa isang bagay na bumabagabag sa iyo",
+          "need": "Tungkol ito sa trabaho mo, sa career growth mo, o sa isang bagay na bumabagabag sa iyo",
           "channel": "Ang 1:1 natin",
           "reply": "Huwag mong hintayin ang susunod, lapitan mo ako agad"
         },
@@ -399,48 +399,48 @@
           "reply": "Aalamin ko kung sino ang may hawak nito at babalikan kita"
         }
       ],
-      "sub": "Hanapin ang row mo. Totoo ang mga oras."
+      "sub": "Hanapin ang sitwasyong tugma sa kailangan mo. Ito ang mga oras ng pagsagot ko."
     },
     "howTo": {
-      "heading": "Paano makitrabaho sa akin",
+      "heading": "Paano makipagtrabaho sa akin",
       "helpsHead": "Nakakatulong ito",
       "helps": [
-        "Sabihin mo agad kung ano talaga ang kailangan mo. Nakakatipid sa ating dalawa ang diretsong bersyon.",
-        "Istorbohin mo ako kahit naka-headphone ako. Pang-filter iyon ng ingay sa office, hindi pader.",
-        "Mag-book ng kalahating oras sa halip na isulat ang ikalabindalawang message sa isang thread.",
-        "Ipakita mo sa akin ang hindi pa tapos. Mas madaling tulungan iyon kaysa sa tapos na pero mali na ang direksyon."
+        "Sabihin mo agad kung ano talaga ang kailangan mo. Kapag diretso ang usapan, hindi na tayo magpapabalik-balik ng mga message.",
+        "Puwede mo akong istorbohin kahit naka-headphones ako. Para lang mabawasan ang ingay sa office, hindi para hindi ako kausapin.",
+        "Mag-book na lang tayo ng 30 minuto kaysa umabot pa sa pang-labindalawang message sa thread.",
+        "Ipakita mo sa akin kahit hindi pa tapos. Mas madali kitang matutulungan habang ginagawa pa lang kaysa kapag tapos na pero mali pala ang direksiyon."
       ],
       "hurtsHead": "Hindi ito nakakatulong",
       "hurts": [
-        "Biro na nakabuntong sa pagiging propesyonal ko. Kung may ikinainis ka, sabihin mo nang diretso.",
-        "Ipagpalagay na okay lang ako dahil tumahimik ako.",
-        "Tumawag nang biglaan para sa isang bagay na kayang hintayin hanggang bukas."
+        "Mga birong minamaliit ang pagiging propesyonal ko. Kung may ikinainis ka, sabihin mo nang diretso.",
+        "Ang pag-aakalang okay lang ako dahil tahimik ako.",
+        "Ang biglaang pagtawag tungkol sa bagay na puwede namang ipagpabukas."
       ],
-      "sub": "Maliliit na bagay, halos lahat. Iyon ang nagpapadali ng isang linggo."
+      "sub": "Maliliit na bagay lang ang karamihan, pero mas gumagaan ang linggo dahil sa mga ito."
     },
     "working": {
       "heading": "Paano ako nagtatrabaho",
       "hoursLabel": "Oras ng trabaho",
       "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m.",
       "triage": "Email at Slack muna",
-      "core": "Pinakamainam na oras para lapitan ako",
+      "core": "Pinakamagandang oras para kontakin ako",
       "paras": [
-        "Gumagana lang nang maayos ang utak ko kapag tumalab na ang kape, bandang 9:30. Napupunta ang unang kalahating oras sa email, sa Slack, at sa pag-alam kung ano talaga ang mahalaga sa araw na iyon."
+        "Gumagana lang nang maayos ang utak ko kapag tumalab na ang kape, bandang 9:30. Sa unang kalahating oras, email at Slack muna, saka ko inaalam kung ano talaga ang kailangang unahin sa araw na iyon."
       ],
       "sub": "Hindi metapora ang kape."
     },
     "feedback": {
       "heading": "Feedback",
       "paras": [
-        "Isulat mo, para mapag-isipan ko at masagot nang maayos, hindi nang depensiba. Maging specific. At tungkol sana sa trabaho: kontrahin mo ako sa harap ng lahat, pero kung tungkol sa akin, pribado.",
-        "Kapag may pressure, sasabihin ko kapag naabot ko na ang limitasyon ko sa halip na tumahimik. Kung tumahimik ako malapit sa deadline, tanungin mo ako nang diretso."
+        "Isulat mo para mapag-isipan ko at makasagot nang maayos, imbes na maging defensive. Maging specific at ituon ang feedback sa trabaho. Puwede kang hindi sumang-ayon sa akin sa meeting, pero kung tungkol sa akin bilang tao, sabihin mo sa akin nang pribado.",
+        "Kapag pressured ako at sagad na, sasabihin ko sa iyo sa halip na tumahimik. Kung mapansin mong tahimik ako habang papalapit ang deadline, tanungin mo ako nang diretso kung okay pa ako."
       ],
-      "sub": "Nakasulat, kung puwede. Mas magaling ako sa papel kaysa sa biglaan."
+      "sub": "Sa sulat, kung puwede. Mas maayos akong magpaliwanag sa sulat kaysa kapag biglaan."
     },
     "personality": {
       "heading": "Ang personality profile ko",
       "sub": "Simula ng usapan, hindi hatol.",
-      "source": "Lahat ng numero sa ibaba ay galing sa sarili kong profile sa 16Personalities. Ang pangunahing test ay kinuha noong 4 Setyembre 2026.",
+      "source": "Galing sa mga resulta ko sa 16Personalities at HEXACO-PI-R ang mga numerong nasa seksiyong ito. Sinagutan ko ang pangunahing test ng 16Personalities noong Setyembre 4, 2026.",
       "letters": [
         [
           "E",
@@ -492,41 +492,41 @@
           "opposite": "Turbulent"
         }
       ],
-      "traitsNote": "Ang tuldok-tuldok na linya ang hati sa gitna. Apat sa lima ay wala pang pitong puntos ang layo rito, kaya wala ritong matibay na basa. Ang pinakahalata sa trabaho ay ang huli: hindi ako basta natitinag kapag may sumablay, at mas gusto kong sabihin mo agad sa akin kaysa ilihim mo para hindi ako mabahala.",
-      "agreeHeading": "Ang pinagtutugma ng dalawang test",
-      "agreeSource": "Kumuha rin ako ng HEXACO-PI-R noong 5 Setyembre 2026, ibang questionnaire na nakabatay sa ibang modelo. Dalawang bagay ang pareho ang lumabas sa dalawa, at iyon ang mga tinitindigan ko.",
+      "traitsNote": "Ang tuldok-tuldok na linya ang gitna ng sukatan. Apat sa limang score ang hindi lalampas sa sampung puntos ang layo sa gitna, kaya wala ritong matinding pagkiling sa alinmang panig. Ang huling katangian ang pinakahalata sa trabaho: kalmado pa rin ako kapag may pumalpak, at mas gusto kong sabihin mo agad sa akin ang problema kaysa itago ito para hindi ako mag-alala.",
+      "agreeHeading": "Kung saan nagtutugma ang dalawang test",
+      "agreeSource": "Sinagutan ko rin ang HEXACO-PI-R noong Setyembre 5, 2026. Ibang questionnaire ito na nakabatay sa ibang modelo. May dalawang bagay na parehong lumabas sa mga resulta, at sa dalawang iyon ko talaga nakikita ang sarili ko.",
       "agree": [
         {
-          "claim": "Sinusuri ko ang mga bagay, at hindi ako tumitigil.",
+          "claim": "Sinisigurado kong maayos ang trabaho, at hindi ako basta sumusuko.",
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Perfectionism 90%, Grit 100%"
+              "detail": "Perfectionism: 90%; Grit: 100%."
             },
             {
               "source": "HEXACO",
-              "detail": "Conscientiousness nasa ika-92 percentile, Perfectionism 6.64 kung saan 5.00 ang katamtaman"
+              "detail": "Conscientiousness: humigit-kumulang nasa 92nd percentile; Perfectionism: 6.64 (average: 5.00)."
             }
           ],
-          "means": "Ang trabahong makakarating sa iyo ay dumaan na sa suri. Makakasama mo rin ang taong nahihirapang sabihing tapos na ang isang bagay, kaya ikaw na ang magsabi kung kailan sapat na."
+          "means": "Na-check ko na ang trabaho bago ko ito ipasa sa iyo. Pero nahihirapan din akong sabihing tapos na, kaya sabihin mo kapag sapat na ang nagawa ko."
         },
         {
-          "claim": "Diretso ako, at hindi ko basta binibitawan ang mga bagay.",
+          "claim": "Direkta akong magsalita, at hindi ko basta pinalalampas ang mga bagay.",
           "evidence": [
             {
               "source": "16Personalities",
-              "detail": "Thinking kaysa Feeling, at “overly critical” sa sarili nitong listahan ng mga kahinaan ko"
+              "detail": "Mas mataas ang Thinking kaysa Feeling; kasama ang “overly critical” sa mga kahinaang nakalista sa report ko."
             },
             {
               "source": "HEXACO",
-              "detail": "Agreeableness nasa ika-7 percentile, Forgivingness 3.16 kung saan 5.00 ang katamtaman"
+              "detail": "Agreeableness: humigit-kumulang nasa 7th percentile; Forgivingness: 3.16 (average: 5.00)."
             }
           ],
-          "means": "Sabihin mo nang diretso at matatanggap ko naman. Kung may namali sa pagitan natin, ilabas mo sa halip na hintaying kumupas, dahil hindi ko iyon basta nalampasan."
+          "means": "Sabihin mo nang diretso; kaya kong tanggapin iyon. Kung may naging problema sa pagitan natin, pag-usapan natin kaysa hintaying mawala na lang, dahil hindi ko iyon basta nakakalimutan."
         }
       ],
-      "locusHeading": "Saan ko iniisip na nanggagaling ang resulta sa trabaho",
-      "locusSource": "Mula sa Locus of Control test nila, hiwalay sa pangunahing test. Ito ang bahaging pantrabaho; hindi ko isinama ang personal at panlipunan, dahil sa dalawang iyon ay hindi tugma ang sarili nilang numero sa sarili nilang konklusyon.",
+      "locusHeading": "Saan nakasalalay ang mga resulta sa trabaho, para sa akin",
+      "locusSource": "Galing ito sa Locus of Control test ng 16Personalities, na sinagutan ko nang hiwalay sa pangunahing test. Bahagi lang tungkol sa trabaho ang ipinapakita ko rito. Hindi ko isinama ang personal at social na mga seksiyon dahil hindi tugma ang mga numero roon sa mga konklusyon ng report.",
       "locus": [
         {
           "label": "Sa akin",
@@ -541,18 +541,18 @@
           "value": 49
         }
       ],
-      "locusNote": "Papasok ang turo ng akin. Inaako kong nasa akin ang resulta at doon ako nagpaplano, na mabuti kapag may kailangang mag-ako at hindi na kapag may nag-aako na. Halata ito sa pagiging mabagal kong bitawan ang mga bagay. Kung hawak ko ang dapat ay sa iyo, sabihin mo lang at bibitawan ko.",
-      "typeNote": "Dalawang taon na ang nakalipas, Adventurer (ISFP) ang sabi ng parehong questionnaire, kaya may ideya ka na kung gaano kabigat dapat ang label. Ang sulit basahin ay ang mga numero sa ibaba nito.",
-      "linkLabel": "Tingnan ang type sa 16Personalities",
+      "locusNote": "Mas naniniwala akong may magagawa ako para maimpluwensiyahan ang resulta, kaya iyon ang batayan ng mga plano ko. Nakakatulong ito kapag kailangan ng taong aako ng responsibilidad, pero hindi kapag may ibang taong namamahala na. Kaya minsan, nahihirapan akong mag-delegate. Kung may ginagawa pa akong dapat ikaw na ang humahawak, sabihin mo lang at ipapasa ko sa iyo.",
+      "typeNote": "Dalawang taon na ang nakalipas, Adventurer (ISFP) ang resulta ko sa parehong questionnaire. Kaya hindi ko masyadong sineseryoso ang label; mas mahalagang tingnan ang mga numero sa ibaba.",
+      "linkLabel": "Basahin ang tungkol sa personality type na ito sa 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
     },
     "offWork": {
       "heading": "Pagkatapos ng trabaho",
-      "para": "Napakarami kong napapanood na Korean series, at may ilang BL series din mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke, mas malakas ang loob kaysa boses. May [blog](/blog/) ako tungkol sa React Native at sa kung paano talaga nagre-release ang mga mobile team. Ipinanganak at lumaki ako sa Barcelona sa mga magulang na Pilipino, at nakatira ako sa United Kingdom mula noong 2016.",
+      "para": "Marami akong pinapanood na Korean series, pati ilang BL series mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke; mas lamang ang gana kaysa talento. Nagsusulat ako sa [blog](/blog/) ko tungkol sa React Native at kung paano talaga nagre-release ng apps ang mga mobile team. Ipinanganak at lumaki ako sa Barcelona. Pilipino ang mga magulang ko, at nakatira ako sa UK mula noong 2016.",
       "photoAlt": "Si Warren de Leon, sa labas ng trabaho",
       "asksHead": "Puwede mo akong tanungin tungkol sa",
       "asks": [
-        "Korean series na puwedeng simulan",
+        "Mga Korean series na sulit panoorin",
         "Karaoke",
         "Ang blog",
         "React Native",
@@ -563,15 +563,15 @@
       "sub": "Ang bahaging wala sa job description."
     },
     "colophon": {
-      "note": "Edisyon 1, Setyembre 2026. Binabago kapag nagbago ang trabaho, hindi bago niyon.",
+      "note": "Edisyon 1, Setyembre 2026. Babaguhin ko lang ito kapag nagbago ang trabaho ko.",
       "languages": "Basahin sa",
       "top": "Balik sa itaas",
       "home": "warrendeleon.com"
     },
     "figures": {
       "label": "Fig.",
-      "board": "Oras ng tugon, ayon sa sitwasyon",
-      "hours": "Isang araw ng trabaho, sa sukat",
+      "board": "Tagal bago ako sumagot, depende sa sitwasyon",
+      "hours": "Isang araw ng trabaho, ayon sa aktuwal na haba ng bawat yugto",
       "traits": "Limang sukatan mula sa isang questionnaire",
       "locus": "Locus of control, sa trabaho"
     }
