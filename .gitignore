@@ -35,3 +35,7 @@ src/content/blog
 public/images/blog
 src/generated/mermaid
 .content-repo
+
+# Cloudflare Pages local secrets
+.dev.vars
+.wrangler/

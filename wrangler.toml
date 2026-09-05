@@ -1,0 +1,22 @@
+# Cloudflare Pages configuration for warrendeleon.com.
+#
+# The name and output directory deliberately match what the blog-publisher
+# already passes on the command line (`wrangler pages deploy dist
+# --project-name=warrendeleon-com`), so the file agrees with the existing
+# pipeline instead of fighting it.
+#
+# The booking API lives in functions/api/booking and needs the D1 binding
+# below. Secrets are never in this file: load them with
+#   npx wrangler pages secret put <NAME> --project-name warrendeleon-com
+# and keep local values in .dev.vars, which is gitignored.
+
+name = "warrendeleon-com"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "BOOKING_DB"
+database_name = "warrendeleon-booking"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"

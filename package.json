@@ -12,17 +12,25 @@
     "astro": "astro",
     "mermaid": "node scripts/render-mermaid.mjs",
     "prepublish-checks": "node scripts/prepublish-checks.mjs",
-    "prebuild": "node -e \"require('fs').rmSync('node_modules/.astro',{recursive:true,force:true})\""
+    "prebuild": "node -e \"require('fs').rmSync('node_modules/.astro',{recursive:true,force:true})\"",
+    "test": "node --test \"functions/**/*.test.ts\"",
+    "db:migrate:local": "wrangler d1 migrations apply warrendeleon-booking --local",
+    "db:migrate": "wrangler d1 migrations apply warrendeleon-booking --remote",
+    "check": "tsc --noEmit -p functions/tsconfig.json && tsc --noEmit -p functions/tsconfig.test.json && node --test \"functions/**/*.test.ts\""
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.2",
+    "@date-fns/tz": "^1.5.0",
     "astro": "^6.1.1",
     "lottie-web": "^5.13.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
+    "@cloudflare/workers-types": "^5.20260905.1",
+    "@types/node": "^26.4.1",
     "pagefind": "^1.5.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wrangler": "^4.129.0"
   }
 }
