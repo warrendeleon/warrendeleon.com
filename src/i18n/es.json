@@ -421,8 +421,8 @@
     "working": {
       "heading": "Cómo trabajo",
       "hoursLabel": "Horario",
-      "hoursValue": "De lunes a viernes, de 9:00 a 17:30 (hora del Reino Unido), con pausa para comer",
-      "hoursValueHere": "De lunes a viernes, de 9:00 a 17:30, con pausa para comer",
+      "hoursValue": "De lunes a viernes, de 9:00 a 17:30 (hora del Reino Unido)",
+      "hoursValueHere": "De lunes a viernes, de 9:00 a 17:30",
       "localLine": "Donde estás tú ({zone}), eso es de {start} del {startDay} a {end} del {endDay}, cada día laborable.",
       "localLineSameDay": "Donde estás tú ({zone}), eso es de {start} a {end} del {startDay}, cada día laborable.",
       "nowIn": "Ahora mismo en el Reino Unido son las {time} del {day}, dentro del horario laboral.",

@@ -421,8 +421,8 @@
     "working": {
       "heading": "How I work",
       "hoursLabel": "Working hours",
-      "hoursValue": "Monday to Friday, 9am to 5.30pm UK time, with a lunch break",
-      "hoursValueHere": "Monday to Friday, 9am to 5.30pm, with a lunch break",
+      "hoursValue": "Monday to Friday, 9am to 5.30pm UK time",
+      "hoursValueHere": "Monday to Friday, 9am to 5.30pm",
       "localLine": "Where you are ({zone}), that's {startDay} {start} to {endDay} {end}, each working day.",
       "localLineSameDay": "Where you are ({zone}), that's {startDay} {start} to {end}, each working day.",
       "nowIn": "Right now in the UK it's {time} on {day}, within working hours.",

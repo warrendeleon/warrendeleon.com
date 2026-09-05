@@ -421,8 +421,8 @@
     "working": {
       "heading": "Paano ako nagtatrabaho",
       "hoursLabel": "Oras ng trabaho",
-      "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m. (UK time), may lunch break",
-      "hoursValueHere": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m., may lunch break",
+      "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m. (UK time)",
+      "hoursValueHere": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m.",
       "localLine": "Kung nasaan ka ({zone}), {startDay} {start} hanggang {endDay} {end} iyon, bawat working day.",
       "localLineSameDay": "Kung nasaan ka ({zone}), {startDay} {start} hanggang {end} iyon, bawat working day.",
       "nowIn": "Ngayon sa UK ay {time} ng {day}, sakop ng oras ng trabaho.",

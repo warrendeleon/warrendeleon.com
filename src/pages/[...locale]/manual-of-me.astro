@@ -823,10 +823,9 @@ const jsonLd = {
   .chapter-body > :last-child { margin-bottom: 0 !important; }
   .chapter-body { max-width: 44rem; container-type: inline-size; }
 
-  /* Prose sits at a reading measure; the objects (chart, bars, rings, the
-     letters) may use the whole body column. */
-  .chapter-body > p, .chapter-body .agree, .chapter-body .fig { max-width: 38rem; }
-  .chapter-head .source-note { margin: -0.6rem 0 1.4rem !important; max-width: 38rem; }
+  /* Text and objects alike run the full width of the body column: Warren's
+     call, 5 September, over a capped reading measure. */
+  .chapter-head .source-note { margin: -0.6rem 0 1.4rem !important; }
 
   @media (min-width: 1024px) {
     .manual-layout {
@@ -960,7 +959,7 @@ const jsonLd = {
   .offclock-asks { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin: 1.5rem 0 0.6rem !important; }
   /* Topics are information, so they are set as text: one line that wraps,
      with a dot between items. Anything shaped like a pill read as a button. */
-  .offclock-topics { font-size: 1.02rem !important; line-height: 1.7 !important; font-weight: 600; max-width: 34rem; }
+  .offclock-topics { font-size: 1.02rem !important; line-height: 1.7 !important; font-weight: 600; }
   .offclock-sep { margin: 0 0.15rem 0 0.05rem; opacity: 0.55; }
   .offclock-photo {
     width: 100%;
@@ -1153,7 +1152,7 @@ const jsonLd = {
   .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
   .scale-note { font-size: 0.9rem !important; color: var(--text-muted) !important; }
-  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin: 0.6rem 0 1.4rem !important; max-width: 38rem; }
+  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin: 0.6rem 0 1.4rem !important; }
   .sub-heading--first { margin-top: 0.2rem; }
   .mbti + .type-note { margin-top: 0.4rem !important; }
   .type-link { margin-top: 1.25rem !important; }
@@ -1196,7 +1195,7 @@ const jsonLd = {
     line-height: 0.95;
     color: #ffffff;
   }
-  .colophon-note { margin: 0; max-width: 32rem; font-size: 0.95rem; line-height: 1.5; color: rgba(240, 240, 240, 0.7); }
+  .colophon-note { margin: 0; font-size: 0.95rem; line-height: 1.5; color: rgba(240, 240, 240, 0.7); }
   .colophon-right { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
   @media (min-width: 700px) { .colophon-right { align-items: flex-end; text-align: right; } }
   .colophon-langs, .colophon-links { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 1.1rem; }

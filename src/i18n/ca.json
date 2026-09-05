@@ -421,8 +421,8 @@
     "working": {
       "heading": "Com treballo",
       "hoursLabel": "Horari",
-      "hoursValue": "De dilluns a divendres, de 9:00 a 17:30 (hora del Regne Unit), amb pausa per dinar",
-      "hoursValueHere": "De dilluns a divendres, de 9:00 a 17:30, amb pausa per dinar",
+      "hoursValue": "De dilluns a divendres, de 9:00 a 17:30 (hora del Regne Unit)",
+      "hoursValueHere": "De dilluns a divendres, de 9:00 a 17:30",
       "localLine": "On ets tu ({zone}), això és de {start} del {startDay} a {end} del {endDay}, cada dia feiner.",
       "localLineSameDay": "On ets tu ({zone}), això és de {start} a {end} del {startDay}, cada dia feiner.",
       "nowIn": "Ara mateix al Regne Unit són les {time} del {day}, dins l'horari laboral.",
