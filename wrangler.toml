@@ -18,5 +18,5 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "BOOKING_DB"
 database_name = "warrendeleon-booking"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "cbc95ead-dd08-4e8c-b4d5-3812ad7985e5"
 migrations_dir = "migrations"
