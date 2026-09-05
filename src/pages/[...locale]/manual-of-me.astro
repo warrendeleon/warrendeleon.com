@@ -1070,8 +1070,10 @@ const jsonLd = {
   .mbti-word { margin-top: 0.35rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-green-text); }
 
   /* Attribution. Every number in this chapter is someone else's measurement,
-     so the source sits next to the numbers rather than in a footnote. */
-  .source-note { font-size: 0.88rem !important; color: var(--text-muted) !important; }
+     so the source sits next to the numbers rather than in a footnote. It is a
+     paragraph, so it is set as one: body size, body colour. Only captions
+     and label rows are small. */
+  .source-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
 
   /* Trait scales. The score is real text on the top line, so the bar itself is
      aria-hidden decoration: a screen reader gets "56% Extraverted", not a
@@ -1151,8 +1153,8 @@ const jsonLd = {
   .agree-evidence li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; font-size: 0.86rem; line-height: 1.45; color: var(--text-muted); }
   .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
-  .scale-note { font-size: 0.9rem !important; color: var(--text-muted) !important; }
-  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin: 0.6rem 0 1.4rem !important; }
+  .scale-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
+  .type-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; margin: 0.6rem 0 1.4rem !important; }
   .sub-heading--first { margin-top: 0.2rem; }
   .mbti + .type-note { margin-top: 0.4rem !important; }
   .type-link { margin-top: 1.25rem !important; }
