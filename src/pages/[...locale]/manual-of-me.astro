@@ -408,6 +408,10 @@ const jsonLd = {
             </ul>
             <p class="fig"><span class="fig-label">{m.figures.label} 4</span><span class="fig-caption">{m.figures.locus}</span></p>
             <p class="scale-note">{m.personality.locusNote}</p>
+            <!-- The questionnaire's own reporting error, after the reading rather
+                 than before it, so the reader gets what the scores mean for
+                 working together before the caveat about how they were labelled. -->
+            <p class="source-note">{m.personality.locusCaveat}</p>
             <p class="type-link"><a href={m.personality.linkHref} target="_blank" rel="noopener noreferrer">{m.personality.linkLabel}</a></p>
           </div>
         </section>

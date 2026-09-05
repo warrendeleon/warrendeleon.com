@@ -532,23 +532,24 @@
           "means": "Dímelo claro y lo encajaré bien. Si ha habido un problema entre nosotros, háblalo conmigo en vez de esperar a que se pase solo: yo no lo habré dejado atrás sin más."
         }
       ],
-      "locusHeading": "De dónde creo que salen los resultados en el trabajo",
-      "locusSource": "Estos son los resultados laborales del test de locus de control de 16Personalities, que se hace por separado. He dejado fuera los resultados personal y social porque la categoría principal que indican no coincide con sus puntuaciones. El informe laboral también etiqueta mal la categoría secundaria; las cifras de abajo siguen las puntuaciones mostradas. Son puntuaciones independientes, no partes de un total, así que no suman 100 %.",
+      "locusHeading": "Qué influye en mis resultados en el trabajo",
+      "locusSource": "Estas puntuaciones vienen de un cuestionario aparte de 16Personalities sobre cuánta influencia creo que tengo en lo que ocurre en el trabajo. Cada factor se puntúa por separado, así que los porcentajes no suman 100 %.",
       "locus": [
         {
-          "label": "De mis propias acciones",
+          "label": "Mis propias acciones",
           "value": 75
         },
         {
-          "label": "De personas con influencia",
+          "label": "Personas con influencia",
           "value": 62
         },
         {
-          "label": "Del azar",
+          "label": "El azar",
           "value": 49
         }
       ],
-      "locusNote": "En mi caso, predomina el control interno. Parto de que puedo influir en el resultado y planifico en consecuencia. Eso ayuda cuando hace falta que alguien se responsabilice, pero no tanto cuando ya hay otra persona al frente. Me cuesta delegar. Si sigo ocupándome de algo que te corresponde a ti, dímelo y te lo paso.",
+      "locusNote": "Creo que lo que hago influye en los resultados del trabajo, así que asumo la responsabilidad y planifico con antelación. Pero a veces me quedo con tareas o decisiones que le corresponden a otra persona. Si lo estoy haciendo con tu trabajo, dímelo sin rodeos y me aparto.",
+      "locusCaveat": "El informe señala el azar como segundo factor, pero según las puntuaciones que muestra, el segundo son las personas con influencia. He dejado fuera los resultados personal y social porque la categoría principal que indican tampoco coincide con sus puntuaciones.",
       "typeNote": "En septiembre de 2024 el mismo cuestionario me dio Aventurero (ISFP-A), lo que te da una idea del peso que merece la etiqueta. Lo que vale la pena leer son los números de abajo.",
       "linkLabel": "Ver este tipo de personalidad en 16Personalities",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"

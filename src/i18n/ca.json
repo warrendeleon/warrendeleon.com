@@ -532,23 +532,24 @@
           "means": "Digues-m'ho clar i ho encaixaré bé. Si hi ha hagut un problema entre nosaltres, parla'n amb mi en comptes d'esperar que passi tot sol: jo no l'hauré deixat enrere com si res."
         }
       ],
-      "locusHeading": "D'on crec que surten els resultats a la feina",
-      "locusSource": "Aquests són els resultats laborals del test de locus de control de 16Personalities, que es fa per separat. He deixat fora els resultats personal i social perquè la categoria principal que indiquen no coincideix amb les seves puntuacions. L'informe laboral també etiqueta malament la categoria secundària; les xifres de sota segueixen les puntuacions mostrades. Són puntuacions independents, no parts d'un total, així que no sumen 100 %.",
+      "locusHeading": "Què influeix en els meus resultats a la feina",
+      "locusSource": "Aquestes puntuacions surten d'un qüestionari a part de 16Personalities sobre quanta influència crec que tinc en el que passa a la feina. Cada factor es puntua per separat, així que els percentatges no sumen 100 %.",
       "locus": [
         {
-          "label": "De les meves accions",
+          "label": "Les meves accions",
           "value": 75
         },
         {
-          "label": "De persones amb influència",
+          "label": "Persones amb influència",
           "value": 62
         },
         {
-          "label": "De l'atzar",
+          "label": "L'atzar",
           "value": 49
         }
       ],
-      "locusNote": "En el meu cas, predomina el control intern. Parteixo de la idea que puc influir en el resultat i planifico en conseqüència. Això ajuda quan cal que algú se'n responsabilitzi, però no tant quan ja hi ha una altra persona al capdavant. Em costa delegar. Si encara m'ocupo d'alguna cosa que et correspon a tu, digues-m'ho i te la passo.",
+      "locusNote": "Crec que el que faig influeix en els resultats de la feina, així que n'assumeixo la responsabilitat i planifico amb antelació. Però de vegades em quedo tasques o decisions que corresponen a una altra persona. Si ho estic fent amb la teva feina, digues-m'ho clarament i em faig enrere.",
+      "locusCaveat": "L'informe assenyala l'atzar com a segon factor, però segons les puntuacions que mostra, el segon són les persones amb influència. He deixat fora els resultats personal i social perquè la categoria principal que indiquen tampoc no coincideix amb les seves puntuacions.",
       "typeNote": "El setembre del 2024 el mateix qüestionari em va donar Aventurer (ISFP-A), cosa que et dona una idea del pes que mereix l'etiqueta. El que val la pena llegir són els números de sota.",
       "linkLabel": "Consulta aquest tipus de personalitat a 16Personalities, en castellà",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"

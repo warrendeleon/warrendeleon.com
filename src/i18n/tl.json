@@ -532,23 +532,24 @@
           "means": "Sabihin mo nang diretso; tatanggapin ko iyon nang maayos. Kung may naging problema sa pagitan natin, pag-usapan natin kaysa hintaying mawala na lang. Hindi porke tahimik ako, ayos na iyon para sa akin."
         }
       ],
-      "locusHeading": "Saan nakasalalay ang mga resulta sa trabaho, para sa akin",
-      "locusSource": "Ito ang mga resulta sa trabaho mula sa hiwalay na Locus of Control questionnaire ng 16Personalities. Hindi ko isinama ang personal at social na mga resulta dahil hindi tugma ang sinasabing pangunahing kategorya sa mga score. May mali rin sa label ng pangalawang kategorya sa work report; sinusunod ng mga numero sa ibaba ang mga score na ipinakita. Magkakahiwalay na score ang mga ito, hindi bahagi ng isang kabuuan, kaya hindi ito umaabot sa 100%.",
+      "locusHeading": "Ano ang nakakaapekto sa mga resulta ko sa trabaho",
+      "locusSource": "Galing ang mga score na ito sa hiwalay na questionnaire ng 16Personalities tungkol sa kung gaano kalaki, sa tingin ko, ang impluwensiya ko sa nangyayari sa trabaho. Hiwalay ang score ng bawat factor, kaya hindi 100% ang kabuuan ng mga porsyento.",
       "locus": [
         {
-          "label": "Sa sarili kong mga aksyon",
+          "label": "Sarili kong mga aksyon",
           "value": 75
         },
         {
-          "label": "Sa mga taong may impluwensiya",
+          "label": "Mga taong may impluwensiya",
           "value": 62
         },
         {
-          "label": "Sa tsansa",
+          "label": "Tsansa",
           "value": 49
         }
       ],
-      "locusNote": "Mas naniniwala akong may magagawa ako para maimpluwensiyahan ang resulta, kaya iyon ang batayan ng mga plano ko. Nakakatulong ito kapag kailangan ng taong aako ng responsibilidad, pero hindi kapag may ibang taong namamahala na. Kaya minsan, nahihirapan akong mag-delegate. Kung may responsibilidad akong hawak na dapat sa iyo na, sabihin mo lang at ipapasa ko sa iyo.",
+      "locusNote": "Naniniwala akong may naitutulong ang mga ginagawa ko sa resulta ng trabaho, kaya inaako ko ang responsibilidad at nagpaplano ako nang maaga. Pero minsan, hawak ko pa rin ang mga gawain o desisyon na dapat ay ibang tao na ang humahawak. Kung ganito ang nangyayari sa trabaho mo, sabihin mo sa akin nang diretso at aatras ako.",
+      "locusCaveat": "Mali ang sinasabi ng report na tsansa ang pangalawang pinakamataas na factor; ayon sa mga score na ipinakita, ang mga taong may impluwensiya ang pangalawa. Hindi ko isinama ang personal at social na mga resulta dahil hindi rin tugma ang sinasabing pangunahing kategorya sa mga score nito.",
       "typeNote": "Noong Setyembre 2024, Adventurer (ISFP-A) ang ibinigay sa akin ng parehong questionnaire. Kaya hindi ko masyadong sineseryoso ang label; mas mahalagang tingnan ang mga numero sa ibaba.",
       "linkLabel": "Basahin ang tungkol sa personality type na ito sa 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"

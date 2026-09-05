@@ -532,8 +532,8 @@
           "means": "Say it plainly and I'll take it well. If something has gone wrong between us, raise it rather than waiting for it to fade, because I won't have quietly moved on."
         }
       ],
-      "locusHeading": "Where I think work outcomes come from",
-      "locusSource": "These are the work results from 16Personalities' separate Locus of Control questionnaire. I've left out the personal and social results because their stated primary categories don't match their scores. The work report also mislabels the secondary category; the figures below follow the displayed scores. They're separate scores, not shares of a total, so they don't add up to 100%.",
+      "locusHeading": "What influences my results at work",
+      "locusSource": "These scores come from a separate 16Personalities questionnaire about how much influence I believe I have over what happens at work. Each factor is scored independently, so the percentages don't add up to 100%.",
       "locus": [
         {
           "label": "My own actions",
@@ -548,7 +548,8 @@
           "value": 49
         }
       ],
-      "locusNote": "Mine points inward. I treat a result as mine to influence and I plan accordingly, which is useful when something needs owning and less useful when it's already owned by someone else. It shows up as being slow to hand things over. If I'm holding something that should be yours, say so and I'll let go of it.",
+      "locusNote": "I believe my actions can make a difference at work, so I take responsibility and plan ahead. But I sometimes keep control of tasks or decisions that someone else should handle. If I'm doing that with your work, tell me directly and I'll step back.",
+      "locusCaveat": "The report incorrectly identifies chance as the second-highest factor; the displayed scores put people with influence second. I've omitted the personal and social results because their stated primary categories also disagree with their scores.",
       "typeNote": "In September 2024 the same questionnaire gave me Adventurer (ISFP-A), which tells you roughly how much weight the label deserves. The numbers underneath it are the part worth reading.",
       "linkLabel": "See the type on 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
