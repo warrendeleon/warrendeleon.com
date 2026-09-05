@@ -160,6 +160,21 @@ const jsonLd = {
     </div>
   </section>
 
+  <!-- Chapter list, twice: this bar sticks to the top on phones and tablets,
+       and the same list is the rail beside the manual on desktop. One data
+       source (sections), so neither can drift from the page. -->
+  <nav class="jump" aria-label={m.contents}>
+    <div class="container jump-inner">
+      <span class="jump-title" aria-hidden="true">{m.contents}</span>
+      {sections.map((sec, i) => (
+      <a href={`#${sec.id}`} class="jump-link" data-target={sec.id}>
+        <span class="jump-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+        <span class="jump-label">{sec.label}</span>
+      </a>
+      ))}
+    </div>
+  </nav>
+
   <!-- Departures board. The reply column is the clock, the channel is the
        gate, and the rows flap in once when the board comes into view. -->
   <section class="section manual-section" id="reach">
@@ -174,9 +189,6 @@ const jsonLd = {
         </div>
         {rows.map((row, i) => (
           <div class="board-row" style={`--i:${i}`}>
-            <button type="button" class="board-toggle" aria-expanded="false" aria-controls={`board-time-${i}`} aria-label={m.routing.colReply}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-            </button>
             <div class="board-lead">
               <span class="board-icon" aria-hidden="true">
                 <svg width="18" height="18" viewBox="0 0 24 24"
@@ -202,6 +214,7 @@ const jsonLd = {
           </div>
         ))}
       </div>
+      <p class="fig"><span class="fig-label">{m.figures.label} 1</span><span class="fig-caption">{m.figures.board}</span></p>
     </div>
   </section>
 
@@ -231,7 +244,15 @@ const jsonLd = {
        (chart, bars, rings) to sit in it. The rail is sticky on desktop so the
        chapter name stays in view while its content scrolls. -->
   <section class="section manual-grid">
-    <div class="container">
+    <div class="container manual-layout">
+      <nav class="contents" aria-label={m.contents}>
+        {sections.map((sec, i) => (
+        <a href={`#${sec.id}`} class="jump-link" data-target={sec.id}>
+          <span class="jump-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <span class="jump-label">{sec.label}</span>
+        </a>
+        ))}
+      </nav>
       <div class="manual-prose">
         <section id="howto" class="manual-block manual-section">
           <div class="chapter-head">
@@ -274,6 +295,7 @@ const jsonLd = {
                 <p class="avail-key"><span class="avail-swatch"></span>{m.working.triage}</p>
               </div>
             </figure>
+            <p class="fig"><span class="fig-label">{m.figures.label} 2</span><span class="fig-caption">{m.figures.hours}</span></p>
             {m.working.paras.map((p) => <p>{p}</p>)}
           </div>
         </section>
@@ -295,6 +317,23 @@ const jsonLd = {
             <p class="source-note">{m.personality.source}</p>
           </div>
           <div class="chapter-body">
+            <h3 class="sub-heading sub-heading--first">{m.personality.agreeHeading}</h3>
+            <p class="source-note">{m.personality.agreeSource}</p>
+            <ul class="agree" role="list">
+              {m.personality.agree.map((a) => (
+                <li class="agree-item">
+                  <p class="agree-claim">{a.claim}</p>
+                  <ul class="agree-evidence" role="list">
+                    {a.evidence.map((e) => (
+                      <li><span class="agree-src">{e.source}</span>{e.detail}</li>
+                    ))}
+                  </ul>
+                  <p class="agree-means">{a.means}</p>
+                </li>
+              ))}
+            </ul>
+
+            <h3 class="sub-heading">{m.personality.typeName}</h3>
             <div class="mbti" role="img" aria-label={`${m.personality.typeName}: ${m.personality.letters.map(([, w]) => w).join(', ')}`}>
               {m.personality.letters.map(([letter, word]) => (
                 <span class="mbti-letter">
@@ -303,7 +342,6 @@ const jsonLd = {
                 </span>
               ))}
             </div>
-            <p class="type-caption">{m.personality.typeName}</p>
             <p class="type-note">{m.personality.typeNote}</p>
 
             <ul class="traits" role="list">
@@ -320,23 +358,9 @@ const jsonLd = {
                 </li>
               ))}
             </ul>
+            <p class="fig"><span class="fig-label">{m.figures.label} 3</span><span class="fig-caption">{m.figures.traits}</span></p>
             <p class="scale-note">{m.personality.traitsNote}</p>
 
-            <h3 class="sub-heading">{m.personality.agreeHeading}</h3>
-            <p class="source-note">{m.personality.agreeSource}</p>
-            <ul class="agree" role="list">
-              {m.personality.agree.map((a) => (
-                <li class="agree-item">
-                  <p class="agree-claim">{a.claim}</p>
-                  <ul class="agree-evidence" role="list">
-                    {a.evidence.map((e) => (
-                      <li><span class="agree-src">{e.source}</span>{e.detail}</li>
-                    ))}
-                  </ul>
-                  <p class="agree-means">{a.means}</p>
-                </li>
-              ))}
-            </ul>
 
             <h3 class="sub-heading">{m.personality.locusHeading}</h3>
             <p class="source-note">{m.personality.locusSource}</p>
@@ -354,6 +378,7 @@ const jsonLd = {
                 </li>
               ))}
             </ul>
+            <p class="fig"><span class="fig-label">{m.figures.label} 4</span><span class="fig-caption">{m.figures.locus}</span></p>
             <p class="scale-note">{m.personality.locusNote}</p>
             <p class="type-link"><a href={m.personality.linkHref} target="_blank" rel="noopener noreferrer">{m.personality.linkLabel}</a></p>
           </div>
@@ -702,7 +727,6 @@ const jsonLd = {
   }
   @keyframes flap-in { from { opacity: 0; transform: rotateX(-65deg); } to { opacity: 1; transform: none; } }
 
-  .board-toggle { display: none; }
   .board-lead { display: flex; align-items: center; gap: 0.9rem; min-width: 0; }
 
   .board-icon {
@@ -734,7 +758,10 @@ const jsonLd = {
     text-transform: uppercase;
     color: #6dc402;
   }
+  /* Only the linked channels are actions; the arrow says so, since the
+     unlinked ones wear the same green. */
   .board-gate a { color: #6dc402; text-decoration: none; border-bottom: 1px solid rgba(109, 196, 2, 0.5); }
+  .board-gate a::after { content: ' \2197'; font-size: 0.85em; }
   .board-gate a:hover { color: #8fd640; border-bottom-color: #8fd640; }
 
   .board-note {
@@ -774,25 +801,83 @@ const jsonLd = {
   .manual-block { padding: 3.25rem 0 0; }
   .manual-block + .manual-block { margin-top: 3.25rem; border-top: 1px solid var(--border-color); }
   .manual-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-secondary); margin: 0 0 1rem; }
-  .manual-block .section-heading { scroll-margin-top: 6rem; }
+  .manual-block .section-heading, .manual-section { scroll-margin-top: 4.5rem; }
   .chapter-body > :last-child { margin-bottom: 0 !important; }
   .chapter-body { max-width: 44rem; container-type: inline-size; }
 
+  /* Prose sits at a reading measure; the objects (chart, bars, rings, the
+     letters) may use the whole body column. */
+  .chapter-body > p, .chapter-body .agree, .chapter-body .fig { max-width: 38rem; }
+  .chapter-head .source-note { margin: -0.6rem 0 1.4rem !important; max-width: 38rem; }
+
   @media (min-width: 1024px) {
-    .manual-block {
+    .manual-layout {
       display: grid;
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      column-gap: clamp(2.5rem, 6vw, 5.5rem);
+      grid-template-columns: 14rem minmax(0, 1fr);
+      column-gap: clamp(2.5rem, 5vw, 5rem);
       align-items: start;
     }
-    .chapter-head { position: sticky; top: 2.5rem; }
+    .contents { position: sticky; top: 2.5rem; }
     .chapter-body { max-width: none; }
-    /* The rail is narrow, so the chapter heading steps down from the
-       full-width size the board and band use. Still Bricolage, still the
-       numeral, still the green bar: the same voice at a quieter volume. */
-    .manual-grid .chapter { font-size: clamp(1.7rem, 2.5vw, 2.3rem); }
-    .manual-grid .chapter-sub { margin-bottom: 0.9rem !important; }
-    .chapter-head .source-note { margin: 0.4rem 0 0 !important; max-width: 22rem; }
+  }
+
+  /* ============ Chapter list (jump bar + rail) ========================= */
+  .jump-link { display: inline-flex; align-items: baseline; gap: 0.5rem; color: var(--text-muted); text-decoration: none; }
+  .jump-num {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-green-text);
+  }
+  .jump-label { font-size: 0.9rem; font-weight: 600; }
+  .jump-link.is-current { color: var(--text-primary); }
+  .jump-link:hover { color: var(--text-primary); }
+
+  /* Rail: the six chapters as a list, current one marked. */
+  .contents { display: none; padding-top: 3.25rem; }
+  .contents .jump-link { display: flex; padding: 0.55rem 0; border-bottom: 1px solid var(--border-color); }
+  .contents .jump-link:first-child { border-top: 1px solid var(--border-color); }
+  .contents .jump-link.is-current { box-shadow: inset 3px 0 0 var(--color-green); padding-left: 0.75rem; }
+  .contents .jump-link { transition: padding-left 0.2s ease; }
+  @media (min-width: 1024px) { .contents { display: block; } .jump { display: none; } }
+
+  /* Bar: sticks to the top on phones and tablets. Numerals always; the label
+     only on the current chapter, so six chapters fit a phone without a
+     sideways strip. */
+  .jump {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(244, 244, 242, 0.92);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .jump-inner { display: flex; align-items: stretch; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; }
+  .jump-inner::-webkit-scrollbar { display: none; }
+  .jump-title { flex-shrink: 0; align-self: center; margin-right: 0.4rem; color: var(--text-muted); font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .jump .jump-link { flex-shrink: 0; padding: 0.8rem 0.55rem; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+  .jump .jump-link.is-current { border-bottom-color: var(--color-green); }
+  .jump .jump-label { display: none; }
+  .jump .jump-link.is-current .jump-label { display: inline; white-space: nowrap; }
+  @media (min-width: 640px) { .jump .jump-label { display: inline; white-space: nowrap; } }
+
+  /* ============ Figures ============================================== */
+  /* Manual furniture: every object on the page is a numbered figure, which is
+     what ties a departures board, a bar chart and four rings into one book. */
+  .fig { display: flex; gap: 0.7rem; align-items: baseline; margin: 0.8rem 0 1.5rem !important; font-size: 0.82rem !important; color: var(--text-muted) !important; }
+  .fig-label { flex-shrink: 0; color: var(--text-primary); }
+
+  /* One label voice for every piece of metadata on the page: the spec plate,
+     the board header, the chart, the trait names, the evidence sources, the
+     figure numbers, the colophon. Colours stay with their owners. */
+  .spec-title, .board-head, .avail-label, .trait-dim, .agree-src, .colophon-label, .fig-label, .offclock-asks, .avail-key, .cover-tagline {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   /* A sub-heading step between the chapter heading and body copy. At body
@@ -842,11 +927,12 @@ const jsonLd = {
   .offclock-text :global(a:hover) { text-decoration-thickness: 3px; }
   .offclock-asks { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin: 1.5rem 0 0.6rem !important; }
   .offclock-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  /* Labels, not buttons: a tint rather than a border, and no hover lift. */
   .offclock-chip {
     display: inline-block;
-    padding: 0.45rem 0.9rem;
-    border-radius: 999px;
-    border: 1.5px solid rgba(14, 12, 25, 0.4);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    background: rgba(14, 12, 25, 0.1);
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-on-green);
@@ -864,7 +950,7 @@ const jsonLd = {
   /* Two columns only when the body column itself can give each list a
      readable measure; a viewport breakpoint cannot know that once the rail
      has taken its share. */
-  @container (min-width: 40rem) { .hd { grid-template-columns: 1fr 1fr; column-gap: clamp(2rem, 4cqw, 3.5rem); } }
+  @container (min-width: 42rem) { .hd { grid-template-columns: 1fr 1fr; column-gap: clamp(2.5rem, 6cqw, 4rem); } }
   .hd-head {
     margin: 0 0 0.6rem !important;
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
@@ -936,7 +1022,7 @@ const jsonLd = {
   /* The type as four letters you can read, each with its meaning underneath. */
   /* Each letter centred over its own word, so the four read as one word with
      an even rhythm rather than an E stranded at the left of a wide column. */
-  .mbti { display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; margin: 0.5rem 0 0.6rem; }
+  .mbti { display: flex; flex-wrap: wrap; gap: 0.25rem 1.6rem; margin: 0.9rem 0 0.6rem; }
   .mbti-letter { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .mbti-big {
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
@@ -948,7 +1034,6 @@ const jsonLd = {
     color: var(--text-primary);
   }
   .mbti-word { margin-top: 0.35rem; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-green-text); }
-  .type-caption { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 0.2rem !important; }
 
   /* Attribution. Every number in this chapter is someone else's measurement,
      so the source sits next to the numbers rather than in a footnote. */
@@ -1033,11 +1118,11 @@ const jsonLd = {
   .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
   .scale-note { font-size: 0.9rem !important; color: var(--text-muted) !important; }
-  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin-bottom: 1.6rem !important; max-width: 40rem; }
+  .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin: 0.6rem 0 1.4rem !important; max-width: 38rem; }
+  .sub-heading--first { margin-top: 0.2rem; }
+  .mbti + .type-note { margin-top: 0.4rem !important; }
   .type-link { margin-top: 1.25rem !important; }
 
-  .offclock-chip { transition: transform 0.15s ease, background 0.15s ease; }
-  .offclock-chip:hover { transform: translateY(-2px); background: rgba(14, 12, 25, 0.08); }
   .offclock-photo { transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
   .offclock-inner:hover .offclock-photo { transform: rotate(0deg) scale(1.01); }
 
@@ -1130,17 +1215,10 @@ const jsonLd = {
     .board-icon { width: 32px; height: 32px; margin-top: 0.1rem; }
     .board-need { font-size: 1.05rem; }
     .board-gate, .board-time { padding-left: calc(32px + 0.9rem); }
-    /* Rows collapse to one line; the reply opens on tap and flaps in. */
-    .board-row { position: relative; cursor: pointer; padding-right: 2.4rem; }
-    .board-toggle {
-      display: flex; align-items: center; justify-content: center;
-      position: absolute; right: 0; top: 1rem; width: 36px; height: 36px;
-      border: 0; border-radius: 50%; background: transparent; color: rgba(240, 240, 240, 0.7);
-      transition: transform 0.25s ease;
-    }
-    .board-row.is-open .board-toggle { transform: rotate(180deg); }
-    .board-time { display: none; }
-    .board-row.is-open .board-time { display: block; }
+    /* The reply time is the point of the board, so it is always on show; the
+       only theatre is the entrance. Linked channels get a full-height target. */
+    .board-gate a { position: relative; }
+    .board-gate a::before { content: ''; position: absolute; inset: -14px -6px; }
     .hd { grid-template-columns: 1fr; gap: 1.5rem; }
     /* The four letters have to read as one word, so they must not wrap. The
        words underneath are what overflow first (EXTRAVERTIDO, ORGANITZAT), so
@@ -1152,13 +1230,10 @@ const jsonLd = {
     .agree-evidence { gap: 0.45rem; }
     .board-gate { font-size: 0.78rem; }
     .board-note { display: inline; margin: 0 0 0 0.4rem; }
-    .board-time { text-align: left; font-size: 0.86rem; color: rgba(240, 240, 240, 0.85); }
+    .board-time { text-align: left; font-size: 0.86rem; color: rgba(240, 240, 240, 0.85); margin-top: -0.15rem; }
 
     .offclock-inner { grid-template-columns: 1fr; }
     .offclock-photo { order: -1; max-width: 100%; transform: rotate(-1.5deg); margin-bottom: 0.5rem; }
-    .offclock-chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.4rem; margin-right: -1rem; scrollbar-width: none; }
-    .offclock-chips::-webkit-scrollbar { display: none; }
-    .offclock-chip { white-space: nowrap; }
 
     .manual-block { padding-top: 2.5rem; }
     .manual-block + .manual-block { margin-top: 2.5rem; }
@@ -1219,20 +1294,31 @@ const jsonLd = {
   });
   document.querySelectorAll<HTMLElement>('.board-row').forEach((row) => {
     row.addEventListener('mouseenter', () => row.querySelectorAll<HTMLElement>('.board-time .board-flap').forEach(flap));
-    // On phones a row is one line until tapped; links inside still work.
-    const toggle = row.querySelector<HTMLButtonElement>('.board-toggle');
-    const open = () => {
-      const now = !row.classList.contains('is-open');
-      row.classList.toggle('is-open', now);
-      toggle?.setAttribute('aria-expanded', String(now));
-      if (now) row.querySelectorAll<HTMLElement>('.board-time .board-flap').forEach(flap);
-    };
-    row.addEventListener('click', (e) => {
-      if ((e.target as HTMLElement).closest('a')) return;
-      if (!toggle || getComputedStyle(toggle).display === 'none') return;
-      open();
-    });
   });
+
+  // Chapter list: mark the chapter that is on screen, in the bar and the rail
+  // alike, and keep the bar's current item in view. Plain links without it.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.jump-link'));
+  const chapters = Array.from(document.querySelectorAll<HTMLElement>('.manual-section[id]'));
+  if (links.length && chapters.length && 'IntersectionObserver' in window) {
+    const setCurrent = (id: string) => {
+      links.forEach((a) => {
+        const on = a.dataset.target === id;
+        a.classList.toggle('is-current', on);
+        if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
+        if (on && a.closest('.jump')) {
+          const bar = a.parentElement as HTMLElement;
+          const left = a.offsetLeft - (bar.clientWidth - a.offsetWidth) / 2;
+          bar.scrollTo({ left, behavior: reduce ? 'auto' : 'smooth' });
+        }
+      });
+    };
+    const co = new IntersectionObserver((entries) => {
+      const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (hit) setCurrent((hit.target as HTMLElement).id);
+    }, { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.1, 0.5] });
+    chapters.forEach((c) => co.observe(c));
+  }
 
   // The data draws in once the personality chapter is on screen: bars fill,
   // rings sweep. Same discipline as the board: armed only when the observer

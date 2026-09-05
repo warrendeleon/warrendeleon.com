@@ -567,6 +567,13 @@
       "languages": "Read this in",
       "top": "Back to the top",
       "home": "warrendeleon.com"
+    },
+    "figures": {
+      "label": "Fig.",
+      "board": "Reply times, by situation",
+      "hours": "A working day, to scale",
+      "traits": "Five scales from one questionnaire",
+      "locus": "Locus of control, at work"
     }
   }
 }

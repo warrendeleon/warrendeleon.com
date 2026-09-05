@@ -567,6 +567,13 @@
       "languages": "Basahin sa",
       "top": "Balik sa itaas",
       "home": "warrendeleon.com"
+    },
+    "figures": {
+      "label": "Fig.",
+      "board": "Oras ng tugon, ayon sa sitwasyon",
+      "hours": "Isang araw ng trabaho, sa sukat",
+      "traits": "Limang sukatan mula sa isang questionnaire",
+      "locus": "Locus of control, sa trabaho"
     }
   }
 }
