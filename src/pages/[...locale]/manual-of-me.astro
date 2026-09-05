@@ -295,6 +295,22 @@ const jsonLd = {
           </ul>
           <p class="scale-note">{m.personality.traitsNote}</p>
 
+          <h3 class="locus-heading">{m.personality.agreeHeading}</h3>
+          <p class="source-note">{m.personality.agreeSource}</p>
+          <ul class="agree" role="list">
+            {m.personality.agree.map((a) => (
+              <li class="agree-item">
+                <p class="agree-claim">{a.claim}</p>
+                <ul class="agree-evidence" role="list">
+                  {a.evidence.map((e) => (
+                    <li><span class="agree-src">{e.source}</span>{e.detail}</li>
+                  ))}
+                </ul>
+                <p class="agree-means">{a.means}</p>
+              </li>
+            ))}
+          </ul>
+
           <h3 class="locus-heading">{m.personality.locusHeading}</h3>
           <p class="source-note">{m.personality.locusSource}</p>
           <ul class="traits traits--locus" role="list">
@@ -867,6 +883,17 @@ const jsonLd = {
   .traits--locus .trait-track::after { content: none; }   /* independent 0–100 scales: no midpoint to cross */
   .trait-poles { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
   .locus-heading { font-size: 1rem; font-weight: 700; margin: 1.6rem 0 0.2rem; color: var(--text-primary); }
+
+  /* The two claims that two different instruments both produced. These are the
+     only measured statements on the page with corroboration, so each one shows
+     its working: the claim, both sources, then what it means for the reader. */
+  .agree { list-style: none; margin: 0.9rem 0 0.9rem; padding: 0; display: flex; flex-direction: column; gap: 1.3rem; }
+  .agree-item { border-left: 3px solid var(--color-green); padding-left: 1rem; }
+  .agree-claim { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 0.45rem !important; }
+  .agree-evidence { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+  .agree-evidence li { font-size: 0.86rem; color: var(--text-muted); }
+  .agree-src { display: inline-block; min-width: 8.5rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
+  .agree-means { margin: 0 !important; }
   .scale-note { font-size: 0.9rem !important; color: var(--text-muted) !important; }
   .type-note { font-size: 0.9rem !important; color: var(--text-muted) !important; margin-bottom: 1rem !important; }
 
@@ -931,6 +958,9 @@ const jsonLd = {
        they set the size, not the letters. Checked against the longest locale. */
     .mbti { gap: 0 0.8rem; flex-wrap: nowrap; justify-content: space-between; }
     .mbti-word { font-size: 0.68rem; letter-spacing: 0.04em; }
+    /* The source label sits above its detail on a phone rather than beside it. */
+    .agree-src { display: block; min-width: 0; margin-bottom: 0.1rem; }
+    .agree-evidence { gap: 0.45rem; }
     .board-gate { font-size: 0.78rem; }
     .board-note { display: inline; margin: 0 0 0 0.4rem; }
     .board-time { text-align: left; font-size: 0.86rem; color: rgba(240, 240, 240, 0.85); }

@@ -493,6 +493,38 @@
         }
       ],
       "traitsNote": "The dotted line is the halfway mark. Four of the five sit within seven points of it, so none of this is a strong reading. The one that shows up most at work is the last: I stay fairly level when things go wrong, and I would rather be told early than protected from it.",
+      "agreeHeading": "What both tests agree on",
+      "agreeSource": "I also took the HEXACO-PI-R on 5 September 2026, a different questionnaire built on a different model. Two things came out the same on both, and those are the ones I would stand behind.",
+      "agree": [
+        {
+          "claim": "I check things, and I keep going.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Perfectionism 90%, Grit 100%"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Conscientiousness around the 92nd percentile, Perfectionism 6.64 where 5.00 is average"
+            }
+          ],
+          "means": "Work will have been checked before it reaches you. You will also get someone who finds it hard to call a thing finished, so tell me when it is good enough."
+        },
+        {
+          "claim": "I am direct, and I do not let things drop.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Thinking over Feeling, and “overly critical” in its own list of my weaknesses"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Agreeableness around the 7th percentile, Forgivingness 3.16 where 5.00 is average"
+            }
+          ],
+          "means": "Say it plainly and I will take it well. If something has gone wrong between us, raise it rather than waiting for it to fade, because I will not have quietly moved on."
+        }
+      ],
       "locusHeading": "Where I think work outcomes come from",
       "locusSource": "From their Locus of Control test, taken separately from the main one. This is the work section of it; I have left the personal and social sections off, because on those two their own numbers disagree with their own conclusions.",
       "locus": [

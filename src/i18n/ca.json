@@ -493,6 +493,38 @@
         }
       ],
       "traitsNote": "La línia de punts marca la meitat. Quatre dels cinc valors es queden a menys de set punts, així que cap no diu gaire cosa. El que més es nota a la feina és l'últim: aguanto prou bé quan alguna cosa es torça, i prefereixo que m'ho diguis aviat que no pas que me'n protegeixis.",
+      "agreeHeading": "En què coincideixen els dos tests",
+      "agreeSource": "També vaig fer el HEXACO-PI-R el 5 de setembre del 2026, un altre qüestionari construït sobre un model diferent. Dues coses van sortir igual als dos, i són les que defenso.",
+      "agree": [
+        {
+          "claim": "Reviso les coses, i no m'aturo.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Perfeccionisme 90%, Determinació 100%"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Responsabilitat pel percentil 92, Perfeccionisme 6,64 quan la mitjana és 5,00"
+            }
+          ],
+          "means": "El que t'arribi haurà passat una revisió. També tindràs algú a qui li costa donar una cosa per acabada, així que digue'm tu quan ja està bé."
+        },
+        {
+          "claim": "Sóc directe, i no deixo passar les coses.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Racional abans que Emocional, i «massa crític» a la seva pròpia llista dels meus defectes"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Amabilitat pel percentil 7, capacitat de perdonar 3,16 quan la mitjana és 5,00"
+            }
+          ],
+          "means": "Digue-m'ho clar i ho encaixaré bé. Si alguna cosa s'ha torçat entre nosaltres, treu-la en comptes d'esperar que es dilueixi, perquè jo no ho hauré deixat enrere sense més."
+        }
+      ],
       "locusHeading": "D'on crec que surten els resultats a la feina",
       "locusSource": "Del seu test de Locus de Control, que es fa a part del principal. Aquí hi ha la part de la feina; he deixat fora la personal i la social, perquè en aquestes dues els seus propis números no quadren amb les seves pròpies conclusions.",
       "locus": [

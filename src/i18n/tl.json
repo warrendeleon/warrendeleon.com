@@ -493,6 +493,38 @@
         }
       ],
       "traitsNote": "Ang tuldok-tuldok na linya ang hati sa gitna. Apat sa lima ay wala pang pitong puntos ang layo rito, kaya wala ritong matibay na basa. Ang pinakahalata sa trabaho ay ang huli: hindi ako basta natitinag kapag may sumablay, at mas gusto kong sabihin mo agad sa akin kaysa ilihim mo para hindi ako mabahala.",
+      "agreeHeading": "Ang pinagtutugma ng dalawang test",
+      "agreeSource": "Kumuha rin ako ng HEXACO-PI-R noong 5 Setyembre 2026, ibang questionnaire na nakabatay sa ibang modelo. Dalawang bagay ang pareho ang lumabas sa dalawa, at iyon ang mga tinitindigan ko.",
+      "agree": [
+        {
+          "claim": "Sinusuri ko ang mga bagay, at hindi ako tumitigil.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Perfectionism 90%, Grit 100%"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Conscientiousness nasa ika-92 percentile, Perfectionism 6.64 kung saan 5.00 ang katamtaman"
+            }
+          ],
+          "means": "Ang trabahong makakarating sa iyo ay dumaan na sa suri. Makakasama mo rin ang taong nahihirapang sabihing tapos na ang isang bagay, kaya ikaw na ang magsabi kung kailan sapat na."
+        },
+        {
+          "claim": "Diretso ako, at hindi ko basta binibitawan ang mga bagay.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Thinking kaysa Feeling, at “overly critical” sa sarili nitong listahan ng mga kahinaan ko"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Agreeableness nasa ika-7 percentile, Forgivingness 3.16 kung saan 5.00 ang katamtaman"
+            }
+          ],
+          "means": "Sabihin mo nang diretso at matatanggap ko naman. Kung may namali sa pagitan natin, ilabas mo sa halip na hintaying kumupas, dahil hindi ko iyon basta nalampasan."
+        }
+      ],
       "locusHeading": "Saan ko iniisip na nanggagaling ang resulta sa trabaho",
       "locusSource": "Mula sa Locus of Control test nila, hiwalay sa pangunahing test. Ito ang bahaging pantrabaho; hindi ko isinama ang personal at panlipunan, dahil sa dalawang iyon ay hindi tugma ang sarili nilang numero sa sarili nilang konklusyon.",
       "locus": [

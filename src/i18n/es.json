@@ -493,6 +493,38 @@
         }
       ],
       "traitsNote": "La línea de puntos marca la mitad. Cuatro de los cinco valores se quedan a menos de siete puntos de ella, así que ninguno dice gran cosa. El que más se nota en el trabajo es el último: aguanto bastante bien cuando algo se tuerce, y prefiero que me lo cuentes pronto a que me protejas de ello.",
+      "agreeHeading": "En qué coinciden los dos tests",
+      "agreeSource": "También hice el HEXACO-PI-R el 5 de septiembre de 2026, otro cuestionario construido sobre un modelo distinto. Dos cosas salieron igual en los dos, y son las que defiendo.",
+      "agree": [
+        {
+          "claim": "Reviso las cosas, y no me paro.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Perfeccionismo 90%, Determinación 100%"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Responsabilidad por el percentil 92, Perfeccionismo 6,64 cuando la media es 5,00"
+            }
+          ],
+          "means": "Lo que te llegue habrá pasado una revisión. También tendrás a alguien al que le cuesta dar algo por terminado, así que dime tú cuándo ya está bien."
+        },
+        {
+          "claim": "Soy directo, y no dejo las cosas pasar.",
+          "evidence": [
+            {
+              "source": "16Personalities",
+              "detail": "Racional antes que Emocional, y «demasiado crítico» en su propia lista de mis defectos"
+            },
+            {
+              "source": "HEXACO",
+              "detail": "Amabilidad por el percentil 7, capacidad de perdonar 3,16 cuando la media es 5,00"
+            }
+          ],
+          "means": "Dímelo claro y lo encajaré bien. Si algo se ha torcido entre nosotros, sácalo en vez de esperar a que se diluya, porque yo no lo habré dejado atrás sin más."
+        }
+      ],
       "locusHeading": "De dónde creo que salen los resultados en el trabajo",
       "locusSource": "De su test de Locus de Control, que se hace aparte del principal. Aquí está la parte del trabajo; he dejado fuera la personal y la social, porque en esas dos sus propios números no cuadran con sus propias conclusiones.",
       "locus": [
