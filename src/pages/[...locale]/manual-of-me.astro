@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
+import ThemeToggle from '../../components/ThemeToggle.astro';
 import { md } from '../../lib/inline-markup';
 import { t, getLocalePath, localeStaticPaths, locales, localeNames, type Locale } from '../../i18n/index';
 import { SITE_URL, personRef } from '../../lib/person';
@@ -125,13 +126,19 @@ const jsonLd = {
             <h2 class="spec-title">{m.spec.heading}</h2>
             <p class="spec-note">{m.spec.note}</p>
           </div>
-          <nav class="seg" aria-label={i18n.a11y.selectLanguage}>
-            {locales.map((l) => (
-              l === locale
-                ? <span class="seg-btn is-current" aria-current="page" lang={l}>{localeNames[l]}</span>
-                : <a class="seg-btn" href={getLocalePath(l, '/manual-of-me/')} hreflang={l} lang={l}>{localeNames[l]}</a>
-            ))}
-          </nav>
+          <!-- Two switches on the plate: the theme, then the edition. The theme
+               button is the site's own (same id, storage and labels, so the
+               choice follows the reader to every page) in the plate's clothes. -->
+          <div class="spec-controls">
+            <ThemeToggle locale={locale} />
+            <nav class="seg" aria-label={i18n.a11y.selectLanguage}>
+              {locales.map((l) => (
+                l === locale
+                  ? <span class="seg-btn is-current" aria-current="page" lang={l}>{localeNames[l]}</span>
+                  : <a class="seg-btn" href={getLocalePath(l, '/manual-of-me/')} hreflang={l} lang={l}>{localeNames[l]}</a>
+              ))}
+            </nav>
+          </div>
         </div>
         <dl class="spec-list">
           {m.spec.rows.map(([k, after]) => (
@@ -448,9 +455,17 @@ const jsonLd = {
     font-display: swap;
     src: url('/fonts/bricolage-grotesque-latin-var.woff2') format('woff2-variations'), url('/fonts/bricolage-grotesque-latin-var.woff2') format('woff2');
   }
-  /* This page is a poster on the wall colour of the photograph, in both
-     themes; the board is the one dark object on it. */
+  /* This page is a poster on the wall colour of the photograph in the light
+     theme. In the dark theme it is on the site's own dark ground (the
+     style guide's #111111), not a colour of its own: the page's identity is
+     its layout and type, and the brand's neutrals plus the one green are the
+     same on every page. The dark surfaces step up from that ground in tone
+     (ground, plate and figures, controls) with no outlines. The switch is
+     instant, like the site's: a cross-fade would leave the type ahead of its
+     ground for a third of a second. The ground matches the theme-color the
+     layout writes for the dark theme, so the browser bar agrees with it. */
   html, body { background: #f4f4f2 !important; color-scheme: light; }
+  html[data-theme="dark"], html[data-theme="dark"] body { background: #111111 !important; color-scheme: dark; }
   /* The page's type scale. Seven roles, one size each; nothing on the page
      sets a size outside these except the cover title, the letters and the
      ring numbers, which are display pieces sized to their box. */
@@ -476,10 +491,31 @@ const jsonLd = {
     top: 0;
     z-index: 0;
     overflow: hidden;
-    /* Pinned: a white wall, so the cover is light in both themes. */
     background: #f4f4f2;
     color: #0e0c19;
   }
+  /* After dark the photograph is a print on a dark wall: the picture itself
+     is untouched (skin, shirt, sunlight), the blurred surround drops to the
+     ground's tone so the print's edges rest on it rather than float, and the
+     type goes to paper-white with the edition line in the brand green. The
+     light theme's paper fade is a share of the cover's height; the dark one
+     is a shadow under the type instead, drawn on the text block so it runs a
+     fixed distance above the title whether that is one line (English) or
+     two (Tagalog), and never reaches the face on any crop. */
+  :global([data-theme="dark"]) .cover { background: #111111; color: #f0f0f0; }
+  :global([data-theme="dark"]) .cover-bg { filter: blur(24px) brightness(0.13); }
+  :global([data-theme="dark"]) .cover-shade { display: none; }
+  :global([data-theme="dark"]) .cover-text {
+    background: linear-gradient(to top,
+      rgba(17, 17, 17, 0.97) 0,
+      rgba(17, 17, 17, 0.92) calc(100% - var(--cover-runway)),
+      rgba(17, 17, 17, 0.62) calc(100% - var(--cover-runway) * 0.62),
+      rgba(17, 17, 17, 0.24) calc(100% - var(--cover-runway) * 0.28),
+      transparent 100%);
+  }
+  :global([data-theme="dark"]) .cover-title { color: #f0f0f0; }
+  :global([data-theme="dark"]) .cover-edition { color: var(--color-green); }
+  :global([data-theme="dark"]) .cover-tagline { color: #b0b0b0; }
 
   .cover-bg {
     position: absolute;
@@ -521,6 +557,11 @@ const jsonLd = {
     right: 0;
     bottom: 0;
     padding: 0 clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 4vw, 3rem);
+    /* The runway above the title that the dark theme's shadow fades over.
+       Empty space in the light theme; the block is bottom-anchored, so the
+       type does not move. */
+    --cover-runway: clamp(6rem, 18vh, 10rem);
+    padding-top: var(--cover-runway);
   }
 
   .cover-edition,
@@ -588,10 +629,59 @@ const jsonLd = {
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06);
     --shadow-lift: 0 18px 48px rgba(14, 12, 25, 0.22);
+    --sheet-glass: rgba(244, 244, 242, 0.94);
+    --sheet-lift: 0 -24px 60px rgba(0, 0, 0, 0.18);
+    --board-edge: transparent;
+    --board-lift: 0 18px 48px rgba(14, 12, 25, 0.22);
+    --figure-edge: #d6d5cf;
+    --control-hover: #eae9e5;
+    --menu-bg: #f4f4f2;
+    --menu-lift: 0 18px 40px rgba(14, 12, 25, 0.14);
+    --object-bg: #0e0c19;   /* the board and the colophon: ink, the site's --color-on-green */
     background: var(--bg-primary);
     color: var(--text-primary);
-    box-shadow: 0 -24px 60px rgba(0, 0, 0, 0.18);
+    box-shadow: var(--sheet-lift);
   }
+  /* The same sheet in the site's dark theme: the style guide's three neutral
+     grounds (#111111 page, #1e1e1e secondary, #222222 card) and its text and
+     line tokens, nothing of this page's own. Surfaces separate by tone, so a
+     figure sits in its own step with no outline and the board and colophon
+     become raised neutral panels rather than the ink of the light theme,
+     whose violet cast reads as a foreign colour on a neutral dark ground.
+     The brand green is used exactly as it is (8.7:1 on the ground) as the
+     link colour and the focus ring; only its hover borrows the lighter step
+     the board already uses. */
+  :global([data-theme="dark"]) .sheet {
+    --bg-primary: #111111;
+    --bg-secondary: #1e1e1e;
+    --bg-card: #222222;
+    --text-primary: #f0f0f0;
+    --text-secondary: #b0b0b0;
+    --text-muted: #999999;
+    --border-color: #333333;
+    --badge-bg: #2a2a2a;
+    --badge-text: #d0d0d0;
+    --color-green-text: var(--color-green);
+    --color-green-text-hover: var(--color-green-light);
+    --color-focus-ring: var(--color-green);
+    --shadow: none;
+    --shadow-card: none;
+    --shadow-lift: none;
+    --sheet-glass: rgba(17, 17, 17, 0.94);
+    --sheet-lift: none;
+    --board-edge: transparent;
+    --board-lift: none;
+    --figure-edge: transparent;
+    --control-hover: #2a2a2a;   /* the dark theme's badge ground, one step above the control */
+    --menu-bg: #1e1e1e;
+    --menu-lift: 0 8px 32px rgba(255, 255, 255, 0.1);   /* the dark theme's own --shadow-lift: the open list floats over a board of the same tone */
+    --object-bg: #1e1e1e;
+  }
+  /* Focus rings are chosen against the ground they land on: the site's dark
+     green on the light sheet, the brand green on the dark sheet and on the
+     two objects that are dark in both themes, ink on the green band. */
+  .board, .colophon { --color-focus-ring: var(--color-green); }
+  .offclock { --color-focus-ring: var(--color-on-green); }
   .sheet :global(.section-alt) { background: var(--bg-secondary); border-color: var(--border-color); }
   .sheet :global(.section-heading) { color: var(--text-primary); }
 
@@ -616,6 +706,22 @@ const jsonLd = {
 
   .spec-note { margin: 0.35rem 0 0; font-size: var(--mt-deck); line-height: 1.6; font-style: italic; color: var(--text-muted); }
 
+  /* The plate's controls: the theme switch and the edition switch, side by
+     side and the same height, both in the pill the plate wears. */
+  .spec-controls { display: flex; align-items: center; gap: 0.5rem; }
+  .spec-head :global(.theme-toggle) {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .spec-head :global(.theme-toggle):hover { background: var(--bg-card); color: var(--color-green-text); border-color: var(--color-green-text); }
+  .spec-head :global(.theme-toggle):active { transform: scale(0.94); }
+  .spec-head :global(.theme-toggle):focus-visible { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }
+
   /* Language switch, in the segmented-pill form the spec plate wears. */
   .seg {
     display: inline-flex;
@@ -636,7 +742,7 @@ const jsonLd = {
     text-decoration: none;
     transition: background 0.2s ease, color 0.2s ease;
   }
-  a.seg-btn:hover { background: var(--bg-secondary); color: var(--text-primary); }
+  a.seg-btn:hover { background: var(--control-hover); color: var(--text-primary); }
   .seg-btn.is-current { background: var(--color-green); color: var(--color-on-green); }
 
   .spec-list {
@@ -716,15 +822,17 @@ const jsonLd = {
   .manual-intro { max-width: 44rem; color: var(--text-secondary); margin: 0 0 1.75rem; }
 
   /* ============ Departures board ===================================== */
-  /* Dark in both themes, like the real thing. The near-black is the site's
-     --color-on-green token, so it is an existing value, only pinned. */
+  /* Ink on the light sheet, like the real thing (the site's --color-on-green,
+     an existing value, only pinned); a raised neutral panel on the dark one.
+     The type on it is light in both. */
   .board {
-    background: #0e0c19;
+    background: var(--object-bg);
     color: #f0f0f0;
     border-radius: 18px;
     padding: 0.5rem 1.4rem 0.6rem;
     perspective: 900px;
-    box-shadow: var(--shadow-lift);
+    border: 1px solid var(--board-edge);
+    box-shadow: var(--board-lift);
   }
 
   .board-head,
@@ -883,7 +991,7 @@ const jsonLd = {
     position: sticky;
     top: 0;
     z-index: 5;
-    background: rgba(244, 244, 242, 0.94);
+    background: var(--sheet-glass);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
@@ -905,7 +1013,7 @@ const jsonLd = {
   .jump-current.is-empty::before { content: '\2014'; color: var(--text-muted); }
   .jump-caret { flex-shrink: 0; width: 9px; height: 9px; border-right: 2px solid var(--text-primary); border-bottom: 2px solid var(--text-primary); transform: rotate(45deg) translateY(-2px); transition: transform 0.2s ease; }
   .jump[open] .jump-caret { transform: rotate(225deg) translateY(-1px); }
-  .jump-list { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg-primary); border-bottom: 1px solid var(--border-color); box-shadow: 0 18px 40px rgba(14, 12, 25, 0.14); }
+  .jump-list { position: absolute; left: 0; right: 0; top: 100%; background: var(--menu-bg); border-bottom: 1px solid var(--border-color); box-shadow: var(--menu-lift); }
   .jump-list .jump-link { display: flex; padding: 0.75rem 0; border-top: 1px solid var(--border-color); }
   .jump-list .jump-link.is-current { color: var(--text-primary); box-shadow: inset 3px 0 0 var(--color-green); padding-left: 0.75rem; }
   .jump-list .jump-label { white-space: normal; }
@@ -1044,7 +1152,7 @@ const jsonLd = {
      labels draw. Offsets are minutes-from-08:00 over 600: 09:00 = 10%,
      09:30 = 15%, 17:30 = 95%. Every tick is anchored to its own time, so
      hiding ticks on a phone cannot move the ones that remain. */
-  .avail { margin: 0 0 1.75rem; padding: 1.1rem 1.2rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; }
+  .avail { margin: 0 0 1.75rem; padding: 1.1rem 1.2rem 1rem; background: var(--bg-secondary); border: 1px solid var(--figure-edge); border-radius: 12px; }
   .avail-caption { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; align-items: baseline; margin-bottom: 1rem; }
   .avail-label { font-size: 0.85rem; color: var(--text-muted); }
   .avail-now, .avail-local { flex-basis: 100%; font-size: var(--mt-body); line-height: var(--lh-body); color: var(--text-secondary); }
@@ -1195,8 +1303,9 @@ const jsonLd = {
 
   /* ============ Colophon ============================================= */
   .colophon {
-    background: #0e0c19;
+    background: var(--object-bg);
     color: #f0f0f0;
+    border-top: 1px solid var(--board-edge);
     padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(2.75rem, 5vw, 4.5rem);
     margin-top: clamp(3rem, 6vw, 5rem);
   }
@@ -1256,7 +1365,8 @@ const jsonLd = {
     .sheet { box-shadow: none; }
 
     .spec-head { align-items: stretch; }
-    .seg { width: 100%; }
+    .spec-controls { width: 100%; }
+    .seg { flex: 1; min-width: 0; }
     .seg-btn { flex: 1; justify-content: center; padding: 0.45rem 0.3rem; font-size: 0.8rem; }
     .spec-row { grid-template-columns: 1fr; gap: 0.15rem; padding: 0.65rem 0; }
     .spec-row dt { font-size: 0.7rem; }
@@ -1311,7 +1421,7 @@ const jsonLd = {
     [data-reveal].is-armed .trait-fill { width: var(--v); }
     [data-reveal].is-armed .ring-arc { stroke-dasharray: var(--arc) var(--c); }
     .trait-fill, .ring-arc { transition: none !important; }
-    .seg-btn { transition: none; }
+    .seg-btn, .spec-head :global(.theme-toggle) { transition: none; }
   }
 </style>
 
