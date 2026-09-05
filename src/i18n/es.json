@@ -201,7 +201,7 @@
     }
   },
   "consent": {
-    "message": "Uso Google Analytics para ver qué artículos vale la pena ampliar. Tú decides si se activa.",
+    "message": "Uso Google Analytics para saber sobre qué temas merece la pena seguir escribiendo. Tú decides si se activa.",
     "accept": "Aceptar",
     "decline": "Rechazar",
     "customise": "Personalizar",
@@ -215,7 +215,7 @@
     "umamiTitle": "Analítica respetuosa con la privacidad (Umami)",
     "umamiBody": "Sin cookies y sin guardar nada en tu dispositivo, así que no necesita consentimiento. Aun así puedes desactivarla en la página de Privacidad.",
     "alwaysOn": "Siempre activas",
-    "noConsent": "Sin consentimiento",
+    "noConsent": "No requiere consentimiento",
     "manageLabel": "Preferencias de cookies",
     "manageBody": "Cambia si Google Analytics se ejecuta en este navegador.",
     "manageLink": "Lee la página de Privacidad completa"

@@ -201,7 +201,7 @@
     }
   },
   "consent": {
-    "message": "Faig servir Google Analytics per veure quins articles val la pena ampliar. Tu decideixes si s'activa.",
+    "message": "Faig servir Google Analytics per saber sobre quins temes val la pena continuar escrivint. Tu decideixes si s'activa.",
     "accept": "Accepta",
     "decline": "Rebutja",
     "customise": "Personalitza",
@@ -213,9 +213,9 @@
     "analyticsTitle": "Google Analytics",
     "analyticsBody": "M'ajuda a veure quins articles funcionen. Instal·la galetes al teu navegador.",
     "umamiTitle": "Analítica respectuosa amb la privacitat (Umami)",
-    "umamiBody": "Sense galetes i sense desar res al teu dispositiu, així que no necessita consentiment. Tot i així pots desactivar-la a la pàgina de Privacitat.",
+    "umamiBody": "Sense galetes i sense desar res al dispositiu, de manera que no necessita consentiment. Tot i això, la pots desactivar a la pàgina de Privacitat.",
     "alwaysOn": "Sempre actives",
-    "noConsent": "Sense consentiment",
+    "noConsent": "No requereix consentiment",
     "manageLabel": "Preferències de galetes",
     "manageBody": "Canvia si Google Analytics s'executa en aquest navegador.",
     "manageLink": "Llegeix la pàgina de Privacitat completa"
