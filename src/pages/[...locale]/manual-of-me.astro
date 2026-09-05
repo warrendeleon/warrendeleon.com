@@ -455,7 +455,7 @@ const jsonLd = {
      sets a size outside these except the cover title, the letters and the
      ring numbers, which are display pieces sized to their box. */
   html {
-    --mt-body: var(--fs-body);      /* every sentence a reader is meant to read */
+    --mt-body: 17px;                /* every sentence a reader is meant to read; 16px under 1024 */
     --mt-lead: 1.22rem;             /* the board's situation lines */
     --mt-deck: 1.05rem;             /* the italic line under a heading */
     --mt-sub: 1.35rem;              /* sub-headings, in the display face */
@@ -463,6 +463,7 @@ const jsonLd = {
     --mt-caption: 0.84rem;          /* figure captions, evidence rows, poles */
     --mt-label: 0.7rem;             /* mono uppercase labels */
   }
+  @media (max-width: 1023px) { html { --mt-body: 16px; } }
 </style>
 
 <style>
@@ -613,7 +614,7 @@ const jsonLd = {
     color: var(--text-muted);
   }
 
-  .spec-note { margin: 0.35rem 0 0; font-size: var(--mt-deck); font-style: italic; color: var(--text-muted); }
+  .spec-note { margin: 0.35rem 0 0; font-size: var(--mt-deck); line-height: 1.6; font-style: italic; color: var(--text-muted); }
 
   /* Language switch, in the segmented-pill form the spec plate wears. */
   .seg {
@@ -704,10 +705,11 @@ const jsonLd = {
   .chapter-sub {
     margin: -0.6rem 0 1.4rem !important;
     font-size: var(--mt-deck) !important;
+    line-height: 1.6 !important;
     font-style: italic;
     color: var(--text-muted) !important;
   }
-  .offclock-sub { font-style: italic; opacity: 0.8; margin-top: -0.4rem !important; font-size: var(--mt-deck) !important; }
+  .offclock-sub { font-style: italic; opacity: 0.8; margin-top: -0.4rem !important; font-size: var(--mt-deck) !important; line-height: 1.6 !important; }
   .offclock-title { font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif; font-optical-sizing: auto; }
   .offclock-title .chapter-num { margin-right: 0.7rem; }
 
@@ -833,10 +835,10 @@ const jsonLd = {
   .manual-prose { max-width: none; margin: 0; }
   .manual-block { padding: 3.25rem 0 0; }
   .manual-block + .manual-block { margin-top: 3.25rem; border-top: 1px solid var(--border-color); }
-  .manual-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-secondary); margin: 0 0 1rem; }
+  .manual-block p { font-size: var(--mt-body); line-height: var(--lh-body); color: var(--text-secondary); margin: 0 0 1rem; }
   .manual-block .section-heading, .manual-section { scroll-margin-top: 4rem; }
   .chapter-body > :last-child { margin-bottom: 0 !important; }
-  .chapter-body { max-width: 44rem; container-type: inline-size; }
+  .chapter-body { container-type: inline-size; }
 
   /* Text and objects alike run the full width of the body column: Warren's
      call, 5 September, over a capped reading measure. */
@@ -850,7 +852,6 @@ const jsonLd = {
       align-items: start;
     }
     .contents { position: sticky; top: 2.5rem; }
-    .chapter-body { max-width: none; }
   }
 
   /* ============ Chapter list (jump bar + rail) ========================= */
@@ -912,7 +913,7 @@ const jsonLd = {
   /* ============ Figures ============================================== */
   /* Manual furniture: every object on the page is a numbered figure, which is
      what ties a departures board, a bar chart and four rings into one book. */
-  .fig { display: flex; gap: 0.7rem; align-items: baseline; margin: 0.8rem 0 1.5rem !important; font-size: var(--mt-caption) !important; color: var(--text-muted) !important; }
+  .fig { display: flex; gap: 0.7rem; align-items: baseline; margin: 0.8rem 0 1.5rem !important; font-size: var(--mt-caption) !important; line-height: 1.5 !important; color: var(--text-muted) !important; }
   .fig-label { flex-shrink: 0; color: var(--text-primary); }
 
   /* One label voice for every piece of metadata on the page: the spec plate,
@@ -997,7 +998,7 @@ const jsonLd = {
     font-size: var(--mt-sub) !important;
     font-weight: 700;
     letter-spacing: -0.015em;
-    line-height: 1.2;
+    line-height: 1.2 !important;   /* it is a p, so .manual-block p would give it body leading */
     color: var(--text-primary) !important;
   }
   .hd-list { list-style: none; margin: 0; padding: 0; }
@@ -1091,7 +1092,7 @@ const jsonLd = {
      so the source sits next to the numbers rather than in a footnote. It is a
      paragraph, so it is set as one: body size, body colour. Only captions
      and label rows are small. */
-  .source-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
+  .source-note { font-size: var(--mt-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
 
   /* Trait scales. The score is real text on the top line, so the bar itself is
      aria-hidden decoration: a screen reader gets "56% Extraverted", not a
@@ -1171,8 +1172,8 @@ const jsonLd = {
   .agree-evidence li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; font-size: var(--mt-caption); line-height: 1.45; color: var(--text-muted); }
   .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
-  .scale-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
-  .type-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; margin: 0.6rem 0 1.4rem !important; }
+  .scale-note { font-size: var(--mt-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
+  .type-note { font-size: var(--mt-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; margin: 0.6rem 0 1.4rem !important; }
   .sub-heading--first { margin-top: 0.2rem; }
   .mbti + .type-note { margin-top: 0.4rem !important; }
   .type-link { margin-top: 1.25rem !important; }
@@ -1278,7 +1279,9 @@ const jsonLd = {
        words underneath are what overflow first (EXTRAVERTIDO, ORGANITZAT), so
        they set the size, not the letters. Checked against the longest locale. */
     .mbti { gap: 0 0.8rem; flex-wrap: nowrap; justify-content: space-between; }
-    .mbti-word { font-size: 0.62rem !important; letter-spacing: 0.06em !important; }
+    /* The words keep the shared label size; the row is spaced edge to edge
+       and a word may break across two lines rather than shrink. */
+    .mbti-word { letter-spacing: 0.08em !important; max-width: 6rem; line-height: 1.25; overflow-wrap: anywhere; }
     /* The source label sits above its detail on a phone rather than beside it. */
     .agree-evidence li { grid-template-columns: 1fr; row-gap: 0.1rem; }
     .agree-evidence { gap: 0.45rem; }
@@ -1291,7 +1294,9 @@ const jsonLd = {
 
     .manual-block { padding-top: 2.5rem; }
     .manual-block + .manual-block { margin-top: 2.5rem; }
-    .sub-heading { font-size: 1.2rem; margin-top: 2rem; }
+    .sub-heading, .hd-head { font-size: 1.2rem !important; margin-top: 2rem; }
+    .hd-head { margin-top: 0 !important; }
+    .sub-heading--first { margin-top: 0.2rem; }
     .colophon-inner { grid-template-columns: 1fr; }
     .colophon-label { flex-basis: 100%; margin: 0 0 0.1rem; }
     .avail-core span { display: none; }
