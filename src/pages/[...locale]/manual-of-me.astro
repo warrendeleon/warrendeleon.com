@@ -55,9 +55,12 @@ const rows = m.routing.rows.map((row) => {
 });
 
 // Copy strings carry [text](/path) links; site-relative ones are localised
-// here so /blog/ becomes /es/blog/ on the Spanish page.
+// here so /blog/ becomes /es/blog/ on the Spanish page, and off-site ones
+// open in a new tab like every other external link on the page.
 const rich = (text: string) =>
-  md(text).replace(/href="(\/[^"]*)"/g, (_, path: string) => `href="${getLocalePath(locale, path)}"`);
+  md(text)
+    .replace(/href="(\/[^"]*)"/g, (_, path: string) => `href="${getLocalePath(locale, path)}"`)
+    .replace(/<a href="(https:[^"]*)"/g, '<a href="$1" target="_blank" rel="noopener noreferrer"');
 
 const jsonLd = {
   '@type': 'WebPage',
@@ -336,7 +339,7 @@ const jsonLd = {
           </div>
           <div class="chapter-body">
             <h3 class="sub-heading sub-heading--first">{m.personality.agreeHeading}</h3>
-            <p class="source-note">{m.personality.agreeSource}</p>
+            <p class="source-note" set:html={rich(m.personality.agreeSource)} />
             <ul class="agree" role="list">
               {m.personality.agree.map((a) => (
                 <li class="agree-item">
@@ -448,6 +451,18 @@ const jsonLd = {
   /* This page is a poster on the wall colour of the photograph, in both
      themes; the board is the one dark object on it. */
   html, body { background: #f4f4f2 !important; color-scheme: light; }
+  /* The page's type scale. Seven roles, one size each; nothing on the page
+     sets a size outside these except the cover title, the letters and the
+     ring numbers, which are display pieces sized to their box. */
+  html {
+    --mt-body: var(--fs-body);      /* every sentence a reader is meant to read */
+    --mt-lead: 1.22rem;             /* the board's situation lines */
+    --mt-deck: 1.05rem;             /* the italic line under a heading */
+    --mt-sub: 1.35rem;              /* sub-headings, in the display face */
+    --mt-data: 0.92rem;             /* scores, nav items, board times */
+    --mt-caption: 0.84rem;          /* figure captions, evidence rows, poles */
+    --mt-label: 0.7rem;             /* mono uppercase labels */
+  }
 </style>
 
 <style>
@@ -598,7 +613,7 @@ const jsonLd = {
     color: var(--text-muted);
   }
 
-  .spec-note { margin: 0.35rem 0 0; font-size: 0.92rem; color: var(--text-secondary); }
+  .spec-note { margin: 0.35rem 0 0; font-size: var(--mt-deck); font-style: italic; color: var(--text-muted); }
 
   /* Language switch, in the segmented-pill form the spec plate wears. */
   .seg {
@@ -647,7 +662,7 @@ const jsonLd = {
 
   .spec-row dd {
     margin: 0;
-    font-size: 0.98rem;
+    font-size: var(--mt-body);
     font-weight: 600;
     color: var(--text-primary);
     perspective: 400px;
@@ -680,7 +695,7 @@ const jsonLd = {
   .chapter::after { grid-column: 2; }
   .chapter-num {
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
-    font-size: 0.55em;
+    font-size: 1.4rem;
     font-weight: 800;
     letter-spacing: 0.02em;
     color: var(--color-green-text);
@@ -688,11 +703,11 @@ const jsonLd = {
   }
   .chapter-sub {
     margin: -0.6rem 0 1.4rem !important;
-    font-size: 1.05rem !important;
+    font-size: var(--mt-deck) !important;
     font-style: italic;
     color: var(--text-muted) !important;
   }
-  .offclock-sub { font-style: italic; opacity: 0.8; margin-top: -0.4rem !important; }
+  .offclock-sub { font-style: italic; opacity: 0.8; margin-top: -0.4rem !important; font-size: var(--mt-deck) !important; }
   .offclock-title { font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif; font-optical-sizing: auto; }
   .offclock-title .chapter-num { margin-right: 0.7rem; }
 
@@ -786,7 +801,7 @@ const jsonLd = {
     display: block;
     margin-top: 0.25rem;
     font-family: Inter, system-ui, sans-serif;
-    font-size: 0.78rem;
+    font-size: var(--mt-caption);
     letter-spacing: 0;
     text-transform: none;
     color: rgba(240, 240, 240, 0.55);
@@ -847,7 +862,7 @@ const jsonLd = {
     letter-spacing: 0.08em;
     color: var(--color-green-text);
   }
-  .jump-label { font-size: 0.9rem; font-weight: 600; }
+  .jump-label { font-size: var(--mt-data); font-weight: 600; }
   .jump-link.is-current { color: var(--text-primary); }
   .jump-link:hover { color: var(--text-primary); }
 
@@ -897,18 +912,18 @@ const jsonLd = {
   /* ============ Figures ============================================== */
   /* Manual furniture: every object on the page is a numbered figure, which is
      what ties a departures board, a bar chart and four rings into one book. */
-  .fig { display: flex; gap: 0.7rem; align-items: baseline; margin: 0.8rem 0 1.5rem !important; font-size: 0.82rem !important; color: var(--text-muted) !important; }
+  .fig { display: flex; gap: 0.7rem; align-items: baseline; margin: 0.8rem 0 1.5rem !important; font-size: var(--mt-caption) !important; color: var(--text-muted) !important; }
   .fig-label { flex-shrink: 0; color: var(--text-primary); }
 
   /* One label voice for every piece of metadata on the page: the spec plate,
      the board header, the chart, the trait names, the evidence sources, the
      figure numbers, the colophon. Colours stay with their owners. */
-  .spec-title, .board-head, .avail-label, .trait-dim, .agree-src, .colophon-label, .fig-label, .offclock-asks, .avail-key, .cover-tagline {
-    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .spec-title, .spec-row dt, .board-head, .avail-label, .avail-tick, .avail-key, .trait-dim, .agree-src, .colophon-label, .fig-label, .offclock-asks, .cover-tagline, .jump-title, .jump-num, .mbti-word {
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace !important;
+    font-size: var(--mt-label) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
   }
 
   /* A sub-heading step between the chapter heading and body copy. At body
@@ -918,7 +933,7 @@ const jsonLd = {
     margin: 2.4rem 0 0.35rem;
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
     font-optical-sizing: auto;
-    font-size: 1.35rem;
+    font-size: var(--mt-sub);
     font-weight: 700;
     letter-spacing: -0.015em;
     line-height: 1.2;
@@ -946,20 +961,20 @@ const jsonLd = {
   .offclock-inner > * { min-width: 0; }
   .offclock-title {
     margin: 0 0 1rem;
-    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-size: clamp(1.9rem, 3.4vw, 2.6rem);
     font-weight: 800;
     letter-spacing: -0.03em;
     line-height: 1;
     color: var(--color-on-green);
   }
   .offclock-title .chapter-num { color: var(--color-on-green); opacity: 0.55; }
-  .offclock-text p { font-size: 1.08rem; line-height: 1.55; color: var(--color-on-green); margin: 0 0 1rem; max-width: 34rem; }
+  .offclock-text p { font-size: var(--mt-body); line-height: var(--lh-body); color: var(--color-on-green); margin: 0 0 1rem; }
   .offclock-text :global(a) { color: var(--color-on-green); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
   .offclock-text :global(a:hover) { text-decoration-thickness: 3px; }
-  .offclock-asks { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin: 1.5rem 0 0.6rem !important; }
+  .offclock-asks { opacity: 0.7; margin: 1.5rem 0 0.6rem !important; }
   /* Topics are information, so they are set as text: one line that wraps,
      with a dot between items. Anything shaped like a pill read as a button. */
-  .offclock-topics { font-size: 1.02rem !important; line-height: 1.7 !important; font-weight: 600; }
+  .offclock-topics { font-size: var(--mt-body) !important; line-height: 1.7 !important; font-weight: 600; }
   .offclock-sep { margin: 0 0.15rem 0 0.05rem; opacity: 0.55; }
   .offclock-photo {
     width: 100%;
@@ -978,8 +993,11 @@ const jsonLd = {
   .hd-head {
     margin: 0 0 0.6rem !important;
     font-family: 'Bricolage Grotesque', Inter, system-ui, sans-serif;
-    font-size: 1.15rem !important;
+    font-optical-sizing: auto;
+    font-size: var(--mt-sub) !important;
     font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
     color: var(--text-primary) !important;
   }
   .hd-list { list-style: none; margin: 0; padding: 0; }
@@ -987,8 +1005,8 @@ const jsonLd = {
     position: relative;
     padding-left: 2rem;
     margin-bottom: 0.8rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: var(--mt-body);
+    line-height: var(--lh-body);
     color: var(--text-secondary);
   }
   .hd-list li::before {
@@ -1028,9 +1046,9 @@ const jsonLd = {
   .avail { margin: 0 0 1.75rem; padding: 1.1rem 1.2rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; }
   .avail-caption { display: flex; flex-wrap: wrap; gap: 0.2rem 0.9rem; align-items: baseline; margin-bottom: 1rem; }
   .avail-label { font-size: 0.85rem; color: var(--text-muted); }
-  .avail-now, .avail-local { flex-basis: 100%; font-size: 0.88rem; color: var(--text-secondary); }
+  .avail-now, .avail-local { flex-basis: 100%; font-size: var(--mt-body); line-height: var(--lh-body); color: var(--text-secondary); }
   .avail-now { font-weight: 600; color: var(--text-primary); }
-  .avail-tick-local { display: block; margin-top: 0.1rem; font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+  .avail-tick-local { display: block; margin-top: 0.1rem; font-size: var(--mt-data); font-weight: 600; color: var(--text-primary); white-space: nowrap; }
   .avail-tick-local[hidden] { display: none; }
   .avail-tick-day { margin-left: 0.25em; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-green-text); }
   .avail-value {
@@ -1042,7 +1060,7 @@ const jsonLd = {
     color: var(--text-primary);
   }
   .avail-track { position: relative; height: 40px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-color); overflow: hidden; }
-  .avail-core { position: absolute; inset-block: 0; left: 10%; width: 85%; display: flex; align-items: center; padding-left: 0.7rem; background: var(--color-green); color: var(--color-on-green); font-size: 0.82rem; font-weight: 600; }
+  .avail-core { position: absolute; inset-block: 0; left: 10%; width: 85%; display: flex; align-items: center; padding-left: 0.7rem; background: var(--color-green); color: var(--color-on-green); font-size: var(--mt-caption); font-weight: 600; }
   .avail-core span { position: relative; z-index: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .avail-triage { position: absolute; inset-block: 0; left: 10%; width: 5%; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, transparent 3px 6px); }
   .avail-scale { position: relative; height: 1.1rem; margin-top: 0.4rem; }
@@ -1050,7 +1068,7 @@ const jsonLd = {
   .avail-tick { position: absolute; top: 0; left: calc(var(--t) * 20%); transform: translateX(-50%); font-size: 0.72rem; color: var(--text-muted); }
   .avail-tick:first-child { transform: none; }
   .avail-tick:last-child { transform: translateX(-100%); }
-  .avail-key { display: flex; align-items: center; gap: 0.45rem; margin: 0.7rem 0 0 !important; font-size: 0.8rem !important; color: var(--text-muted) !important; }
+  .avail-key { display: flex; align-items: center; gap: 0.45rem; margin: 0.7rem 0 0 !important; color: var(--text-muted) !important; }
   .avail-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; background: repeating-linear-gradient(-45deg, var(--color-green-dark) 0 3px, var(--color-green) 3px 6px); }
 
   /* The type as four letters you can read, each with its meaning underneath. */
@@ -1082,7 +1100,7 @@ const jsonLd = {
   .traits { list-style: none; margin: 0.5rem 0 0.9rem; padding: 0; display: flex; flex-direction: column; gap: 1.05rem; }
   .trait { display: grid; grid-template-columns: 1fr auto; gap: 0.3rem 1rem; align-items: baseline; }
   .trait-dim { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-green-text); }
-  .trait-score { font-size: 0.92rem; color: var(--text-muted); text-align: right; }
+  .trait-score { font-size: var(--mt-data); color: var(--text-muted); text-align: right; }
   .trait-score strong { font-weight: 700; color: var(--text-primary); }
   .trait-track {
     grid-column: 1 / -1;
@@ -1111,7 +1129,7 @@ const jsonLd = {
   .trait-fill { display: block; height: 100%; width: var(--v); border-radius: 999px 0 0 999px; background: var(--color-green); transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
   [data-reveal].is-armed .trait-fill { width: 0; transition: none; }
   [data-reveal].is-armed.is-in .trait-fill { width: var(--v); transition: width 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); transition-delay: calc(var(--i, 0) * 70ms); }
-  .trait-poles { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); }
+  .trait-poles { grid-column: 1 / -1; display: flex; justify-content: space-between; font-size: var(--mt-caption); color: var(--text-muted); }
 
   /* Locus rings. Independent 0–100 gauges, so a ring is honest here where it
      would not be for the bipolar traits above. The number is real text laid
@@ -1141,7 +1159,7 @@ const jsonLd = {
      flex parent centres the pair as a unit at any ring size. */
   .ring-val { line-height: 1; white-space: nowrap; }
   .ring-num small { font-size: 0.55em; font-weight: 700; margin-left: 0.05em; }
-  .ring-label { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); }
+  .ring-label { font-weight: 700; font-size: var(--mt-data); color: var(--text-primary); }
 
   /* The two claims that two different instruments both produced. These are the
      only measured statements on the page with corroboration, so each one shows
@@ -1150,7 +1168,7 @@ const jsonLd = {
   .agree-item { border-left: 3px solid var(--color-green); padding-left: 1rem; }
   .agree-claim { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 0.45rem !important; }
   .agree-evidence { list-style: none; margin: 0.55rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
-  .agree-evidence li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; font-size: 0.86rem; line-height: 1.45; color: var(--text-muted); }
+  .agree-evidence li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; font-size: var(--mt-caption); line-height: 1.45; color: var(--text-muted); }
   .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
   .scale-note { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--text-secondary) !important; }
@@ -1197,7 +1215,7 @@ const jsonLd = {
     line-height: 0.95;
     color: #ffffff;
   }
-  .colophon-note { margin: 0; font-size: 0.95rem; line-height: 1.5; color: rgba(240, 240, 240, 0.7); }
+  .colophon-note { margin: 0; font-size: var(--mt-body); line-height: var(--lh-body); color: rgba(240, 240, 240, 0.7); }
   .colophon-right { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
   @media (min-width: 700px) { .colophon-right { align-items: flex-end; text-align: right; } }
   .colophon-langs, .colophon-links { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 1.1rem; }
@@ -1209,7 +1227,7 @@ const jsonLd = {
     color: rgba(240, 240, 240, 0.5);
     margin-right: 0.3rem;
   }
-  .colophon-lang { font-weight: 600; color: rgba(240, 240, 240, 0.85); text-decoration: none; }
+  .colophon-lang { font-size: var(--mt-data); font-weight: 600; color: rgba(240, 240, 240, 0.85); text-decoration: none; }
   a.colophon-lang:hover { color: #8fd640; }
   .colophon-lang.is-current { color: #6dc402; }
   .colophon-links a {
@@ -1260,7 +1278,7 @@ const jsonLd = {
        words underneath are what overflow first (EXTRAVERTIDO, ORGANITZAT), so
        they set the size, not the letters. Checked against the longest locale. */
     .mbti { gap: 0 0.8rem; flex-wrap: nowrap; justify-content: space-between; }
-    .mbti-word { font-size: 0.68rem; letter-spacing: 0.04em; }
+    .mbti-word { font-size: 0.62rem !important; letter-spacing: 0.06em !important; }
     /* The source label sits above its detail on a phone rather than beside it. */
     .agree-evidence li { grid-template-columns: 1fr; row-gap: 0.1rem; }
     .agree-evidence { gap: 0.45rem; }

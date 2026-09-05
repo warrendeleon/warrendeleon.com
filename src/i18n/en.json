@@ -406,7 +406,7 @@
       "helpsHead": "This helps",
       "helps": [
         "Say what you actually need up front. The blunt version saves us both a round trip.",
-        "Interrupt me when I'm in headphones. They filter the office out, they're not a wall.",
+        "Interrupt me even when I'm in headphones. They filter the office out, they're not a wall.",
         "Book half an hour instead of writing the twelfth message in a thread.",
         "Show me the half-formed version. It's easier to help with than a finished one that went the wrong way."
       ],
@@ -501,7 +501,7 @@
       ],
       "traitsNote": "The dotted line is the halfway mark. Four of the five sit within ten points of it, so none of this is a strong reading. The one that shows up most at work is the last: I stay fairly level when things go wrong, and I'd rather be told early than protected from it.",
       "agreeHeading": "Patterns I recognise in both results",
-      "agreeSource": "I also took the HEXACO-PI-R on 5 September 2026. It uses a different model, but I recognise two patterns across the results and in how I work. HEXACO scores are set against a comparison-group average of 5.00, from a sample of Canadian university students.",
+      "agreeSource": "I also took the [HEXACO-PI-R](https://hexaco.org/hexaco-online) on 5 September 2026. It uses a different model, but I recognise two patterns across the results and in how I work. HEXACO scores are set against a comparison-group average of 5.00, from a sample of Canadian university students.",
       "agree": [
         {
           "claim": "I check things, and I keep going.",
