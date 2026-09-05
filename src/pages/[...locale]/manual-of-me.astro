@@ -163,17 +163,25 @@ const jsonLd = {
   <!-- Chapter list, twice: this bar sticks to the top on phones and tablets,
        and the same list is the rail beside the manual on desktop. One data
        source (sections), so neither can drift from the page. -->
-  <nav class="jump" aria-label={m.contents}>
-    <div class="container jump-inner">
-      <span class="jump-title" aria-hidden="true">{m.contents}</span>
-      {sections.map((sec, i) => (
-      <a href={`#${sec.id}`} class="jump-link" data-target={sec.id}>
-        <span class="jump-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-        <span class="jump-label">{sec.label}</span>
-      </a>
-      ))}
-    </div>
-  </nav>
+  <details class="jump">
+    <summary class="jump-summary">
+      <span class="container jump-summary-inner">
+        <span class="jump-title">{m.contents}</span>
+        <span class="jump-current" data-jump-current><span class="jump-current-num jump-num" aria-hidden="true"></span><span class="jump-current-label"></span></span>
+        <span class="jump-caret" aria-hidden="true"></span>
+      </span>
+    </summary>
+    <nav class="jump-list" aria-label={m.contents}>
+      <div class="container">
+        {sections.map((sec, i) => (
+          <a href={`#${sec.id}`} class="jump-link" data-target={sec.id}>
+            <span class="jump-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="jump-label">{sec.label}</span>
+          </a>
+        ))}
+      </div>
+    </nav>
+  </details>
 
   <!-- Departures board. The reply column is the clock, the channel is the
        gate, and the rows flap in once when the board comes into view. -->
@@ -228,9 +236,11 @@ const jsonLd = {
         <p class="offclock-sub">{m.offWork.sub}</p>
         <p set:html={rich(m.offWork.para)} />
         <p class="offclock-asks">{m.offWork.asksHead}</p>
-        <div class="offclock-chips">
-          {m.offWork.asks.map((x) => <span class="offclock-chip">{x}</span>)}
-        </div>
+        <p class="offclock-topics">
+          {m.offWork.asks.map((x, i) => (
+            <><span class="offclock-topic">{x}</span>{i < m.offWork.asks.length - 1 && <>&nbsp;<span class="offclock-sep" aria-hidden="true">·</span>{' '}</>}</>
+          ))}
+        </p>
         <p class="offclock-asks">{m.offWork.socialLabel}</p>
         <SocialLinks locale={locale} size={22} />
       </div>
@@ -323,12 +333,12 @@ const jsonLd = {
               {m.personality.agree.map((a) => (
                 <li class="agree-item">
                   <p class="agree-claim">{a.claim}</p>
+                  <p class="agree-means">{a.means}</p>
                   <ul class="agree-evidence" role="list">
                     {a.evidence.map((e) => (
                       <li><span class="agree-src">{e.source}</span>{e.detail}</li>
                     ))}
                   </ul>
-                  <p class="agree-means">{a.means}</p>
                 </li>
               ))}
             </ul>
@@ -801,7 +811,7 @@ const jsonLd = {
   .manual-block { padding: 3.25rem 0 0; }
   .manual-block + .manual-block { margin-top: 3.25rem; border-top: 1px solid var(--border-color); }
   .manual-block p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text-secondary); margin: 0 0 1rem; }
-  .manual-block .section-heading, .manual-section { scroll-margin-top: 4.5rem; }
+  .manual-block .section-heading, .manual-section { scroll-margin-top: 4rem; }
   .chapter-body > :last-child { margin-bottom: 0 !important; }
   .chapter-body { max-width: 44rem; container-type: inline-size; }
 
@@ -842,26 +852,40 @@ const jsonLd = {
   .contents .jump-link { transition: padding-left 0.2s ease; }
   @media (min-width: 1024px) { .contents { display: block; } .jump { display: none; } }
 
-  /* Bar: sticks to the top on phones and tablets. Numerals always; the label
-     only on the current chapter, so six chapters fit a phone without a
-     sideways strip. */
+  /* Menu: sticks to the top on phones and tablets. A native details element,
+     so it is a button and a list to the accessibility tree without any
+     script; the summary names the section and the chapter in view, the list
+     names all six. Nothing scrolls itself. */
   .jump {
     position: sticky;
     top: 0;
     z-index: 5;
-    background: rgba(244, 244, 242, 0.92);
+    background: rgba(244, 244, 242, 0.94);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
   }
-  .jump-inner { display: flex; align-items: stretch; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; }
-  .jump-inner::-webkit-scrollbar { display: none; }
-  .jump-title { flex-shrink: 0; align-self: center; margin-right: 0.4rem; color: var(--text-muted); font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
-  .jump .jump-link { flex-shrink: 0; padding: 0.8rem 0.55rem; border-bottom: 2px solid transparent; margin-bottom: -1px; }
-  .jump .jump-link.is-current { border-bottom-color: var(--color-green); }
-  .jump .jump-label { display: none; }
-  .jump .jump-link.is-current .jump-label { display: inline; white-space: nowrap; }
-  @media (min-width: 640px) { .jump .jump-label { display: inline; white-space: nowrap; } }
+  .jump-summary { list-style: none; cursor: pointer; }
+  .jump-summary::-webkit-details-marker { display: none; }
+  .jump-summary-inner { display: flex; align-items: center; gap: 0.7rem; min-height: 48px; }
+  .jump-title {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .jump-current { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.92rem; font-weight: 600; color: var(--text-primary); }
+  .jump-current { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+  .jump-current.is-empty::before { content: '\2014'; color: var(--text-muted); }
+  .jump-caret { flex-shrink: 0; width: 9px; height: 9px; border-right: 2px solid var(--text-primary); border-bottom: 2px solid var(--text-primary); transform: rotate(45deg) translateY(-2px); transition: transform 0.2s ease; }
+  .jump[open] .jump-caret { transform: rotate(225deg) translateY(-1px); }
+  .jump-list { position: absolute; left: 0; right: 0; top: 100%; background: var(--bg-primary); border-bottom: 1px solid var(--border-color); box-shadow: 0 18px 40px rgba(14, 12, 25, 0.14); }
+  .jump-list .jump-link { display: flex; padding: 0.75rem 0; border-top: 1px solid var(--border-color); }
+  .jump-list .jump-link.is-current { color: var(--text-primary); box-shadow: inset 3px 0 0 var(--color-green); padding-left: 0.75rem; }
+  .jump-list .jump-label { white-space: normal; }
 
   /* ============ Figures ============================================== */
   /* Manual furniture: every object on the page is a numbered figure, which is
@@ -926,17 +950,10 @@ const jsonLd = {
   .offclock-text :global(a) { color: var(--color-on-green); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
   .offclock-text :global(a:hover) { text-decoration-thickness: 3px; }
   .offclock-asks { font-size: 0.8rem !important; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; margin: 1.5rem 0 0.6rem !important; }
-  .offclock-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  /* Labels, not buttons: a tint rather than a border, and no hover lift. */
-  .offclock-chip {
-    display: inline-block;
-    padding: 0.4rem 0.8rem;
-    border-radius: 8px;
-    background: rgba(14, 12, 25, 0.1);
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-on-green);
-  }
+  /* Topics are information, so they are set as text: one line that wraps,
+     with a dot between items. Anything shaped like a pill read as a button. */
+  .offclock-topics { font-size: 1.02rem !important; line-height: 1.7 !important; font-weight: 600; max-width: 34rem; }
+  .offclock-sep { margin: 0 0.15rem 0 0.05rem; opacity: 0.55; }
   .offclock-photo {
     width: 100%;
     height: auto;
@@ -1113,7 +1130,7 @@ const jsonLd = {
   .agree { list-style: none; margin: 0.9rem 0 0.9rem; padding: 0; display: flex; flex-direction: column; gap: 1.3rem; }
   .agree-item { border-left: 3px solid var(--color-green); padding-left: 1rem; }
   .agree-claim { font-weight: 700 !important; color: var(--text-primary) !important; margin-bottom: 0.45rem !important; }
-  .agree-evidence { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+  .agree-evidence { list-style: none; margin: 0.55rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
   .agree-evidence li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); column-gap: 0.75rem; align-items: baseline; font-size: 0.86rem; line-height: 1.45; color: var(--text-muted); }
   .agree-src { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.72rem; color: var(--color-green-text); }
   .agree-means { margin: 0 !important; }
@@ -1292,57 +1309,52 @@ const jsonLd = {
     if (document.hidden) return;
     document.querySelectorAll<HTMLElement>('.board-flap').forEach((el) => { el.textContent = el.dataset.flap ?? el.textContent; });
   });
-  document.querySelectorAll<HTMLElement>('.board-row').forEach((row) => {
-    row.addEventListener('mouseenter', () => row.querySelectorAll<HTMLElement>('.board-time .board-flap').forEach(flap));
-  });
 
-  // Chapter list: mark the chapter that is on screen, in the bar and the rail
-  // alike, and keep the bar's current item in view. Plain links without it.
+  // Chapter list: the current chapter is the last one whose top has passed
+  // the reading line (40% down the viewport), or the last chapter once the
+  // page is scrolled to its end. Computed from positions on every scroll
+  // frame rather than from intersection events, so it cannot be left behind
+  // by a long chapter. Without script the links simply work.
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.jump-link'));
   const chapters = Array.from(document.querySelectorAll<HTMLElement>('.manual-section[id]'));
-  if (links.length && chapters.length && 'IntersectionObserver' in window) {
+  const currentOut = document.querySelector<HTMLElement>('[data-jump-current]');
+  const menu = document.querySelector<HTMLDetailsElement>('details.jump');
+  if (links.length && chapters.length) {
+    let last = '';
     const setCurrent = (id: string) => {
+      if (id === last) return;
+      last = id;
       links.forEach((a) => {
         const on = a.dataset.target === id;
         a.classList.toggle('is-current', on);
         if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
-        if (on && a.closest('.jump')) {
-          const bar = a.parentElement as HTMLElement;
-          const left = a.offsetLeft - (bar.clientWidth - a.offsetWidth) / 2;
-          bar.scrollTo({ left, behavior: reduce ? 'auto' : 'smooth' });
-        }
       });
+      if (currentOut) {
+        // The label comes from the list itself, so the summary and the menu
+        // can never disagree, and the numeral is not read twice.
+        const src = links.find((a) => a.dataset.target === id);
+        const num = currentOut.querySelector('.jump-current-num');
+        const label = currentOut.querySelector('.jump-current-label');
+        if (num) num.textContent = src?.querySelector('.jump-num')?.textContent ?? '';
+        if (label) label.textContent = src?.querySelector('.jump-label')?.textContent ?? '';
+        currentOut.classList.toggle('is-empty', !id);
+      }
     };
-    const co = new IntersectionObserver((entries) => {
-      const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (hit) setCurrent((hit.target as HTMLElement).id);
-    }, { rootMargin: '-35% 0px -55% 0px', threshold: [0, 0.1, 0.5] });
-    chapters.forEach((c) => co.observe(c));
-  }
-
-  // The data draws in once the personality chapter is on screen: bars fill,
-  // rings sweep. Same discipline as the board: armed only when the observer
-  // exists, released on a timer regardless, never under reduced motion.
-  const reveal = document.querySelector<HTMLElement>('[data-reveal]');
-  if (reveal && 'IntersectionObserver' in window && !reduce) {
-    reveal.querySelectorAll<HTMLElement>('.trait-fill').forEach((el, i) => el.style.setProperty('--i', String(i)));
-    reveal.classList.add('is-armed');
-    let shown = false;
-    const show = () => {
-      if (shown) return;
-      shown = true;
-      // A short timer rather than requestAnimationFrame: frames stop in a
-      // hidden tab, and a hidden tab must never be able to leave the data
-      // undrawn. The timer still fires, at worst late; the transition may be
-      // skipped, the final value is not.
-      window.setTimeout(() => reveal.classList.add('is-in'), 40);
-      ro.disconnect();
+    const update = () => {
+      const line = window.innerHeight * 0.4;
+      const atEnd = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      let id = '';
+      if (atEnd) id = chapters[chapters.length - 1].id;
+      else for (const c of chapters) { if (c.getBoundingClientRect().top <= line) id = c.id; }
+      setCurrent(id);
     };
-    const ro = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) show();
-    }, { threshold: 0.2 });
-    ro.observe(reveal);
-    window.setTimeout(show, 2500);
+    let ticking = false;
+    const onScroll = () => { if (ticking) return; ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+    // Choosing a chapter closes the menu; the browser does the jump.
+    links.forEach((a) => a.addEventListener('click', () => { if (menu) menu.open = false; }));
   }
 
   // The title assembles like the board, once, when the page opens.
