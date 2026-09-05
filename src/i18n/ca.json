@@ -384,7 +384,7 @@
           "icon": "oneToOne",
           "need": "És sobre la teva feina, el teu desenvolupament professional o alguna cosa que et preocupa",
           "channel": "El nostre 1:1",
-          "reply": "No cal que esperis al següent 1:1, busca'm abans"
+          "reply": "No cal que esperis al nostre pròxim 1:1. Contacta amb mi abans"
         },
         {
           "icon": "mail",
@@ -406,7 +406,7 @@
       "helpsHead": "Això ajuda",
       "helps": [
         "Comença dient-me què necessites. Ser directe ens estalvia temps a tots dos.",
-        "Interromp-me encara que porti auriculars. Només m'aïllen del soroll de l'oficina.",
+        "Interromp-me encara que porti auriculars. Els faig servir per aïllar-me del soroll de l'oficina.",
         "Si un fil de missatges s'està allargant, reserva una trucada de 30 minuts.",
         "Ensenya'm la teva feina mentre encara li estàs donant forma. És més fàcil proposar canvis abans que l'acabis."
       ],
@@ -423,12 +423,12 @@
       "hoursLabel": "Horari",
       "hoursValue": "De dilluns a divendres, de 9:00 a 17:30 (hora del Regne Unit)",
       "hoursValueHere": "De dilluns a divendres, de 9:00 a 17:30",
-      "localLine": "El {date}, el meu horari és de {start} del {startDay} a {end} del {endDay} on ets tu ({zone}).",
-      "localLineSameDay": "El {date}, el meu horari és de {start} a {end} on ets tu ({zone}).",
-      "nowIn": "Ara mateix al Regne Unit són les {time} del {day}, dins l'horari laboral.",
-      "nowOut": "Ara mateix al Regne Unit són les {time} del {day}, fora de l'horari laboral.",
-      "nowInHere": "Ara mateix són les {time} del {day}, dins l'horari laboral.",
-      "nowOutHere": "Ara mateix són les {time} del {day}, fora de l'horari laboral.",
+      "localLine": "El {date}, el meu horari és de {start} del {startDay} a {end} del {endDay} a la teva zona horària ({zone}).",
+      "localLineSameDay": "El {date}, el meu horari és de {start} a {end} a la teva zona horària ({zone}).",
+      "nowIn": "Hora actual al Regne Unit: {time} ({day}). Dins del meu horari laboral.",
+      "nowOut": "Hora actual al Regne Unit: {time} ({day}). Fora del meu horari laboral.",
+      "nowInHere": "Hora actual: {time} ({day}). Dins del meu horari laboral.",
+      "nowOutHere": "Hora actual: {time} ({day}). Fora del meu horari laboral.",
       "triage": "Primer correu i Slack",
       "core": "Millor moment per localitzar-me",
       "paras": [
@@ -440,7 +440,7 @@
       "heading": "Feedback",
       "paras": [
         "Dona'm el feedback per escrit, perquè tingui temps de pensar-hi abans de respondre. Sigues concret. Pots discrepar de les meves idees en una reunió de grup, però el que tingui a veure amb el meu comportament o el meu rendiment, parla'n amb mi en privat.",
-        "Quan estigui sota pressió, et diré si m'està costant. Si em veus més callat del normal quan s'acosta una data de lliurament, pregunta'm com ho porto."
+        "Quan estigui sota pressió, et diré si em costa gestionar la feina. Si em veus més callat del normal quan s'acosta una data de lliurament, pregunta'm com ho porto."
       ],
       "sub": "Per escrit, si us plau. Responc millor quan he tingut temps de pensar."
     },
@@ -499,7 +499,7 @@
           "opposite": "Turbulent"
         }
       ],
-      "traitsNote": "La línia de punts marca el 50 %. Quatre de les meves cinc puntuacions són a deu punts o menys d'aquesta línia, així que la majoria queden a prop del centre. El resultat que més reconec en la meva manera de treballar és Assertiu: normalment mantinc la calma quan sorgeixen problemes i prefereixo saber-los aviat.",
+      "traitsNote": "La línia de punts marca el 50 %. Quatre de les meves cinc puntuacions són a deu punts o menys d'aquesta línia, així que la majoria queden a prop del centre. El resultat que més reconec en la meva manera de treballar és Assertiu: normalment mantinc la calma quan sorgeixen problemes i prefereixo assabentar-me'n aviat.",
       "agreeHeading": "Patrons que reconec en tots dos resultats",
       "agreeSource": "També vaig fer l'[HEXACO-PI-R](https://hexaco.org/hexaco-online) el 5 de setembre del 2026. Fa servir un model diferent, però hi ha dos patrons que reconec en tots dos resultats i en la meva manera de treballar. HEXACO compara aquestes puntuacions amb les d'un grup d'estudiants universitaris canadencs. La puntuació mitjana d'aquest grup és 5,00.",
       "agree": [
@@ -515,7 +515,7 @@
               "detail": "Responsabilitat: 6,43; perfeccionisme: 6,64."
             }
           ],
-          "means": "Reviso la meva feina abans de compartir-la. Puc passar massa temps polint detalls, així que digues-me quan compleix el que necessites."
+          "means": "Reviso la meva feina abans de compartir-la. Puc passar massa temps polint detalls, així que digues-me quan compleix els teus requisits."
         },
         {
           "claim": "Soc directe i prefereixo resoldre els desacords.",
@@ -548,8 +548,8 @@
           "value": 49
         }
       ],
-      "locusNote": "Crec que el que faig influeix en els resultats de la feina, així que n'assumeixo la responsabilitat i planifico amb antelació. Però de vegades em quedo tasques o decisions que corresponen a una altra persona. Si ho estic fent amb la teva feina, digues-m'ho clarament i em faig enrere.",
-      "locusCaveat": "L'informe assenyala l'atzar com a segon factor, però segons les puntuacions que mostra, el segon són les persones amb influència. He deixat fora els resultats personal i social perquè la categoria principal que indiquen tampoc no coincideix amb les seves puntuacions.",
+      "locusNote": "Crec que el que faig influeix en els resultats de la feina, així que n'assumeixo la responsabilitat i planifico amb antelació. Però de vegades continuo controlant tasques o prenent decisions que corresponen a una altra persona. Si ho faig amb la teva feina, digues-m'ho directament i deixaré que te n'encarreguis tu.",
+      "locusCaveat": "L'informe situa erròniament l'atzar en segon lloc. Segons les puntuacions, aquesta posició correspon a les persones amb influència. He deixat fora els resultats dels àmbits personal i social perquè la categoria principal que indiquen tampoc no coincideix amb les seves puntuacions.",
       "typeNote": "El setembre del 2024, el mateix qüestionari em va donar Aventurer (ISFP-A). El meu resultat ha canviat, així que prenc el tipus com una descripció i no com una identitat fixa.",
       "linkLabel": "Consulta aquest tipus de personalitat a 16Personalities, en castellà",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
@@ -573,7 +573,7 @@
     "colophon": {
       "note": "Edició 1, setembre del 2026. L'actualitzo a mesura que canvien la meva feina i les meves preferències.",
       "languages": "Llegeix-lo en",
-      "top": "Torna a l'inici",
+      "top": "Torna a dalt",
       "home": "warrendeleon.com"
     },
     "figures": {

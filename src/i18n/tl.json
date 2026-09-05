@@ -306,7 +306,7 @@
     },
     "spec": {
       "heading": "Mga espesipikasyon",
-      "note": "Totoo ang lahat ng detalye rito. Biro lang ang pagiging produkto ko.",
+      "note": "Totoo ang impormasyong ito. Inilahad ko lang na parang user manual.",
       "after": "Pagkatapos ng kape",
       "before": "Bago ang kape",
       "rows": [
@@ -384,7 +384,7 @@
           "icon": "oneToOne",
           "need": "Tungkol ito sa trabaho mo, sa career growth mo, o sa isang bagay na bumabagabag sa iyo",
           "channel": "Ang 1:1 natin",
-          "reply": "Hindi mo kailangang hintayin ang susunod nating 1:1, lapitan mo ako agad"
+          "reply": "Hindi mo kailangang hintayin ang susunod nating 1:1. Puwede mo akong kontakin bago iyon"
         },
         {
           "icon": "mail",
@@ -399,20 +399,20 @@
           "reply": "Aalamin ko kung sino ang responsable at sasabihin ko sa iyo"
         }
       ],
-      "sub": "Piliin ang sitwasyong tugma sa iyo. Ito ang mga pangako ko kung gaano ako kabilis sumagot."
+      "sub": "Piliin ang sitwasyong tugma sa iyo. Nangangako akong sasagot sa loob ng oras na nakasaad."
     },
     "howTo": {
       "heading": "Paano makipagtrabaho sa akin",
       "helpsHead": "Nakakatulong ito",
       "helps": [
         "Simulan mo sa kung ano ang kailangan mo. Kapag diretso tayo, nakakatipid tayong dalawa ng oras.",
-        "Puwede mo akong istorbohin kahit naka-headphones ako. Pampatahimik lang iyon ng ingay sa office.",
+        "Puwede mo akong istorbohin kahit naka-headphones ako. Suot ko lang iyon para hindi ako maistorbo ng ingay sa office.",
         "Kung humahaba na ang isang message thread, mag-book na lang ng 30 minutong tawag.",
         "Ipakita mo sa akin ang trabaho mo habang ginagawa mo pa. Mas madaling magmungkahi ng mga pagbabago bago mo ito matapos."
       ],
       "hurtsHead": "Hindi ito nakakatulong",
       "hurts": [
-        "Mga biro tungkol sa pagiging propesyonal ko. Kung may ginawa akong ikinabahala mo, sabihin mo sa akin nang diretso.",
+        "Mga biro tungkol sa pagiging propesyonal ko. Kung may ginawa akong hindi mo nagustuhan, sabihin mo sa akin nang diretso.",
         "Ang pag-aakalang okay lang ako dahil tumahimik ako.",
         "Ang pagtawag nang walang abiso tungkol sa bagay na puwede namang ipagpabukas."
       ],
@@ -423,12 +423,12 @@
       "hoursLabel": "Oras ng trabaho",
       "hoursValue": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m. (UK time)",
       "hoursValueHere": "Lunes hanggang Biyernes, 9:00 a.m. hanggang 5:30 p.m.",
-      "localLine": "Sa {date}, {start} ng {startDay} hanggang {end} ng {endDay} ang oras ng trabaho ko kung nasaan ka ({zone}).",
-      "localLineSameDay": "Sa {date}, {start} hanggang {end} ang oras ng trabaho ko kung nasaan ka ({zone}).",
-      "nowIn": "Ngayon sa UK ay {time} ng {day}, sakop ng oras ng trabaho.",
-      "nowOut": "Ngayon sa UK ay {time} ng {day}, labas sa oras ng trabaho.",
-      "nowInHere": "Ngayon ay {time} ng {day}, sakop ng oras ng trabaho.",
-      "nowOutHere": "Ngayon ay {time} ng {day}, labas sa oras ng trabaho.",
+      "localLine": "Sa {date}, {start} ng {startDay} hanggang {end} ng {endDay} ang oras ng trabaho ko sa time zone mo ({zone}).",
+      "localLineSameDay": "Sa {date}, {start} hanggang {end} ang oras ng trabaho ko sa time zone mo ({zone}).",
+      "nowIn": "Oras ngayon sa UK: {time} ({day}). Pasok ito sa oras ng trabaho ko.",
+      "nowOut": "Oras ngayon sa UK: {time} ({day}). Labas ito sa oras ng trabaho ko.",
+      "nowInHere": "Oras ngayon: {time} ({day}). Pasok ito sa oras ng trabaho ko.",
+      "nowOutHere": "Oras ngayon: {time} ({day}). Labas ito sa oras ng trabaho ko.",
       "triage": "Email at Slack muna",
       "core": "Pinakamagandang oras para kontakin ako",
       "paras": [
@@ -446,7 +446,7 @@
     },
     "personality": {
       "heading": "Ang personality profile ko",
-      "sub": "Nakakatulong ang mga resultang ito para ipaliwanag kung paano ako magtrabaho, pero hindi nito nailalarawan ang lahat tungkol sa akin.",
+      "sub": "Nakakatulong ang mga resultang ito para ipaliwanag kung paano ako magtrabaho, pero hindi lahat tungkol sa akin ay makikita rito.",
       "source": "Galing sa mga resulta ko sa 16Personalities at HEXACO-PI-R ang mga numerong nasa seksiyong ito. Sinagutan ko ang pangunahing test ng 16Personalities noong Setyembre 4, 2026.",
       "letters": [
         [
@@ -501,7 +501,7 @@
       ],
       "traitsNote": "Ang tuldok-tuldok na linya ang 50%. Apat sa limang score ko ang nasa loob ng sampung puntos mula rito, kaya karamihan ay malapit sa gitna. Ang resultang Assertive ang pinakanakikita ko sa paraan ng pagtatrabaho ko: kadalasan, kalmado ako kapag may lumitaw na problema, at mas gusto kong malaman ito nang maaga.",
       "agreeHeading": "Mga pattern na nakikita ko sa dalawang resulta",
-      "agreeSource": "Sinagutan ko rin ang [HEXACO-PI-R](https://hexaco.org/hexaco-online) noong Setyembre 5, 2026. Iba ang modelo nito, pero may dalawang pattern na nakikita ko sa dalawang resulta at sa paraan ng pagtatrabaho ko. Ikinukumpara ng HEXACO ang mga score na ito sa isang grupo ng mga estudyante sa unibersidad sa Canada. 5.00 ang average score ng grupong iyon.",
+      "agreeSource": "Sinagutan ko rin ang [HEXACO-PI-R](https://hexaco.org/hexaco-online) noong Setyembre 5, 2026. Iba ang modelo nito, pero may dalawang pattern na nakikita ko sa dalawang resulta at sa paraan ng pagtatrabaho ko. Ikinukumpara ng HEXACO ang mga score na ito sa mga score ng isang grupo ng mga estudyante sa unibersidad sa Canada. 5.00 ang average score ng grupong iyon.",
       "agree": [
         {
           "claim": "Maingat kong sinusuri ang trabaho ko, at nagpapatuloy ako kapag humihirap.",
@@ -533,7 +533,7 @@
         }
       ],
       "locusHeading": "Ano ang nakakaapekto sa mga resulta ko sa trabaho",
-      "locusSource": "Galing ang mga score na ito sa hiwalay na questionnaire ng 16Personalities tungkol sa kung gaano kalaki, sa tingin ko, ang impluwensiya ko sa nangyayari sa trabaho. Hiwalay ang score ng bawat factor, kaya hindi 100% ang kabuuan ng mga porsyento.",
+      "locusSource": "Galing ang mga score na ito sa hiwalay na questionnaire ng 16Personalities. Tungkol ito sa kung gaano kalaki ang tingin kong impluwensiya ko sa mga nangyayari sa trabaho. Hiwalay ang score ng bawat factor, kaya hindi 100% ang kabuuan ng mga porsyento.",
       "locus": [
         {
           "label": "Sarili kong mga aksyon",
@@ -544,20 +544,20 @@
           "value": 62
         },
         {
-          "label": "Tsansa",
+          "label": "Suwerte",
           "value": 49
         }
       ],
-      "locusNote": "Naniniwala akong may naitutulong ang mga ginagawa ko sa resulta ng trabaho, kaya inaako ko ang responsibilidad at nagpaplano ako nang maaga. Pero minsan, hawak ko pa rin ang mga gawain o desisyon na dapat ay ibang tao na ang humahawak. Kung ganito ang nangyayari sa trabaho mo, sabihin mo sa akin nang diretso at aatras ako.",
-      "locusCaveat": "Mali ang sinasabi ng report na tsansa ang pangalawang pinakamataas na factor; ayon sa mga score na ipinakita, ang mga taong may impluwensiya ang pangalawa. Hindi ko isinama ang personal at social na mga resulta dahil hindi rin tugma ang sinasabing pangunahing kategorya sa mga score nito.",
-      "typeNote": "Noong Setyembre 2024, Adventurer (ISFP-A) ang ibinigay sa akin ng parehong questionnaire. Nagbago ang resulta ko, kaya itinuturing ko ang type bilang paglalarawan, hindi bilang permanenteng pagkakakilanlan.",
+      "locusNote": "Naniniwala akong may naitutulong ang mga ginagawa ko sa resulta ng trabaho, kaya inaako ko ang responsibilidad at nagpaplano ako nang maaga. Pero minsan, ako pa rin ang kumokontrol sa mga gawain o desisyong dapat ay ibang tao na ang humahawak. Kung ginagawa ko ito sa trabaho mo, sabihin mo sa akin nang diretso at hahayaan kitang ikaw ang humawak nito.",
+      "locusCaveat": "Mali ang sinasabi ng report na suwerte ang pangalawang pinakamataas na factor; ayon sa mga score na ipinakita, ang mga taong may impluwensiya ang pangalawa. Hindi ko isinama ang personal at social na mga resulta dahil hindi rin tugma ang sinasabing pangunahing kategorya sa mga score nito.",
+      "typeNote": "Noong Setyembre 2024, Adventurer (ISFP-A) ang ibinigay sa akin ng parehong questionnaire. Nagbago ang resulta ko, kaya paglalarawan lang ang tingin ko sa personality type, hindi isang label na hindi na magbabago.",
       "linkLabel": "Basahin ang tungkol sa personality type na ito sa 16Personalities",
       "linkHref": "https://www.16personalities.com/entj-personality"
     },
     "offWork": {
       "heading": "Pagkatapos ng trabaho",
       "para": "Marami akong pinapanood na Korean series, pati ilang boys' love (BL) series mula sa ibang bansa sa Asya. Mahilig akong mag-karaoke; mas lamang ang gana kaysa talento. Nagsusulat ako sa [blog](/blog/) ko tungkol sa React Native at kung paano gumagawa at naglalabas ng apps ang mga mobile team. Ipinanganak at lumaki ako sa Barcelona. Pilipino ang mga magulang ko, at nakatira ako sa UK mula noong 2016.",
-      "photoAlt": "Si Warren de Leon, naka-sunglasses at naka-jacket, nakatayo sa gitna ng pula, pink at puting tulips sa ilalim ng asul na langit",
+      "photoAlt": "Si Warren de Leon, naka-sunglasses at naka-cream na jacket, nakatayo sa gitna ng pula, pink at puting tulips sa ilalim ng asul na langit",
       "asksHead": "Mga bagay na gusto kong pag-usapan",
       "asks": [
         "Mga Korean series na sulit panoorin",

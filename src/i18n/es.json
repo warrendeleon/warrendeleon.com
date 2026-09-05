@@ -384,7 +384,7 @@
           "icon": "oneToOne",
           "need": "Es sobre tu trabajo, tu desarrollo profesional o algo que te preocupa",
           "channel": "Nuestro 1:1",
-          "reply": "No hace falta esperar al siguiente 1:1, búscame antes"
+          "reply": "No hace falta que esperes a nuestro próximo 1:1. Contacta conmigo antes"
         },
         {
           "icon": "mail",
@@ -406,7 +406,7 @@
       "helpsHead": "Esto ayuda",
       "helps": [
         "Empieza por decirme qué necesitas. Ser directo nos ahorra tiempo a los dos.",
-        "Interrúmpeme aunque lleve auriculares. Solo me aíslan del ruido de la oficina.",
+        "Interrúmpeme aunque lleve auriculares. Los uso para aislarme del ruido de la oficina.",
         "Si un hilo de mensajes se está alargando, reserva una llamada de 30 minutos.",
         "Enséñame tu trabajo mientras aún le estás dando forma. Es más fácil proponer cambios antes de que lo termines."
       ],
@@ -423,12 +423,12 @@
       "hoursLabel": "Horario",
       "hoursValue": "De lunes a viernes, de 9:00 a 17:30 (hora del Reino Unido)",
       "hoursValueHere": "De lunes a viernes, de 9:00 a 17:30",
-      "localLine": "El {date}, mi horario es de {start} del {startDay} a {end} del {endDay} donde estás tú ({zone}).",
-      "localLineSameDay": "El {date}, mi horario es de {start} a {end} donde estás tú ({zone}).",
-      "nowIn": "Ahora mismo en el Reino Unido son las {time} del {day}, dentro del horario laboral.",
-      "nowOut": "Ahora mismo en el Reino Unido son las {time} del {day}, fuera del horario laboral.",
-      "nowInHere": "Ahora mismo son las {time} del {day}, dentro del horario laboral.",
-      "nowOutHere": "Ahora mismo son las {time} del {day}, fuera del horario laboral.",
+      "localLine": "El {date}, mi horario es de {start} del {startDay} a {end} del {endDay} en tu zona horaria ({zone}).",
+      "localLineSameDay": "El {date}, mi horario es de {start} a {end} en tu zona horaria ({zone}).",
+      "nowIn": "Hora actual en el Reino Unido: {time} ({day}). Dentro de mi horario laboral.",
+      "nowOut": "Hora actual en el Reino Unido: {time} ({day}). Fuera de mi horario laboral.",
+      "nowInHere": "Hora actual: {time} ({day}). Dentro de mi horario laboral.",
+      "nowOutHere": "Hora actual: {time} ({day}). Fuera de mi horario laboral.",
       "triage": "Primero correo y Slack",
       "core": "Mejor momento para localizarme",
       "paras": [
@@ -440,7 +440,7 @@
       "heading": "Feedback",
       "paras": [
         "Dame el feedback por escrito, para que tenga tiempo de pensarlo antes de responder. Sé concreto. Puedes discrepar de mis ideas en una reunión de grupo, pero lo que tenga que ver con mi comportamiento o mi rendimiento, háblalo conmigo en privado.",
-        "Cuando esté bajo presión, te diré si me está costando. Si me ves más callado de lo normal cuando se acerca una fecha de entrega, pregúntame cómo lo llevo."
+        "Cuando esté bajo presión, te diré si me está costando gestionar el trabajo. Si me ves más callado de lo normal cuando se acerca una fecha de entrega, pregúntame cómo lo llevo."
       ],
       "sub": "Por escrito, por favor. Respondo mejor cuando he tenido tiempo de pensar."
     },
@@ -515,7 +515,7 @@
               "detail": "Responsabilidad: 6,43; perfeccionismo: 6,64."
             }
           ],
-          "means": "Reviso mi trabajo antes de compartirlo. Puedo pasarme demasiado tiempo puliendo detalles, así que dime cuándo cumple lo que necesitas."
+          "means": "Reviso mi trabajo antes de compartirlo. Puedo pasarme demasiado tiempo puliendo detalles, así que dime cuándo cumple tus requisitos."
         },
         {
           "claim": "Soy directo y prefiero resolver los desacuerdos.",
@@ -548,8 +548,8 @@
           "value": 49
         }
       ],
-      "locusNote": "Creo que lo que hago influye en los resultados del trabajo, así que asumo la responsabilidad y planifico con antelación. Pero a veces me quedo con tareas o decisiones que le corresponden a otra persona. Si lo estoy haciendo con tu trabajo, dímelo sin rodeos y me aparto.",
-      "locusCaveat": "El informe señala el azar como segundo factor, pero según las puntuaciones que muestra, el segundo son las personas con influencia. He dejado fuera los resultados personal y social porque la categoría principal que indican tampoco coincide con sus puntuaciones.",
+      "locusNote": "Creo que lo que hago influye en los resultados del trabajo, así que asumo la responsabilidad y planifico con antelación. Pero a veces sigo controlando tareas o tomando decisiones que le corresponden a otra persona. Si lo hago con tu trabajo, dímelo directamente y dejaré que te encargues tú.",
+      "locusCaveat": "El informe sitúa por error el azar en segundo lugar. Según las puntuaciones, ese puesto corresponde a las personas con influencia. He dejado fuera los resultados de los ámbitos personal y social porque la categoría principal que indican tampoco coincide con sus puntuaciones.",
       "typeNote": "En septiembre de 2024, el mismo cuestionario me dio Aventurero (ISFP-A). Mi resultado ha cambiado, así que tomo el tipo como una descripción y no como una identidad fija.",
       "linkLabel": "Ver este tipo de personalidad en 16Personalities",
       "linkHref": "https://www.16personalities.com/es/personalidad-entj"
