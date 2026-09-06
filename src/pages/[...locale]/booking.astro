@@ -640,6 +640,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     };
     let zone = 'UTC';
     try { zone = canonicalZone(Intl.DateTimeFormat().resolvedOptions().timeZone) || 'UTC'; } catch { /* keep UTC */ }
+    /** What the browser reported; a history entry without a zone means this one. */
+    const detectedZone = zone;
     let scheduleZone = '';
     /** The month's slots as the API groups them, by the schedule's own dates. */
     let rawDays: Days = {};
@@ -955,6 +957,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       holder.replaceChildren(...list.map((candidate) => {
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'bk-slot';
+        button.dataset.start = candidate.startUTC;
         button.textContent = fmtTime(candidate.startUTC);
         button.addEventListener('click', () => pickSlot(candidate));
         return button;
@@ -987,15 +990,27 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           option.value = name; option.textContent = name.replace(/_/g, ' '); option.selected = name === zone;
           return option;
         }));
-        select.addEventListener('change', () => {
+        select.addEventListener('change', async () => {
           zone = select.value; zoneChosen = true;
-          days = regroup();
-          renderGrid(); renderDatebook();
-          if (!(days[date] || []).length) { date = Object.keys(days).sort()[0] ?? ''; }
-          if (date) renderSlots(); else show('date');
-          writeHash(); renderStub();
+          writeHash();
+          await reloadForZone();
         });
       }
+      select.value = zone;
+    }
+
+    /**
+     * The zone changed, so the month is fetched again: whether the neighbouring
+     * months are needed depends on the zone, and the grouping by day does too.
+     * A chosen day that no longer has anything in it sends the visitor back to
+     * the calendar rather than silently picking another day for them.
+     */
+    async function reloadForZone() {
+      renderZone();
+      await loadMonth();
+      if (date && !(days[date] || []).length) { date = ''; slot = null; writeHash(); show('date'); }
+      else if (date) renderSlots();
+      renderStub();
     }
 
     function pickSlot(candidate: Slot) {
@@ -1515,14 +1530,17 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     });
 
     async function applyState(state: Record<string, string>) {
-      const restored = state.tz ? canonicalZone(state.tz) : null;
-      if (restored && restored !== zone) { zone = restored; zoneChosen = true; }
-      if (!state.type) { chosen = null; date = ''; slot = null; show('type'); return; }
+      // No zone in the entry means the browser's own; a zone that changed
+      // invalidates the grouping, so the month is loaded again below.
+      const target = (state.tz && canonicalZone(state.tz)) || detectedZone;
+      const zoneChanged = target !== zone;
+      zone = target; zoneChosen = Boolean(state.tz);
+      if (!state.type) { chosen = null; date = ''; slot = null; show('type'); renderStub(); return; }
       const found = types.find((candidate) => candidate.slug === state.type);
       if (!found) { show('type'); return; }
       const sameMonth = chosen?.slug === found.slug && month === (state.date ? state.date.slice(0, 7) : month);
       chosen = found; slot = null; date = '';
-      if (!sameMonth || Object.keys(days).length === 0) {
+      if (!sameMonth || zoneChanged || Object.keys(days).length === 0) {
         month = state.date ? state.date.slice(0, 7) : todayKey().slice(0, 7);
         show('date');
         await loadMonth();

@@ -16,7 +16,8 @@
     "test": "node --test \"functions/**/*.test.ts\"",
     "db:migrate:local": "wrangler d1 migrations apply warrendeleon-booking --local",
     "db:migrate": "wrangler d1 migrations apply warrendeleon-booking --remote",
-    "check": "tsc --noEmit -p functions/tsconfig.json && tsc --noEmit -p functions/tsconfig.test.json && node --test \"functions/**/*.test.ts\""
+    "check": "tsc --noEmit -p functions/tsconfig.json && tsc --noEmit -p functions/tsconfig.test.json && node --test \"functions/**/*.test.ts\"",
+    "test:browser": "node --test tests/browser/*.test.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
@@ -30,6 +31,7 @@
     "@cloudflare/workers-types": "^5.20260905.1",
     "@types/node": "^26.4.1",
     "pagefind": "^1.5.2",
+    "playwright": "^1.60.0",
     "typescript": "^5.9.3",
     "wrangler": "^4.129.0"
   }
