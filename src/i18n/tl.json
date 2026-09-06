@@ -117,7 +117,8 @@
       "submit": "I-book ang tawag",
       "submitting": "Binu-book…",
       "aboutYou": "Tungkol sa iyo",
-      "prepare": "May ihahanda ba?"
+      "prepare": "May ihahanda ba?",
+      "country": "Bansa"
     },
     "errors": {
       "required": "Kailangan ito.",

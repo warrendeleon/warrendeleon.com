@@ -43,7 +43,12 @@ export const LIMITS = {
 // invite could never reach. Anything cleverer rejects real people.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
 const LOCALES = ['en', 'es', 'ca', 'tl'] as const;
-const E164_PATTERN = /^\+?[0-9][0-9\s().-]{6,}$/;
+// International form only: a plus, a country code, 8 to 15 digits in all.
+// Spaces and punctuation are stripped before the check and never stored.
+const E164_PATTERN = /^\+[1-9]\d{7,14}$/;
+export function normalisePhone(value: string): string {
+  return value.replace(/[\s().-]/g, '');
+}
 // A name has at least one letter in any script, and is not a link or an
 // address pasted into the wrong box. Nothing stricter: O'Brien, María-José and
 // 李 are all names, and a rule that rejects any of them rejects real people.
@@ -111,7 +116,7 @@ export function validateBooking(
   if (!email) fields.email = 'required';
   else if (!EMAIL_PATTERN.test(email)) fields.email = 'invalid';
 
-  const phone = clamp(text(input.phone), LIMITS.phone);
+  const phone = normalisePhone(clamp(text(input.phone), LIMITS.phone));
   if (location === 'phone') {
     if (!phone) fields.phone = 'required';
     else if (!E164_PATTERN.test(phone)) fields.phone = 'invalid';

@@ -126,12 +126,15 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
                    carries the brand green. -->
               <div class="bk-tiles"></div>
               <span class="bk-error" data-for="location" role="alert"></span>
-              <p class="bk-field bk-phone" hidden>
+              <div class="bk-field bk-phone" hidden>
                 <label for="bk-phone"></label>
-                <input id="bk-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+                <div class="bk-phone-row">
+                  <select id="bk-cc" class="bk-select bk-cc" aria-label=""></select>
+                  <input id="bk-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" />
+                </div>
                 <span class="bk-hint"></span>
                 <span class="bk-error" data-for="phone" role="alert"></span>
-              </p>
+              </div>
             </fieldset>
 
             <fieldset class="bk-group">
@@ -342,6 +345,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-tile:has(input:checked) .bk-tile-check { background: var(--color-green); border-color: var(--color-green); }
   .bk-tile:has(input:checked) .bk-tile-check svg { opacity: 1; }
   .bk-locations .bk-phone { margin-top: 1rem; }
+  .bk-phone-row { display: grid; grid-template-columns: minmax(7.5rem, auto) 1fr; gap: 0.5rem; }
+  .bk-cc { width: auto; min-width: 0; padding-right: 2rem; }
 
   /* guests */
   .bk-guests { margin: 0.25rem 0 0; }
@@ -803,6 +808,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       set('label[for="bk-last"]', S.form.lastName);
       set('label[for="bk-email"]', S.form.email);
       set('label[for="bk-phone"]', S.form.phone);
+      mountCountries();
       set('.bk-phone .bk-hint', S.form.phoneHelp);
       const ask = chosen!.question || S.form.question;
       set('label[for="bk-notes"]', chosen!.questionRequired ? ask : `${ask} (${S.form.optional})`);
@@ -907,7 +913,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     const HAS_LETTER = /\p{L}/u;
     const LOOKS_LIKE_LINK = /https?:|www\.|@/i;
     const EMAIL_SHAPE = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
-    const PHONE_SHAPE = /^\+?[0-9][0-9\s().-]{6,}$/;
+    const PHONE_SHAPE = /^\+[1-9]\d{7,14}$/;
 
     const nameCode = (v: string) => (!v ? 'required' : !HAS_LETTER.test(v) || LOOKS_LIKE_LINK.test(v) ? 'invalid' : '');
     const emailCode = (v: string) => (!v ? 'required' : !EMAIL_SHAPE.test(v) ? 'invalid' : '');
@@ -915,11 +921,54 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
     const phoneChosen = () => form.querySelector<HTMLInputElement>('input[name="location"]:checked')?.value === 'phone';
 
+    // Region code to dialling code. Names come from the browser in the page's
+    // own language, so only the numbers live here.
+    const DIAL: [string, string][] = [
+      ['GB','44'],['IE','353'],['ES','34'],['PT','351'],['FR','33'],['DE','49'],['IT','39'],['NL','31'],['BE','32'],['LU','352'],['CH','41'],['AT','43'],
+      ['DK','45'],['SE','46'],['NO','47'],['FI','358'],['IS','354'],['PL','48'],['CZ','420'],['SK','421'],['HU','36'],['RO','40'],['BG','359'],['GR','30'],
+      ['HR','385'],['SI','386'],['RS','381'],['UA','380'],['TR','90'],['CY','357'],['MT','356'],['EE','372'],['LV','371'],['LT','370'],
+      ['US','1'],['CA','1'],['MX','52'],['BR','55'],['AR','54'],['CL','56'],['CO','57'],['PE','51'],['UY','598'],
+      ['PH','63'],['IN','91'],['SG','65'],['MY','60'],['ID','62'],['TH','66'],['VN','84'],['JP','81'],['KR','82'],['CN','86'],['HK','852'],['TW','886'],
+      ['AU','61'],['NZ','64'],['AE','971'],['SA','966'],['IL','972'],['QA','974'],['ZA','27'],['NG','234'],['KE','254'],['EG','20'],['MA','212'],
+    ];
+    const TZ_REGION: Record<string, string> = {
+      'Europe/London': 'GB', 'Europe/Dublin': 'IE', 'Europe/Madrid': 'ES', 'Europe/Lisbon': 'PT', 'Europe/Paris': 'FR', 'Europe/Berlin': 'DE',
+      'Europe/Rome': 'IT', 'Europe/Amsterdam': 'NL', 'Europe/Brussels': 'BE', 'Europe/Zurich': 'CH', 'Europe/Vienna': 'AT', 'Europe/Warsaw': 'PL',
+      'Asia/Manila': 'PH', 'America/New_York': 'US', 'America/Chicago': 'US', 'America/Denver': 'US', 'America/Los_Angeles': 'US', 'America/Toronto': 'CA',
+      'America/Mexico_City': 'MX', 'America/Sao_Paulo': 'BR', 'Asia/Singapore': 'SG', 'Asia/Kolkata': 'IN', 'Asia/Dubai': 'AE', 'Australia/Sydney': 'AU',
+    };
+    const flag = (region: string) => String.fromCodePoint(...[...region].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+
+    function mountCountries() {
+      const select = root.querySelector<HTMLSelectElement>('#bk-cc')!;
+      if (select.options.length > 0) return;
+      select.setAttribute('aria-label', S.form.country);
+      let names: { of(code: string): string | undefined } | null = null;
+      try { names = new Intl.DisplayNames([INTL], { type: 'region' }); } catch { /* older browser */ }
+      const byLocale: Record<string, string> = { en: 'GB', es: 'ES', ca: 'ES', tl: 'PH' };
+      const preferred = TZ_REGION[zone] ?? byLocale[LOCALE] ?? 'GB';
+      select.replaceChildren(...DIAL.map(([region, code]) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.dataset.region = region;
+        option.textContent = `${flag(region)} ${names?.of(region) ?? region} +${code}`;
+        option.selected = region === preferred;
+        return option;
+      }));
+    }
+
+    /** The number in international form: +country then the national digits, leading zero dropped. */
+    function composedPhone(): string {
+      const code = root.querySelector<HTMLSelectElement>('#bk-cc')?.value ?? '';
+      const national = (inputFor('phone')?.value ?? '').replace(/[^0-9]/g, '').replace(/^0+/, '');
+      return national ? `+${code}${national}` : '';
+    }
+
     const RULES: Record<string, (v: string) => string> = {
       firstName: nameCode,
       lastName: nameCode,
       email: emailCode,
-      phone: (v) => (phoneChosen() ? phoneCode(v) : ''),
+      phone: () => (phoneChosen() ? phoneCode(composedPhone()) : ''),
     };
 
     const inputFor = (name: string) => form.querySelector<HTMLInputElement>(`[name="${name}"]`);
@@ -992,6 +1041,10 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       if (target.closest('.bk-guest')) checkGuests(true);
       refreshSubmit();
     });
+    root.querySelector<HTMLSelectElement>('#bk-cc')!.addEventListener('change', () => {
+      if (inputFor('phone')?.dataset.checked === 'yes') checkField('phone');
+      refreshSubmit();
+    });
     form.addEventListener('input', (event) => {
       const target = event.target as HTMLInputElement;
       if (target.name in RULES && target.dataset.checked === 'yes') checkField(target.name);
@@ -1038,7 +1091,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         type: chosen!.slug, startUTC: slot!.startUTC,
         location: String(data.get('location') || ''),
         firstName: String(data.get('firstName') || '').trim(), lastName: String(data.get('lastName') || '').trim(),
-        email: String(data.get('email') || '').trim(), phone: String(data.get('phone') || '').trim(),
+        email: String(data.get('email') || '').trim(), phone: composedPhone(),
         notes: String(data.get('notes') || ''), nickname: String(data.get('nickname') || ''),
         timezone: zone, locale: LOCALE, guests, turnstileToken: challengeInput?.value || '', utm: attribution(),
       };

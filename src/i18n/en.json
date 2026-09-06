@@ -117,7 +117,8 @@
       "submit": "Book the call",
       "submitting": "Booking…",
       "aboutYou": "About you",
-      "prepare": "Anything to prepare?"
+      "prepare": "Anything to prepare?",
+      "country": "Country"
     },
     "errors": {
       "required": "This one is needed.",
