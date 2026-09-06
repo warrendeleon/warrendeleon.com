@@ -201,7 +201,7 @@ describe('events', () => {
     assert.equal(body.conferenceData.createRequest.conferenceSolutionKey.type, 'hangoutsMeet');
   });
 
-  it('does not request a conference for a phone call', async () => {
+  it('puts the number to ring on a phone call as the location, with no conference', async () => {
     const { calendar, calls } = client([tokenGrant, () => okJson({ id: 'event-2' })]);
     const created = await calendar.insertEvent({
       summary: 'Call with Jane Doe',
@@ -210,9 +210,11 @@ describe('events', () => {
       timezone: 'Europe/London',
       attendees: [{ email: 'jane@example.com' }],
       withMeet: false,
+      location: '+44 20 7946 0000',
     });
     assert.equal(created.meetLink, null);
     assert.equal(new URL(calls[1]!.url).searchParams.get('conferenceDataVersion'), null);
+    assert.equal(JSON.parse(String(calls[1]!.init.body)).location, '+44 20 7946 0000');
   });
 
   it('fails when a video booking comes back without a Meet link', async () => {

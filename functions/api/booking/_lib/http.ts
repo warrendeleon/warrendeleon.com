@@ -12,6 +12,11 @@ export interface Env {
   TURNSTILE_SECRET: string;
   /** Shared secret the admin container presents on /admin routes. */
   ADMIN_KEY: string;
+  /**
+   * The number a booker rings for a phone call. It goes on the invite as the
+   * event location. Held as a secret only to keep it out of a public repo.
+   */
+  HOST_PHONE?: string;
 }
 
 export const JSON_HEADERS = {

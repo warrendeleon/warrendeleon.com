@@ -160,9 +160,15 @@ export async function createBooking(request: Request, env: Env, origin: string):
     ...eventType.mirrorTo.map((email) => ({ email })),
   ];
 
+  // A phone call means the booker rings Warren. His number is the event's
+  // location so it sits at the top of the invite; theirs goes in the notes so
+  // an unknown number at the right minute is picked up rather than ignored.
+  const isPhone = value.location === 'phone';
+  const hostPhone = env.HOST_PHONE?.trim() || null;
   const description = [
     value.notes,
-    value.location === 'phone' && value.phone ? `Phone: ${value.phone}` : null,
+    isPhone && hostPhone ? `Call ${hostPhone} at the start time.` : null,
+    isPhone && value.phone ? `Calling from ${value.phone}.` : null,
     `Booked from ${origin}`,
   ]
     .filter(Boolean)
@@ -177,6 +183,7 @@ export async function createBooking(request: Request, env: Env, origin: string):
       timezone: schedule.timezone,
       attendees,
       withMeet: value.location === 'video',
+      location: isPhone && hostPhone ? hostPhone : undefined,
     });
 
     await env.BOOKING_DB.prepare(

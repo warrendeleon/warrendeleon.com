@@ -60,6 +60,8 @@ export interface EventDraft {
   attendees: Attendee[];
   /** Ask Google to mint a Meet link and return it. */
   withMeet: boolean;
+  /** Shown as the event's location, for example the number to ring. */
+  location?: string;
 }
 
 export interface CreatedEvent {
@@ -259,6 +261,7 @@ export class CalendarClient {
     const body: Record<string, unknown> = {
       summary: draft.summary,
       description: draft.description,
+      location: draft.location,
       start: { dateTime: draft.startUTC, timeZone: draft.timezone },
       end: { dateTime: draft.endUTC, timeZone: draft.timezone },
       attendees: draft.attendees.map((attendee) => ({
