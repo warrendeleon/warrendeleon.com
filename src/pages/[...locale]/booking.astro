@@ -982,12 +982,18 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         renderDone(payload, body.email);
         return;
       }
-      if (payload.fields) showFieldErrors(payload.fields);
+      // A field the page has nowhere to show, such as the anti-spam token,
+      // must still produce a visible message: silence looks like a dead button.
+      const fields: Record<string, string> = payload.fields ?? {};
+      const placed = Object.keys(fields).filter((name) => errorFor(name));
+      if (placed.length > 0) showFieldErrors(fields);
+      const unplaced = Object.keys(fields).length > placed.length;
       banner(
         payload.error === 'slot_taken' ? S.errors.slotTaken
         : payload.error === 'rate_limited' ? S.errors.rateLimited
         : payload.error === 'calendar_unavailable' ? S.errors.calendarUnavailable
-        : payload.fields ? '' : S.errors.generic,
+        : placed.length > 0 && !unplaced ? ''
+        : S.errors.generic,
       );
     });
 
