@@ -69,6 +69,70 @@
     "privacyLink": "privacy policy",
     "iframeTitle": "Mag-book ng tawag"
   },
+  "booking": {
+    "steps": {
+      "type": "Uri ng tawag",
+      "date": "Petsa",
+      "time": "Oras",
+      "details": "Iyong detalye"
+    },
+    "back": "Bumalik",
+    "change": "Palitan",
+    "duration": {
+      "minutes": "{n} min",
+      "hour": "1 oras",
+      "hours": "{n} oras"
+    },
+    "locations": {
+      "video": "Google Meet",
+      "phone": "Tawag sa telepono"
+    },
+    "calendar": {
+      "previous": "Nakaraang buwan",
+      "next": "Susunod na buwan",
+      "selectDay": "Pumili ng araw",
+      "noDays": "Wala nang bakante ngayong buwan. Subukan ang susunod.",
+      "loading": "Tinitingnan ang kalendaryo ko…"
+    },
+    "times": {
+      "none": "Walang bakante sa araw na iyon.",
+      "zone": "Oras sa {zone}",
+      "changeZone": "Palitan ang time zone"
+    },
+    "form": {
+      "heading": "Iyong detalye",
+      "firstName": "Pangalan",
+      "lastName": "Apelyido",
+      "email": "Email",
+      "addGuests": "Magdagdag ng kasama",
+      "guestEmail": "Email ng kasama",
+      "removeGuest": "Alisin ang kasama",
+      "location": "Paano tayo mag-uusap?",
+      "phone": "Numero ng telepono",
+      "phoneHelp": "Para matawagan kita. Kasama rin ang numero ko sa imbitasyon.",
+      "question": "Ano ang gusto mong pag-usapan?",
+      "optional": "opsyonal",
+      "submit": "I-book ang tawag",
+      "submitting": "Binu-book…"
+    },
+    "errors": {
+      "required": "Kailangan ito.",
+      "email": "Mukhang mali ang email na iyan.",
+      "phone": "Mukhang mali ang numerong iyan.",
+      "slotTaken": "May nakakuha na ng oras na iyon. Pumili ng iba at itatabi ko.",
+      "rateLimited": "Sunod-sunod na ang mga subok. Subukan muli mamaya.",
+      "calendarUnavailable": "Hindi sumasagot ang kalendaryo ko. Subukan muli maya-maya.",
+      "generic": "May nangyaring mali. Subukan muli."
+    },
+    "confirmed": {
+      "heading": "Naka-book na",
+      "body": "Padating na ang imbitasyon sa {email}.",
+      "meet": "Sumali sa Google Meet",
+      "manage": "Baguhin o kanselahin ang booking",
+      "home": "Bumalik sa site"
+    },
+    "empty": "Wala pang bukas ngayon. Mag-email na lang sa akin."
+  },
   "common": {
     "download": "I-download",
     "back": "Bumalik",
@@ -197,7 +261,7 @@
     },
     "scheduling": {
       "title": "Pag-book ng tawag",
-      "body": "Ang pahinang **Mag-book ng Tawag** ay may naka-embed na kalendaryo mula sa **Calendly**. Kapag nag-book ka, kinokolekta ng Calendly ang mga detalyeng inilagay mo (pangalan, email, at anumang idagdag sa notes) ayon sa sarili nitong privacy policy, at maaari itong maglagay ng cookies sa loob ng embed. Ang natatanggap ko lang ay ang detalye ng booking at hindi ko ito ginagamit sa iba maliban sa tawag."
+      "body": "Ang pahina ng **Booking** ay tumatakbo sa sarili kong site. Ang pangalan mo, email at anumang isulat mo ay napupunta sa database ko sa Cloudflare at sa imbitasyon sa kalendaryo na ipapadala ng Google. Walang ibang nakakakita nito, at hindi ko ito ginagamit sa iba maliban sa tawag."
     }
   },
   "consent": {
@@ -378,7 +442,7 @@
           "need": "Kailangan mo akong makausap nang isang buong oras",
           "channel": "Mag-book ng tawag",
           "reply": "Karaniwan, sa linggo ring iyon",
-          "channelHref": "/book-a-call/"
+          "channelHref": "/booking/"
         },
         {
           "icon": "oneToOne",

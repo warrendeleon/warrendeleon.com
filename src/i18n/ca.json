@@ -69,6 +69,70 @@
     "privacyLink": "política de privacitat",
     "iframeTitle": "Reservar trucada"
   },
+  "booking": {
+    "steps": {
+      "type": "Tipus de trucada",
+      "date": "Data",
+      "time": "Hora",
+      "details": "Les teves dades"
+    },
+    "back": "Enrere",
+    "change": "Canviar",
+    "duration": {
+      "minutes": "{n} min",
+      "hour": "1 hora",
+      "hours": "{n} hores"
+    },
+    "locations": {
+      "video": "Google Meet",
+      "phone": "Trucada de telèfon"
+    },
+    "calendar": {
+      "previous": "Mes anterior",
+      "next": "Mes següent",
+      "selectDay": "Tria un dia",
+      "noDays": "Aquest mes no queda lloc. Prova el següent.",
+      "loading": "Mirant el meu calendari…"
+    },
+    "times": {
+      "none": "Aquell dia no queda res lliure.",
+      "zone": "Hores en {zone}",
+      "changeZone": "Canviar zona horària"
+    },
+    "form": {
+      "heading": "Les teves dades",
+      "firstName": "Nom",
+      "lastName": "Cognoms",
+      "email": "Correu",
+      "addGuests": "Afegir convidats",
+      "guestEmail": "Correu del convidat",
+      "removeGuest": "Treure convidat",
+      "location": "Com ho fem?",
+      "phone": "Telèfon",
+      "phoneHelp": "Per poder trucar-te. El meu número va a la invitació.",
+      "question": "De què t'agradaria parlar?",
+      "optional": "opcional",
+      "submit": "Reservar la trucada",
+      "submitting": "Reservant…"
+    },
+    "errors": {
+      "required": "Això fa falta.",
+      "email": "Aquest correu no sembla vàlid.",
+      "phone": "Aquest número no sembla vàlid.",
+      "slotTaken": "Algú ha agafat aquella hora. Tria'n una altra i te la guardo.",
+      "rateLimited": "Han estat uns quants intents seguits. Prova d'aquí una estona.",
+      "calendarUnavailable": "El meu calendari no respon. Torna-ho a provar en un moment.",
+      "generic": "Alguna cosa ha fallat. Torna-ho a provar."
+    },
+    "confirmed": {
+      "heading": "Reservat",
+      "body": "T'arriba una invitació a {email}.",
+      "meet": "Entrar amb Google Meet",
+      "manage": "Canviar o cancel·lar la reserva",
+      "home": "Tornar al web"
+    },
+    "empty": "Ara mateix no hi ha res disponible. Escriu-me i ho mirem."
+  },
   "common": {
     "download": "Descarregar",
     "back": "Tornar",
@@ -197,7 +261,7 @@
     },
     "scheduling": {
       "title": "Reservar una trucada",
-      "body": "La pàgina **Reservar Trucada** incorpora un calendari de **Calendly**. Si reserves, Calendly recull les dades que introdueixes (nom, correu i el que afegeixis a les notes) segons la seva pròpia política de privacitat, i pot instal·lar galetes dins de l'embed. Jo només rebo les dades de la reserva i no les faig servir per a res més que la trucada."
+      "body": "La pàgina de **Reserves** funciona al meu propi web. El teu nom, el teu correu i el que escriguis van a una base de dades meva a Cloudflare i a la invitació de calendari que t'envia Google. No els veu ningú més i no els faig servir per a res que no sigui la trucada."
     }
   },
   "consent": {
@@ -378,7 +442,7 @@
           "need": "Necessites una hora per parlar d'alguna cosa amb mi",
           "channel": "Reserva una trucada",
           "reply": "Normalment, la mateixa setmana",
-          "channelHref": "/book-a-call/"
+          "channelHref": "/booking/"
         },
         {
           "icon": "oneToOne",

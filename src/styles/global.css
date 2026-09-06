@@ -1690,7 +1690,7 @@ a.series-card-inner:hover {
 .pn-next .pn-label { justify-content: flex-end; }
 
 /* Green-dot list: the bullet used by role descriptions, responsibilities
-   and the book-a-call expectations. */
+   and the booking expectations. */
 ul.dot-list {
   list-style: none;
   padding: 0;

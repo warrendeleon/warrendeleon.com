@@ -69,6 +69,70 @@
     "privacyLink": "política de privacidad",
     "iframeTitle": "Reservar llamada"
   },
+  "booking": {
+    "steps": {
+      "type": "Tipo de llamada",
+      "date": "Fecha",
+      "time": "Hora",
+      "details": "Tus datos"
+    },
+    "back": "Volver",
+    "change": "Cambiar",
+    "duration": {
+      "minutes": "{n} min",
+      "hour": "1 hora",
+      "hours": "{n} horas"
+    },
+    "locations": {
+      "video": "Google Meet",
+      "phone": "Llamada de teléfono"
+    },
+    "calendar": {
+      "previous": "Mes anterior",
+      "next": "Mes siguiente",
+      "selectDay": "Elige un día",
+      "noDays": "Este mes no queda hueco. Prueba el siguiente.",
+      "loading": "Mirando mi calendario…"
+    },
+    "times": {
+      "none": "Ese día no queda nada libre.",
+      "zone": "Horas en {zone}",
+      "changeZone": "Cambiar zona horaria"
+    },
+    "form": {
+      "heading": "Tus datos",
+      "firstName": "Nombre",
+      "lastName": "Apellidos",
+      "email": "Correo",
+      "addGuests": "Añadir invitados",
+      "guestEmail": "Correo del invitado",
+      "removeGuest": "Quitar invitado",
+      "location": "¿Cómo hablamos?",
+      "phone": "Teléfono",
+      "phoneHelp": "Para poder llamarte. Mi número va en la invitación.",
+      "question": "¿De qué te gustaría hablar?",
+      "optional": "opcional",
+      "submit": "Reservar la llamada",
+      "submitting": "Reservando…"
+    },
+    "errors": {
+      "required": "Esto hace falta.",
+      "email": "Ese correo no parece válido.",
+      "phone": "Ese número no parece válido.",
+      "slotTaken": "Alguien ha cogido esa hora. Elige otra y te la guardo.",
+      "rateLimited": "Han sido varios intentos seguidos. Prueba dentro de un rato.",
+      "calendarUnavailable": "Mi calendario no responde. Inténtalo en un momento.",
+      "generic": "Algo ha fallado. Inténtalo otra vez."
+    },
+    "confirmed": {
+      "heading": "Reservado",
+      "body": "Te llega una invitación a {email}.",
+      "meet": "Entrar con Google Meet",
+      "manage": "Cambiar o cancelar la reserva",
+      "home": "Volver a la web"
+    },
+    "empty": "Ahora mismo no hay nada disponible. Escríbeme y lo vemos."
+  },
   "common": {
     "download": "Descargar",
     "back": "Volver",
@@ -197,7 +261,7 @@
     },
     "scheduling": {
       "title": "Reservar una llamada",
-      "body": "La página **Reservar Llamada** incorpora un calendario de **Calendly**. Si reservas, Calendly recoge los datos que introduces (nombre, correo y lo que añadas en las notas) según su propia política de privacidad, y puede instalar cookies dentro del embed. Yo solo recibo los datos de la reserva y no los uso para nada más que la llamada."
+      "body": "La página de **Reservas** funciona en mi propia web. Tu nombre, tu correo y lo que escribas van a una base de datos mía en Cloudflare y a la invitación de calendario que te envía Google. No los ve nadie más y no los uso para nada que no sea la llamada."
     }
   },
   "consent": {
@@ -378,7 +442,7 @@
           "need": "Necesitas una hora para hablar de algo conmigo",
           "channel": "Reserva una llamada",
           "reply": "Normalmente, esa misma semana",
-          "channelHref": "/book-a-call/"
+          "channelHref": "/booking/"
         },
         {
           "icon": "oneToOne",

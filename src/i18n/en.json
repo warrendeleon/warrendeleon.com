@@ -69,6 +69,70 @@
     "privacyLink": "privacy policy",
     "iframeTitle": "Book a call"
   },
+  "booking": {
+    "steps": {
+      "type": "Type of call",
+      "date": "Date",
+      "time": "Time",
+      "details": "Your details"
+    },
+    "back": "Back",
+    "change": "Change",
+    "duration": {
+      "minutes": "{n} min",
+      "hour": "1 hour",
+      "hours": "{n} hours"
+    },
+    "locations": {
+      "video": "Google Meet",
+      "phone": "Phone call"
+    },
+    "calendar": {
+      "previous": "Previous month",
+      "next": "Next month",
+      "selectDay": "Pick a day",
+      "noDays": "Nothing free this month. Try the next one.",
+      "loading": "Checking my calendar…"
+    },
+    "times": {
+      "none": "Nothing free that day.",
+      "zone": "Times shown in {zone}",
+      "changeZone": "Change time zone"
+    },
+    "form": {
+      "heading": "Your details",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "addGuests": "Add guests",
+      "guestEmail": "Guest email",
+      "removeGuest": "Remove guest",
+      "location": "How should we talk?",
+      "phone": "Phone number",
+      "phoneHelp": "So I can call you. My number goes on the invite too.",
+      "question": "What would you like to cover?",
+      "optional": "optional",
+      "submit": "Book the call",
+      "submitting": "Booking…"
+    },
+    "errors": {
+      "required": "This one is needed.",
+      "email": "That address does not look right.",
+      "phone": "That number does not look right.",
+      "slotTaken": "Someone took that time. Pick another and I will hold it.",
+      "rateLimited": "That is a few attempts in a row. Try again in a little while.",
+      "calendarUnavailable": "My calendar is not answering. Try again shortly.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "confirmed": {
+      "heading": "Booked",
+      "body": "An invite is on its way to {email}.",
+      "meet": "Join with Google Meet",
+      "manage": "Change or cancel this booking",
+      "home": "Back to the site"
+    },
+    "empty": "Nothing is bookable right now. Email me instead."
+  },
   "common": {
     "download": "Download",
     "back": "Back",
@@ -197,7 +261,7 @@
     },
     "scheduling": {
       "title": "Booking a call",
-      "body": "The **Book a Call** page embeds a calendar from **Calendly**. If you book, Calendly collects the details you enter (name, email, and anything you add to the notes) under its own privacy policy, and it may set cookies inside the embed. I only receive the booking details, and I don't use them for anything except the call."
+      "body": "The **Booking** page runs on my own site. Your name, email and anything you type go into a database I run on Cloudflare, and into the calendar invite Google sends you. Nobody else sees them, and I do not use them for anything except the call."
     }
   },
   "consent": {
@@ -378,7 +442,7 @@
           "need": "You need an hour to discuss something with me",
           "channel": "Book a call",
           "reply": "Usually the same week",
-          "channelHref": "/book-a-call/"
+          "channelHref": "/booking/"
         },
         {
           "icon": "oneToOne",

@@ -5,6 +5,14 @@
 # chains as "Redirect error", so anything a crawler might still hold belongs
 # here. _redirects wins over a matching static file, so both can coexist.
 
+# Book a Call became Booking when the Calendly embed was replaced by the site's
+# own booking flow. Placed before the wildcards below so it is matched first.
+/book-a-call /booking/ 301
+/book-a-call/ /booking/ 301
+/es/book-a-call/ /es/booking/ 301
+/ca/book-a-call/ /ca/booking/ 301
+/tl/book-a-call/ /tl/booking/ 301
+
 # Old /work/ and /work-xp/ paths → /work-experience/
 /work/* /work-experience/:splat 301
 /work-xp/* /work-experience/:splat 301
