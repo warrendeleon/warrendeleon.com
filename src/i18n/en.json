@@ -133,10 +133,15 @@
     },
     "confirmed": {
       "heading": "Booked",
-      "body": "An invite is on its way to {email}.",
+      "calendarAdded": "Added to Warren's calendar",
+      "inviteSent": "Invite sent to {email}",
+      "inviteGuests": "and {n} guests",
+      "inviteGuest": "and 1 guest",
       "meet": "Join with Google Meet",
-      "manage": "Change or cancel this booking",
-      "home": "Back to the site"
+      "ring": "You call {phone} at the start time",
+      "manage": "Change or cancel",
+      "home": "Back to the site",
+      "body": "The invite carries everything: the time in your zone, the link or number, and how to change it."
     },
     "empty": "Nothing is bookable right now. Email me instead.",
     "hints": {
@@ -144,6 +149,18 @@
       "date": "Pick a day",
       "time": "Pick a time",
       "details": "Add your details"
+    },
+    "failed": {
+      "heading": "Not booked",
+      "nothingReserved": "Nothing was reserved and no invite was sent.",
+      "slotTaken": "That time was taken a moment ago.",
+      "calendar": "My calendar did not answer.",
+      "rateLimited": "That is a few attempts in a row.",
+      "rateLimitedWait": "Try again in about {minutes} min.",
+      "forbidden": "The anti-spam check did not pass.",
+      "generic": "Something went wrong.",
+      "pickAnother": "Pick another time",
+      "tryAgain": "Try again"
     }
   },
   "common": {

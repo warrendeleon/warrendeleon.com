@@ -133,10 +133,15 @@
     },
     "confirmed": {
       "heading": "Reservado",
-      "body": "Te llega una invitación a {email}.",
+      "calendarAdded": "Añadido al calendario de Warren",
+      "inviteSent": "Invitación enviada a {email}",
+      "inviteGuests": "y {n} invitados",
+      "inviteGuest": "y 1 invitado",
       "meet": "Entrar con Google Meet",
-      "manage": "Cambiar o cancelar la reserva",
-      "home": "Volver a la web"
+      "ring": "Me llamas al {phone} a la hora de inicio",
+      "manage": "Cambiar o cancelar",
+      "home": "Volver a la web",
+      "body": "La invitación lo lleva todo: la hora en tu zona, el enlace o el número, y cómo cambiarla."
     },
     "empty": "Ahora mismo no hay nada disponible. Escríbeme y lo vemos.",
     "hints": {
@@ -144,6 +149,18 @@
       "date": "Elige un día",
       "time": "Elige una hora",
       "details": "Añade tus datos"
+    },
+    "failed": {
+      "heading": "Sin reservar",
+      "nothingReserved": "No se ha reservado nada ni se ha enviado ninguna invitación.",
+      "slotTaken": "Esa hora la han cogido hace un momento.",
+      "calendar": "Mi calendario no ha respondido.",
+      "rateLimited": "Han sido varios intentos seguidos.",
+      "rateLimitedWait": "Prueba otra vez en unos {minutes} min.",
+      "forbidden": "El control antispam no ha pasado.",
+      "generic": "Algo ha fallado.",
+      "pickAnother": "Elegir otra hora",
+      "tryAgain": "Probar otra vez"
     }
   },
   "common": {

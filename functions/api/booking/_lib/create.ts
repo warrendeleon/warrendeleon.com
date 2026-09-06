@@ -214,8 +214,11 @@ export async function createBooking(request: Request, env: Env, origin: string):
           endUTC,
           location: value.location,
           meetLink: event.meetLink,
+          hostPhone: isPhone ? hostPhone : null,
           status: 'confirmed',
         },
+        // What actually happened, so the page can say so rather than imply it.
+        calendar: { eventCreated: true, invitesSentTo: [value.email, ...value.guests] },
         manageUrl,
       },
       201,

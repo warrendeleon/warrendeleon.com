@@ -133,10 +133,15 @@
     },
     "confirmed": {
       "heading": "Reservat",
-      "body": "T'arriba una invitació a {email}.",
+      "calendarAdded": "Afegit al calendari del Warren",
+      "inviteSent": "Invitació enviada a {email}",
+      "inviteGuests": "i {n} convidats",
+      "inviteGuest": "i 1 convidat",
       "meet": "Entrar amb Google Meet",
-      "manage": "Canviar o cancel·lar la reserva",
-      "home": "Tornar al web"
+      "ring": "Em truques al {phone} a l'hora d'inici",
+      "manage": "Canviar o cancel·lar",
+      "home": "Tornar al web",
+      "body": "La invitació ho porta tot: l'hora a la teva zona, l'enllaç o el número, i com canviar-la."
     },
     "empty": "Ara mateix no hi ha res disponible. Escriu-me i ho mirem.",
     "hints": {
@@ -144,6 +149,18 @@
       "date": "Tria un dia",
       "time": "Tria una hora",
       "details": "Afegeix les teves dades"
+    },
+    "failed": {
+      "heading": "Sense reservar",
+      "nothingReserved": "No s'ha reservat res ni s'ha enviat cap invitació.",
+      "slotTaken": "Aquella hora l'han agafat fa un moment.",
+      "calendar": "El meu calendari no ha respost.",
+      "rateLimited": "Han estat uns quants intents seguits.",
+      "rateLimitedWait": "Torna-ho a provar d'aquí uns {minutes} min.",
+      "forbidden": "El control antispam no ha passat.",
+      "generic": "Alguna cosa ha fallat.",
+      "pickAnother": "Triar una altra hora",
+      "tryAgain": "Tornar-ho a provar"
     }
   },
   "common": {

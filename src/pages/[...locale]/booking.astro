@@ -155,9 +155,17 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           </form>
 
           <section class="bk-panel bk-done" data-step="done" hidden tabindex="-1">
-            <h2 class="bk-done-title"></h2>
-            <p class="bk-done-body"></p>
-            <p class="bk-done-links"></p>
+            <!-- The result, in place of the form: the stub completing as a
+                 ticket. Success draws one green check and lists what happened;
+                 a failure names which failure and offers the one right action. -->
+            <div class="bk-ticket">
+              <div class="bk-ticket-mark" aria-hidden="true"></div>
+              <h2 class="bk-done-title"></h2>
+              <p class="bk-done-lead"></p>
+              <dl class="bk-ticket-facts"></dl>
+              <ul class="bk-ticket-status"></ul>
+              <p class="bk-done-actions"></p>
+            </div>
           </section>
         </div>
       </div>
@@ -367,10 +375,35 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-submit:hover:not([disabled]) { background: var(--color-green-dark); }
   .bk-submit[disabled] { opacity: 0.45; cursor: not-allowed; }
 
-  /* ---- done ------------------------------------------------------------ */
-  .bk-done-title { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.75rem; }
-  .bk-done-body { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; max-width: 40rem; }
-  .bk-done-links a { display: inline-block; margin: 0 1.25rem 0.5rem 0; }
+  /* ---- the result: a ticket ----------------------------------------- */
+  .bk-ticket { position: relative; border: var(--bk-hair); border-top: 3px solid var(--color-green); border-radius: 14px; padding: 1.5rem 1.25rem 1.25rem; max-width: 34rem; }
+  .bk-done.is-failed .bk-ticket { border-top-color: var(--border-color); }
+  .bk-ticket-mark { width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--color-green); color: var(--color-on-green); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+  .bk-done.is-failed .bk-ticket-mark { background: var(--bg-secondary); color: var(--text-primary); }
+  .bk-ticket-mark svg { width: 28px; height: 28px; }
+  .bk-done:not(.is-failed) .bk-ticket-mark svg path { stroke-dasharray: 40; stroke-dashoffset: 40; animation: bk-draw 420ms 120ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+  @keyframes bk-draw { to { stroke-dashoffset: 0; } }
+  .bk-done-title { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.35rem; }
+  .bk-done-lead { color: var(--text-secondary); line-height: 1.6; margin: 0 0 1.25rem; }
+  .bk-ticket-facts { display: grid; grid-template-columns: auto 1fr; column-gap: 1rem; row-gap: 0.45rem; margin: 0 0 1.25rem; padding: 1rem 0; border-top: var(--bk-hair); border-bottom: var(--bk-hair); }
+  .bk-ticket-facts:empty { display: none; }
+  .bk-ticket-facts dt { color: var(--text-muted); font-size: 0.9rem; }
+  .bk-ticket-facts dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bk-ticket-facts dd.is-big { font-size: 1.35rem; letter-spacing: -0.02em; }
+  .bk-ticket-facts dd small { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0; margin-top: 0.1rem; }
+  .bk-ticket-status { list-style: none; margin: 0 0 1.25rem; padding: 0; display: grid; gap: 0.6rem; }
+  .bk-ticket-status li { display: grid; grid-template-columns: 1.5rem 1fr; column-gap: 0.7rem; align-items: start; line-height: 1.45; }
+  .bk-ticket-status svg { width: 20px; height: 20px; color: var(--color-green-text); margin-top: 0.1rem; }
+  .bk-ticket-status li.is-warn svg { color: var(--text-secondary); }
+  .bk-done-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0; }
+  .bk-done-actions a, .bk-done-actions button {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0.75rem 1.1rem;
+    border-radius: 12px; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+  }
+  .bk-done-actions .is-primary { background: var(--color-green); color: var(--color-on-green); border: 0; }
+  .bk-done-actions .is-primary:hover { background: var(--color-green-dark); }
+  .bk-done-actions .is-quiet { background: none; border: var(--bk-hair); color: var(--text-primary); }
+  .bk-done-actions .is-quiet:hover { border-color: var(--color-green); color: var(--color-green-text); }
 
   /* ---- layout by device ----------------------------------------------- */
   @media (max-width: 899px) {
@@ -400,6 +433,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   }
   @media (prefers-reduced-motion: reduce) {
     .bk-panel.is-entering { animation: none; }
+    .bk-done:not(.is-failed) .bk-ticket-mark svg path { animation: none; stroke-dashoffset: 0; }
     .bk-db-bar > span, .bk-slot::after { transition: none; }
   }
 </style>
@@ -489,10 +523,11 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       line('time', slot ? fmtTime(slot.startUTC) : '', !!slot);
 
       const hint: Record<Step, string> = {
-        type: S.hints.type, date: S.hints.date, time: S.hints.time, details: S.hints.details, done: '',
+        type: S.hints.type, date: S.hints.date, time: S.hints.time, details: S.hints.details, done: S.confirmed.heading,
       };
       stub.querySelector<HTMLElement>('.bk-stub-hint')!.textContent = hint[current];
-      stub.classList.toggle('is-done', current === 'done');
+      stub.classList.toggle('is-done', current === 'done' && !panels.get('done')!.classList.contains('is-failed'));
+      if (current === 'done' && panels.get('done')!.classList.contains('is-failed')) stub.querySelector<HTMLElement>('.bk-stub-hint')!.textContent = S.failed.heading;
     }
 
     function show(step: Step) {
@@ -981,38 +1016,114 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       } catch { banner(S.errors.generic); return; }
       const payload = await response.json().catch(() => ({}));
 
-      if (response.ok) {
-        track('call_booked', { type: chosen!.slug, minutes: chosen!.durationMinutes, location: body.location });
-        renderDone(payload, body.email);
-        return;
-      }
-      // A field the page has nowhere to show, such as the anti-spam token,
-      // must still produce a visible message: silence looks like a dead button.
+      if (response.ok) { renderDone(payload, body.email); submit.dataset.busy = ''; submit.textContent = S.form.submit; return; }
+
+      // Field problems the API found stay beside their fields. Anything else
+      // that happened after the form was accepted is a result in its own right.
       const fields: Record<string, string> = payload.fields ?? {};
       const placed = Object.keys(fields).filter((name) => errorFor(name));
-      if (placed.length > 0) showFieldErrors(fields);
-      const unplaced = Object.keys(fields).length > placed.length;
-      banner(
-        payload.error === 'slot_taken' ? S.errors.slotTaken
-        : payload.error === 'rate_limited' ? S.errors.rateLimited
-        : payload.error === 'calendar_unavailable' ? S.errors.calendarUnavailable
-        : placed.length > 0 && !unplaced ? ''
-        : S.errors.generic,
-      );
+      if (response.status === 400 && placed.length > 0 && placed.length === Object.keys(fields).length) {
+        showFieldErrors(fields); banner(''); return;
+      }
+      submit.dataset.busy = ''; submit.textContent = S.form.submit;
+      const retryAfter = Number(response.headers.get('retry-after') || '') || null;
+      renderFailed(String(payload.error || 'generic'), retryAfter);
     });
 
-    function renderDone(payload: { booking?: { meetLink?: string | null }; manageUrl?: string }, email: string) {
-      root.querySelector<HTMLElement>('.bk-done-title')!.textContent = S.confirmed.heading;
-      root.querySelector<HTMLElement>('.bk-done-body')!.textContent = S.confirmed.body.replace('{email}', email);
-      const links = root.querySelector<HTMLElement>('.bk-done-links')!;
-      links.replaceChildren();
-      if (payload.booking?.meetLink) {
-        const meet = document.createElement('a'); meet.href = payload.booking.meetLink; meet.textContent = S.confirmed.meet; meet.rel = 'noopener'; links.appendChild(meet);
+    const GLYPH = {
+      check: '<path d="M20 6 9 17l-5-5"/>',
+      alert: '<path d="M12 9v4m0 4h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',
+      calendar: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+      mail: '<path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/>',
+    };
+
+    const fill = (template: string, values: Record<string, string | number>) =>
+      Object.entries(values).reduce((out, [k, v]) => out.replace(`{${k}}`, String(v)), template);
+
+    function resultPanel(failed: boolean, glyph: string, title: string, lead: string) {
+      const panel = panels.get('done')!;
+      panel.classList.toggle('is-failed', failed);
+      panel.querySelector<HTMLElement>('.bk-ticket-mark')!.innerHTML = svg(glyph);
+      panel.querySelector<HTMLElement>('.bk-done-title')!.textContent = title;
+      panel.querySelector<HTMLElement>('.bk-done-lead')!.textContent = lead;
+      panel.querySelector<HTMLElement>('.bk-ticket-facts')!.replaceChildren();
+      panel.querySelector<HTMLElement>('.bk-ticket-status')!.replaceChildren();
+      panel.querySelector<HTMLElement>('.bk-done-actions')!.replaceChildren();
+      return panel;
+    }
+
+    function fact(list: HTMLElement, label: string, value: string, big = false, note?: string) {
+      const dt = document.createElement('dt'); dt.textContent = label;
+      const dd = document.createElement('dd'); dd.textContent = value; if (big) dd.classList.add('is-big');
+      if (note) { const small = document.createElement('small'); small.textContent = note; dd.appendChild(small); }
+      list.append(dt, dd);
+    }
+    function statusLine(list: HTMLElement, glyph: string, text: string, warn = false) {
+      const li = document.createElement('li'); if (warn) li.classList.add('is-warn');
+      li.innerHTML = `${svg(glyph)}<span></span>`;
+      li.querySelector('span')!.textContent = text;
+      list.appendChild(li);
+    }
+    function action(list: HTMLElement, text: string, primary: boolean, onClick?: () => void, href?: string) {
+      const node = document.createElement(href ? 'a' : 'button');
+      node.className = primary ? 'is-primary' : 'is-quiet';
+      node.textContent = text;
+      if (href) { (node as HTMLAnchorElement).href = href; (node as HTMLAnchorElement).rel = 'noopener'; }
+      else { (node as HTMLButtonElement).type = 'button'; node.addEventListener('click', onClick!); }
+      list.appendChild(node);
+    }
+
+    interface Created {
+      booking?: { meetLink?: string | null; hostPhone?: string | null; location?: string };
+      calendar?: { eventCreated?: boolean; invitesSentTo?: string[] };
+      manageUrl?: string;
+    }
+
+    function renderDone(payload: Created, email: string) {
+      const panel = resultPanel(false, GLYPH.check, S.confirmed.heading, S.confirmed.body);
+      const facts = panel.querySelector<HTMLElement>('.bk-ticket-facts')!;
+      fact(facts, S.steps.type, `${chosen!.name}, ${fmtDuration(chosen!.durationMinutes)}`);
+      fact(facts, S.steps.date, fmtDay(date));
+      fact(facts, S.steps.time, fmtTime(slot!.startUTC), true, zone.replace(/_/g, ' '));
+
+      const status = panel.querySelector<HTMLElement>('.bk-ticket-status')!;
+      if (payload.calendar?.eventCreated) statusLine(status, GLYPH.calendar, S.confirmed.calendarAdded);
+      const invites = payload.calendar?.invitesSentTo ?? [email];
+      const others = invites.length - 1;
+      const tail = others === 1 ? ` ${S.confirmed.inviteGuest}` : others > 1 ? ` ${fill(S.confirmed.inviteGuests, { n: others })}` : '';
+      statusLine(status, GLYPH.mail, fill(S.confirmed.inviteSent, { email }) + tail);
+      if (payload.booking?.location === 'phone' && payload.booking.hostPhone) {
+        statusLine(status, ICON.phone!, fill(S.confirmed.ring, { phone: payload.booking.hostPhone }));
       }
-      if (payload.manageUrl) {
-        const manage = document.createElement('a'); manage.href = payload.manageUrl; manage.textContent = S.confirmed.manage; links.appendChild(manage);
+
+      const actions = panel.querySelector<HTMLElement>('.bk-done-actions')!;
+      if (payload.booking?.meetLink) action(actions, S.confirmed.meet, true, undefined, payload.booking.meetLink);
+      if (payload.manageUrl) action(actions, S.confirmed.manage, !payload.booking?.meetLink, undefined, payload.manageUrl);
+      show('done');
+      track('call_booked', { type: chosen!.slug, minutes: chosen!.durationMinutes, location: payload.booking?.location ?? '' });
+    }
+
+    function renderFailed(code: string, retryAfterSeconds: number | null) {
+      const why =
+        code === 'slot_taken' ? S.failed.slotTaken
+        : code === 'calendar_unavailable' ? S.failed.calendar
+        : code === 'rate_limited' ? S.failed.rateLimited
+        : code === 'forbidden' ? S.failed.forbidden
+        : S.failed.generic;
+      const panel = resultPanel(true, GLYPH.alert, S.failed.heading, why);
+      const status = panel.querySelector<HTMLElement>('.bk-ticket-status')!;
+      statusLine(status, GLYPH.calendar, S.failed.nothingReserved, true);
+      if (code === 'rate_limited' && retryAfterSeconds) {
+        statusLine(status, GLYPH.alert, fill(S.failed.rateLimitedWait, { minutes: Math.max(1, Math.ceil(retryAfterSeconds / 60)) }), true);
+      }
+      const actions = panel.querySelector<HTMLElement>('.bk-done-actions')!;
+      if (code === 'slot_taken') {
+        action(actions, S.failed.pickAnother, true, async () => { slot = null; writeHash(); show('date'); await loadMonth(); if (date && days[date]?.length) { show('time'); renderSlots(); } });
+      } else {
+        action(actions, S.failed.tryAgain, true, () => { show('details'); refreshSubmit(); });
       }
       show('done');
+      track('booking_failed', { type: chosen!.slug, reason: code });
     }
 
     // ---- wiring -------------------------------------------------------------

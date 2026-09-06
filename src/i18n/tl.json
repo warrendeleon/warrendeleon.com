@@ -133,10 +133,15 @@
     },
     "confirmed": {
       "heading": "Naka-book na",
-      "body": "Padating na ang imbitasyon sa {email}.",
+      "calendarAdded": "Nailagay na sa kalendaryo ni Warren",
+      "inviteSent": "Naipadala ang imbitasyon sa {email}",
+      "inviteGuests": "at {n} kasama",
+      "inviteGuest": "at 1 kasama",
       "meet": "Sumali sa Google Meet",
-      "manage": "Baguhin o kanselahin ang booking",
-      "home": "Bumalik sa site"
+      "ring": "Tawagan mo ang {phone} sa oras ng simula",
+      "manage": "Baguhin o kanselahin",
+      "home": "Bumalik sa site",
+      "body": "Nasa imbitasyon ang lahat: ang oras sa iyong zone, ang link o numero, at kung paano ito babaguhin."
     },
     "empty": "Wala pang bukas ngayon. Mag-email na lang sa akin.",
     "hints": {
@@ -144,6 +149,18 @@
       "date": "Pumili ng araw",
       "time": "Pumili ng oras",
       "details": "Ilagay ang iyong detalye"
+    },
+    "failed": {
+      "heading": "Hindi na-book",
+      "nothingReserved": "Walang na-reserve at walang ipinadalang imbitasyon.",
+      "slotTaken": "Kakakuha lang ng oras na iyon.",
+      "calendar": "Hindi sumagot ang kalendaryo ko.",
+      "rateLimited": "Sunod-sunod na ang mga subok.",
+      "rateLimitedWait": "Subukan muli sa loob ng mga {minutes} min.",
+      "forbidden": "Hindi pumasa ang anti-spam check.",
+      "generic": "May nangyaring mali.",
+      "pickAnother": "Pumili ng ibang oras",
+      "tryAgain": "Subukan muli"
     }
   },
   "common": {
