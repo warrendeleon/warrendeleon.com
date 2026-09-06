@@ -488,8 +488,10 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     .bk-expect { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 0; }
     /* One green bar on the page, the title's. The stub sits on a hairline and
        earns its green only once the booking exists. */
+    /* Not sticky here: the intro shares the rail beneath it and would slide
+       under a pinned stub. The rail is shorter than the viewport anyway. */
     .bk-stub {
-      position: sticky; top: 88px; margin: 0; padding: 1.1rem 0 0;
+      position: static; margin: 0; padding: 1.1rem 0 0;
       background: none; border-bottom: 0; border-top: var(--bk-hair);
     }
     .bk-stub.is-done { border-top-color: var(--color-green); }
