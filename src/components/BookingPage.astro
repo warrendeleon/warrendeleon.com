@@ -7,7 +7,7 @@ import { t, getLocalePath, type Locale } from '../i18n/index';
 import BookingCalendar from './BookingCalendar.astro';
 import '../styles/booking.css';
 
-interface Copy { title: string; description: string; intro: string; expectTitle: string; expect: string[]; privacyNote: string; privacyLink: string }
+interface Copy { title: string; description: string; intro: string; expectTitle: string; expect: string[]; privacyNote?: string; privacyLink?: string }
 const { locale, audience, path, copy, seoTitle, seoDescription, noindex = false } = Astro.props as {
   locale: Locale; audience: 'public' | 'work'; path: string; copy: Copy; seoTitle: string; seoDescription: string; noindex?: boolean;
 };
@@ -179,10 +179,12 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         </div>
       </div>
 
-      <p class="bk-privacy text-muted">
-        {copy.privacyNote}
-        <a href={getLocalePath(locale, '/privacy/')}>{copy.privacyLink}</a>.
-      </p>
+      {copy.privacyNote && (
+        <p class="bk-privacy text-muted">
+          {copy.privacyNote}
+          <a href={getLocalePath(locale, '/privacy/')}>{copy.privacyLink}</a>.
+        </p>
+      )}
     </div>
   </section>
   <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__bkTurnstileReady" async defer></script>
