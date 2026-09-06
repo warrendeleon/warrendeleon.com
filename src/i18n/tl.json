@@ -118,7 +118,10 @@
       "submitting": "Binu-book…",
       "aboutYou": "Tungkol sa iyo",
       "prepare": "May ihahanda ba?",
-      "country": "Bansa"
+      "country": "Bansa",
+      "searchCountry": "Hanapin ang bansa",
+      "chooseCountry": "Pumili ng bansa",
+      "close": "Isara"
     },
     "errors": {
       "required": "Kailangan ito.",

@@ -118,7 +118,10 @@
       "submitting": "Reservant…",
       "aboutYou": "Sobre tu",
       "prepare": "Res a preparar?",
-      "country": "País"
+      "country": "País",
+      "searchCountry": "Cerca un país",
+      "chooseCountry": "Tria un país",
+      "close": "Tancar"
     },
     "errors": {
       "required": "Això fa falta.",

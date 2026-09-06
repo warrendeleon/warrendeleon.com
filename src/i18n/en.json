@@ -118,7 +118,10 @@
       "submitting": "Booking…",
       "aboutYou": "About you",
       "prepare": "Anything to prepare?",
-      "country": "Country"
+      "country": "Country",
+      "searchCountry": "Search countries",
+      "chooseCountry": "Choose a country",
+      "close": "Close"
     },
     "errors": {
       "required": "This one is needed.",

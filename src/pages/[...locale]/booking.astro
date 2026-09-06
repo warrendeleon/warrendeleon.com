@@ -129,7 +129,11 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
               <div class="bk-field bk-phone" hidden>
                 <label for="bk-phone"></label>
                 <div class="bk-phone-row">
-                  <select id="bk-cc" class="bk-select bk-cc" aria-label=""></select>
+                  <button type="button" class="bk-cc" id="bk-cc" aria-haspopup="dialog">
+                    <span class="bk-cc-flag" aria-hidden="true"></span><span class="bk-cc-code"></span>
+                    <svg width="16" height="16" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 8 5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                  <input type="hidden" name="cc" value="" />
                   <input id="bk-phone" name="phone" type="tel" autocomplete="tel-national" inputmode="tel" />
                 </div>
                 <span class="bk-hint"></span>
@@ -171,6 +175,20 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
               <p class="bk-done-actions"></p>
             </div>
           </section>
+        </div>
+      </div>
+
+      <!-- Country picker: the site's own bottom sheet, with a search box. -->
+      <div class="post-sheet bk-sheet" id="bk-cc-sheet" role="dialog" aria-modal="true" aria-labelledby="bk-cc-title" hidden>
+        <div class="post-sheet-backdrop" data-overlay-close></div>
+        <div class="post-sheet-panel bk-sheet-panel" tabindex="-1">
+          <div class="post-sheet-grabber" aria-hidden="true"></div>
+          <div class="post-sheet-head">
+            <h2 id="bk-cc-title" class="bk-sheet-title"></h2>
+            <button type="button" class="bk-sheet-close" data-overlay-close aria-label=""><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+          </div>
+          <div class="bk-sheet-search"><input type="search" id="bk-cc-search" autocomplete="off" /></div>
+          <ul class="bk-cc-list" role="listbox"></ul>
         </div>
       </div>
 
@@ -345,8 +363,35 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-tile:has(input:checked) .bk-tile-check { background: var(--color-green); border-color: var(--color-green); }
   .bk-tile:has(input:checked) .bk-tile-check svg { opacity: 1; }
   .bk-locations .bk-phone { margin-top: 1rem; }
-  .bk-phone-row { display: grid; grid-template-columns: minmax(7.5rem, auto) 1fr; gap: 0.5rem; }
-  .bk-cc { width: auto; min-width: 0; padding-right: 2rem; }
+  .bk-phone-row { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; }
+  .bk-cc {
+    display: inline-flex; align-items: center; gap: 0.4rem; min-height: 3rem; padding: 0 0.8rem;
+    border: var(--bk-hair); border-radius: 10px; background: var(--bg-primary); color: var(--text-primary);
+    font: inherit; font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; white-space: nowrap;
+  }
+  .bk-cc:hover { border-color: var(--color-green); }
+  .bk-cc-flag { font-size: 1.15rem; line-height: 1; }
+  .bk-cc svg { color: var(--text-muted); }
+  .bk-sheet-panel { max-height: 80vh; display: flex; flex-direction: column; }
+  .bk-sheet-title { font-size: 1.05rem; font-weight: 700; margin: 0; }
+  .bk-sheet-close { background: none; border: 0; padding: 0.4rem; cursor: pointer; color: var(--text-secondary); display: flex; }
+  .bk-sheet-search { padding: 12px 20px 8px; }
+  .bk-sheet-search input {
+    width: 100%; min-height: 2.75rem; padding: 0.6rem 0.9rem; border: var(--bk-hair); border-radius: 10px;
+    background: var(--bg-primary); color: var(--text-primary); font: inherit;
+  }
+  .bk-sheet-search input:focus-visible { border-color: var(--color-green); }
+  .bk-cc-list { list-style: none; margin: 0; padding: 0 8px 12px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .bk-cc-option {
+    display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; column-gap: 0.75rem;
+    width: 100%; min-height: 3rem; padding: 0.55rem 12px; border: 0; border-radius: 10px; background: none;
+    color: var(--text-primary); font: inherit; text-align: left; cursor: pointer;
+  }
+  .bk-cc-option:hover, .bk-cc-option:focus-visible { background: var(--bg-secondary); }
+  .bk-cc-option[aria-selected='true'] { color: var(--color-green-text); font-weight: 600; }
+  .bk-cc-option .code { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+  .bk-cc-option[aria-selected='true'] .code { color: inherit; }
+  .bk-cc-option .flag { font-size: 1.25rem; line-height: 1; }
 
   /* guests */
   .bk-guests { margin: 0.25rem 0 0; }
@@ -446,6 +491,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 </style>
 
 <script>
+  import { createOverlay } from '../../scripts/overlay';
   // The booking flow. Four steps on one page, with the state in the URL hash so
   // Back walks the steps and a refresh or a shared link lands where it points.
 
@@ -939,27 +985,77 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     };
     const flag = (region: string) => String.fromCodePoint(...[...region].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
 
+    let region = 'GB';
+    let dial = '44';
+    let countryNames: { of(code: string): string | undefined } | null = null;
+    try { countryNames = new Intl.DisplayNames([INTL], { type: 'region' }); } catch { /* older browser */ }
+    const countryName = (code: string) => countryNames?.of(code) ?? code;
+
+    const sheetRoot = document.getElementById('bk-cc-sheet') as HTMLElement;
+    const sheetList = sheetRoot.querySelector<HTMLElement>('.bk-cc-list')!;
+    const sheetSearch = sheetRoot.querySelector<HTMLInputElement>('#bk-cc-search')!;
+    const countrySheet = createOverlay({
+      root: sheetRoot,
+      panel: sheetRoot.querySelector<HTMLElement>('.bk-sheet-panel')!,
+      initialFocus: () => sheetSearch,
+      onOpen: () => {
+        sheetSearch.value = '';
+        renderCountryList('');
+        sheetList.querySelector<HTMLElement>('[aria-selected="true"]')?.scrollIntoView({ block: 'center' });
+      },
+    });
+
+    function setCountry(nextRegion: string, nextDial: string) {
+      region = nextRegion; dial = nextDial;
+      const button = root.querySelector<HTMLButtonElement>('#bk-cc')!;
+      button.querySelector('.bk-cc-flag')!.textContent = flag(region);
+      button.querySelector('.bk-cc-code')!.textContent = `+${dial}`;
+      button.setAttribute('aria-label', `${S.form.country}: ${countryName(region)} +${dial}`);
+      form.querySelector<HTMLInputElement>('input[name="cc"]')!.value = dial;
+      if (inputFor('phone')?.dataset.checked === 'yes') checkField('phone');
+      refreshSubmit();
+    }
+
+    function renderCountryList(query: string) {
+      const needle = query.trim().toLowerCase();
+      const rows = DIAL
+        .map(([code, d]) => ({ code, d, name: countryName(code) }))
+        .filter((c) => !needle || c.name.toLowerCase().includes(needle) || `+${c.d}`.includes(needle) || c.code.toLowerCase() === needle)
+        .sort((a, b) => a.name.localeCompare(b.name, INTL));
+      sheetList.replaceChildren(...rows.map((c) => {
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button'; button.className = 'bk-cc-option'; button.setAttribute('role', 'option');
+        button.setAttribute('aria-selected', String(c.code === region));
+        button.innerHTML = '<span class="flag" aria-hidden="true"></span><span class="name"></span><span class="code"></span>';
+        button.querySelector('.flag')!.textContent = flag(c.code);
+        button.querySelector('.name')!.textContent = c.name;
+        button.querySelector('.code')!.textContent = `+${c.d}`;
+        button.addEventListener('click', () => { setCountry(c.code, c.d); countrySheet.close(); inputFor('phone')?.focus(); });
+        li.appendChild(button);
+        return li;
+      }));
+    }
+
     function mountCountries() {
-      const select = root.querySelector<HTMLSelectElement>('#bk-cc')!;
-      if (select.options.length > 0) return;
-      select.setAttribute('aria-label', S.form.country);
-      let names: { of(code: string): string | undefined } | null = null;
-      try { names = new Intl.DisplayNames([INTL], { type: 'region' }); } catch { /* older browser */ }
+      const button = root.querySelector<HTMLButtonElement>('#bk-cc')!;
+      if (button.dataset.wired) return;
+      button.dataset.wired = 'yes';
+      sheetRoot.querySelector<HTMLElement>('#bk-cc-title')!.textContent = S.form.chooseCountry;
+      sheetRoot.querySelector<HTMLElement>('.bk-sheet-close')!.setAttribute('aria-label', S.form.close);
+      sheetSearch.placeholder = S.form.searchCountry;
+      sheetSearch.setAttribute('aria-label', S.form.searchCountry);
+      sheetSearch.addEventListener('input', () => renderCountryList(sheetSearch.value));
+      button.addEventListener('click', () => countrySheet.open());
       const byLocale: Record<string, string> = { en: 'GB', es: 'ES', ca: 'ES', tl: 'PH' };
       const preferred = TZ_REGION[zone] ?? byLocale[LOCALE] ?? 'GB';
-      select.replaceChildren(...DIAL.map(([region, code]) => {
-        const option = document.createElement('option');
-        option.value = code;
-        option.dataset.region = region;
-        option.textContent = `${flag(region)} ${names?.of(region) ?? region} +${code}`;
-        option.selected = region === preferred;
-        return option;
-      }));
+      const found = DIAL.find(([code]) => code === preferred) ?? DIAL[0]!;
+      setCountry(found[0], found[1]);
     }
 
     /** The number in international form: +country then the national digits, leading zero dropped. */
     function composedPhone(): string {
-      const code = root.querySelector<HTMLSelectElement>('#bk-cc')?.value ?? '';
+      const code = dial;
       const national = (inputFor('phone')?.value ?? '').replace(/[^0-9]/g, '').replace(/^0+/, '');
       return national ? `+${code}${national}` : '';
     }
@@ -1039,10 +1135,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       const target = event.target as HTMLInputElement;
       if (target.name in RULES) checkField(target.name);
       if (target.closest('.bk-guest')) checkGuests(true);
-      refreshSubmit();
-    });
-    root.querySelector<HTMLSelectElement>('#bk-cc')!.addEventListener('change', () => {
-      if (inputFor('phone')?.dataset.checked === 'yes') checkField('phone');
       refreshSubmit();
     });
     form.addEventListener('input', (event) => {

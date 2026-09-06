@@ -118,7 +118,10 @@
       "submitting": "Reservando…",
       "aboutYou": "Sobre ti",
       "prepare": "¿Algo que preparar?",
-      "country": "País"
+      "country": "País",
+      "searchCountry": "Buscar país",
+      "chooseCountry": "Elige un país",
+      "close": "Cerrar"
     },
     "errors": {
       "required": "Esto hace falta.",
