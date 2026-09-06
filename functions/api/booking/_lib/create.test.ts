@@ -6,7 +6,7 @@ const booker = {
   firstName: 'Jane', lastName: 'Doe', email: 'jane@example.com', phone: null,
   location: 'video' as const, notes: 'React Native and Module Federation', guests: [] as string[], locale: 'en',
 };
-const base = { typeName: 'Intro call', question: 'What would you like to cover?', booker, hostPhone: '+44 20 7946 0000', manageUrl: 'https://warrendeleon.com/booking/manage/?id=1&token=t', origin: 'https://warrendeleon.com' };
+const base = { typeName: 'Intro call', question: 'What would you like to cover?', booker, hostPhone: '+44 20 7946 0000', manageUrl: 'https://warrendeleon.com/booking/manage/?id=1&token=t&utm_source=calendar&utm_medium=email', origin: 'https://warrendeleon.com' };
 
 describe('the event as Calendly writes it', () => {
   it('titles the event as type, booker and host', () => {
@@ -19,9 +19,15 @@ describe('the event as Calendly writes it', () => {
     assert.equal(paragraphs[0], 'Event Name: Intro call');
     assert.equal(paragraphs[1], 'Location: Google Meet');
     assert.equal(paragraphs[2], 'What would you like to cover?: React Native and Module Federation');
-    assert.match(paragraphs[3]!, /^Need to make changes to this event\?\nCancel: .*#cancel\nReschedule: .*#reschedule$/);
-    assert.match(paragraphs[4]!, /work experience.*CV:\nhttps:\/\/warrendeleon\.com\/work-experience\/\?utm_source=calendar&utm_medium=email$/s);
-    assert.equal(paragraphs[5], 'Booked at https://warrendeleon.com');
+    assert.match(paragraphs[3]!, /work experience.*CV:\nhttps:\/\/warrendeleon\.com\/work-experience\/\?utm_source=calendar&utm_medium=email$/s);
+    assert.match(paragraphs[4]!, /^Need to make changes to this event\?\nCancel: .*utm_content=cancel#cancel\nReschedule: .*utm_content=reschedule#reschedule$/);
+    assert.equal(paragraphs[5], 'Booked at https://warrendeleon.com/?utm_source=calendar&utm_medium=email');
+  });
+
+  it('tags every link and never writes a bare origin', () => {
+    const links = describeEvent(base).description.match(/https?:\/\/\S+/g) ?? [];
+    assert.ok(links.length >= 4);
+    for (const link of links) assert.match(link, /utm_source=calendar&utm_medium=email/, link);
   });
 
   it('for a phone call, says who rings whom and keeps the caller number', () => {

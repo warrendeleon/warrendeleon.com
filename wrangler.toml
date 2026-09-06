@@ -15,6 +15,11 @@ pages_build_output_dir = "dist"
 compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
 
+[vars]
+# Every link written into a calendar event uses this, never the request host,
+# so a booking made on a preview deployment still points at the real site.
+SITE_ORIGIN = "https://warrendeleon.com"
+
 [[d1_databases]]
 binding = "BOOKING_DB"
 database_name = "warrendeleon-booking"

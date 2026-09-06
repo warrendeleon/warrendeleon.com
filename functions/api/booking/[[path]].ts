@@ -143,7 +143,7 @@ const availability: Handler = async ({ env, url }) => {
   );
 };
 
-const create: Handler = async ({ request, env, url }) => createBooking(request, env, url.origin);
+const create: Handler = async ({ request, env, url }) => createBooking(request, env, env.SITE_ORIGIN?.replace(/\/$/, '') || url.origin);
 
 const notImplemented: Handler = async () => fail('not_found', 'This route is not built yet.');
 

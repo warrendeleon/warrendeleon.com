@@ -17,6 +17,8 @@ export interface Env {
    * event location. Held as a secret only to keep it out of a public repo.
    */
   HOST_PHONE?: string;
+  /** Canonical site origin for links in invites; falls back to the request host. */
+  SITE_ORIGIN?: string;
 }
 
 export const JSON_HEADERS = {

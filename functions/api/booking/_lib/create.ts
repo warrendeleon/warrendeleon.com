@@ -168,7 +168,7 @@ export async function createBooking(request: Request, env: Env, origin: string):
   const isPhone = value.location === 'phone';
   const hostPhone = env.HOST_PHONE?.trim() || null;
 
-  const manageUrl = `${origin}/booking/manage/?id=${id}&token=${manageToken}`;
+  const manageUrl = `${origin}/booking/manage/?id=${id}&token=${manageToken}&utm_source=calendar&utm_medium=email`;
   const details = describeEvent({
     typeName: localised(eventType.names, 'en'),
     question: localised(eventType.question, value.locale) || null,
@@ -290,10 +290,12 @@ export function describeEvent(input: EventDetailsInput): { summary: string; desc
   if (isPhone && booker.phone) lines.push(`Invitee phone number: ${booker.phone}`);
   if (booker.notes) lines.push(`${question ?? 'Notes'}: ${booker.notes}`);
   if (booker.guests.length > 0) lines.push(`Guests: ${booker.guests.join(', ')}`);
+  // Every link carries the site's tags: calendar is the source, email the
+  // medium. The two manage links share a target, so content tells them apart.
   lines.push(
-    `Need to make changes to this event?\nCancel: ${manageUrl}#cancel\nReschedule: ${manageUrl}#reschedule`,
     `Before we talk, my work experience is here, with a button to download my CV:\n${profileUrl}`,
-    `Booked at ${origin}`,
+    `Need to make changes to this event?\nCancel: ${manageUrl}&utm_content=cancel#cancel\nReschedule: ${manageUrl}&utm_content=reschedule#reschedule`,
+    `Booked at ${origin}/?utm_source=calendar&utm_medium=email`,
   );
 
   return {
