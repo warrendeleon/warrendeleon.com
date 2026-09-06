@@ -15,7 +15,7 @@ import {
   type Attendee,
 } from './google.ts';
 import { fail, json, maskEmail, type Env } from './http.ts';
-import { checkBookingLimits } from './limits.ts';
+import { checkBookingLimits, recordBooking } from './limits.ts';
 import { bucketsFor, dateKey, generateSlots } from './slots.ts';
 import {
   audit,
@@ -211,6 +211,7 @@ export async function createBooking(request: Request, env: Env, origin: string):
       email: maskEmail(value.email),
       start: value.startUTC,
     });
+    await recordBooking(env, value.email);
 
     return json(
       {
@@ -311,6 +312,7 @@ async function createThroughCalendly(
     console.error('[booking] create: calendly booking made but the row failed', id, cause);
   }
   await audit(env, 'created', id, { type: eventType.slug, provider: 'calendly', email: maskEmail(value.email), start: value.startUTC });
+  await recordBooking(env, value.email);
 
   return json(
     {

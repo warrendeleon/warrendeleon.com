@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { decide, POLICIES, type LimitRow } from './limits.ts';
+import type { Env } from './http.ts';
+import { checkBookingLimits, decide, POLICIES, recordBooking, type LimitRow } from './limits.ts';
 
 const HOUR = 60 * 60_000;
 const policy = { max: 2, windowMs: HOUR };
@@ -79,5 +80,52 @@ describe('the policies themselves', () => {
       current = decision.next;
     }
     assert.equal(decide(current, now, POLICIES.perIpBurst).allowed, false, 'the eleventh must not');
+  });
+});
+
+/** A rate_limits table in memory. */
+function limitsDb() {
+  const rows = new Map<string, { window_start: string; count: number }>();
+  const db = {
+    rows,
+    prepare(sql: string) {
+      const make = (args: unknown[]) => ({
+        bind: (...next: unknown[]) => make(next),
+        first: async () => rows.get(String(args[0])) ?? null,
+        run: async () => { rows.set(String(args[0]), { window_start: String(args[1]), count: Number(args[2]) }); return { success: true }; },
+        all: async () => ({ results: [] }),
+      });
+      return make([]);
+    },
+  };
+  return db;
+}
+const limitsEnv = (db: unknown): Env => ({ BOOKING_DB: db as D1Database, GOOGLE_CLIENT_ID: '', GOOGLE_CLIENT_SECRET: '', TOKEN_KEY: '', TURNSTILE_SECRET: '', ADMIN_KEY: '' });
+
+describe('a refused booking costs nothing', () => {
+  const now = Date.parse('2026-09-08T09:00:00.000Z');
+
+  it('charges only the address burst on a check, and the address on a booking', async () => {
+    const db = limitsDb();
+    const env = limitsEnv(db);
+    assert.equal(await checkBookingLimits(env, 'Jane@Example.com', '1.2.3.4', now), null);
+    assert.equal(db.rows.get('ip:1.2.3.4')?.count, 1);
+    assert.equal(db.rows.has('cooldown:jane@example.com'), false, 'the check wrote nothing for the address');
+    // A second try a moment later, after a refusal, is still allowed.
+    assert.equal(await checkBookingLimits(env, 'jane@example.com', '1.2.3.4', now + 5_000), null);
+
+    await recordBooking(env, 'jane@example.com', now + 6_000);
+    assert.equal(db.rows.get('cooldown:jane@example.com')?.count, 1);
+    assert.equal(db.rows.get('daily:jane@example.com')?.count, 1);
+    const refused = await checkBookingLimits(env, 'jane@example.com', '1.2.3.4', now + 10_000);
+    assert.equal(refused?.allowed, false, 'inside the hour after a real booking');
+    assert.equal(await checkBookingLimits(env, 'jane@example.com', '1.2.3.4', now + 61 * 60_000), null, 'an hour later');
+  });
+
+  it('still stops a burst from one address before anything else', async () => {
+    const db = limitsDb();
+    const env = limitsEnv(db);
+    for (let i = 0; i < POLICIES.perIpBurst.max; i += 1) assert.equal(await checkBookingLimits(env, `p${i}@example.com`, '9.9.9.9', now + i), null);
+    assert.equal((await checkBookingLimits(env, 'late@example.com', '9.9.9.9', now + 20))?.allowed, false);
   });
 });

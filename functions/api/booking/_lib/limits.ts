@@ -87,23 +87,46 @@ export async function consume(
   return decision;
 }
 
-/** Every limit a booking attempt must clear, in the order they are checked. */
+/** The decision for one key without recording anything. */
+export async function peek(env: Env, key: string, policy: Policy, now = Date.now()): Promise<Decision> {
+  const row = await env.BOOKING_DB.prepare('SELECT window_start, count FROM rate_limits WHERE key = ?')
+    .bind(key)
+    .first<LimitRow>();
+  return decide(row, now, policy);
+}
+
+const emailKeys = (email: string): [string, Policy][] => {
+  const address = email.toLowerCase();
+  return [
+    [`cooldown:${address}`, POLICIES.perEmailCooldown],
+    [`daily:${address}`, POLICIES.perEmailDaily],
+  ];
+};
+
+/**
+ * Every limit a booking attempt must clear, in the order they are checked.
+ *
+ * Only the per-IP burst is charged here. The per-address limits are read but
+ * not written: a refused booking (a slot taken a second earlier, a calendar
+ * that did not answer) must not cost the person their next try, so those are
+ * charged by recordBooking once a booking has actually been made.
+ */
 export async function checkBookingLimits(
   env: Env,
   email: string,
   ip: string | null,
   now = Date.now(),
 ): Promise<Decision | null> {
-  const address = email.toLowerCase();
-  const checks: [string, Policy][] = [
-    [`ip:${ip ?? 'unknown'}`, POLICIES.perIpBurst],
-    [`cooldown:${address}`, POLICIES.perEmailCooldown],
-    [`daily:${address}`, POLICIES.perEmailDaily],
-  ];
-
-  for (const [key, policy] of checks) {
-    const decision = await consume(env, key, policy, now);
+  const burst = await consume(env, `ip:${ip ?? 'unknown'}`, POLICIES.perIpBurst, now);
+  if (!burst.allowed) return burst;
+  for (const [key, policy] of emailKeys(email)) {
+    const decision = await peek(env, key, policy, now);
     if (!decision.allowed) return decision;
   }
   return null;
+}
+
+/** A booking was made: charge the address its cooldown and its daily count. */
+export async function recordBooking(env: Env, email: string, now = Date.now()): Promise<void> {
+  for (const [key, policy] of emailKeys(email)) await consume(env, key, policy, now);
 }
