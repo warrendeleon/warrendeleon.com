@@ -48,7 +48,8 @@ describe('booking form', () => {
     );
     assert.equal(validateBooking({ ...good, location: 'phone', phone: 'call me' }, LOCATIONS).fields.phone, 'invalid');
     assert.equal(validateBooking({ ...good, location: 'phone', phone: '07700 900123' }, LOCATIONS).fields.phone, 'invalid', 'no country code');
-    assert.equal(validateBooking({ ...good, location: 'phone', phone: '+44 (0)7700-900123' }, LOCATIONS).value?.phone, '+4407700900123');
+    assert.equal(validateBooking({ ...good, location: 'phone', phone: '+44 (0)7700-900123' }, LOCATIONS).value?.phone, '+447700900123', 'trunk zero dropped');
+    assert.equal(validateBooking({ ...good, location: 'phone', phone: '+39 06 1234 5678' }, LOCATIONS).value?.phone, '+390612345678', 'Italian landline keeps its zero');
   });
 
   it('refuses a location the event type does not offer', () => {

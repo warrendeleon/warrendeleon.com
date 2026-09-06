@@ -634,8 +634,12 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     let date = '';
     let slot: Slot | null = null;
     let current: Step = 'type';
+    /** The canonical IANA name, or null when the browser does not know it. */
+    const canonicalZone = (name: string): string | null => {
+      try { return new Intl.DateTimeFormat('en-GB', { timeZone: name }).resolvedOptions().timeZone; } catch { return null; }
+    };
     let zone = 'UTC';
-    try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { /* keep UTC */ }
+    try { zone = canonicalZone(Intl.DateTimeFormat().resolvedOptions().timeZone) || 'UTC'; } catch { /* keep UTC */ }
     let scheduleZone = '';
     /** The month's slots as the API groups them, by the schedule's own dates. */
     let rawDays: Days = {};
@@ -651,7 +655,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       retry.textContent = S.retry;
     };
     retry.addEventListener('click', () => retryAction?.());
-    const todayKey = () => new Date().toISOString().slice(0, 10);
+    /** Today where the visitor is, not in UTC: near midnight those differ. */
+    const todayKey = () => localDate(new Date().toISOString());
     const fmtDay = (iso: string) =>
       new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'long', day: 'numeric', month: 'long' });
     const zoneLabel = () => zone.replace(/_/g, ' ');
@@ -1221,11 +1226,19 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       setCountry(found[0], found[1]);
     }
 
-    /** The number in international form: +country then the national digits, leading zero dropped. */
+    /**
+     * The number in international form. Someone who types their own country
+     * code ("+44 …" or "0044 …") gets it kept, not doubled. Otherwise the
+     * picked code goes in front and the trunk zero comes off, except for Italy,
+     * whose landlines keep it after the country code.
+     */
     function composedPhone(): string {
-      const code = dial;
-      const national = (inputFor('phone')?.value ?? '').replace(/[^0-9]/g, '').replace(/^0+/, '');
-      return national ? `+${code}${national}` : '';
+      const raw = (inputFor('phone')?.value ?? '').trim().replace(/\(0\)/g, '');
+      const digits = raw.replace(/[^0-9]/g, '');
+      if (/^\+/.test(raw)) return digits ? `+${digits}` : '';
+      if (/^00/.test(digits)) return digits.length > 2 ? `+${digits.slice(2)}` : '';
+      const national = dial === '39' ? digits : digits.replace(/^0+/, '');
+      return national ? `+${dial}${national}` : '';
     }
 
     const RULES: Record<string, (v: string) => string> = {
@@ -1502,7 +1515,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     });
 
     async function applyState(state: Record<string, string>) {
-      if (state.tz && state.tz !== zone) { try { new Intl.DateTimeFormat('en-GB', { timeZone: state.tz }); zone = state.tz; zoneChosen = true; } catch { /* ignore */ } }
+      const restored = state.tz ? canonicalZone(state.tz) : null;
+      if (restored && restored !== zone) { zone = restored; zoneChosen = true; }
       if (!state.type) { chosen = null; date = ''; slot = null; show('type'); return; }
       const found = types.find((candidate) => candidate.slug === state.type);
       if (!found) { show('type'); return; }

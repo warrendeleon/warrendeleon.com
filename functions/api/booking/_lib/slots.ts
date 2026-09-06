@@ -194,7 +194,7 @@ export function generateSlots(input: GenerateSlotsInput): Interval[] {
 }
 
 /**
- * The 30-minute UTC buckets an interval touches, as ISO strings. These are the
+ * The STEP_MINUTES-wide UTC buckets an interval touches, as ISO strings. These are the
  * primary keys of slot_locks: inserting them alongside the booking in one
  * atomic batch is what makes a double booking impossible.
  */

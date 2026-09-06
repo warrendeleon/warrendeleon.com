@@ -44,10 +44,12 @@ export const LIMITS = {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
 const LOCALES = ['en', 'es', 'ca', 'tl'] as const;
 // International form only: a plus, a country code, 8 to 15 digits in all.
-// Spaces and punctuation are stripped before the check and never stored.
+// Spaces and punctuation are stripped before the check and never stored, and so
+// is a "(0)" trunk prefix written after the country code: "+44 (0)7700 …" is a
+// common way to write a number, and kept literally it does not dial.
 const E164_PATTERN = /^\+[1-9]\d{7,14}$/;
 export function normalisePhone(value: string): string {
-  return value.replace(/[\s().-]/g, '');
+  return value.replace(/\(0\)/g, '').replace(/[\s().-]/g, '');
 }
 // A name has at least one letter in any script, and is not a link or an
 // address pasted into the wrong box. Nothing stricter: O'Brien, María-José and
