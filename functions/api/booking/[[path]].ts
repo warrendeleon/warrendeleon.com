@@ -3,6 +3,7 @@
 // is a handful of routes and a dependency would earn nothing.
 
 import { bookableMonths, monthAvailability, monthWindow } from './_lib/availability.ts';
+import { createBooking } from './_lib/create.ts';
 import { CalendarAuthError, CalendarUnavailableError, mergedBusy } from './_lib/google.ts';
 import { fail, isAdmin, json, type Env } from './_lib/http.ts';
 import { datesIn } from './_lib/availability.ts';
@@ -140,6 +141,8 @@ const availability: Handler = async ({ env, url }) => {
   );
 };
 
+const create: Handler = async ({ request, env, url }) => createBooking(request, env, url.origin);
+
 const notImplemented: Handler = async () => fail('not_found', 'This route is not built yet.');
 
 function route({ request, segments }: RouteContext): Handler | null {
@@ -151,6 +154,8 @@ function route({ request, segments }: RouteContext): Handler | null {
     if (head === 'types') return types;
     if (head === 'availability') return availability;
   }
+
+  if (segments.length === 1 && head === 'bookings' && method === 'POST') return create;
 
   // Declared so the shape of the API is visible in one place. Each lands with
   // its own ticket; until then they answer 404 rather than pretending.
