@@ -65,6 +65,12 @@ describe('booking form', () => {
     assert.equal(knownTimezone('Nowhere/Nothing'), false);
   });
 
+  it('keeps a known locale and falls back to English for anything else', () => {
+    assert.equal(validateBooking({ ...good, locale: 'ca' }, LOCATIONS).value?.locale, 'ca');
+    assert.equal(validateBooking({ ...good, locale: 'fr' }, LOCATIONS).value?.locale, 'en');
+    assert.equal(validateBooking(good, LOCATIONS).value?.locale, 'en');
+  });
+
   it('truncates rather than rejecting an over-long note', () => {
     const { value } = validateBooking({ ...good, notes: 'x'.repeat(5000) }, LOCATIONS);
     assert.equal(value?.notes?.length, 2000);

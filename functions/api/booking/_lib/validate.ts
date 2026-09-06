@@ -13,6 +13,8 @@ export interface BookingRequest {
   email: string;
   phone: string | null;
   timezone: string;
+  /** The language the booker used, so links in the invite point at the same one. */
+  locale: 'en' | 'es' | 'ca' | 'tl';
   notes: string | null;
   turnstileToken: string;
   utm: Partial<Record<'source' | 'medium' | 'campaign' | 'content', string>>;
@@ -37,6 +39,7 @@ export const LIMITS = {
 // Deliberately permissive: the only thing worth rejecting is an address the
 // invite could never reach. Anything cleverer rejects real people.
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
+const LOCALES = ['en', 'es', 'ca', 'tl'] as const;
 const E164_PATTERN = /^\+?[0-9][0-9\s().-]{6,}$/;
 
 function text(value: unknown): string {
@@ -104,6 +107,11 @@ export function validateBooking(
   const turnstileToken = text(input.turnstileToken);
   if (!turnstileToken) fields.turnstileToken = 'required';
 
+  const requestedLocale = text(input.locale);
+  const locale = (LOCALES as readonly string[]).includes(requestedLocale)
+    ? (requestedLocale as BookingRequest['locale'])
+    : 'en';
+
   const utmInput = (typeof input.utm === 'object' && input.utm !== null ? input.utm : {}) as Record<string, unknown>;
   const utm: BookingRequest['utm'] = {};
   for (const key of ['source', 'medium', 'campaign', 'content'] as const) {
@@ -123,6 +131,7 @@ export function validateBooking(
       email,
       phone: phone || null,
       timezone,
+      locale,
       notes: clamp(text(input.notes), LIMITS.notes) || null,
       turnstileToken,
       utm,

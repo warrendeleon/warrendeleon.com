@@ -781,7 +781,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         firstName: String(data.get('firstName') || ''), lastName: String(data.get('lastName') || ''),
         email: String(data.get('email') || ''), phone: String(data.get('phone') || ''),
         notes: String(data.get('notes') || ''), nickname: String(data.get('nickname') || ''),
-        timezone: zone, guests, turnstileToken: turnstile?.value || '', utm: attribution(),
+        timezone: zone, locale: LOCALE, guests, turnstileToken: turnstile?.value || '', utm: attribution(),
       };
 
       let response: Response;

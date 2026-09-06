@@ -165,10 +165,19 @@ export async function createBooking(request: Request, env: Env, origin: string):
   // an unknown number at the right minute is picked up rather than ignored.
   const isPhone = value.location === 'phone';
   const hostPhone = env.HOST_PHONE?.trim() || null;
+
+  // A link back to the work experience page, in the booker's language, tagged
+  // the way the site tags every other origin: source is the specific place the
+  // click comes from, medium is its channel. A booking is not a push, so no
+  // campaign; the page is linked once, so no content tag.
+  const prefix = value.locale === 'en' ? '' : `/${value.locale}`;
+  const profileUrl = `${origin}${prefix}/work-experience/?utm_source=calendar&utm_medium=email`;
+
   const description = [
     value.notes,
     isPhone && hostPhone ? `Call ${hostPhone} at the start time.` : null,
     isPhone && value.phone ? `Calling from ${value.phone}.` : null,
+    `Before we talk, my work experience is here, with a button to download my CV:\n${profileUrl}`,
     `Booked from ${origin}`,
   ]
     .filter(Boolean)
