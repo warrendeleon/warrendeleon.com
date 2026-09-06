@@ -36,6 +36,7 @@ export interface EventTypeRow {
   allow_guests: number;
   provider: 'google' | 'calendly';
   calendly_event_type: string | null;
+  audience: 'public' | 'work';
 }
 
 export interface ScheduleRow {
@@ -66,6 +67,8 @@ export interface EventType {
   provider: 'google' | 'calendly';
   /** Calendly event type URI, for provider 'calendly'. */
   calendlyEventType: string | null;
+  /** Which list shows it: the public page or the work page. */
+  audience: 'public' | 'work';
   rules: EventTypeRules;
 }
 
@@ -99,6 +102,7 @@ export function toEventType(row: EventTypeRow): EventType {
     allowGuests: row.allow_guests !== 0,
     provider: row.provider === 'calendly' ? 'calendly' : 'google',
     calendlyEventType: row.calendly_event_type || null,
+    audience: row.audience === 'work' ? 'work' : 'public',
     rules: {
       durationMinutes: row.duration_minutes,
       bufferMinutes: row.buffer_minutes,
@@ -189,11 +193,12 @@ export async function markHealthy(env: Env, email: string): Promise<void> {
  * but never appear in a listing, which is what keeps a work one-to-one off the
  * public page.
  */
-export async function listEventTypes(env: Env, includeUnlisted = false): Promise<EventType[]> {
+export async function listEventTypes(env: Env, includeUnlisted = false, audience: 'public' | 'work' = 'public'): Promise<EventType[]> {
   const sql = includeUnlisted
     ? 'SELECT * FROM event_types WHERE active = 1 ORDER BY sort_order, slug'
-    : "SELECT * FROM event_types WHERE active = 1 AND visibility = 'listed' ORDER BY sort_order, slug";
-  const result = await env.BOOKING_DB.prepare(sql).all<EventTypeRow>();
+    : "SELECT * FROM event_types WHERE active = 1 AND visibility = 'listed' AND audience = ? ORDER BY sort_order, slug";
+  const statement = env.BOOKING_DB.prepare(sql);
+  const result = await (includeUnlisted ? statement : statement.bind(audience)).all<EventTypeRow>();
   return (result.results ?? []).map(toEventType);
 }
 

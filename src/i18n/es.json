@@ -404,7 +404,9 @@
     "manualTitle": "Manual de uso",
     "manualDescription": "Manual de uso de Warren de Leon: cómo localizarlo, en qué puede ayudarte, cómo darle feedback y qué esperar cuando hay presión.",
     "manageBookingTitle": "Tu llamada | Warren de Leon",
-    "manageBookingDescription": "Cambia o cancela una llamada reservada con Warren de Leon."
+    "manageBookingDescription": "Cambia o cancela una llamada reservada con Warren de Leon.",
+    "bookWorkTitle": "Reserva una reunión 1 a 1 | Warren de Leon",
+    "bookWorkDescription": "Reserva una reunión 1 a 1 con Warren de Leon en News UK."
   },
   "a11y": {
     "mainNavigation": "Navegación principal",
@@ -735,5 +737,18 @@
       "traits": "Cinco escalas de un cuestionario",
       "locus": "Locus de control, en el trabajo"
     }
+  },
+  "bookWork": {
+    "title": "Reserva una reunión 1 a 1",
+    "description": "Tiempo con Warren en News UK, 30 minutos o una hora, por Google Meet.",
+    "intro": "Para compañeros de News UK. Elige la hora que te venga bien; la invitación llega a los dos calendarios del trabajo con un enlace de Meet.",
+    "expectTitle": "Qué esperar",
+    "expect": [
+      "30 minutos o una hora, por Google Meet.",
+      "Trae lo que quieras tratar: el trabajo, el equipo, una decisión, feedback.",
+      "Cambia la hora o cancela desde los enlaces de la invitación."
+    ],
+    "privacyNote": "Las reservas pasan por el calendario de News UK. Tus datos se quedan allí. Más en la ",
+    "privacyLink": "política de privacidad"
   }
 }

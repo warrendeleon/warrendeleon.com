@@ -71,8 +71,9 @@ const types: Handler = async ({ env, url }) => {
   // A direct link to an unlisted type asks for it by slug; it is answered on
   // its own and never appears in the list.
   const slug = url.searchParams.get('slug');
+  const audience = url.searchParams.get('audience') === 'work' ? 'work' : 'public';
   const one = slug ? await getEventType(env, slug) : null;
-  const all = one ? [one] : await listEventTypes(env);
+  const all = one ? [one] : await listEventTypes(env, false, audience);
   return json({
     types: all.map((type) => ({
       slug: type.slug,

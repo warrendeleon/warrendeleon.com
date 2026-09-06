@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /booking/manage/
+Disallow: /booking/one-to-one/
 Disallow: /es/booking/manage/
 Disallow: /ca/booking/manage/
 Disallow: /tl/booking/manage/

@@ -1,0 +1,13 @@
+---
+// The work one-to-ones, for colleagues at News UK. Reached by link, not by
+// search: the page is noindex and off the sitemap.
+import BookingPage from '../../../components/BookingPage.astro';
+import { t, localeStaticPaths, type Locale } from '../../../i18n/index';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const i18n = t(locale);
+---
+
+<BookingPage locale={locale} audience="work" path="/booking/one-to-one/" copy={i18n.bookWork} seoTitle={i18n.seo.bookWorkTitle} seoDescription={i18n.seo.bookWorkDescription} noindex={true} />

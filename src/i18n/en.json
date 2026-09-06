@@ -404,7 +404,9 @@
     "manualTitle": "Manual of Me",
     "manualDescription": "How Warren de Leon works: how to reach him, what he's useful for, how to give him feedback, and what to expect under pressure.",
     "manageBookingTitle": "Your call | Warren de Leon",
-    "manageBookingDescription": "Move or cancel a call booked with Warren de Leon."
+    "manageBookingDescription": "Move or cancel a call booked with Warren de Leon.",
+    "bookWorkTitle": "Book a 1-to-1 | Warren de Leon",
+    "bookWorkDescription": "Book a one-to-one with Warren de Leon at News UK."
   },
   "a11y": {
     "mainNavigation": "Main navigation",
@@ -735,5 +737,18 @@
       "traits": "Five scales from one questionnaire",
       "locus": "Locus of control, at work"
     }
+  },
+  "bookWork": {
+    "title": "Book a 1-to-1",
+    "description": "Time with Warren at News UK, 30 minutes or an hour, on Google Meet.",
+    "intro": "For colleagues at News UK. Pick a slot that suits you; the invite lands in both our work calendars with a Meet link.",
+    "expectTitle": "What to expect",
+    "expect": [
+      "30 minutes or an hour, on Google Meet.",
+      "Bring whatever you want to talk about: work, the team, a decision, feedback.",
+      "Reschedule or cancel from the links on the invite."
+    ],
+    "privacyNote": "Bookings go through the News UK calendar. Your details stay there. More in the ",
+    "privacyLink": "privacy policy"
   }
 }

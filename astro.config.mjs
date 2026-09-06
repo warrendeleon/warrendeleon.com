@@ -37,7 +37,7 @@ export default defineConfig({
         return (
           !/^\/(es|ca|tl)\//.test(path) &&
           !/^\/design\//.test(path) &&
-          !/^\/booking\/manage\//.test(path) &&
+          !/^\/booking\/(manage|one-to-one)\//.test(path) &&
           !/^\/blog\/tags?\/[^/]+\//.test(path)
         );
       },

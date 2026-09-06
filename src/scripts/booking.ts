@@ -34,6 +34,8 @@ if (mounted) {
   const MANAGE = root.dataset.mode === 'manage';
   const HOME = root.dataset.home || '/';
   const BOOK_URL = root.dataset.book || '/booking/';
+  /** Which list this page shows: the public types or the work one-to-ones. */
+  const AUDIENCE = root.dataset.audience === 'work' ? 'work' : 'public';
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const panels = new Map<Step, HTMLElement>();
@@ -207,7 +209,7 @@ if (mounted) {
   async function loadTypes() {
     say(S.calendar.loading);
     try {
-      const response = await fetch(`/api/booking/types?locale=${LOCALE}`);
+      const response = await fetch(`/api/booking/types?locale=${LOCALE}&audience=${AUDIENCE}`);
       if (!response.ok) throw new Error(String(response.status));
       types = (await response.json()).types as EventType[];
     } catch { say(S.errors.generic, () => loadTypes()); return; }

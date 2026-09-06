@@ -404,7 +404,9 @@
     "manualTitle": "Paano Ako Katrabaho",
     "manualDescription": "Kilalanin si Warren de Leon bilang katrabaho: paano siya makokontak, saan siya makakatulong, paano siya bigyan ng feedback, at ano ang maaasahan sa kanya kapag may pressure.",
     "manageBookingTitle": "Ang tawag mo | Warren de Leon",
-    "manageBookingDescription": "Ilipat o kanselahin ang tawag na naka-book kay Warren de Leon."
+    "manageBookingDescription": "Ilipat o kanselahin ang tawag na naka-book kay Warren de Leon.",
+    "bookWorkTitle": "Mag-book ng 1-on-1 | Warren de Leon",
+    "bookWorkDescription": "Mag-book ng 1-on-1 kay Warren de Leon sa News UK."
   },
   "a11y": {
     "mainNavigation": "Pangunahing nabigasyon",
@@ -735,5 +737,18 @@
       "traits": "Limang sukatan mula sa isang questionnaire",
       "locus": "Locus of control, sa trabaho"
     }
+  },
+  "bookWork": {
+    "title": "Mag-book ng 1-on-1",
+    "description": "Oras kasama si Warren sa News UK, 30 minuto o isang oras, sa Google Meet.",
+    "intro": "Para sa mga kasamahan sa News UK. Pumili ng oras na bagay sa iyo; darating ang imbitasyon sa dalawang kalendaryo ng trabaho na may Meet link.",
+    "expectTitle": "Ano ang aasahan",
+    "expect": [
+      "30 minuto o isang oras, sa Google Meet.",
+      "Dalhin ang anumang gusto mong pag-usapan: trabaho, team, isang desisyon, feedback.",
+      "Ilipat ang oras o kanselahin mula sa mga link sa imbitasyon."
+    ],
+    "privacyNote": "Dumadaan ang mga booking sa kalendaryo ng News UK. Doon nananatili ang mga detalye mo. Higit pa sa ",
+    "privacyLink": "patakaran sa privacy"
   }
 }

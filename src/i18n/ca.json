@@ -404,7 +404,9 @@
     "manualTitle": "Manual d'ús",
     "manualDescription": "Manual d'ús de Warren de Leon: com localitzar-lo, en què et pot ajudar, com donar-li feedback i què esperar quan hi ha pressió.",
     "manageBookingTitle": "La teva trucada | Warren de Leon",
-    "manageBookingDescription": "Canvia o cancel·la una trucada reservada amb Warren de Leon."
+    "manageBookingDescription": "Canvia o cancel·la una trucada reservada amb Warren de Leon.",
+    "bookWorkTitle": "Reserva una reunió 1 a 1 | Warren de Leon",
+    "bookWorkDescription": "Reserva una reunió 1 a 1 amb el Warren de Leon a News UK."
   },
   "a11y": {
     "mainNavigation": "Navegació principal",
@@ -735,5 +737,18 @@
       "traits": "Cinc escales d'un qüestionari",
       "locus": "Locus de control, a la feina"
     }
+  },
+  "bookWork": {
+    "title": "Reserva una reunió 1 a 1",
+    "description": "Temps amb el Warren a News UK, 30 minuts o una hora, per Google Meet.",
+    "intro": "Per a companys de News UK. Tria una hora que et vagi bé; la invitació arriba als dos calendaris de la feina amb un enllaç de Meet.",
+    "expectTitle": "Què esperar",
+    "expect": [
+      "30 minuts o una hora, per Google Meet.",
+      "Porta el que vulguis tractar: la feina, l'equip, una decisió, feedback.",
+      "Canvia l'hora o cancel·la des dels enllaços de la invitació."
+    ],
+    "privacyNote": "Les reserves passen pel calendari de News UK. Les teves dades es queden allà. Més a la ",
+    "privacyLink": "política de privacitat"
   }
 }
