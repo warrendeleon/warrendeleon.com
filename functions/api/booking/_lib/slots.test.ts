@@ -8,6 +8,7 @@ import {
   instantAt,
   isoWeekday,
   mergeIntervals,
+  subtractInterval,
   windowsFor,
   type EventTypeRules,
   type Schedule,
@@ -290,5 +291,22 @@ describe('slot locks', () => {
     const a = bucketsFor({ start: utc('2026-08-04T09:00:00Z'), end: utc('2026-08-04T10:00:00Z') });
     const b = bucketsFor({ start: utc('2026-08-04T09:30:00Z'), end: utc('2026-08-04T10:30:00Z') });
     assert.ok(a.some((bucket) => b.includes(bucket)), 'the clash must collide on a primary key');
+  });
+});
+
+describe('subtractInterval', () => {
+  const own = { start: 100, end: 200 };
+  it('leaves periods that do not touch the interval alone', () => {
+    assert.deepEqual(subtractInterval([{ start: 0, end: 100 }, { start: 200, end: 300 }], own), [{ start: 0, end: 100 }, { start: 200, end: 300 }]);
+  });
+  it('drops a period equal to the interval', () => {
+    assert.deepEqual(subtractInterval([{ start: 100, end: 200 }], own), []);
+  });
+  it('cuts a period that swallowed the interval into the pieces either side', () => {
+    assert.deepEqual(subtractInterval([{ start: 50, end: 250 }], own), [{ start: 50, end: 100 }, { start: 200, end: 250 }]);
+  });
+  it('trims a period that overlaps one end', () => {
+    assert.deepEqual(subtractInterval([{ start: 150, end: 250 }], own), [{ start: 200, end: 250 }]);
+    assert.deepEqual(subtractInterval([{ start: 50, end: 150 }], own), [{ start: 50, end: 100 }]);
   });
 });

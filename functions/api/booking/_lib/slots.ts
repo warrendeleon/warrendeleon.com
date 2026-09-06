@@ -143,6 +143,21 @@ export function mergeIntervals(intervals: readonly Interval[]): Interval[] {
   return merged;
 }
 
+/**
+ * Remove one interval from a busy list, so a booking being moved does not block
+ * the times around itself. Works on merged lists too: a busy period that
+ * swallowed the booking is cut into the pieces either side of it.
+ */
+export function subtractInterval(intervals: readonly Interval[], own: Interval): Interval[] {
+  const out: Interval[] = [];
+  for (const period of intervals) {
+    if (period.end <= own.start || period.start >= own.end) { out.push({ ...period }); continue; }
+    if (period.start < own.start) out.push({ start: period.start, end: own.start });
+    if (period.end > own.end) out.push({ start: own.end, end: period.end });
+  }
+  return out;
+}
+
 /** The windows open on one date: an override wins outright over weekly hours. */
 export function windowsFor(date: string, schedule: Schedule): readonly Window[] {
   const override = schedule.dateOverrides?.[date];

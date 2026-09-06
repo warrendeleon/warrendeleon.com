@@ -1,0 +1,41 @@
+---
+// The month and the times, shared by the booking page and the manage page so
+// a move through the same calendar gets every fix the first booking got.
+import { t, type Locale } from '../i18n/index';
+const { locale } = Astro.props as { locale: Locale };
+const i18n = t(locale);
+---
+<section class="bk-panel" data-step="date" hidden>
+  <div class="bk-cal-head">
+    <button type="button" class="bk-nav" data-month="-1" aria-label={i18n.booking.calendar.previous}>
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <h2 class="bk-month" tabindex="-1"></h2>
+    <button type="button" class="bk-nav" data-month="1" aria-label={i18n.booking.calendar.next}>
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <!-- Two renderings of the same month. On a phone every day is a
+       full-width row with a large numeral and a bar whose length is
+       the free time that day: the bar is information, not
+       decoration. On a wide screen the familiar grid returns. -->
+  <div class="bk-datebook"></div>
+  <div class="bk-weekdays" aria-hidden="true"></div>
+  <div class="bk-grid"></div>
+  <p class="bk-legend"></p>
+  <p class="bk-empty" hidden></p>
+</section>
+
+<section class="bk-panel" data-step="time" hidden>
+  <h2 class="bk-day" tabindex="-1"></h2>
+  <div class="bk-slots" role="group"></div>
+  <p class="bk-zone">
+    <span class="bk-zone-label"></span>
+    <button type="button" class="bk-zone-change" aria-expanded="false"></button>
+  </p>
+  <p class="bk-zone-picker" hidden>
+    <label class="bk-zone-pick-label" for="bk-tz"></label>
+    <select id="bk-tz" class="bk-select"></select>
+  </p>
+</section>

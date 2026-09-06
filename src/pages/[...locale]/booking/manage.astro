@@ -1,0 +1,105 @@
+---
+// Change or cancel a booking. Reached only from the invite; the id and token
+// arrive in the URL fragment and the script moves them out of the URL at once.
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import BookingCalendar from '../../../components/BookingCalendar.astro';
+import { t, getLocalePath, localeStaticPaths, type Locale } from '../../../i18n/index';
+import '../../../styles/booking.css';
+
+export const getStaticPaths = localeStaticPaths;
+
+const { locale } = Astro.props as { locale: Locale };
+const i18n = t(locale);
+const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
+---
+
+<BaseLayout
+  title={i18n.seo.manageBookingTitle}
+  description={i18n.seo.manageBookingDescription}
+  locale={locale}
+  currentPath={getLocalePath(locale, '/booking/manage/')}
+  noindex={true}
+>
+  <section class="section bk-page">
+    <div class="container">
+      <h1 class="section-title">{i18n.booking.manage.title}</h1>
+      <p class="bk-subtitle text-muted">{i18n.booking.manage.subtitle}</p>
+
+      <div
+        class="bk bk-managing"
+        data-mode="manage"
+        data-locale={locale}
+        data-intl={intl}
+        data-strings={JSON.stringify(i18n.booking)}
+        data-home={getLocalePath(locale, '/')}
+        data-book={getLocalePath(locale, '/booking/')}
+      >
+        <aside class="bk-stub" aria-label={i18n.booking.steps.details}>
+          <ol class="bk-stub-lines">
+            <li class="bk-stub-line" data-line="type" hidden><button type="button" data-goto="type"><span class="bk-stub-text"></span><span class="bk-stub-change"></span></button></li>
+            <li class="bk-stub-line" data-line="date" hidden><button type="button" data-goto="date"><span class="bk-stub-text"></span><span class="bk-stub-change"></span></button></li>
+            <li class="bk-stub-line" data-line="time" hidden><button type="button" data-goto="time"><span class="bk-stub-text"></span><span class="bk-stub-change"></span></button></li>
+          </ol>
+          <p class="bk-stub-hint" aria-live="polite" tabindex="-1"></p>
+        </aside>
+
+        <div class="bk-stage">
+          <p class="bk-status" role="status" aria-live="polite" hidden><span class="bk-status-text"></span> <button type="button" class="bk-retry" hidden></button></p>
+
+          <!-- The booking as a ticket, with the two things that can be done
+               to it. The same ticket shape carries the confirmations and the
+               result, so the page reads as one object changing state. -->
+          <section class="bk-panel bk-done bk-manage" data-step="manage" tabindex="-1">
+            <div class="bk-ticket">
+              <div class="bk-ticket-mark" aria-hidden="true"></div>
+              <h2 class="bk-done-title"></h2>
+              <p class="bk-done-lead"></p>
+              <dl class="bk-ticket-facts"></dl>
+              <ul class="bk-ticket-status"></ul>
+              <p class="bk-done-actions"></p>
+            </div>
+          </section>
+
+          <BookingCalendar locale={locale} />
+
+          <section class="bk-panel bk-done bk-confirm" data-step="confirm" hidden tabindex="-1">
+            <div class="bk-ticket">
+              <div class="bk-ticket-mark" aria-hidden="true"></div>
+              <h2 class="bk-done-title"></h2>
+              <p class="bk-done-lead"></p>
+              <dl class="bk-ticket-facts"></dl>
+              <ul class="bk-ticket-status"></ul>
+              <p class="bk-done-actions"></p>
+            </div>
+          </section>
+
+          <section class="bk-panel bk-done bk-cancel" data-step="cancel" hidden tabindex="-1">
+            <div class="bk-ticket">
+              <div class="bk-ticket-mark" aria-hidden="true"></div>
+              <h2 class="bk-done-title"></h2>
+              <p class="bk-done-lead"></p>
+              <dl class="bk-ticket-facts"></dl>
+              <ul class="bk-ticket-status"></ul>
+              <p class="bk-done-actions"></p>
+            </div>
+          </section>
+
+          <section class="bk-panel bk-done" data-step="done" hidden tabindex="-1">
+            <div class="bk-ticket">
+              <div class="bk-ticket-mark" aria-hidden="true"></div>
+              <h2 class="bk-done-title"></h2>
+              <p class="bk-done-lead"></p>
+              <dl class="bk-ticket-facts"></dl>
+              <ul class="bk-ticket-status"></ul>
+              <p class="bk-done-actions"></p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import '../../../scripts/booking';
+</script>

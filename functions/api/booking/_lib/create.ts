@@ -168,7 +168,10 @@ export async function createBooking(request: Request, env: Env, origin: string):
   const isPhone = value.location === 'phone';
   const hostPhone = env.HOST_PHONE?.trim() || null;
 
-  const manageUrl = `${origin}/booking/manage/?id=${id}&token=${manageToken}&utm_source=calendar&utm_medium=email`;
+  // The id and token ride in the fragment: a browser never sends a fragment to
+  // a server, so the capability stays out of access logs and analytics. The
+  // page moves it to session storage and strips it the moment it loads.
+  const manageUrl = `${origin}/booking/manage/?utm_source=calendar&utm_medium=email#id=${id}&token=${manageToken}`;
   const details = describeEvent({
     typeName: localised(eventType.names, 'en'),
     question: localised(eventType.question, value.locale) || null,
@@ -250,6 +253,13 @@ async function undo(env: Env, bookingId: string, reason: string): Promise<void> 
 
 export const HOST_NAME = 'Warren de Leon';
 
+/** The manage URL with the action named in both the query (for analytics) and the fragment (for the page). */
+function manageLink(manageUrl: string, action: 'cancel' | 'reschedule'): string {
+  const [base, fragment = ''] = manageUrl.split('#');
+  const joiner = base!.includes('?') ? '&' : '?';
+  return `${base}${joiner}utm_content=${action}#${fragment}${fragment ? '&' : ''}action=${action}`;
+}
+
 export interface EventDetailsInput {
   typeName: string;
   /** The event type's own question, in the booker's language, if it has one. */
@@ -294,7 +304,7 @@ export function describeEvent(input: EventDetailsInput): { summary: string; desc
   // medium. The two manage links share a target, so content tells them apart.
   lines.push(
     `Before we talk, my work experience is here, with a button to download my CV:\n${profileUrl}`,
-    `Need to make changes to this event?\nCancel: ${manageUrl}&utm_content=cancel#cancel\nReschedule: ${manageUrl}&utm_content=reschedule#reschedule`,
+    `Need to make changes to this event?\nCancel: ${manageLink(manageUrl, 'cancel')}\nReschedule: ${manageLink(manageUrl, 'reschedule')}`,
     `Booked at ${origin}/?utm_source=calendar&utm_medium=email`,
   );
 

@@ -33,9 +33,12 @@ interface Props {
      links instead; `false` drops the nav and mobile dock too. Consent and
      analytics stay either way. */
   chrome?: boolean | { nav?: boolean; footer?: boolean; tabBar?: boolean };
+  /* Pages that exist only for whoever holds a link, such as managing a
+     booking. Kept out of search results; the sitemap filter drops them too. */
+  noindex?: boolean;
 }
 
-const { title, description, locale, currentPath, canonicalPath, jsonLd, isProfilePage, ogImage, ogType, preloadImage, hreflangLocales, mobileBack, chrome = true } = Astro.props;
+const { title, description, locale, currentPath, canonicalPath, jsonLd, isProfilePage, ogImage, ogType, preloadImage, hreflangLocales, mobileBack, chrome = true, noindex = false } = Astro.props;
 const chromeParts = typeof chrome === 'boolean' ? { nav: chrome, footer: chrome, tabBar: chrome } : { nav: true, footer: true, tabBar: true, ...chrome };
 
 // Default to every locale; pages that only exist in some locales (e.g. an
@@ -108,6 +111,7 @@ const pageGraph = buildPageGraph({
     <title>{title}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <link rel="alternate" type="application/rss+xml" title="Warren de Leon | Blog" href="/rss.xml" />
     {preloadImage && <link rel="preload" as="image" href={preloadImage} type="image/webp" />}

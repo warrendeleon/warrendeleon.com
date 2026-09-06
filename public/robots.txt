@@ -1,3 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /booking/manage/
+Disallow: /es/booking/manage/
+Disallow: /ca/booking/manage/
+Disallow: /tl/booking/manage/
 Sitemap: https://warrendeleon.com/sitemap-index.xml

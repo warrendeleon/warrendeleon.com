@@ -6,7 +6,7 @@ const booker = {
   firstName: 'Jane', lastName: 'Doe', email: 'jane@example.com', phone: null,
   location: 'video' as const, notes: 'React Native and Module Federation', guests: [] as string[], locale: 'en',
 };
-const base = { typeName: 'Intro call', question: 'What would you like to cover?', booker, hostPhone: '+44 20 7946 0000', manageUrl: 'https://warrendeleon.com/booking/manage/?id=1&token=t&utm_source=calendar&utm_medium=email', origin: 'https://warrendeleon.com' };
+const base = { typeName: 'Intro call', question: 'What would you like to cover?', booker, hostPhone: '+44 20 7946 0000', manageUrl: 'https://warrendeleon.com/booking/manage/?utm_source=calendar&utm_medium=email#id=1&token=t', origin: 'https://warrendeleon.com' };
 
 describe('the event as Calendly writes it', () => {
   it('titles the event as type, booker and host', () => {
@@ -20,7 +20,10 @@ describe('the event as Calendly writes it', () => {
     assert.equal(paragraphs[1], 'Location: Google Meet');
     assert.equal(paragraphs[2], 'What would you like to cover?: React Native and Module Federation');
     assert.match(paragraphs[3]!, /work experience.*CV:\nhttps:\/\/warrendeleon\.com\/work-experience\/\?utm_source=calendar&utm_medium=email$/s);
-    assert.match(paragraphs[4]!, /^Need to make changes to this event\?\nCancel: .*utm_content=cancel#cancel\nReschedule: .*utm_content=reschedule#reschedule$/);
+    assert.equal(
+      paragraphs[4],
+      'Need to make changes to this event?\nCancel: https://warrendeleon.com/booking/manage/?utm_source=calendar&utm_medium=email&utm_content=cancel#id=1&token=t&action=cancel\nReschedule: https://warrendeleon.com/booking/manage/?utm_source=calendar&utm_medium=email&utm_content=reschedule#id=1&token=t&action=reschedule',
+    );
     assert.equal(paragraphs[5], 'Booked at https://warrendeleon.com/?utm_source=calendar&utm_medium=email');
   });
 

@@ -6,6 +6,7 @@ import { bookableMonths, monthAvailability, monthWindow } from './_lib/availabil
 import { createBooking } from './_lib/create.ts';
 import { CalendarAuthError, CalendarUnavailableError, mergedBusy } from './_lib/google.ts';
 import { fail, isAdmin, json, type Env } from './_lib/http.ts';
+import { manageBooking } from './_lib/manage.ts';
 import { datesIn } from './_lib/availability.ts';
 import {
   busyClients,
@@ -145,6 +146,9 @@ const availability: Handler = async ({ env, url }) => {
 
 const create: Handler = async ({ request, env, url }) => createBooking(request, env, env.SITE_ORIGIN?.replace(/\/$/, '') || url.origin);
 
+/** Read, move or cancel one booking. The manage token travels in a header. */
+const manage: Handler = async ({ request, env, segments }) => manageBooking(request, env, segments[1]!);
+
 const notImplemented: Handler = async () => fail('not_found', 'This route is not built yet.');
 
 function route({ request, segments }: RouteContext): Handler | null {
@@ -158,11 +162,11 @@ function route({ request, segments }: RouteContext): Handler | null {
   }
 
   if (segments.length === 1 && head === 'bookings' && method === 'POST') return create;
+  if (segments.length === 2 && head === 'bookings' && ['GET', 'PATCH', 'DELETE'].includes(method)) return manage;
 
-  // Declared so the shape of the API is visible in one place. Each lands with
-  // its own ticket; until then they answer 404 rather than pretending.
-  const planned = ['bookings', 'admin'];
-  if (head !== undefined && planned.includes(head)) return notImplemented;
+  // Declared so the shape of the API is visible in one place. It lands with
+  // its own ticket; until then it answers 404 rather than pretending.
+  if (head === 'admin') return notImplemented;
 
   return null;
 }
