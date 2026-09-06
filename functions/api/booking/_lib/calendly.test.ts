@@ -41,6 +41,22 @@ describe('CalendlyClient.availableTimes', () => {
   });
 });
 
+describe('CalendlyClient.firstQuestion', () => {
+  it('returns the first enabled text question by Calendly\'s own name', async () => {
+    const { fetchImpl, calls } = stub(() => ({ status: 200, body: { resource: { custom_questions: [
+      { name: 'Phone', type: 'phone_number', enabled: true, position: 0 },
+      { name: 'Old one', type: 'text', enabled: false, position: 1 },
+      { name: 'What would you like to cover? ', type: 'text', enabled: true, position: 2 },
+    ] } } }));
+    assert.equal(await new CalendlyClient('t', fetchImpl).firstQuestion('https://api.calendly.com/event_types/abc'), 'What would you like to cover? ');
+    assert.equal(calls[0]!.url, 'https://api.calendly.com/event_types/abc');
+  });
+  it('is null when the type asks nothing', async () => {
+    const { fetchImpl } = stub(() => ({ status: 200, body: { resource: { custom_questions: [] } } }));
+    assert.equal(await new CalendlyClient('t', fetchImpl).firstQuestion('https://api.calendly.com/event_types/abc'), null);
+  });
+});
+
 describe('CalendlyClient.createInvitee', () => {
   it('posts the invitee, guests and the answer, and returns the links', async () => {
     const { fetchImpl, calls } = stub(() => ({ status: 201, body: { resource: {

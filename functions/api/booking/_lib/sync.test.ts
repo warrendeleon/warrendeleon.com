@@ -33,7 +33,8 @@ function fakeD1(answer: (sql: string, args: unknown[]) => Answer, failBatchWhen?
 const NOW = Date.parse('2026-09-08T06:00:00.000Z');
 const env = (db: unknown): Env => ({ BOOKING_DB: db as D1Database, GOOGLE_CLIENT_ID: '', GOOGLE_CLIENT_SECRET: '', TOKEN_KEY: '', TURNSTILE_SECRET: '', ADMIN_KEY: 'k' });
 
-const row = (id: string, start: string) => ({
+const row = (id: string, start: string, extra: Record<string, unknown> = {}) => ({
+  provider: 'google', calendly_invitee_uri: null, ...extra,
   id, organiser_account: 'hi@warrendeleon.com', event_type: 'intro-30', start_utc: start,
   end_utc: new Date(Date.parse(start) + 30 * 60_000).toISOString(), local_date: start.slice(0, 10),
   google_event_id: `evt-${id}`, google_calendar_id: 'interviews',
@@ -58,7 +59,7 @@ function answers(bookings: ReturnType<typeof row>[], channels: unknown[] = []) {
 }
 
 /** A calendar that answers per event id; `throws` makes every read fail. */
-function deps(events: Record<string, { status: string; startUTC: string | null; endUTC: string | null } | null>, options: { throws?: boolean } = {}) {
+function deps(events: Record<string, { status: string; startUTC: string | null; endUTC: string | null } | null>, options: { throws?: boolean; calendlyStatus?: 'active' | 'canceled' | null } = {}) {
   const calls = { stopped: [] as unknown[][], watched: [] as unknown[][] };
   const client = {
     async getEvent(id: string) { if (options.throws) throw new Error('down'); return events[id] ?? null; },
@@ -68,7 +69,7 @@ function deps(events: Record<string, { status: string; startUTC: string | null; 
       return { channelId: 'ch-new', resourceId: 'res-new', expiresAt: new Date(NOW + 6 * 86_400_000).toISOString() };
     },
   };
-  const d: SyncDeps = { clientFor: (async () => client) as unknown as SyncDeps['clientFor'], now: () => NOW };
+  const d: SyncDeps = { clientFor: (async () => client) as unknown as SyncDeps['clientFor'], now: () => NOW, calendly: () => (options.calendlyStatus === undefined ? null : ({ async inviteeStatus() { return options.calendlyStatus; } } as never)) };
   return { ...d, calls };
 }
 
@@ -116,6 +117,32 @@ describe('reconcile', () => {
     assert.deepEqual(report.unreadable, ['hi@warrendeleon.com']);
     assert.equal(report.checked, 0);
     assert.equal(db.batches.length, 0);
+  });
+});
+
+describe('reconcile, Calendly rows', () => {
+  const cal = (id: string) => row(id, '2026-09-10T09:00:00.000Z', { provider: 'calendly', google_event_id: null, calendly_invitee_uri: `https://api.calendly.com/scheduled_events/E/invitees/${id}` });
+
+  it('leaves an active Calendly booking alone', async () => {
+    const db = fakeD1(answers([cal('c')]));
+    const report = await reconcile(env(db), deps({}, { calendlyStatus: 'active' }));
+    assert.deepEqual(report, { checked: 1, cancelled: [], moved: [], stuck: [], unreadable: [] });
+  });
+
+  it('cancels the row when Calendly cancelled or lost the booking', async () => {
+    for (const status of ['canceled', null] as const) {
+      const db = fakeD1(answers([cal('c')]));
+      const report = await reconcile(env(db), deps({}, { calendlyStatus: status }));
+      assert.deepEqual(report.cancelled, ['c'], String(status));
+      assert.ok(db.calls.some((c) => c.sql.includes("status = 'cancelled'") && c.args[0] === 'c'));
+      assert.ok(db.calls.some((c) => c.sql.includes('audit_log') && String(c.args[2]).includes('cancelled in Calendly')));
+    }
+  });
+
+  it('skips Calendly rows when no token is configured', async () => {
+    const db = fakeD1(answers([cal('c')]));
+    const report = await reconcile(env(db), deps({}));
+    assert.equal(report.checked, 0);
   });
 });
 

@@ -77,6 +77,34 @@ export class CalendlyClient {
     return starts.sort();
   }
 
+  /**
+   * The name of the event type's first enabled text question, or null. An
+   * answer is only kept when it is filed under a question Calendly knows by
+   * name, so the booker's notes go under this rather than our own wording.
+   */
+  async firstQuestion(eventTypeUri: string): Promise<string | null> {
+    const body = await this.call(eventTypeUri.replace(API, ''));
+    const resource = isRecord(body) && isRecord(body.resource) ? body.resource : null;
+    const questions = resource && Array.isArray(resource.custom_questions) ? resource.custom_questions : [];
+    for (const q of questions) {
+      if (isRecord(q) && q.enabled !== false && (q.type === 'text' || q.type === 'string') && typeof q.name === 'string') return q.name;
+    }
+    return null;
+  }
+
+  /** Whether an invitee is still active, or null when Calendly no longer has it. */
+  async inviteeStatus(inviteeUri: string): Promise<'active' | 'canceled' | null> {
+    let body: unknown;
+    try {
+      body = await this.call(inviteeUri.replace(API, ''));
+    } catch (cause) {
+      if (cause instanceof CalendlyError && (cause.status === 404 || cause.status === 410)) return null;
+      throw cause;
+    }
+    const resource = isRecord(body) && isRecord(body.resource) ? body.resource : null;
+    return resource?.status === 'canceled' ? 'canceled' : 'active';
+  }
+
   /** Book it. Calendly emails the invite and owns the meeting from here on. */
   async createInvitee(input: {
     eventTypeUri: string;

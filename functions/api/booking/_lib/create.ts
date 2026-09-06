@@ -257,10 +257,13 @@ async function createThroughCalendly(
     return fail('calendar_unavailable', 'This call cannot be booked right now.');
   }
   const id = crypto.randomUUID();
-  const question = localised(eventType.question, value.locale) || 'Notes';
+  const calendly = new CalendlyClient(env.CALENDLY_TOKEN);
   let booked;
   try {
-    booked = await new CalendlyClient(env.CALENDLY_TOKEN).createInvitee({
+    // The notes are filed under Calendly's own question, or dropped when
+    // the type asks none: Calendly keeps answers only to questions it knows.
+    const question = value.notes ? await calendly.firstQuestion(eventType.calendlyEventType) : null;
+    booked = await calendly.createInvitee({
       eventTypeUri: eventType.calendlyEventType,
       startUTC: value.startUTC,
       firstName: value.firstName,
@@ -268,7 +271,7 @@ async function createThroughCalendly(
       email: value.email,
       timezone: value.timezone,
       guests: value.guests,
-      answer: value.notes ? { question, answer: value.notes } : null,
+      answer: value.notes && question ? { question, answer: value.notes } : null,
       locationKind: value.location === 'video' ? 'google_conference' : null,
     });
   } catch (cause) {

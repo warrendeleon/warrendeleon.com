@@ -6,6 +6,7 @@
 // confirmed booking back from Google and repairs the difference. It runs when
 // Google pushes a change to the webhook and on a timer as the fallback.
 
+import { CalendlyClient, CalendlyError } from './calendly.ts';
 import { CalendarAuthError, CalendarUnavailableError } from './google.ts';
 import { randomToken } from './crypto.ts';
 import type { Env } from './http.ts';
@@ -22,9 +23,12 @@ const LOOKAHEAD_MS = 60 * 24 * 60 * 60_000;
 export interface SyncDeps {
   clientFor: typeof liveClientFor;
   now: () => number;
+  /** Calendly, for the rows it booked; null when no token is configured. */
+  calendly?: (env: Env) => CalendlyClient | null;
 }
 
-const liveDeps: SyncDeps = { clientFor: liveClientFor, now: Date.now };
+const liveCalendly = (env: Env) => (env.CALENDLY_TOKEN ? new CalendlyClient(env.CALENDLY_TOKEN) : null);
+const liveDeps: SyncDeps = { clientFor: liveClientFor, now: Date.now, calendly: liveCalendly };
 
 interface FutureRow {
   id: string;
@@ -35,6 +39,8 @@ interface FutureRow {
   local_date: string;
   google_event_id: string | null;
   google_calendar_id: string | null;
+  provider: 'google' | 'calendly';
+  calendly_invitee_uri: string | null;
 }
 
 export interface SyncReport {
@@ -57,9 +63,9 @@ export async function reconcile(env: Env, deps: SyncDeps = liveDeps): Promise<Sy
   const horizon = new Date(now + LOOKAHEAD_MS).toISOString();
   const rows = (
     await env.BOOKING_DB.prepare(
-      `SELECT id, organiser_account, event_type, start_utc, end_utc, local_date, google_event_id, google_calendar_id
+      `SELECT id, organiser_account, event_type, start_utc, end_utc, local_date, google_event_id, google_calendar_id, provider, calendly_invitee_uri
          FROM bookings
-        WHERE status = 'confirmed' AND google_event_id IS NOT NULL AND end_utc > ? AND start_utc < ?
+        WHERE status = 'confirmed' AND (google_event_id IS NOT NULL OR calendly_invitee_uri IS NOT NULL) AND end_utc > ? AND start_utc < ?
         ORDER BY start_utc`,
     )
       .bind(new Date(now).toISOString(), horizon)
@@ -70,7 +76,33 @@ export async function reconcile(env: Env, deps: SyncDeps = liveDeps): Promise<Sy
   const clients = new Map<string, Awaited<ReturnType<typeof deps.clientFor>>>();
   const schedules = new Map<string, string>();
 
+  const calendly = (deps.calendly ?? liveCalendly)(env);
   for (const row of rows) {
+    // A Calendly booking has no locks and no Google event of ours: the only
+    // question is whether Calendly still has it.
+    if (row.provider === 'calendly') {
+      if (!calendly || !row.calendly_invitee_uri) continue;
+      if (report.unreadable.includes('calendly')) continue;
+      let status;
+      try {
+        status = await calendly.inviteeStatus(row.calendly_invitee_uri);
+      } catch (cause) {
+        console.error('[booking] sync: calendly unreadable', cause instanceof CalendlyError ? `${cause.status} ${cause.message}` : cause);
+        report.unreadable.push('calendly');
+        continue;
+      }
+      report.checked += 1;
+      if (status === 'active') continue;
+      try {
+        await env.BOOKING_DB.prepare("UPDATE bookings SET status = 'cancelled', updated_at = datetime('now') WHERE id = ?").bind(row.id).run();
+        await audit(env, 'cancelled', row.id, { reason: 'cancelled in Calendly', start: row.start_utc });
+        report.cancelled.push(row.id);
+      } catch (cause) {
+        console.error('[booking] sync: could not cancel calendly row', row.id, cause);
+        report.stuck.push(row.id);
+      }
+      continue;
+    }
     if (report.unreadable.includes(row.organiser_account)) continue;
     if (!clients.has(row.organiser_account)) clients.set(row.organiser_account, await deps.clientFor(env, row.organiser_account));
     const client = clients.get(row.organiser_account);
