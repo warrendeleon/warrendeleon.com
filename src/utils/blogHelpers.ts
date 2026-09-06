@@ -248,9 +248,10 @@ export function getPostSlug(id: string): string {
 
 /**
  * Publication progress for a series (design: "4 of 19 published · Next part
- * · 29 Jun" + progress bar). Total = published posts + scheduled posts with
- * files + planned-but-unwritten parts from seriesPlans (title-deduped, same
- * maths as the series hub). nextDate is the earliest upcoming slot, from a
+ * · 29 Jun" + progress bar). The arc is the same in every language, so the
+ * total counts the English posts plus the planned-but-unwritten parts from
+ * seriesPlans; only `published` is per-locale, because a translation can lag
+ * its English master. nextDate is the earliest slot still ahead, from a
  * scheduled file or the plan.
  */
 export async function getSeriesProgress(locale: Locale, seriesName: string): Promise<{
@@ -264,18 +265,26 @@ export async function getSeriesProgress(locale: Locale, seriesName: string): Pro
   const published = all.filter(p => publishSlot(p.data.publishDate) <= now);
   const scheduled = all.filter(p => publishSlot(p.data.publishDate) > now);
 
+  // seriesPlans holds English titles, so the dedup only ever matches English posts. Running it
+  // against a translated locale matched nothing, left every planned part in the count, and read
+  // "30 parts" in Spanish where English read 17.
   const normalise = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 32);
-  const realTitleKeys = new Set(all.map(p => normalise(p.data.title)));
+  const canonical = locale === 'en'
+    ? all
+    : (await getPostsForLocale('en', true)).filter(p => p.data.series === seriesName);
+  const realTitleKeys = new Set(canonical.map(p => normalise(p.data.title)));
   const plan = getSeriesPlan(seriesName).filter(pl => !realTitleKeys.has(normalise(pl.title)));
 
+  // Past dates are dropped: an undeduped plan entry whose date has gone by would otherwise be
+  // announced as the next part, which is how Spanish advertised 1 June in September.
   const upcoming = [
     ...scheduled.map(p => publishSlot(p.data.publishDate)),
     ...plan.map(pl => publishSlot(new Date(`${pl.date}T00:00:00Z`))),
-  ].sort((a, b) => +a - +b);
+  ].filter(d => +d > +now).sort((a, b) => +a - +b);
 
   return {
     published: published.length,
-    total: published.length + scheduled.length + plan.length,
+    total: canonical.length + plan.length,
     nextDate: upcoming[0] ?? null,
   };
 }

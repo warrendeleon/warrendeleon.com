@@ -8,6 +8,7 @@ import { getTagLabel } from '../../i18n/tagLabels';
 import { getTagDescription } from '../../i18n/tagDescriptions';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, shortenSeriesName, getSeriesSlug, getPostsForLocale } from '../../utils/blogHelpers';
+import { getSeriesName } from '../../i18n/seriesNames';
 import { locales } from '../../i18n/index';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import Breadcrumb from '../Breadcrumb.astro';
@@ -75,7 +76,7 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
           <p class="tag-page-series">
             {i18n.blog.seriesLabel}:
             {relatedSeries.map((s) => (
-              <a href={getLocalePath(locale, `/blog/series/${s.slug}/`)} class="post-tag">{shortenSeriesName(s.name)}</a>
+              <a href={getLocalePath(locale, `/blog/series/${s.slug}/`)} class="post-tag">{shortenSeriesName(getSeriesName(s.name, locale))}</a>
             ))}
           </p>
         )}
@@ -96,7 +97,7 @@ const relatedSeries = [...new Set(posts.map((p: any) => p.data.series).filter(Bo
             <div class="feed-post-body">
               <div class="feed-post-meta blog-mono">
                 <span>{formatBlogDate(post.data.publishDate, locale)} &middot; {getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>
-                {post.data.series && <span class="feed-post-series">{shortenSeriesName(post.data.series)}</span>}
+                {post.data.series && <span class="feed-post-series">{shortenSeriesName(getSeriesName(post.data.series, locale))}</span>}
               </div>
               <h2 class="feed-post-title">{post.data.title}</h2>
               <p class="feed-post-desc">{post.data.description}</p>

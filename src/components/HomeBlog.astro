@@ -2,6 +2,7 @@
 import { t, getLocalePath } from '../i18n/index';
 import type { Locale } from '../i18n/index';
 import { getPostsForLocale, getPostSlug, getSeriesSlug, getSeriesPosts, getCurrentSeriesName, formatBlogDate, shortenSeriesName, publishSlot } from '../utils/blogHelpers';
+import { getSeriesName } from '../i18n/seriesNames';
 import { getSeriesDescription } from '../i18n/seriesDescriptions';
 import { getSeriesPlan } from '../data/seriesPlans';
 import { getReadingTime } from '../utils/readingTime';
@@ -66,7 +67,7 @@ const mobilePosts = posts.slice(0, 2);
             )}
             <div class="home-blog-card-body">
               <span class="home-blog-card-kicker blog-mono">{i18n.blog.currentSeries} &middot; {totalParts} {i18n.blog.parts}</span>
-              <span class="home-blog-card-title">{shortenSeriesName(currentSeriesName)}</span>
+              <span class="home-blog-card-title">{shortenSeriesName(getSeriesName(currentSeriesName, locale))}</span>
               {seriesDesc && <span class="home-blog-card-desc">{seriesDesc}</span>}
               <div class="home-blog-card-foot">
                 <div class="home-blog-card-footrow">
@@ -101,7 +102,7 @@ const mobilePosts = posts.slice(0, 2);
             <div class="feed-post-body">
               <div class="feed-post-meta blog-mono">
                 <span>{formatBlogDate(post.data.publishDate, locale)} &middot; {getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>
-                {post.data.series && <span class="feed-post-series">{shortenSeriesName(post.data.series)}</span>}
+                {post.data.series && <span class="feed-post-series">{shortenSeriesName(getSeriesName(post.data.series, locale))}</span>}
               </div>
               <h3 class="feed-post-title">{post.data.title}</h3>
             </div>

@@ -11,6 +11,7 @@ import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostsForLocale, getPostSlug, formatBlogDate, toDateString, getAllSeries, getSeriesSlug, getSeriesPosts, getCurrentSeriesName, shortenSeriesName, publishSlot, type FeedPost } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
+import { getSeriesName } from '../../i18n/seriesNames';
 import { getTagLabel } from '../../i18n/tagLabels';
 import type { Page } from 'astro';
 
@@ -87,9 +88,9 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
           {moreSeries.map(s => (
             <SeriesCard
               href={getLocalePath(locale, `/blog/series/${s.slug}/`)}
-              art={s.intro?.data.heroImage ? { src: s.intro.data.heroImage, alt: s.intro.data.heroAlt || s.name } : undefined}
+              art={s.intro?.data.heroImage ? { src: s.intro.data.heroImage, alt: s.intro.data.heroAlt || getSeriesName(s.name, locale) } : undefined}
               kicker={`${s.count} ${i18n.blog.parts}`}
-              title={shortenSeriesName(s.name)}
+              title={shortenSeriesName(getSeriesName(s.name, locale))}
               desc={s.desc || undefined}
             />
           ))}
@@ -119,7 +120,7 @@ const topTags = [...tagCounts.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
                 textLang={post.enFallback ? 'en' : undefined}
                 thumb={post.data.heroImage ? { src: post.data.heroImage, alt: post.data.heroAlt || post.data.title } : undefined}
                 metaText={`${formatBlogDate(post.data.publishDate, locale)} · ${getReadingTime(post.body ?? '')} ${i18n.blog.minRead}`}
-                series={post.data.series ? shortenSeriesName(post.data.series) : undefined}
+                series={post.data.series ? shortenSeriesName(getSeriesName(post.data.series, locale)) : undefined}
                 langLabel={post.enFallback ? i18n.blog.inEnglish : undefined}
                 title={post.data.title}
                 desc={post.data.description || undefined}

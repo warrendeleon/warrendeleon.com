@@ -7,6 +7,7 @@ import type { Locale } from '../../i18n/index';
 import { getTagLabel } from '../../i18n/tagLabels';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostsForLocale, getPostSlug, getAvailableLocales, formatBlogDate, getSeriesSlug, shortenSeriesName, publishSlot, type ScheduledPost } from '../../utils/blogHelpers';
+import { getSeriesName } from '../../i18n/seriesNames';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import Breadcrumb from '../Breadcrumb.astro';
 import type { MarkdownHeading } from 'astro';
@@ -177,7 +178,7 @@ const shareUrlCopy = `${shareUrl}?utm_source=copy&utm_medium=share${campaignPara
         items={[
           { label: i18n.nav.blog, href: blogPath },
           ...(post.data.series
-            ? [{ label: shortenSeriesName(post.data.series), href: getLocalePath(locale, `/blog/series/${getSeriesSlug(post.data.series)}/`) }]
+            ? [{ label: shortenSeriesName(getSeriesName(post.data.series, locale)), href: getLocalePath(locale, `/blog/series/${getSeriesSlug(post.data.series)}/`) }]
             : []),
         ]}
       />

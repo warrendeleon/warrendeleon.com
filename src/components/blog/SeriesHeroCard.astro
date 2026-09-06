@@ -3,6 +3,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getSeriesSlug, getSeriesPosts, getSeriesProgress, publishSlot } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
+import { getSeriesName } from '../../i18n/seriesNames';
 
 interface Props {
   locale: Locale;
@@ -51,7 +52,7 @@ const nextLabel = progress.nextDate
         )}
       </span>
       <h3 class="series-hero-title">
-        <a class="series-hero-link" href={hubPath}>{seriesName}</a>
+        <a class="series-hero-link" href={hubPath}>{getSeriesName(seriesName, locale)}</a>
       </h3>
       <p class="series-hero-desc">{desc}</p>
       <div class="series-hero-progress">

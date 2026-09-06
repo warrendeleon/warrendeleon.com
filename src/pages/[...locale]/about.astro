@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { t, getLocalePath, localeStaticPaths, type Locale } from '../../i18n/index';
 import { getFeedPostsForLocale, getPostSlug, getAllSeries, formatBlogDate, shortenSeriesName } from '../../utils/blogHelpers';
+import { getSeriesName } from '../../i18n/seriesNames';
 import { getReadingTime } from '../../utils/readingTime';
 import { SITE_URL, personRef } from '../../lib/person';
 
@@ -124,7 +125,7 @@ const blogJsonLd = {
                   <span class="roster-date blog-mono">{shortDate(post.data.publishDate)}</span>
                   <span class="roster-title" lang={post.enFallback ? 'en' : undefined}>{post.data.title}</span>
                   <span class="roster-meta blog-mono">
-                    {post.data.series && <span class="roster-series">{shortenSeriesName(post.data.series)}</span>}
+                    {post.data.series && <span class="roster-series">{shortenSeriesName(getSeriesName(post.data.series, locale))}</span>}
                     {post.enFallback && <span class="roster-lang">{i18n.blog.inEnglish}</span>}
                   </span>
                   <span class="roster-min blog-mono">{getReadingTime(post.body ?? '')} {i18n.blog.minRead}</span>

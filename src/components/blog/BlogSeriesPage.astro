@@ -7,6 +7,7 @@ import type { Locale } from '../../i18n/index';
 import { getReadingTime } from '../../utils/readingTime';
 import { getPostSlug, formatBlogDate, toDateString, getSeriesSlug, getPostsForLocale, publishSlot } from '../../utils/blogHelpers';
 import { getSeriesDescription, getSeriesRepo } from '../../i18n/seriesDescriptions';
+import { getSeriesName } from '../../i18n/seriesNames';
 import { getSeriesPlan } from '../../data/seriesPlans';
 import BreadcrumbsJsonLd from '../BreadcrumbsJsonLd.astro';
 import Breadcrumb from '../Breadcrumb.astro';
@@ -31,7 +32,10 @@ const seriesPath = getLocalePath(locale, `/blog/series/${getSeriesSlug(seriesNam
 // Series lede + meta description: prefer a curated, per-series description (already
 // translated into every locale), falling back to the intro post's description and
 // then a generic label. Keeps the lede keyword-rich without leaving anything stale.
-const lede = getSeriesDescription(seriesName, locale) || posts[0]?.data.description || `${i18n.blog.seriesLabel}: ${seriesName}`;
+// The reader-facing name; seriesName itself stays canonical because the slug, the plan and
+// the repo card are all keyed off it.
+const seriesLabel = getSeriesName(seriesName, locale);
+const lede = getSeriesDescription(seriesName, locale) || posts[0]?.data.description || `${i18n.blog.seriesLabel}: ${seriesLabel}`;
 
 // Momentum signals: total reading time, whether more parts are scheduled (and
 // when the next lands), and a start-here CTA for first-time visitors.
@@ -118,12 +122,12 @@ const itemListJsonLd = {
 ---
 
 <BaseLayout
-  title={`${seriesName} | Warren de Leon`}
+  title={`${seriesLabel} | Warren de Leon`}
   description={lede}
   locale={locale}
   currentPath={seriesPath}
   jsonLd={itemListJsonLd}
-  mobileBack={{ href: blogPath, title: seriesName, eyebrow: i18n.blog.seriesLabel }}
+  mobileBack={{ href: blogPath, title: seriesLabel, eyebrow: i18n.blog.seriesLabel }}
 >
   <BlogSearch locale={locale} />
   <BreadcrumbsJsonLd items={[
@@ -156,7 +160,7 @@ const itemListJsonLd = {
           ]}
         />
         <p class="series-page-eyebrow blog-mono">{i18n.blog.seriesLabel} &middot; {totalParts} {i18n.blog.parts} &middot; {nextPlannedDate ? i18n.blog.inProgress : i18n.blog.seriesComplete}</p>
-        <h1 class="section-heading">{seriesName}</h1>
+        <h1 class="section-heading">{seriesLabel}</h1>
         <p class="series-page-lede">{lede}</p>
 
         <div class="series-progress">

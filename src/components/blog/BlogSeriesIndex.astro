@@ -6,6 +6,7 @@ import { t, getLocalePath } from '../../i18n/index';
 import type { Locale } from '../../i18n/index';
 import { getAllSeries, getSeriesPosts } from '../../utils/blogHelpers';
 import { getSeriesDescription } from '../../i18n/seriesDescriptions';
+import { getSeriesName } from '../../i18n/seriesNames';
 
 interface Props {
   locale: Locale;
@@ -46,12 +47,12 @@ const series = await Promise.all(seriesBase.map(async (s) => {
           <a class="series-index-card" href={getLocalePath(locale, `/blog/series/${s.slug}/`)}>
             {s.intro?.data.heroImage && (
               <div class="series-index-art">
-                <img src={s.intro.data.heroImage} alt={s.intro.data.heroAlt || s.name} loading="lazy" />
+                <img src={s.intro.data.heroImage} alt={s.intro.data.heroAlt || getSeriesName(s.name, locale)} loading="lazy" />
               </div>
             )}
             <div class="series-index-body">
               <span class="series-index-kicker blog-mono">{s.count} {i18n.blog.parts}</span>
-              <h2 class="series-index-title">{s.name}</h2>
+              <h2 class="series-index-title">{getSeriesName(s.name, locale)}</h2>
               {s.desc && <p class="series-index-desc">{s.desc}</p>}
             </div>
           </a>
