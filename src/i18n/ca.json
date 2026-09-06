@@ -85,7 +85,9 @@
     },
     "locations": {
       "video": "Google Meet",
-      "phone": "Trucada de telèfon"
+      "phone": "Trucada de telèfon",
+      "videoHelp": "L'enllaç arriba amb la invitació",
+      "phoneHelp": "Em truques al número de la invitació"
     },
     "calendar": {
       "previous": "Mes anterior",
@@ -104,7 +106,7 @@
       "firstName": "Nom",
       "lastName": "Cognoms",
       "email": "Correu",
-      "addGuests": "Afegir convidats",
+      "addGuests": "Afegir un convidat",
       "guestEmail": "Correu del convidat",
       "removeGuest": "Treure convidat",
       "location": "Com ho fem?",
@@ -113,7 +115,9 @@
       "question": "De què t'agradaria parlar?",
       "optional": "opcional",
       "submit": "Reservar la trucada",
-      "submitting": "Reservant…"
+      "submitting": "Reservant…",
+      "aboutYou": "Sobre tu",
+      "prepare": "Res a preparar?"
     },
     "errors": {
       "required": "Això fa falta.",

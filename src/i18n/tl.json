@@ -85,7 +85,9 @@
     },
     "locations": {
       "video": "Google Meet",
-      "phone": "Tawag sa telepono"
+      "phone": "Tawag sa telepono",
+      "videoHelp": "Kasama ang link sa imbitasyon",
+      "phoneHelp": "Tatawagan mo ang numero sa imbitasyon"
     },
     "calendar": {
       "previous": "Nakaraang buwan",
@@ -113,7 +115,9 @@
       "question": "Ano ang gusto mong pag-usapan?",
       "optional": "opsyonal",
       "submit": "I-book ang tawag",
-      "submitting": "Binu-book…"
+      "submitting": "Binu-book…",
+      "aboutYou": "Tungkol sa iyo",
+      "prepare": "May ihahanda ba?"
     },
     "errors": {
       "required": "Kailangan ito.",

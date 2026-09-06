@@ -85,7 +85,9 @@
     },
     "locations": {
       "video": "Google Meet",
-      "phone": "Llamada de teléfono"
+      "phone": "Llamada de teléfono",
+      "videoHelp": "El enlace llega con la invitación",
+      "phoneHelp": "Me llamas al número de la invitación"
     },
     "calendar": {
       "previous": "Mes anterior",
@@ -104,7 +106,7 @@
       "firstName": "Nombre",
       "lastName": "Apellidos",
       "email": "Correo",
-      "addGuests": "Añadir invitados",
+      "addGuests": "Añadir un invitado",
       "guestEmail": "Correo del invitado",
       "removeGuest": "Quitar invitado",
       "location": "¿Cómo hablamos?",
@@ -113,7 +115,9 @@
       "question": "¿De qué te gustaría hablar?",
       "optional": "opcional",
       "submit": "Reservar la llamada",
-      "submitting": "Reservando…"
+      "submitting": "Reservando…",
+      "aboutYou": "Sobre ti",
+      "prepare": "¿Algo que preparar?"
     },
     "errors": {
       "required": "Esto hace falta.",

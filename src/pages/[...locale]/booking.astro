@@ -89,48 +89,58 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           <form class="bk-panel bk-form" data-step="details" novalidate hidden>
             <h2 class="bk-form-title"></h2>
 
-            <div class="bk-row">
+            <fieldset class="bk-group">
+              <legend class="bk-group-title" data-copy="aboutYou"></legend>
+              <div class="bk-row">
+                <p class="bk-field">
+                  <label for="bk-first"></label>
+                  <input id="bk-first" name="firstName" type="text" autocomplete="given-name" required />
+                  <span class="bk-error" data-for="firstName" role="alert"></span>
+                </p>
+                <p class="bk-field">
+                  <label for="bk-last"></label>
+                  <input id="bk-last" name="lastName" type="text" autocomplete="family-name" required />
+                  <span class="bk-error" data-for="lastName" role="alert"></span>
+                </p>
+              </div>
               <p class="bk-field">
-                <label for="bk-first"></label>
-                <input id="bk-first" name="firstName" type="text" autocomplete="given-name" required />
-                <span class="bk-error" data-for="firstName" role="alert"></span>
+                <label for="bk-email"></label>
+                <input id="bk-email" name="email" type="email" autocomplete="email" inputmode="email" required />
+                <span class="bk-error" data-for="email" role="alert"></span>
               </p>
-              <p class="bk-field">
-                <label for="bk-last"></label>
-                <input id="bk-last" name="lastName" type="text" autocomplete="family-name" required />
-                <span class="bk-error" data-for="lastName" role="alert"></span>
-              </p>
-            </div>
-
-            <p class="bk-field">
-              <label for="bk-email"></label>
-              <input id="bk-email" name="email" type="email" autocomplete="email" required />
-              <span class="bk-error" data-for="email" role="alert"></span>
-            </p>
-
-            <div class="bk-guests">
-              <div class="bk-guest-list"></div>
-              <button type="button" class="bk-add-guest"></button>
-              <span class="bk-error" data-for="guests" role="alert"></span>
-            </div>
-
-            <fieldset class="bk-field bk-locations">
-              <legend></legend>
-              <span class="bk-error" data-for="location" role="alert"></span>
+              <div class="bk-guests">
+                <div class="bk-guest-list"></div>
+                <button type="button" class="bk-add-guest">
+                  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <span></span>
+                </button>
+                <span class="bk-error" data-for="guests" role="alert"></span>
+              </div>
             </fieldset>
 
-            <p class="bk-field bk-phone" hidden>
-              <label for="bk-phone"></label>
-              <input id="bk-phone" name="phone" type="tel" autocomplete="tel" />
-              <span class="bk-hint"></span>
-              <span class="bk-error" data-for="phone" role="alert"></span>
-            </p>
+            <fieldset class="bk-group bk-locations">
+              <legend class="bk-group-title"></legend>
+              <!-- Two tiles, each a real radio. The icon says what the medium is,
+                   the second line says what will happen, and the chosen one
+                   carries the brand green. -->
+              <div class="bk-tiles"></div>
+              <span class="bk-error" data-for="location" role="alert"></span>
+              <p class="bk-field bk-phone" hidden>
+                <label for="bk-phone"></label>
+                <input id="bk-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+                <span class="bk-hint"></span>
+                <span class="bk-error" data-for="phone" role="alert"></span>
+              </p>
+            </fieldset>
 
-            <p class="bk-field">
-              <label for="bk-notes"></label>
-              <textarea id="bk-notes" name="notes" rows="4" maxlength="2000"></textarea>
-              <span class="bk-error" data-for="notes" role="alert"></span>
-            </p>
+            <fieldset class="bk-group">
+              <legend class="bk-group-title" data-copy="prepare"></legend>
+              <p class="bk-field">
+                <label for="bk-notes"></label>
+                <textarea id="bk-notes" name="notes" rows="4" maxlength="2000"></textarea>
+                <span class="bk-error" data-for="notes" role="alert"></span>
+              </p>
+            </fieldset>
 
             <!-- Never filled by a person. A bot that fills it gets a cheerful
                  nothing rather than an error telling it what went wrong. -->
@@ -285,31 +295,58 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-zone-pick-label { display: block; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--text-muted); }
 
   /* ---- step four: the form -------------------------------------------- */
-  .bk-form-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 1.25rem; }
+  .bk-form-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 1.5rem; }
+  .bk-group { border: 0; padding: 0; margin: 0 0 2rem; min-width: 0; }
+  .bk-group-title { display: block; padding: 0; margin: 0 0 0.9rem; font-weight: 600; font-size: 1.05rem; }
   .bk-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-  .bk-field { margin: 0 0 1.25rem; }
-  .bk-field label, .bk-locations legend { display: block; margin-bottom: 0.4rem; font-weight: 500; }
-  .bk-field input, .bk-field textarea, .bk-select {
-    width: 100%; padding: 0.8rem 0.95rem; border: var(--bk-hair); border-radius: 10px;
+  .bk-field { margin: 0 0 1.1rem; }
+  .bk-field label { display: block; margin-bottom: 0.4rem; font-weight: 500; font-size: 0.95rem; }
+  .bk-field input, .bk-field textarea, .bk-select, .bk-guest input {
+    width: 100%; min-height: 3rem; padding: 0.75rem 0.95rem; border: var(--bk-hair); border-radius: 10px;
     background: var(--bg-primary); color: var(--text-primary); font: inherit;
+    transition: border-color 140ms ease;
   }
-  .bk-field textarea { resize: vertical; }
+  .bk-field textarea { resize: vertical; min-height: 6rem; }
   .bk-field input::placeholder, .bk-field textarea::placeholder { color: var(--text-muted); }
-  .bk-field input:focus-visible, .bk-field textarea:focus-visible, .bk-select:focus-visible { border-color: var(--color-green); }
-  .bk-hint { display: block; margin-top: 0.4rem; font-size: 0.85rem; color: var(--text-muted); }
+  .bk-field input:focus-visible, .bk-field textarea:focus-visible, .bk-select:focus-visible, .bk-guest input:focus-visible { border-color: var(--color-green); }
+  .bk-hint { display: block; margin-top: 0.4rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
-  .bk-locations { border: 0; padding: 0; margin: 0 0 1.25rem; }
-  .bk-location { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; cursor: pointer; }
-  .bk-location input { width: 1.1rem; height: 1.1rem; accent-color: var(--color-green); margin: 0; }
-
-  .bk-guests { margin: 0 0 1.25rem; }
-  .bk-guest { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
-  .bk-guest input { flex: 1; padding: 0.8rem 0.95rem; border: var(--bk-hair); border-radius: 10px; background: var(--bg-primary); color: var(--text-primary); font: inherit; }
-  .bk-guest-remove, .bk-add-guest {
-    background: none; border: var(--bk-hair); border-radius: 10px;
-    padding: 0.6rem 0.9rem; cursor: pointer; color: var(--color-green-text); font: inherit;
+  /* the two tiles */
+  .bk-tiles { display: grid; gap: 0.75rem; }
+  .bk-tile {
+    position: relative; display: grid; grid-template-columns: 2.5rem 1fr auto; column-gap: 0.9rem; align-items: center;
+    padding: 1rem 1.1rem; border: var(--bk-hair); border-radius: 12px; cursor: pointer;
+    transition: border-color 140ms ease;
   }
-  .bk-add-guest:hover, .bk-guest-remove:hover { border-color: var(--color-green); }
+  .bk-tile input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+  .bk-tile-icon { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--bg-secondary); color: var(--text-secondary); }
+  .bk-tile-icon svg { width: 22px; height: 22px; }
+  .bk-tile-name { display: block; font-weight: 600; line-height: 1.3; }
+  .bk-tile-help { display: block; color: var(--text-muted); font-size: 0.875rem; line-height: 1.45; margin-top: 0.15rem; }
+  .bk-tile-check { width: 1.35rem; height: 1.35rem; border-radius: 999px; border: var(--bk-hair); display: flex; align-items: center; justify-content: center; color: var(--color-on-green); }
+  .bk-tile-check svg { width: 14px; height: 14px; opacity: 0; }
+  .bk-tile:hover { border-color: var(--color-green); }
+  .bk-tile:has(input:focus-visible) { outline: 2px solid var(--color-focus-ring); outline-offset: 2px; }
+  .bk-tile:has(input:checked) { border-color: var(--color-green); }
+  .bk-tile:has(input:checked) .bk-tile-icon { background: var(--color-green); color: var(--color-on-green); }
+  .bk-tile:has(input:checked) .bk-tile-check { background: var(--color-green); border-color: var(--color-green); }
+  .bk-tile:has(input:checked) .bk-tile-check svg { opacity: 1; }
+  .bk-locations .bk-phone { margin-top: 1rem; }
+
+  /* guests */
+  .bk-guests { margin: 0.25rem 0 0; }
+  .bk-guest { display: flex; gap: 0.5rem; margin-bottom: 0.6rem; }
+  .bk-guest input { flex: 1; }
+  .bk-guest-remove {
+    flex: none; width: 3rem; border: var(--bk-hair); border-radius: 10px; background: none; cursor: pointer;
+    color: var(--text-secondary); font: inherit; font-size: 1.25rem; line-height: 1;
+  }
+  .bk-guest-remove:hover { border-color: var(--color-green); color: var(--color-green-text); }
+  .bk-add-guest {
+    display: inline-flex; align-items: center; gap: 0.45rem; background: none; border: 0; padding: 0.25rem 0;
+    cursor: pointer; color: var(--color-green-text); font: inherit; font-weight: 500;
+  }
+  .bk-add-guest:hover span { text-decoration: underline; text-underline-offset: 3px; }
 
   .bk-error { display: block; margin-top: 0.4rem; font-size: 0.85rem; color: #d64545; }
   .bk-field input[aria-invalid='true'], .bk-field textarea[aria-invalid='true'] { border-color: #d64545; }
@@ -323,8 +360,9 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-turnstile:empty { display: none; }
 
   .bk-submit {
-    display: block; width: 100%; padding: 1rem 1.25rem; border-radius: 12px; border: 0; cursor: pointer;
+    display: block; width: 100%; min-height: 3.25rem; padding: 0.9rem 1.25rem; border-radius: 12px; border: 0; cursor: pointer;
     background: var(--color-green); color: var(--color-on-green); font: inherit; font-weight: 700; font-size: 1.05rem;
+    transition: background 140ms ease;
   }
   .bk-submit:hover:not([disabled]) { background: var(--color-green-dark); }
   .bk-submit[disabled] { opacity: 0.6; cursor: default; }
@@ -338,6 +376,9 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   @media (max-width: 899px) {
     .bk { --bk-bleed: 16px; }
     .bk-page .container { --bk-bleed: 16px; }
+  }
+  @media (min-width: 560px) {
+    .bk-tiles { grid-template-columns: 1fr 1fr; }
   }
   @media (min-width: 900px) {
     .bk { display: grid; grid-template-columns: 17rem minmax(0, 1fr); column-gap: 3.5rem; align-items: start; }
@@ -699,34 +740,48 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
     // ---- step four ----------------------------------------------------------
 
+    const ICON: Record<string, string> = {
+      video: '<path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>',
+      phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    };
+    const svg = (paths: string) =>
+      `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+
     function renderForm() {
       const set = (selector: string, text: string) => {
         const node = root.querySelector<HTMLElement>(selector);
         if (node) node.textContent = text;
       };
       set('.bk-form-title', S.form.heading);
+      set('[data-copy="aboutYou"]', S.form.aboutYou);
+      set('[data-copy="prepare"]', S.form.prepare);
       set('label[for="bk-first"]', S.form.firstName);
       set('label[for="bk-last"]', S.form.lastName);
       set('label[for="bk-email"]', S.form.email);
       set('label[for="bk-phone"]', S.form.phone);
       set('.bk-phone .bk-hint', S.form.phoneHelp);
       set('label[for="bk-notes"]', `${S.form.question} (${S.form.optional})`);
-      set('.bk-add-guest', S.form.addGuests);
+      set('.bk-add-guest span', S.form.addGuests);
       set('.bk-submit', S.form.submit);
-      set('.bk-locations legend', S.form.location);
+      set('.bk-locations .bk-group-title', S.form.location);
 
-      const fieldset = root.querySelector<HTMLElement>('.bk-locations')!;
-      fieldset.querySelectorAll('.bk-location').forEach((n) => n.remove());
-      const error = fieldset.querySelector('.bk-error')!;
-      chosen!.locations.forEach((kind, index) => {
-        const label = document.createElement('label'); label.className = 'bk-location';
+      const tiles = root.querySelector<HTMLElement>('.bk-tiles')!;
+      tiles.replaceChildren(...chosen!.locations.map((kind, index) => {
+        const tile = document.createElement('label');
+        tile.className = 'bk-tile';
+        tile.innerHTML =
+          `<span class="bk-tile-icon">${svg(ICON[kind] ?? ICON.video!)}</span>` +
+          `<span><span class="bk-tile-name"></span><span class="bk-tile-help"></span></span>` +
+          `<span class="bk-tile-check">${svg('<path d="M20 6 9 17l-5-5"/>')}</span>`;
+        tile.querySelector('.bk-tile-name')!.textContent = S.locations[kind] ?? kind;
+        tile.querySelector('.bk-tile-help')!.textContent = S.locations[`${kind}Help`] ?? '';
         const input = document.createElement('input');
         input.type = 'radio'; input.name = 'location'; input.value = kind; input.checked = index === 0;
+        input.setAttribute('aria-label', S.locations[kind] ?? kind);
         input.addEventListener('change', togglePhone);
-        const text = document.createElement('span'); text.textContent = S.locations[kind] ?? kind;
-        label.append(input, text);
-        fieldset.insertBefore(label, error);
-      });
+        tile.prepend(input);
+        return tile;
+      }));
       togglePhone();
     }
 
@@ -743,6 +798,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       input.type = 'email'; input.placeholder = S.form.guestEmail; input.setAttribute('aria-label', S.form.guestEmail);
       const remove = document.createElement('button');
       remove.type = 'button'; remove.className = 'bk-guest-remove'; remove.textContent = '×';
+      remove.title = S.form.removeGuest;
       remove.setAttribute('aria-label', S.form.removeGuest);
       remove.addEventListener('click', () => row.remove());
       row.append(input, remove); list.appendChild(row); input.focus();
