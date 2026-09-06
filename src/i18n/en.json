@@ -65,7 +65,7 @@
     "fallbackPrefix": "Calendar not loading?",
     "fallbackCalendly": "Book directly on Calendly",
     "fallbackOr": "or email me at",
-    "privacyNote": "The booking calendar is provided by Calendly — details in the",
+    "privacyNote": "Your details stay on my own site and in the calendar invite Google sends you. More in the",
     "privacyLink": "privacy policy",
     "iframeTitle": "Book a call"
   },
@@ -131,7 +131,13 @@
       "manage": "Change or cancel this booking",
       "home": "Back to the site"
     },
-    "empty": "Nothing is bookable right now. Email me instead."
+    "empty": "Nothing is bookable right now. Email me instead.",
+    "hints": {
+      "type": "Pick a type of call",
+      "date": "Pick a day",
+      "time": "Pick a time",
+      "details": "Add your details"
+    }
   },
   "common": {
     "download": "Download",

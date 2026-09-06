@@ -65,7 +65,7 @@
     "fallbackPrefix": "No es carrega el calendari?",
     "fallbackCalendly": "Reserva directament a Calendly",
     "fallbackOr": "o escriu-me a",
-    "privacyNote": "El calendari de reserves el proporciona Calendly — més detalls a la",
+    "privacyNote": "Les teves dades es queden al meu propi web i a la invitació de calendari que t'envia Google. Més a la",
     "privacyLink": "política de privacitat",
     "iframeTitle": "Reservar trucada"
   },
@@ -131,7 +131,13 @@
       "manage": "Canviar o cancel·lar la reserva",
       "home": "Tornar al web"
     },
-    "empty": "Ara mateix no hi ha res disponible. Escriu-me i ho mirem."
+    "empty": "Ara mateix no hi ha res disponible. Escriu-me i ho mirem.",
+    "hints": {
+      "type": "Tria el tipus de trucada",
+      "date": "Tria un dia",
+      "time": "Tria una hora",
+      "details": "Afegeix les teves dades"
+    }
   },
   "common": {
     "download": "Descarregar",

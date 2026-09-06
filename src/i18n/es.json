@@ -65,7 +65,7 @@
     "fallbackPrefix": "¿No carga el calendario?",
     "fallbackCalendly": "Reserva directamente en Calendly",
     "fallbackOr": "o escríbeme a",
-    "privacyNote": "El calendario de reservas lo proporciona Calendly — más detalles en la",
+    "privacyNote": "Tus datos se quedan en mi propia web y en la invitación de calendario que te envía Google. Más en la",
     "privacyLink": "política de privacidad",
     "iframeTitle": "Reservar llamada"
   },
@@ -131,7 +131,13 @@
       "manage": "Cambiar o cancelar la reserva",
       "home": "Volver a la web"
     },
-    "empty": "Ahora mismo no hay nada disponible. Escríbeme y lo vemos."
+    "empty": "Ahora mismo no hay nada disponible. Escríbeme y lo vemos.",
+    "hints": {
+      "type": "Elige el tipo de llamada",
+      "date": "Elige un día",
+      "time": "Elige una hora",
+      "details": "Añade tus datos"
+    }
   },
   "common": {
     "download": "Descargar",

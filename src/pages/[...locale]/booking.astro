@@ -15,7 +15,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   locale={locale}
   currentPath={getLocalePath(locale, '/booking/')}
 >
-  <section class="section">
+  <section class="section bk-page">
     <div class="container">
       <h1 class="section-title">{i18n.bookACall.title}</h1>
       <p class="bk-subtitle text-muted">{i18n.bookACall.description}</p>
@@ -32,111 +32,123 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         data-intl={intl}
         data-strings={JSON.stringify(i18n.booking)}
       >
-        <!-- Where the visitor is, shown as a trail rather than a progress bar:
-             steps can be revisited, and a bar implies they cannot. -->
-        <nav class="bk-trail" aria-label={i18n.booking.steps.type} hidden>
-          <button type="button" class="bk-crumb" data-goto="type"></button>
-          <button type="button" class="bk-crumb" data-goto="date" hidden></button>
-          <button type="button" class="bk-crumb" data-goto="time" hidden></button>
-        </nav>
+        <!-- The stub. One object that fills in as choices are made and, at the
+             end, is the confirmation. Sticky at the top on a phone, because the
+             dock owns the bottom; a column on a wide screen. Each filled line is
+             a button back to that step, so it doubles as navigation. -->
+        <aside class="bk-stub" aria-label={i18n.booking.steps.details}>
+          <ol class="bk-stub-lines">
+            <li class="bk-stub-line" data-line="type" hidden><button type="button" data-goto="type"></button></li>
+            <li class="bk-stub-line" data-line="date" hidden><button type="button" data-goto="date"></button></li>
+            <li class="bk-stub-line" data-line="time" hidden><button type="button" data-goto="time"></button></li>
+          </ol>
+          <p class="bk-stub-hint" aria-live="polite"></p>
+        </aside>
 
-        <p class="bk-status" role="status" aria-live="polite"></p>
+        <div class="bk-stage">
+          <p class="bk-status" role="status" aria-live="polite"></p>
 
-        <section class="bk-panel" data-step="type">
-          <div class="bk-types"></div>
-        </section>
+          <section class="bk-panel" data-step="type">
+            <div class="bk-types" role="list"></div>
+          </section>
 
-        <section class="bk-panel" data-step="date" hidden>
-          <div class="bk-cal-head">
-            <button type="button" class="bk-nav" data-month="-1" aria-label={i18n.booking.calendar.previous}>&lsaquo;</button>
-            <h2 class="bk-month" aria-live="polite"></h2>
-            <button type="button" class="bk-nav" data-month="1" aria-label={i18n.booking.calendar.next}>&rsaquo;</button>
-          </div>
-          <!-- A grid of buttons rather than a table: the build gate requires
-               every table inside an article to be wrapped for scrolling, and a
-               month is not tabular data anyone needs to scroll. -->
-          <div class="bk-weekdays" aria-hidden="true"></div>
-          <div class="bk-grid" role="grid"></div>
-          <p class="bk-empty" hidden></p>
-        </section>
+          <section class="bk-panel" data-step="date" hidden>
+            <div class="bk-cal-head">
+              <button type="button" class="bk-nav" data-month="-1" aria-label={i18n.booking.calendar.previous}>
+                <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <h2 class="bk-month"></h2>
+              <button type="button" class="bk-nav" data-month="1" aria-label={i18n.booking.calendar.next}>
+                <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
 
-        <section class="bk-panel" data-step="time" hidden>
-          <h2 class="bk-day"></h2>
-          <div class="bk-slots" role="group"></div>
-          <p class="bk-zone">
-            <span class="bk-zone-label"></span>
-            <button type="button" class="bk-zone-change"></button>
-          </p>
-          <p class="bk-zone-picker" hidden>
-            <label class="bk-zone-pick-label" for="bk-tz"></label>
-            <select id="bk-tz" class="bk-select"></select>
-          </p>
-        </section>
+            <!-- Two renderings of the same month. On a phone every day is a
+                 full-width row with a large numeral and a bar whose length is
+                 the free time that day: the bar is information, not
+                 decoration. On a wide screen the familiar grid returns. -->
+            <div class="bk-datebook" role="list"></div>
+            <div class="bk-weekdays" aria-hidden="true"></div>
+            <div class="bk-grid" role="grid"></div>
+            <p class="bk-empty" hidden></p>
+          </section>
 
-        <form class="bk-panel bk-form" data-step="details" novalidate hidden>
-          <h2 class="bk-form-title"></h2>
-          <p class="bk-chosen"></p>
-
-          <div class="bk-row">
-            <p class="bk-field">
-              <label for="bk-first"></label>
-              <input id="bk-first" name="firstName" type="text" autocomplete="given-name" required />
-              <span class="bk-error" data-for="firstName" role="alert"></span>
+          <section class="bk-panel" data-step="time" hidden>
+            <h2 class="bk-day"></h2>
+            <div class="bk-slots" role="group"></div>
+            <p class="bk-zone">
+              <span class="bk-zone-label"></span>
+              <button type="button" class="bk-zone-change" aria-expanded="false"></button>
             </p>
-            <p class="bk-field">
-              <label for="bk-last"></label>
-              <input id="bk-last" name="lastName" type="text" autocomplete="family-name" required />
-              <span class="bk-error" data-for="lastName" role="alert"></span>
+            <p class="bk-zone-picker" hidden>
+              <label class="bk-zone-pick-label" for="bk-tz"></label>
+              <select id="bk-tz" class="bk-select"></select>
             </p>
-          </div>
+          </section>
 
-          <p class="bk-field">
-            <label for="bk-email"></label>
-            <input id="bk-email" name="email" type="email" autocomplete="email" required />
-            <span class="bk-error" data-for="email" role="alert"></span>
-          </p>
+          <form class="bk-panel bk-form" data-step="details" novalidate hidden>
+            <h2 class="bk-form-title"></h2>
 
-          <div class="bk-guests" hidden>
-            <div class="bk-guest-list"></div>
-            <button type="button" class="bk-add-guest"></button>
-          </div>
+            <div class="bk-row">
+              <p class="bk-field">
+                <label for="bk-first"></label>
+                <input id="bk-first" name="firstName" type="text" autocomplete="given-name" required />
+                <span class="bk-error" data-for="firstName" role="alert"></span>
+              </p>
+              <p class="bk-field">
+                <label for="bk-last"></label>
+                <input id="bk-last" name="lastName" type="text" autocomplete="family-name" required />
+                <span class="bk-error" data-for="lastName" role="alert"></span>
+              </p>
+            </div>
 
-          <fieldset class="bk-field bk-locations">
-            <legend></legend>
-            <span class="bk-error" data-for="location" role="alert"></span>
-          </fieldset>
+            <p class="bk-field">
+              <label for="bk-email"></label>
+              <input id="bk-email" name="email" type="email" autocomplete="email" required />
+              <span class="bk-error" data-for="email" role="alert"></span>
+            </p>
 
-          <p class="bk-field bk-phone" hidden>
-            <label for="bk-phone"></label>
-            <input id="bk-phone" name="phone" type="tel" autocomplete="tel" />
-            <span class="bk-hint"></span>
-            <span class="bk-error" data-for="phone" role="alert"></span>
-          </p>
+            <div class="bk-guests">
+              <div class="bk-guest-list"></div>
+              <button type="button" class="bk-add-guest"></button>
+            </div>
 
-          <p class="bk-field">
-            <label for="bk-notes"></label>
-            <textarea id="bk-notes" name="notes" rows="4" maxlength="2000"></textarea>
-            <span class="bk-error" data-for="notes" role="alert"></span>
-          </p>
+            <fieldset class="bk-field bk-locations">
+              <legend></legend>
+              <span class="bk-error" data-for="location" role="alert"></span>
+            </fieldset>
 
-          <!-- Never filled by a person. A bot that fills it gets a cheerful
-               nothing rather than an error telling it what went wrong. -->
-          <p class="bk-hp" aria-hidden="true">
-            <label for="bk-nickname">Nickname</label>
-            <input id="bk-nickname" name="nickname" type="text" tabindex="-1" autocomplete="off" />
-          </p>
+            <p class="bk-field bk-phone" hidden>
+              <label for="bk-phone"></label>
+              <input id="bk-phone" name="phone" type="tel" autocomplete="tel" />
+              <span class="bk-hint"></span>
+              <span class="bk-error" data-for="phone" role="alert"></span>
+            </p>
 
-          <div class="bk-turnstile"></div>
-          <p class="bk-error bk-form-error" role="alert" hidden></p>
-          <button type="submit" class="btn btn-primary bk-submit"></button>
-        </form>
+            <p class="bk-field">
+              <label for="bk-notes"></label>
+              <textarea id="bk-notes" name="notes" rows="4" maxlength="2000"></textarea>
+              <span class="bk-error" data-for="notes" role="alert"></span>
+            </p>
 
-        <section class="bk-panel bk-done" data-step="done" hidden tabindex="-1">
-          <h2 class="bk-done-title"></h2>
-          <p class="bk-done-when"></p>
-          <p class="bk-done-body"></p>
-          <p class="bk-done-links"></p>
-        </section>
+            <!-- Never filled by a person. A bot that fills it gets a cheerful
+                 nothing rather than an error telling it what went wrong. -->
+            <p class="bk-hp" aria-hidden="true">
+              <label for="bk-nickname">Nickname</label>
+              <input id="bk-nickname" name="nickname" type="text" tabindex="-1" autocomplete="off" />
+            </p>
+
+            <div class="bk-turnstile"></div>
+            <p class="bk-error bk-form-error" role="alert" hidden></p>
+            <button type="submit" class="bk-submit"></button>
+          </form>
+
+          <section class="bk-panel bk-done" data-step="done" hidden tabindex="-1">
+            <h2 class="bk-done-title"></h2>
+            <p class="bk-done-body"></p>
+            <p class="bk-done-links"></p>
+          </section>
+        </div>
       </div>
 
       <p class="bk-privacy text-muted">
@@ -147,76 +159,125 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   </section>
 </BaseLayout>
 
-<!-- Global rather than scoped on purpose. Astro scopes styles to the markup it
-     can see and prunes rules whose selectors never appear, and every element in
-     this flow is created by JavaScript at runtime. Scoped rules would be
-     dropped from the build and would not match the generated nodes anyway.
-     Every selector below is prefixed .bk- so nothing leaks past this page. -->
+<!-- Global on purpose. Astro scopes styles to the markup it can see and prunes
+     rules whose selectors never appear in the template, and every element in
+     this flow is created at runtime. Every selector is prefixed .bk- so nothing
+     leaks past this page. Colours are the site's tokens only. -->
 <style is:global>
   .bk-subtitle { margin-bottom: 1.5rem; }
   .bk-intro { max-width: 46rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 2rem; }
   .bk-expect-title { font-size: 1.1rem; margin-bottom: 0.75rem; }
-  .bk-expect { margin-bottom: 2.5rem; }
+  .bk-expect { margin-bottom: 3rem; }
+  .bk-privacy { margin-top: 3rem; font-size: 0.9rem; }
 
-  .bk { max-width: 46rem; }
+  .bk { --bk-hair: 1px solid var(--border-color); }
 
-  .bk-trail { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1.5rem; }
-  .bk-crumb {
-    background: none; border: 0; padding: 0.25rem 0; cursor: pointer;
-    color: var(--color-green-text); font-size: 0.95rem; text-decoration: underline;
-    text-underline-offset: 3px;
+  /* ---- the stub -------------------------------------------------------- */
+  .bk-stub {
+    position: sticky; top: 64px; z-index: 5;
+    margin: 0 calc(-1 * var(--bk-bleed, 16px)); padding: 0.85rem var(--bk-bleed, 16px) 0.9rem;
+    background: var(--bg-primary); border-bottom: var(--bk-hair);
   }
-  .bk-crumb + .bk-crumb::before { content: '/'; color: var(--text-muted); margin-right: 0.5rem; text-decoration: none; }
+  .bk-stub-lines { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 1rem; }
+  .bk-stub-line button {
+    background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
+    font: inherit; color: var(--text-primary); text-align: left; line-height: 1.4;
+  }
+  .bk-stub-line[data-line='type'] button { font-weight: 700; }
+  .bk-stub-line[data-line='time'] button { font-variant-numeric: tabular-nums; }
+  .bk-stub-line button:hover { color: var(--color-green-text); }
+  .bk-stub-hint { margin: 0.15rem 0 0; color: var(--text-muted); font-size: 0.9rem; }
+  .bk-stub-hint:empty { display: none; }
+  .bk-stub.is-done { border-bottom-color: var(--color-green); }
 
-  .bk-status { color: var(--text-muted); margin-bottom: 1rem; min-height: 1.2em; }
+  /* ---- shared step chrome --------------------------------------------- */
+  .bk-status { color: var(--text-muted); margin: 1rem 0 0; min-height: 1.2em; }
   .bk-status:empty { display: none; }
 
-  /* Event types */
-  .bk-types { display: grid; gap: 1rem; }
+  .bk-panel { padding-top: 1.25rem; }
+  .bk-panel.is-entering { animation: bk-enter 220ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  @keyframes bk-enter { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+
+  /* ---- step one: rows, not cards ------------------------------------- */
   .bk-type {
-    display: block; width: 100%; text-align: left; cursor: pointer;
-    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px;
-    padding: 1.25rem; transition: border-color 0.2s ease, transform 0.2s ease;
-    color: inherit; font: inherit;
+    display: grid; grid-template-columns: 1fr auto; column-gap: 1rem; align-items: start;
+    width: 100%; text-align: left; cursor: pointer;
+    background: none; border: 0; border-top: var(--bk-hair); padding: 1.25rem 0; color: inherit; font: inherit;
   }
-  .bk-type:hover { border-color: var(--color-green); transform: translateY(-2px); }
-  .bk-type-name { display: block; font-weight: 600; font-size: 1.05rem; margin-bottom: 0.35rem; }
-  .bk-type-meta { display: block; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem; }
-  .bk-type-desc { color: var(--text-secondary); line-height: 1.6; margin: 0; }
+  .bk-type:last-child { border-bottom: var(--bk-hair); }
+  .bk-type-name { grid-column: 1; font-weight: 600; font-size: 1.15rem; line-height: 1.3; }
+  .bk-type-duration {
+    grid-column: 2; grid-row: 1 / span 3; align-self: start;
+    font-weight: 800; font-size: 1.6rem; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums;
+    color: var(--text-primary); white-space: nowrap;
+  }
+  .bk-type-duration small { display: block; font-weight: 500; font-size: 0.8rem; letter-spacing: 0; color: var(--text-muted); margin-top: 0.2rem; text-align: right; }
+  .bk-type-meta { grid-column: 1; color: var(--text-muted); font-size: 0.9rem; margin-top: 0.3rem; }
+  .bk-type-desc { grid-column: 1; color: var(--text-secondary); line-height: 1.6; margin: 0.5rem 0 0; max-width: 40rem; }
+  .bk-type:hover .bk-type-name, .bk-type:focus-visible .bk-type-name { color: var(--color-green-text); }
 
-  /* Month grid */
-  .bk-cal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-  .bk-month { font-size: 1.15rem; margin: 0; }
+  /* ---- step two: the month ------------------------------------------- */
+  .bk-cal-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+  .bk-month { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin: 0; }
   .bk-nav {
-    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px;
-    width: 2.75rem; height: 2.75rem; font-size: 1.4rem; line-height: 1; cursor: pointer; color: inherit;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 2.75rem; height: 2.75rem; border-radius: 999px; border: var(--bk-hair);
+    background: none; color: inherit; cursor: pointer;
   }
-  .bk-nav:hover:not(:disabled) { border-color: var(--color-green); }
-  .bk-nav:disabled { opacity: 0.35; cursor: default; }
+  .bk-nav:hover:not(:disabled) { border-color: var(--color-green); color: var(--color-green-text); }
+  .bk-nav:disabled { opacity: 0.3; cursor: default; }
 
-  .bk-weekdays, .bk-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem; }
-  .bk-weekdays { margin-bottom: 0.4rem; }
-  .bk-weekday { text-align: center; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  /* the datebook (phones) */
+  .bk-dbrow {
+    display: grid; grid-template-columns: 3.25rem 3.5rem 1fr; align-items: center; column-gap: 0.75rem;
+    width: 100%; text-align: left; background: none; border: 0; border-top: var(--bk-hair);
+    padding: 0.7rem 0; color: inherit; font: inherit; cursor: pointer;
+  }
+  .bk-datebook .bk-dbrow:last-child { border-bottom: var(--bk-hair); }
+  .bk-dbrow[disabled] { cursor: default; }
+  .bk-db-wd { color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
+  .bk-db-num { font-weight: 800; font-size: 2rem; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .bk-dbrow[disabled] .bk-db-num, .bk-dbrow[disabled] .bk-db-wd { color: var(--text-muted); opacity: 0.45; }
+  .bk-db-bar { height: 6px; border-radius: 3px; background: var(--bg-secondary); overflow: hidden; }
+  .bk-db-bar > span { display: block; height: 100%; width: 0; border-radius: 3px; background: var(--color-green); transition: width 320ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .bk-dbrow[disabled] .bk-db-bar { visibility: hidden; }
+  .bk-dbrow[aria-pressed='true'] .bk-db-num { color: var(--color-green-text); }
+  .bk-dbrow[aria-pressed='true'] .bk-db-bar > span { width: 100% !important; }
+  .bk-dbrow:hover:not([disabled]) .bk-db-num { color: var(--color-green-text); }
+
+  /* the grid (wide screens) */
+  .bk-weekdays, .bk-grid { display: none; grid-template-columns: repeat(7, 1fr); gap: 0.4rem; }
+  .bk-weekday { text-align: center; font-size: 0.85rem; color: var(--text-muted); padding-bottom: 0.25rem; }
   .bk-day-cell { aspect-ratio: 1; }
+  .bk-day-cell.is-blank { visibility: hidden; }
   .bk-day-btn {
     width: 100%; height: 100%; border-radius: 999px; border: 1px solid transparent;
-    background: var(--bg-secondary); color: var(--text-primary); font: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
+    background: none; color: var(--text-primary); font: inherit; font-weight: 600; font-size: 1.05rem;
+    font-variant-numeric: tabular-nums; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem;
   }
-  .bk-day-btn:hover:not(:disabled) { border-color: var(--color-green); }
-  .bk-day-btn[disabled] { background: none; color: var(--text-muted); opacity: 0.45; cursor: default; }
-  .bk-day-btn[aria-pressed='true'] { background: var(--color-green); color: var(--color-on-green); font-weight: 600; }
-  .bk-day-cell.is-blank { visibility: hidden; }
+  .bk-day-btn > i { display: block; width: 1rem; height: 3px; border-radius: 2px; background: var(--color-green); opacity: 0.85; }
+  .bk-day-btn[disabled] { color: var(--text-muted); opacity: 0.4; cursor: default; }
+  .bk-day-btn[disabled] > i { visibility: hidden; }
+  .bk-day-btn:hover:not([disabled]) { border-color: var(--color-green); }
+  .bk-day-btn[aria-pressed='true'] { background: var(--color-green); color: var(--color-on-green); }
+  .bk-day-btn[aria-pressed='true'] > i { background: var(--color-on-green); }
 
-  /* Slots */
-  .bk-day { font-size: 1.15rem; margin: 0 0 1rem; }
-  .bk-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.6rem; }
+  .bk-empty { margin: 1.25rem 0 0; color: var(--text-muted); }
+
+  /* ---- step three: times as rows -------------------------------------- */
+  .bk-day { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.75rem; }
   .bk-slot {
-    padding: 0.85rem 1rem; border-radius: 10px; border: 1px solid var(--color-green);
-    background: var(--bg-primary); color: var(--color-green-text); font: inherit; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; text-align: left; background: none; border: 0; border-top: var(--bk-hair);
+    padding: 0.95rem 0; color: var(--text-primary); font: inherit; font-weight: 600; font-size: 1.35rem;
+    letter-spacing: -0.02em; font-variant-numeric: tabular-nums; cursor: pointer;
   }
-  .bk-slot:hover { background: var(--color-green); color: var(--color-on-green); }
-  .bk-zone { margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
+  .bk-slots .bk-slot:last-child { border-bottom: var(--bk-hair); }
+  .bk-slot::after { content: ''; width: 0.75rem; height: 0.75rem; border-radius: 999px; border: 2px solid var(--border-color); transition: background 160ms, border-color 160ms; }
+  .bk-slot:hover, .bk-slot:focus-visible { color: var(--color-green-text); }
+  .bk-slot:hover::after, .bk-slot:focus-visible::after { border-color: var(--color-green); background: var(--color-green); }
+  .bk-zone { margin: 1.25rem 0 0; color: var(--text-muted); font-size: 0.9rem; }
   .bk-zone-change {
     background: none; border: 0; padding: 0; margin-left: 0.5rem; cursor: pointer;
     font: inherit; color: var(--color-green-text); text-decoration: underline; text-underline-offset: 3px;
@@ -224,93 +285,111 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-zone-picker { margin-top: 0.75rem; max-width: 22rem; }
   .bk-zone-pick-label { display: block; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--text-muted); }
 
-  /* Form */
-  .bk-form-title { font-size: 1.15rem; margin: 0 0 0.5rem; }
-  .bk-chosen { color: var(--text-secondary); margin-bottom: 1.5rem; }
+  /* ---- step four: the form -------------------------------------------- */
+  .bk-form-title { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 1.25rem; }
   .bk-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .bk-field { margin: 0 0 1.25rem; }
-  .bk-field label, .bk-locations legend { display: block; margin-bottom: 0.35rem; font-weight: 500; }
+  .bk-field label, .bk-locations legend { display: block; margin-bottom: 0.4rem; font-weight: 500; }
   .bk-field input, .bk-field textarea, .bk-select {
-    width: 100%; padding: 0.7rem 0.9rem; border: 1px solid var(--border-color); border-radius: 10px;
+    width: 100%; padding: 0.8rem 0.95rem; border: var(--bk-hair); border-radius: 10px;
     background: var(--bg-primary); color: var(--text-primary); font: inherit;
   }
   .bk-field textarea { resize: vertical; }
   .bk-field input::placeholder, .bk-field textarea::placeholder { color: var(--text-muted); }
   .bk-field input:focus-visible, .bk-field textarea:focus-visible, .bk-select:focus-visible { border-color: var(--color-green); }
-  .bk-hint { display: block; margin-top: 0.35rem; font-size: 0.85rem; color: var(--text-muted); }
+  .bk-hint { display: block; margin-top: 0.4rem; font-size: 0.85rem; color: var(--text-muted); }
 
   .bk-locations { border: 0; padding: 0; margin: 0 0 1.25rem; }
-  .bk-location { display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0; cursor: pointer; }
-  .bk-location input { width: auto; }
+  .bk-location { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; cursor: pointer; }
+  .bk-location input { width: 1.1rem; height: 1.1rem; accent-color: var(--color-green); margin: 0; }
 
   .bk-guests { margin: 0 0 1.25rem; }
   .bk-guest { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
-  .bk-guest input { flex: 1; }
+  .bk-guest input { flex: 1; padding: 0.8rem 0.95rem; border: var(--bk-hair); border-radius: 10px; background: var(--bg-primary); color: var(--text-primary); font: inherit; }
   .bk-guest-remove, .bk-add-guest {
-    background: none; border: 1px solid var(--border-color); border-radius: 10px;
+    background: none; border: var(--bk-hair); border-radius: 10px;
     padding: 0.6rem 0.9rem; cursor: pointer; color: var(--color-green-text); font: inherit;
   }
   .bk-add-guest:hover, .bk-guest-remove:hover { border-color: var(--color-green); }
 
-  .bk-error { display: block; margin-top: 0.35rem; font-size: 0.85rem; color: #d64545; }
+  .bk-error { display: block; margin-top: 0.4rem; font-size: 0.85rem; color: #d64545; }
   .bk-error:empty { display: none; }
   .bk-form-error { margin: 0 0 1rem; }
   [data-theme='dark'] .bk-error { color: #ff8a8a; }
 
   .bk-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
   .bk-turnstile { margin-bottom: 1.25rem; }
-  .bk-submit { width: 100%; }
+  .bk-turnstile:empty { display: none; }
+
+  .bk-submit {
+    display: block; width: 100%; padding: 1rem 1.25rem; border-radius: 12px; border: 0; cursor: pointer;
+    background: var(--color-green); color: var(--color-on-green); font: inherit; font-weight: 700; font-size: 1.05rem;
+  }
+  .bk-submit:hover:not([disabled]) { background: var(--color-green-dark); }
   .bk-submit[disabled] { opacity: 0.6; cursor: default; }
 
-  .bk-done-title { font-size: 1.3rem; margin: 0 0 0.5rem; }
-  .bk-done-when { font-weight: 600; margin-bottom: 0.75rem; }
-  .bk-done-body { color: var(--text-secondary); margin-bottom: 1rem; }
-  .bk-done-links a { display: inline-block; margin-right: 1.25rem; }
+  /* ---- done ------------------------------------------------------------ */
+  .bk-done-title { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.75rem; }
+  .bk-done-body { color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.25rem; max-width: 40rem; }
+  .bk-done-links a { display: inline-block; margin: 0 1.25rem 0.5rem 0; }
 
-  .bk-privacy { margin-top: 2.5rem; font-size: 0.9rem; }
-
+  /* ---- layout by device ----------------------------------------------- */
+  @media (max-width: 899px) {
+    .bk { --bk-bleed: 16px; }
+    .bk-page .container { --bk-bleed: 16px; }
+  }
+  @media (min-width: 900px) {
+    .bk { display: grid; grid-template-columns: 17rem minmax(0, 1fr); column-gap: 3.5rem; align-items: start; }
+    .bk-stub {
+      position: sticky; top: 88px; margin: 0; padding: 1rem 0 0;
+      background: none; border-bottom: 0; border-top: 3px solid var(--color-green);
+    }
+    .bk-stub-lines { flex-direction: column; gap: 0.35rem; }
+    .bk-stub-line[data-line='type'] button { font-size: 1.15rem; }
+    .bk-stub-hint { margin-top: 0.75rem; }
+    .bk-panel { padding-top: 0; }
+    .bk-datebook { display: none; }
+    .bk-weekdays, .bk-grid { display: grid; }
+    .bk-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); gap: 0.6rem; }
+    .bk-slot, .bk-slots .bk-slot:last-child {
+      border: var(--bk-hair); border-radius: 12px; padding: 0.9rem 1.1rem; justify-content: center; font-size: 1.15rem;
+    }
+    .bk-slot::after { display: none; }
+    .bk-slot:hover, .bk-slot:focus-visible { border-color: var(--color-green); }
+    .bk-submit { width: auto; min-width: 14rem; }
+  }
   @media (max-width: 560px) {
     .bk-row { grid-template-columns: 1fr; gap: 0; }
-    .bk-slots { grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); }
   }
-
   @media (prefers-reduced-motion: reduce) {
-    .bk-type { transition: none; }
-    .bk-type:hover { transform: none; }
+    .bk-panel.is-entering { animation: none; }
+    .bk-db-bar > span, .bk-slot::after { transition: none; }
   }
 </style>
 
 <script>
-  // The booking flow. Four steps in one page, because a booker who changes
-  // their mind about the day should not lose the type they picked.
-  //
-  // State lives in the URL hash, so the browser Back button walks the steps and
-  // a refresh does not throw the visitor back to the start.
+  // The booking flow. Four steps on one page, with the state in the URL hash so
+  // Back walks the steps and a refresh or a shared link lands where it points.
 
   declare function t(event: string, data?: Record<string, unknown>): void;
 
-  interface EventType {
-    slug: string;
-    name: string;
-    description: string;
-    durationMinutes: number;
-    locations: string[];
-  }
+  interface EventType { slug: string; name: string; description: string; durationMinutes: number; locations: string[] }
   interface Slot { startUTC: string; endUTC: string }
   type Days = Record<string, Slot[]>;
+  type Step = 'type' | 'date' | 'time' | 'details' | 'done';
 
   const mounted = document.querySelector<HTMLElement>('.bk');
   if (mounted) {
-    // Rebound so the null check narrows inside every nested function below.
     const root: HTMLElement = mounted;
     const S = JSON.parse(root.dataset.strings || '{}');
     const INTL = root.dataset.intl || 'en-GB';
     const LOCALE = root.dataset.locale || 'en';
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const panels = new Map<string, HTMLElement>();
-    root.querySelectorAll<HTMLElement>('.bk-panel').forEach((p) => panels.set(p.dataset.step!, p));
+    const panels = new Map<Step, HTMLElement>();
+    root.querySelectorAll<HTMLElement>('.bk-panel').forEach((p) => panels.set(p.dataset.step as Step, p));
     const status = root.querySelector<HTMLElement>('.bk-status')!;
-    const trail = root.querySelector<HTMLElement>('.bk-trail')!;
+    const stub = root.querySelector<HTMLElement>('.bk-stub')!;
     const form = root.querySelector<HTMLFormElement>('.bk-form')!;
 
     let types: EventType[] = [];
@@ -319,12 +398,16 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     let days: Days = {};
     let date = '';
     let slot: Slot | null = null;
+    let current: Step = 'type';
     let zone = 'UTC';
     try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { /* keep UTC */ }
 
     const say = (message: string) => { status.textContent = message; };
+    const todayKey = () => new Date().toISOString().slice(0, 10);
     const fmtDay = (iso: string) =>
       new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'long', day: 'numeric', month: 'long' });
+    const fmtShortDay = (iso: string) =>
+      new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'short', day: 'numeric', month: 'short' });
     const fmtTime = (iso: string) =>
       new Date(iso).toLocaleTimeString(INTL, { hour: '2-digit', minute: '2-digit', timeZone: zone });
     const fmtDuration = (minutes: number) => {
@@ -333,14 +416,11 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       return hours === 1 ? S.duration.hour : S.duration.hours.replace('{n}', String(hours));
     };
 
-    /** Attribution: what earned this booking, captured on the visitor's first page. */
+    /** What earned this booking, captured on the visitor's first page. */
     function attribution(): Record<string, string> {
       let first: Record<string, string> = {};
       try { first = JSON.parse(sessionStorage.getItem('utm.first') || '{}'); } catch { /* private mode */ }
-      const utm: Record<string, string> = {
-        source: first.utm_source || 'website',
-        medium: first.utm_medium || 'internal',
-      };
+      const utm: Record<string, string> = { source: first.utm_source || 'website', medium: first.utm_medium || 'internal' };
       if (first.utm_campaign) utm.campaign = first.utm_campaign;
       try {
         const ref = document.referrer ? new URL(document.referrer) : null;
@@ -350,24 +430,43 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       } catch { /* ignore */ }
       return utm;
     }
-
     const track = (event: string, extra: Record<string, unknown> = {}) => {
       if (typeof t !== 'function') return;
       const a = attribution();
       t(event, { locale: LOCALE, source: a.source, medium: a.medium, from: a.content || '', ...extra });
     };
 
-    // ---- navigation -------------------------------------------------------
+    // ---- the stub and the steps ------------------------------------------
 
-    function show(step: string) {
-      panels.forEach((panel, name) => { panel.hidden = name !== step; });
-      trail.hidden = step === 'type' || step === 'done';
-      const crumbs = trail.querySelectorAll<HTMLButtonElement>('.bk-crumb');
-      crumbs[0]!.textContent = chosen ? chosen.name : '';
-      crumbs[0]!.hidden = !chosen;
-      crumbs[1]!.textContent = date ? fmtDay(date) : '';
-      crumbs[1]!.hidden = !date || step === 'date';
-      crumbs[2]!.hidden = true;
+    function renderStub() {
+      const line = (name: string, text: string, visible: boolean) => {
+        const li = stub.querySelector<HTMLElement>(`.bk-stub-line[data-line="${name}"]`)!;
+        li.hidden = !visible;
+        li.querySelector('button')!.textContent = text;
+      };
+      line('type', chosen ? `${chosen.name}, ${fmtDuration(chosen.durationMinutes)}` : '', !!chosen);
+      line('date', date ? fmtShortDay(date) : '', !!date);
+      line('time', slot ? fmtTime(slot.startUTC) : '', !!slot);
+
+      const hint: Record<Step, string> = {
+        type: S.hints.type, date: S.hints.date, time: S.hints.time, details: S.hints.details, done: '',
+      };
+      stub.querySelector<HTMLElement>('.bk-stub-hint')!.textContent = hint[current];
+      stub.classList.toggle('is-done', current === 'done');
+    }
+
+    function show(step: Step) {
+      current = step;
+      panels.forEach((panel, name) => {
+        const entering = name === step && panel.hidden;
+        panel.hidden = name !== step;
+        if (entering && !reducedMotion) {
+          panel.classList.remove('is-entering');
+          void panel.offsetWidth; // restart the animation even if the class was still present
+          panel.classList.add('is-entering');
+        }
+      });
+      renderStub();
       if (step === 'done') panels.get('done')!.focus();
     }
 
@@ -379,7 +478,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       const next = parts.length ? `#${parts.join('&')}` : ' ';
       if (location.hash !== next) history.pushState(null, '', next);
     }
-
     function readHash(): Record<string, string> {
       const out: Record<string, string> = {};
       for (const pair of location.hash.replace(/^#/, '').split('&')) {
@@ -389,7 +487,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       return out;
     }
 
-    // ---- step one: the event types ---------------------------------------
+    // ---- step one -----------------------------------------------------------
 
     async function loadTypes() {
       say(S.calendar.loading);
@@ -397,10 +495,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         const response = await fetch(`/api/booking/types?locale=${LOCALE}`);
         if (!response.ok) throw new Error(String(response.status));
         types = (await response.json()).types as EventType[];
-      } catch {
-        say(S.errors.generic);
-        return;
-      }
+      } catch { say(S.errors.generic); return; }
       say('');
       const list = root.querySelector<HTMLElement>('.bk-types')!;
       if (types.length === 0) { list.textContent = S.empty; return; }
@@ -408,27 +503,33 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'bk-type';
-        button.innerHTML =
-          `<span class="bk-type-name"></span><span class="bk-type-meta"></span><p class="bk-type-desc"></p>`;
-        button.querySelector('.bk-type-name')!.textContent = type.name;
-        button.querySelector('.bk-type-meta')!.textContent =
-          `${fmtDuration(type.durationMinutes)} · ${type.locations.map((l) => S.locations[l] ?? l).join(' / ')}`;
-        button.querySelector('.bk-type-desc')!.textContent = type.description;
+        button.setAttribute('role', 'listitem');
+        const name = document.createElement('span'); name.className = 'bk-type-name'; name.textContent = type.name;
+        const duration = document.createElement('span'); duration.className = 'bk-type-duration';
+        const [big, small] = fmtDuration(type.durationMinutes).split(' ');
+        duration.textContent = big ?? '';
+        const unit = document.createElement('small'); unit.textContent = small ?? '';
+        duration.appendChild(unit);
+        const meta = document.createElement('span'); meta.className = 'bk-type-meta';
+        meta.textContent = type.locations.map((l) => S.locations[l] ?? l).join(', ');
+        const desc = document.createElement('p'); desc.className = 'bk-type-desc'; desc.textContent = type.description;
+        button.append(name, duration, meta, desc);
         button.addEventListener('click', () => pickType(type));
         return button;
       }));
+      renderStub();
     }
 
     async function pickType(type: EventType) {
       chosen = type; date = ''; slot = null; days = {};
-      month = new Date().toISOString().slice(0, 7);
+      month = todayKey().slice(0, 7);
       writeHash();
       track('booking_type_picked', { type: type.slug, minutes: type.durationMinutes });
       show('date');
       await loadMonth();
     }
 
-    // ---- step two: the month ---------------------------------------------
+    // ---- step two -----------------------------------------------------------
 
     function shiftMonth(by: number): string {
       const [y, m] = month.split('-').map(Number);
@@ -438,13 +539,11 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
     async function loadMonth() {
       const label = root.querySelector<HTMLElement>('.bk-month')!;
-      const grid = root.querySelector<HTMLElement>('.bk-grid')!;
-      const empty = root.querySelector<HTMLElement>('.bk-empty')!;
       label.textContent = new Date(`${month}-01T12:00:00Z`).toLocaleDateString(INTL, { month: 'long', year: 'numeric' });
-      grid.replaceChildren();
-      empty.hidden = true;
+      root.querySelector<HTMLElement>('.bk-grid')!.replaceChildren();
+      root.querySelector<HTMLElement>('.bk-datebook')!.replaceChildren();
+      root.querySelector<HTMLElement>('.bk-empty')!.hidden = true;
       say(S.calendar.loading);
-
       try {
         const response = await fetch(`/api/booking/availability?type=${chosen!.slug}&month=${month}`);
         if (!response.ok) {
@@ -453,20 +552,27 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           return;
         }
         days = (await response.json()).days as Days;
-      } catch {
-        say(S.errors.calendarUnavailable);
-        return;
-      }
+      } catch { say(S.errors.calendarUnavailable); return; }
       say('');
       renderWeekdays();
       renderGrid();
+      renderDatebook();
+      root.querySelector<HTMLButtonElement>('.bk-nav[data-month="-1"]')!.disabled = month <= todayKey().slice(0, 7);
+      const empty = root.querySelector<HTMLElement>('.bk-empty')!;
+      empty.textContent = S.calendar.noDays;
+      empty.hidden = Object.keys(days).length > 0;
+    }
+
+    function monthDates(): string[] {
+      const [y, m] = month.split('-').map(Number);
+      const length = new Date(Date.UTC(y!, m!, 0)).getUTCDate();
+      return Array.from({ length }, (_, i) => `${month}-${String(i + 1).padStart(2, '0')}`);
     }
 
     function renderWeekdays() {
       const head = root.querySelector<HTMLElement>('.bk-weekdays')!;
       if (head.childElementCount > 0) return;
-      // 5 January 2026 was a Monday, so this walks Monday to Sunday whatever
-      // the locale's own first day happens to be.
+      // 5 January 2026 was a Monday: this walks Monday to Sunday in the locale's own words.
       head.replaceChildren(...Array.from({ length: 7 }, (_, i) => {
         const cell = document.createElement('span');
         cell.className = 'bk-weekday';
@@ -475,42 +581,63 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       }));
     }
 
+    /** Wide screens: the familiar grid, with a small mark under every free day. */
     function renderGrid() {
       const grid = root.querySelector<HTMLElement>('.bk-grid')!;
-      const empty = root.querySelector<HTMLElement>('.bk-empty')!;
-      const [y, m] = month.split('-').map(Number);
-      const first = new Date(Date.UTC(y!, m! - 1, 1));
-      const length = new Date(Date.UTC(y!, m!, 0)).getUTCDate();
-      const lead = (first.getUTCDay() + 6) % 7; // Monday-first
-
+      const dates = monthDates();
+      const lead = (new Date(`${dates[0]}T12:00:00Z`).getUTCDay() + 6) % 7;
       const cells: HTMLElement[] = [];
       for (let i = 0; i < lead; i += 1) {
-        const blank = document.createElement('div');
-        blank.className = 'bk-day-cell is-blank';
-        cells.push(blank);
+        const blank = document.createElement('div'); blank.className = 'bk-day-cell is-blank'; cells.push(blank);
       }
-      for (let day = 1; day <= length; day += 1) {
-        const iso = `${month}-${String(day).padStart(2, '0')}`;
-        const cell = document.createElement('div');
-        cell.className = 'bk-day-cell';
+      for (const iso of dates) {
+        const cell = document.createElement('div'); cell.className = 'bk-day-cell';
         const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'bk-day-btn';
-        button.textContent = String(day);
+        button.type = 'button'; button.className = 'bk-day-btn';
+        button.textContent = iso.slice(8).replace(/^0/, '');
+        button.appendChild(document.createElement('i'));
         const free = (days[iso] || []).length > 0;
         button.disabled = !free;
         button.setAttribute('aria-pressed', String(iso === date));
         button.setAttribute('aria-label', fmtDay(iso));
         if (free) button.addEventListener('click', () => pickDate(iso));
-        cell.appendChild(button);
-        cells.push(cell);
+        cell.appendChild(button); cells.push(cell);
       }
       grid.replaceChildren(...cells);
-      empty.textContent = S.calendar.noDays;
-      empty.hidden = Object.keys(days).length > 0;
+    }
 
-      const back = root.querySelector<HTMLButtonElement>('.bk-nav[data-month="-1"]')!;
-      back.disabled = month <= new Date().toISOString().slice(0, 7);
+    /**
+     * Phones: the month as a datebook. One row per day from today onwards, a
+     * large numeral, and a bar whose length is how much of that day is free.
+     * Past days are simply not there; a phone has no room for what cannot be
+     * booked.
+     */
+    function renderDatebook() {
+      const book = root.querySelector<HTMLElement>('.bk-datebook')!;
+      const today = todayKey();
+      const most = Math.max(1, ...Object.values(days).map((list) => list.length));
+      const rows: HTMLElement[] = [];
+      for (const iso of monthDates()) {
+        if (iso < today) continue;
+        const count = (days[iso] || []).length;
+        const row = document.createElement('button');
+        row.type = 'button'; row.className = 'bk-dbrow'; row.setAttribute('role', 'listitem');
+        row.disabled = count === 0;
+        row.setAttribute('aria-pressed', String(iso === date));
+        row.setAttribute('aria-label', fmtDay(iso));
+        const wd = document.createElement('span'); wd.className = 'bk-db-wd';
+        wd.textContent = new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'short' });
+        const num = document.createElement('span'); num.className = 'bk-db-num';
+        num.textContent = iso.slice(8).replace(/^0/, '');
+        const bar = document.createElement('span'); bar.className = 'bk-db-bar';
+        const fill = document.createElement('span');
+        bar.appendChild(fill);
+        fill.style.width = `${Math.round((count / most) * 100)}%`;
+        row.append(wd, num, bar);
+        if (count > 0) row.addEventListener('click', () => pickDate(iso));
+        rows.push(row);
+      }
+      book.replaceChildren(...rows);
     }
 
     function pickDate(iso: string) {
@@ -520,7 +647,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       renderSlots();
     }
 
-    // ---- step three: the time --------------------------------------------
+    // ---- step three ---------------------------------------------------------
 
     function renderSlots() {
       root.querySelector<HTMLElement>('.bk-day')!.textContent = fmtDay(date);
@@ -529,8 +656,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       if (list.length === 0) { holder.textContent = S.times.none; return; }
       holder.replaceChildren(...list.map((candidate) => {
         const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'bk-slot';
+        button.type = 'button'; button.className = 'bk-slot';
         button.textContent = fmtTime(candidate.startUTC);
         button.addEventListener('click', () => pickSlot(candidate));
         return button;
@@ -543,10 +669,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       const change = root.querySelector<HTMLButtonElement>('.bk-zone-change')!;
       const picker = root.querySelector<HTMLElement>('.bk-zone-picker')!;
       const select = root.querySelector<HTMLSelectElement>('#bk-tz')!;
-
-      // The zone is detected, not asked for. This states what was detected and
-      // keeps the four hundred alternatives behind a link, so the common case
-      // reads as a fact rather than a question.
+      // Detected, not asked for: a sentence with the alternatives behind a link.
       label.textContent = S.times.zone.replace('{zone}', zone.replace(/_/g, ' '));
       change.textContent = S.times.changeZone;
       root.querySelector<HTMLElement>('.bk-zone-pick-label')!.textContent = S.times.changeZone;
@@ -563,12 +686,10 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         try { all = (Intl as never as { supportedValuesOf(k: string): string[] }).supportedValuesOf('timeZone'); } catch { /* older browser */ }
         select.replaceChildren(...all.map((name) => {
           const option = document.createElement('option');
-          option.value = name;
-          option.textContent = name.replace(/_/g, ' ');
-          option.selected = name === zone;
+          option.value = name; option.textContent = name.replace(/_/g, ' '); option.selected = name === zone;
           return option;
         }));
-        select.addEventListener('change', () => { zone = select.value; renderSlots(); });
+        select.addEventListener('change', () => { zone = select.value; renderSlots(); renderStub(); });
       }
     }
 
@@ -580,7 +701,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       renderForm();
     }
 
-    // ---- step four: the details ------------------------------------------
+    // ---- step four ----------------------------------------------------------
 
     function renderForm() {
       const set = (selector: string, text: string) => {
@@ -588,7 +709,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         if (node) node.textContent = text;
       };
       set('.bk-form-title', S.form.heading);
-      set('.bk-chosen', `${chosen!.name} · ${fmtDay(date)} · ${fmtTime(slot!.startUTC)}`);
       set('label[for="bk-first"]', S.form.firstName);
       set('label[for="bk-last"]', S.form.lastName);
       set('label[for="bk-email"]', S.form.email);
@@ -603,20 +723,14 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       fieldset.querySelectorAll('.bk-location').forEach((n) => n.remove());
       const error = fieldset.querySelector('.bk-error')!;
       chosen!.locations.forEach((kind, index) => {
-        const label = document.createElement('label');
-        label.className = 'bk-location';
+        const label = document.createElement('label'); label.className = 'bk-location';
         const input = document.createElement('input');
-        input.type = 'radio';
-        input.name = 'location';
-        input.value = kind;
-        input.checked = index === 0;
+        input.type = 'radio'; input.name = 'location'; input.value = kind; input.checked = index === 0;
         input.addEventListener('change', togglePhone);
-        const text = document.createElement('span');
-        text.textContent = S.locations[kind] ?? kind;
+        const text = document.createElement('span'); text.textContent = S.locations[kind] ?? kind;
         label.append(input, text);
         fieldset.insertBefore(label, error);
       });
-      root.querySelector<HTMLElement>('.bk-guests')!.hidden = false;
       togglePhone();
     }
 
@@ -628,29 +742,20 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     root.querySelector<HTMLButtonElement>('.bk-add-guest')!.addEventListener('click', () => {
       const list = root.querySelector<HTMLElement>('.bk-guest-list')!;
       if (list.childElementCount >= 5) return;
-      const row = document.createElement('div');
-      row.className = 'bk-guest';
+      const row = document.createElement('div'); row.className = 'bk-guest';
       const input = document.createElement('input');
-      input.type = 'email';
-      input.placeholder = S.form.guestEmail;
-      input.setAttribute('aria-label', S.form.guestEmail);
+      input.type = 'email'; input.placeholder = S.form.guestEmail; input.setAttribute('aria-label', S.form.guestEmail);
       const remove = document.createElement('button');
-      remove.type = 'button';
-      remove.className = 'bk-guest-remove';
-      remove.textContent = '×';
+      remove.type = 'button'; remove.className = 'bk-guest-remove'; remove.textContent = '×';
       remove.setAttribute('aria-label', S.form.removeGuest);
       remove.addEventListener('click', () => row.remove());
-      row.append(input, remove);
-      list.appendChild(row);
-      input.focus();
+      row.append(input, remove); list.appendChild(row); input.focus();
     });
 
     function clearErrors() {
       root.querySelectorAll<HTMLElement>('.bk-error').forEach((node) => { node.textContent = ''; });
-      const banner = root.querySelector<HTMLElement>('.bk-form-error')!;
-      banner.hidden = true;
+      root.querySelector<HTMLElement>('.bk-form-error')!.hidden = true;
     }
-
     function showFieldErrors(fields: Record<string, string>) {
       for (const [name, code] of Object.entries(fields)) {
         const node = root.querySelector<HTMLElement>(`.bk-error[data-for="${name}"]`);
@@ -660,51 +765,36 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           : code === 'invalid' && name === 'phone' ? S.errors.phone
           : S.errors.required;
       }
-      const first = root.querySelector<HTMLElement>('.bk-error:not(:empty)');
-      first?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      root.querySelector<HTMLElement>('.bk-error:not(:empty)')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       clearErrors();
       const submit = form.querySelector<HTMLButtonElement>('.bk-submit')!;
-      submit.disabled = true;
-      submit.textContent = S.form.submitting;
+      submit.disabled = true; submit.textContent = S.form.submitting;
+      const banner = (message: string) => {
+        const node = root.querySelector<HTMLElement>('.bk-form-error')!;
+        node.textContent = message; node.hidden = !message;
+        submit.disabled = false; submit.textContent = S.form.submit;
+      };
 
       const data = new FormData(form);
-      const guests = Array.from(root.querySelectorAll<HTMLInputElement>('.bk-guest input'))
-        .map((input) => input.value.trim())
-        .filter(Boolean);
+      const guests = Array.from(root.querySelectorAll<HTMLInputElement>('.bk-guest input')).map((i) => i.value.trim()).filter(Boolean);
       const turnstile = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
-
       const body = {
-        type: chosen!.slug,
-        startUTC: slot!.startUTC,
+        type: chosen!.slug, startUTC: slot!.startUTC,
         location: String(data.get('location') || ''),
-        firstName: String(data.get('firstName') || ''),
-        lastName: String(data.get('lastName') || ''),
-        email: String(data.get('email') || ''),
-        phone: String(data.get('phone') || ''),
-        notes: String(data.get('notes') || ''),
-        nickname: String(data.get('nickname') || ''),
-        timezone: zone,
-        guests,
-        turnstileToken: turnstile?.value || '',
-        utm: attribution(),
+        firstName: String(data.get('firstName') || ''), lastName: String(data.get('lastName') || ''),
+        email: String(data.get('email') || ''), phone: String(data.get('phone') || ''),
+        notes: String(data.get('notes') || ''), nickname: String(data.get('nickname') || ''),
+        timezone: zone, guests, turnstileToken: turnstile?.value || '', utm: attribution(),
       };
 
       let response: Response;
       try {
-        response = await fetch('/api/booking/bookings', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(body),
-        });
-      } catch {
-        banner(S.errors.generic);
-        return;
-      }
-
+        response = await fetch('/api/booking/bookings', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+      } catch { banner(S.errors.generic); return; }
       const payload = await response.json().catch(() => ({}));
 
       if (response.ok) {
@@ -712,7 +802,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         renderDone(payload, body.email);
         return;
       }
-
       if (payload.fields) showFieldErrors(payload.fields);
       banner(
         payload.error === 'slot_taken' ? S.errors.slotTaken
@@ -720,100 +809,63 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         : payload.error === 'calendar_unavailable' ? S.errors.calendarUnavailable
         : payload.fields ? '' : S.errors.generic,
       );
-
-      function banner(message: string) {
-        const node = root.querySelector<HTMLElement>('.bk-form-error')!;
-        node.textContent = message;
-        node.hidden = !message;
-        submit.disabled = false;
-        submit.textContent = S.form.submit;
-      }
     });
 
     function renderDone(payload: { booking?: { meetLink?: string | null }; manageUrl?: string }, email: string) {
       root.querySelector<HTMLElement>('.bk-done-title')!.textContent = S.confirmed.heading;
-      root.querySelector<HTMLElement>('.bk-done-when')!.textContent =
-        `${chosen!.name} · ${fmtDay(date)} · ${fmtTime(slot!.startUTC)}`;
       root.querySelector<HTMLElement>('.bk-done-body')!.textContent = S.confirmed.body.replace('{email}', email);
       const links = root.querySelector<HTMLElement>('.bk-done-links')!;
       links.replaceChildren();
       if (payload.booking?.meetLink) {
-        const meet = document.createElement('a');
-        meet.href = payload.booking.meetLink;
-        meet.textContent = S.confirmed.meet;
-        meet.rel = 'noopener';
-        links.appendChild(meet);
+        const meet = document.createElement('a'); meet.href = payload.booking.meetLink; meet.textContent = S.confirmed.meet; meet.rel = 'noopener'; links.appendChild(meet);
       }
       if (payload.manageUrl) {
-        const manage = document.createElement('a');
-        manage.href = payload.manageUrl;
-        manage.textContent = S.confirmed.manage;
-        links.appendChild(manage);
+        const manage = document.createElement('a'); manage.href = payload.manageUrl; manage.textContent = S.confirmed.manage; links.appendChild(manage);
       }
       show('done');
     }
 
-    // ---- wiring -----------------------------------------------------------
+    // ---- wiring -------------------------------------------------------------
 
     root.querySelectorAll<HTMLButtonElement>('.bk-nav').forEach((button) => {
-      button.addEventListener('click', () => {
-        month = shiftMonth(Number(button.dataset.month));
-        loadMonth();
-      });
+      button.addEventListener('click', () => { month = shiftMonth(Number(button.dataset.month)); loadMonth(); });
     });
 
-    trail.querySelectorAll<HTMLButtonElement>('.bk-crumb').forEach((crumb) => {
-      crumb.addEventListener('click', () => {
-        const target = crumb.dataset.goto!;
+    stub.querySelectorAll<HTMLButtonElement>('[data-goto]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const target = button.dataset.goto as Step;
         if (target === 'type') { chosen = null; date = ''; slot = null; }
-        if (target === 'date') { date = ''; slot = null; }
+        if (target === 'date') { date = ''; slot = null; renderGrid(); renderDatebook(); }
+        if (target === 'time') { slot = null; }
         writeHash();
         show(target);
       });
     });
 
-    window.addEventListener('popstate', () => {
-      const state = readHash();
+    async function applyState(state: Record<string, string>) {
       if (!state.type) { chosen = null; date = ''; slot = null; show('type'); return; }
       const found = types.find((candidate) => candidate.slug === state.type);
       if (!found) { show('type'); return; }
-      chosen = found;
-      if (!state.date) { date = ''; slot = null; show('date'); return; }
-      date = state.date;
-      if (!state.slot) { slot = null; show('time'); renderSlots(); return; }
-      show('details');
-    });
-
-    /**
-     * Pick up a link someone was sent, or a refresh mid-flow. Without this the
-     * hash is written but never read on a cold load, so a shared link drops the
-     * visitor back at step one.
-     */
-    async function restore() {
-      const state = readHash();
-      if (!state.type) return;
-      const found = types.find((candidate) => candidate.slug === state.type);
-      if (!found) return;
-
-      chosen = found;
-      slot = null;
-      date = '';
-      month = state.date ? state.date.slice(0, 7) : new Date().toISOString().slice(0, 7);
-      show('date');
-      await loadMonth();
-
+      const sameMonth = chosen?.slug === found.slug && month === (state.date ? state.date.slice(0, 7) : month);
+      chosen = found; slot = null; date = '';
+      if (!sameMonth || Object.keys(days).length === 0) {
+        month = state.date ? state.date.slice(0, 7) : todayKey().slice(0, 7);
+        show('date');
+        await loadMonth();
+      } else {
+        show('date');
+      }
       if (!state.date || (days[state.date] || []).length === 0) return;
       date = state.date;
-      show('time');
-      renderSlots();
-
+      renderGrid(); renderDatebook();
+      show('time'); renderSlots();
       const wanted = (days[date] || []).find((candidate) => candidate.startUTC === state.slot);
       if (!wanted) return;
       slot = wanted;
-      show('details');
-      renderForm();
+      show('details'); renderForm();
     }
 
-    loadTypes().then(restore);
+    window.addEventListener('popstate', () => { applyState(readHash()); });
+    loadTypes().then(() => applyState(readHash()));
   }
 </script>

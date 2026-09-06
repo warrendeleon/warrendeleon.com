@@ -65,7 +65,7 @@
     "fallbackPrefix": "Hindi naglo-load ang kalendaryo?",
     "fallbackCalendly": "Mag-book nang direkta sa Calendly",
     "fallbackOr": "o mag-email sa",
-    "privacyNote": "Ang booking calendar ay mula sa Calendly — detalye sa",
+    "privacyNote": "Nananatili ang iyong detalye sa sarili kong site at sa imbitasyon sa kalendaryo na ipapadala ng Google. Higit pa sa",
     "privacyLink": "privacy policy",
     "iframeTitle": "Mag-book ng tawag"
   },
@@ -131,7 +131,13 @@
       "manage": "Baguhin o kanselahin ang booking",
       "home": "Bumalik sa site"
     },
-    "empty": "Wala pang bukas ngayon. Mag-email na lang sa akin."
+    "empty": "Wala pang bukas ngayon. Mag-email na lang sa akin.",
+    "hints": {
+      "type": "Pumili ng uri ng tawag",
+      "date": "Pumili ng araw",
+      "time": "Pumili ng oras",
+      "details": "Ilagay ang iyong detalye"
+    }
   },
   "common": {
     "download": "I-download",
