@@ -53,11 +53,11 @@
   },
   "bookACall": {
     "title": "Book a Call",
-    "description": "A free 30-minute video or phone call.",
+    "description": "A free call, 30 or 60 minutes, by video or phone.",
     "intro": "Whether you're hiring for a role, weighing up React Native or Module Federation, or want a second opinion on an engineering-leadership problem — pick a slot and let's talk.",
     "expectTitle": "What to expect",
     "expect": [
-      "30 minutes, video or phone — your choice.",
+      "30 or 60 minutes, video or phone. Your choice.",
       "No preparation needed. If you have a job spec or a problem statement, send it over beforehand.",
       "No pitch. If I can't help, I'll say so and point you somewhere useful."
     ],
@@ -165,7 +165,18 @@
       "generic": "Something went wrong.",
       "pickAnother": "Pick another time",
       "tryAgain": "Try again"
-    }
+    },
+    "retry": "Try again",
+    "legend": "The bar shows how much of each day is free.",
+    "free": "{n} free",
+    "freeOne": "1 free",
+    "needs": "To book, add: {list}.",
+    "needsPhone": "your phone number",
+    "needsFirst": "your first name",
+    "needsLast": "your last name",
+    "needsEmail": "your email",
+    "needsGuest": "a valid guest address",
+    "expectToggle": "What to expect"
   },
   "common": {
     "download": "Download",

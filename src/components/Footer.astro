@@ -95,24 +95,28 @@ const year = new Date().getFullYear();
     gap: 2px;
   }
 
-  .footer .social-links {
+  /* Specific enough to beat the component's own scoped flex row and 44px
+     minimums; the row itself wraps, so the icons never push past 320px. */
+  .footer .footer-social-row .social-links {
     display: contents;
   }
 
-  .footer .social-links a,
+  .footer .footer-social-row .social-links a,
   .footer-rss {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 34px;
     height: 34px;
+    min-width: 34px;
+    min-height: 34px;
     padding: 0;
     border: none;
     color: var(--text-secondary);
     transition: color 0.2s ease;
   }
 
-  .footer .social-links a:hover,
+  .footer .footer-social-row .social-links a:hover,
   .footer-rss:hover {
     color: var(--color-green-text);
   }

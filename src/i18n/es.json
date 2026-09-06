@@ -53,11 +53,11 @@
   },
   "bookACall": {
     "title": "Reservar Llamada",
-    "description": "Una llamada gratuita de 30 minutos, por vídeo o teléfono.",
+    "description": "Una llamada gratis, de 30 o 60 minutos, por vídeo o teléfono.",
     "intro": "Tanto si buscas cubrir un puesto, estás valorando React Native o Module Federation, o quieres una segunda opinión sobre un problema de liderazgo técnico — elige un hueco y hablamos.",
     "expectTitle": "Qué esperar",
     "expect": [
-      "30 minutos, por vídeo o teléfono — tú eliges.",
+      "30 o 60 minutos, vídeo o teléfono. Tú eliges.",
       "Sin preparación necesaria. Si tienes una oferta o un problema concreto, envíamelo antes.",
       "Sin discursos de venta. Si no puedo ayudarte, te lo diré y te indicaré dónde acudir."
     ],
@@ -165,7 +165,18 @@
       "generic": "Algo ha fallado.",
       "pickAnother": "Elegir otra hora",
       "tryAgain": "Probar otra vez"
-    }
+    },
+    "retry": "Reintentar",
+    "legend": "La barra muestra cuánto tiempo libre hay cada día.",
+    "free": "{n} libres",
+    "freeOne": "1 libre",
+    "needs": "Para reservar, añade: {list}.",
+    "needsPhone": "tu teléfono",
+    "needsFirst": "tu nombre",
+    "needsLast": "tus apellidos",
+    "needsEmail": "tu correo",
+    "needsGuest": "un correo de invitado válido",
+    "expectToggle": "Qué esperar"
   },
   "common": {
     "download": "Descargar",

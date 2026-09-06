@@ -53,11 +53,11 @@
   },
   "bookACall": {
     "title": "Mag-book ng Tawag",
-    "description": "Isang libreng 30-minutong video o phone call.",
+    "description": "Libreng tawag, 30 o 60 minuto, sa video o telepono.",
     "intro": "Nag-hire ka man para sa isang posisyon, nagtitimbang ng React Native o Module Federation, o gusto ng second opinion sa isang engineering-leadership na problema — pumili ng oras at mag-usap tayo.",
     "expectTitle": "Ano ang aasahan",
     "expect": [
-      "30 minuto, video o tawag — ikaw ang pipili.",
+      "30 o 60 minuto, video o telepono. Ikaw ang pipili.",
       "Hindi kailangan ng paghahanda. Kung may job spec o problem statement ka, ipadala mo muna.",
       "Walang pitch. Kung hindi kita matutulungan, sasabihin ko at ituturo kita sa mas makakatulong."
     ],
@@ -165,7 +165,18 @@
       "generic": "May nangyaring mali.",
       "pickAnother": "Pumili ng ibang oras",
       "tryAgain": "Subukan muli"
-    }
+    },
+    "retry": "Subukan muli",
+    "legend": "Ipinapakita ng bar kung gaano karaming oras ang bakante bawat araw.",
+    "free": "{n} bakante",
+    "freeOne": "1 bakante",
+    "needs": "Para mag-book, idagdag: {list}.",
+    "needsPhone": "ang numero mo",
+    "needsFirst": "ang pangalan mo",
+    "needsLast": "ang apelyido mo",
+    "needsEmail": "ang email mo",
+    "needsGuest": "isang wastong email ng kasama",
+    "expectToggle": "Ano ang aasahan"
   },
   "common": {
     "download": "I-download",

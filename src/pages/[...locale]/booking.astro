@@ -34,28 +34,31 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         <!-- The intro sits above the flow on a phone and in the left rail,
              under the stub, on a wide screen: one composition, not an article
              with a form beneath it. -->
-        <aside class="bk-about">
-          <p class="bk-intro">{i18n.bookACall.intro}</p>
-          <h2 class="bk-expect-title">{i18n.bookACall.expectTitle}</h2>
-          <ul class="bk-expect dot-list">
-            {i18n.bookACall.expect.map((item: string) => <li>{item}</li>)}
-          </ul>
-        </aside>
+        <details class="bk-about" open>
+          <summary class="bk-about-toggle">{i18n.booking.expectToggle}</summary>
+          <div class="bk-about-body">
+            <p class="bk-intro">{i18n.bookACall.intro}</p>
+            <h2 class="bk-expect-title">{i18n.bookACall.expectTitle}</h2>
+            <ul class="bk-expect dot-list">
+              {i18n.bookACall.expect.map((item: string) => <li>{item}</li>)}
+            </ul>
+          </div>
+        </details>
 
         <aside class="bk-stub" aria-label={i18n.booking.steps.details}>
           <ol class="bk-stub-lines">
-            <li class="bk-stub-line" data-line="type" hidden><button type="button" data-goto="type"></button></li>
-            <li class="bk-stub-line" data-line="date" hidden><button type="button" data-goto="date"></button></li>
-            <li class="bk-stub-line" data-line="time" hidden><button type="button" data-goto="time"></button></li>
+            <li class="bk-stub-line" data-line="type" hidden><button type="button" data-goto="type"><span class="bk-stub-text"></span><span class="bk-stub-change"></span></button></li>
+            <li class="bk-stub-line" data-line="date" hidden><button type="button" data-goto="date"><span class="bk-stub-text"></span><span class="bk-stub-change"></span></button></li>
+            <li class="bk-stub-line" data-line="time" hidden><button type="button" data-goto="time"><span class="bk-stub-text"></span><span class="bk-stub-change"></span></button></li>
           </ol>
-          <p class="bk-stub-hint" aria-live="polite"></p>
+          <p class="bk-stub-hint" aria-live="polite" tabindex="-1"></p>
         </aside>
 
         <div class="bk-stage">
-          <p class="bk-status" role="status" aria-live="polite"></p>
+          <p class="bk-status" role="status" aria-live="polite" hidden><span class="bk-status-text"></span> <button type="button" class="bk-retry" hidden></button></p>
 
           <section class="bk-panel" data-step="type">
-            <div class="bk-types" role="list"></div>
+            <div class="bk-types"></div>
           </section>
 
           <section class="bk-panel" data-step="date" hidden>
@@ -63,7 +66,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
               <button type="button" class="bk-nav" data-month="-1" aria-label={i18n.booking.calendar.previous}>
                 <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4 6.5 10l6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
-              <h2 class="bk-month"></h2>
+              <h2 class="bk-month" tabindex="-1"></h2>
               <button type="button" class="bk-nav" data-month="1" aria-label={i18n.booking.calendar.next}>
                 <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="m7.5 4 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
@@ -73,14 +76,15 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
                  full-width row with a large numeral and a bar whose length is
                  the free time that day: the bar is information, not
                  decoration. On a wide screen the familiar grid returns. -->
-            <div class="bk-datebook" role="list"></div>
+            <div class="bk-datebook"></div>
             <div class="bk-weekdays" aria-hidden="true"></div>
-            <div class="bk-grid" role="grid"></div>
+            <div class="bk-grid"></div>
+            <p class="bk-legend"></p>
             <p class="bk-empty" hidden></p>
           </section>
 
           <section class="bk-panel" data-step="time" hidden>
-            <h2 class="bk-day"></h2>
+            <h2 class="bk-day" tabindex="-1"></h2>
             <div class="bk-slots" role="group"></div>
             <p class="bk-zone">
               <span class="bk-zone-label"></span>
@@ -93,7 +97,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           </section>
 
           <form class="bk-panel bk-form" data-step="details" novalidate hidden>
-            <h2 class="bk-form-title"></h2>
+            <h2 class="bk-form-title" tabindex="-1"></h2>
 
             <fieldset class="bk-group">
               <legend class="bk-group-title" data-copy="aboutYou"></legend>
@@ -165,6 +169,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
             <div class="bk-turnstile"></div>
             <p class="bk-error bk-form-error" role="alert" hidden></p>
             <button type="submit" class="bk-submit"></button>
+            <p class="bk-submit-hint" aria-live="polite"></p>
           </form>
 
           <section class="bk-panel bk-done" data-step="done" hidden tabindex="-1">
@@ -215,7 +220,22 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-intro { max-width: 46rem; color: var(--text-secondary); line-height: 1.7; margin: 0 0 2rem; }
   .bk-expect-title { font-size: 1.1rem; margin: 0 0 0.75rem; }
   .bk-expect { margin: 0 0 3rem; }
-  .bk { display: grid; grid-template-areas: 'about' 'stub' 'stage'; grid-template-columns: minmax(0, 1fr); }
+  /* Phones: the booking comes first; the intro folds away beneath it. */
+  .bk { display: grid; grid-template-areas: 'stub' 'stage' 'about'; grid-template-columns: minmax(0, 1fr); }
+  .bk-about { margin-top: 2.5rem; border-top: var(--bk-hair); }
+  .bk-about-toggle { cursor: pointer; padding: 1rem 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .bk-about-toggle::-webkit-details-marker { display: none; }
+  .bk-about-toggle::after { content: ''; width: 0.6rem; height: 0.6rem; border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted); transform: rotate(45deg); transition: transform 160ms; }
+  .bk-about[open] .bk-about-toggle::after { transform: rotate(-135deg); }
+  .bk-about-body { padding-bottom: 0.5rem; }
+  .bk-stub-hint:focus, .bk-month:focus, .bk-day:focus, .bk-form-title:focus { outline: none; }
+  .bk-legend { margin: 0.75rem 0 0; color: var(--text-muted); font-size: 0.85rem; }
+  .bk-retry { background: none; border: var(--bk-hair); border-radius: 8px; padding: 0.35rem 0.7rem; font: inherit; color: var(--color-green-text); cursor: pointer; margin-left: 0.5rem; }
+  .bk-submit-hint { margin: 0.6rem 0 0; color: var(--text-muted); font-size: 0.9rem; }
+  .bk-submit-hint:empty { display: none; }
+  .bk-stub-line button { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+  .bk-stub-change { font-size: 0.8rem; font-weight: 500; color: var(--color-green-text); text-decoration: underline; text-underline-offset: 3px; }
+  .bk-db-count { color: var(--text-muted); font-size: 0.85rem; font-variant-numeric: tabular-nums; margin-left: 0.6rem; white-space: nowrap; }
   .bk-about { grid-area: about; }
   .bk-stub { grid-area: stub; }
   .bk-stage { grid-area: stage; min-width: 0; }
@@ -244,7 +264,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
   /* ---- shared step chrome --------------------------------------------- */
   .bk-status { color: var(--text-muted); margin: 1rem 0 0; min-height: 1.2em; }
-  .bk-status:empty { display: none; }
 
   .bk-panel { padding-top: 1.25rem; }
   .bk-panel.is-entering { animation: bk-enter 220ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
@@ -257,6 +276,9 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     background: none; border: 0; border-top: var(--bk-hair); padding: 1.25rem 0; color: inherit; font: inherit;
   }
   .bk-type:last-child { border-bottom: var(--bk-hair); }
+  /* The stub's own hairline sits right above the first row. */
+  .bk-type:first-child { border-top: 0; }
+  .bk-panel[data-step='type'] { padding-top: 0.25rem; }
   .bk-type-name { grid-column: 1; font-weight: 600; font-size: 1.15rem; line-height: 1.3; }
   .bk-type-duration {
     grid-column: 2; grid-row: 1 / span 3; align-self: start;
@@ -281,7 +303,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
   /* the datebook (phones) */
   .bk-dbrow {
-    display: grid; grid-template-columns: 3.25rem 3.5rem 1fr; align-items: center; column-gap: 0.75rem;
+    display: grid; grid-template-columns: 3.25rem 3.5rem 1fr auto; align-items: center; column-gap: 0.75rem;
     width: 100%; text-align: left; background: none; border: 0; border-top: var(--bk-hair);
     padding: 0.7rem 0; color: inherit; font: inherit; cursor: pointer;
   }
@@ -476,13 +498,21 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   @media (min-width: 560px) {
     .bk-tiles { grid-template-columns: 1fr 1fr; }
   }
+  @media (min-width: 640px) {
+    /* A tablet has room for the month grid; the datebook is for one thumb. */
+    .bk-datebook { display: none; }
+    .bk-weekdays, .bk-grid { display: grid; }
+    .bk-day-cell { aspect-ratio: auto; min-height: 4.25rem; }
+    .bk-day-btn { border-radius: 14px; font-size: 1.1rem; gap: 0.45rem; }
+  }
   @media (min-width: 900px) {
     .bk {
       grid-template-areas: 'stub stage' 'about stage';
       grid-template-columns: 19rem minmax(0, 40rem); grid-template-rows: auto 1fr;
       column-gap: 4rem; align-items: start;
     }
-    .bk-about { padding-top: 1.75rem; }
+    .bk-about { padding-top: 1.25rem; margin-top: 0; border-top: 0; }
+    .bk-about-toggle { display: none; }
     .bk-intro { font-size: 0.95rem; margin-bottom: 1.5rem; }
     .bk-expect-title { font-size: 0.95rem; }
     .bk-expect { font-size: 0.92rem; color: var(--text-secondary); margin-bottom: 0; }
@@ -606,11 +636,45 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     let current: Step = 'type';
     let zone = 'UTC';
     try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'; } catch { /* keep UTC */ }
+    let scheduleZone = '';
+    /** The month's slots as the API groups them, by the schedule's own dates. */
+    let rawDays: Days = {};
 
-    const say = (message: string) => { status.textContent = message; };
+    const statusText = status.querySelector<HTMLElement>('.bk-status-text')!;
+    const retry = status.querySelector<HTMLButtonElement>('.bk-retry')!;
+    let retryAction: (() => void) | null = null;
+    const say = (message: string, onRetry: (() => void) | null = null) => {
+      statusText.textContent = message;
+      status.hidden = !message;
+      retryAction = onRetry;
+      retry.hidden = !onRetry;
+      retry.textContent = S.retry;
+    };
+    retry.addEventListener('click', () => retryAction?.());
     const todayKey = () => new Date().toISOString().slice(0, 10);
     const fmtDay = (iso: string) =>
       new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'long', day: 'numeric', month: 'long' });
+    const zoneLabel = () => zone.replace(/_/g, ' ');
+    /** "YYYY-MM-DD" of an instant in the visitor's zone. */
+    const localDate = (iso: string) => {
+      const parts = new Intl.DateTimeFormat('en-CA', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date(iso));
+      const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+      return `${get('year')}-${get('month')}-${get('day')}`;
+    };
+    /**
+     * Regroup slots by the day they fall on where the visitor is. A 01:00 slot
+     * in Tokyo belongs to Tuesday there even if it is Monday evening here, and
+     * the day list, the times and the summary all have to agree on that.
+     */
+    function regroup(): Days {
+      const out: Days = {};
+      for (const list of Object.values(rawDays)) for (const slot of list) {
+        const key = localDate(slot.startUTC);
+        if (key.startsWith(month)) (out[key] ??= []).push(slot);
+      }
+      for (const list of Object.values(out)) list.sort((a, b) => a.startUTC.localeCompare(b.startUTC));
+      return out;
+    }
     const fmtShortDay = (iso: string) =>
       new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'short', day: 'numeric', month: 'short' });
     const fmtTime = (iso: string) =>
@@ -647,11 +711,13 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       const line = (name: string, text: string, visible: boolean) => {
         const li = stub.querySelector<HTMLElement>(`.bk-stub-line[data-line="${name}"]`)!;
         li.hidden = !visible;
-        li.querySelector('button')!.textContent = text;
+        li.querySelector('.bk-stub-text')!.textContent = text;
+        li.querySelector('.bk-stub-change')!.textContent = current === 'done' ? '' : S.change;
+        li.querySelector('button')!.setAttribute('aria-label', `${S.change}: ${text}`);
       };
       line('type', chosen ? `${chosen.name}, ${fmtDuration(chosen.durationMinutes)}` : '', !!chosen);
       line('date', date ? fmtShortDay(date) : '', !!date);
-      line('time', slot ? fmtTime(slot.startUTC) : '', !!slot);
+      line('time', slot ? `${fmtTime(slot.startUTC)}, ${zoneLabel()}` : '', !!slot);
 
       const hint: Record<Step, string> = {
         type: S.hints.type, date: S.hints.date, time: S.hints.time, details: S.hints.details, done: S.confirmed.heading,
@@ -673,14 +739,17 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         }
       });
       renderStub();
-      if (step === 'done') panels.get('done')!.focus();
+      const focusTarget: Record<Step, string> = { type: '.bk-stub-hint', date: '.bk-month', time: '.bk-day', details: '.bk-form-title', done: '.bk-done' };
+      setTimeout(() => root.querySelector<HTMLElement>(focusTarget[step])?.focus(), 0);
     }
 
+    let zoneChosen = false;
     function writeHash() {
       const parts: string[] = [];
       if (chosen) parts.push(`type=${chosen.slug}`);
       if (date) parts.push(`date=${date}`);
       if (slot) parts.push(`slot=${encodeURIComponent(slot.startUTC)}`);
+      if (zoneChosen) parts.push(`tz=${encodeURIComponent(zone)}`);
       const next = parts.length ? `#${parts.join('&')}` : ' ';
       if (location.hash !== next) history.pushState(null, '', next);
     }
@@ -701,7 +770,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         const response = await fetch(`/api/booking/types?locale=${LOCALE}`);
         if (!response.ok) throw new Error(String(response.status));
         types = (await response.json()).types as EventType[];
-      } catch { say(S.errors.generic); return; }
+      } catch { say(S.errors.generic, () => loadTypes()); return; }
       say('');
       const list = root.querySelector<HTMLElement>('.bk-types')!;
       if (types.length === 0) { list.textContent = S.empty; return; }
@@ -709,7 +778,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'bk-type';
-        button.setAttribute('role', 'listitem');
         const name = document.createElement('span'); name.className = 'bk-type-name'; name.textContent = type.name;
         const duration = document.createElement('span'); duration.className = 'bk-type-duration';
         const [big, small] = fmtDuration(type.durationMinutes).split(' ');
@@ -751,18 +819,30 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       root.querySelector<HTMLElement>('.bk-empty')!.hidden = true;
       say(S.calendar.loading);
       try {
-        const response = await fetch(`/api/booking/availability?type=${chosen!.slug}&month=${month}`);
-        if (!response.ok) {
-          const body = await response.json().catch(() => ({}));
-          say(body.error === 'calendar_unavailable' ? S.errors.calendarUnavailable : S.errors.generic);
-          return;
+        const load = async (m: string) => {
+          const response = await fetch(`/api/booking/availability?type=${chosen!.slug}&month=${m}`);
+          if (!response.ok) {
+            const body = await response.json().catch(() => ({}));
+            throw new Error(body.error === 'calendar_unavailable' ? S.errors.calendarUnavailable : S.errors.generic);
+          }
+          return response.json() as Promise<{ timezone: string; days: Days }>;
+        };
+        const main = await load(month);
+        scheduleZone = main.timezone;
+        rawDays = main.days;
+        // A visitor in another zone can see slots that belong to the neighbouring
+        // schedule month, so those are fetched too and folded in.
+        if (zone !== scheduleZone) {
+          const [before, after] = await Promise.all([load(shiftMonth(-1)).catch(() => null), load(shiftMonth(1)).catch(() => null)]);
+          rawDays = { ...(before?.days ?? {}), ...rawDays, ...(after?.days ?? {}) };
         }
-        days = (await response.json()).days as Days;
-      } catch { say(S.errors.calendarUnavailable); return; }
+        days = regroup();
+      } catch (cause) { say(cause instanceof Error ? cause.message : S.errors.generic, () => loadMonth()); return; }
       say('');
       renderWeekdays();
       renderGrid();
       renderDatebook();
+      root.querySelector<HTMLElement>('.bk-legend')!.textContent = S.legend;
       root.querySelector<HTMLButtonElement>('.bk-nav[data-month="-1"]')!.disabled = month <= todayKey().slice(0, 7);
       const empty = root.querySelector<HTMLElement>('.bk-empty')!;
       empty.textContent = S.calendar.noDays;
@@ -810,7 +890,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         const free = count > 0;
         button.disabled = !free;
         button.setAttribute('aria-pressed', String(iso === date));
-        button.setAttribute('aria-label', fmtDay(iso));
+        button.setAttribute('aria-label', `${fmtDay(iso)}, ${count === 1 ? S.freeOne : S.free.replace('{n}', String(count))}`);
         if (free) button.addEventListener('click', () => pickDate(iso));
         cell.appendChild(button); cells.push(cell);
       }
@@ -832,10 +912,10 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         if (iso < today) continue;
         const count = (days[iso] || []).length;
         const row = document.createElement('button');
-        row.type = 'button'; row.className = 'bk-dbrow'; row.setAttribute('role', 'listitem');
+        row.type = 'button'; row.className = 'bk-dbrow';
         row.disabled = count === 0;
         row.setAttribute('aria-pressed', String(iso === date));
-        row.setAttribute('aria-label', fmtDay(iso));
+        row.setAttribute('aria-label', `${fmtDay(iso)}, ${count === 1 ? S.freeOne : S.free.replace('{n}', String(count))}`);
         const wd = document.createElement('span'); wd.className = 'bk-db-wd';
         wd.textContent = new Date(`${iso}T12:00:00Z`).toLocaleDateString(INTL, { weekday: 'short' });
         const num = document.createElement('span'); num.className = 'bk-db-num';
@@ -844,7 +924,9 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         const fill = document.createElement('span');
         bar.appendChild(fill);
         fill.style.width = `${Math.round((count / most) * 100)}%`;
-        row.append(wd, num, bar);
+        const n = document.createElement('span'); n.className = 'bk-db-count';
+        n.textContent = count === 0 ? '' : count === 1 ? S.freeOne : S.free.replace('{n}', String(count));
+        row.append(wd, num, bar, n);
         if (count > 0) row.addEventListener('click', () => pickDate(iso));
         rows.push(row);
       }
@@ -900,7 +982,14 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           option.value = name; option.textContent = name.replace(/_/g, ' '); option.selected = name === zone;
           return option;
         }));
-        select.addEventListener('change', () => { zone = select.value; renderSlots(); renderStub(); });
+        select.addEventListener('change', () => {
+          zone = select.value; zoneChosen = true;
+          days = regroup();
+          renderGrid(); renderDatebook();
+          if (!(days[date] || []).length) { date = Object.keys(days).sort()[0] ?? ''; }
+          if (date) renderSlots(); else show('date');
+          writeHash(); renderStub();
+        });
       }
     }
 
@@ -1205,7 +1294,17 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     function refreshSubmit() {
       const submit = form.querySelector<HTMLButtonElement>('.bk-submit')!;
       if (submit.dataset.busy === 'yes') return;
-      submit.disabled = !formIsComplete();
+      const complete = formIsComplete();
+      submit.disabled = !complete;
+      const hint = form.querySelector<HTMLElement>('.bk-submit-hint')!;
+      if (complete) { hint.textContent = ''; return; }
+      const missing: string[] = [];
+      if (RULES.firstName!(inputFor('firstName')?.value.trim() ?? '')) missing.push(S.needsFirst);
+      if (RULES.lastName!(inputFor('lastName')?.value.trim() ?? '')) missing.push(S.needsLast);
+      if (RULES.email!(inputFor('email')?.value.trim() ?? '')) missing.push(S.needsEmail);
+      if (RULES.phone!('')) missing.push(S.needsPhone);
+      if (!checkGuests(false)) missing.push(S.needsGuest);
+      hint.textContent = missing.length ? S.needs.replace('{list}', missing.join(', ')) : '';
     }
 
     // Leaving a field checks it. Typing in a field that has already been
@@ -1343,7 +1442,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       const facts = panel.querySelector<HTMLElement>('.bk-ticket-facts')!;
       fact(facts, S.steps.type, `${chosen!.name}, ${fmtDuration(chosen!.durationMinutes)}`);
       fact(facts, S.steps.date, fmtDay(date));
-      fact(facts, S.steps.time, fmtTime(slot!.startUTC), true, zone.replace(/_/g, ' '));
+      fact(facts, S.steps.time, fmtTime(slot!.startUTC), true, zoneLabel());
 
       const status = panel.querySelector<HTMLElement>('.bk-ticket-status')!;
       if (payload.calendar?.eventCreated) statusLine(status, GLYPH.calendar, S.confirmed.calendarAdded);
@@ -1403,6 +1502,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     });
 
     async function applyState(state: Record<string, string>) {
+      if (state.tz && state.tz !== zone) { try { new Intl.DateTimeFormat('en-GB', { timeZone: state.tz }); zone = state.tz; zoneChosen = true; } catch { /* ignore */ } }
       if (!state.type) { chosen = null; date = ''; slot = null; show('type'); return; }
       const found = types.find((candidate) => candidate.slug === state.type);
       if (!found) { show('type'); return; }
@@ -1426,6 +1526,12 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     }
 
     window.addEventListener('popstate', () => { applyState(readHash()); });
+    // Phones fold the intro away under the booking; wide screens always show it.
+    const about = document.querySelector<HTMLDetailsElement>('.bk-about');
+    const wide = matchMedia('(min-width: 900px)');
+    const foldAbout = () => { if (about) about.open = wide.matches; };
+    if (about && !wide.matches) about.open = false;
+    wide.addEventListener('change', foldAbout);
     loadTypes().then(() => applyState(readHash()));
   }
 </script>

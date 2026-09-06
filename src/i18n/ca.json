@@ -53,11 +53,11 @@
   },
   "bookACall": {
     "title": "Reservar Trucada",
-    "description": "Una trucada gratuïta de 30 minuts, per vídeo o telèfon.",
+    "description": "Una trucada gratuïta, de 30 o 60 minuts, per vídeo o telèfon.",
     "intro": "Tant si vols cobrir una posició, estàs valorant React Native o Module Federation, o vols una segona opinió sobre un problema de lideratge tècnic — tria un forat i en parlem.",
     "expectTitle": "Què pots esperar",
     "expect": [
-      "30 minuts, per vídeo o telèfon — tu tries.",
+      "30 o 60 minuts, vídeo o telèfon. Tu tries.",
       "Sense preparació necessària. Si tens una oferta o un problema concret, envia-me'l abans.",
       "Sense discursos de venda. Si no et puc ajudar, t'ho diré i t'indicaré on anar."
     ],
@@ -165,7 +165,18 @@
       "generic": "Alguna cosa ha fallat.",
       "pickAnother": "Triar una altra hora",
       "tryAgain": "Tornar-ho a provar"
-    }
+    },
+    "retry": "Tornar-ho a provar",
+    "legend": "La barra mostra quant de temps lliure hi ha cada dia.",
+    "free": "{n} lliures",
+    "freeOne": "1 lliure",
+    "needs": "Per reservar, afegeix: {list}.",
+    "needsPhone": "el teu telèfon",
+    "needsFirst": "el teu nom",
+    "needsLast": "els teus cognoms",
+    "needsEmail": "el teu correu",
+    "needsGuest": "un correu de convidat vàlid",
+    "expectToggle": "Què esperar"
   },
   "common": {
     "download": "Descarregar",
