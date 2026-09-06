@@ -92,6 +92,13 @@ export class CalendarClient {
   private refreshing: Promise<string> | null = null;
 
   readonly email: string;
+  /**
+   * Calendars this account contributes busy time from. More than "primary"
+   * when another diary has been shared into the account at free/busy level,
+   * which is how a calendar the app was never granted access to still blocks
+   * slots.
+   */
+  readonly calendarIds: string[];
   private readonly refreshToken: string;
   private readonly credentials: GoogleCredentials;
   private readonly fetchImpl: Fetcher;
@@ -103,12 +110,14 @@ export class CalendarClient {
     credentials: GoogleCredentials,
     fetchImpl: Fetcher = globalFetch,
     now: () => number = Date.now,
+    calendarIds: string[] = ['primary'],
   ) {
     this.email = email;
     this.refreshToken = refreshToken;
     this.credentials = credentials;
     this.fetchImpl = fetchImpl;
     this.now = now;
+    this.calendarIds = calendarIds.length > 0 ? calendarIds : ['primary'];
   }
 
   /** A valid access token, refreshing only when the current one is nearly out. */
@@ -201,7 +210,8 @@ export class CalendarClient {
    * `calendars` entry or any `errors` array is treated as failure. Skipping a
    * calendar we were asked to check would offer a slot on top of a meeting.
    */
-  async freeBusy(timeMin: string, timeMax: string, calendarIds: string[] = ['primary']): Promise<Interval[]> {
+  async freeBusy(timeMin: string, timeMax: string, ids?: string[]): Promise<Interval[]> {
+    const calendarIds = ids ?? this.calendarIds;
     const payload = await this.call('/freeBusy', {
       method: 'POST',
       body: JSON.stringify({ timeMin, timeMax, items: calendarIds.map((id) => ({ id })) }),

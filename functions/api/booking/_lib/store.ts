@@ -10,6 +10,7 @@ export interface AccountRow {
   email: string;
   refresh_token_enc: string;
   check_busy: number;
+  calendar_ids: string;
   status: 'ok' | 'needs_reconnect';
 }
 
@@ -101,7 +102,7 @@ export function localised(values: Record<string, string>, locale: string): strin
 
 export async function listAccounts(env: Env): Promise<AccountRow[]> {
   const result = await env.BOOKING_DB.prepare(
-    'SELECT email, refresh_token_enc, check_busy, status FROM calendar_accounts ORDER BY email',
+    'SELECT email, refresh_token_enc, check_busy, calendar_ids, status FROM calendar_accounts ORDER BY email',
   ).all<AccountRow>();
   return result.results ?? [];
 }
@@ -120,7 +121,8 @@ export async function busyClients(env: Env, accounts: AccountRow[]): Promise<Cal
   return Promise.all(
     wanted.map(async (account) => {
       const refreshToken = await open(account.refresh_token_enc, env.TOKEN_KEY);
-      return new CalendarClient(account.email, refreshToken, credentials);
+      const ids = parseJson<string[]>(account.calendar_ids, ['primary']);
+      return new CalendarClient(account.email, refreshToken, credentials, undefined, undefined, ids);
     }),
   );
 }
@@ -128,7 +130,7 @@ export async function busyClients(env: Env, accounts: AccountRow[]): Promise<Cal
 /** A client for one named account, used when writing the event. */
 export async function clientFor(env: Env, email: string): Promise<CalendarClient | null> {
   const row = await env.BOOKING_DB.prepare(
-    'SELECT email, refresh_token_enc, check_busy, status FROM calendar_accounts WHERE email = ?',
+    'SELECT email, refresh_token_enc, check_busy, calendar_ids, status FROM calendar_accounts WHERE email = ?',
   )
     .bind(email)
     .first<AccountRow>();

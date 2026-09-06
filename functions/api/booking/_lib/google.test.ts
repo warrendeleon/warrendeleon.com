@@ -254,3 +254,57 @@ describe('events', () => {
     assert.ok(calls[1]!.url.includes('weird%2Fid%3Fx%3D1'));
   });
 });
+
+describe('shared calendars', () => {
+  it('queries every calendar the account contributes, not just its own', async () => {
+    const calls: string[] = [];
+    const impl = (async (input: RequestInfo | URL, init: RequestInit = {}) => {
+      calls.push(String(init.body ?? ''));
+      if (String(input).includes('oauth2')) return tokenGrant();
+      return okJson({
+        calendars: {
+          primary: { busy: [{ start: '2026-09-07T09:00:00Z', end: '2026-09-07T10:00:00Z' }] },
+          'warren.deleonofalla@news.co.uk': {
+            busy: [{ start: '2026-09-07T14:00:00Z', end: '2026-09-07T15:00:00Z' }],
+          },
+        },
+      });
+    }) as unknown as typeof fetch;
+
+    const calendar = new CalendarClient('hi@warrendeleon.com', 'refresh', CREDENTIALS, impl, () => 0, [
+      'primary',
+      'warren.deleonofalla@news.co.uk',
+    ]);
+    const busy = await calendar.freeBusy('2026-09-07T00:00:00Z', '2026-09-08T00:00:00Z');
+
+    assert.equal(busy.length, 2, 'both diaries must block time');
+    assert.match(calls[1]!, /warren\.deleonofalla@news\.co\.uk/, 'the shared calendar is asked for by name');
+  });
+
+  it('fails closed when a shared calendar stops being readable', async () => {
+    const impl = (async (input: RequestInfo | URL) => {
+      if (String(input).includes('oauth2')) return tokenGrant();
+      return okJson({
+        calendars: {
+          primary: { busy: [] },
+          'warren.deleonofalla@news.co.uk': { errors: [{ reason: 'notFound' }] },
+        },
+      });
+    }) as unknown as typeof fetch;
+
+    const calendar = new CalendarClient('hi@warrendeleon.com', 'refresh', CREDENTIALS, impl, () => 0, [
+      'primary',
+      'warren.deleonofalla@news.co.uk',
+    ]);
+    await assert.rejects(
+      () => calendar.freeBusy('a', 'b'),
+      /reported notFound/,
+      'a withdrawn share must stop bookings, not silently open the diary',
+    );
+  });
+
+  it('falls back to the primary calendar when given an empty list', async () => {
+    const { calendar } = client([tokenGrant, () => okJson({ calendars: { primary: { busy: [] } } })]);
+    assert.deepEqual(calendar.calendarIds, ['primary']);
+  });
+});
