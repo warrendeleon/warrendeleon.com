@@ -174,6 +174,23 @@ describe('ensureChannels', () => {
   });
 });
 
+describe('ensureChannels and Calendly types', () => {
+  it('watches no calendar for a Calendly-provided type and drops a stale channel', async () => {
+    const calendlyType = { ...typeRow, slug: 'one-to-one', provider: 'calendly', target_calendar_id: 'primary' };
+    const stale = { calendar_id: 'primary', channel_id: 'ch-p', resource_id: 'res-p', token: 't', expires_at: new Date(NOW + 5 * 86_400_000).toISOString() };
+    const db = fakeD1((sql: string) => {
+      if (sql.includes('FROM event_types')) return { all: [calendlyType] };
+      if (sql.includes('FROM sync_channels')) return { all: [stale] };
+      return {};
+    });
+    const d = deps({});
+    assert.deepEqual(await ensureChannels(env(db), 'https://x/webhook', d), []);
+    assert.equal(d.calls.watched.length, 0);
+    assert.deepEqual(d.calls.stopped, [['ch-p', 'res-p']]);
+    assert.ok(db.calls.some((c) => c.sql.includes('DELETE FROM sync_channels') && c.args[0] === 'primary'));
+  });
+});
+
 describe('knownChannelToken', () => {
   it('accepts a stored token and nothing else', async () => {
     const db = fakeD1(answers([], [{ calendar_id: 'interviews' }]));

@@ -186,12 +186,22 @@ interface ChannelRow {
 export async function ensureChannels(env: Env, address: string, deps: SyncDeps = liveDeps): Promise<string[]> {
   const now = deps.now();
   const types = await listEventTypes(env, true);
+  // Only the calendars this app writes to. A Calendly-provided type's events
+  // live on the seat's own calendar, which this app neither reads nor watches.
   const wanted = new Map<string, string>();
-  for (const type of types) wanted.set(type.targetCalendarId, type.organiserAccount);
+  for (const type of types) if (type.provider !== 'calendly') wanted.set(type.targetCalendarId, type.organiserAccount);
 
   const existing = new Map<string, ChannelRow>();
   for (const row of (await env.BOOKING_DB.prepare('SELECT calendar_id, channel_id, resource_id, token, expires_at FROM sync_channels').all<ChannelRow>()).results ?? []) {
     existing.set(row.calendar_id, row);
+  }
+
+  // A channel for a calendar nothing points at any more is stopped and forgotten.
+  for (const [calendarId, current] of existing) {
+    if (wanted.has(calendarId)) continue;
+    const client = await deps.clientFor(env, types.find((t) => t.targetCalendarId === calendarId)?.organiserAccount ?? '');
+    try { if (client) await client.stopChannel(current.channel_id, current.resource_id); } catch (cause) { console.error('[booking] sync: could not stop stale channel', calendarId, cause instanceof Error ? cause.message : cause); }
+    await env.BOOKING_DB.prepare('DELETE FROM sync_channels WHERE calendar_id = ?').bind(calendarId).run();
   }
 
   const renewed: string[] = [];
