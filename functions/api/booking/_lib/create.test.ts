@@ -9,8 +9,8 @@ const booker = {
 const base = { typeName: 'Intro call', question: 'What would you like to cover?', booker, hostPhone: '+44 20 7946 0000', manageUrl: 'https://warrendeleon.com/booking/manage/?id=1&token=t', origin: 'https://warrendeleon.com' };
 
 describe('the event as Calendly writes it', () => {
-  it('names both people in the title', () => {
-    assert.equal(describeEvent(base).summary, `Intro call between ${HOST_NAME} and Jane Doe`);
+  it('titles the event as type, booker and host', () => {
+    assert.equal(describeEvent(base).summary, `Intro call: Jane Doe and ${HOST_NAME}`);
   });
 
   it('lays the description out as labelled lines, in Calendly order', () => {

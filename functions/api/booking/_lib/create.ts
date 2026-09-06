@@ -265,7 +265,7 @@ export interface EventDetailsInput {
 
 /**
  * The event as Calendly writes it, so a booking looks the same in the diary
- * whichever tool made it: a title naming both people, then labelled lines for
+ * whichever tool made it: a title of the form "Type: Booker and Host", then labelled lines for
  * the event, the location, the answers, the guests, and how to change it.
  * Pure, so the exact text is tested without creating anything.
  */
@@ -297,7 +297,7 @@ export function describeEvent(input: EventDetailsInput): { summary: string; desc
   );
 
   return {
-    summary: `${typeName} between ${HOST_NAME} and ${bookerName}`,
+    summary: `${typeName}: ${bookerName} and ${HOST_NAME}`,
     description: lines.join('\n\n'),
     location: isPhone && hostPhone ? hostPhone : null,
   };
