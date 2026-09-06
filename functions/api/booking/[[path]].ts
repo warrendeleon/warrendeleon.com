@@ -72,6 +72,8 @@ const types: Handler = async ({ env, url }) => {
       description: localised(type.descriptions, locale),
       durationMinutes: type.durationMinutes,
       locations: type.locations,
+      question: localised(type.question, locale) || null,
+      questionRequired: type.questionRequired,
     })),
   });
 };

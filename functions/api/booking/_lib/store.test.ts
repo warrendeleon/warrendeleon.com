@@ -18,6 +18,10 @@ const eventTypeRow: EventTypeRow = {
   visibility: 'listed',
   active: 1,
   sort_order: 0,
+  target_calendar_id: 'warrendeleon.com_abc@group.calendar.google.com',
+  question: '{"en":"What is the role?","es":"¿Qué puesto es?"}',
+  question_required: 1,
+  allow_guests: 1,
 };
 
 describe('event type rows', () => {
@@ -33,6 +37,14 @@ describe('event type rows', () => {
       daysAheadLimit: 30,
       maxPerDay: 5,
     });
+  });
+
+  it('carries the target calendar and the per-type question', () => {
+    const type = toEventType(eventTypeRow);
+    assert.equal(type.targetCalendarId, 'warrendeleon.com_abc@group.calendar.google.com');
+    assert.equal(type.question.es, '¿Qué puesto es?');
+    assert.equal(type.questionRequired, true);
+    assert.equal(toEventType({ ...eventTypeRow, target_calendar_id: '' }).targetCalendarId, 'primary');
   });
 
   it('survives a malformed JSON column instead of failing the page', () => {

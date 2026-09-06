@@ -410,7 +410,10 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
   declare function t(event: string, data?: Record<string, unknown>): void;
 
-  interface EventType { slug: string; name: string; description: string; durationMinutes: number; locations: string[] }
+  interface EventType {
+    slug: string; name: string; description: string; durationMinutes: number; locations: string[];
+    question?: string | null; questionRequired?: boolean;
+  }
   interface Slot { startUTC: string; endUTC: string }
   type Days = Record<string, Slot[]>;
   type Step = 'type' | 'date' | 'time' | 'details' | 'done';
@@ -760,7 +763,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       set('label[for="bk-email"]', S.form.email);
       set('label[for="bk-phone"]', S.form.phone);
       set('.bk-phone .bk-hint', S.form.phoneHelp);
-      set('label[for="bk-notes"]', `${S.form.question} (${S.form.optional})`);
+      const ask = chosen!.question || S.form.question;
+      set('label[for="bk-notes"]', chosen!.questionRequired ? ask : `${ask} (${S.form.optional})`);
       set('.bk-add-guest span', S.form.addGuests);
       set('.bk-submit', S.form.submit);
       set('.bk-locations .bk-group-title', S.form.location);

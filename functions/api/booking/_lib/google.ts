@@ -257,7 +257,7 @@ export class CalendarClient {
   }
 
   /** Create the booking. Google emails the invite because of sendUpdates=all. */
-  async insertEvent(draft: EventDraft): Promise<CreatedEvent> {
+  async insertEvent(draft: EventDraft, calendarId = 'primary'): Promise<CreatedEvent> {
     const body: Record<string, unknown> = {
       summary: draft.summary,
       description: draft.description,
@@ -281,7 +281,7 @@ export class CalendarClient {
       };
     }
 
-    const payload = await this.call('/calendars/primary/events', {
+    const payload = await this.call(`/calendars/${encodeURIComponent(calendarId)}/events`, {
       method: 'POST',
       body: JSON.stringify(body),
       query,
@@ -303,8 +303,8 @@ export class CalendarClient {
   }
 
   /** Move an existing booking. Google emails the change. */
-  async patchEvent(eventId: string, startUTC: string, endUTC: string, timezone: string): Promise<void> {
-    await this.call(`/calendars/primary/events/${encodeURIComponent(eventId)}`, {
+  async patchEvent(eventId: string, startUTC: string, endUTC: string, timezone: string, calendarId = 'primary'): Promise<void> {
+    await this.call(`/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
       method: 'PATCH',
       body: JSON.stringify({
         start: { dateTime: startUTC, timeZone: timezone },
@@ -315,9 +315,9 @@ export class CalendarClient {
   }
 
   /** Cancel. A 404 or 410 means it is already gone, which is the goal anyway. */
-  async deleteEvent(eventId: string): Promise<void> {
+  async deleteEvent(eventId: string, calendarId = 'primary'): Promise<void> {
     try {
-      await this.call(`/calendars/primary/events/${encodeURIComponent(eventId)}`, {
+      await this.call(`/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`, {
         method: 'DELETE',
         query: { sendUpdates: 'all' },
       });

@@ -30,6 +30,10 @@ export interface EventTypeRow {
   visibility: 'listed' | 'unlisted';
   active: number;
   sort_order: number;
+  target_calendar_id: string;
+  question: string;
+  question_required: number;
+  allow_guests: number;
 }
 
 export interface ScheduleRow {
@@ -50,6 +54,12 @@ export interface EventType {
   mirrorTo: string[];
   scheduleId: string;
   visibility: 'listed' | 'unlisted';
+  /** The calendar the event is written to; 'primary' or a calendar id. */
+  targetCalendarId: string;
+  /** The question asked on the form, per locale; empty means a plain notes box. */
+  question: Record<string, string>;
+  questionRequired: boolean;
+  allowGuests: boolean;
   rules: EventTypeRules;
 }
 
@@ -77,6 +87,10 @@ export function toEventType(row: EventTypeRow): EventType {
     mirrorTo: parseJson<string[]>(row.mirror_to, []),
     scheduleId: row.schedule_id,
     visibility: row.visibility,
+    targetCalendarId: row.target_calendar_id || 'primary',
+    question: parseJson<Record<string, string>>(row.question ?? '{}', {}),
+    questionRequired: row.question_required === 1,
+    allowGuests: row.allow_guests !== 0,
     rules: {
       durationMinutes: row.duration_minutes,
       bufferMinutes: row.buffer_minutes,

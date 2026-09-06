@@ -233,6 +233,15 @@ describe('events', () => {
     );
   });
 
+  it('writes to the calendar it is told to, escaping the id', async () => {
+    const { calendar, calls } = client([tokenGrant, () => okJson({ id: 'event-9' })]);
+    await calendar.insertEvent(
+      { summary: 'x', startUTC: '2026-08-04T09:00:00Z', endUTC: '2026-08-04T09:30:00Z', timezone: 'Europe/London', attendees: [], withMeet: false },
+      'abc_def@group.calendar.google.com',
+    );
+    assert.ok(calls[1]!.url.includes('/calendars/abc_def%40group.calendar.google.com/events'));
+  });
+
   it('emails the change when a booking moves', async () => {
     const { calendar, calls } = client([tokenGrant, () => new Response(null, { status: 204 })]);
     await calendar.patchEvent('event-1', '2026-08-05T09:00:00Z', '2026-08-05T09:30:00Z', 'Europe/London');

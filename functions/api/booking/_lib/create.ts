@@ -168,39 +168,35 @@ export async function createBooking(request: Request, env: Env, origin: string):
   const isPhone = value.location === 'phone';
   const hostPhone = env.HOST_PHONE?.trim() || null;
 
-  // A link back to the work experience page, in the booker's language, tagged
-  // the way the site tags every other origin: source is the specific place the
-  // click comes from, medium is its channel. A booking is not a push, so no
-  // campaign; the page is linked once, so no content tag.
-  const prefix = value.locale === 'en' ? '' : `/${value.locale}`;
-  const profileUrl = `${origin}${prefix}/work-experience/?utm_source=calendar&utm_medium=email`;
-
-  const description = [
-    value.notes,
-    isPhone && hostPhone ? `Call ${hostPhone} at the start time.` : null,
-    isPhone && value.phone ? `Calling from ${value.phone}.` : null,
-    `Before we talk, my work experience is here, with a button to download my CV:\n${profileUrl}`,
-    `Booked from ${origin}`,
-  ]
-    .filter(Boolean)
-    .join('\n\n');
+  const manageUrl = `${origin}/booking/manage/?id=${id}&token=${manageToken}`;
+  const details = describeEvent({
+    typeName: localised(eventType.names, 'en'),
+    question: localised(eventType.question, value.locale) || null,
+    booker: value,
+    hostPhone,
+    manageUrl,
+    origin,
+  });
 
   try {
-    const event = await organiser.insertEvent({
-      summary: `${localised(eventType.names, 'en')} with ${value.firstName} ${value.lastName}`,
-      description,
-      startUTC: value.startUTC,
-      endUTC,
-      timezone: schedule.timezone,
-      attendees,
-      withMeet: value.location === 'video',
-      location: isPhone && hostPhone ? hostPhone : undefined,
-    });
+    const event = await organiser.insertEvent(
+      {
+        summary: details.summary,
+        description: details.description,
+        startUTC: value.startUTC,
+        endUTC,
+        timezone: schedule.timezone,
+        attendees,
+        withMeet: value.location === 'video',
+        location: details.location ?? undefined,
+      },
+      eventType.targetCalendarId,
+    );
 
     await env.BOOKING_DB.prepare(
-      "UPDATE bookings SET google_event_id = ?, meet_link = ?, updated_at = datetime('now') WHERE id = ?",
+      "UPDATE bookings SET google_event_id = ?, google_calendar_id = ?, meet_link = ?, updated_at = datetime('now') WHERE id = ?",
     )
-      .bind(event.id, event.meetLink, id)
+      .bind(event.id, eventType.targetCalendarId, event.meetLink, id)
       .run();
 
     await audit(env, 'created', id, {
@@ -220,7 +216,7 @@ export async function createBooking(request: Request, env: Env, origin: string):
           meetLink: event.meetLink,
           status: 'confirmed',
         },
-        manageUrl: `${origin}/booking/manage/?id=${id}&token=${manageToken}`,
+        manageUrl,
       },
       201,
     );
@@ -247,4 +243,59 @@ async function undo(env: Env, bookingId: string, reason: string): Promise<void> 
     console.error('[booking] rollback failed, slot may stay locked', bookingId, cause);
   }
   await audit(env, 'failed', bookingId, { reason });
+}
+
+export const HOST_NAME = 'Warren de Leon';
+
+export interface EventDetailsInput {
+  typeName: string;
+  /** The event type's own question, in the booker's language, if it has one. */
+  question: string | null;
+  booker: {
+    firstName: string; lastName: string; email: string; phone: string | null;
+    location: 'video' | 'phone'; notes: string | null; guests: string[]; locale: string;
+  };
+  hostPhone: string | null;
+  manageUrl: string;
+  origin: string;
+}
+
+/**
+ * The event as Calendly writes it, so a booking looks the same in the diary
+ * whichever tool made it: a title naming both people, then labelled lines for
+ * the event, the location, the answers, the guests, and how to change it.
+ * Pure, so the exact text is tested without creating anything.
+ */
+export function describeEvent(input: EventDetailsInput): { summary: string; description: string; location: string | null } {
+  const { typeName, question, booker, hostPhone, manageUrl, origin } = input;
+  const bookerName = `${booker.firstName} ${booker.lastName}`;
+  const isPhone = booker.location === 'phone';
+
+  const location = isPhone
+    ? hostPhone
+      ? `Phone call: you call ${HOST_NAME} on ${hostPhone}`
+      : 'Phone call'
+    : 'Google Meet';
+
+  const prefix = booker.locale === 'en' ? '' : `/${booker.locale}`;
+  const profileUrl = `${origin}${prefix}/work-experience/?utm_source=calendar&utm_medium=email`;
+
+  const lines: string[] = [
+    `Event Name: ${typeName}`,
+    `Location: ${location}`,
+  ];
+  if (isPhone && booker.phone) lines.push(`Invitee phone number: ${booker.phone}`);
+  if (booker.notes) lines.push(`${question ?? 'Notes'}: ${booker.notes}`);
+  if (booker.guests.length > 0) lines.push(`Guests: ${booker.guests.join(', ')}`);
+  lines.push(
+    `Need to make changes to this event?\nCancel: ${manageUrl}#cancel\nReschedule: ${manageUrl}#reschedule`,
+    `Before we talk, my work experience is here, with a button to download my CV:\n${profileUrl}`,
+    `Booked at ${origin}`,
+  );
+
+  return {
+    summary: `${typeName} between ${HOST_NAME} and ${bookerName}`,
+    description: lines.join('\n\n'),
+    location: isPhone && hostPhone ? hostPhone : null,
+  };
 }
