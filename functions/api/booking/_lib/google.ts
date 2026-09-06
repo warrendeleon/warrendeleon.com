@@ -314,6 +314,56 @@ export class CalendarClient {
     });
   }
 
+  /**
+   * The event as Google has it now, or null when it no longer exists. A
+   * deleted event answers 200 with status "cancelled" for a while and 404 or
+   * 410 after that; both mean the same thing to a booking.
+   */
+  async getEvent(eventId: string, calendarId = 'primary'): Promise<{ status: string; startUTC: string | null; endUTC: string | null } | null> {
+    let raw: unknown;
+    try {
+      raw = await this.call(`/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`);
+    } catch (cause) {
+      if (cause instanceof CalendarUnavailableError && /returned (404|410)/.test(cause.detail)) return null;
+      throw cause;
+    }
+    if (!isRecord(raw)) return null;
+    const instant = (value: unknown) => {
+      if (!isRecord(value) || typeof value.dateTime !== 'string') return null;
+      const ms = Date.parse(value.dateTime);
+      return Number.isNaN(ms) ? null : new Date(ms).toISOString();
+    };
+    return { status: typeof raw.status === 'string' ? raw.status : 'confirmed', startUTC: instant(raw.start), endUTC: instant(raw.end) };
+  }
+
+  /**
+   * Ask Google to POST to `address` whenever anything on the calendar changes.
+   * The channel expires; the caller renews it. Google echoes `token` back in
+   * X-Goog-Channel-Token, which is how the receiver knows the call is real.
+   */
+  async watchEvents(calendarId: string, address: string, token: string, ttlMs: number): Promise<{ channelId: string; resourceId: string; expiresAt: string }> {
+    const channelId = crypto.randomUUID();
+    const raw = await this.call(`/calendars/${encodeURIComponent(calendarId)}/events/watch`, {
+      method: 'POST',
+      body: JSON.stringify({ id: channelId, type: 'web_hook', address, token, expiration: String(this.now() + ttlMs) }),
+    });
+    if (!isRecord(raw) || typeof raw.resourceId !== 'string') {
+      throw new CalendarUnavailableError(this.email, 'watch answered without a resourceId');
+    }
+    const expiration = typeof raw.expiration === 'string' ? Number(raw.expiration) : this.now() + ttlMs;
+    return { channelId, resourceId: raw.resourceId, expiresAt: new Date(expiration).toISOString() };
+  }
+
+  /** Stop a channel. One that already expired answers 404, which is fine. */
+  async stopChannel(channelId: string, resourceId: string): Promise<void> {
+    try {
+      await this.call('/channels/stop', { method: 'POST', body: JSON.stringify({ id: channelId, resourceId }) });
+    } catch (cause) {
+      if (cause instanceof CalendarUnavailableError && /returned (404|410)/.test(cause.detail)) return;
+      throw cause;
+    }
+  }
+
   /** Cancel. A 404 or 410 means it is already gone, which is the goal anyway. */
   async deleteEvent(eventId: string, calendarId = 'primary'): Promise<void> {
     try {

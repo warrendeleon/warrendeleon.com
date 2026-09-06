@@ -7,6 +7,7 @@ import { createBooking } from './_lib/create.ts';
 import { CalendarAuthError, CalendarUnavailableError, mergedBusy } from './_lib/google.ts';
 import { fail, isAdmin, json, type Env } from './_lib/http.ts';
 import { manageBooking } from './_lib/manage.ts';
+import { ensureChannels, knownChannelToken, reconcile } from './_lib/sync.ts';
 import { datesIn } from './_lib/availability.ts';
 import {
   busyClients,
@@ -149,6 +150,36 @@ const create: Handler = async ({ request, env, url }) => createBooking(request, 
 /** Read, move or cancel one booking. The manage token travels in a header. */
 const manage: Handler = async ({ request, env, segments }) => manageBooking(request, env, segments[1]!);
 
+/**
+ * Bring the rows in line with the calendar and keep the push channels alive.
+ * Called by the mini PC on a timer, and by hand after any edit made in the
+ * calendar itself. Admin-key gated by the router.
+ */
+const adminSync: Handler = async ({ env, url }) => {
+  const origin = env.SITE_ORIGIN?.replace(/\/$/, '') || url.origin;
+  const channels = await ensureChannels(env, `${origin}/api/booking/webhooks/google`);
+  const report = await reconcile(env);
+  return json({ ...report, channelsRenewed: channels });
+};
+
+/**
+ * Google's push notification. It carries no event data, only "something
+ * changed", so the answer is a full reconcile. The channel token proves the
+ * call came from a channel this app opened; anything else is ignored with a
+ * 200, because Google retries anything it takes for a failure.
+ */
+const googleWebhook: Handler = async ({ request, env }) => {
+  const state = request.headers.get('x-goog-resource-state');
+  if (!(await knownChannelToken(env, request.headers.get('x-goog-channel-token')))) {
+    console.warn('[booking] webhook: unknown channel token ignored');
+    return new Response(null, { status: 200 });
+  }
+  if (state === 'sync') return new Response(null, { status: 200 });
+  const report = await reconcile(env);
+  if (report.cancelled.length || report.moved.length || report.stuck.length) console.log('[booking] webhook reconcile', JSON.stringify(report));
+  return new Response(null, { status: 200 });
+};
+
 const notImplemented: Handler = async () => fail('not_found', 'This route is not built yet.');
 
 function route({ request, segments }: RouteContext): Handler | null {
@@ -163,6 +194,9 @@ function route({ request, segments }: RouteContext): Handler | null {
 
   if (segments.length === 1 && head === 'bookings' && method === 'POST') return create;
   if (segments.length === 2 && head === 'bookings' && ['GET', 'PATCH', 'DELETE'].includes(method)) return manage;
+
+  if (segments.length === 2 && head === 'admin' && segments[1] === 'sync' && method === 'POST') return adminSync;
+  if (segments.length === 2 && head === 'webhooks' && segments[1] === 'google' && method === 'POST') return googleWebhook;
 
   // Declared so the shape of the API is visible in one place. It lands with
   // its own ticket; until then it answers 404 rather than pretending.
