@@ -55,8 +55,13 @@ export interface GenerateSlotsInput {
 
 const MINUTE = 60_000;
 
-/** Candidate starts advance on this grid, matching the slot-lock buckets. */
-export const STEP_MINUTES = 30;
+/**
+ * Candidate starts advance on this grid, and the slot-lock buckets use it too.
+ * Every duration must be a multiple of it. Changing it with bookings already in
+ * slot_locks needs a migration to re-key their buckets, or overlaps stop
+ * colliding.
+ */
+export const STEP_MINUTES = 15;
 
 const DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 const TIME_PATTERN = /^(\d{2}):(\d{2})$/;

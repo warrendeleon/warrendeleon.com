@@ -216,7 +216,7 @@ describe('schedule windows', () => {
       bookedCount: 0,
       now: wellBefore('2026-08-04'),
     });
-    assert.deepEqual(starts(slots), ['2026-08-04T17:00:00.000Z', '2026-08-04T17:30:00.000Z']);
+    assert.deepEqual(starts(slots), ['2026-08-04T17:00:00.000Z', '2026-08-04T17:15:00.000Z', '2026-08-04T17:30:00.000Z']);
   });
 
   it('lets an empty override block a working day', () => {
@@ -247,10 +247,8 @@ describe('schedule windows', () => {
       now: wellBefore('2026-08-04'),
     });
     assert.deepEqual(starts(slots), [
-      '2026-08-04T08:00:00.000Z',
-      '2026-08-04T08:30:00.000Z',
-      '2026-08-04T13:00:00.000Z',
-      '2026-08-04T13:30:00.000Z',
+      '2026-08-04T08:00:00.000Z', '2026-08-04T08:15:00.000Z', '2026-08-04T08:30:00.000Z',
+      '2026-08-04T13:00:00.000Z', '2026-08-04T13:15:00.000Z', '2026-08-04T13:30:00.000Z',
     ]);
   });
 
@@ -269,18 +267,23 @@ describe('schedule windows', () => {
 });
 
 describe('slot locks', () => {
-  it('covers every 30-minute bucket a booking touches', () => {
+  it('covers every 15-minute bucket a booking touches', () => {
     assert.deepEqual(bucketsFor({ start: utc('2026-08-04T09:00:00Z'), end: utc('2026-08-04T10:00:00Z') }), [
-      '2026-08-04T09:00:00.000Z',
-      '2026-08-04T09:30:00.000Z',
+      '2026-08-04T09:00:00.000Z', '2026-08-04T09:15:00.000Z',
+      '2026-08-04T09:30:00.000Z', '2026-08-04T09:45:00.000Z',
     ]);
   });
 
-  it('locks both buckets when a booking straddles the grid', () => {
-    assert.deepEqual(bucketsFor({ start: utc('2026-08-04T09:15:00Z'), end: utc('2026-08-04T09:45:00Z') }), [
-      '2026-08-04T09:00:00.000Z',
-      '2026-08-04T09:30:00.000Z',
+  it('locks every bucket a booking touches when it straddles the grid', () => {
+    assert.deepEqual(bucketsFor({ start: utc('2026-08-04T09:10:00Z'), end: utc('2026-08-04T09:40:00Z') }), [
+      '2026-08-04T09:00:00.000Z', '2026-08-04T09:15:00.000Z', '2026-08-04T09:30:00.000Z',
     ]);
+  });
+
+  it('collides on a quarter-hour overlap, which a 30-minute grid would miss', () => {
+    const a = bucketsFor({ start: utc('2026-08-04T09:00:00Z'), end: utc('2026-08-04T09:30:00Z') });
+    const b = bucketsFor({ start: utc('2026-08-04T09:15:00Z'), end: utc('2026-08-04T09:45:00Z') });
+    assert.ok(a.some((bucket) => b.includes(bucket)));
   });
 
   it('gives two overlapping bookings at least one bucket in common', () => {

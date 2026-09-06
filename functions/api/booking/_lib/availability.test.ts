@@ -70,12 +70,13 @@ describe('a month of availability', () => {
 
   it('returns slots as UTC instants', () => {
     const { days } = monthAvailability({ month: '2026-08', schedule, rules, busy: [], bookedByDate: {}, now });
-    assert.deepEqual(days['2026-08-04'], [
-      { startUTC: '2026-08-04T08:00:00.000Z', endUTC: '2026-08-04T08:30:00.000Z' },
-      { startUTC: '2026-08-04T08:30:00.000Z', endUTC: '2026-08-04T09:00:00.000Z' },
-      { startUTC: '2026-08-04T09:00:00.000Z', endUTC: '2026-08-04T09:30:00.000Z' },
-      { startUTC: '2026-08-04T09:30:00.000Z', endUTC: '2026-08-04T10:00:00.000Z' },
+    // A 09:00 to 11:00 BST window, 30-minute calls, starts every 15 minutes.
+    assert.deepEqual(days['2026-08-04']?.map((s) => s.startUTC), [
+      '2026-08-04T08:00:00.000Z', '2026-08-04T08:15:00.000Z', '2026-08-04T08:30:00.000Z',
+      '2026-08-04T08:45:00.000Z', '2026-08-04T09:00:00.000Z', '2026-08-04T09:15:00.000Z',
+      '2026-08-04T09:30:00.000Z',
     ]);
+    assert.equal(days['2026-08-04']?.[0]?.endUTC, '2026-08-04T08:30:00.000Z');
   });
 
   it('drops a day once it hits its own cap', () => {
