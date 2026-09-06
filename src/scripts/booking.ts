@@ -907,8 +907,10 @@ if (mounted) {
 
   interface Created {
     booking?: { meetLink?: string | null; hostPhone?: string | null; location?: string };
-    calendar?: { eventCreated?: boolean; invitesSentTo?: string[] };
+    calendar?: { eventCreated?: boolean; invitesSentTo?: string[]; provider?: string };
     manageUrl?: string;
+    /** Calendly-provided types hand back separate links. */
+    cancelUrl?: string | null;
   }
 
   function renderDone(payload: Created, email: string) {
@@ -930,7 +932,10 @@ if (mounted) {
 
     const actions = panel.querySelector<HTMLElement>('.bk-done-actions')!;
     if (payload.booking?.meetLink) action(actions, S.confirmed.meet, true, undefined, payload.booking.meetLink);
-    if (payload.manageUrl) action(actions, S.confirmed.manage, !payload.booking?.meetLink, undefined, payload.manageUrl);
+    if (payload.cancelUrl) {
+      if (payload.manageUrl) action(actions, S.confirmed.reschedule, !payload.booking?.meetLink, undefined, payload.manageUrl);
+      action(actions, S.confirmed.cancel, false, undefined, payload.cancelUrl);
+    } else if (payload.manageUrl) action(actions, S.confirmed.manage, !payload.booking?.meetLink, undefined, payload.manageUrl);
     show('done');
     track('call_booked', { type: chosen!.slug, minutes: chosen!.durationMinutes, location: payload.booking?.location ?? '' });
   }
@@ -985,7 +990,14 @@ if (mounted) {
     zone = target; zoneChosen = Boolean(state.tz);
     if (MANAGE) { await applyManageState(state, zoneChanged); return; }
     if (!state.type) { chosen = null; date = ''; slot = null; show('type'); renderStub(); return; }
-    const found = types.find((candidate) => candidate.slug === state.type);
+    let found = types.find((candidate) => candidate.slug === state.type);
+    if (!found) {
+      // A direct link to a type the list does not show.
+      try {
+        const response = await fetch(`/api/booking/types?locale=${LOCALE}&slug=${encodeURIComponent(state.type)}`);
+        if (response.ok) found = ((await response.json()).types as EventType[])[0];
+      } catch { /* treated as unknown below */ }
+    }
     if (!found) { show('type'); return; }
     const sameMonth = chosen?.slug === found.slug && month === (state.date ? state.date.slice(0, 7) : month);
     chosen = found; slot = null; date = '';

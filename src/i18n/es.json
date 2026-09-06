@@ -145,7 +145,9 @@
       "ring": "Me llamas al {phone} a la hora de inicio",
       "manage": "Cambiar o cancelar",
       "home": "Volver a la web",
-      "body": "La invitación lo lleva todo: la hora en tu zona, el enlace o el número, y cómo cambiarla."
+      "body": "La invitación lo lleva todo: la hora en tu zona, el enlace o el número, y cómo cambiarla.",
+      "reschedule": "Cambiar la hora",
+      "cancel": "Cancelar"
     },
     "empty": "Ahora mismo no hay nada disponible. Escríbeme y lo vemos.",
     "hints": {

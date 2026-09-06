@@ -34,6 +34,8 @@ export interface EventTypeRow {
   question: string;
   question_required: number;
   allow_guests: number;
+  provider: 'google' | 'calendly';
+  calendly_event_type: string | null;
 }
 
 export interface ScheduleRow {
@@ -60,6 +62,10 @@ export interface EventType {
   question: Record<string, string>;
   questionRequired: boolean;
   allowGuests: boolean;
+  /** Who books it: this app against Google, or Calendly's Scheduling API. */
+  provider: 'google' | 'calendly';
+  /** Calendly event type URI, for provider 'calendly'. */
+  calendlyEventType: string | null;
   rules: EventTypeRules;
 }
 
@@ -91,6 +97,8 @@ export function toEventType(row: EventTypeRow): EventType {
     question: parseJson<Record<string, string>>(row.question ?? '{}', {}),
     questionRequired: row.question_required === 1,
     allowGuests: row.allow_guests !== 0,
+    provider: row.provider === 'calendly' ? 'calendly' : 'google',
+    calendlyEventType: row.calendly_event_type || null,
     rules: {
       durationMinutes: row.duration_minutes,
       bufferMinutes: row.buffer_minutes,
@@ -215,7 +223,7 @@ export async function bookedByDate(
   const result = await env.BOOKING_DB.prepare(
     `SELECT local_date, COUNT(*) AS total
        FROM bookings
-      WHERE status = 'confirmed' AND local_date BETWEEN ? AND ?
+      WHERE status = 'confirmed' AND provider = 'google' AND local_date BETWEEN ? AND ?
       GROUP BY local_date`,
   )
     .bind(fromDate, toDate)

@@ -6,6 +6,7 @@
 // The client's chosen slot is never trusted. It is recomputed from the schedule
 // and a fresh free/busy read, because the page may have been open for an hour.
 
+import { CalendlyClient, CalendlyError } from './calendly.ts';
 import { randomToken } from './crypto.ts';
 import {
   CalendarAuthError,
@@ -67,6 +68,8 @@ export async function createBooking(request: Request, env: Env, origin: string):
     console.error('[booking] event type', eventType.slug, 'points at missing schedule', eventType.scheduleId);
     return fail('internal', 'This event type is misconfigured.');
   }
+
+  if (eventType.provider === 'calendly') return createThroughCalendly(env, eventType, schedule, value);
 
   const startsAt = Date.parse(value.startUTC);
   const localDate = dateKey(startsAt, schedule.timezone);
@@ -235,6 +238,84 @@ export async function createBooking(request: Request, env: Env, origin: string):
     await undo(env, id, detail);
     return fail('calendar_unavailable', 'The booking could not be confirmed. Nothing was reserved.');
   }
+}
+
+/**
+ * The Calendly-provided types. Calendly checks the slot, creates the meeting
+ * on the seat's own calendar and emails the invite; the row here is a record,
+ * not a lock, so it never counts against this app's daily caps. Reschedule
+ * and cancel go through the links Calendly hands back.
+ */
+async function createThroughCalendly(
+  env: Env,
+  eventType: Awaited<ReturnType<typeof getEventType>> & object,
+  schedule: { timezone: string },
+  value: NonNullable<ReturnType<typeof validateBooking>['value']>,
+): Promise<Response> {
+  if (!env.CALENDLY_TOKEN || !eventType.calendlyEventType) {
+    console.error('[booking] create: calendly type without token or event type uri', eventType.slug);
+    return fail('calendar_unavailable', 'This call cannot be booked right now.');
+  }
+  const id = crypto.randomUUID();
+  const question = localised(eventType.question, value.locale) || 'Notes';
+  let booked;
+  try {
+    booked = await new CalendlyClient(env.CALENDLY_TOKEN).createInvitee({
+      eventTypeUri: eventType.calendlyEventType,
+      startUTC: value.startUTC,
+      firstName: value.firstName,
+      lastName: value.lastName,
+      email: value.email,
+      timezone: value.timezone,
+      guests: value.guests,
+      answer: value.notes ? { question, answer: value.notes } : null,
+    });
+  } catch (cause) {
+    const detail = cause instanceof CalendlyError ? `${cause.status} ${cause.message}` : String(cause);
+    console.error('[booking] create: calendly refused', detail);
+    await audit(env, 'failed', id, { reason: detail, provider: 'calendly' });
+    // Calendly says a taken or stale slot with a 400-family answer; anything
+    // else is Calendly itself being unavailable.
+    if (cause instanceof CalendlyError && cause.status >= 400 && cause.status < 500 && cause.status !== 401 && cause.status !== 403) {
+      return fail('slot_taken', 'That time is no longer available. Please pick another.');
+    }
+    return fail('calendar_unavailable', 'The booking could not be confirmed. Nothing was reserved.');
+  }
+
+  const startsAt = Date.parse(value.startUTC);
+  const endUTC = new Date(startsAt + eventType.durationMinutes * 60_000).toISOString();
+  try {
+    await env.BOOKING_DB.prepare(
+      `INSERT INTO bookings (
+         id, event_type, organiser_account, start_utc, end_utc, local_date, location,
+         first_name, last_name, email, phone, guests, booker_timezone, notes,
+         utm_source, utm_medium, utm_campaign, utm_content,
+         manage_token, status, provider, calendly_invitee_uri, created_at, updated_at
+       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', 'calendly', ?, datetime('now'), datetime('now'))`,
+    )
+      .bind(
+        id, eventType.slug, eventType.organiserAccount, value.startUTC, endUTC, dateKey(startsAt, schedule.timezone), value.location,
+        value.firstName, value.lastName, value.email, value.phone, JSON.stringify(value.guests), value.timezone, value.notes,
+        value.utm.source ?? null, value.utm.medium ?? null, value.utm.campaign ?? null, value.utm.content ?? null,
+        randomToken(), booked.inviteeUri,
+      )
+      .run();
+  } catch (cause) {
+    // The meeting exists and the invite is out; a missing record is a log
+    // problem, not the booker's.
+    console.error('[booking] create: calendly booking made but the row failed', id, cause);
+  }
+  await audit(env, 'created', id, { type: eventType.slug, provider: 'calendly', email: maskEmail(value.email), start: value.startUTC });
+
+  return json(
+    {
+      booking: { id, startUTC: value.startUTC, endUTC, location: value.location, meetLink: null, hostPhone: null, status: 'confirmed' },
+      calendar: { eventCreated: true, invitesSentTo: [value.email, ...value.guests], provider: 'calendly' },
+      manageUrl: booked.rescheduleUrl || null,
+      cancelUrl: booked.cancelUrl || null,
+    },
+    201,
+  );
 }
 
 /** Release the slot and record why, after the calendar refused the event. */

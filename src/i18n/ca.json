@@ -145,7 +145,9 @@
       "ring": "Em truques al {phone} a l'hora d'inici",
       "manage": "Canviar o cancel·lar",
       "home": "Tornar al web",
-      "body": "La invitació ho porta tot: l'hora a la teva zona, l'enllaç o el número, i com canviar-la."
+      "body": "La invitació ho porta tot: l'hora a la teva zona, l'enllaç o el número, i com canviar-la.",
+      "reschedule": "Canviar l'hora",
+      "cancel": "Cancel·lar"
     },
     "empty": "Ara mateix no hi ha res disponible. Escriu-me i ho mirem.",
     "hints": {

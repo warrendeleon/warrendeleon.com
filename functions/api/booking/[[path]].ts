@@ -3,6 +3,8 @@
 // is a handful of routes and a dependency would earn nothing.
 
 import { bookableMonths, monthAvailability, monthWindow } from './_lib/availability.ts';
+import { CalendlyClient, CalendlyError } from './_lib/calendly.ts';
+import { dateKey } from './_lib/slots.ts';
 import { createBooking } from './_lib/create.ts';
 import { CalendarAuthError, CalendarUnavailableError, mergedBusy } from './_lib/google.ts';
 import { fail, isAdmin, json, type Env } from './_lib/http.ts';
@@ -66,7 +68,11 @@ const health: Handler = async ({ env }) => {
  */
 const types: Handler = async ({ env, url }) => {
   const locale = url.searchParams.get('locale') ?? 'en';
-  const all = await listEventTypes(env);
+  // A direct link to an unlisted type asks for it by slug; it is answered on
+  // its own and never appears in the list.
+  const slug = url.searchParams.get('slug');
+  const one = slug ? await getEventType(env, slug) : null;
+  const all = one ? [one] : await listEventTypes(env);
   return json({
     types: all.map((type) => ({
       slug: type.slug,
@@ -108,6 +114,33 @@ const availability: Handler = async ({ env, url }) => {
   const now = Date.now();
   if (!bookableMonths(now, schedule.timezone, eventType.rules.daysAheadLimit).includes(month)) {
     return json({ month, timezone: schedule.timezone, days: {} });
+  }
+
+  // A Calendly-provided type: Calendly's answer is the whole answer, grouped
+  // by the schedule's dates like the Google one so the page cannot tell.
+  if (eventType.provider === 'calendly') {
+    if (!env.CALENDLY_TOKEN || !eventType.calendlyEventType) {
+      console.error('[booking] availability: calendly type without token or event type uri', slug);
+      return fail('calendar_unavailable', 'Availability is temporarily unavailable. Please try again shortly.');
+    }
+    const { timeMin, timeMax } = monthWindow(month, schedule.timezone);
+    const from = new Date(Math.max(Date.parse(timeMin), now + 60_000));
+    const to = new Date(timeMax);
+    let starts: string[] = [];
+    try {
+      if (from < to) starts = await new CalendlyClient(env.CALENDLY_TOKEN).availableTimes(eventType.calendlyEventType, from, to);
+    } catch (cause) {
+      console.error('[booking] availability: calendly failed', cause instanceof CalendlyError ? `${cause.status} ${cause.message}` : cause);
+      return fail('calendar_unavailable', 'Availability is temporarily unavailable. Please try again shortly.');
+    }
+    const days: Record<string, { startUTC: string; endUTC: string }[]> = {};
+    const duration = eventType.durationMinutes * 60_000;
+    for (const startUTC of starts) {
+      const key = dateKey(Date.parse(startUTC), schedule.timezone);
+      if (!key.startsWith(month)) continue;
+      (days[key] ??= []).push({ startUTC, endUTC: new Date(Date.parse(startUTC) + duration).toISOString() });
+    }
+    return json({ month, timezone: schedule.timezone, days });
   }
 
   const accounts = await listAccounts(env);
