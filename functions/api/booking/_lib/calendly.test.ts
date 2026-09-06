@@ -49,12 +49,13 @@ describe('CalendlyClient.createInvitee', () => {
     } } }));
     const result = await new CalendlyClient('t', fetchImpl).createInvitee({
       eventTypeUri: 'ET', startUTC: '2026-09-10T09:00:00.000Z', firstName: 'Jane', lastName: 'Doe', email: 'jane@example.com',
-      timezone: 'Europe/London', guests: ['bo@example.org'], answer: { question: 'What would you like to cover?', answer: 'Roadmap' },
+      timezone: 'Europe/London', guests: ['bo@example.org'], answer: { question: 'What would you like to cover?', answer: 'Roadmap' }, locationKind: 'google_conference',
     });
     assert.equal(calls[0]!.url, 'https://api.calendly.com/invitees');
     const body = JSON.parse(String(calls[0]!.init.body));
     assert.deepEqual(body.invitee, { first_name: 'Jane', last_name: 'Doe', email: 'jane@example.com', timezone: 'Europe/London' });
     assert.deepEqual(body.event_guests, ['bo@example.org']);
+    assert.deepEqual(body.location, { kind: 'google_conference' });
     assert.equal(body.questions_and_answers[0].answer, 'Roadmap');
     assert.equal(body.start_time, '2026-09-10T09:00:00.000Z');
     assert.deepEqual(result, {
@@ -69,5 +70,6 @@ describe('CalendlyClient.createInvitee', () => {
     const body = JSON.parse(String(calls[0]!.init.body));
     assert.equal('event_guests' in body, false);
     assert.equal('questions_and_answers' in body, false);
+    assert.equal('location' in body, false);
   });
 });

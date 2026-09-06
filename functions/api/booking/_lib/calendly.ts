@@ -87,12 +87,15 @@ export class CalendlyClient {
     timezone: string;
     guests: string[];
     answer?: { question: string; answer: string } | null;
+    /** Calendly insists on the kind even when the type has only one: e.g. google_conference. */
+    locationKind?: string | null;
   }): Promise<{ inviteeUri: string; eventUri: string; cancelUrl: string; rescheduleUrl: string }> {
     const payload: Record<string, unknown> = {
       event_type: input.eventTypeUri,
       start_time: input.startUTC,
       invitee: { first_name: input.firstName, last_name: input.lastName, email: input.email, timezone: input.timezone },
     };
+    if (input.locationKind) payload.location = { kind: input.locationKind };
     if (input.guests.length > 0) payload.event_guests = input.guests;
     if (input.answer) payload.questions_and_answers = [{ question: input.answer.question, answer: input.answer.answer, position: 0 }];
 

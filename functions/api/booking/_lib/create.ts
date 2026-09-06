@@ -269,14 +269,16 @@ async function createThroughCalendly(
       timezone: value.timezone,
       guests: value.guests,
       answer: value.notes ? { question, answer: value.notes } : null,
+      locationKind: value.location === 'video' ? 'google_conference' : null,
     });
   } catch (cause) {
     const detail = cause instanceof CalendlyError ? `${cause.status} ${cause.message}` : String(cause);
     console.error('[booking] create: calendly refused', detail);
     await audit(env, 'failed', id, { reason: detail, provider: 'calendly' });
-    // Calendly says a taken or stale slot with a 400-family answer; anything
-    // else is Calendly itself being unavailable.
-    if (cause instanceof CalendlyError && cause.status >= 400 && cause.status < 500 && cause.status !== 401 && cause.status !== 403) {
+    // Calendly names a taken or stale slot in its 400; any other refusal is
+    // configuration or Calendly itself, which the booker cannot fix by
+    // choosing again.
+    if (cause instanceof CalendlyError && cause.status === 400 && /time|slot|availab|already|past/i.test(cause.message)) {
       return fail('slot_taken', 'That time is no longer available. Please pick another.');
     }
     return fail('calendar_unavailable', 'The booking could not be confirmed. Nothing was reserved.');
