@@ -64,7 +64,11 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
           <h2 class="bk-day"></h2>
           <div class="bk-slots" role="group"></div>
           <p class="bk-zone">
-            <label class="bk-zone-label" for="bk-tz"></label>
+            <span class="bk-zone-label"></span>
+            <button type="button" class="bk-zone-change"></button>
+          </p>
+          <p class="bk-zone-picker" hidden>
+            <label class="bk-zone-pick-label" for="bk-tz"></label>
             <select id="bk-tz" class="bk-select"></select>
           </p>
         </section>
@@ -213,7 +217,12 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   }
   .bk-slot:hover { background: var(--color-green); color: var(--color-on-green); }
   .bk-zone { margin-top: 1.5rem; color: var(--text-muted); font-size: 0.9rem; }
-  .bk-zone-label { display: block; margin-bottom: 0.35rem; }
+  .bk-zone-change {
+    background: none; border: 0; padding: 0; margin-left: 0.5rem; cursor: pointer;
+    font: inherit; color: var(--color-green-text); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .bk-zone-picker { margin-top: 0.75rem; max-width: 22rem; }
+  .bk-zone-pick-label { display: block; margin-bottom: 0.35rem; font-size: 0.9rem; color: var(--text-muted); }
 
   /* Form */
   .bk-form-title { font-size: 1.15rem; margin: 0 0 0.5rem; }
@@ -410,13 +419,13 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       }));
     }
 
-    function pickType(type: EventType) {
+    async function pickType(type: EventType) {
       chosen = type; date = ''; slot = null; days = {};
       month = new Date().toISOString().slice(0, 7);
       writeHash();
       track('booking_type_picked', { type: type.slug, minutes: type.durationMinutes });
       show('date');
-      loadMonth();
+      await loadMonth();
     }
 
     // ---- step two: the month ---------------------------------------------
@@ -531,8 +540,24 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
     function renderZone() {
       const label = root.querySelector<HTMLElement>('.bk-zone-label')!;
+      const change = root.querySelector<HTMLButtonElement>('.bk-zone-change')!;
+      const picker = root.querySelector<HTMLElement>('.bk-zone-picker')!;
       const select = root.querySelector<HTMLSelectElement>('#bk-tz')!;
+
+      // The zone is detected, not asked for. This states what was detected and
+      // keeps the four hundred alternatives behind a link, so the common case
+      // reads as a fact rather than a question.
       label.textContent = S.times.zone.replace('{zone}', zone.replace(/_/g, ' '));
+      change.textContent = S.times.changeZone;
+      root.querySelector<HTMLElement>('.bk-zone-pick-label')!.textContent = S.times.changeZone;
+      if (!change.dataset.wired) {
+        change.dataset.wired = 'yes';
+        change.addEventListener('click', () => {
+          picker.hidden = !picker.hidden;
+          change.setAttribute('aria-expanded', String(!picker.hidden));
+          if (!picker.hidden) select.focus();
+        });
+      }
       if (select.options.length === 0) {
         let all: string[] = [zone];
         try { all = (Intl as never as { supportedValuesOf(k: string): string[] }).supportedValuesOf('timeZone'); } catch { /* older browser */ }
@@ -759,6 +784,36 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       show('details');
     });
 
-    loadTypes();
+    /**
+     * Pick up a link someone was sent, or a refresh mid-flow. Without this the
+     * hash is written but never read on a cold load, so a shared link drops the
+     * visitor back at step one.
+     */
+    async function restore() {
+      const state = readHash();
+      if (!state.type) return;
+      const found = types.find((candidate) => candidate.slug === state.type);
+      if (!found) return;
+
+      chosen = found;
+      slot = null;
+      date = '';
+      month = state.date ? state.date.slice(0, 7) : new Date().toISOString().slice(0, 7);
+      show('date');
+      await loadMonth();
+
+      if (!state.date || (days[state.date] || []).length === 0) return;
+      date = state.date;
+      show('time');
+      renderSlots();
+
+      const wanted = (days[date] || []).find((candidate) => candidate.startUTC === state.slot);
+      if (!wanted) return;
+      slot = wanted;
+      show('details');
+      renderForm();
+    }
+
+    loadTypes().then(restore);
   }
 </script>
