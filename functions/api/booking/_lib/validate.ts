@@ -12,6 +12,8 @@ export interface BookingRequest {
   lastName: string;
   email: string;
   phone: string | null;
+  /** Extra attendees, deduplicated, never the booker's own address. */
+  guests: string[];
   timezone: string;
   /** The language the booker used, so links in the invite point at the same one. */
   locale: 'en' | 'es' | 'ca' | 'tl';
@@ -29,6 +31,7 @@ export interface ValidationResult {
 
 export const LIMITS = {
   name: 100,
+  guests: 5,
   email: 254,
   phone: 32,
   notes: 2000,
@@ -41,6 +44,17 @@ export const LIMITS = {
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
 const LOCALES = ['en', 'es', 'ca', 'tl'] as const;
 const E164_PATTERN = /^\+?[0-9][0-9\s().-]{6,}$/;
+// A name has at least one letter in any script, and is not a link or an
+// address pasted into the wrong box. Nothing stricter: O'Brien, María-José and
+// 李 are all names, and a rule that rejects any of them rejects real people.
+const HAS_LETTER = /\p{L}/u;
+const LOOKS_LIKE_LINK = /https?:|www\.|@/i;
+
+export function nameProblem(value: string): 'required' | 'invalid' | null {
+  if (!value) return 'required';
+  if (!HAS_LETTER.test(value) || LOOKS_LIKE_LINK.test(value)) return 'invalid';
+  return null;
+}
 
 function text(value: unknown): string {
   return typeof value === 'string' ? value.trim() : '';
@@ -86,10 +100,12 @@ export function validateBooking(
   else if (!allowedLocations.includes(location)) fields.location = 'unavailable';
 
   const firstName = clamp(text(input.firstName), LIMITS.name);
-  if (!firstName) fields.firstName = 'required';
+  const firstProblem = nameProblem(firstName);
+  if (firstProblem) fields.firstName = firstProblem;
 
   const lastName = clamp(text(input.lastName), LIMITS.name);
-  if (!lastName) fields.lastName = 'required';
+  const lastProblem = nameProblem(lastName);
+  if (lastProblem) fields.lastName = lastProblem;
 
   const email = clamp(text(input.email), LIMITS.email);
   if (!email) fields.email = 'required';
@@ -100,6 +116,20 @@ export function validateBooking(
     if (!phone) fields.phone = 'required';
     else if (!E164_PATTERN.test(phone)) fields.phone = 'invalid';
   }
+
+  // Guests: each must be a reachable address, none may be the booker, and
+  // duplicates collapse so nobody is invited twice.
+  const rawGuests = Array.isArray(input.guests) ? input.guests : [];
+  const guests: string[] = [];
+  for (const entry of rawGuests) {
+    const address = clamp(text(entry), LIMITS.email);
+    if (!address) continue;
+    if (!EMAIL_PATTERN.test(address)) { fields.guests = 'invalid'; break; }
+    const key = address.toLowerCase();
+    if (key === email.toLowerCase() || guests.some((g) => g.toLowerCase() === key)) continue;
+    guests.push(address);
+  }
+  if (guests.length > LIMITS.guests) fields.guests = 'too_many';
 
   const rawTimezone = clamp(text(input.timezone), LIMITS.timezone);
   const timezone = rawTimezone && knownTimezone(rawTimezone) ? rawTimezone : 'UTC';
@@ -130,6 +160,7 @@ export function validateBooking(
       lastName,
       email,
       phone: phone || null,
+      guests,
       timezone,
       locale,
       notes: clamp(text(input.notes), LIMITS.notes) || null,

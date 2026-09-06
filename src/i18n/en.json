@@ -122,7 +122,10 @@
       "slotTaken": "Someone took that time. Pick another and I will hold it.",
       "rateLimited": "That is a few attempts in a row. Try again in a little while.",
       "calendarUnavailable": "My calendar is not answering. Try again shortly.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "name": "That does not look like a name.",
+      "guests": "One of the guest addresses does not look right.",
+      "tooManyGuests": "Up to five guests."
     },
     "confirmed": {
       "heading": "Booked",

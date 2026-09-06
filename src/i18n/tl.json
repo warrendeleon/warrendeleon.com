@@ -122,7 +122,10 @@
       "slotTaken": "May nakakuha na ng oras na iyon. Pumili ng iba at itatabi ko.",
       "rateLimited": "Sunod-sunod na ang mga subok. Subukan muli mamaya.",
       "calendarUnavailable": "Hindi sumasagot ang kalendaryo ko. Subukan muli maya-maya.",
-      "generic": "May nangyaring mali. Subukan muli."
+      "generic": "May nangyaring mali. Subukan muli.",
+      "name": "Mukhang hindi iyan pangalan.",
+      "guests": "Mukhang mali ang isa sa mga email ng kasama.",
+      "tooManyGuests": "Hanggang limang kasama lang."
     },
     "confirmed": {
       "heading": "Naka-book na",

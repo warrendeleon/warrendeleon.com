@@ -111,6 +111,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
             <div class="bk-guests">
               <div class="bk-guest-list"></div>
               <button type="button" class="bk-add-guest"></button>
+              <span class="bk-error" data-for="guests" role="alert"></span>
             </div>
 
             <fieldset class="bk-field bk-locations">
@@ -311,6 +312,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   .bk-add-guest:hover, .bk-guest-remove:hover { border-color: var(--color-green); }
 
   .bk-error { display: block; margin-top: 0.4rem; font-size: 0.85rem; color: #d64545; }
+  .bk-field input[aria-invalid='true'], .bk-field textarea[aria-invalid='true'] { border-color: #d64545; }
+  [data-theme='dark'] .bk-field input[aria-invalid='true'], [data-theme='dark'] .bk-field textarea[aria-invalid='true'] { border-color: #ff8a8a; }
   .bk-error:empty { display: none; }
   .bk-form-error { margin: 0 0 1rem; }
   [data-theme='dark'] .bk-error { color: #ff8a8a; }
@@ -747,18 +750,66 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
     function clearErrors() {
       root.querySelectorAll<HTMLElement>('.bk-error').forEach((node) => { node.textContent = ''; });
+      root.querySelectorAll<HTMLElement>('[aria-invalid]').forEach((node) => {
+        node.removeAttribute('aria-invalid'); node.removeAttribute('aria-describedby');
+      });
       root.querySelector<HTMLElement>('.bk-form-error')!.hidden = true;
     }
+    const FIELD_INPUT: Record<string, string> = {
+      firstName: '#bk-first', lastName: '#bk-last', email: '#bk-email', phone: '#bk-phone', notes: '#bk-notes',
+    };
+
+    function messageFor(name: string, code: string): string {
+      if (name === 'guests') return code === 'too_many' ? S.errors.tooManyGuests : S.errors.guests;
+      if (code === 'invalid') {
+        if (name === 'email') return S.errors.email;
+        if (name === 'phone') return S.errors.phone;
+        if (name === 'firstName' || name === 'lastName') return S.errors.name;
+      }
+      return S.errors.required;
+    }
+
     function showFieldErrors(fields: Record<string, string>) {
+      let first: HTMLElement | null = null;
       for (const [name, code] of Object.entries(fields)) {
         const node = root.querySelector<HTMLElement>(`.bk-error[data-for="${name}"]`);
         if (!node) continue;
-        node.textContent =
-          code === 'invalid' && name === 'email' ? S.errors.email
-          : code === 'invalid' && name === 'phone' ? S.errors.phone
-          : S.errors.required;
+        node.id = node.id || `bk-err-${name}`;
+        node.textContent = messageFor(name, code);
+        const input = FIELD_INPUT[name] ? root.querySelector<HTMLElement>(FIELD_INPUT[name]) : null;
+        if (input) {
+          input.setAttribute('aria-invalid', 'true');
+          input.setAttribute('aria-describedby', node.id);
+          first ??= input;
+        } else {
+          first ??= node;
+        }
       }
-      root.querySelector<HTMLElement>('.bk-error:not(:empty)')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      first?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      if (first && 'focus' in first) (first as HTMLInputElement).focus({ preventScroll: true });
+    }
+
+    /**
+     * The same rules the API applies, run first so a missing surname is caught
+     * before a request leaves the browser. The API remains the authority.
+     */
+    function checkLocally(body: { firstName: string; lastName: string; email: string; phone: string; location: string; guests: string[] }) {
+      const fields: Record<string, string> = {};
+      const hasLetter = /\p{L}/u;
+      const looksLikeLink = /https?:|www\.|@/i;
+      const emailShape = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
+      const nameProblem = (v: string) => (!v ? 'required' : !hasLetter.test(v) || looksLikeLink.test(v) ? 'invalid' : '');
+      const f = nameProblem(body.firstName); if (f) fields.firstName = f;
+      const l = nameProblem(body.lastName); if (l) fields.lastName = l;
+      if (!body.email) fields.email = 'required';
+      else if (!emailShape.test(body.email)) fields.email = 'invalid';
+      if (body.location === 'phone') {
+        if (!body.phone) fields.phone = 'required';
+        else if (!/^\+?[0-9][0-9\s().-]{6,}$/.test(body.phone)) fields.phone = 'invalid';
+      }
+      if (body.guests.some((g) => !emailShape.test(g))) fields.guests = 'invalid';
+      else if (body.guests.length > 5) fields.guests = 'too_many';
+      return fields;
     }
 
     form.addEventListener('submit', async (event) => {
@@ -778,11 +829,18 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       const body = {
         type: chosen!.slug, startUTC: slot!.startUTC,
         location: String(data.get('location') || ''),
-        firstName: String(data.get('firstName') || ''), lastName: String(data.get('lastName') || ''),
-        email: String(data.get('email') || ''), phone: String(data.get('phone') || ''),
+        firstName: String(data.get('firstName') || '').trim(), lastName: String(data.get('lastName') || '').trim(),
+        email: String(data.get('email') || '').trim(), phone: String(data.get('phone') || '').trim(),
         notes: String(data.get('notes') || ''), nickname: String(data.get('nickname') || ''),
         timezone: zone, locale: LOCALE, guests, turnstileToken: turnstile?.value || '', utm: attribution(),
       };
+
+      const problems = checkLocally(body);
+      if (Object.keys(problems).length > 0) {
+        showFieldErrors(problems);
+        submit.disabled = false; submit.textContent = S.form.submit;
+        return;
+      }
 
       let response: Response;
       try {

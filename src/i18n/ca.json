@@ -122,7 +122,10 @@
       "slotTaken": "Algú ha agafat aquella hora. Tria'n una altra i te la guardo.",
       "rateLimited": "Han estat uns quants intents seguits. Prova d'aquí una estona.",
       "calendarUnavailable": "El meu calendari no respon. Torna-ho a provar en un moment.",
-      "generic": "Alguna cosa ha fallat. Torna-ho a provar."
+      "generic": "Alguna cosa ha fallat. Torna-ho a provar.",
+      "name": "Això no sembla un nom.",
+      "guests": "Un dels correus de convidat no sembla vàlid.",
+      "tooManyGuests": "Fins a cinc convidats."
     },
     "confirmed": {
       "heading": "Reservat",

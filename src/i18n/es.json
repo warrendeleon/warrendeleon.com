@@ -122,7 +122,10 @@
       "slotTaken": "Alguien ha cogido esa hora. Elige otra y te la guardo.",
       "rateLimited": "Han sido varios intentos seguidos. Prueba dentro de un rato.",
       "calendarUnavailable": "Mi calendario no responde. Inténtalo en un momento.",
-      "generic": "Algo ha fallado. Inténtalo otra vez."
+      "generic": "Algo ha fallado. Inténtalo otra vez.",
+      "name": "Eso no parece un nombre.",
+      "guests": "Uno de los correos de invitado no parece válido.",
+      "tooManyGuests": "Hasta cinco invitados."
     },
     "confirmed": {
       "heading": "Reservado",

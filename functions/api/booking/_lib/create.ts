@@ -114,10 +114,10 @@ export async function createBooking(request: Request, env: Env, origin: string):
       env.BOOKING_DB.prepare(
         `INSERT INTO bookings (
            id, event_type, organiser_account, start_utc, end_utc, local_date, location,
-           first_name, last_name, email, phone, booker_timezone, notes,
+           first_name, last_name, email, phone, guests, booker_timezone, notes,
            utm_source, utm_medium, utm_campaign, utm_content,
            manage_token, status, created_at, updated_at
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', datetime('now'), datetime('now'))`,
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'confirmed', datetime('now'), datetime('now'))`,
       ).bind(
         id,
         eventType.slug,
@@ -130,6 +130,7 @@ export async function createBooking(request: Request, env: Env, origin: string):
         value.lastName,
         value.email,
         value.phone,
+        JSON.stringify(value.guests),
         value.timezone,
         value.notes,
         value.utm.source ?? null,
@@ -155,6 +156,7 @@ export async function createBooking(request: Request, env: Env, origin: string):
 
   const attendees: Attendee[] = [
     { email: value.email, displayName: `${value.firstName} ${value.lastName}` },
+    ...value.guests.map((email) => ({ email })),
     // Only the addresses this event type explicitly mirrors to. An interview
     // organised from the personal account must not surface in a work diary.
     ...eventType.mirrorTo.map((email) => ({ email })),

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
-import { knownTimezone, validateBooking, verifyTurnstile } from './validate.ts';
+import { knownTimezone, nameProblem, validateBooking, verifyTurnstile } from './validate.ts';
 
 const LOCATIONS = ['video', 'phone'];
 
@@ -63,6 +63,28 @@ describe('booking form', () => {
     assert.equal(validateBooking({ ...good, timezone: '' }, LOCATIONS).value?.timezone, 'UTC');
     assert.equal(knownTimezone('Europe/London'), true);
     assert.equal(knownTimezone('Nowhere/Nothing'), false);
+  });
+
+  it('accepts real names in any script and rejects junk in the name box', () => {
+    for (const ok of ["O'Brien", 'María-José', '李', 'Jean-Luc', 'Ng']) assert.equal(nameProblem(ok), null, ok);
+    assert.equal(nameProblem(''), 'required');
+    assert.equal(nameProblem('12345'), 'invalid');
+    assert.equal(nameProblem('---'), 'invalid');
+    assert.equal(nameProblem('https://example.com'), 'invalid');
+    assert.equal(nameProblem('jane@example.com'), 'invalid');
+    assert.equal(validateBooking({ ...good, firstName: '!!!' }, LOCATIONS).fields.firstName, 'invalid');
+  });
+
+  it('keeps valid guests, drops duplicates and the booker, and flags a bad one', () => {
+    const ok = validateBooking(
+      { ...good, guests: ['ana@example.com', 'Ana@Example.com', 'jane@example.com', ' bo@example.org '] },
+      LOCATIONS,
+    );
+    assert.deepEqual(ok.value?.guests, ['ana@example.com', 'bo@example.org']);
+    assert.equal(validateBooking({ ...good, guests: ['not an address'] }, LOCATIONS).fields.guests, 'invalid');
+    const many = validateBooking({ ...good, guests: ['a@x.io', 'b@x.io', 'c@x.io', 'd@x.io', 'e@x.io', 'f@x.io'] }, LOCATIONS);
+    assert.equal(many.fields.guests, 'too_many');
+    assert.deepEqual(validateBooking(good, LOCATIONS).value?.guests, []);
   });
 
   it('keeps a known locale and falls back to English for anything else', () => {
