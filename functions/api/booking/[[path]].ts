@@ -89,7 +89,7 @@ const types: Handler = async ({ env, url }) => {
 /**
  * A month of bookable slots for one event type.
  *
- * Any calendar failure answers 502 rather than an empty month. Returning "no
+ * Any calendar failure answers 503 rather than an empty month. Returning "no
  * slots" would be a lie a booker cannot see through, and it would quietly lose
  * the enquiry.
  */

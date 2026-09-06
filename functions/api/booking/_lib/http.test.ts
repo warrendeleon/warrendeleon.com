@@ -12,7 +12,7 @@ describe('responses', () => {
   it('maps each error code to its status', () => {
     assert.equal(fail('slot_taken', 'gone').status, 409);
     assert.equal(fail('rate_limited', 'slow down').status, 429);
-    assert.equal(fail('calendar_unavailable', 'google').status, 502);
+    assert.equal(fail('calendar_unavailable', 'google').status, 503);
   });
 
   it('carries field errors through to the form', async () => {

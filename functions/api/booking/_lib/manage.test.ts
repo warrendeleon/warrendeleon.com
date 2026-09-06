@@ -160,7 +160,7 @@ describe('DELETE cancels', () => {
   it('changes nothing when the calendar refuses', async () => {
     const db = fakeD1(answers());
     const response = await manageBooking(request('DELETE'), env(db), ID, deps({ calendarFails: true }));
-    assert.equal(response.status, 502);
+    assert.equal(response.status, 503);
     assert.equal(db.batches.length, 0);
   });
 
@@ -216,7 +216,7 @@ describe('PATCH moves', () => {
   it('puts everything back when the calendar refuses the move', async () => {
     const db = fakeD1(answers());
     const response = await manageBooking(request('PATCH', { startUTC: target }), env(db), ID, deps({ calendarFails: true }));
-    assert.equal(response.status, 502);
+    assert.equal(response.status, 503);
     assert.equal(db.batches.length, 2, 'claim, then restore');
     const restore = db.batches[1]!;
     assert.deepEqual(restore[restore.length - 1]!.args.slice(0, 2), [row.start_utc, row.end_utc]);

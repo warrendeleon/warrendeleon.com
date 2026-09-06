@@ -52,7 +52,9 @@ const STATUS_FOR: Record<ErrorCode, number> = {
   not_found: 404,
   slot_taken: 409,
   rate_limited: 429,
-  calendar_unavailable: 502,
+  // 503, not 502: Cloudflare replaces a 502 from the origin with its own HTML
+  // error page, and the JSON body the page relies on never arrives.
+  calendar_unavailable: 503,
   internal: 500,
 };
 
