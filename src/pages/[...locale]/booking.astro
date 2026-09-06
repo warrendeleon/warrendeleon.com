@@ -31,6 +31,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         data-locale={locale}
         data-intl={intl}
         data-strings={JSON.stringify(i18n.booking)}
+        data-turnstile="0x4AAAAAAEp0pwvUWeFyYq42"
       >
         <!-- The stub. One object that fills in as choices are made and, at the
              end, is the confirmation. Sticky at the top on a phone, because the
@@ -176,6 +177,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       </p>
     </div>
   </section>
+  <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__bkTurnstileReady" async defer></script>
 </BaseLayout>
 
 <!-- Global on purpose. Astro scopes styles to the markup it can see and prunes
@@ -443,6 +445,10 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
   // Back walks the steps and a refresh or a shared link lands where it points.
 
   declare function t(event: string, data?: Record<string, unknown>): void;
+  declare const turnstile: {
+    render(el: HTMLElement, opts: Record<string, unknown>): string;
+    reset(id?: string): void;
+  } | undefined;
 
   interface EventType {
     slug: string; name: string; description: string; durationMinutes: number; locations: string[];
@@ -824,7 +830,33 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       clearErrors();
       form.querySelectorAll<HTMLElement>('[data-checked]').forEach((n) => { delete n.dataset.checked; });
       togglePhone();
+      mountTurnstile();
     }
+
+    let turnstileId: string | null = null;
+    /**
+     * The anti-spam check, rendered in the page's theme when the form opens.
+     * The script loads async, so if it is not here yet the render happens from
+     * its onload callback instead; ready() is not allowed with async loading.
+     */
+    function mountTurnstile() {
+      const holder = root.querySelector<HTMLElement>('.bk-turnstile')!;
+      const key = root.dataset.turnstile;
+      if (!key || typeof turnstile === 'undefined') return;
+      if (turnstileId) { turnstile.reset(turnstileId); refreshSubmit(); return; }
+      turnstileId = turnstile.render(holder, {
+        sitekey: key,
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light',
+        appearance: 'interaction-only',
+        callback: () => refreshSubmit(),
+        'expired-callback': () => refreshSubmit(),
+        'error-callback': () => refreshSubmit(),
+      });
+      refreshSubmit();
+    }
+    (window as unknown as { __bkTurnstileReady?: () => void }).__bkTurnstileReady = () => {
+      if (current === 'details') mountTurnstile();
+    };
 
     function togglePhone() {
       const picked = form.querySelector<HTMLInputElement>('input[name="location"]:checked');
@@ -937,6 +969,8 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
     /** Is everything the API will insist on present and well-formed? */
     function formIsComplete(): boolean {
+      const challenge = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
+      if (turnstileId && (!challenge || !challenge.value)) return false;
       const okNames = Object.keys(RULES).every((name) => {
         const input = inputFor(name);
         return !input || !RULES[name]!(input.value.trim());
@@ -999,14 +1033,14 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
 
       const data = new FormData(form);
       const guests = Array.from(root.querySelectorAll<HTMLInputElement>('.bk-guest input')).map((i) => i.value.trim()).filter(Boolean);
-      const turnstile = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
+      const challengeInput = form.querySelector<HTMLInputElement>('[name="cf-turnstile-response"]');
       const body = {
         type: chosen!.slug, startUTC: slot!.startUTC,
         location: String(data.get('location') || ''),
         firstName: String(data.get('firstName') || '').trim(), lastName: String(data.get('lastName') || '').trim(),
         email: String(data.get('email') || '').trim(), phone: String(data.get('phone') || '').trim(),
         notes: String(data.get('notes') || ''), nickname: String(data.get('nickname') || ''),
-        timezone: zone, locale: LOCALE, guests, turnstileToken: turnstile?.value || '', utm: attribution(),
+        timezone: zone, locale: LOCALE, guests, turnstileToken: challengeInput?.value || '', utm: attribution(),
       };
 
 
@@ -1026,6 +1060,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         showFieldErrors(fields); banner(''); return;
       }
       submit.dataset.busy = ''; submit.textContent = S.form.submit;
+      if (turnstileId && typeof turnstile !== 'undefined') turnstile.reset(turnstileId);
       const retryAfter = Number(response.headers.get('retry-after') || '') || null;
       renderFailed(String(payload.error || 'generic'), retryAfter);
     });
