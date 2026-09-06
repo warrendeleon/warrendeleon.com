@@ -365,7 +365,7 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
     transition: background 140ms ease;
   }
   .bk-submit:hover:not([disabled]) { background: var(--color-green-dark); }
-  .bk-submit[disabled] { opacity: 0.6; cursor: default; }
+  .bk-submit[disabled] { opacity: 0.45; cursor: not-allowed; }
 
   /* ---- done ------------------------------------------------------------ */
   .bk-done-title { font-size: var(--fs-h2); font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.75rem; }
@@ -782,12 +782,17 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         tile.prepend(input);
         return tile;
       }));
+      clearErrors();
+      form.querySelectorAll<HTMLElement>('[data-checked]').forEach((n) => { delete n.dataset.checked; });
       togglePhone();
     }
 
     function togglePhone() {
       const picked = form.querySelector<HTMLInputElement>('input[name="location"]:checked');
-      root.querySelector<HTMLElement>('.bk-phone')!.hidden = picked?.value !== 'phone';
+      const phoneField = root.querySelector<HTMLElement>('.bk-phone')!;
+      phoneField.hidden = picked?.value !== 'phone';
+      if (phoneField.hidden) setFieldError('phone', '', inputFor('phone'));
+      refreshSubmit();
     }
 
     root.querySelector<HTMLButtonElement>('.bk-add-guest')!.addEventListener('click', () => {
@@ -800,8 +805,9 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       remove.type = 'button'; remove.className = 'bk-guest-remove'; remove.textContent = '×';
       remove.title = S.form.removeGuest;
       remove.setAttribute('aria-label', S.form.removeGuest);
-      remove.addEventListener('click', () => row.remove());
+      remove.addEventListener('click', () => { row.remove(); checkGuests(true); refreshSubmit(); });
       row.append(input, remove); list.appendChild(row); input.focus();
+      refreshSubmit();
     });
 
     function clearErrors() {
@@ -811,10 +817,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       });
       root.querySelector<HTMLElement>('.bk-form-error')!.hidden = true;
     }
-    const FIELD_INPUT: Record<string, string> = {
-      firstName: '#bk-first', lastName: '#bk-last', email: '#bk-email', phone: '#bk-phone', notes: '#bk-notes',
-    };
-
     function messageFor(name: string, code: string): string {
       if (name === 'guests') return code === 'too_many' ? S.errors.tooManyGuests : S.errors.guests;
       if (code === 'invalid') {
@@ -825,58 +827,135 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
       return S.errors.required;
     }
 
-    function showFieldErrors(fields: Record<string, string>) {
-      let first: HTMLElement | null = null;
-      for (const [name, code] of Object.entries(fields)) {
-        const node = root.querySelector<HTMLElement>(`.bk-error[data-for="${name}"]`);
-        if (!node) continue;
+    // ---- live validation -----------------------------------------------------
+    // The same rules the API applies, run in the browser as the visitor goes.
+    // A field checks itself when it is left, then corrects itself on every
+    // keystroke once it has shown an error. The button stays disabled until
+    // every required field passes. The API remains the authority.
+
+    const HAS_LETTER = /\p{L}/u;
+    const LOOKS_LIKE_LINK = /https?:|www\.|@/i;
+    const EMAIL_SHAPE = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
+    const PHONE_SHAPE = /^\+?[0-9][0-9\s().-]{6,}$/;
+
+    const nameCode = (v: string) => (!v ? 'required' : !HAS_LETTER.test(v) || LOOKS_LIKE_LINK.test(v) ? 'invalid' : '');
+    const emailCode = (v: string) => (!v ? 'required' : !EMAIL_SHAPE.test(v) ? 'invalid' : '');
+    const phoneCode = (v: string) => (!v ? 'required' : !PHONE_SHAPE.test(v) ? 'invalid' : '');
+
+    const phoneChosen = () => form.querySelector<HTMLInputElement>('input[name="location"]:checked')?.value === 'phone';
+
+    const RULES: Record<string, (v: string) => string> = {
+      firstName: nameCode,
+      lastName: nameCode,
+      email: emailCode,
+      phone: (v) => (phoneChosen() ? phoneCode(v) : ''),
+    };
+
+    const inputFor = (name: string) => form.querySelector<HTMLInputElement>(`[name="${name}"]`);
+    const errorFor = (name: string) => root.querySelector<HTMLElement>(`.bk-error[data-for="${name}"]`);
+
+    function setFieldError(name: string, code: string, input: HTMLElement | null) {
+      const node = errorFor(name);
+      if (!node) return;
+      if (code) {
         node.id = node.id || `bk-err-${name}`;
         node.textContent = messageFor(name, code);
-        const input = FIELD_INPUT[name] ? root.querySelector<HTMLElement>(FIELD_INPUT[name]) : null;
-        if (input) {
-          input.setAttribute('aria-invalid', 'true');
-          input.setAttribute('aria-describedby', node.id);
-          first ??= input;
-        } else {
-          first ??= node;
-        }
+        input?.setAttribute('aria-invalid', 'true');
+        input?.setAttribute('aria-describedby', node.id);
+      } else {
+        node.textContent = '';
+        input?.removeAttribute('aria-invalid');
+        input?.removeAttribute('aria-describedby');
       }
-      first?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      if (first && 'focus' in first) (first as HTMLInputElement).focus({ preventScroll: true });
     }
 
-    /**
-     * The same rules the API applies, run first so a missing surname is caught
-     * before a request leaves the browser. The API remains the authority.
-     */
-    function checkLocally(body: { firstName: string; lastName: string; email: string; phone: string; location: string; guests: string[] }) {
-      const fields: Record<string, string> = {};
-      const hasLetter = /\p{L}/u;
-      const looksLikeLink = /https?:|www\.|@/i;
-      const emailShape = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
-      const nameProblem = (v: string) => (!v ? 'required' : !hasLetter.test(v) || looksLikeLink.test(v) ? 'invalid' : '');
-      const f = nameProblem(body.firstName); if (f) fields.firstName = f;
-      const l = nameProblem(body.lastName); if (l) fields.lastName = l;
-      if (!body.email) fields.email = 'required';
-      else if (!emailShape.test(body.email)) fields.email = 'invalid';
-      if (body.location === 'phone') {
-        if (!body.phone) fields.phone = 'required';
-        else if (!/^\+?[0-9][0-9\s().-]{6,}$/.test(body.phone)) fields.phone = 'invalid';
+    /** Check one named field and show the result beside it. */
+    function checkField(name: string): boolean {
+      const rule = RULES[name];
+      const input = inputFor(name);
+      if (!rule || !input) return true;
+      const code = rule(input.value.trim());
+      setFieldError(name, code, input);
+      input.dataset.checked = 'yes';
+      return !code;
+    }
+
+    /** Guest rows: an empty row is ignored, a filled one must be an address. */
+    function checkGuests(show: boolean): boolean {
+      const inputs = Array.from(root.querySelectorAll<HTMLInputElement>('.bk-guest input'));
+      let code = '';
+      for (const input of inputs) {
+        const value = input.value.trim();
+        const bad = value !== '' && !EMAIL_SHAPE.test(value);
+        if (show) { if (bad) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid'); }
+        if (bad) code = 'invalid';
       }
-      if (body.guests.some((g) => !emailShape.test(g))) fields.guests = 'invalid';
-      else if (body.guests.length > 5) fields.guests = 'too_many';
-      return fields;
+      const filled = inputs.filter((i) => i.value.trim() !== '').length;
+      if (!code && filled > 5) code = 'too_many';
+      if (show) setFieldError('guests', code, null);
+      return !code;
+    }
+
+    /** Is everything the API will insist on present and well-formed? */
+    function formIsComplete(): boolean {
+      const okNames = Object.keys(RULES).every((name) => {
+        const input = inputFor(name);
+        return !input || !RULES[name]!(input.value.trim());
+      });
+      return okNames && checkGuests(false);
+    }
+
+    function refreshSubmit() {
+      const submit = form.querySelector<HTMLButtonElement>('.bk-submit')!;
+      if (submit.dataset.busy === 'yes') return;
+      submit.disabled = !formIsComplete();
+    }
+
+    // Leaving a field checks it. Typing in a field that has already been
+    // checked re-checks it, so an error clears the moment it is fixed.
+    form.addEventListener('focusout', (event) => {
+      const target = event.target as HTMLInputElement;
+      if (target.name in RULES) checkField(target.name);
+      if (target.closest('.bk-guest')) checkGuests(true);
+      refreshSubmit();
+    });
+    form.addEventListener('input', (event) => {
+      const target = event.target as HTMLInputElement;
+      if (target.name in RULES && target.dataset.checked === 'yes') checkField(target.name);
+      if (target.closest('.bk-guest') && errorFor('guests')?.textContent) checkGuests(true);
+      refreshSubmit();
+    });
+
+    /** Run every rule at once and show the results, for the submit backstop. */
+    function checkAll(): boolean {
+      const results = Object.keys(RULES).map((name) => checkField(name));
+      const guestsOk = checkGuests(true);
+      const first = root.querySelector<HTMLElement>('[aria-invalid="true"], .bk-error:not(:empty)');
+      if (first) {
+        first.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        if ('focus' in first) (first as HTMLInputElement).focus({ preventScroll: true });
+      }
+      return results.every(Boolean) && guestsOk;
+    }
+
+    function showFieldErrors(fields: Record<string, string>) {
+      for (const [name, code] of Object.entries(fields)) setFieldError(name, code, inputFor(name));
+      root.querySelector<HTMLElement>('.bk-error:not(:empty)')?.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      clearErrors();
+      root.querySelector<HTMLElement>('.bk-form-error')!.hidden = true;
+      if (!checkAll()) { refreshSubmit(); return; }
       const submit = form.querySelector<HTMLButtonElement>('.bk-submit')!;
+      submit.dataset.busy = 'yes';
       submit.disabled = true; submit.textContent = S.form.submitting;
       const banner = (message: string) => {
         const node = root.querySelector<HTMLElement>('.bk-form-error')!;
         node.textContent = message; node.hidden = !message;
-        submit.disabled = false; submit.textContent = S.form.submit;
+        submit.dataset.busy = '';
+        submit.textContent = S.form.submit;
+        refreshSubmit();
       };
 
       const data = new FormData(form);
@@ -891,12 +970,6 @@ const intl = { en: 'en-GB', es: 'es-ES', ca: 'ca-ES', tl: 'tl-PH' }[locale];
         timezone: zone, locale: LOCALE, guests, turnstileToken: turnstile?.value || '', utm: attribution(),
       };
 
-      const problems = checkLocally(body);
-      if (Object.keys(problems).length > 0) {
-        showFieldErrors(problems);
-        submit.disabled = false; submit.textContent = S.form.submit;
-        return;
-      }
 
       let response: Response;
       try {
