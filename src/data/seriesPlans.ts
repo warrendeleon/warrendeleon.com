@@ -34,7 +34,7 @@ const seriesPlans: Record<string, PlannedPart[]> = {
     { title: 'The design system as a federated singleton in React Native', date: '2026-08-25' },
     { title: 'Accessibility testing across federated remotes in React Native', date: '2026-08-31' },
     { title: 'shell.navigateTo: native screens from a federated remote in React Native', date: '2026-09-07' },
-    { title: 'The production build and the three modes', date: '2026-09-21' },
+    { title: 'The production build and the three modes of a federated React Native app', date: '2026-09-21' },
     { title: 'CDN delivery: the version map, the resolver, and the live flip', date: '2026-09-28' },
     { title: 'Fallback: the copy in the binary and the net in the session', date: '2026-10-05' },
     { title: 'The signed map and the app that rolls itself back', date: '2026-10-12' },
