@@ -1191,7 +1191,7 @@
       "Per què Module Federation",
       "El teu primer remote federat",
       "Host shell i pestanyes federades",
-      "Tipar la costura entre remotes"
+      "Tipar el contracte entre remotes"
     ],
     "diagramsHeading": "Diagrames",
     "diagramsBody": "Els diagrames d'arquitectura són imatges estàtiques dibuixades amb els mateixos tokens del web: al lector no li arriba cap llibreria de diagrames. Els tokens donen tema al resultat (nodes verds, fletxes neutres), així que es recoloreja amb el tema com tota la resta, i el control de la cantonada l'obre a pantalla completa. Aquest és un diagrama real d'un article publicat:",

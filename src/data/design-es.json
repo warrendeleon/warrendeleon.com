@@ -1191,7 +1191,7 @@
       "Por qué Module Federation",
       "Tu primer remote federado",
       "Host shell y pestañas federadas",
-      "Tipar la costura entre remotes"
+      "Tipar el contrato entre remotes"
     ],
     "diagramsHeading": "Diagramas",
     "diagramsBody": "Los diagramas de arquitectura son imágenes estáticas dibujadas con los propios tokens del sitio: al lector no le llega ninguna librería de diagramas. Los tokens dan tema al resultado (nodos verdes, flechas neutras), así que se recolorea con el tema como todo lo demás, y el control de la esquina lo abre a pantalla completa. Este es un diagrama real de un artículo publicado:",
