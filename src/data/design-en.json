@@ -1394,7 +1394,7 @@
     "datesCaption": "Full month for article dates, abbreviated for ranges; open ranges say Present.",
     "datesBadCaption": "Not numeric, not American order, not an ordinal.",
     "punctuationHeading": "Punctuation",
-    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside sits in commas or parentheses, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences. The em-dash is the scarcest mark on the site: commas, colons, parentheses and full stops do the everyday work, and a dash used everywhere loses its force. Two places remain for it: a label set against its gloss, as in reference rows, and the rare aside no quieter mark can hold. It never splices two independent sentences together; that joint takes a full stop or a colon.",
+    "punctuationBody": "The serial comma is the default: labels, hints, and states. Exclamation marks stay out of prose. Truncation and loading states use the single ellipsis character, an aside sits in commas or parentheses, and a metadata row separates its parts with a middot. Three full stops in a row belong to code, not sentences. The em-dash is the scarcest mark on the site: commas, colons, parentheses and full stops do the everyday work, and a dash used everywhere loses its force. Two places remain for it: a label set against its gloss, as in reference rows, and the rare aside no quieter mark can hold. It never splices two independent sentences together; that joint takes a full stop or a colon. Scarce does not mean absent. Prose that falls back on commas and full stops alone, in sentences of one length, reads as flat as prose with a dash in every line: the colon, the semicolon and parentheses each keep their job.",
     "punctuationGood": "labels, hints, and states — one line · 10 min",
     "punctuationBad": "labels, hints and states ... one line! - 10 min",
     "punctuationCaption": "Serial comma, the ellipsis character, a spaced em-dash, a middot between meta.",
@@ -1412,7 +1412,7 @@
     "brandsCaption": "Match the official form, accents and all.",
     "brandsBadCaption": "Not lowercased, not stripped of accents.",
     "skimHeading": "The skim layer",
-    "skimBody": "Long technical pieces are skimmed before they are read, and consulted again afterwards. Bold marks the decision points, so a reader crossing the page at speed still leaves with the conclusions. Links carry each claim to the piece that supports it. An article may use one decorative pulled line for its sharpest rule, placed where the prose runs thickest. That line earns its place by distilling the stretch around it. A pulled line that repeats the paragraph beside it is padding dressed as emphasis; better none than one unearned. Semantic danger, tip, warning and info callouts are separate: use as many as the material needs when each performs its named job. A prose run of a few hundred words deserves a check: keep it intact if it carries one coherent job, or break it with a useful code block, table, image, callout or earned pulled line. Emphasis spent everywhere is emphasis spent nowhere.",
+    "skimBody": "Long technical pieces are skimmed before they are read, and consulted again afterwards. Bold marks the decision points, so a reader crossing the page at speed still leaves with the conclusions. Links carry each claim to the piece that supports it. An article may use one decorative pulled line for its sharpest rule, placed where the prose runs thickest. That line earns its place by distilling the stretch around it. A pulled line that repeats the paragraph beside it is padding dressed as emphasis; better none than one unearned. Semantic danger, tip, warning and info callouts are separate: use as many as the material needs when each performs its named job. A prose run of a few hundred words deserves a check: keep it intact if it carries one coherent job, or break it with a useful code block, table, image, callout or earned pulled line. Emphasis spent everywhere is emphasis spent nowhere. Structure comes from the content, not from a template. Every item in a list carries a bold label only when the reader scans the list for those labels, a heading names what its section says rather than a slot such as “Challenges and outlook”, and a table of two or three facts is a sentence.",
     "skimGood": "**Both backends live:** run one client.",
     "skimBad": "**Every** sentence **carries** its **own** emphasis.",
     "skimCaption": "Bold on the decision itself, so the fast pass still delivers it.",
@@ -1422,7 +1422,8 @@
     "revisionRules": [
       "**One mechanism or decision per paragraph.** Evidence and consequence may stay with it; a second causal chain starts a new paragraph.",
       "**Run the skim pass after the last cut.** Trimming changes which decisions deserve bold and can turn an old anchor into a restatement.",
-      "**Keep Sources tied to surviving claims.** When a claim leaves the body, remove its source row; the list records published claims, not the editor's browsing history."
+      "**Keep Sources tied to surviving claims.** When a claim leaves the body, remove its source row; the list records published claims, not the editor's browsing history.",
+      "**Nothing written for the writer ships.** Placeholder brackets, template dates, tracking parameters on links and notes to the editor are searched for and removed before a page goes out."
     ],
     "disagreeHeading": "Disagreeing in print",
     "disagreeBody1": "Technical writing here disagrees a lot: with defaults, with popular libraries, with received wisdom. The rule is to **steelman first**. State the opposing view in its strongest form, credit what it gets right, then show where it stops working for the case at hand. The disagreement lands as an observation about fit, not a condemnation.",
@@ -1430,7 +1431,7 @@
     "disagreeCaption": "A real section heading from the blog: the alternatives get their due before the trade-off is argued.",
     "disagreeBad": "Why MSW doesn’t work for E2E testing",
     "disagreeBadCaption": "The oppositional version reads as condemnation and puts the reader on the defensive.",
-    "disagreeBody2": "Two habits support it. Claims that are not absolute are not written as absolutes: “X never works” becomes “X was not designed for Y”. And there are no defensive openers: sentences do not start with “To be clear” or “Just to clarify”.",
+    "disagreeBody2": "Three habits support it. Claims that are not absolute are not written as absolutes: “X never works” becomes “X was not designed for Y”. And there are no defensive openers: sentences do not start with “To be clear” or “Just to clarify”. And a hedge states its limit once, in terms the reader can act on (“tested on version 0.76”), never as a general caution about how far the sources can be trusted.",
     "socialHeading": "Social teasers",
     "socialBody1": "When a post is shared on LinkedIn, the share is a **teaser, not a summary**. Its one job is to open a curiosity gap the article closes: state a tension, name a specific detail without explaining it, and point forward. If the reader feels satisfied without clicking, the teaser failed.",
     "socialRules": [
@@ -1451,7 +1452,8 @@
       "**Inverted openings.** A sentence that withholds its subject makes the reader wait for it. “The third arrangement grows into a maintenance bill” beats “what quietly turns into a maintenance bill is the third arrangement”.",
       "**Animated abstractions.** A reason does not pay off and a release does not step aside. Lifeless things are described, not handed verbs that belong to people: “you end up building by hand what a library would give you for free”.",
       "**Decorative tails.** Once the point has landed, an ornamental clause hung on the end carries rhythm but no information, and draws attention to the writing. It gets cut.",
-      "**The paragraph that keeps proving itself.** Point, evidence, move on. A paragraph that restates its point in new words reads as distrust of the reader. Cover its last sentence: if the paragraph still lands, that sentence goes."
+      "**The paragraph that keeps proving itself.** Point, evidence, move on. A paragraph that restates its point in new words reads as distrust of the reader. Cover its last sentence: if the paragraph still lands, that sentence goes.",
+      "**Stock constructions.** *Serves as* and *stands as* where *is* will do, *boasts* where *has* will do, *not only X but also Y*, *Y rather than X*, a list of three when the evidence names two, and a closing clause that announces significance (“…, highlighting its importance”). Each sounds like analysis and adds none. The plain verb, the real count and the fact itself do the job."
     ],
     "sentencesBody2": "The test is to read the paragraph aloud. Any sentence that makes you double back to find its subject gets flattened, and one inversion per section, placed where it earns its keep, is the ceiling.",
     "sentencesGood": "The third option is one store doing both jobs. Nobody picks it on purpose.",
@@ -1459,7 +1461,7 @@
     "sentencesBad": "What quietly turns into a maintenance bill is the third arrangement nobody chooses on purpose.",
     "sentencesBadCaption": "The subject arrives last, so the reader holds the whole sentence open.",
     "wordsHeading": "Plain words",
-    "wordsBody1": "Short, common words beat inflated ones. Marketing vocabulary (*robust*, *seamless*, *cutting-edge*, *battle-tested*) claims quality instead of showing it, so a concrete fact takes its place. Filler transitions (*moreover*, *furthermore*, *additionally*) and Latinate padding go the same way: *use* over *utilise* and *leverage*, *then* over *subsequently*, *so* over *therefore*.",
+    "wordsBody1": "Short, common words beat inflated ones. Marketing vocabulary (*robust*, *seamless*, *cutting-edge*, *battle-tested*) claims quality instead of showing it, so a concrete fact takes its place. Filler transitions (*moreover*, *furthermore*, *additionally*) and Latinate padding go the same way: *use* over *utilise* and *leverage*, *then* over *subsequently*, *so* over *therefore*. Significance goes the same way: a sentence that calls something pivotal, or says it reflects a broader shift, gives way to what it changed. And a view belongs to the people who hold it, counted honestly: one reviewer is one reviewer, not “critics”.",
     "wordsTableHeaders": {
       "avoid": "Avoided",
       "use": "Used instead"
@@ -1488,6 +1490,22 @@
       {
         "avoid": "ultimately",
         "use": "in the end"
+      },
+      {
+        "avoid": "pivotal, crucial, plays a key role",
+        "use": "what it changed"
+      },
+      {
+        "avoid": "serves as, stands as, boasts",
+        "use": "is, has"
+      },
+      {
+        "avoid": "associated with, in connection with",
+        "use": "the actual relationship: wrote, runs, works at"
+      },
+      {
+        "avoid": "experts say, observers note",
+        "use": "who said it"
       }
     ],
     "wordsBody2": "A word earns its place back when it is the literal technical term: a software *framework* is a framework, *dynamic* dispatch is dynamic. The marketing sense of the same word never qualifies.",
@@ -1496,7 +1514,7 @@
     "wordsCaption": "The fact does the persuading.",
     "wordsBad": "A robust, battle-tested pipeline delivers seamless performance.",
     "wordsBadCaption": "Three claims, no evidence.",
-    "disagreeBody3": "Three more habits keep arguments honest. A design choice is named as a choice, never dressed as a law of nature: “the host owns navigation” is a decision this build makes, and saying so invites the reader to follow the reasoning instead of hunting for counter-examples. *Because* is reserved for causality the text has shown; where a claim rests on inference or convention, the writing says “which suggests” or “the usual reason is”. And headings describe fit rather than failure: “Where X has limits” over “Why X fails”. A fourth belongs beside them, because it is the one an editor cannot catch. When a piece explains why something behaves as it does, that explanation is checked against the thing itself — the library's source, the vendor's documentation, the tagged code the piece links to — before it is published. A fix confirmed by watching it work earns a sentence about what was watched; it does not earn a mechanism nobody read. And a correction is not finished at the corrected line: the whole piece is read again afterwards, because a claim fixed in one paragraph can still stand contradicted three paragraphs later. When the prose and the published code disagree, the first question is which of the two should change — sometimes the honest fix is in the code, so that the sentence becomes true. And a tutorial's instructions answer to the same bar as its claims: the steps are replayed from the exact starting point the piece names, in a clean directory, and the result is compared against the finished reference, because the step the author's machine no longer needs is exactly the step a reader cannot skip. Versions are named, not implied: an unpinned install answers to whatever the registry serves that day, and the reader follows the piece on a different day. And what a piece publishes to a registry it never publishes twice: a version, once released, keeps its bytes for good, and any change ships as a new version, because the reader's lockfile remembers what the author later overwrote. A page that fails to render is a failure the pipeline must refuse, not a warning it logs: the build gate compares every published page against its source and stops the deploy when a body comes up short. And a gate is audited like any claim: a check that can only inspect what already exists, or that counts in a scope wider than the thing it guards, passes builds it should fail — the gate's blind spots are findings too. And a test answers to the same discipline: a suite that exercises a lookalike of the thing under test proves the lookalike, so the assertion is wired to the real code — the real reducer, the real boundary — before its green means anything."
+    "disagreeBody3": "Three more habits keep arguments honest. A design choice is named as a choice, never dressed as a law of nature: “the host owns navigation” is a decision this build makes, and saying so invites the reader to follow the reasoning instead of hunting for counter-examples. *Because* is reserved for causality the text has shown; where a claim rests on inference or convention, the writing says “which suggests” or “the usual reason is”. And headings describe fit rather than failure: “Where X has limits” over “Why X fails”. A fourth belongs beside them, because it is the one an editor cannot catch. When a piece explains why something behaves as it does, that explanation is checked against the thing itself (the library's source, the vendor's documentation, the tagged code the piece links to) before it is published. A fix confirmed by watching it work earns a sentence about what was watched; it does not earn a mechanism nobody read. And a correction is not finished at the corrected line: the whole piece is read again afterwards, because a claim fixed in one paragraph can still stand contradicted three paragraphs later. When the prose and the published code disagree, the first question is which of the two should change: sometimes the honest fix is in the code, so that the sentence becomes true. And a tutorial's instructions answer to the same bar as its claims: the steps are replayed from the exact starting point the piece names, in a clean directory, and the result is compared against the finished reference, because the step the author's machine no longer needs is exactly the step a reader cannot skip. Versions are named, not implied: an unpinned install answers to whatever the registry serves that day, and the reader follows the piece on a different day. And what a piece publishes to a registry it never publishes twice: a version, once released, keeps its bytes for good, and any change ships as a new version, because the reader's lockfile remembers what the author later overwrote. A page that fails to render is a failure the pipeline must refuse, not a warning it logs: the build gate compares every published page against its source and stops the deploy when a body comes up short. And a gate is audited like any claim: a check that can only inspect what already exists, or that counts in a scope wider than the thing it guards, passes builds it should fail. The gate's blind spots are findings too. And a test answers to the same discipline: a suite that exercises a lookalike of the thing under test proves the lookalike, so the assertion is wired to the real code (the real reducer, the real boundary) before its green means anything."
   },
   "translation": {
     "seoTitle": "Translation | Design system | Warren de Leon",
